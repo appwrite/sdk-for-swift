@@ -546,49 +546,6 @@ open class Account: Service {
     }
 
     ///
-    /// Create Account Session with OAuth2
-    ///
-    /// Allow the user to login to their account using the OAuth2 provider of their
-    /// choice. Each OAuth2 provider should be enabled from the Appwrite console
-    /// first. Use the success and failure arguments to provide a redirect URL's
-    /// back to your app when login is completed.
-    ///
-    /// @param String provider
-    /// @param String success
-    /// @param String failure
-    /// @param Array<Any>? scopes
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
-    open func createOAuth2Session(provider: String, success: String = "https://appwrite.io/auth/oauth2/success", failure: String = "https://appwrite.io/auth/oauth2/failure", scopes: Array<Any>? = nil, completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
-        var path: String = "/account/sessions/oauth2/{provider}"
-
-        path = path.replacingOccurrences(
-          of: "{provider}",
-          with: provider
-        )
-
-        let params: [String: Any?] = [
-            "success": success,
-            "failure": failure,
-            "scopes": scopes,
-            "project": client.config["project"]
-        ]
-
-        let query = "?\(client.parametersToQueryString(params: params))"
-        let url = URL(string: client.endPoint + path + query)!
-        let callbackScheme = "appwrite-callback-\(client.config["project"] ?? "")"
-
-        WebAuthComponent.authenticate(url: url, callbackScheme: callbackScheme) { result in
-            guard let completion = completion else {
-                return
-            }
-            completion(result.map { _ in true })
-        }
-    }
-
-    ///
     /// Delete Account Session
     ///
     /// Use this endpoint to log out the currently logged in user from all their
