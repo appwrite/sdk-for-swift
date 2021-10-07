@@ -1,14 +1,8 @@
-//
-// Client.swift
-//
-// Created by Armino <devel@boioiong.com>
-// GitHub: https://github.com/armino-dev/sdk-generator
-//
-
 import NIO
 import NIOSSL
 import Foundation
 import AsyncHTTPClient
+@_exported import AppwriteModels
 
 let DASHDASH = "--"
 let CRLF = "\r\n"
@@ -22,9 +16,9 @@ open class Client {
     open var endPointRealtime: String? = nil
 
     open var headers: [String: String] = [
-      "content-type": "",
-      "x-sdk-version": "appwrite:swift:0.0.1",
-      "X-Appwrite-Response-Format": "0.7.0"    
+        "content-type": "",
+        "x-sdk-version": "appwrite:swift:0.0.1",
+        "X-Appwrite-Response-Format": "0.7.0"
     ]
 
     open var config: [String: String] = [:]
@@ -164,7 +158,7 @@ open class Client {
     ///
     /// @return Client
     ///
-    open func setSelfSigned(_ status: Bool = false) -> Client {
+    open func setSelfSigned(_ status: Bool = true) -> Client {
         try! http.syncShutdown()
         http = Client.createHTTP(selfSigned: status)
         return self
@@ -267,7 +261,15 @@ open class Client {
     /// @return Response
     /// @throws Exception
     ///
-    func call(method: String, path: String = "", headers: [String: String] = [:], params: [String: Any?] = [:], sink: ((ByteBuffer) -> Void)? = nil,  completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    func call<T>(
+        method: String,
+        path: String = "",
+        headers: [String: String] = [:],
+        params: [String: Any?] = [:],
+        sink: ((ByteBuffer) -> Void)? = nil,
+        convert: (([String: Any]) -> T)? = nil,
+        completion: ((Result<T, AppwriteError>) -> Void)? = nil
+    ) {
         self.headers.merge(headers) { (_, new) in
             new
         }
@@ -290,11 +292,10 @@ open class Client {
         }
 
         addHeaders(to: &request)
-        addCookies(to: &request)
-
+        request.addDomainCookies()
 
         if "GET" == method {
-            execute(request, completion: completion)
+            execute(request, convert: convert, completion: completion)
             return
         }
 
@@ -305,23 +306,12 @@ open class Client {
             return
         }
 
-        execute(request, withSink: sink, completion: completion)
+        execute(request, withSink: sink, convert: convert, completion: completion)
     }
 
     fileprivate func addHeaders(to request: inout HTTPClient.Request) {
         for (key, value) in self.headers {
             request.headers.add(name: key, value: value)
-        }
-    }
-
-    fileprivate func addCookies(to request: inout HTTPClient.Request) {
-        let cookieJson = UserDefaults.standard.string(forKey: "\(request.url.host ?? "")-cookies")
-        let cookies = try! cookieJson?.fromJson(to: [HTTPClient.Cookie].self)
-
-        if let authCookie = cookies?.first(where: { cookie in
-            cookie.name.starts(with: "a_session_") && !cookie.name.contains("legacy")
-        }) {
-            request.headers.add(name: "cookie", value: "\(authCookie.name)=\(authCookie.value)")
         }
     }
 
@@ -336,10 +326,11 @@ open class Client {
         }
     }
 
-    fileprivate func execute(
+    fileprivate func execute<T>(
         _ request: HTTPClient.Request,
         withSink bufferSink: ((ByteBuffer) -> Void)? = nil,
-        completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil
+        convert: (([String: Any]) -> T)? = nil,
+        completion: ((Result<T, AppwriteError>) -> Void)? = nil
     ) {
         if bufferSink == nil {
             http.execute(
@@ -359,17 +350,37 @@ open class Client {
         }
 
         func complete(with result: Result<HTTPClient.Response, Error>) {
-            if let completion = completion {
-                switch result {
-                case .failure(let error): print(error)
-                case .success(let response):
-                    guard response.cookies.count > 0 else {
-                        break
+            guard let completion = completion else {
+                return
+            }
+
+            switch result {
+            case .failure(let error): print(error)
+            case .success(let response):
+                switch response.status.code {
+                case 0..<400:
+                    if response.cookies.count > 0 {
+                        UserDefaults.standard.set(
+                            try! response.cookies.toJson(),
+                            forKey: "\(response.host)-cookies"
+                        )
                     }
-                    let cookieJson = try! response.cookies.toJson()
-                    UserDefaults.standard.set(cookieJson, forKey: "\(response.host)-cookies")
+                    switch T.self {
+                    case is ByteBuffer.Type:
+                        completion(.success(response.body! as! T))
+                    default:
+                        let dict = try! JSONSerialization
+                            .jsonObject(with: response.body!) as? [String: Any]
+
+                        completion(.success(convert!(dict!)))
+                    }
+                default:
+                    let error = AppwriteError(
+                        message: response.body?.getString(at: 0, length: response.body!.readableBytes) ?? response.status.reasonPhrase,
+                        code: Int(response.status.code)
+                    )
+                    completion(.failure(error))
                 }
-                completion(result.mapError { AppwriteError(message: $0.localizedDescription) })
             }
         }
     }

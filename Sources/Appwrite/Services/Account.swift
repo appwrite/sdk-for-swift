@@ -1,4 +1,5 @@
 import AsyncHTTPClient
+import AppwriteModels
 import Foundation
 import NIO
 
@@ -11,7 +12,7 @@ open class Account: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func get(completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func get(completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil) {
         let path: String = "/account"
 
         let params: [String: Any?] = [:]
@@ -19,8 +20,17 @@ open class Account: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.User = { dict in
+            return AppwriteModels.User.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -39,7 +49,7 @@ open class Account: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func create(_ email: String, _ password: String, _ name: String = "", completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func create(email: String, password: String, name: String = "", completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil) {
         let path: String = "/account"
 
         let params: [String: Any?] = [
@@ -51,8 +61,17 @@ open class Account: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "POST", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.User = { dict in
+            return AppwriteModels.User.from(map: dict)
+        }
+        client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -67,7 +86,7 @@ open class Account: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func delete(completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func delete(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         let path: String = "/account"
 
         let params: [String: Any?] = [:]
@@ -75,8 +94,13 @@ open class Account: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "DELETE", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "DELETE",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -94,7 +118,7 @@ open class Account: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updateEmail(_ email: String, _ password: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func updateEmail(email: String, password: String, completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil) {
         let path: String = "/account/email"
 
         let params: [String: Any?] = [
@@ -105,8 +129,17 @@ open class Account: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "PATCH", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.User = { dict in
+            return AppwriteModels.User.from(map: dict)
+        }
+        client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -120,7 +153,7 @@ open class Account: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func createJWT(completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func createJWT(completion: ((Result<AppwriteModels.Jwt, AppwriteError>) -> Void)? = nil) {
         let path: String = "/account/jwt"
 
         let params: [String: Any?] = [:]
@@ -128,8 +161,17 @@ open class Account: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "POST", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Jwt = { dict in
+            return AppwriteModels.Jwt.from(map: dict)
+        }
+        client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -141,7 +183,7 @@ open class Account: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getLogs(completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getLogs(completion: ((Result<AppwriteModels.LogList, AppwriteError>) -> Void)? = nil) {
         let path: String = "/account/logs"
 
         let params: [String: Any?] = [:]
@@ -149,8 +191,17 @@ open class Account: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.LogList = { dict in
+            return AppwriteModels.LogList.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -162,7 +213,7 @@ open class Account: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updateName(_ name: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func updateName(name: String, completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil) {
         let path: String = "/account/name"
 
         let params: [String: Any?] = [
@@ -172,8 +223,17 @@ open class Account: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "PATCH", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.User = { dict in
+            return AppwriteModels.User.from(map: dict)
+        }
+        client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -188,7 +248,7 @@ open class Account: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updatePassword(_ password: String, _ oldPassword: String = "", completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func updatePassword(password: String, oldPassword: String = "", completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil) {
         let path: String = "/account/password"
 
         let params: [String: Any?] = [
@@ -199,8 +259,17 @@ open class Account: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "PATCH", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.User = { dict in
+            return AppwriteModels.User.from(map: dict)
+        }
+        client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -211,7 +280,7 @@ open class Account: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getPrefs(completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getPrefs(completion: ((Result<AppwriteModels.Preferences, AppwriteError>) -> Void)? = nil) {
         let path: String = "/account/prefs"
 
         let params: [String: Any?] = [:]
@@ -219,8 +288,17 @@ open class Account: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Preferences = { dict in
+            return AppwriteModels.Preferences.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -233,7 +311,7 @@ open class Account: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updatePrefs(_ prefs: Any?, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func updatePrefs(prefs: Any?, completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil) {
         let path: String = "/account/prefs"
 
         let params: [String: Any?] = [
@@ -243,8 +321,17 @@ open class Account: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "PATCH", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.User = { dict in
+            return AppwriteModels.User.from(map: dict)
+        }
+        client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -264,7 +351,7 @@ open class Account: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func createRecovery(_ email: String, _ url: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func createRecovery(email: String, url: String, completion: ((Result<AppwriteModels.Token, AppwriteError>) -> Void)? = nil) {
         let path: String = "/account/recovery"
 
         let params: [String: Any?] = [
@@ -275,8 +362,17 @@ open class Account: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "POST", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Token = { dict in
+            return AppwriteModels.Token.from(map: dict)
+        }
+        client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -299,7 +395,7 @@ open class Account: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updateRecovery(_ userId: String, _ secret: String, _ password: String, _ passwordAgain: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func updateRecovery(userId: String, secret: String, password: String, passwordAgain: String, completion: ((Result<AppwriteModels.Token, AppwriteError>) -> Void)? = nil) {
         let path: String = "/account/recovery"
 
         let params: [String: Any?] = [
@@ -312,8 +408,17 @@ open class Account: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "PUT", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Token = { dict in
+            return AppwriteModels.Token.from(map: dict)
+        }
+        client.call(
+            method: "PUT",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -325,7 +430,7 @@ open class Account: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getSessions(completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getSessions(completion: ((Result<AppwriteModels.SessionList, AppwriteError>) -> Void)? = nil) {
         let path: String = "/account/sessions"
 
         let params: [String: Any?] = [:]
@@ -333,8 +438,17 @@ open class Account: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.SessionList = { dict in
+            return AppwriteModels.SessionList.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -348,7 +462,7 @@ open class Account: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func createSession(_ email: String, _ password: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func createSession(email: String, password: String, completion: ((Result<AppwriteModels.Session, AppwriteError>) -> Void)? = nil) {
         let path: String = "/account/sessions"
 
         let params: [String: Any?] = [
@@ -359,8 +473,17 @@ open class Account: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "POST", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Session = { dict in
+            return AppwriteModels.Session.from(map: dict)
+        }
+        client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -372,7 +495,7 @@ open class Account: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func deleteSessions(completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func deleteSessions(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         let path: String = "/account/sessions"
 
         let params: [String: Any?] = [:]
@@ -380,8 +503,13 @@ open class Account: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "DELETE", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "DELETE",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -396,7 +524,7 @@ open class Account: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func createAnonymousSession(completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func createAnonymousSession(completion: ((Result<AppwriteModels.Session, AppwriteError>) -> Void)? = nil) {
         let path: String = "/account/sessions/anonymous"
 
         let params: [String: Any?] = [:]
@@ -404,8 +532,60 @@ open class Account: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+        let convert: ([String: Any]) -> AppwriteModels.Session = { dict in
+            return AppwriteModels.Session.from(map: dict)
+        }
+        client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
+    }
 
-        client.call(method: "POST", path: path, headers: headers, params: params, completion: completion)
+    ///
+    /// Create Account Session with OAuth2
+    ///
+    /// Allow the user to login to their account using the OAuth2 provider of their
+    /// choice. Each OAuth2 provider should be enabled from the Appwrite console
+    /// first. Use the success and failure arguments to provide a redirect URL's
+    /// back to your app when login is completed.
+    ///
+    /// @param String provider
+    /// @param String success
+    /// @param String failure
+    /// @param Array<Any>? scopes
+    /// @throws Exception
+    /// @return array
+    ///
+    @available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
+    open func createOAuth2Session(provider: String, success: String = "https://appwrite.io/auth/oauth2/success", failure: String = "https://appwrite.io/auth/oauth2/failure", scopes: Array<Any>? = nil, completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
+        var path: String = "/account/sessions/oauth2/{provider}"
+
+        path = path.replacingOccurrences(
+          of: "{provider}",
+          with: provider
+        )
+
+        let params: [String: Any?] = [
+            "success": success,
+            "failure": failure,
+            "scopes": scopes,
+            "project": client.config["project"]
+        ]
+
+        let query = "?\(client.parametersToQueryString(params: params))"
+        let url = URL(string: client.endPoint + path + query)!
+        let callbackScheme = "appwrite-callback-\(client.config["project"] ?? "")"
+
+        WebAuthComponent.authenticate(url: url, callbackScheme: callbackScheme) { result in
+            guard let completion = completion else {
+                return
+            }
+            completion(result.map { _ in true })
+        }
     }
 
     ///
@@ -419,7 +599,7 @@ open class Account: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func deleteSession(_ sessionId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func deleteSession(sessionId: String, completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         var path: String = "/account/sessions/{sessionId}"
 
         path = path.replacingOccurrences(
@@ -432,8 +612,13 @@ open class Account: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "DELETE", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "DELETE",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -459,7 +644,7 @@ open class Account: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func createVerification(_ url: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func createVerification(url: String, completion: ((Result<AppwriteModels.Token, AppwriteError>) -> Void)? = nil) {
         let path: String = "/account/verification"
 
         let params: [String: Any?] = [
@@ -469,8 +654,17 @@ open class Account: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "POST", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Token = { dict in
+            return AppwriteModels.Token.from(map: dict)
+        }
+        client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -486,7 +680,7 @@ open class Account: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updateVerification(_ userId: String, _ secret: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func updateVerification(userId: String, secret: String, completion: ((Result<AppwriteModels.Token, AppwriteError>) -> Void)? = nil) {
         let path: String = "/account/verification"
 
         let params: [String: Any?] = [
@@ -497,8 +691,17 @@ open class Account: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "PUT", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Token = { dict in
+            return AppwriteModels.Token.from(map: dict)
+        }
+        client.call(
+            method: "PUT",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
 }

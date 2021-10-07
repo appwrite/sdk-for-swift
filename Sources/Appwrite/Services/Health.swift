@@ -1,4 +1,5 @@
 import AsyncHTTPClient
+import AppwriteModels
 import Foundation
 import NIO
 
@@ -11,7 +12,7 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func get(completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func get(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         let path: String = "/health"
 
         let params: [String: Any?] = [:]
@@ -19,8 +20,13 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -31,7 +37,7 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getAntiVirus(completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getAntiVirus(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         let path: String = "/health/anti-virus"
 
         let params: [String: Any?] = [:]
@@ -39,8 +45,13 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -52,7 +63,7 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getCache(completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getCache(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         let path: String = "/health/cache"
 
         let params: [String: Any?] = [:]
@@ -60,8 +71,13 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -72,7 +88,7 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getDB(completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getDB(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         let path: String = "/health/db"
 
         let params: [String: Any?] = [:]
@@ -80,8 +96,13 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -94,7 +115,7 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getQueueCertificates(completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getQueueCertificates(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         let path: String = "/health/queue/certificates"
 
         let params: [String: Any?] = [:]
@@ -102,8 +123,13 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -112,7 +138,7 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getQueueFunctions(completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getQueueFunctions(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         let path: String = "/health/queue/functions"
 
         let params: [String: Any?] = [:]
@@ -120,8 +146,13 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -133,7 +164,7 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getQueueLogs(completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getQueueLogs(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         let path: String = "/health/queue/logs"
 
         let params: [String: Any?] = [:]
@@ -141,8 +172,13 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -154,7 +190,7 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getQueueTasks(completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getQueueTasks(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         let path: String = "/health/queue/tasks"
 
         let params: [String: Any?] = [:]
@@ -162,8 +198,13 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -175,7 +216,7 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getQueueUsage(completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getQueueUsage(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         let path: String = "/health/queue/usage"
 
         let params: [String: Any?] = [:]
@@ -183,8 +224,13 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -196,7 +242,7 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getQueueWebhooks(completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getQueueWebhooks(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         let path: String = "/health/queue/webhooks"
 
         let params: [String: Any?] = [:]
@@ -204,8 +250,13 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -216,7 +267,7 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getStorageLocal(completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getStorageLocal(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         let path: String = "/health/storage/local"
 
         let params: [String: Any?] = [:]
@@ -224,8 +275,13 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -242,7 +298,7 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getTime(completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getTime(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         let path: String = "/health/time"
 
         let params: [String: Any?] = [:]
@@ -250,8 +306,13 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
 }

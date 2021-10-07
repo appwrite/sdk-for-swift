@@ -1,4 +1,5 @@
 import AsyncHTTPClient
+import AppwriteModels
 import Foundation
 import NIO
 
@@ -18,7 +19,7 @@ open class Database: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func listCollections(_ search: String = "", _ limit: Int = 25, _ offset: Int = 0, _ orderType: String = "ASC", completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func listCollections(search: String = "", limit: Int = 25, offset: Int = 0, orderType: String = "ASC", completion: ((Result<AppwriteModels.CollectionList, AppwriteError>) -> Void)? = nil) {
         let path: String = "/database/collections"
 
         let params: [String: Any?] = [
@@ -31,8 +32,17 @@ open class Database: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.CollectionList = { dict in
+            return AppwriteModels.CollectionList.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -47,7 +57,7 @@ open class Database: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func createCollection(_ name: String, _ read: Array<Any>?, _ write: Array<Any>?, _ rules: Array<Any>?, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func createCollection(name: String, read: Array<Any>?, write: Array<Any>?, rules: Array<Any>?, completion: ((Result<AppwriteModels.Collection, AppwriteError>) -> Void)? = nil) {
         let path: String = "/database/collections"
 
         let params: [String: Any?] = [
@@ -60,8 +70,17 @@ open class Database: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "POST", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Collection = { dict in
+            return AppwriteModels.Collection.from(map: dict)
+        }
+        client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -74,7 +93,7 @@ open class Database: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getCollection(_ collectionId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getCollection(collectionId: String, completion: ((Result<AppwriteModels.Collection, AppwriteError>) -> Void)? = nil) {
         var path: String = "/database/collections/{collectionId}"
 
         path = path.replacingOccurrences(
@@ -87,8 +106,17 @@ open class Database: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Collection = { dict in
+            return AppwriteModels.Collection.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -104,7 +132,7 @@ open class Database: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updateCollection(_ collectionId: String, _ name: String, _ read: Array<Any>? = [], _ write: Array<Any>? = [], _ rules: Array<Any>? = nil, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func updateCollection(collectionId: String, name: String, read: Array<Any>? = [], write: Array<Any>? = [], rules: Array<Any>? = nil, completion: ((Result<AppwriteModels.Collection, AppwriteError>) -> Void)? = nil) {
         var path: String = "/database/collections/{collectionId}"
 
         path = path.replacingOccurrences(
@@ -122,8 +150,17 @@ open class Database: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "PUT", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Collection = { dict in
+            return AppwriteModels.Collection.from(map: dict)
+        }
+        client.call(
+            method: "PUT",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -136,7 +173,7 @@ open class Database: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func deleteCollection(_ collectionId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func deleteCollection(collectionId: String, completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         var path: String = "/database/collections/{collectionId}"
 
         path = path.replacingOccurrences(
@@ -149,8 +186,13 @@ open class Database: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "DELETE", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "DELETE",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -172,7 +214,7 @@ open class Database: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func listDocuments(_ collectionId: String, _ filters: Array<Any>? = nil, _ limit: Int = 25, _ offset: Int = 0, _ orderField: String = "", _ orderType: String = "ASC", _ orderCast: String = "string", _ search: String = "", completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func listDocuments(collectionId: String, filters: Array<Any>? = nil, limit: Int = 25, offset: Int = 0, orderField: String = "", orderType: String = "ASC", orderCast: String = "string", search: String = "", completion: ((Result<AppwriteModels.DocumentList, AppwriteError>) -> Void)? = nil) {
         var path: String = "/database/collections/{collectionId}/documents"
 
         path = path.replacingOccurrences(
@@ -193,8 +235,17 @@ open class Database: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.DocumentList = { dict in
+            return AppwriteModels.DocumentList.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -215,7 +266,7 @@ open class Database: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func createDocument(_ collectionId: String, _ data: Any?, _ read: Array<Any>? = [], _ write: Array<Any>? = [], _ parentDocument: String = "", _ parentProperty: String = "", _ parentPropertyType: String = "assign", completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func createDocument(collectionId: String, data: Any?, read: Array<Any>? = [], write: Array<Any>? = [], parentDocument: String = "", parentProperty: String = "", parentPropertyType: String = "assign", completion: ((Result<AppwriteModels.Document, AppwriteError>) -> Void)? = nil) {
         var path: String = "/database/collections/{collectionId}/documents"
 
         path = path.replacingOccurrences(
@@ -235,8 +286,17 @@ open class Database: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "POST", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Document = { dict in
+            return AppwriteModels.Document.from(map: dict)
+        }
+        client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -250,7 +310,7 @@ open class Database: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getDocument(_ collectionId: String, _ documentId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getDocument(collectionId: String, documentId: String, completion: ((Result<AppwriteModels.Document, AppwriteError>) -> Void)? = nil) {
         var path: String = "/database/collections/{collectionId}/documents/{documentId}"
 
         path = path.replacingOccurrences(
@@ -268,8 +328,17 @@ open class Database: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Document = { dict in
+            return AppwriteModels.Document.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -286,7 +355,7 @@ open class Database: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updateDocument(_ collectionId: String, _ documentId: String, _ data: Any?, _ read: Array<Any>? = [], _ write: Array<Any>? = [], completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func updateDocument(collectionId: String, documentId: String, data: Any?, read: Array<Any>? = [], write: Array<Any>? = [], completion: ((Result<AppwriteModels.Document, AppwriteError>) -> Void)? = nil) {
         var path: String = "/database/collections/{collectionId}/documents/{documentId}"
 
         path = path.replacingOccurrences(
@@ -308,8 +377,17 @@ open class Database: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "PATCH", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Document = { dict in
+            return AppwriteModels.Document.from(map: dict)
+        }
+        client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -324,7 +402,7 @@ open class Database: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func deleteDocument(_ collectionId: String, _ documentId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func deleteDocument(collectionId: String, documentId: String, completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         var path: String = "/database/collections/{collectionId}/documents/{documentId}"
 
         path = path.replacingOccurrences(
@@ -342,8 +420,13 @@ open class Database: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "DELETE", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "DELETE",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
 }

@@ -1,4 +1,5 @@
 import AsyncHTTPClient
+import AppwriteModels
 import Foundation
 import NIO
 
@@ -18,7 +19,7 @@ open class Teams: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func list(_ search: String = "", _ limit: Int = 25, _ offset: Int = 0, _ orderType: String = "ASC", completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func list(search: String = "", limit: Int = 25, offset: Int = 0, orderType: String = "ASC", completion: ((Result<AppwriteModels.TeamList, AppwriteError>) -> Void)? = nil) {
         let path: String = "/teams"
 
         let params: [String: Any?] = [
@@ -31,8 +32,17 @@ open class Teams: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.TeamList = { dict in
+            return AppwriteModels.TeamList.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -48,7 +58,7 @@ open class Teams: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func create(_ name: String, _ roles: Array<Any>? = nil, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func create(name: String, roles: Array<Any>? = nil, completion: ((Result<AppwriteModels.Team, AppwriteError>) -> Void)? = nil) {
         let path: String = "/teams"
 
         let params: [String: Any?] = [
@@ -59,8 +69,17 @@ open class Teams: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "POST", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Team = { dict in
+            return AppwriteModels.Team.from(map: dict)
+        }
+        client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -73,7 +92,7 @@ open class Teams: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func get(_ teamId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func get(teamId: String, completion: ((Result<AppwriteModels.Team, AppwriteError>) -> Void)? = nil) {
         var path: String = "/teams/{teamId}"
 
         path = path.replacingOccurrences(
@@ -86,8 +105,17 @@ open class Teams: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Team = { dict in
+            return AppwriteModels.Team.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -101,7 +129,7 @@ open class Teams: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func update(_ teamId: String, _ name: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func update(teamId: String, name: String, completion: ((Result<AppwriteModels.Team, AppwriteError>) -> Void)? = nil) {
         var path: String = "/teams/{teamId}"
 
         path = path.replacingOccurrences(
@@ -116,8 +144,17 @@ open class Teams: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "PUT", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Team = { dict in
+            return AppwriteModels.Team.from(map: dict)
+        }
+        client.call(
+            method: "PUT",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -130,7 +167,7 @@ open class Teams: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func delete(_ teamId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func delete(teamId: String, completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         var path: String = "/teams/{teamId}"
 
         path = path.replacingOccurrences(
@@ -143,8 +180,13 @@ open class Teams: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "DELETE", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "DELETE",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -161,7 +203,7 @@ open class Teams: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getMemberships(_ teamId: String, _ search: String = "", _ limit: Int = 25, _ offset: Int = 0, _ orderType: String = "ASC", completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getMemberships(teamId: String, search: String = "", limit: Int = 25, offset: Int = 0, orderType: String = "ASC", completion: ((Result<AppwriteModels.MembershipList, AppwriteError>) -> Void)? = nil) {
         var path: String = "/teams/{teamId}/memberships"
 
         path = path.replacingOccurrences(
@@ -179,8 +221,17 @@ open class Teams: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.MembershipList = { dict in
+            return AppwriteModels.MembershipList.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -208,7 +259,7 @@ open class Teams: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func createMembership(_ teamId: String, _ email: String, _ roles: Array<Any>?, _ url: String, _ name: String = "", completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func createMembership(teamId: String, email: String, roles: Array<Any>?, url: String, name: String = "", completion: ((Result<AppwriteModels.Membership, AppwriteError>) -> Void)? = nil) {
         var path: String = "/teams/{teamId}/memberships"
 
         path = path.replacingOccurrences(
@@ -226,8 +277,17 @@ open class Teams: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "POST", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Membership = { dict in
+            return AppwriteModels.Membership.from(map: dict)
+        }
+        client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -239,7 +299,7 @@ open class Teams: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updateMembershipRoles(_ teamId: String, _ membershipId: String, _ roles: Array<Any>?, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func updateMembershipRoles(teamId: String, membershipId: String, roles: Array<Any>?, completion: ((Result<AppwriteModels.Membership, AppwriteError>) -> Void)? = nil) {
         var path: String = "/teams/{teamId}/memberships/{membershipId}"
 
         path = path.replacingOccurrences(
@@ -259,8 +319,17 @@ open class Teams: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "PATCH", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Membership = { dict in
+            return AppwriteModels.Membership.from(map: dict)
+        }
+        client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -275,7 +344,7 @@ open class Teams: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func deleteMembership(_ teamId: String, _ membershipId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func deleteMembership(teamId: String, membershipId: String, completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         var path: String = "/teams/{teamId}/memberships/{membershipId}"
 
         path = path.replacingOccurrences(
@@ -293,8 +362,13 @@ open class Teams: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "DELETE", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "DELETE",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -311,7 +385,7 @@ open class Teams: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updateMembershipStatus(_ teamId: String, _ membershipId: String, _ userId: String, _ secret: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func updateMembershipStatus(teamId: String, membershipId: String, userId: String, secret: String, completion: ((Result<AppwriteModels.Membership, AppwriteError>) -> Void)? = nil) {
         var path: String = "/teams/{teamId}/memberships/{membershipId}/status"
 
         path = path.replacingOccurrences(
@@ -332,8 +406,17 @@ open class Teams: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "PATCH", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Membership = { dict in
+            return AppwriteModels.Membership.from(map: dict)
+        }
+        client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
 }

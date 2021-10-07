@@ -1,4 +1,5 @@
 import AsyncHTTPClient
+import AppwriteModels
 import Foundation
 import NIO
 
@@ -13,7 +14,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func list(_ search: String = "", _ limit: Int = 25, _ offset: Int = 0, _ orderType: String = "ASC", completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func list(search: String = "", limit: Int = 25, offset: Int = 0, orderType: String = "ASC", completion: ((Result<AppwriteModels.ProjectList, AppwriteError>) -> Void)? = nil) {
         let path: String = "/projects"
 
         let params: [String: Any?] = [
@@ -26,8 +27,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.ProjectList = { dict in
+            return AppwriteModels.ProjectList.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -47,7 +57,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func create(_ name: String, _ teamId: String, _ description: String = "", _ logo: String = "", _ url: String = "", _ legalName: String = "", _ legalCountry: String = "", _ legalState: String = "", _ legalCity: String = "", _ legalAddress: String = "", _ legalTaxId: String = "", completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func create(name: String, teamId: String, description: String = "", logo: String = "", url: String = "", legalName: String = "", legalCountry: String = "", legalState: String = "", legalCity: String = "", legalAddress: String = "", legalTaxId: String = "", completion: ((Result<AppwriteModels.Project, AppwriteError>) -> Void)? = nil) {
         let path: String = "/projects"
 
         let params: [String: Any?] = [
@@ -67,8 +77,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "POST", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Project = { dict in
+            return AppwriteModels.Project.from(map: dict)
+        }
+        client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -78,7 +97,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func get(_ projectId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func get(projectId: String, completion: ((Result<AppwriteModels.Project, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}"
 
         path = path.replacingOccurrences(
@@ -91,8 +110,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Project = { dict in
+            return AppwriteModels.Project.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -112,7 +140,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func update(_ projectId: String, _ name: String, _ description: String = "", _ logo: String = "", _ url: String = "", _ legalName: String = "", _ legalCountry: String = "", _ legalState: String = "", _ legalCity: String = "", _ legalAddress: String = "", _ legalTaxId: String = "", completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func update(projectId: String, name: String, description: String = "", logo: String = "", url: String = "", legalName: String = "", legalCountry: String = "", legalState: String = "", legalCity: String = "", legalAddress: String = "", legalTaxId: String = "", completion: ((Result<AppwriteModels.Project, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}"
 
         path = path.replacingOccurrences(
@@ -136,8 +164,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "PATCH", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Project = { dict in
+            return AppwriteModels.Project.from(map: dict)
+        }
+        client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -148,7 +185,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func delete(_ projectId: String, _ password: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func delete(projectId: String, password: String, completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}"
 
         path = path.replacingOccurrences(
@@ -163,8 +200,13 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "DELETE", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "DELETE",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -175,7 +217,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updateAuthLimit(_ projectId: String, _ limit: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func updateAuthLimit(projectId: String, limit: String, completion: ((Result<AppwriteModels.Project, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/auth/limit"
 
         path = path.replacingOccurrences(
@@ -190,8 +232,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "PATCH", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Project = { dict in
+            return AppwriteModels.Project.from(map: dict)
+        }
+        client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -203,7 +254,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updateAuthStatus(_ projectId: String, _ method: String, _ status: Bool, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func updateAuthStatus(projectId: String, method: String, status: Bool, completion: ((Result<AppwriteModels.Project, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/auth/{method}"
 
         path = path.replacingOccurrences(
@@ -223,8 +274,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "PATCH", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Project = { dict in
+            return AppwriteModels.Project.from(map: dict)
+        }
+        client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -234,7 +294,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func listDomains(_ projectId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func listDomains(projectId: String, completion: ((Result<AppwriteModels.DomainList, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/domains"
 
         path = path.replacingOccurrences(
@@ -247,8 +307,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.DomainList = { dict in
+            return AppwriteModels.DomainList.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -259,7 +328,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func createDomain(_ projectId: String, _ domain: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func createDomain(projectId: String, domain: String, completion: ((Result<AppwriteModels.Domain, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/domains"
 
         path = path.replacingOccurrences(
@@ -274,8 +343,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "POST", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Domain = { dict in
+            return AppwriteModels.Domain.from(map: dict)
+        }
+        client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -286,7 +364,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getDomain(_ projectId: String, _ domainId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getDomain(projectId: String, domainId: String, completion: ((Result<AppwriteModels.Domain, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/domains/{domainId}"
 
         path = path.replacingOccurrences(
@@ -304,8 +382,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Domain = { dict in
+            return AppwriteModels.Domain.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -316,7 +403,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func deleteDomain(_ projectId: String, _ domainId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func deleteDomain(projectId: String, domainId: String, completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/domains/{domainId}"
 
         path = path.replacingOccurrences(
@@ -334,8 +421,13 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "DELETE", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "DELETE",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -346,7 +438,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updateDomainVerification(_ projectId: String, _ domainId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func updateDomainVerification(projectId: String, domainId: String, completion: ((Result<AppwriteModels.Domain, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/domains/{domainId}/verification"
 
         path = path.replacingOccurrences(
@@ -364,8 +456,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "PATCH", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Domain = { dict in
+            return AppwriteModels.Domain.from(map: dict)
+        }
+        client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -375,7 +476,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func listKeys(_ projectId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func listKeys(projectId: String, completion: ((Result<AppwriteModels.KeyList, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/keys"
 
         path = path.replacingOccurrences(
@@ -388,8 +489,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.KeyList = { dict in
+            return AppwriteModels.KeyList.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -401,7 +511,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func createKey(_ projectId: String, _ name: String, _ scopes: Array<Any>?, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func createKey(projectId: String, name: String, scopes: Array<Any>?, completion: ((Result<AppwriteModels.Key, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/keys"
 
         path = path.replacingOccurrences(
@@ -417,8 +527,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "POST", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Key = { dict in
+            return AppwriteModels.Key.from(map: dict)
+        }
+        client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -429,7 +548,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getKey(_ projectId: String, _ keyId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getKey(projectId: String, keyId: String, completion: ((Result<AppwriteModels.Key, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/keys/{keyId}"
 
         path = path.replacingOccurrences(
@@ -447,8 +566,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Key = { dict in
+            return AppwriteModels.Key.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -461,7 +589,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updateKey(_ projectId: String, _ keyId: String, _ name: String, _ scopes: Array<Any>?, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func updateKey(projectId: String, keyId: String, name: String, scopes: Array<Any>?, completion: ((Result<AppwriteModels.Key, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/keys/{keyId}"
 
         path = path.replacingOccurrences(
@@ -482,8 +610,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "PUT", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Key = { dict in
+            return AppwriteModels.Key.from(map: dict)
+        }
+        client.call(
+            method: "PUT",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -494,7 +631,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func deleteKey(_ projectId: String, _ keyId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func deleteKey(projectId: String, keyId: String, completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/keys/{keyId}"
 
         path = path.replacingOccurrences(
@@ -512,8 +649,13 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "DELETE", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "DELETE",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -526,7 +668,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updateOAuth2(_ projectId: String, _ provider: String, _ appId: String = "", _ secret: String = "", completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func updateOAuth2(projectId: String, provider: String, appId: String = "", secret: String = "", completion: ((Result<AppwriteModels.Project, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/oauth2"
 
         path = path.replacingOccurrences(
@@ -543,8 +685,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "PATCH", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Project = { dict in
+            return AppwriteModels.Project.from(map: dict)
+        }
+        client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -554,7 +705,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func listPlatforms(_ projectId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func listPlatforms(projectId: String, completion: ((Result<AppwriteModels.PlatformList, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/platforms"
 
         path = path.replacingOccurrences(
@@ -567,8 +718,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.PlatformList = { dict in
+            return AppwriteModels.PlatformList.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -583,7 +743,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func createPlatform(_ projectId: String, _ type: String, _ name: String, _ key: String = "", _ store: String = "", _ hostname: String = "", completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func createPlatform(projectId: String, type: String, name: String, key: String = "", store: String = "", hostname: String = "", completion: ((Result<AppwriteModels.Platform, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/platforms"
 
         path = path.replacingOccurrences(
@@ -602,8 +762,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "POST", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Platform = { dict in
+            return AppwriteModels.Platform.from(map: dict)
+        }
+        client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -614,7 +783,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getPlatform(_ projectId: String, _ platformId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getPlatform(projectId: String, platformId: String, completion: ((Result<AppwriteModels.Platform, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/platforms/{platformId}"
 
         path = path.replacingOccurrences(
@@ -632,8 +801,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Platform = { dict in
+            return AppwriteModels.Platform.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -648,7 +826,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updatePlatform(_ projectId: String, _ platformId: String, _ name: String, _ key: String = "", _ store: String = "", _ hostname: String = "", completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func updatePlatform(projectId: String, platformId: String, name: String, key: String = "", store: String = "", hostname: String = "", completion: ((Result<AppwriteModels.Platform, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/platforms/{platformId}"
 
         path = path.replacingOccurrences(
@@ -671,8 +849,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "PUT", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Platform = { dict in
+            return AppwriteModels.Platform.from(map: dict)
+        }
+        client.call(
+            method: "PUT",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -683,7 +870,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func deletePlatform(_ projectId: String, _ platformId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func deletePlatform(projectId: String, platformId: String, completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/platforms/{platformId}"
 
         path = path.replacingOccurrences(
@@ -701,8 +888,13 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "DELETE", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "DELETE",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -712,7 +904,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func listTasks(_ projectId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func listTasks(projectId: String, completion: ((Result<AppwriteModels.TaskList, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/tasks"
 
         path = path.replacingOccurrences(
@@ -725,8 +917,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.TaskList = { dict in
+            return AppwriteModels.TaskList.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -745,7 +946,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func createTask(_ projectId: String, _ name: String, _ status: String, _ schedule: String, _ security: Bool, _ httpMethod: String, _ httpUrl: String, _ httpHeaders: Array<Any>? = [], _ httpUser: String = "", _ httpPass: String = "", completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func createTask(projectId: String, name: String, status: String, schedule: String, security: Bool, httpMethod: String, httpUrl: String, httpHeaders: Array<Any>? = [], httpUser: String = "", httpPass: String = "", completion: ((Result<AppwriteModels.Task, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/tasks"
 
         path = path.replacingOccurrences(
@@ -768,8 +969,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "POST", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Task = { dict in
+            return AppwriteModels.Task.from(map: dict)
+        }
+        client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -780,7 +990,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getTask(_ projectId: String, _ taskId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getTask(projectId: String, taskId: String, completion: ((Result<AppwriteModels.Task, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/tasks/{taskId}"
 
         path = path.replacingOccurrences(
@@ -798,8 +1008,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Task = { dict in
+            return AppwriteModels.Task.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -819,7 +1038,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updateTask(_ projectId: String, _ taskId: String, _ name: String, _ status: String, _ schedule: String, _ security: Bool, _ httpMethod: String, _ httpUrl: String, _ httpHeaders: Array<Any>? = [], _ httpUser: String = "", _ httpPass: String = "", completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func updateTask(projectId: String, taskId: String, name: String, status: String, schedule: String, security: Bool, httpMethod: String, httpUrl: String, httpHeaders: Array<Any>? = [], httpUser: String = "", httpPass: String = "", completion: ((Result<AppwriteModels.Task, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/tasks/{taskId}"
 
         path = path.replacingOccurrences(
@@ -847,8 +1066,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "PUT", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Task = { dict in
+            return AppwriteModels.Task.from(map: dict)
+        }
+        client.call(
+            method: "PUT",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -859,7 +1087,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func deleteTask(_ projectId: String, _ taskId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func deleteTask(projectId: String, taskId: String, completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/tasks/{taskId}"
 
         path = path.replacingOccurrences(
@@ -877,8 +1105,13 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "DELETE", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "DELETE",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -889,7 +1122,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getUsage(_ projectId: String, _ range: String = "30d", completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getUsage(projectId: String, range: String = "30d", completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/usage"
 
         path = path.replacingOccurrences(
@@ -904,8 +1137,13 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
     ///
@@ -915,7 +1153,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func listWebhooks(_ projectId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func listWebhooks(projectId: String, completion: ((Result<AppwriteModels.WebhookList, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/webhooks"
 
         path = path.replacingOccurrences(
@@ -928,8 +1166,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.WebhookList = { dict in
+            return AppwriteModels.WebhookList.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -945,7 +1192,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func createWebhook(_ projectId: String, _ name: String, _ events: Array<Any>?, _ url: String, _ security: Bool, _ httpUser: String = "", _ httpPass: String = "", completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func createWebhook(projectId: String, name: String, events: Array<Any>?, url: String, security: Bool, httpUser: String = "", httpPass: String = "", completion: ((Result<AppwriteModels.Webhook, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/webhooks"
 
         path = path.replacingOccurrences(
@@ -965,8 +1212,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "POST", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Webhook = { dict in
+            return AppwriteModels.Webhook.from(map: dict)
+        }
+        client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -977,7 +1233,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getWebhook(_ projectId: String, _ webhookId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func getWebhook(projectId: String, webhookId: String, completion: ((Result<AppwriteModels.Webhook, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/webhooks/{webhookId}"
 
         path = path.replacingOccurrences(
@@ -995,8 +1251,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "GET", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Webhook = { dict in
+            return AppwriteModels.Webhook.from(map: dict)
+        }
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -1013,7 +1278,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updateWebhook(_ projectId: String, _ webhookId: String, _ name: String, _ events: Array<Any>?, _ url: String, _ security: Bool, _ httpUser: String = "", _ httpPass: String = "", completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func updateWebhook(projectId: String, webhookId: String, name: String, events: Array<Any>?, url: String, security: Bool, httpUser: String = "", httpPass: String = "", completion: ((Result<AppwriteModels.Webhook, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/webhooks/{webhookId}"
 
         path = path.replacingOccurrences(
@@ -1038,8 +1303,17 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "PUT", path: path, headers: headers, params: params, completion: completion)
+        let convert: ([String: Any]) -> AppwriteModels.Webhook = { dict in
+            return AppwriteModels.Webhook.from(map: dict)
+        }
+        client.call(
+            method: "PUT",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
     }
 
     ///
@@ -1050,7 +1324,7 @@ open class Projects: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func deleteWebhook(_ projectId: String, _ webhookId: String, completion: ((Result<HTTPClient.Response, AppwriteError>) -> Void)? = nil) {
+    open func deleteWebhook(projectId: String, webhookId: String, completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
         var path: String = "/projects/{projectId}/webhooks/{webhookId}"
 
         path = path.replacingOccurrences(
@@ -1068,8 +1342,13 @@ open class Projects: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        client.call(method: "DELETE", path: path, headers: headers, params: params, completion: completion)
+        client.call(
+            method: "DELETE",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
     }
 
 }
