@@ -20,8 +20,8 @@ public class Function {
     /// Function status. Possible values: disabled, enabled
     public let status: String
 
-    /// Function execution environment.
-    public let env: String
+    /// Function execution runtime.
+    public let runtime: String
 
     /// Function active tag ID.
     public let tag: String
@@ -51,7 +51,7 @@ public class Function {
         dateCreated: Int,
         dateUpdated: Int,
         status: String,
-        env: String,
+        runtime: String,
         tag: String,
         vars: String,
         events: Array<Any>?,
@@ -66,7 +66,7 @@ public class Function {
         self.dateCreated = dateCreated
         self.dateUpdated = dateUpdated
         self.status = status
-        self.env = env
+        self.runtime = runtime
         self.tag = tag
         self.vars = vars
         self.events = events
@@ -84,7 +84,7 @@ public class Function {
             dateCreated: map["dateCreated"] as! Int,
             dateUpdated: map["dateUpdated"] as! Int,
             status: map["status"] as! String,
-            env: map["env"] as! String,
+            runtime: map["runtime"] as! String,
             tag: map["tag"] as! String,
             vars: map["vars"] as! String,
             events: map["events"] as! Array<Any>?,
@@ -103,7 +103,7 @@ public class Function {
             "dateCreated": dateCreated as Any,
             "dateUpdated": dateUpdated as Any,
             "status": status as Any,
-            "env": env as Any,
+            "runtime": runtime as Any,
             "tag": tag as Any,
             "vars": vars as Any,
             "events": events as Any,
@@ -113,5 +113,5 @@ public class Function {
             "timeout": timeout as Any
         ]
     }
-                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                    
 }

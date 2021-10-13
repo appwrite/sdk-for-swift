@@ -5,6 +5,9 @@ public class Execution {
     /// Execution ID.
     public let id: String
 
+    /// Execution permissions.
+    public let permissions: Permissions
+
     /// Function ID.
     public let functionId: String
 
@@ -20,10 +23,10 @@ public class Execution {
     /// The script exit code.
     public let exitCode: Int
 
-    /// The script stdout output string.
+    /// The script stdout output string. Logs the last 4,000 characters of the execution stdout output.
     public let stdout: String
 
-    /// The script stderr output string.
+    /// The script stderr output string. Logs the last 4,000 characters of the execution stderr output
     public let stderr: String
 
     /// The script execution time in seconds.
@@ -31,6 +34,7 @@ public class Execution {
 
     init(
         id: String,
+        permissions: Permissions,
         functionId: String,
         dateCreated: Int,
         trigger: String,
@@ -41,6 +45,7 @@ public class Execution {
         time: Double
     ) {
         self.id = id
+        self.permissions = permissions
         self.functionId = functionId
         self.dateCreated = dateCreated
         self.trigger = trigger
@@ -54,6 +59,7 @@ public class Execution {
     public static func from(map: [String: Any]) -> Execution {
         return Execution(
             id: map["$id"] as! String,
+            permissions: Permissions.from(map: map["$permissions"] as! [String: Any]),
             functionId: map["functionId"] as! String,
             dateCreated: map["dateCreated"] as! Int,
             trigger: map["trigger"] as! String,
@@ -68,6 +74,7 @@ public class Execution {
     public func toMap() -> [String: Any] {
         return [
             "$id": id as Any,
+            "$permissions": permissions.toMap() as Any,
             "functionId": functionId as Any,
             "dateCreated": dateCreated as Any,
             "trigger": trigger as Any,
@@ -78,5 +85,5 @@ public class Execution {
             "time": time as Any
         ]
     }
-                                        
+                                                                                                                                                                                                    
 }

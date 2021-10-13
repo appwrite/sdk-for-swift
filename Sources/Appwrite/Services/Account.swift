@@ -34,47 +34,6 @@ open class Account: Service {
     }
 
     ///
-    /// Create Account
-    ///
-    /// Use this endpoint to allow a new user to register a new account in your
-    /// project. After the user registration completes successfully, you can use
-    /// the [/account/verfication](/docs/client/account#accountCreateVerification)
-    /// route to start verifying the user email address. To allow the new user to
-    /// login to their new account, you need to create a new [account
-    /// session](/docs/client/account#accountCreateSession).
-    ///
-    /// @param String email
-    /// @param String password
-    /// @param String name
-    /// @throws Exception
-    /// @return array
-    ///
-    open func create(email: String, password: String, name: String = "", completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil) {
-        let path: String = "/account"
-
-        let params: [String: Any?] = [
-            "email": email,
-            "password": password,
-            "name": name
-        ]
-
-        let headers: [String: String] = [
-            "content-type": "application/json"
-        ]
-        let convert: ([String: Any]) -> AppwriteModels.User = { dict in
-            return AppwriteModels.User.from(map: dict)
-        }
-        client.call(
-            method: "POST",
-            path: path,
-            headers: headers,
-            params: params,
-            convert: convert,
-            completion: completion
-        )
-    }
-
-    ///
     /// Delete Account
     ///
     /// Delete a currently logged in user account. Behind the scene, the user
@@ -134,38 +93,6 @@ open class Account: Service {
         }
         client.call(
             method: "PATCH",
-            path: path,
-            headers: headers,
-            params: params,
-            convert: convert,
-            completion: completion
-        )
-    }
-
-    ///
-    /// Create Account JWT
-    ///
-    /// Use this endpoint to create a JSON Web Token. You can use the resulting JWT
-    /// to authenticate on behalf of the current user when working with the
-    /// Appwrite server-side API and SDKs. The JWT secret is valid for 15 minutes
-    /// from its creation and will be invalid if the user will logout.
-    ///
-    /// @throws Exception
-    /// @return array
-    ///
-    open func createJWT(completion: ((Result<AppwriteModels.Jwt, AppwriteError>) -> Void)? = nil) {
-        let path: String = "/account/jwt"
-
-        let params: [String: Any?] = [:]
-
-        let headers: [String: String] = [
-            "content-type": "application/json"
-        ]
-        let convert: ([String: Any]) -> AppwriteModels.Jwt = { dict in
-            return AppwriteModels.Jwt.from(map: dict)
-        }
-        client.call(
-            method: "POST",
             path: path,
             headers: headers,
             params: params,
@@ -376,7 +303,7 @@ open class Account: Service {
     }
 
     ///
-    /// Complete Password Recovery
+    /// Create Password Recovery (confirmation)
     ///
     /// Use this endpoint to complete the user account password reset. Both the
     /// **userId** and **secret** arguments will be passed as query parameters to
@@ -452,41 +379,6 @@ open class Account: Service {
     }
 
     ///
-    /// Create Account Session
-    ///
-    /// Allow the user to login into their account by providing a valid email and
-    /// password combination. This route will create a new session for the user.
-    ///
-    /// @param String email
-    /// @param String password
-    /// @throws Exception
-    /// @return array
-    ///
-    open func createSession(email: String, password: String, completion: ((Result<AppwriteModels.Session, AppwriteError>) -> Void)? = nil) {
-        let path: String = "/account/sessions"
-
-        let params: [String: Any?] = [
-            "email": email,
-            "password": password
-        ]
-
-        let headers: [String: String] = [
-            "content-type": "application/json"
-        ]
-        let convert: ([String: Any]) -> AppwriteModels.Session = { dict in
-            return AppwriteModels.Session.from(map: dict)
-        }
-        client.call(
-            method: "POST",
-            path: path,
-            headers: headers,
-            params: params,
-            convert: convert,
-            completion: completion
-        )
-    }
-
-    ///
     /// Delete All Account Sessions
     ///
     /// Delete all sessions from the user account and remove any sessions cookies
@@ -513,19 +405,22 @@ open class Account: Service {
     }
 
     ///
-    /// Create Anonymous Session
+    /// Get Session By ID
     ///
-    /// Use this endpoint to allow a new user to register an anonymous account in
-    /// your project. This route will also create a new session for the user. To
-    /// allow the new user to convert an anonymous account to a normal account
-    /// account, you need to update its [email and
-    /// password](/docs/client/account#accountUpdateEmail).
+    /// Use this endpoint to get a logged in user's session using a Session ID.
+    /// Inputting 'current' will return the current session being used.
     ///
+    /// @param String sessionId
     /// @throws Exception
     /// @return array
     ///
-    open func createAnonymousSession(completion: ((Result<AppwriteModels.Session, AppwriteError>) -> Void)? = nil) {
-        let path: String = "/account/sessions/anonymous"
+    open func getSession(sessionId: String, completion: ((Result<AppwriteModels.Session, AppwriteError>) -> Void)? = nil) {
+        var path: String = "/account/sessions/{sessionId}"
+
+        path = path.replacingOccurrences(
+          of: "{sessionId}",
+          with: sessionId
+        )
 
         let params: [String: Any?] = [:]
 
@@ -536,7 +431,7 @@ open class Account: Service {
             return AppwriteModels.Session.from(map: dict)
         }
         client.call(
-            method: "POST",
+            method: "GET",
             path: path,
             headers: headers,
             params: params,
@@ -625,7 +520,7 @@ open class Account: Service {
     }
 
     ///
-    /// Complete Email Verification
+    /// Create Email Verification (confirmation)
     ///
     /// Use this endpoint to complete the user email verification process. Use both
     /// the **userId** and **secret** parameters that were attached to your app URL

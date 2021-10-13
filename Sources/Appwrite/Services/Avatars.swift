@@ -31,7 +31,8 @@ open class Avatars: Service {
             "width": width,
             "height": height,
             "quality": quality,
-            "project": client.config["project"]
+            "project": client.config["project"],
+            "key": client.config["key"]
         ]
 
         client.call(
@@ -68,7 +69,8 @@ open class Avatars: Service {
             "width": width,
             "height": height,
             "quality": quality,
-            "project": client.config["project"]
+            "project": client.config["project"],
+            "key": client.config["key"]
         ]
 
         client.call(
@@ -95,7 +97,8 @@ open class Avatars: Service {
 
         let params: [String: Any?] = [
             "url": url,
-            "project": client.config["project"]
+            "project": client.config["project"],
+            "key": client.config["key"]
         ]
 
         client.call(
@@ -132,7 +135,8 @@ open class Avatars: Service {
             "width": width,
             "height": height,
             "quality": quality,
-            "project": client.config["project"]
+            "project": client.config["project"],
+            "key": client.config["key"]
         ]
 
         client.call(
@@ -164,7 +168,8 @@ open class Avatars: Service {
             "url": url,
             "width": width,
             "height": height,
-            "project": client.config["project"]
+            "project": client.config["project"],
+            "key": client.config["key"]
         ]
 
         client.call(
@@ -206,7 +211,8 @@ open class Avatars: Service {
             "height": height,
             "color": color,
             "background": background,
-            "project": client.config["project"]
+            "project": client.config["project"],
+            "key": client.config["key"]
         ]
 
         client.call(
@@ -238,7 +244,8 @@ open class Avatars: Service {
             "size": size,
             "margin": margin,
             "download": download,
-            "project": client.config["project"]
+            "project": client.config["project"],
+            "key": client.config["key"]
         ]
 
         client.call(

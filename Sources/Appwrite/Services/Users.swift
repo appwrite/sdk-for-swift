@@ -146,6 +146,44 @@ open class Users: Service {
     }
 
     ///
+    /// Update Email
+    ///
+    /// Update the user email by its unique ID.
+    ///
+    /// @param String userId
+    /// @param String email
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateEmail(userId: String, email: String, completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil) {
+        var path: String = "/users/{userId}/email"
+
+        path = path.replacingOccurrences(
+          of: "{userId}",
+          with: userId
+        )
+
+        let params: [String: Any?] = [
+            "email": email
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let convert: ([String: Any]) -> AppwriteModels.User = { dict in
+            return AppwriteModels.User.from(map: dict)
+        }
+        client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
+    }
+
+    ///
     /// Get User Logs
     ///
     /// Get a user activity logs list by its unique ID.
@@ -172,6 +210,82 @@ open class Users: Service {
         }
         client.call(
             method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
+    }
+
+    ///
+    /// Update Name
+    ///
+    /// Update the user name by its unique ID.
+    ///
+    /// @param String userId
+    /// @param String name
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateName(userId: String, name: String, completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil) {
+        var path: String = "/users/{userId}/name"
+
+        path = path.replacingOccurrences(
+          of: "{userId}",
+          with: userId
+        )
+
+        let params: [String: Any?] = [
+            "name": name
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let convert: ([String: Any]) -> AppwriteModels.User = { dict in
+            return AppwriteModels.User.from(map: dict)
+        }
+        client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
+    }
+
+    ///
+    /// Update Password
+    ///
+    /// Update the user password by its unique ID.
+    ///
+    /// @param String userId
+    /// @param String password
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updatePassword(userId: String, password: String, completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil) {
+        var path: String = "/users/{userId}/password"
+
+        path = path.replacingOccurrences(
+          of: "{userId}",
+          with: userId
+        )
+
+        let params: [String: Any?] = [
+            "password": password
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let convert: ([String: Any]) -> AppwriteModels.User = { dict in
+            return AppwriteModels.User.from(map: dict)
+        }
+        client.call(
+            method: "PATCH",
             path: path,
             headers: headers,
             params: params,
@@ -377,6 +491,44 @@ open class Users: Service {
 
         let params: [String: Any?] = [
             "status": status
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let convert: ([String: Any]) -> AppwriteModels.User = { dict in
+            return AppwriteModels.User.from(map: dict)
+        }
+        client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
+    }
+
+    ///
+    /// Update Email Verification
+    ///
+    /// Update the user email verification status by its unique ID.
+    ///
+    /// @param String userId
+    /// @param Bool emailVerification
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateVerification(userId: String, emailVerification: Bool, completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil) {
+        var path: String = "/users/{userId}/verification"
+
+        path = path.replacingOccurrences(
+          of: "{userId}",
+          with: userId
+        )
+
+        let params: [String: Any?] = [
+            "emailVerification": emailVerification
         ]
 
         let headers: [String: String] = [

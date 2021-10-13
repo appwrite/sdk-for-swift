@@ -22,5 +22,5 @@ public class LogList {
             "logs": logs.map { $0.toMap() } as Any
         ]
     }
-                                                                                                                                                                                                                        
+                                                                                                                                                                
 }

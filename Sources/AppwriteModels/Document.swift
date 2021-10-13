@@ -46,5 +46,5 @@ public class Document {
     public func convertTo<T>(fromJson: ([String: Any]) -> T) -> T {
         return fromJson(data)
     }
-                                                                                                                                                                                                                                    
+                                                                                                                                                                            
 }

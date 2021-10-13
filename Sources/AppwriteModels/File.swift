@@ -64,5 +64,5 @@ public class File {
             "sizeOriginal": sizeOriginal as Any
         ]
     }
-                                                                                                                                                                                                                                                
+                                                                                                                                                                                        
 }

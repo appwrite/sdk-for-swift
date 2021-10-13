@@ -52,7 +52,7 @@ open class Functions: Service {
     ///
     /// @param String name
     /// @param Array<Any>? execute
-    /// @param String env
+    /// @param String runtime
     /// @param Any? vars
     /// @param Array<Any>? events
     /// @param String schedule
@@ -60,13 +60,13 @@ open class Functions: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func create(name: String, execute: Array<Any>?, env: String, vars: Any? = nil, events: Array<Any>? = nil, schedule: String = "", timeout: Int = 15, completion: ((Result<AppwriteModels.Function, AppwriteError>) -> Void)? = nil) {
+    open func create(name: String, execute: Array<Any>?, runtime: String, vars: Any? = nil, events: Array<Any>? = nil, schedule: String = "", timeout: Int = 15, completion: ((Result<AppwriteModels.Function, AppwriteError>) -> Void)? = nil) {
         let path: String = "/functions"
 
         let params: [String: Any?] = [
             "name": name,
             "execute": execute,
-            "env": env,
+            "runtime": runtime,
             "vars": vars,
             "events": events,
             "schedule": schedule,
@@ -537,38 +537,6 @@ open class Functions: Service {
         ]
         client.call(
             method: "DELETE",
-            path: path,
-            headers: headers,
-            params: params,
-            completion: completion
-        )
-    }
-
-    ///
-    /// Get Function Usage
-    ///
-    /// @param String functionId
-    /// @param String range
-    /// @throws Exception
-    /// @return array
-    ///
-    open func getUsage(functionId: String, range: String = "30d", completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
-        var path: String = "/functions/{functionId}/usage"
-
-        path = path.replacingOccurrences(
-          of: "{functionId}",
-          with: functionId
-        )
-
-        let params: [String: Any?] = [
-            "range": range
-        ]
-
-        let headers: [String: String] = [
-            "content-type": "application/json"
-        ]
-        client.call(
-            method: "GET",
             path: path,
             headers: headers,
             params: params,

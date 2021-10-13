@@ -19,7 +19,7 @@ open class Client {
 
     open var headers: [String: String] = [
         "content-type": "",
-        "x-sdk-version": "appwrite:swift:0.0.1",        "X-Appwrite-Response-Format": "0.7.0"
+        "x-sdk-version": "appwrite:swift:0.0.1",        "X-Appwrite-Response-Format": "0.10.0"
     ]
 
     open var config: [String: String] = [:]
@@ -139,19 +139,6 @@ open class Client {
     open func setLocale(_ value: String) -> Client {
         config["locale"] = value
         _ = addHeader(key: "X-Appwrite-Locale", value: value)
-        return self
-    }
-
-    ///
-    /// Set Mode
-    ///
-    /// @param String value
-    ///
-    /// @return Client
-    ///
-    open func setMode(_ value: String) -> Client {
-        config["mode"] = value
-        _ = addHeader(key: "X-Appwrite-Mode", value: value)
         return self
     }
 

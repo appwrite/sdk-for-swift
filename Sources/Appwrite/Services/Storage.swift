@@ -211,7 +211,8 @@ open class Storage: Service {
         )
 
         let params: [String: Any?] = [
-            "project": client.config["project"]
+            "project": client.config["project"],
+            "key": client.config["key"]
         ]
 
         client.call(
@@ -233,6 +234,7 @@ open class Storage: Service {
     /// @param String fileId
     /// @param Int width
     /// @param Int height
+    /// @param String gravity
     /// @param Int quality
     /// @param Int borderWidth
     /// @param String borderColor
@@ -244,7 +246,7 @@ open class Storage: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getFilePreview(fileId: String, width: Int = 0, height: Int = 0, quality: Int = 100, borderWidth: Int = 0, borderColor: String = "", borderRadius: Int = 0, opacity: Double = 1.0, rotation: Int = 0, background: String = "", output: String = "", completion: ((Result<ByteBuffer, AppwriteError>) -> Void)? = nil) {
+    open func getFilePreview(fileId: String, width: Int = 0, height: Int = 0, gravity: String = "center", quality: Int = 100, borderWidth: Int = 0, borderColor: String = "", borderRadius: Int = 0, opacity: Double = 1.0, rotation: Int = 0, background: String = "", output: String = "", completion: ((Result<ByteBuffer, AppwriteError>) -> Void)? = nil) {
         var path: String = "/storage/files/{fileId}/preview"
 
         path = path.replacingOccurrences(
@@ -255,6 +257,7 @@ open class Storage: Service {
         let params: [String: Any?] = [
             "width": width,
             "height": height,
+            "gravity": gravity,
             "quality": quality,
             "borderWidth": borderWidth,
             "borderColor": borderColor,
@@ -263,7 +266,8 @@ open class Storage: Service {
             "rotation": rotation,
             "background": background,
             "output": output,
-            "project": client.config["project"]
+            "project": client.config["project"],
+            "key": client.config["key"]
         ]
 
         client.call(
@@ -294,7 +298,8 @@ open class Storage: Service {
         )
 
         let params: [String: Any?] = [
-            "project": client.config["project"]
+            "project": client.config["project"],
+            "key": client.config["key"]
         ]
 
         client.call(

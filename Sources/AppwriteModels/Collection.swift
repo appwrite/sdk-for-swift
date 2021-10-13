@@ -57,5 +57,5 @@ public class Collection {
             "rules": rules.map { $0.toMap() } as Any
         ]
     }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                                                            
 }
