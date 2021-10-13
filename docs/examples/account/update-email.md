@@ -5,6 +5,7 @@ func main() {
     let client = Client()
       .setEndpoint("https://[HOSTNAME_OR_IP]/v1") // Your API Endpoint
       .setProject("5df5acd0d48c2") // Your project ID
+      .setJWT("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ...") // Your secret JSON Web Token
 
     let account = Account(client: client)
     account.updateEmail(
@@ -14,8 +15,8 @@ func main() {
         switch result {
         case .failure(let error):
             print(error.message)
-        case .success(var response):
-            let json = response.body!.readString(length: response.body!.readableBytes)
+        case .success(let user):
+            print(String(describing: user)
         }
     }
 }

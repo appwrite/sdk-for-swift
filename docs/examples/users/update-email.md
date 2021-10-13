@@ -5,17 +5,18 @@ func main() {
     let client = Client()
       .setEndpoint("https://[HOSTNAME_OR_IP]/v1") // Your API Endpoint
       .setProject("5df5acd0d48c2") // Your project ID
+      .setKey("919c2d18fb5d4...a2ae413da83346ad2") // Your secret API key
 
-    let projects = Projects(client: client)
-    projects.create(
-        name: "[NAME]",
-        teamId: "[TEAM_ID]"
+    let users = Users(client: client)
+    users.updateEmail(
+        userId: "[USER_ID]",
+        email: "email@example.com"
     ) { result in
         switch result {
         case .failure(let error):
             print(error.message)
-        case .success(var response):
-            let json = response.body!.readString(length: response.body!.readableBytes)
+        case .success(let user):
+            print(String(describing: user)
         }
     }
 }
