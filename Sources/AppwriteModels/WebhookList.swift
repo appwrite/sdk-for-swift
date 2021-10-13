@@ -19,7 +19,7 @@ public class WebhookList {
     public static func from(map: [String: Any]) -> WebhookList {
         return WebhookList(
             sum: map["sum"] as! Int,
-            webhooks: (map["webhooks"] as! [[String: Any]]).map { Webhook.from(map: $0) } as! [Webhook]
+            webhooks: (map["webhooks"] as! [[String: Any]]).map { Webhook.from(map: $0) }
         )
     }
 

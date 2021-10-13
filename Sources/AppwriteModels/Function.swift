@@ -79,7 +79,7 @@ public class Function {
     public static func from(map: [String: Any]) -> Function {
         return Function(
             id: map["$id"] as! String,
-            permissions: Permissions.from(map: map["$permissions"] as! [String: Any]) as! Permissions,
+            permissions: Permissions.from(map: map["$permissions"] as! [String: Any]),
             name: map["name"] as! String,
             dateCreated: map["dateCreated"] as! Int,
             dateUpdated: map["dateUpdated"] as! Int,

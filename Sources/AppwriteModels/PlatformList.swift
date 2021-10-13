@@ -19,7 +19,7 @@ public class PlatformList {
     public static func from(map: [String: Any]) -> PlatformList {
         return PlatformList(
             sum: map["sum"] as! Int,
-            platforms: (map["platforms"] as! [[String: Any]]).map { Platform.from(map: $0) } as! [Platform]
+            platforms: (map["platforms"] as! [[String: Any]]).map { Platform.from(map: $0) }
         )
     }
 

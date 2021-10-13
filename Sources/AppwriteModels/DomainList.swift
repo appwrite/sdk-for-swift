@@ -19,7 +19,7 @@ public class DomainList {
     public static func from(map: [String: Any]) -> DomainList {
         return DomainList(
             sum: map["sum"] as! Int,
-            domains: (map["domains"] as! [[String: Any]]).map { Domain.from(map: $0) } as! [Domain]
+            domains: (map["domains"] as! [[String: Any]]).map { Domain.from(map: $0) }
         )
     }
 

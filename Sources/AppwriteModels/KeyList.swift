@@ -19,7 +19,7 @@ public class KeyList {
     public static func from(map: [String: Any]) -> KeyList {
         return KeyList(
             sum: map["sum"] as! Int,
-            keys: (map["keys"] as! [[String: Any]]).map { Key.from(map: $0) } as! [Key]
+            keys: (map["keys"] as! [[String: Any]]).map { Key.from(map: $0) }
         )
     }
 

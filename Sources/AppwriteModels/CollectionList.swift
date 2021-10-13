@@ -19,7 +19,7 @@ public class CollectionList {
     public static func from(map: [String: Any]) -> CollectionList {
         return CollectionList(
             sum: map["sum"] as! Int,
-            collections: (map["collections"] as! [[String: Any]]).map { Collection.from(map: $0) } as! [Collection]
+            collections: (map["collections"] as! [[String: Any]]).map { Collection.from(map: $0) }
         )
     }
 

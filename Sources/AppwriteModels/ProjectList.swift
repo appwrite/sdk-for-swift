@@ -19,7 +19,7 @@ public class ProjectList {
     public static func from(map: [String: Any]) -> ProjectList {
         return ProjectList(
             sum: map["sum"] as! Int,
-            projects: (map["projects"] as! [[String: Any]]).map { Project.from(map: $0) } as! [Project]
+            projects: (map["projects"] as! [[String: Any]]).map { Project.from(map: $0) }
         )
     }
 

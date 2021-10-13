@@ -39,11 +39,11 @@ public class Collection {
     public static func from(map: [String: Any]) -> Collection {
         return Collection(
             id: map["$id"] as! String,
-            permissions: Permissions.from(map: map["$permissions"] as! [String: Any]) as! Permissions,
+            permissions: Permissions.from(map: map["$permissions"] as! [String: Any]),
             name: map["name"] as! String,
             dateCreated: map["dateCreated"] as! Int,
             dateUpdated: map["dateUpdated"] as! Int,
-            rules: (map["rules"] as! [[String: Any]]).map { Rule.from(map: $0) } as! [Rule]
+            rules: (map["rules"] as! [[String: Any]]).map { Rule.from(map: $0) }
         )
     }
 

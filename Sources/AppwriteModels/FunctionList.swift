@@ -19,7 +19,7 @@ public class FunctionList {
     public static func from(map: [String: Any]) -> FunctionList {
         return FunctionList(
             sum: map["sum"] as! Int,
-            functions: (map["functions"] as! [[String: Any]]).map { Function.from(map: $0) } as! [Function]
+            functions: (map["functions"] as! [[String: Any]]).map { Function.from(map: $0) }
         )
     }
 

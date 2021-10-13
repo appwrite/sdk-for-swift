@@ -19,7 +19,7 @@ public class TaskList {
     public static func from(map: [String: Any]) -> TaskList {
         return TaskList(
             sum: map["sum"] as! Int,
-            tasks: (map["tasks"] as! [[String: Any]]).map { Task.from(map: $0) } as! [Task]
+            tasks: (map["tasks"] as! [[String: Any]]).map { Task.from(map: $0) }
         )
     }
 

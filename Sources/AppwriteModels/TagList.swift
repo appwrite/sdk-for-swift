@@ -19,7 +19,7 @@ public class TagList {
     public static func from(map: [String: Any]) -> TagList {
         return TagList(
             sum: map["sum"] as! Int,
-            tags: (map["tags"] as! [[String: Any]]).map { Tag.from(map: $0) } as! [Tag]
+            tags: (map["tags"] as! [[String: Any]]).map { Tag.from(map: $0) }
         )
     }
 

@@ -1,4 +1,6 @@
 import NIO
+import NIOCore
+import NIOFoundationCompat
 import NIOSSL
 import Foundation
 import AsyncHTTPClient
@@ -264,7 +266,7 @@ open class Client {
     /// @return Response
     /// @throws Exception
     ///
-    func call<T>(
+    open func call<T>(
         method: String,
         path: String = "",
         headers: [String: String] = [:],
@@ -312,13 +314,13 @@ open class Client {
         execute(request, withSink: sink, convert: convert, completion: completion)
     }
 
-    fileprivate func addHeaders(to request: inout HTTPClient.Request) {
+    private func addHeaders(to request: inout HTTPClient.Request) {
         for (key, value) in self.headers {
             request.headers.add(name: key, value: value)
         }
     }
 
-    fileprivate func buildBody(
+    private func buildBody(
         for request: inout HTTPClient.Request,
         with params: [String: Any?]
     ) throws {
@@ -329,7 +331,7 @@ open class Client {
         }
     }
 
-    fileprivate func execute<T>(
+    private func execute<T>(
         _ request: HTTPClient.Request,
         withSink bufferSink: ((ByteBuffer) -> Void)? = nil,
         convert: (([String: Any]) -> T)? = nil,
@@ -352,14 +354,14 @@ open class Client {
             complete(with: result)
         }
 
-        func complete(with result: Result<HTTPClient.Response, Error>) {
+        func complete(with result: Result<HTTPClient.Response, Swift.Error>) {
             guard let completion = completion else {
                 return
             }
 
             switch result {
             case .failure(let error): print(error)
-            case .success(var response):
+            case .success(let response):
                 switch response.status.code {
                 case 0..<400:
                     if response.cookies.count > 0 {
@@ -403,7 +405,7 @@ open class Client {
         }
     }
 
-    fileprivate func randomBoundary() -> String {
+    private func randomBoundary() -> String {
         var string = ""
         for _ in 0..<16 {
             string.append(Client.boundaryChars.randomElement()!)
@@ -411,7 +413,7 @@ open class Client {
         return string
     }
 
-    fileprivate func buildJSON(
+    private func buildJSON(
         _ request: inout HTTPClient.Request,
         with params: [String: Any?] = [:]
     ) throws {
@@ -420,7 +422,7 @@ open class Client {
         request.body = .data(json)
     }
 
-    fileprivate func buildMultipart(
+    private func buildMultipart(
         _ request: inout HTTPClient.Request,
         with params: [String: Any?] = [:]
     ) {
