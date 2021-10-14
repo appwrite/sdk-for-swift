@@ -1,7 +1,7 @@
 import AsyncHTTPClient
-import AppwriteModels
 import Foundation
 import NIO
+import AppwriteModels
 
 open class Health: Service {
     ///
@@ -12,7 +12,9 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func get(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
+    open func get(
+        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+    ) {
         let path: String = "/health"
 
         let params: [String: Any?] = [:]
@@ -20,6 +22,7 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         client.call(
             method: "GET",
             path: path,
@@ -37,7 +40,9 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getAntiVirus(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
+    open func getAntiVirus(
+        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+    ) {
         let path: String = "/health/anti-virus"
 
         let params: [String: Any?] = [:]
@@ -45,6 +50,7 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         client.call(
             method: "GET",
             path: path,
@@ -63,7 +69,9 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getCache(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
+    open func getCache(
+        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+    ) {
         let path: String = "/health/cache"
 
         let params: [String: Any?] = [:]
@@ -71,6 +79,7 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         client.call(
             method: "GET",
             path: path,
@@ -88,7 +97,9 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getDB(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
+    open func getDB(
+        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+    ) {
         let path: String = "/health/db"
 
         let params: [String: Any?] = [:]
@@ -96,6 +107,7 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         client.call(
             method: "GET",
             path: path,
@@ -115,7 +127,9 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getQueueCertificates(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
+    open func getQueueCertificates(
+        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+    ) {
         let path: String = "/health/queue/certificates"
 
         let params: [String: Any?] = [:]
@@ -123,6 +137,7 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         client.call(
             method: "GET",
             path: path,
@@ -138,7 +153,9 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getQueueFunctions(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
+    open func getQueueFunctions(
+        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+    ) {
         let path: String = "/health/queue/functions"
 
         let params: [String: Any?] = [:]
@@ -146,6 +163,7 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         client.call(
             method: "GET",
             path: path,
@@ -164,7 +182,9 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getQueueLogs(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
+    open func getQueueLogs(
+        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+    ) {
         let path: String = "/health/queue/logs"
 
         let params: [String: Any?] = [:]
@@ -172,6 +192,7 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         client.call(
             method: "GET",
             path: path,
@@ -190,7 +211,9 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getQueueTasks(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
+    open func getQueueTasks(
+        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+    ) {
         let path: String = "/health/queue/tasks"
 
         let params: [String: Any?] = [:]
@@ -198,6 +221,7 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         client.call(
             method: "GET",
             path: path,
@@ -216,7 +240,9 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getQueueUsage(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
+    open func getQueueUsage(
+        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+    ) {
         let path: String = "/health/queue/usage"
 
         let params: [String: Any?] = [:]
@@ -224,6 +250,7 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         client.call(
             method: "GET",
             path: path,
@@ -242,7 +269,9 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getQueueWebhooks(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
+    open func getQueueWebhooks(
+        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+    ) {
         let path: String = "/health/queue/webhooks"
 
         let params: [String: Any?] = [:]
@@ -250,6 +279,7 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         client.call(
             method: "GET",
             path: path,
@@ -267,7 +297,9 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getStorageLocal(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
+    open func getStorageLocal(
+        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+    ) {
         let path: String = "/health/storage/local"
 
         let params: [String: Any?] = [:]
@@ -275,6 +307,7 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         client.call(
             method: "GET",
             path: path,
@@ -298,7 +331,9 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getTime(completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
+    open func getTime(
+        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+    ) {
         let path: String = "/health/time"
 
         let params: [String: Any?] = [:]
@@ -306,6 +341,7 @@ open class Health: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         client.call(
             method: "GET",
             path: path,

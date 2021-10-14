@@ -348,7 +348,7 @@ open class Client {
 
             switch result {
             case .failure(let error): print(error)
-            case .success(let response):
+            case .success(var response):
                 switch response.status.code {
                 case 0..<400:
                     if response.cookies.count > 0 {
@@ -366,7 +366,7 @@ open class Client {
                         let dict = try! JSONSerialization
                             .jsonObject(with: response.body!) as? [String: Any]
 
-                        completion(.success(convert!(dict!)))
+                        completion(.success(convert?(dict!) ?? dict! as! T))
                     }
                 default:
                     var message = ""
@@ -375,10 +375,10 @@ open class Client {
                         let dict = try JSONSerialization
                             .jsonObject(with: response.body!) as? [String: Any]
 
-                        message = dict?["response"] as? String
+                        message = dict?["message"] as? String
                             ?? response.status.reasonPhrase
                     } catch {
-                        message =  response.status.reasonPhrase
+                        message =  response.body!.readString(length: response.body!.readableBytes)!
                     }
 
                     let error = AppwriteError(
@@ -498,15 +498,12 @@ open class Client {
         operatingSystem = "windows"
         #endif
 
-        _ = addHeader(
-            key: "Origin",
-            value: "appwrite-\(operatingSystem)://\(packageInfo.packageName)"
-        )
-
+        #if !os(Linux) && !os(Windows)
         _ = addHeader(
             key: "user-agent",
             value: "\(packageInfo.packageName)/\(packageInfo.version) \(device)"
         )
+        #endif
     }
 }
 
