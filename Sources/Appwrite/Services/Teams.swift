@@ -20,10 +20,10 @@ open class Teams: Service {
     /// @return array
     ///
     open func list(
-        search: String = "",
-        limit: Int = 25,
-        offset: Int = 0,
-        orderType: String = "ASC",
+        search: String? = nil,
+        limit: Int? = nil,
+        offset: Int? = nil,
+        orderType: String? = nil,
         completion: ((Result<AppwriteModels.TeamList, AppwriteError>) -> Void)? = nil
     ) {
         let path: String = "/teams"
@@ -62,13 +62,13 @@ open class Teams: Service {
     /// project.
     ///
     /// @param String name
-    /// @param Array<Any>? roles
+    /// @param [Any] roles
     /// @throws Exception
     /// @return array
     ///
     open func create(
         name: String,
-        roles: Array<Any>? = nil,
+        roles: [Any]? = nil,
         completion: ((Result<AppwriteModels.Team, AppwriteError>) -> Void)? = nil
     ) {
         let path: String = "/teams"
@@ -231,10 +231,10 @@ open class Teams: Service {
     ///
     open func getMemberships(
         teamId: String,
-        search: String = "",
-        limit: Int = 25,
-        offset: Int = 0,
-        orderType: String = "ASC",
+        search: String? = nil,
+        limit: Int? = nil,
+        offset: Int? = nil,
+        orderType: String? = nil,
         completion: ((Result<AppwriteModels.MembershipList, AppwriteError>) -> Void)? = nil
     ) {
         var path: String = "/teams/{teamId}/memberships"
@@ -290,7 +290,7 @@ open class Teams: Service {
     ///
     /// @param String teamId
     /// @param String email
-    /// @param Array<Any>? roles
+    /// @param [Any] roles
     /// @param String url
     /// @param String name
     /// @throws Exception
@@ -299,9 +299,9 @@ open class Teams: Service {
     open func createMembership(
         teamId: String,
         email: String,
-        roles: Array<Any>?,
+        roles: [Any],
         url: String,
-        name: String = "",
+        name: String? = nil,
         completion: ((Result<AppwriteModels.Membership, AppwriteError>) -> Void)? = nil
     ) {
         var path: String = "/teams/{teamId}/memberships"
@@ -340,14 +340,14 @@ open class Teams: Service {
     ///
     /// @param String teamId
     /// @param String membershipId
-    /// @param Array<Any>? roles
+    /// @param [Any] roles
     /// @throws Exception
     /// @return array
     ///
     open func updateMembershipRoles(
         teamId: String,
         membershipId: String,
-        roles: Array<Any>?,
+        roles: [Any],
         completion: ((Result<AppwriteModels.Membership, AppwriteError>) -> Void)? = nil
     ) {
         var path: String = "/teams/{teamId}/memberships/{membershipId}"

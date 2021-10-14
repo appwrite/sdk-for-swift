@@ -18,10 +18,10 @@ open class Functions: Service {
     /// @return array
     ///
     open func list(
-        search: String = "",
-        limit: Int = 25,
-        offset: Int = 0,
-        orderType: String = "ASC",
+        search: String? = nil,
+        limit: Int? = nil,
+        offset: Int? = nil,
+        orderType: String? = nil,
         completion: ((Result<AppwriteModels.FunctionList, AppwriteError>) -> Void)? = nil
     ) {
         let path: String = "/functions"
@@ -59,10 +59,10 @@ open class Functions: Service {
     /// with access to execute the function using the client API.
     ///
     /// @param String name
-    /// @param Array<Any>? execute
+    /// @param [Any] execute
     /// @param String runtime
-    /// @param Any? vars
-    /// @param Array<Any>? events
+    /// @param Any vars
+    /// @param [Any] events
     /// @param String schedule
     /// @param Int timeout
     /// @throws Exception
@@ -70,12 +70,12 @@ open class Functions: Service {
     ///
     open func create(
         name: String,
-        execute: Array<Any>?,
+        execute: [Any],
         runtime: String,
         vars: Any? = nil,
-        events: Array<Any>? = nil,
-        schedule: String = "",
-        timeout: Int = 15,
+        events: [Any]? = nil,
+        schedule: String? = nil,
+        timeout: Int? = nil,
         completion: ((Result<AppwriteModels.Function, AppwriteError>) -> Void)? = nil
     ) {
         let path: String = "/functions"
@@ -154,9 +154,9 @@ open class Functions: Service {
     ///
     /// @param String functionId
     /// @param String name
-    /// @param Array<Any>? execute
-    /// @param Any? vars
-    /// @param Array<Any>? events
+    /// @param [Any] execute
+    /// @param Any vars
+    /// @param [Any] events
     /// @param String schedule
     /// @param Int timeout
     /// @throws Exception
@@ -165,11 +165,11 @@ open class Functions: Service {
     open func update(
         functionId: String,
         name: String,
-        execute: Array<Any>?,
+        execute: [Any],
         vars: Any? = nil,
-        events: Array<Any>? = nil,
-        schedule: String = "",
-        timeout: Int = 15,
+        events: [Any]? = nil,
+        schedule: String? = nil,
+        timeout: Int? = nil,
         completion: ((Result<AppwriteModels.Function, AppwriteError>) -> Void)? = nil
     ) {
         var path: String = "/functions/{functionId}"
@@ -257,10 +257,10 @@ open class Functions: Service {
     ///
     open func listExecutions(
         functionId: String,
-        search: String = "",
-        limit: Int = 25,
-        offset: Int = 0,
-        orderType: String = "ASC",
+        search: String? = nil,
+        limit: Int? = nil,
+        offset: Int? = nil,
+        orderType: String? = nil,
         completion: ((Result<AppwriteModels.ExecutionList, AppwriteError>) -> Void)? = nil
     ) {
         var path: String = "/functions/{functionId}/executions"
@@ -309,7 +309,7 @@ open class Functions: Service {
     ///
     open func createExecution(
         functionId: String,
-        data: String = "",
+        data: String? = nil,
         completion: ((Result<AppwriteModels.Execution, AppwriteError>) -> Void)? = nil
     ) {
         var path: String = "/functions/{functionId}/executions"
@@ -446,10 +446,10 @@ open class Functions: Service {
     ///
     open func listTags(
         functionId: String,
-        search: String = "",
-        limit: Int = 25,
-        offset: Int = 0,
-        orderType: String = "ASC",
+        search: String? = nil,
+        limit: Int? = nil,
+        offset: Int? = nil,
+        orderType: String? = nil,
         completion: ((Result<AppwriteModels.TagList, AppwriteError>) -> Void)? = nil
     ) {
         var path: String = "/functions/{functionId}/tags"

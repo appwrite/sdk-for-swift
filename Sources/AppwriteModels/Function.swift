@@ -30,7 +30,7 @@ public class Function {
     public let vars: String
 
     /// Function trigger events.
-    public let events: Array<Any>?
+    public let events: [Any]
 
     /// Function execution schedult in CRON format.
     public let schedule: String
@@ -54,7 +54,7 @@ public class Function {
         runtime: String,
         tag: String,
         vars: String,
-        events: Array<Any>?,
+        events: [Any],
         schedule: String,
         scheduleNext: Int,
         schedulePrevious: Int,
@@ -87,7 +87,7 @@ public class Function {
             runtime: map["runtime"] as! String,
             tag: map["tag"] as! String,
             vars: map["vars"] as! String,
-            events: map["events"] as! Array<Any>?,
+            events: map["events"] as! [Any],
             schedule: map["schedule"] as! String,
             scheduleNext: map["scheduleNext"] as! Int,
             schedulePrevious: map["schedulePrevious"] as! Int,

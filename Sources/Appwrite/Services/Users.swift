@@ -18,10 +18,10 @@ open class Users: Service {
     /// @return array
     ///
     open func list(
-        search: String = "",
-        limit: Int = 25,
-        offset: Int = 0,
-        orderType: String = "ASC",
+        search: String? = nil,
+        limit: Int? = nil,
+        offset: Int? = nil,
+        orderType: String? = nil,
         completion: ((Result<AppwriteModels.UserList, AppwriteError>) -> Void)? = nil
     ) {
         let path: String = "/users"
@@ -65,7 +65,7 @@ open class Users: Service {
     open func create(
         email: String,
         password: String,
-        name: String = "",
+        name: String? = nil,
         completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil
     ) {
         let path: String = "/users"
@@ -381,13 +381,13 @@ open class Users: Service {
     /// specific settings you wish to update.
     ///
     /// @param String userId
-    /// @param Any? prefs
+    /// @param Any prefs
     /// @throws Exception
     /// @return array
     ///
     open func updatePrefs(
         userId: String,
-        prefs: Any?,
+        prefs: Any,
         completion: ((Result<AppwriteModels.Preferences, AppwriteError>) -> Void)? = nil
     ) {
         var path: String = "/users/{userId}/prefs"

@@ -20,10 +20,10 @@ open class Database: Service {
     /// @return array
     ///
     open func listCollections(
-        search: String = "",
-        limit: Int = 25,
-        offset: Int = 0,
-        orderType: String = "ASC",
+        search: String? = nil,
+        limit: Int? = nil,
+        offset: Int? = nil,
+        orderType: String? = nil,
         completion: ((Result<AppwriteModels.CollectionList, AppwriteError>) -> Void)? = nil
     ) {
         let path: String = "/database/collections"
@@ -59,17 +59,17 @@ open class Database: Service {
     /// Create a new Collection.
     ///
     /// @param String name
-    /// @param Array<Any>? read
-    /// @param Array<Any>? write
-    /// @param Array<Any>? rules
+    /// @param [Any] read
+    /// @param [Any] write
+    /// @param [Any] rules
     /// @throws Exception
     /// @return array
     ///
     open func createCollection(
         name: String,
-        read: Array<Any>?,
-        write: Array<Any>?,
-        rules: Array<Any>?,
+        read: [Any],
+        write: [Any],
+        rules: [Any],
         completion: ((Result<AppwriteModels.Collection, AppwriteError>) -> Void)? = nil
     ) {
         let path: String = "/database/collections"
@@ -146,18 +146,18 @@ open class Database: Service {
     ///
     /// @param String collectionId
     /// @param String name
-    /// @param Array<Any>? read
-    /// @param Array<Any>? write
-    /// @param Array<Any>? rules
+    /// @param [Any] read
+    /// @param [Any] write
+    /// @param [Any] rules
     /// @throws Exception
     /// @return array
     ///
     open func updateCollection(
         collectionId: String,
         name: String,
-        read: Array<Any>? = [],
-        write: Array<Any>? = [],
-        rules: Array<Any>? = nil,
+        read: [Any]? = nil,
+        write: [Any]? = nil,
+        rules: [Any]? = nil,
         completion: ((Result<AppwriteModels.Collection, AppwriteError>) -> Void)? = nil
     ) {
         var path: String = "/database/collections/{collectionId}"
@@ -235,7 +235,7 @@ open class Database: Service {
     /// modes](/docs/admin).
     ///
     /// @param String collectionId
-    /// @param Array<Any>? filters
+    /// @param [Any] filters
     /// @param Int limit
     /// @param Int offset
     /// @param String orderField
@@ -247,13 +247,13 @@ open class Database: Service {
     ///
     open func listDocuments(
         collectionId: String,
-        filters: Array<Any>? = nil,
-        limit: Int = 25,
-        offset: Int = 0,
-        orderField: String = "",
-        orderType: String = "ASC",
-        orderCast: String = "string",
-        search: String = "",
+        filters: [Any]? = nil,
+        limit: Int? = nil,
+        offset: Int? = nil,
+        orderField: String? = nil,
+        orderType: String? = nil,
+        orderCast: String? = nil,
+        search: String? = nil,
         completion: ((Result<AppwriteModels.DocumentList, AppwriteError>) -> Void)? = nil
     ) {
         var path: String = "/database/collections/{collectionId}/documents"
@@ -299,9 +299,9 @@ open class Database: Service {
     /// directly from your database console.
     ///
     /// @param String collectionId
-    /// @param Any? data
-    /// @param Array<Any>? read
-    /// @param Array<Any>? write
+    /// @param Any data
+    /// @param [Any] read
+    /// @param [Any] write
     /// @param String parentDocument
     /// @param String parentProperty
     /// @param String parentPropertyType
@@ -310,12 +310,12 @@ open class Database: Service {
     ///
     open func createDocument(
         collectionId: String,
-        data: Any?,
-        read: Array<Any>? = [],
-        write: Array<Any>? = [],
-        parentDocument: String = "",
-        parentProperty: String = "",
-        parentPropertyType: String = "assign",
+        data: Any,
+        read: [Any]? = nil,
+        write: [Any]? = nil,
+        parentDocument: String? = nil,
+        parentProperty: String? = nil,
+        parentPropertyType: String? = nil,
         completion: ((Result<AppwriteModels.Document, AppwriteError>) -> Void)? = nil
     ) {
         var path: String = "/database/collections/{collectionId}/documents"
@@ -405,18 +405,18 @@ open class Database: Service {
     ///
     /// @param String collectionId
     /// @param String documentId
-    /// @param Any? data
-    /// @param Array<Any>? read
-    /// @param Array<Any>? write
+    /// @param Any data
+    /// @param [Any] read
+    /// @param [Any] write
     /// @throws Exception
     /// @return array
     ///
     open func updateDocument(
         collectionId: String,
         documentId: String,
-        data: Any?,
-        read: Array<Any>? = [],
-        write: Array<Any>? = [],
+        data: Any,
+        read: [Any]? = nil,
+        write: [Any]? = nil,
         completion: ((Result<AppwriteModels.Document, AppwriteError>) -> Void)? = nil
     ) {
         var path: String = "/database/collections/{collectionId}/documents/{documentId}"

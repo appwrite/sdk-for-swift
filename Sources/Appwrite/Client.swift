@@ -19,7 +19,7 @@ open class Client {
 
     open var headers: [String: String] = [
         "content-type": "",
-        "x-sdk-version": "appwrite:swiftclient:0.0.1",        "X-Appwrite-Response-Format": "0.10.0"
+        "x-sdk-version": "appwrite:swift:0.0.1",        "X-Appwrite-Response-Format": "0.10.0"
     ]
 
     open var config: [String: String] = [:]
@@ -96,6 +96,21 @@ open class Client {
     open func setProject(_ value: String) -> Client {
         config["project"] = value
         _ = addHeader(key: "X-Appwrite-Project", value: value)
+        return self
+    }
+
+    ///
+    /// Set Key
+    ///
+    /// Your secret API key
+    ///
+    /// @param String value
+    ///
+    /// @return Client
+    ///
+    open func setKey(_ value: String) -> Client {
+        config["key"] = value
+        _ = addHeader(key: "X-Appwrite-Key", value: value)
         return self
     }
 
@@ -251,8 +266,10 @@ open class Client {
             new
         }
 
-        let queryParameters = method == "GET" && !params.isEmpty
-            ? "?" + parametersToQueryString(params: params)
+        let validParams = params.filter { $0.value != nil }
+
+        let queryParameters = method == "GET" && !validParams.isEmpty
+            ? "?" + parametersToQueryString(params: validParams)
             : ""
 
         let targetURL = URL(string: endPoint + path + queryParameters)!
@@ -277,7 +294,7 @@ open class Client {
         }
 
         do {
-            try buildBody(for: &request, with: params)
+            try buildBody(for: &request, with: validParams)
         } catch let error {
             completion?(Result.failure(AppwriteError(message: error.localizedDescription)))
             return

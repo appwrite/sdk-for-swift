@@ -199,7 +199,7 @@ open class Account: Service {
     ///
     open func updatePassword(
         password: String,
-        oldPassword: String = "",
+        oldPassword: String? = nil,
         completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil
     ) {
         let path: String = "/account/password"
@@ -266,12 +266,12 @@ open class Account: Service {
     /// Update currently logged in user account preferences. You can pass only the
     /// specific settings you wish to update.
     ///
-    /// @param Any? prefs
+    /// @param Any prefs
     /// @throws Exception
     /// @return array
     ///
     open func updatePrefs(
-        prefs: Any?,
+        prefs: Any,
         completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil
     ) {
         let path: String = "/account/prefs"
