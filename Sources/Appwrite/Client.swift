@@ -19,7 +19,7 @@ open class Client {
 
     open var headers: [String: String] = [
         "content-type": "",
-        "x-sdk-version": "appwrite:swift:0.0.1",        "X-Appwrite-Response-Format": "0.10.0"
+        "x-sdk-version": "appwrite:swiftclient:0.0.1",        "X-Appwrite-Response-Format": "0.10.0"
     ]
 
     open var config: [String: String] = [:]
@@ -96,21 +96,6 @@ open class Client {
     open func setProject(_ value: String) -> Client {
         config["project"] = value
         _ = addHeader(key: "X-Appwrite-Project", value: value)
-        return self
-    }
-
-    ///
-    /// Set Key
-    ///
-    /// Your secret API key
-    ///
-    /// @param String value
-    ///
-    /// @return Client
-    ///
-    open func setKey(_ value: String) -> Client {
-        config["key"] = value
-        _ = addHeader(key: "X-Appwrite-Key", value: value)
         return self
     }
 
@@ -363,6 +348,10 @@ open class Client {
                     case is ByteBuffer.Type:
                         completion(.success(response.body! as! T))
                     default:
+                        if response.body == nil {
+                            completion(.success(true as! T))
+                            return
+                        }
                         let dict = try! JSONSerialization
                             .jsonObject(with: response.body!) as? [String: Any]
 
