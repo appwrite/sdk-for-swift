@@ -27,7 +27,7 @@ public class Rule {
     public let xrequired: Bool
 
     /// List of allowed values
-    public let list: Array<Any>?
+    public let list: [Any]
 
     init(
         id: String,
@@ -38,7 +38,7 @@ public class Rule {
         xdefault: String,
         array: Bool,
         xrequired: Bool,
-        list: Array<Any>?
+        list: [Any]
     ) {
         self.id = id
         self.collection = collection
@@ -61,7 +61,7 @@ public class Rule {
             xdefault: map["default"] as! String,
             array: map["array"] as! Bool,
             xrequired: map["required"] as! Bool,
-            list: map["list"] as! Array<Any>?
+            list: map["list"] as! [Any]
         )
     }
 

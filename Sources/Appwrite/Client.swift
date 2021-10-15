@@ -266,8 +266,10 @@ open class Client {
             new
         }
 
-        let queryParameters = method == "GET" && !params.isEmpty
-            ? "?" + parametersToQueryString(params: params)
+        let validParams = params.filter { $0.value != nil }
+
+        let queryParameters = method == "GET" && !validParams.isEmpty
+            ? "?" + parametersToQueryString(params: validParams)
             : ""
 
         let targetURL = URL(string: endPoint + path + queryParameters)!
@@ -292,7 +294,7 @@ open class Client {
         }
 
         do {
-            try buildBody(for: &request, with: params)
+            try buildBody(for: &request, with: validParams)
         } catch let error {
             completion?(Result.failure(AppwriteError(message: error.localizedDescription)))
             return
@@ -348,7 +350,7 @@ open class Client {
 
             switch result {
             case .failure(let error): print(error)
-            case .success(let response):
+            case .success(var response):
                 switch response.status.code {
                 case 0..<400:
                     if response.cookies.count > 0 {
@@ -363,10 +365,14 @@ open class Client {
                     case is ByteBuffer.Type:
                         completion(.success(response.body! as! T))
                     default:
+                        if response.body == nil {
+                            completion(.success(true as! T))
+                            return
+                        }
                         let dict = try! JSONSerialization
                             .jsonObject(with: response.body!) as? [String: Any]
 
-                        completion(.success(convert!(dict!)))
+                        completion(.success(convert?(dict!) ?? dict! as! T))
                     }
                 default:
                     var message = ""
@@ -375,10 +381,10 @@ open class Client {
                         let dict = try JSONSerialization
                             .jsonObject(with: response.body!) as? [String: Any]
 
-                        message = dict?["response"] as? String
+                        message = dict?["message"] as? String
                             ?? response.status.reasonPhrase
                     } catch {
-                        message =  response.status.reasonPhrase
+                        message =  response.body!.readString(length: response.body!.readableBytes)!
                     }
 
                     let error = AppwriteError(
@@ -498,15 +504,12 @@ open class Client {
         operatingSystem = "windows"
         #endif
 
-        _ = addHeader(
-            key: "Origin",
-            value: "appwrite-\(operatingSystem)://\(packageInfo.packageName)"
-        )
-
+        #if !os(Linux) && !os(Windows)
         _ = addHeader(
             key: "user-agent",
             value: "\(packageInfo.packageName)/\(packageInfo.version) \(device)"
         )
+        #endif
     }
 }
 

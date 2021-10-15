@@ -1,7 +1,7 @@
 import AsyncHTTPClient
-import AppwriteModels
 import Foundation
 import NIO
+import AppwriteModels
 
 open class Functions: Service {
     ///
@@ -17,7 +17,13 @@ open class Functions: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func list(search: String = "", limit: Int = 25, offset: Int = 0, orderType: String = "ASC", completion: ((Result<AppwriteModels.FunctionList, AppwriteError>) -> Void)? = nil) {
+    open func list(
+        search: String? = nil,
+        limit: Int? = nil,
+        offset: Int? = nil,
+        orderType: String? = nil,
+        completion: ((Result<AppwriteModels.FunctionList, AppwriteError>) -> Void)? = nil
+    ) {
         let path: String = "/functions"
 
         let params: [String: Any?] = [
@@ -30,9 +36,11 @@ open class Functions: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         let convert: ([String: Any]) -> AppwriteModels.FunctionList = { dict in
             return AppwriteModels.FunctionList.from(map: dict)
         }
+
         client.call(
             method: "GET",
             path: path,
@@ -51,16 +59,25 @@ open class Functions: Service {
     /// with access to execute the function using the client API.
     ///
     /// @param String name
-    /// @param Array<Any>? execute
+    /// @param [Any] execute
     /// @param String runtime
-    /// @param Any? vars
-    /// @param Array<Any>? events
+    /// @param Any vars
+    /// @param [Any] events
     /// @param String schedule
     /// @param Int timeout
     /// @throws Exception
     /// @return array
     ///
-    open func create(name: String, execute: Array<Any>?, runtime: String, vars: Any? = nil, events: Array<Any>? = nil, schedule: String = "", timeout: Int = 15, completion: ((Result<AppwriteModels.Function, AppwriteError>) -> Void)? = nil) {
+    open func create(
+        name: String,
+        execute: [Any],
+        runtime: String,
+        vars: Any? = nil,
+        events: [Any]? = nil,
+        schedule: String? = nil,
+        timeout: Int? = nil,
+        completion: ((Result<AppwriteModels.Function, AppwriteError>) -> Void)? = nil
+    ) {
         let path: String = "/functions"
 
         let params: [String: Any?] = [
@@ -76,9 +93,11 @@ open class Functions: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         let convert: ([String: Any]) -> AppwriteModels.Function = { dict in
             return AppwriteModels.Function.from(map: dict)
         }
+
         client.call(
             method: "POST",
             path: path,
@@ -98,22 +117,26 @@ open class Functions: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func get(functionId: String, completion: ((Result<AppwriteModels.Function, AppwriteError>) -> Void)? = nil) {
+    open func get(
+        functionId: String,
+        completion: ((Result<AppwriteModels.Function, AppwriteError>) -> Void)? = nil
+    ) {
         var path: String = "/functions/{functionId}"
 
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
 
         let params: [String: Any?] = [:]
 
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         let convert: ([String: Any]) -> AppwriteModels.Function = { dict in
             return AppwriteModels.Function.from(map: dict)
         }
+
         client.call(
             method: "GET",
             path: path,
@@ -131,21 +154,29 @@ open class Functions: Service {
     ///
     /// @param String functionId
     /// @param String name
-    /// @param Array<Any>? execute
-    /// @param Any? vars
-    /// @param Array<Any>? events
+    /// @param [Any] execute
+    /// @param Any vars
+    /// @param [Any] events
     /// @param String schedule
     /// @param Int timeout
     /// @throws Exception
     /// @return array
     ///
-    open func update(functionId: String, name: String, execute: Array<Any>?, vars: Any? = nil, events: Array<Any>? = nil, schedule: String = "", timeout: Int = 15, completion: ((Result<AppwriteModels.Function, AppwriteError>) -> Void)? = nil) {
+    open func update(
+        functionId: String,
+        name: String,
+        execute: [Any],
+        vars: Any? = nil,
+        events: [Any]? = nil,
+        schedule: String? = nil,
+        timeout: Int? = nil,
+        completion: ((Result<AppwriteModels.Function, AppwriteError>) -> Void)? = nil
+    ) {
         var path: String = "/functions/{functionId}"
 
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
 
         let params: [String: Any?] = [
             "name": name,
@@ -159,9 +190,11 @@ open class Functions: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         let convert: ([String: Any]) -> AppwriteModels.Function = { dict in
             return AppwriteModels.Function.from(map: dict)
         }
+
         client.call(
             method: "PUT",
             path: path,
@@ -181,19 +214,22 @@ open class Functions: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func delete(functionId: String, completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
+    open func delete(
+        functionId: String,
+        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+    ) {
         var path: String = "/functions/{functionId}"
 
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
 
         let params: [String: Any?] = [:]
 
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         client.call(
             method: "DELETE",
             path: path,
@@ -219,13 +255,19 @@ open class Functions: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func listExecutions(functionId: String, search: String = "", limit: Int = 25, offset: Int = 0, orderType: String = "ASC", completion: ((Result<AppwriteModels.ExecutionList, AppwriteError>) -> Void)? = nil) {
+    open func listExecutions(
+        functionId: String,
+        search: String? = nil,
+        limit: Int? = nil,
+        offset: Int? = nil,
+        orderType: String? = nil,
+        completion: ((Result<AppwriteModels.ExecutionList, AppwriteError>) -> Void)? = nil
+    ) {
         var path: String = "/functions/{functionId}/executions"
 
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
 
         let params: [String: Any?] = [
             "search": search,
@@ -237,9 +279,11 @@ open class Functions: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         let convert: ([String: Any]) -> AppwriteModels.ExecutionList = { dict in
             return AppwriteModels.ExecutionList.from(map: dict)
         }
+
         client.call(
             method: "GET",
             path: path,
@@ -263,13 +307,16 @@ open class Functions: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func createExecution(functionId: String, data: String = "", completion: ((Result<AppwriteModels.Execution, AppwriteError>) -> Void)? = nil) {
+    open func createExecution(
+        functionId: String,
+        data: String? = nil,
+        completion: ((Result<AppwriteModels.Execution, AppwriteError>) -> Void)? = nil
+    ) {
         var path: String = "/functions/{functionId}/executions"
 
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
 
         let params: [String: Any?] = [
             "data": data
@@ -278,9 +325,11 @@ open class Functions: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         let convert: ([String: Any]) -> AppwriteModels.Execution = { dict in
             return AppwriteModels.Execution.from(map: dict)
         }
+
         client.call(
             method: "POST",
             path: path,
@@ -301,27 +350,31 @@ open class Functions: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getExecution(functionId: String, executionId: String, completion: ((Result<AppwriteModels.Execution, AppwriteError>) -> Void)? = nil) {
+    open func getExecution(
+        functionId: String,
+        executionId: String,
+        completion: ((Result<AppwriteModels.Execution, AppwriteError>) -> Void)? = nil
+    ) {
         var path: String = "/functions/{functionId}/executions/{executionId}"
 
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
 
         path = path.replacingOccurrences(
           of: "{executionId}",
-          with: executionId
-        )
+          with: executionId        )
 
         let params: [String: Any?] = [:]
 
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         let convert: ([String: Any]) -> AppwriteModels.Execution = { dict in
             return AppwriteModels.Execution.from(map: dict)
         }
+
         client.call(
             method: "GET",
             path: path,
@@ -344,13 +397,16 @@ open class Functions: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updateTag(functionId: String, tag: String, completion: ((Result<AppwriteModels.Function, AppwriteError>) -> Void)? = nil) {
+    open func updateTag(
+        functionId: String,
+        tag: String,
+        completion: ((Result<AppwriteModels.Function, AppwriteError>) -> Void)? = nil
+    ) {
         var path: String = "/functions/{functionId}/tag"
 
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
 
         let params: [String: Any?] = [
             "tag": tag
@@ -359,9 +415,11 @@ open class Functions: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         let convert: ([String: Any]) -> AppwriteModels.Function = { dict in
             return AppwriteModels.Function.from(map: dict)
         }
+
         client.call(
             method: "PATCH",
             path: path,
@@ -386,13 +444,19 @@ open class Functions: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func listTags(functionId: String, search: String = "", limit: Int = 25, offset: Int = 0, orderType: String = "ASC", completion: ((Result<AppwriteModels.TagList, AppwriteError>) -> Void)? = nil) {
+    open func listTags(
+        functionId: String,
+        search: String? = nil,
+        limit: Int? = nil,
+        offset: Int? = nil,
+        orderType: String? = nil,
+        completion: ((Result<AppwriteModels.TagList, AppwriteError>) -> Void)? = nil
+    ) {
         var path: String = "/functions/{functionId}/tags"
 
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
 
         let params: [String: Any?] = [
             "search": search,
@@ -404,9 +468,11 @@ open class Functions: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         let convert: ([String: Any]) -> AppwriteModels.TagList = { dict in
             return AppwriteModels.TagList.from(map: dict)
         }
+
         client.call(
             method: "GET",
             path: path,
@@ -437,13 +503,17 @@ open class Functions: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func createTag(functionId: String, command: String, code: File, completion: ((Result<AppwriteModels.Tag, AppwriteError>) -> Void)? = nil) {
+    open func createTag(
+        functionId: String,
+        command: String,
+        code: File,
+        completion: ((Result<AppwriteModels.Tag, AppwriteError>) -> Void)? = nil
+    ) {
         var path: String = "/functions/{functionId}/tags"
 
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
 
         let params: [String: Any?] = [
             "command": command,
@@ -453,9 +523,11 @@ open class Functions: Service {
         let headers: [String: String] = [
             "content-type": "multipart/form-data"
         ]
+
         let convert: ([String: Any]) -> AppwriteModels.Tag = { dict in
             return AppwriteModels.Tag.from(map: dict)
         }
+
         client.call(
             method: "POST",
             path: path,
@@ -476,27 +548,31 @@ open class Functions: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getTag(functionId: String, tagId: String, completion: ((Result<AppwriteModels.Tag, AppwriteError>) -> Void)? = nil) {
+    open func getTag(
+        functionId: String,
+        tagId: String,
+        completion: ((Result<AppwriteModels.Tag, AppwriteError>) -> Void)? = nil
+    ) {
         var path: String = "/functions/{functionId}/tags/{tagId}"
 
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
 
         path = path.replacingOccurrences(
           of: "{tagId}",
-          with: tagId
-        )
+          with: tagId        )
 
         let params: [String: Any?] = [:]
 
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         let convert: ([String: Any]) -> AppwriteModels.Tag = { dict in
             return AppwriteModels.Tag.from(map: dict)
         }
+
         client.call(
             method: "GET",
             path: path,
@@ -517,24 +593,27 @@ open class Functions: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func deleteTag(functionId: String, tagId: String, completion: ((Result<Bool, AppwriteError>) -> Void)? = nil) {
+    open func deleteTag(
+        functionId: String,
+        tagId: String,
+        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+    ) {
         var path: String = "/functions/{functionId}/tags/{tagId}"
 
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
 
         path = path.replacingOccurrences(
           of: "{tagId}",
-          with: tagId
-        )
+          with: tagId        )
 
         let params: [String: Any?] = [:]
 
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         client.call(
             method: "DELETE",
             path: path,
