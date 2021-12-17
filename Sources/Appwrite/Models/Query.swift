@@ -28,6 +28,10 @@ public class Query {
         buildQueryWhere(attribute, is: "contains", to: value)
     }
 
+    public static func search(_ attribute: String, value: String) -> String {
+        buildQueryWhere(attribute, is: "search", to: value)
+    }
+
     public static func buildQueryWhere(_ attribute: String, is oper: String, to value: Any) -> String {
         switch value {
         case let value as Array<Any>:
