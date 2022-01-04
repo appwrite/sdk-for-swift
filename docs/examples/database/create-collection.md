@@ -8,10 +8,11 @@ func main() {
 
     let database = Database(client)
     database.createCollection(
+        collectionId: "",
         name: "[NAME]",
-        read: [],
-        write: [],
-        rules: []
+        permission: "document",
+        read: ["role:all"],
+        write: ["role:all"]
     ) { result in
         switch result {
         case .failure(let error):

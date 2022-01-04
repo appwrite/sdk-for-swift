@@ -13,7 +13,7 @@ open class Health: Service {
     /// @return array
     ///
     open func get(
-        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+        completion: ((Result<AppwriteModels.HealthStatus, AppwriteError>) -> Void)? = nil
     ) {
         let path: String = "/health"
 
@@ -23,25 +23,30 @@ open class Health: Service {
             "content-type": "application/json"
         ]
 
+        let convert: ([String: Any]) -> AppwriteModels.HealthStatus = { dict in
+            return AppwriteModels.HealthStatus.from(map: dict)
+        }
+
         client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
+            convert: convert,
             completion: completion
         )
     }
 
     ///
-    /// Get Anti virus
+    /// Get Antivirus
     ///
-    /// Check the Appwrite Anti Virus server is up and connection is successful.
+    /// Check the Appwrite Antivirus server is up and connection is successful.
     ///
     /// @throws Exception
     /// @return array
     ///
-    open func getAntiVirus(
-        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+    open func getAntivirus(
+        completion: ((Result<AppwriteModels.HealthAntivirus, AppwriteError>) -> Void)? = nil
     ) {
         let path: String = "/health/anti-virus"
 
@@ -51,11 +56,16 @@ open class Health: Service {
             "content-type": "application/json"
         ]
 
+        let convert: ([String: Any]) -> AppwriteModels.HealthAntivirus = { dict in
+            return AppwriteModels.HealthAntivirus.from(map: dict)
+        }
+
         client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
+            convert: convert,
             completion: completion
         )
     }
@@ -70,7 +80,7 @@ open class Health: Service {
     /// @return array
     ///
     open func getCache(
-        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+        completion: ((Result<AppwriteModels.HealthStatus, AppwriteError>) -> Void)? = nil
     ) {
         let path: String = "/health/cache"
 
@@ -80,11 +90,16 @@ open class Health: Service {
             "content-type": "application/json"
         ]
 
+        let convert: ([String: Any]) -> AppwriteModels.HealthStatus = { dict in
+            return AppwriteModels.HealthStatus.from(map: dict)
+        }
+
         client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
+            convert: convert,
             completion: completion
         )
     }
@@ -98,7 +113,7 @@ open class Health: Service {
     /// @return array
     ///
     open func getDB(
-        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+        completion: ((Result<AppwriteModels.HealthStatus, AppwriteError>) -> Void)? = nil
     ) {
         let path: String = "/health/db"
 
@@ -108,17 +123,22 @@ open class Health: Service {
             "content-type": "application/json"
         ]
 
+        let convert: ([String: Any]) -> AppwriteModels.HealthStatus = { dict in
+            return AppwriteModels.HealthStatus.from(map: dict)
+        }
+
         client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
+            convert: convert,
             completion: completion
         )
     }
 
     ///
-    /// Get Certificate Queue
+    /// Get Certificates Queue
     ///
     /// Get the number of certificates that are waiting to be issued against
     /// [Letsencrypt](https://letsencrypt.org/) in the Appwrite internal queue
@@ -128,7 +148,7 @@ open class Health: Service {
     /// @return array
     ///
     open func getQueueCertificates(
-        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+        completion: ((Result<AppwriteModels.HealthQueue, AppwriteError>) -> Void)? = nil
     ) {
         let path: String = "/health/queue/certificates"
 
@@ -138,11 +158,16 @@ open class Health: Service {
             "content-type": "application/json"
         ]
 
+        let convert: ([String: Any]) -> AppwriteModels.HealthQueue = { dict in
+            return AppwriteModels.HealthQueue.from(map: dict)
+        }
+
         client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
+            convert: convert,
             completion: completion
         )
     }
@@ -154,7 +179,7 @@ open class Health: Service {
     /// @return array
     ///
     open func getQueueFunctions(
-        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+        completion: ((Result<AppwriteModels.HealthQueue, AppwriteError>) -> Void)? = nil
     ) {
         let path: String = "/health/queue/functions"
 
@@ -164,11 +189,16 @@ open class Health: Service {
             "content-type": "application/json"
         ]
 
+        let convert: ([String: Any]) -> AppwriteModels.HealthQueue = { dict in
+            return AppwriteModels.HealthQueue.from(map: dict)
+        }
+
         client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
+            convert: convert,
             completion: completion
         )
     }
@@ -183,7 +213,7 @@ open class Health: Service {
     /// @return array
     ///
     open func getQueueLogs(
-        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+        completion: ((Result<AppwriteModels.HealthQueue, AppwriteError>) -> Void)? = nil
     ) {
         let path: String = "/health/queue/logs"
 
@@ -193,40 +223,16 @@ open class Health: Service {
             "content-type": "application/json"
         ]
 
-        client.call(
-            method: "GET",
-            path: path,
-            headers: headers,
-            params: params,
-            completion: completion
-        )
-    }
-
-    ///
-    /// Get Tasks Queue
-    ///
-    /// Get the number of tasks that are waiting to be processed in the Appwrite
-    /// internal queue server.
-    ///
-    /// @throws Exception
-    /// @return array
-    ///
-    open func getQueueTasks(
-        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
-    ) {
-        let path: String = "/health/queue/tasks"
-
-        let params: [String: Any?] = [:]
-
-        let headers: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let convert: ([String: Any]) -> AppwriteModels.HealthQueue = { dict in
+            return AppwriteModels.HealthQueue.from(map: dict)
+        }
 
         client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
+            convert: convert,
             completion: completion
         )
     }
@@ -241,7 +247,7 @@ open class Health: Service {
     /// @return array
     ///
     open func getQueueUsage(
-        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+        completion: ((Result<AppwriteModels.HealthQueue, AppwriteError>) -> Void)? = nil
     ) {
         let path: String = "/health/queue/usage"
 
@@ -251,11 +257,16 @@ open class Health: Service {
             "content-type": "application/json"
         ]
 
+        let convert: ([String: Any]) -> AppwriteModels.HealthQueue = { dict in
+            return AppwriteModels.HealthQueue.from(map: dict)
+        }
+
         client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
+            convert: convert,
             completion: completion
         )
     }
@@ -270,7 +281,7 @@ open class Health: Service {
     /// @return array
     ///
     open func getQueueWebhooks(
-        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+        completion: ((Result<AppwriteModels.HealthQueue, AppwriteError>) -> Void)? = nil
     ) {
         let path: String = "/health/queue/webhooks"
 
@@ -280,11 +291,16 @@ open class Health: Service {
             "content-type": "application/json"
         ]
 
+        let convert: ([String: Any]) -> AppwriteModels.HealthQueue = { dict in
+            return AppwriteModels.HealthQueue.from(map: dict)
+        }
+
         client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
+            convert: convert,
             completion: completion
         )
     }
@@ -298,7 +314,7 @@ open class Health: Service {
     /// @return array
     ///
     open func getStorageLocal(
-        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+        completion: ((Result<AppwriteModels.HealthStatus, AppwriteError>) -> Void)? = nil
     ) {
         let path: String = "/health/storage/local"
 
@@ -308,11 +324,16 @@ open class Health: Service {
             "content-type": "application/json"
         ]
 
+        let convert: ([String: Any]) -> AppwriteModels.HealthStatus = { dict in
+            return AppwriteModels.HealthStatus.from(map: dict)
+        }
+
         client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
+            convert: convert,
             completion: completion
         )
     }
@@ -332,7 +353,7 @@ open class Health: Service {
     /// @return array
     ///
     open func getTime(
-        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+        completion: ((Result<AppwriteModels.HealthTime, AppwriteError>) -> Void)? = nil
     ) {
         let path: String = "/health/time"
 
@@ -342,11 +363,16 @@ open class Health: Service {
             "content-type": "application/json"
         ]
 
+        let convert: ([String: Any]) -> AppwriteModels.HealthTime = { dict in
+            return AppwriteModels.HealthTime.from(map: dict)
+        }
+
         client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
+            convert: convert,
             completion: completion
         )
     }

@@ -13,13 +13,13 @@ open class Client {
 
     // MARK: Properties
 
-    open var endPoint = "https://appwrite.io/v1"
+    open var endPoint = "https://HOSTNAME/v1"
 
     open var endPointRealtime: String? = nil
 
     open var headers: [String: String] = [
         "content-type": "",
-        "x-sdk-version": "appwrite:swift:0.1.0",        "X-Appwrite-Response-Format": "0.11.0"
+        "x-sdk-version": "appwrite:swift:0.1.0",        "X-Appwrite-Response-Format": "0.12.0"
     ]
 
     open var config: [String: String] = [:]

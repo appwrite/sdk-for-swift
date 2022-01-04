@@ -13,6 +13,8 @@ open class Users: Service {
     /// @param String search
     /// @param Int limit
     /// @param Int offset
+    /// @param String cursor
+    /// @param String cursorDirection
     /// @param String orderType
     /// @throws Exception
     /// @return array
@@ -21,6 +23,8 @@ open class Users: Service {
         search: String? = nil,
         limit: Int? = nil,
         offset: Int? = nil,
+        cursor: String? = nil,
+        cursorDirection: String? = nil,
         orderType: String? = nil,
         completion: ((Result<AppwriteModels.UserList, AppwriteError>) -> Void)? = nil
     ) {
@@ -30,6 +34,8 @@ open class Users: Service {
             "search": search,
             "limit": limit,
             "offset": offset,
+            "cursor": cursor,
+            "cursorDirection": cursorDirection,
             "orderType": orderType
         ]
 
@@ -56,6 +62,7 @@ open class Users: Service {
     ///
     /// Create a new user.
     ///
+    /// @param String userId
     /// @param String email
     /// @param String password
     /// @param String name
@@ -63,6 +70,7 @@ open class Users: Service {
     /// @return array
     ///
     open func create(
+        userId: String,
         email: String,
         password: String,
         name: String? = nil,
@@ -71,6 +79,7 @@ open class Users: Service {
         let path: String = "/users"
 
         let params: [String: Any?] = [
+            "userId": userId,
             "email": email,
             "password": password,
             "name": name
@@ -213,14 +222,18 @@ open class Users: Service {
     ///
     /// Get User Logs
     ///
-    /// Get a user activity logs list by its unique ID.
+    /// Get the user activity logs list by its unique ID.
     ///
     /// @param String userId
+    /// @param Int limit
+    /// @param Int offset
     /// @throws Exception
     /// @return array
     ///
     open func getLogs(
         userId: String,
+        limit: Int? = nil,
+        offset: Int? = nil,
         completion: ((Result<AppwriteModels.LogList, AppwriteError>) -> Void)? = nil
     ) {
         var path: String = "/users/{userId}/logs"
@@ -229,7 +242,10 @@ open class Users: Service {
           of: "{userId}",
           with: userId        )
 
-        let params: [String: Any?] = [:]
+        let params: [String: Any?] = [
+            "limit": limit,
+            "offset": offset
+        ]
 
         let headers: [String: String] = [
             "content-type": "application/json"
@@ -537,13 +553,13 @@ open class Users: Service {
     /// Update the user status by its unique ID.
     ///
     /// @param String userId
-    /// @param Int status
+    /// @param Bool status
     /// @throws Exception
     /// @return array
     ///
     open func updateStatus(
         userId: String,
-        status: Int,
+        status: Bool,
         completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil
     ) {
         var path: String = "/users/{userId}/status"

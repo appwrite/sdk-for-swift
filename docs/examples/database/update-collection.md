@@ -9,7 +9,8 @@ func main() {
     let database = Database(client)
     database.updateCollection(
         collectionId: "[COLLECTION_ID]",
-        name: "[NAME]"
+        name: "[NAME]",
+        permission: "document"
     ) { result in
         switch result {
         case .failure(let error):

@@ -9,7 +9,7 @@ func main() {
     let users = Users(client)
     users.updateStatus(
         userId: "[USER_ID]",
-        status: 1
+        status: xfalse
     ) { result in
         switch result {
         case .failure(let error):

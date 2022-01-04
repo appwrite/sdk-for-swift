@@ -5,8 +5,8 @@ public class Function {
     /// Function ID.
     public let id: String
 
-    /// Function permissions.
-    public let permissions: Permissions
+    /// Execution permissions.
+    public let execute: String
 
     /// Function name.
     public let name: String
@@ -17,7 +17,7 @@ public class Function {
     /// Function update date in Unix timestamp.
     public let dateUpdated: Int
 
-    /// Function status. Possible values: disabled, enabled
+    /// Function status. Possible values: `disabled`, `enabled`
     public let status: String
 
     /// Function execution runtime.
@@ -46,7 +46,7 @@ public class Function {
 
     init(
         id: String,
-        permissions: Permissions,
+        execute: String,
         name: String,
         dateCreated: Int,
         dateUpdated: Int,
@@ -61,7 +61,7 @@ public class Function {
         timeout: Int
     ) {
         self.id = id
-        self.permissions = permissions
+        self.execute = execute
         self.name = name
         self.dateCreated = dateCreated
         self.dateUpdated = dateUpdated
@@ -79,7 +79,7 @@ public class Function {
     public static func from(map: [String: Any]) -> Function {
         return Function(
             id: map["$id"] as! String,
-            permissions: Permissions.from(map: map["$permissions"] as! [String: Any]),
+            execute: map["execute"] as! String,
             name: map["name"] as! String,
             dateCreated: map["dateCreated"] as! Int,
             dateUpdated: map["dateUpdated"] as! Int,
@@ -98,7 +98,7 @@ public class Function {
     public func toMap() -> [String: Any] {
         return [
             "$id": id as Any,
-            "$permissions": permissions.toMap() as Any,
+            "execute": execute as Any,
             "name": name as Any,
             "dateCreated": dateCreated as Any,
             "dateUpdated": dateUpdated as Any,
@@ -113,5 +113,5 @@ public class Function {
             "timeout": timeout as Any
         ]
     }
-                                                                                                                                                                                                                    
+                                                            
 }

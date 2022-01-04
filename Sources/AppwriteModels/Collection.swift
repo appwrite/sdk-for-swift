@@ -5,57 +5,71 @@ public class Collection {
     /// Collection ID.
     public let id: String
 
-    /// Collection permissions.
-    public let permissions: Permissions
+    /// Collection read permissions.
+    public let read: [Any]
+
+    /// Collection write permissions.
+    public let write: [Any]
 
     /// Collection name.
     public let name: String
 
-    /// Collection creation date in Unix timestamp.
-    public let dateCreated: Int
+    /// Collection enabled.
+    public let enabled: Bool
 
-    /// Collection creation date in Unix timestamp.
-    public let dateUpdated: Int
+    /// Collection permission model. Possible values: `document` or `collection`
+    public let permission: String
 
-    /// Collection rules.
-    public let rules: [Rule]
+    /// Collection attributes.
+    public let attributes: [Any]
+
+    /// Collection indexes.
+    public let indexes: [Index]
 
     init(
         id: String,
-        permissions: Permissions,
+        read: [Any],
+        write: [Any],
         name: String,
-        dateCreated: Int,
-        dateUpdated: Int,
-        rules: [Rule]
+        enabled: Bool,
+        permission: String,
+        attributes: [Any],
+        indexes: [Index]
     ) {
         self.id = id
-        self.permissions = permissions
+        self.read = read
+        self.write = write
         self.name = name
-        self.dateCreated = dateCreated
-        self.dateUpdated = dateUpdated
-        self.rules = rules
+        self.enabled = enabled
+        self.permission = permission
+        self.attributes = attributes
+        self.indexes = indexes
     }
 
     public static func from(map: [String: Any]) -> Collection {
         return Collection(
             id: map["$id"] as! String,
-            permissions: Permissions.from(map: map["$permissions"] as! [String: Any]),
+            read: map["$read"] as! [Any],
+            write: map["$write"] as! [Any],
             name: map["name"] as! String,
-            dateCreated: map["dateCreated"] as! Int,
-            dateUpdated: map["dateUpdated"] as! Int,
-            rules: (map["rules"] as! [[String: Any]]).map { Rule.from(map: $0) }
+            enabled: map["enabled"] as! Bool,
+            permission: map["permission"] as! String,
+            attributes: map["attributes"] as! [Any],
+            indexes: (map["indexes"] as! [[String: Any]]).map { Index.from(map: $0) }
         )
     }
 
     public func toMap() -> [String: Any] {
         return [
             "$id": id as Any,
-            "$permissions": permissions.toMap() as Any,
+            "$read": read as Any,
+            "$write": write as Any,
             "name": name as Any,
-            "dateCreated": dateCreated as Any,
-            "dateUpdated": dateUpdated as Any,
-            "rules": rules.map { $0.toMap() } as Any
+            "enabled": enabled as Any,
+            "permission": permission as Any,
+            "attributes": attributes as Any,
+            "indexes": indexes.map { $0.toMap() } as Any
         ]
     }
-                                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                        
 }

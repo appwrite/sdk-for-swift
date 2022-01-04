@@ -29,5 +29,5 @@ public class CollectionList {
             "collections": collections.map { $0.toMap() } as Any
         ]
     }
-                                                                                                                                                                    
+                                                                                                                                                                                                                                
 }

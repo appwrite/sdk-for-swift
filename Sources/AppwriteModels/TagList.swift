@@ -29,5 +29,5 @@ public class TagList {
             "tags": tags.map { $0.toMap() } as Any
         ]
     }
-                                                                                                                                                                    
+                                                                                                                                                                                                                                
 }

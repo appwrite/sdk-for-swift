@@ -73,11 +73,13 @@ open class Account: Service {
     /// Update Account Email
     ///
     /// Update currently logged in user account email address. After changing user
-    /// address, user confirmation status is being reset and a new confirmation
-    /// mail is sent. For security measures, user password is required to complete
-    /// this request.
+    /// address, the user confirmation status will get reset. A new confirmation
+    /// email is not sent automatically however you can use the send confirmation
+    /// email endpoint again to send the confirmation email. For security measures,
+    /// user password is required to complete this request.
     /// This endpoint can also be used to convert an anonymous account to a normal
     /// one, by passing an email address and a new password.
+    /// 
     ///
     /// @param String email
     /// @param String password
@@ -120,15 +122,22 @@ open class Account: Service {
     /// Get currently logged in user list of latest security activity logs. Each
     /// log returns user IP address, location and date and time of log.
     ///
+    /// @param Int limit
+    /// @param Int offset
     /// @throws Exception
     /// @return array
     ///
     open func getLogs(
+        limit: Int? = nil,
+        offset: Int? = nil,
         completion: ((Result<AppwriteModels.LogList, AppwriteError>) -> Void)? = nil
     ) {
         let path: String = "/account/logs"
 
-        let params: [String: Any?] = [:]
+        let params: [String: Any?] = [
+            "limit": limit,
+            "offset": offset
+        ]
 
         let headers: [String: String] = [
             "content-type": "application/json"
