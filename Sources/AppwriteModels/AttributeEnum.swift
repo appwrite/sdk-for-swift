@@ -31,10 +31,10 @@ public class AttributeEnum {
         type: String,
         status: String,
         xrequired: Bool,
-        array: Bool? = ,
+        array: Bool?,
         elements: [Any],
         format: String,
-        xdefault: String? = 
+        xdefault: String?
     ) {
         self.key = key
         self.type = type

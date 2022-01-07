@@ -28,9 +28,9 @@ public class AttributeIp {
         type: String,
         status: String,
         xrequired: Bool,
-        array: Bool? = ,
+        array: Bool?,
         format: String,
-        xdefault: String? = 
+        xdefault: String?
     ) {
         self.key = key
         self.type = type

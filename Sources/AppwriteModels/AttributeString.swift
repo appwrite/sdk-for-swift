@@ -18,7 +18,7 @@ public class AttributeString {
     public let array: Bool?
 
     /// Attribute size.
-    public let size: String
+    public let size: Int
 
     /// Default value for attribute when not provided. Cannot be set when attribute is required.
     public let xdefault: String?
@@ -28,9 +28,9 @@ public class AttributeString {
         type: String,
         status: String,
         xrequired: Bool,
-        array: Bool? = ,
-        size: String,
-        xdefault: String? = 
+        array: Bool?,
+        size: Int,
+        xdefault: String?
     ) {
         self.key = key
         self.type = type
@@ -48,7 +48,7 @@ public class AttributeString {
             status: map["status"] as! String,
             xrequired: map["required"] as! Bool,
             array: map["array"] as? Bool,
-            size: map["size"] as! String,
+            size: map["size"] as! Int,
             xdefault: map["default"] as? String
         )
     }

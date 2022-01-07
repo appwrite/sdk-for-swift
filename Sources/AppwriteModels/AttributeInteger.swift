@@ -31,10 +31,10 @@ public class AttributeInteger {
         type: String,
         status: String,
         xrequired: Bool,
-        array: Bool? = ,
-        min: Int? = ,
-        max: Int? = ,
-        xdefault: Int? = 
+        array: Bool?,
+        min: Int?,
+        max: Int?,
+        xdefault: Int?
     ) {
         self.key = key
         self.type = type

@@ -31,10 +31,10 @@ public class AttributeFloat {
         type: String,
         status: String,
         xrequired: Bool,
-        array: Bool? = ,
-        min: Double? = ,
-        max: Double? = ,
-        xdefault: Double? = 
+        array: Bool?,
+        min: Double?,
+        max: Double?,
+        xdefault: Double?
     ) {
         self.key = key
         self.type = type

@@ -25,8 +25,8 @@ public class AttributeBoolean {
         type: String,
         status: String,
         xrequired: Bool,
-        array: Bool? = ,
-        xdefault: Bool? = 
+        array: Bool?,
+        xdefault: Bool?
     ) {
         self.key = key
         self.type = type
