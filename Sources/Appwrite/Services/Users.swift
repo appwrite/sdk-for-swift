@@ -120,7 +120,8 @@ open class Users: Service {
 
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId        )
+          with: userId        
+        )
 
         let params: [String: Any?] = [:]
 
@@ -159,7 +160,8 @@ open class Users: Service {
 
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId        )
+          with: userId        
+        )
 
         let params: [String: Any?] = [:]
 
@@ -195,7 +197,8 @@ open class Users: Service {
 
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId        )
+          with: userId        
+        )
 
         let params: [String: Any?] = [
             "email": email
@@ -240,7 +243,8 @@ open class Users: Service {
 
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId        )
+          with: userId        
+        )
 
         let params: [String: Any?] = [
             "limit": limit,
@@ -284,7 +288,8 @@ open class Users: Service {
 
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId        )
+          with: userId        
+        )
 
         let params: [String: Any?] = [
             "name": name
@@ -327,7 +332,8 @@ open class Users: Service {
 
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId        )
+          with: userId        
+        )
 
         let params: [String: Any?] = [
             "password": password
@@ -368,7 +374,8 @@ open class Users: Service {
 
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId        )
+          with: userId        
+        )
 
         let params: [String: Any?] = [:]
 
@@ -411,7 +418,8 @@ open class Users: Service {
 
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId        )
+          with: userId        
+        )
 
         let params: [String: Any?] = [
             "prefs": prefs
@@ -452,7 +460,8 @@ open class Users: Service {
 
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId        )
+          with: userId        
+        )
 
         let params: [String: Any?] = [:]
 
@@ -491,7 +500,8 @@ open class Users: Service {
 
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId        )
+          with: userId        
+        )
 
         let params: [String: Any?] = [:]
 
@@ -527,11 +537,13 @@ open class Users: Service {
 
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId        )
+          with: userId        
+        )
 
         path = path.replacingOccurrences(
           of: "{sessionId}",
-          with: sessionId        )
+          with: sessionId        
+        )
 
         let params: [String: Any?] = [:]
 
@@ -567,7 +579,8 @@ open class Users: Service {
 
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId        )
+          with: userId        
+        )
 
         let params: [String: Any?] = [
             "status": status
@@ -610,7 +623,8 @@ open class Users: Service {
 
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId        )
+          with: userId        
+        )
 
         let params: [String: Any?] = [
             "emailVerification": emailVerification

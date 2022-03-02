@@ -8,6 +8,7 @@ func main() {
 
     let storage = Storage(client)
     storage.createFile(
+        bucketId: "[BUCKET_ID]",
         fileId: "[FILE_ID]",
         file: File(name: "image.jpg", buffer: yourByteBuffer)
     ) { result in

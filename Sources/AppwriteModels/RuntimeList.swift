@@ -2,32 +2,32 @@
 /// Runtimes List
 public class RuntimeList {
 
-    /// Total number of items available on the server.
-    public let sum: Int
+    /// Total number of runtimes documents that matched your query.
+    public let total: Int
 
     /// List of runtimes.
     public let runtimes: [Runtime]
 
     init(
-        sum: Int,
+        total: Int,
         runtimes: [Runtime]
     ) {
-        self.sum = sum
+        self.total = total
         self.runtimes = runtimes
     }
 
     public static func from(map: [String: Any]) -> RuntimeList {
         return RuntimeList(
-            sum: map["sum"] as! Int,
+            total: map["total"] as! Int,
             runtimes: (map["runtimes"] as! [[String: Any]]).map { Runtime.from(map: $0) }
         )
     }
 
     public func toMap() -> [String: Any] {
         return [
-            "sum": sum as Any,
+            "total": total as Any,
             "runtimes": runtimes.map { $0.toMap() } as Any
         ]
     }
-                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                        
 }

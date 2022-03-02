@@ -7,15 +7,15 @@ func main() {
       .setKey("919c2d18fb5d4...a2ae413da83346ad2") // Your secret API key
 
     let functions = Functions(client)
-    functions.getTag(
+    functions.updateDeployment(
         functionId: "[FUNCTION_ID]",
-        tagId: "[TAG_ID]"
+        deploymentId: "[DEPLOYMENT_ID]"
     ) { result in
         switch result {
         case .failure(let error):
             print(error.message)
-        case .success(let tag):
-            print(String(describing: tag)
+        case .success(let function):
+            print(String(describing: function)
         }
     }
 }

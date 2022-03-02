@@ -6,16 +6,17 @@ func main() {
       .setProject("5df5acd0d48c2") // Your project ID
       .setKey("919c2d18fb5d4...a2ae413da83346ad2") // Your secret API key
 
-    let functions = Functions(client)
-    functions.deleteTag(
-        functionId: "[FUNCTION_ID]",
-        tagId: "[TAG_ID]"
+    let storage = Storage(client)
+    storage.createBucket(
+        bucketId: "[BUCKET_ID]",
+        name: "[NAME]",
+        permission: "file"
     ) { result in
         switch result {
         case .failure(let error):
             print(error.message)
-        case .success(let ):
-            print(String(describing: )
+        case .success(let bucket):
+            print(String(describing: bucket)
         }
     }
 }

@@ -7,15 +7,16 @@ func main() {
       .setKey("919c2d18fb5d4...a2ae413da83346ad2") // Your secret API key
 
     let functions = Functions(client)
-    functions.updateTag(
+    functions.retryBuild(
         functionId: "[FUNCTION_ID]",
-        tag: "[TAG]"
+        deploymentId: "[DEPLOYMENT_ID]",
+        buildId: "[BUILD_ID]"
     ) { result in
         switch result {
         case .failure(let error):
             print(error.message)
-        case .success(let function):
-            print(String(describing: function)
+        case .success(let ):
+            print(String(describing: )
         }
     }
 }

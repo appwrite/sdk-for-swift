@@ -1,32 +1,32 @@
 
-/// Languages List
-public class LanguageList {
+/// Buckets List
+public class BucketList {
 
-    /// Total number of languages documents that matched your query.
+    /// Total number of buckets documents that matched your query.
     public let total: Int
 
-    /// List of languages.
-    public let languages: [Language]
+    /// List of buckets.
+    public let buckets: [Bucket]
 
     init(
         total: Int,
-        languages: [Language]
+        buckets: [Bucket]
     ) {
         self.total = total
-        self.languages = languages
+        self.buckets = buckets
     }
 
-    public static func from(map: [String: Any]) -> LanguageList {
-        return LanguageList(
+    public static func from(map: [String: Any]) -> BucketList {
+        return BucketList(
             total: map["total"] as! Int,
-            languages: (map["languages"] as! [[String: Any]]).map { Language.from(map: $0) }
+            buckets: (map["buckets"] as! [[String: Any]]).map { Bucket.from(map: $0) }
         )
     }
 
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
-            "languages": languages.map { $0.toMap() } as Any
+            "buckets": buckets.map { $0.toMap() } as Any
         ]
     }
                                                                                                                                                                                                                                         

@@ -2,32 +2,32 @@
 /// Collections List
 public class CollectionList {
 
-    /// Total number of items available on the server.
-    public let sum: Int
+    /// Total number of collections documents that matched your query.
+    public let total: Int
 
     /// List of collections.
     public let collections: [Collection]
 
     init(
-        sum: Int,
+        total: Int,
         collections: [Collection]
     ) {
-        self.sum = sum
+        self.total = total
         self.collections = collections
     }
 
     public static func from(map: [String: Any]) -> CollectionList {
         return CollectionList(
-            sum: map["sum"] as! Int,
+            total: map["total"] as! Int,
             collections: (map["collections"] as! [[String: Any]]).map { Collection.from(map: $0) }
         )
     }
 
     public func toMap() -> [String: Any] {
         return [
-            "sum": sum as Any,
+            "total": total as Any,
             "collections": collections.map { $0.toMap() } as Any
         ]
     }
-                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                        
 }

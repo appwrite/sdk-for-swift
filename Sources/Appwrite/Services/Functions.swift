@@ -167,7 +167,8 @@ open class Functions: Service {
 
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId        )
+          with: functionId        
+        )
 
         let params: [String: Any?] = [:]
 
@@ -218,7 +219,8 @@ open class Functions: Service {
 
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId        )
+          with: functionId        
+        )
 
         let params: [String: Any?] = [
             "name": name,
@@ -264,7 +266,8 @@ open class Functions: Service {
 
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId        )
+          with: functionId        
+        )
 
         let params: [String: Any?] = [:]
 
@@ -274,6 +277,314 @@ open class Functions: Service {
 
         client.call(
             method: "DELETE",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
+    }
+
+    ///
+    /// List Deployments
+    ///
+    /// Get a list of all the project's code deployments. You can use the query
+    /// params to filter your results.
+    ///
+    /// @param String functionId
+    /// @param String search
+    /// @param Int limit
+    /// @param Int offset
+    /// @param String cursor
+    /// @param String cursorDirection
+    /// @param String orderType
+    /// @throws Exception
+    /// @return array
+    ///
+    open func listDeployments(
+        functionId: String,
+        search: String? = nil,
+        limit: Int? = nil,
+        offset: Int? = nil,
+        cursor: String? = nil,
+        cursorDirection: String? = nil,
+        orderType: String? = nil,
+        completion: ((Result<AppwriteModels.DeploymentList, AppwriteError>) -> Void)? = nil
+    ) {
+        var path: String = "/functions/{functionId}/deployments"
+
+        path = path.replacingOccurrences(
+          of: "{functionId}",
+          with: functionId        
+        )
+
+        let params: [String: Any?] = [
+            "search": search,
+            "limit": limit,
+            "offset": offset,
+            "cursor": cursor,
+            "cursorDirection": cursorDirection,
+            "orderType": orderType
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let convert: ([String: Any]) -> AppwriteModels.DeploymentList = { dict in
+            return AppwriteModels.DeploymentList.from(map: dict)
+        }
+
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
+    }
+
+    ///
+    /// Create Deployment
+    ///
+    /// Create a new function code deployment. Use this endpoint to upload a new
+    /// version of your code function. To execute your newly uploaded code, you'll
+    /// need to update the function's deployment to use your new deployment UID.
+    /// 
+    /// This endpoint accepts a tar.gz file compressed with your code. Make sure to
+    /// include any dependencies your code has within the compressed file. You can
+    /// learn more about code packaging in the [Appwrite Cloud Functions
+    /// tutorial](/docs/functions).
+    /// 
+    /// Use the "command" param to set the entry point used to execute your code.
+    ///
+    /// @param String functionId
+    /// @param String entrypoint
+    /// @param File code
+    /// @param Bool activate
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createDeployment(
+        functionId: String,
+        entrypoint: String,
+        code: File,
+        activate: Bool,
+        onProgress: ((UploadProgress) -> Void)? = nil,
+        completion: ((Result<AppwriteModels.Deployment, AppwriteError>) -> Void)? = nil
+    ) {
+        var path: String = "/functions/{functionId}/deployments"
+
+        path = path.replacingOccurrences(
+          of: "{functionId}",
+          with: functionId        
+        )
+
+        var params: [String: Any?] = [
+            "entrypoint": entrypoint,
+            "code": code,
+            "activate": activate
+        ]
+
+        var headers: [String: String] = [
+            "content-type": "multipart/form-data"
+        ]
+
+        let convert: ([String: Any]) -> AppwriteModels.Deployment = { dict in
+            return AppwriteModels.Deployment.from(map: dict)
+        }
+
+        let paramName = "code"
+
+        client.chunkedUpload(
+            path: path,
+            headers: &headers,
+            params: &params,
+            paramName: paramName,
+            convert: convert,
+            onProgress: onProgress,
+            completion: completion
+        )
+    }
+
+    ///
+    /// Get Deployment
+    ///
+    /// Get a code deployment by its unique ID.
+    ///
+    /// @param String functionId
+    /// @param String deploymentId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getDeployment(
+        functionId: String,
+        deploymentId: String,
+        completion: ((Result<AppwriteModels.DeploymentList, AppwriteError>) -> Void)? = nil
+    ) {
+        var path: String = "/functions/{functionId}/deployments/{deploymentId}"
+
+        path = path.replacingOccurrences(
+          of: "{functionId}",
+          with: functionId        
+        )
+
+        path = path.replacingOccurrences(
+          of: "{deploymentId}",
+          with: deploymentId        
+        )
+
+        let params: [String: Any?] = [:]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let convert: ([String: Any]) -> AppwriteModels.DeploymentList = { dict in
+            return AppwriteModels.DeploymentList.from(map: dict)
+        }
+
+        client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
+    }
+
+    ///
+    /// Update Function Deployment
+    ///
+    /// Update the function code deployment ID using the unique function ID. Use
+    /// this endpoint to switch the code deployment that should be executed by the
+    /// execution endpoint.
+    ///
+    /// @param String functionId
+    /// @param String deploymentId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateDeployment(
+        functionId: String,
+        deploymentId: String,
+        completion: ((Result<AppwriteModels.Function, AppwriteError>) -> Void)? = nil
+    ) {
+        var path: String = "/functions/{functionId}/deployments/{deploymentId}"
+
+        path = path.replacingOccurrences(
+          of: "{functionId}",
+          with: functionId        
+        )
+
+        path = path.replacingOccurrences(
+          of: "{deploymentId}",
+          with: deploymentId        
+        )
+
+        let params: [String: Any?] = [:]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let convert: ([String: Any]) -> AppwriteModels.Function = { dict in
+            return AppwriteModels.Function.from(map: dict)
+        }
+
+        client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
+    }
+
+    ///
+    /// Delete Deployment
+    ///
+    /// Delete a code deployment by its unique ID.
+    ///
+    /// @param String functionId
+    /// @param String deploymentId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func deleteDeployment(
+        functionId: String,
+        deploymentId: String,
+        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+    ) {
+        var path: String = "/functions/{functionId}/deployments/{deploymentId}"
+
+        path = path.replacingOccurrences(
+          of: "{functionId}",
+          with: functionId        
+        )
+
+        path = path.replacingOccurrences(
+          of: "{deploymentId}",
+          with: deploymentId        
+        )
+
+        let params: [String: Any?] = [:]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        client.call(
+            method: "DELETE",
+            path: path,
+            headers: headers,
+            params: params,
+            completion: completion
+        )
+    }
+
+    ///
+    /// Retry Build
+    ///
+    /// @param String functionId
+    /// @param String deploymentId
+    /// @param String buildId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func retryBuild(
+        functionId: String,
+        deploymentId: String,
+        buildId: String,
+        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+    ) {
+        var path: String = "/functions/{functionId}/deployments/{deploymentId}/builds/{buildId}"
+
+        path = path.replacingOccurrences(
+          of: "{functionId}",
+          with: functionId        
+        )
+
+        path = path.replacingOccurrences(
+          of: "{deploymentId}",
+          with: deploymentId        
+        )
+
+        path = path.replacingOccurrences(
+          of: "{buildId}",
+          with: buildId        
+        )
+
+        let params: [String: Any?] = [:]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        client.call(
+            method: "POST",
             path: path,
             headers: headers,
             params: params,
@@ -311,7 +622,8 @@ open class Functions: Service {
 
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId        )
+          with: functionId        
+        )
 
         let params: [String: Any?] = [
             "limit": limit,
@@ -349,22 +661,26 @@ open class Functions: Service {
     ///
     /// @param String functionId
     /// @param String data
+    /// @param Bool async
     /// @throws Exception
     /// @return array
     ///
     open func createExecution(
         functionId: String,
         data: String? = nil,
+        async: Bool? = nil,
         completion: ((Result<AppwriteModels.Execution, AppwriteError>) -> Void)? = nil
     ) {
         var path: String = "/functions/{functionId}/executions"
 
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId        )
+          with: functionId        
+        )
 
         let params: [String: Any?] = [
-            "data": data
+            "data": data,
+            "async": async
         ]
 
         let headers: [String: String] = [
@@ -404,11 +720,13 @@ open class Functions: Service {
 
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId        )
+          with: functionId        
+        )
 
         path = path.replacingOccurrences(
           of: "{executionId}",
-          with: executionId        )
+          with: executionId        
+        )
 
         let params: [String: Any?] = [:]
 
@@ -426,250 +744,6 @@ open class Functions: Service {
             headers: headers,
             params: params,
             convert: convert,
-            completion: completion
-        )
-    }
-
-    ///
-    /// Update Function Tag
-    ///
-    /// Update the function code tag ID using the unique function ID. Use this
-    /// endpoint to switch the code tag that should be executed by the execution
-    /// endpoint.
-    ///
-    /// @param String functionId
-    /// @param String tag
-    /// @throws Exception
-    /// @return array
-    ///
-    open func updateTag(
-        functionId: String,
-        tag: String,
-        completion: ((Result<AppwriteModels.Function, AppwriteError>) -> Void)? = nil
-    ) {
-        var path: String = "/functions/{functionId}/tag"
-
-        path = path.replacingOccurrences(
-          of: "{functionId}",
-          with: functionId        )
-
-        let params: [String: Any?] = [
-            "tag": tag
-        ]
-
-        let headers: [String: String] = [
-            "content-type": "application/json"
-        ]
-
-        let convert: ([String: Any]) -> AppwriteModels.Function = { dict in
-            return AppwriteModels.Function.from(map: dict)
-        }
-
-        client.call(
-            method: "PATCH",
-            path: path,
-            headers: headers,
-            params: params,
-            convert: convert,
-            completion: completion
-        )
-    }
-
-    ///
-    /// List Tags
-    ///
-    /// Get a list of all the project's code tags. You can use the query params to
-    /// filter your results.
-    ///
-    /// @param String functionId
-    /// @param String search
-    /// @param Int limit
-    /// @param Int offset
-    /// @param String cursor
-    /// @param String cursorDirection
-    /// @param String orderType
-    /// @throws Exception
-    /// @return array
-    ///
-    open func listTags(
-        functionId: String,
-        search: String? = nil,
-        limit: Int? = nil,
-        offset: Int? = nil,
-        cursor: String? = nil,
-        cursorDirection: String? = nil,
-        orderType: String? = nil,
-        completion: ((Result<AppwriteModels.TagList, AppwriteError>) -> Void)? = nil
-    ) {
-        var path: String = "/functions/{functionId}/tags"
-
-        path = path.replacingOccurrences(
-          of: "{functionId}",
-          with: functionId        )
-
-        let params: [String: Any?] = [
-            "search": search,
-            "limit": limit,
-            "offset": offset,
-            "cursor": cursor,
-            "cursorDirection": cursorDirection,
-            "orderType": orderType
-        ]
-
-        let headers: [String: String] = [
-            "content-type": "application/json"
-        ]
-
-        let convert: ([String: Any]) -> AppwriteModels.TagList = { dict in
-            return AppwriteModels.TagList.from(map: dict)
-        }
-
-        client.call(
-            method: "GET",
-            path: path,
-            headers: headers,
-            params: params,
-            convert: convert,
-            completion: completion
-        )
-    }
-
-    ///
-    /// Create Tag
-    ///
-    /// Create a new function code tag. Use this endpoint to upload a new version
-    /// of your code function. To execute your newly uploaded code, you'll need to
-    /// update the function's tag to use your new tag UID.
-    /// 
-    /// This endpoint accepts a tar.gz file compressed with your code. Make sure to
-    /// include any dependencies your code has within the compressed file. You can
-    /// learn more about code packaging in the [Appwrite Cloud Functions
-    /// tutorial](/docs/functions).
-    /// 
-    /// Use the "command" param to set the entry point used to execute your code.
-    ///
-    /// @param String functionId
-    /// @param String command
-    /// @param File code
-    /// @throws Exception
-    /// @return array
-    ///
-    open func createTag(
-        functionId: String,
-        command: String,
-        code: File,
-        completion: ((Result<AppwriteModels.Tag, AppwriteError>) -> Void)? = nil
-    ) {
-        var path: String = "/functions/{functionId}/tags"
-
-        path = path.replacingOccurrences(
-          of: "{functionId}",
-          with: functionId        )
-
-        let params: [String: Any?] = [
-            "command": command,
-            "code": code
-        ]
-
-        let headers: [String: String] = [
-            "content-type": "multipart/form-data"
-        ]
-
-        let convert: ([String: Any]) -> AppwriteModels.Tag = { dict in
-            return AppwriteModels.Tag.from(map: dict)
-        }
-
-        client.call(
-            method: "POST",
-            path: path,
-            headers: headers,
-            params: params,
-            convert: convert,
-            completion: completion
-        )
-    }
-
-    ///
-    /// Get Tag
-    ///
-    /// Get a code tag by its unique ID.
-    ///
-    /// @param String functionId
-    /// @param String tagId
-    /// @throws Exception
-    /// @return array
-    ///
-    open func getTag(
-        functionId: String,
-        tagId: String,
-        completion: ((Result<AppwriteModels.Tag, AppwriteError>) -> Void)? = nil
-    ) {
-        var path: String = "/functions/{functionId}/tags/{tagId}"
-
-        path = path.replacingOccurrences(
-          of: "{functionId}",
-          with: functionId        )
-
-        path = path.replacingOccurrences(
-          of: "{tagId}",
-          with: tagId        )
-
-        let params: [String: Any?] = [:]
-
-        let headers: [String: String] = [
-            "content-type": "application/json"
-        ]
-
-        let convert: ([String: Any]) -> AppwriteModels.Tag = { dict in
-            return AppwriteModels.Tag.from(map: dict)
-        }
-
-        client.call(
-            method: "GET",
-            path: path,
-            headers: headers,
-            params: params,
-            convert: convert,
-            completion: completion
-        )
-    }
-
-    ///
-    /// Delete Tag
-    ///
-    /// Delete a code tag by its unique ID.
-    ///
-    /// @param String functionId
-    /// @param String tagId
-    /// @throws Exception
-    /// @return array
-    ///
-    open func deleteTag(
-        functionId: String,
-        tagId: String,
-        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
-    ) {
-        var path: String = "/functions/{functionId}/tags/{tagId}"
-
-        path = path.replacingOccurrences(
-          of: "{functionId}",
-          with: functionId        )
-
-        path = path.replacingOccurrences(
-          of: "{tagId}",
-          with: tagId        )
-
-        let params: [String: Any?] = [:]
-
-        let headers: [String: String] = [
-            "content-type": "application/json"
-        ]
-
-        client.call(
-            method: "DELETE",
-            path: path,
-            headers: headers,
-            params: params,
             completion: completion
         )
     }

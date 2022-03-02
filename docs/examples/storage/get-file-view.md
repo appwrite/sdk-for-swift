@@ -8,6 +8,7 @@ func main() {
 
     let storage = Storage(client)
     storage.getFileView(
+        bucketId: "[BUCKET_ID]",
         fileId: "[FILE_ID]"
     ) { result in
         switch result {

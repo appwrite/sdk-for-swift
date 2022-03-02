@@ -30,7 +30,8 @@ open class Avatars: Service {
 
         path = path.replacingOccurrences(
           of: "{code}",
-          with: code        )
+          with: code        
+        )
 
         let params: [String: Any?] = [
             "width": width,
@@ -73,7 +74,8 @@ open class Avatars: Service {
 
         path = path.replacingOccurrences(
           of: "{code}",
-          with: code        )
+          with: code        
+        )
 
         let params: [String: Any?] = [
             "width": width,
@@ -147,7 +149,8 @@ open class Avatars: Service {
 
         path = path.replacingOccurrences(
           of: "{code}",
-          with: code        )
+          with: code        
+        )
 
         let params: [String: Any?] = [
             "width": width,

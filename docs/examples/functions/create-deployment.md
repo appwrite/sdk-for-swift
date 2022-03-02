@@ -7,16 +7,17 @@ func main() {
       .setKey("919c2d18fb5d4...a2ae413da83346ad2") // Your secret API key
 
     let functions = Functions(client)
-    functions.createTag(
+    functions.createDeployment(
         functionId: "[FUNCTION_ID]",
-        command: "[COMMAND]",
-        code: File(name: "image.jpg", buffer: yourByteBuffer)
+        entrypoint: "[ENTRYPOINT]",
+        code: File(name: "image.jpg", buffer: yourByteBuffer),
+        activate: xfalse
     ) { result in
         switch result {
         case .failure(let error):
             print(error.message)
-        case .success(let tag):
-            print(String(describing: tag)
+        case .success(let deployment):
+            print(String(describing: deployment)
         }
     }
 }

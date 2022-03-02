@@ -6,7 +6,7 @@ public class Function {
     public let id: String
 
     /// Execution permissions.
-    public let execute: String
+    public let execute: [Any]
 
     /// Function name.
     public let name: String
@@ -23,11 +23,11 @@ public class Function {
     /// Function execution runtime.
     public let runtime: String
 
-    /// Function active tag ID.
-    public let tag: String
+    /// Function&#039;s active deployment ID.
+    public let deployment: String
 
     /// Function environment variables.
-    public let vars: String
+    public let vars: [String : Any]
 
     /// Function trigger events.
     public let events: [Any]
@@ -46,14 +46,14 @@ public class Function {
 
     init(
         id: String,
-        execute: String,
+        execute: [Any],
         name: String,
         dateCreated: Int,
         dateUpdated: Int,
         status: String,
         runtime: String,
-        tag: String,
-        vars: String,
+        deployment: String,
+        vars: [String : Any],
         events: [Any],
         schedule: String,
         scheduleNext: Int,
@@ -67,7 +67,7 @@ public class Function {
         self.dateUpdated = dateUpdated
         self.status = status
         self.runtime = runtime
-        self.tag = tag
+        self.deployment = deployment
         self.vars = vars
         self.events = events
         self.schedule = schedule
@@ -79,14 +79,14 @@ public class Function {
     public static func from(map: [String: Any]) -> Function {
         return Function(
             id: map["$id"] as! String,
-            execute: map["execute"] as! String,
+            execute: map["execute"] as! [Any],
             name: map["name"] as! String,
             dateCreated: map["dateCreated"] as! Int,
             dateUpdated: map["dateUpdated"] as! Int,
             status: map["status"] as! String,
             runtime: map["runtime"] as! String,
-            tag: map["tag"] as! String,
-            vars: map["vars"] as! String,
+            deployment: map["deployment"] as! String,
+            vars: map["vars"] as! [String : Any],
             events: map["events"] as! [Any],
             schedule: map["schedule"] as! String,
             scheduleNext: map["scheduleNext"] as! Int,
@@ -104,7 +104,7 @@ public class Function {
             "dateUpdated": dateUpdated as Any,
             "status": status as Any,
             "runtime": runtime as Any,
-            "tag": tag as Any,
+            "deployment": deployment as Any,
             "vars": vars as Any,
             "events": events as Any,
             "schedule": schedule as Any,

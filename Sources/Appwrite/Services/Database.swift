@@ -126,7 +126,8 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         let params: [String: Any?] = [:]
 
@@ -175,7 +176,8 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         let params: [String: Any?] = [
             "name": name,
@@ -221,7 +223,8 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         let params: [String: Any?] = [:]
 
@@ -253,7 +256,8 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         let params: [String: Any?] = [:]
 
@@ -301,7 +305,8 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         let params: [String: Any?] = [
             "key": key,
@@ -354,7 +359,8 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         let params: [String: Any?] = [
             "key": key,
@@ -406,7 +412,8 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         let params: [String: Any?] = [
             "key": key,
@@ -444,9 +451,9 @@ open class Database: Service {
     /// @param String collectionId
     /// @param String key
     /// @param Bool required
-    /// @param String min
-    /// @param String max
-    /// @param String default
+    /// @param Double min
+    /// @param Double max
+    /// @param Double default
     /// @param Bool array
     /// @throws Exception
     /// @return array
@@ -455,9 +462,9 @@ open class Database: Service {
         collectionId: String,
         key: String,
         xrequired: Bool,
-        min: String? = nil,
-        max: String? = nil,
-        xdefault: String? = nil,
+        min: Double? = nil,
+        max: Double? = nil,
+        xdefault: Double? = nil,
         array: Bool? = nil,
         completion: ((Result<AppwriteModels.AttributeFloat, AppwriteError>) -> Void)? = nil
     ) {
@@ -465,7 +472,8 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         let params: [String: Any?] = [
             "key": key,
@@ -525,7 +533,8 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         let params: [String: Any?] = [
             "key": key,
@@ -580,7 +589,8 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         let params: [String: Any?] = [
             "key": key,
@@ -635,7 +645,8 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         let params: [String: Any?] = [
             "key": key,
@@ -689,7 +700,8 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         let params: [String: Any?] = [
             "key": key,
@@ -733,11 +745,13 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         path = path.replacingOccurrences(
           of: "{key}",
-          with: key        )
+          with: key        
+        )
 
         let params: [String: Any?] = [:]
 
@@ -771,11 +785,13 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         path = path.replacingOccurrences(
           of: "{key}",
-          with: key        )
+          with: key        
+        )
 
         let params: [String: Any?] = [:]
 
@@ -826,7 +842,8 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         let params: [String: Any?] = [
             "queries": queries,
@@ -884,7 +901,8 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         let params: [String: Any?] = [
             "documentId": documentId,
@@ -931,11 +949,13 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         path = path.replacingOccurrences(
           of: "{documentId}",
-          with: documentId        )
+          with: documentId        
+        )
 
         let params: [String: Any?] = [:]
 
@@ -983,11 +1003,13 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         path = path.replacingOccurrences(
           of: "{documentId}",
-          with: documentId        )
+          with: documentId        
+        )
 
         let params: [String: Any?] = [
             "data": data,
@@ -1034,11 +1056,13 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         path = path.replacingOccurrences(
           of: "{documentId}",
-          with: documentId        )
+          with: documentId        
+        )
 
         let params: [String: Any?] = [:]
 
@@ -1070,7 +1094,8 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         let params: [String: Any?] = [:]
 
@@ -1115,7 +1140,8 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         let params: [String: Any?] = [
             "key": key,
@@ -1159,11 +1185,13 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         path = path.replacingOccurrences(
           of: "{key}",
-          with: key        )
+          with: key        
+        )
 
         let params: [String: Any?] = [:]
 
@@ -1202,11 +1230,13 @@ open class Database: Service {
 
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId        )
+          with: collectionId        
+        )
 
         path = path.replacingOccurrences(
           of: "{key}",
-          with: key        )
+          with: key        
+        )
 
         let params: [String: Any?] = [:]
 

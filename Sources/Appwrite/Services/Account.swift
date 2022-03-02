@@ -490,7 +490,8 @@ open class Account: Service {
 
         path = path.replacingOccurrences(
           of: "{sessionId}",
-          with: sessionId        )
+          with: sessionId        
+        )
 
         let params: [String: Any?] = [:]
 
@@ -513,11 +514,50 @@ open class Account: Service {
     }
 
     ///
+    /// Update Session (Refresh Tokens)
+    ///
+    /// @param String sessionId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateSession(
+        sessionId: String,
+        completion: ((Result<AppwriteModels.Session, AppwriteError>) -> Void)? = nil
+    ) {
+        var path: String = "/account/sessions/{sessionId}"
+
+        path = path.replacingOccurrences(
+          of: "{sessionId}",
+          with: sessionId        
+        )
+
+        let params: [String: Any?] = [:]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let convert: ([String: Any]) -> AppwriteModels.Session = { dict in
+            return AppwriteModels.Session.from(map: dict)
+        }
+
+        client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            convert: convert,
+            completion: completion
+        )
+    }
+
+    ///
     /// Delete Account Session
     ///
     /// Use this endpoint to log out the currently logged in user from all their
     /// account sessions across all of their different devices. When using the
-    /// option id argument, only the session unique ID provider will be deleted.
+    /// Session ID argument, only the unique session ID provided is deleted.
+    /// 
     ///
     /// @param String sessionId
     /// @throws Exception
@@ -531,7 +571,8 @@ open class Account: Service {
 
         path = path.replacingOccurrences(
           of: "{sessionId}",
-          with: sessionId        )
+          with: sessionId        
+        )
 
         let params: [String: Any?] = [:]
 

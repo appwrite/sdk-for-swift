@@ -2,12 +2,12 @@
 
 ![Swift Package Manager](https://img.shields.io/github/v/release/appwrite/sdk-for-swift.svg?color=green&style=flat-square)
 ![License](https://img.shields.io/github/license/appwrite/sdk-for-swift.svg?style=flat-square)
-![Version](https://img.shields.io/badge/api%20version-0.12.1-blue.svg?style=flat-square)
+![Version](https://img.shields.io/badge/api%20version-0.13.0-blue.svg?style=flat-square)
 [![Build Status](https://img.shields.io/travis/com/appwrite/sdk-generator?style=flat-square)](https://travis-ci.com/appwrite/sdk-generator)
 [![Twitter Account](https://img.shields.io/twitter/follow/appwrite?color=00acee&label=twitter&style=flat-square)](https://twitter.com/appwrite)
 [![Discord](https://img.shields.io/discord/564160730845151244?label=discord&style=flat-square)](https://appwrite.io/discord)
 
-**This SDK is compatible with Appwrite server version 0.12.x. For older versions, please check [previous releases](https://github.com/appwrite/sdk-for-swift/releases).**
+**This SDK is compatible with Appwrite server version 0.13.x. For older versions, please check [previous releases](https://github.com/appwrite/sdk-for-swift/releases).**
 
  > This is the Swift SDK for integrating with Appwrite from your Swift server-side code. If you're looking for the Apple SDK you should check [appwrite/sdk-for-apple](https://github.com/appwrite/sdk-for-apple)
 
@@ -19,13 +19,13 @@ Appwrite is an open-source backend as a service server that abstract and simplif
 
 ### Xcode with Swift Package Manager
 
-The Appwrite Swift SDK is available via multiple package managers, including Swift Package Manager. In order to use the Appwrite Swift SDK from Xcode, select File > Swift Packages > **Add Package Dependency**
+The Appwrite Swift SDK is available via Swift Package Manager. In order to use the Appwrite Swift SDK from Xcode, select File > **Add Packages**
 
-In the dialog that appears, enter the Appwrite Swift SDK [package URL](git@github.com:appwrite/sdk-for-swift.git) and click **Next**.
+In the dialog that appears, enter the Appwrite Swift SDK [package URL](git@github.com:appwrite/sdk-for-swift.git) in the search field. Once found, select `sdk-for-apple`.
 
-Once the repository information is loaded, add your version rules and click **Next** again.
+On the right, select your version rules and ensure your desired target is selected in the **Add to Project** field.
 
-On the final screen, make sure you see `Appwrite` as a product selected for your target:
+Now click add package and you're done!
 
 ### Swift Package Manager
 

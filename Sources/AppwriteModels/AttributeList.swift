@@ -2,30 +2,30 @@
 /// Attributes List
 public class AttributeList {
 
-    /// Total sum of items in the list.
-    public let sum: Int
+    /// Total number of attributes in the given collection.
+    public let total: Int
 
     /// List of attributes.
     public let attributes: [Any]
 
     init(
-        sum: Int,
+        total: Int,
         attributes: [Any]
     ) {
-        self.sum = sum
+        self.total = total
         self.attributes = attributes
     }
 
     public static func from(map: [String: Any]) -> AttributeList {
         return AttributeList(
-            sum: map["sum"] as! Int,
+            total: map["total"] as! Int,
             attributes: map["attributes"] as! [Any]
         )
     }
 
     public func toMap() -> [String: Any] {
         return [
-            "sum": sum as Any,
+            "total": total as Any,
             "attributes": attributes as Any
         ]
     }
