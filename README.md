@@ -33,7 +33,7 @@ Add the package to your `Package.swift` dependencies:
 
 ```swift
     dependencies: [
-        .package(url: "git@github.com:appwrite/sdk-for-swift.git", from: "0.3.0"),
+        .package(url: "git@github.com:appwrite/sdk-for-swift.git", from: "0.3.1"),
     ],
 ```
 
@@ -44,7 +44,9 @@ Then add it to your target:
         .target(
             name: "YourAppTarget",
             dependencies: [
-                .product(name: "", package: "sdk-for-swift")
+                .product(name: "
+Deprecated: preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in /home/dlohani/Documents/projects/appwrite/appwrite_src/vendor/appwrite/sdk-generator/src/SDK/SDK.php on line 746
+", package: "sdk-for-swift")
             ]
         ),
 ```
