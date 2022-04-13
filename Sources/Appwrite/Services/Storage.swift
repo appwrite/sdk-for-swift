@@ -28,7 +28,6 @@ open class Storage: Service {
         orderType: String? = nil
     ) async throws -> AppwriteModels.BucketList {
         let path: String = "/storage/buckets"
-
         let params: [String: Any?] = [
             "search": search,
             "limit": limit,
@@ -37,21 +36,18 @@ open class Storage: Service {
             "cursorDirection": cursorDirection,
             "orderType": orderType
         ]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.BucketList = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.BucketList = { dict in
             return AppwriteModels.BucketList.from(map: dict)
         }
-
         return try await client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -86,7 +82,6 @@ open class Storage: Service {
         antivirus: Bool? = nil
     ) async throws -> AppwriteModels.Bucket {
         let path: String = "/storage/buckets"
-
         let params: [String: Any?] = [
             "bucketId": bucketId,
             "name": name,
@@ -99,21 +94,18 @@ open class Storage: Service {
             "encryption": encryption,
             "antivirus": antivirus
         ]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.Bucket = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.Bucket = { dict in
             return AppwriteModels.Bucket.from(map: dict)
         }
-
         return try await client.call(
             method: "POST",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -131,28 +123,23 @@ open class Storage: Service {
         bucketId: String
     ) async throws -> AppwriteModels.Bucket {
         var path: String = "/storage/buckets/{bucketId}"
-
         path = path.replacingOccurrences(
           of: "{bucketId}",
           with: bucketId
         )
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.Bucket = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.Bucket = { dict in
             return AppwriteModels.Bucket.from(map: dict)
         }
-
         return try await client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -187,12 +174,10 @@ open class Storage: Service {
         antivirus: Bool? = nil
     ) async throws -> AppwriteModels.Bucket {
         var path: String = "/storage/buckets/{bucketId}"
-
         path = path.replacingOccurrences(
           of: "{bucketId}",
           with: bucketId
         )
-
         let params: [String: Any?] = [
             "name": name,
             "permission": permission,
@@ -204,21 +189,18 @@ open class Storage: Service {
             "encryption": encryption,
             "antivirus": antivirus
         ]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.Bucket = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.Bucket = { dict in
             return AppwriteModels.Bucket.from(map: dict)
         }
-
         return try await client.call(
             method: "PUT",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -235,18 +217,14 @@ open class Storage: Service {
         bucketId: String
     ) async throws -> Any {
         var path: String = "/storage/buckets/{bucketId}"
-
         path = path.replacingOccurrences(
           of: "{bucketId}",
           with: bucketId
         )
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
         return try await client.call(
             method: "DELETE",
             path: path,
@@ -281,12 +259,10 @@ open class Storage: Service {
         orderType: String? = nil
     ) async throws -> AppwriteModels.FileList {
         var path: String = "/storage/buckets/{bucketId}/files"
-
         path = path.replacingOccurrences(
           of: "{bucketId}",
           with: bucketId
         )
-
         let params: [String: Any?] = [
             "search": search,
             "limit": limit,
@@ -295,21 +271,18 @@ open class Storage: Service {
             "cursorDirection": cursorDirection,
             "orderType": orderType
         ]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.FileList = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.FileList = { dict in
             return AppwriteModels.FileList.from(map: dict)
         }
-
         return try await client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -352,35 +325,31 @@ open class Storage: Service {
         onProgress: ((UploadProgress) -> Void)? = nil
     ) async throws -> AppwriteModels.File {
         var path: String = "/storage/buckets/{bucketId}/files"
-
         path = path.replacingOccurrences(
           of: "{bucketId}",
           with: bucketId
         )
-
         var params: [String: Any?] = [
             "fileId": fileId,
             "file": file,
             "read": read,
             "write": write
         ]
-
         var headers: [String: String] = [
             "content-type": "multipart/form-data"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.File = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.File = { dict in
             return AppwriteModels.File.from(map: dict)
         }
-
+        let idParamName: String? = "fileId"
         let paramName = "file"
-
         return try await client.chunkedUpload(
             path: path,
             headers: &headers,
             params: &params,
             paramName: paramName,
-            convert: convert,
+            idParamName: idParamName,
+            converter: converter,
             onProgress: onProgress
         )
     }
@@ -401,33 +370,27 @@ open class Storage: Service {
         fileId: String
     ) async throws -> AppwriteModels.File {
         var path: String = "/storage/buckets/{bucketId}/files/{fileId}"
-
         path = path.replacingOccurrences(
           of: "{bucketId}",
           with: bucketId
         )
-
         path = path.replacingOccurrences(
           of: "{fileId}",
           with: fileId
         )
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.File = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.File = { dict in
             return AppwriteModels.File.from(map: dict)
         }
-
         return try await client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -451,36 +414,30 @@ open class Storage: Service {
         write: [Any]? = nil
     ) async throws -> AppwriteModels.File {
         var path: String = "/storage/buckets/{bucketId}/files/{fileId}"
-
         path = path.replacingOccurrences(
           of: "{bucketId}",
           with: bucketId
         )
-
         path = path.replacingOccurrences(
           of: "{fileId}",
           with: fileId
         )
-
         let params: [String: Any?] = [
             "read": read,
             "write": write
         ]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.File = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.File = { dict in
             return AppwriteModels.File.from(map: dict)
         }
-
         return try await client.call(
             method: "PUT",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -500,23 +457,18 @@ open class Storage: Service {
         fileId: String
     ) async throws -> Any {
         var path: String = "/storage/buckets/{bucketId}/files/{fileId}"
-
         path = path.replacingOccurrences(
           of: "{bucketId}",
           with: bucketId
         )
-
         path = path.replacingOccurrences(
           of: "{fileId}",
           with: fileId
         )
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
         return try await client.call(
             method: "DELETE",
             path: path,
@@ -541,22 +493,18 @@ open class Storage: Service {
         fileId: String
     ) async throws -> ByteBuffer {
         var path: String = "/storage/buckets/{bucketId}/files/{fileId}/download"
-
         path = path.replacingOccurrences(
           of: "{bucketId}",
           with: bucketId
         )
-
         path = path.replacingOccurrences(
           of: "{fileId}",
           with: fileId
         )
-
         let params: [String: Any?] = [
             "project": client.config["project"],
             "key": client.config["key"]
         ]
-
         return try await client.call(
             method: "GET",
             path: path,
@@ -605,17 +553,14 @@ open class Storage: Service {
         output: String? = nil
     ) async throws -> ByteBuffer {
         var path: String = "/storage/buckets/{bucketId}/files/{fileId}/preview"
-
         path = path.replacingOccurrences(
           of: "{bucketId}",
           with: bucketId
         )
-
         path = path.replacingOccurrences(
           of: "{fileId}",
           with: fileId
         )
-
         let params: [String: Any?] = [
             "width": width,
             "height": height,
@@ -631,7 +576,6 @@ open class Storage: Service {
             "project": client.config["project"],
             "key": client.config["key"]
         ]
-
         return try await client.call(
             method: "GET",
             path: path,
@@ -656,22 +600,18 @@ open class Storage: Service {
         fileId: String
     ) async throws -> ByteBuffer {
         var path: String = "/storage/buckets/{bucketId}/files/{fileId}/view"
-
         path = path.replacingOccurrences(
           of: "{bucketId}",
           with: bucketId
         )
-
         path = path.replacingOccurrences(
           of: "{fileId}",
           with: fileId
         )
-
         let params: [String: Any?] = [
             "project": client.config["project"],
             "key": client.config["key"]
         ]
-
         return try await client.call(
             method: "GET",
             path: path,

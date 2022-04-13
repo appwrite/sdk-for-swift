@@ -15,23 +15,19 @@ open class Health: Service {
     open func get(
     ) async throws -> AppwriteModels.HealthStatus {
         let path: String = "/health"
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.HealthStatus = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.HealthStatus = { dict in
             return AppwriteModels.HealthStatus.from(map: dict)
         }
-
         return try await client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -46,23 +42,19 @@ open class Health: Service {
     open func getAntivirus(
     ) async throws -> AppwriteModels.HealthAntivirus {
         let path: String = "/health/anti-virus"
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.HealthAntivirus = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.HealthAntivirus = { dict in
             return AppwriteModels.HealthAntivirus.from(map: dict)
         }
-
         return try await client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -78,23 +70,19 @@ open class Health: Service {
     open func getCache(
     ) async throws -> AppwriteModels.HealthStatus {
         let path: String = "/health/cache"
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.HealthStatus = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.HealthStatus = { dict in
             return AppwriteModels.HealthStatus.from(map: dict)
         }
-
         return try await client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -109,23 +97,19 @@ open class Health: Service {
     open func getDB(
     ) async throws -> AppwriteModels.HealthStatus {
         let path: String = "/health/db"
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.HealthStatus = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.HealthStatus = { dict in
             return AppwriteModels.HealthStatus.from(map: dict)
         }
-
         return try await client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -142,23 +126,19 @@ open class Health: Service {
     open func getQueueCertificates(
     ) async throws -> AppwriteModels.HealthQueue {
         let path: String = "/health/queue/certificates"
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.HealthQueue = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.HealthQueue = { dict in
             return AppwriteModels.HealthQueue.from(map: dict)
         }
-
         return try await client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -171,23 +151,19 @@ open class Health: Service {
     open func getQueueFunctions(
     ) async throws -> AppwriteModels.HealthQueue {
         let path: String = "/health/queue/functions"
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.HealthQueue = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.HealthQueue = { dict in
             return AppwriteModels.HealthQueue.from(map: dict)
         }
-
         return try await client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -203,23 +179,19 @@ open class Health: Service {
     open func getQueueLogs(
     ) async throws -> AppwriteModels.HealthQueue {
         let path: String = "/health/queue/logs"
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.HealthQueue = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.HealthQueue = { dict in
             return AppwriteModels.HealthQueue.from(map: dict)
         }
-
         return try await client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -235,23 +207,19 @@ open class Health: Service {
     open func getQueueUsage(
     ) async throws -> AppwriteModels.HealthQueue {
         let path: String = "/health/queue/usage"
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.HealthQueue = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.HealthQueue = { dict in
             return AppwriteModels.HealthQueue.from(map: dict)
         }
-
         return try await client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -267,23 +235,19 @@ open class Health: Service {
     open func getQueueWebhooks(
     ) async throws -> AppwriteModels.HealthQueue {
         let path: String = "/health/queue/webhooks"
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.HealthQueue = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.HealthQueue = { dict in
             return AppwriteModels.HealthQueue.from(map: dict)
         }
-
         return try await client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -298,23 +262,19 @@ open class Health: Service {
     open func getStorageLocal(
     ) async throws -> AppwriteModels.HealthStatus {
         let path: String = "/health/storage/local"
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.HealthStatus = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.HealthStatus = { dict in
             return AppwriteModels.HealthStatus.from(map: dict)
         }
-
         return try await client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -335,23 +295,19 @@ open class Health: Service {
     open func getTime(
     ) async throws -> AppwriteModels.HealthTime {
         let path: String = "/health/time"
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.HealthTime = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.HealthTime = { dict in
             return AppwriteModels.HealthTime.from(map: dict)
         }
-
         return try await client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 

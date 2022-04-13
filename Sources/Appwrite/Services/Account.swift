@@ -15,23 +15,19 @@ open class Account: Service {
     open func get(
     ) async throws -> AppwriteModels.User {
         let path: String = "/account"
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.User = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.User = { dict in
             return AppwriteModels.User.from(map: dict)
         }
-
         return try await client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -50,13 +46,10 @@ open class Account: Service {
     open func delete(
     ) async throws -> Any {
         let path: String = "/account"
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
         return try await client.call(
             method: "DELETE",
             path: path,
@@ -86,26 +79,22 @@ open class Account: Service {
         password: String
     ) async throws -> AppwriteModels.User {
         let path: String = "/account/email"
-
         let params: [String: Any?] = [
             "email": email,
             "password": password
         ]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.User = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.User = { dict in
             return AppwriteModels.User.from(map: dict)
         }
-
         return try await client.call(
             method: "PATCH",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -125,26 +114,22 @@ open class Account: Service {
         offset: Int? = nil
     ) async throws -> AppwriteModels.LogList {
         let path: String = "/account/logs"
-
         let params: [String: Any?] = [
             "limit": limit,
             "offset": offset
         ]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.LogList = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.LogList = { dict in
             return AppwriteModels.LogList.from(map: dict)
         }
-
         return try await client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -161,25 +146,21 @@ open class Account: Service {
         name: String
     ) async throws -> AppwriteModels.User {
         let path: String = "/account/name"
-
         let params: [String: Any?] = [
             "name": name
         ]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.User = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.User = { dict in
             return AppwriteModels.User.from(map: dict)
         }
-
         return try await client.call(
             method: "PATCH",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -200,26 +181,22 @@ open class Account: Service {
         oldPassword: String? = nil
     ) async throws -> AppwriteModels.User {
         let path: String = "/account/password"
-
         let params: [String: Any?] = [
             "password": password,
             "oldPassword": oldPassword
         ]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.User = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.User = { dict in
             return AppwriteModels.User.from(map: dict)
         }
-
         return try await client.call(
             method: "PATCH",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -234,23 +211,19 @@ open class Account: Service {
     open func getPrefs(
     ) async throws -> AppwriteModels.Preferences {
         let path: String = "/account/prefs"
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.Preferences = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.Preferences = { dict in
             return AppwriteModels.Preferences.from(map: dict)
         }
-
         return try await client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -269,25 +242,21 @@ open class Account: Service {
         prefs: Any
     ) async throws -> AppwriteModels.User {
         let path: String = "/account/prefs"
-
         let params: [String: Any?] = [
             "prefs": prefs
         ]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.User = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.User = { dict in
             return AppwriteModels.User.from(map: dict)
         }
-
         return try await client.call(
             method: "PATCH",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -313,26 +282,22 @@ open class Account: Service {
         url: String
     ) async throws -> AppwriteModels.Token {
         let path: String = "/account/recovery"
-
         let params: [String: Any?] = [
             "email": email,
             "url": url
         ]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.Token = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.Token = { dict in
             return AppwriteModels.Token.from(map: dict)
         }
-
         return try await client.call(
             method: "POST",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -363,28 +328,24 @@ open class Account: Service {
         passwordAgain: String
     ) async throws -> AppwriteModels.Token {
         let path: String = "/account/recovery"
-
         let params: [String: Any?] = [
             "userId": userId,
             "secret": secret,
             "password": password,
             "passwordAgain": passwordAgain
         ]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.Token = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.Token = { dict in
             return AppwriteModels.Token.from(map: dict)
         }
-
         return try await client.call(
             method: "PUT",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -400,23 +361,19 @@ open class Account: Service {
     open func getSessions(
     ) async throws -> AppwriteModels.SessionList {
         let path: String = "/account/sessions"
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.SessionList = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.SessionList = { dict in
             return AppwriteModels.SessionList.from(map: dict)
         }
-
         return try await client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -432,13 +389,10 @@ open class Account: Service {
     open func deleteSessions(
     ) async throws -> Any {
         let path: String = "/account/sessions"
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
         return try await client.call(
             method: "DELETE",
             path: path,
@@ -460,28 +414,23 @@ open class Account: Service {
         sessionId: String
     ) async throws -> AppwriteModels.Session {
         var path: String = "/account/sessions/{sessionId}"
-
         path = path.replacingOccurrences(
           of: "{sessionId}",
           with: sessionId
         )
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.Session = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.Session = { dict in
             return AppwriteModels.Session.from(map: dict)
         }
-
         return try await client.call(
             method: "GET",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -496,28 +445,23 @@ open class Account: Service {
         sessionId: String
     ) async throws -> AppwriteModels.Session {
         var path: String = "/account/sessions/{sessionId}"
-
         path = path.replacingOccurrences(
           of: "{sessionId}",
           with: sessionId
         )
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.Session = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.Session = { dict in
             return AppwriteModels.Session.from(map: dict)
         }
-
         return try await client.call(
             method: "PATCH",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -537,18 +481,14 @@ open class Account: Service {
         sessionId: String
     ) async throws -> Any {
         var path: String = "/account/sessions/{sessionId}"
-
         path = path.replacingOccurrences(
           of: "{sessionId}",
           with: sessionId
         )
-
         let params: [String: Any?] = [:]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
         return try await client.call(
             method: "DELETE",
             path: path,
@@ -583,25 +523,21 @@ open class Account: Service {
         url: String
     ) async throws -> AppwriteModels.Token {
         let path: String = "/account/verification"
-
         let params: [String: Any?] = [
             "url": url
         ]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.Token = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.Token = { dict in
             return AppwriteModels.Token.from(map: dict)
         }
-
         return try await client.call(
             method: "POST",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 
@@ -623,26 +559,22 @@ open class Account: Service {
         secret: String
     ) async throws -> AppwriteModels.Token {
         let path: String = "/account/verification"
-
         let params: [String: Any?] = [
             "userId": userId,
             "secret": secret
         ]
-
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-
-        let convert: ([String: Any]) -> AppwriteModels.Token = { dict in
+        let converter: ([String: Any]) -> AppwriteModels.Token = { dict in
             return AppwriteModels.Token.from(map: dict)
         }
-
         return try await client.call(
             method: "PUT",
             path: path,
             headers: headers,
             params: params,
-            convert: convert
+            converter: converter
         )
     }
 

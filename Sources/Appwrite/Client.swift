@@ -20,7 +20,7 @@ open class Client {
 
     open var headers: [String: String] = [
         "content-type": "",
-        "x-sdk-version": "appwrite:swift:0.3.1",
+        "x-sdk-version": "appwrite:swift:0.4.0",
         "X-Appwrite-Response-Format": "0.13.0"
     ]
 
@@ -264,7 +264,7 @@ open class Client {
         headers: [String: String] = [:],
         params: [String: Any?] = [:],
         sink: ((ByteBuffer) -> Void)? = nil,
-        convert: (([String: Any]) -> T)? = nil
+        converter: (([String: Any]) -> T)? = nil
     ) async throws -> T {
         let validParams = params.filter { $0.value != nil }
 
@@ -283,12 +283,12 @@ open class Client {
         request.addDomainCookies()
 
         if "GET" == method {
-            return try await execute(request, convert: convert)
+            return try await execute(request, converter: converter)
         }
 
         try buildBody(for: &request, with: validParams)
 
-        return try await execute(request, withSink: sink, convert: convert)
+        return try await execute(request, withSink: sink, converter: converter)
     }
 
     private func buildBody(
@@ -305,7 +305,7 @@ open class Client {
     private func execute<T>(
         _ request: HTTPClientRequest,
         withSink bufferSink: ((ByteBuffer) -> Void)? = nil,
-        convert: (([String: Any]) -> T)? = nil
+        converter: (([String: Any]) -> T)? = nil
     ) async throws -> T {
         func complete(with response: HTTPClientResponse) async throws -> T {
             switch response.status.code {
@@ -325,7 +325,7 @@ open class Client {
                     let data = try await response.body.collect(upTo: Int.max)
                     let dict = try JSONSerialization.jsonObject(with: data) as? [String: Any]
 
-                    return convert?(dict!) ?? dict! as! T
+                    return converter?(dict!) ?? dict! as! T
                 }
             default:
                 var message = ""
@@ -366,7 +366,8 @@ open class Client {
         headers: inout [String: String],
         params: inout [String: Any?],
         paramName: String,
-        convert: (([String: Any]) -> T)? = nil,
+        idParamName: String? = nil,
+        converter: (([String: Any]) -> T)? = nil,
         onProgress: ((UploadProgress) -> Void)? = nil
     ) async throws -> T {
         let file = params[paramName] as! File
@@ -378,18 +379,31 @@ open class Client {
                 path: path,
                 headers: headers,
                 params: params,
-                convert: convert
+                converter: converter
             )
         }
 
-        var input = file.buffer
+        let input = file.buffer
         var offset = 0
         var result = [String:Any]()
 
-        while offset < size {
-            let slice = input.readSlice(length: Client.chunkSize)
-                ?? input.readSlice(length: Int(size - offset))
+        if idParamName != nil && params[idParamName!] as! String != "unique()" {
+            // Make a request to check if a file already exists
+            let map = try! await call(
+                method: "GET",
+                path: path + "/" + (params[idParamName!] as! String),
+                headers: headers,
+                params: [:],
+                converter: { return $0 }
+            )
+            let chunksUploaded = map["chunksUploaded"] as! Int
+            offset = min(size, (chunksUploaded * Client.chunkSize))
+        }
 
+        while offset < size {
+            let slice = input.getSlice(at: offset, length: Client.chunkSize)
+                ?? input.getSlice(at: offset, length: Int(size - offset))
+            
             params[paramName] = File(
                 name: file.name,
                 buffer: slice!
@@ -402,7 +416,7 @@ open class Client {
                 path: path,
                 headers: headers,
                 params: params,
-                convert: { return $0 }
+                converter: { return $0 }
             )
 
             offset += Client.chunkSize
@@ -416,7 +430,7 @@ open class Client {
             ))
         }
 
-        return convert!(result)
+        return converter!(result)
     }
 
     private static func randomBoundary() -> String {
