@@ -8,9 +8,14 @@ open class Avatars: Service {
     /// Get Browser Icon
     ///
     /// You can use this endpoint to show different browser icons to your users.
-    /// The code argument receives the browser code as it appears in your user
-    /// /account/sessions endpoint. Use width, height and quality arguments to
-    /// change the output settings.
+    /// The code argument receives the browser code as it appears in your user [GET
+    /// /account/sessions](/docs/client/account#accountGetSessions) endpoint. Use
+    /// width, height and quality arguments to change the output settings.
+    /// 
+    /// When one dimension is specified and the other is 0, the image is scaled
+    /// with preserved aspect ratio. If both dimensions are 0, the API provides an
+    /// image at source quality. If dimensions are not specified, the default size
+    /// of image returned is 100x100px.
     ///
     /// @param String code
     /// @param Int width
@@ -50,6 +55,12 @@ open class Avatars: Service {
     /// The credit card endpoint will return you the icon of the credit card
     /// provider you need. Use width, height and quality arguments to change the
     /// output settings.
+    /// 
+    /// When one dimension is specified and the other is 0, the image is scaled
+    /// with preserved aspect ratio. If both dimensions are 0, the API provides an
+    /// image at source quality. If dimensions are not specified, the default size
+    /// of image returned is 100x100px.
+    /// 
     ///
     /// @param String code
     /// @param Int width
@@ -116,6 +127,12 @@ open class Avatars: Service {
     /// You can use this endpoint to show different country flags icons to your
     /// users. The code argument receives the 2 letter country code. Use width,
     /// height and quality arguments to change the output settings.
+    /// 
+    /// When one dimension is specified and the other is 0, the image is scaled
+    /// with preserved aspect ratio. If both dimensions are 0, the API provides an
+    /// image at source quality. If dimensions are not specified, the default size
+    /// of image returned is 100x100px.
+    /// 
     ///
     /// @param String code
     /// @param Int width
@@ -156,6 +173,12 @@ open class Avatars: Service {
     /// you want. This endpoint is very useful if you need to crop and display
     /// remote images in your app or in case you want to make sure a 3rd party
     /// image is properly served using a TLS protocol.
+    /// 
+    /// When one dimension is specified and the other is 0, the image is scaled
+    /// with preserved aspect ratio. If both dimensions are 0, the API provides an
+    /// image at source quality. If dimensions are not specified, the default size
+    /// of image returned is 400x400px.
+    /// 
     ///
     /// @param String url
     /// @param Int width
@@ -196,6 +219,12 @@ open class Avatars: Service {
     /// default, a random theme will be selected. The random theme will persist for
     /// the user's initials when reloading the same theme will always return for
     /// the same initials.
+    /// 
+    /// When one dimension is specified and the other is 0, the image is scaled
+    /// with preserved aspect ratio. If both dimensions are 0, the API provides an
+    /// image at source quality. If dimensions are not specified, the default size
+    /// of image returned is 100x100px.
+    /// 
     ///
     /// @param String name
     /// @param Int width
@@ -234,6 +263,7 @@ open class Avatars: Service {
     ///
     /// Converts a given plain text to a QR code image. You can use the query
     /// parameters to change the size and style of the resulting image.
+    /// 
     ///
     /// @param String text
     /// @param Int size
@@ -269,9 +299,14 @@ open class Avatars: Service {
     /// Get Browser Icon
     ///
     /// You can use this endpoint to show different browser icons to your users.
-    /// The code argument receives the browser code as it appears in your user
-    /// /account/sessions endpoint. Use width, height and quality arguments to
-    /// change the output settings.
+    /// The code argument receives the browser code as it appears in your user [GET
+    /// /account/sessions](/docs/client/account#accountGetSessions) endpoint. Use
+    /// width, height and quality arguments to change the output settings.
+    /// 
+    /// When one dimension is specified and the other is 0, the image is scaled
+    /// with preserved aspect ratio. If both dimensions are 0, the API provides an
+    /// image at source quality. If dimensions are not specified, the default size
+    /// of image returned is 100x100px.
     ///
     /// @param String code
     /// @param Int width
@@ -309,6 +344,12 @@ open class Avatars: Service {
     /// The credit card endpoint will return you the icon of the credit card
     /// provider you need. Use width, height and quality arguments to change the
     /// output settings.
+    /// 
+    /// When one dimension is specified and the other is 0, the image is scaled
+    /// with preserved aspect ratio. If both dimensions are 0, the API provides an
+    /// image at source quality. If dimensions are not specified, the default size
+    /// of image returned is 100x100px.
+    /// 
     ///
     /// @param String code
     /// @param Int width
@@ -374,6 +415,12 @@ open class Avatars: Service {
     /// You can use this endpoint to show different country flags icons to your
     /// users. The code argument receives the 2 letter country code. Use width,
     /// height and quality arguments to change the output settings.
+    /// 
+    /// When one dimension is specified and the other is 0, the image is scaled
+    /// with preserved aspect ratio. If both dimensions are 0, the API provides an
+    /// image at source quality. If dimensions are not specified, the default size
+    /// of image returned is 100x100px.
+    /// 
     ///
     /// @param String code
     /// @param Int width
@@ -412,6 +459,12 @@ open class Avatars: Service {
     /// you want. This endpoint is very useful if you need to crop and display
     /// remote images in your app or in case you want to make sure a 3rd party
     /// image is properly served using a TLS protocol.
+    /// 
+    /// When one dimension is specified and the other is 0, the image is scaled
+    /// with preserved aspect ratio. If both dimensions are 0, the API provides an
+    /// image at source quality. If dimensions are not specified, the default size
+    /// of image returned is 400x400px.
+    /// 
     ///
     /// @param String url
     /// @param Int width
@@ -453,6 +506,12 @@ open class Avatars: Service {
     /// default, a random theme will be selected. The random theme will persist for
     /// the user's initials when reloading the same theme will always return for
     /// the same initials.
+    /// 
+    /// When one dimension is specified and the other is 0, the image is scaled
+    /// with preserved aspect ratio. If both dimensions are 0, the API provides an
+    /// image at source quality. If dimensions are not specified, the default size
+    /// of image returned is 100x100px.
+    /// 
     ///
     /// @param String name
     /// @param Int width
@@ -492,6 +551,7 @@ open class Avatars: Service {
     ///
     /// Converts a given plain text to a QR code image. You can use the query
     /// parameters to change the size and style of the resulting image.
+    /// 
     ///
     /// @param String text
     /// @param Int size

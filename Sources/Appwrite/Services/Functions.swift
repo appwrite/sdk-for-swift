@@ -106,7 +106,7 @@ open class Functions: Service {
     }
 
     ///
-    /// List the currently active function runtimes.
+    /// List runtimes
     ///
     /// Get a list of all runtimes that are currently active on your instance.
     ///
@@ -734,7 +734,7 @@ open class Functions: Service {
     }
 
     ///
-    /// List the currently active function runtimes.
+    /// List runtimes
     ///
     /// Get a list of all runtimes that are currently active on your instance.
     ///

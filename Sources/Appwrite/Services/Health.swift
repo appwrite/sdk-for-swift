@@ -196,34 +196,6 @@ open class Health: Service {
     }
 
     ///
-    /// Get Usage Queue
-    ///
-    /// Get the number of usage stats that are waiting to be processed in the
-    /// Appwrite internal queue server.
-    ///
-    /// @throws Exception
-    /// @return array
-    ///
-    open func getQueueUsage(
-    ) async throws -> AppwriteModels.HealthQueue {
-        let path: String = "/health/queue/usage"
-        let params: [String: Any?] = [:]
-        let headers: [String: String] = [
-            "content-type": "application/json"
-        ]
-        let converter: ([String: Any]) -> AppwriteModels.HealthQueue = { dict in
-            return AppwriteModels.HealthQueue.from(map: dict)
-        }
-        return try await client.call(
-            method: "GET",
-            path: path,
-            headers: headers,
-            params: params,
-            converter: converter
-        )
-    }
-
-    ///
     /// Get Webhooks Queue
     ///
     /// Get the number of webhooks that are waiting to be processed in the Appwrite
@@ -467,30 +439,6 @@ open class Health: Service {
         Task {
             do {
                 let result = try await getQueueLogs(
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Get Usage Queue
-    ///
-    /// Get the number of usage stats that are waiting to be processed in the
-    /// Appwrite internal queue server.
-    ///
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func getQueueUsage(
-        completion: ((Result<AppwriteModels.HealthQueue, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await getQueueUsage(
                 )
                 completion?(.success(result))
             } catch {

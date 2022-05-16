@@ -127,7 +127,11 @@ open class Users: Service {
     ///
     /// Delete User
     ///
-    /// Delete a user by its unique ID.
+    /// Delete a user by its unique ID, thereby releasing it's ID. Since ID is
+    /// released and can be reused, all user-related resources like documents or
+    /// storage files should be deleted before user deletion. If you want to keep
+    /// ID reserved, use the [updateStatus](/docs/server/users#usersUpdateStatus)
+    /// endpoint instead.
     ///
     /// @param String userId
     /// @throws Exception
@@ -219,6 +223,39 @@ open class Users: Service {
         ]
         let converter: ([String: Any]) -> AppwriteModels.LogList = { dict in
             return AppwriteModels.LogList.from(map: dict)
+        }
+        return try await client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get User Memberships
+    ///
+    /// Get the user membership list by its unique ID.
+    ///
+    /// @param String userId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getMemberships(
+        userId: String
+    ) async throws -> AppwriteModels.MembershipList {
+        var path: String = "/users/{userId}/memberships"
+        path = path.replacingOccurrences(
+          of: "{userId}",
+          with: userId
+        )
+        let params: [String: Any?] = [:]
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let converter: ([String: Any]) -> AppwriteModels.MembershipList = { dict in
+            return AppwriteModels.MembershipList.from(map: dict)
         }
         return try await client.call(
             method: "GET",
@@ -473,7 +510,8 @@ open class Users: Service {
     ///
     /// Update User Status
     ///
-    /// Update the user status by its unique ID.
+    /// Update the user status by its unique ID. Use this endpoint as an
+    /// alternative to deleting a user if you want to keep user's ID reserved.
     ///
     /// @param String userId
     /// @param Bool status
@@ -651,7 +689,11 @@ open class Users: Service {
     ///
     /// Delete User
     ///
-    /// Delete a user by its unique ID.
+    /// Delete a user by its unique ID, thereby releasing it's ID. Since ID is
+    /// released and can be reused, all user-related resources like documents or
+    /// storage files should be deleted before user deletion. If you want to keep
+    /// ID reserved, use the [updateStatus](/docs/server/users#usersUpdateStatus)
+    /// endpoint instead.
     ///
     /// @param String userId
     /// @throws Exception
@@ -727,6 +769,32 @@ open class Users: Service {
                     userId: userId,
                     limit: limit,
                     offset: offset
+                )
+                completion?(.success(result))
+            } catch {
+                completion?(.failure(error as! AppwriteError))
+            }
+        }
+    }
+
+    ///
+    /// Get User Memberships
+    ///
+    /// Get the user membership list by its unique ID.
+    ///
+    /// @param String userId
+    /// @throws Exception
+    /// @return array
+    ///
+    @available(*, deprecated, message: "Use the async overload instead")
+    open func getMemberships(
+        userId: String,
+        completion: ((Result<AppwriteModels.MembershipList, AppwriteError>) -> Void)? = nil
+    ) {
+        Task {
+            do {
+                let result = try await getMemberships(
+                    userId: userId
                 )
                 completion?(.success(result))
             } catch {
@@ -934,7 +1002,8 @@ open class Users: Service {
     ///
     /// Update User Status
     ///
-    /// Update the user status by its unique ID.
+    /// Update the user status by its unique ID. Use this endpoint as an
+    /// alternative to deleting a user if you want to keep user's ID reserved.
     ///
     /// @param String userId
     /// @param Bool status

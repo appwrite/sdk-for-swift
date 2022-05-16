@@ -32,32 +32,6 @@ open class Account: Service {
     }
 
     ///
-    /// Delete Account
-    ///
-    /// Delete a currently logged in user account. Behind the scene, the user
-    /// record is not deleted but permanently blocked from any access. This is done
-    /// to avoid deleted accounts being overtaken by new users with the same email
-    /// address. Any user-related resources like documents or storage files should
-    /// be deleted separately.
-    ///
-    /// @throws Exception
-    /// @return array
-    ///
-    open func delete(
-    ) async throws -> Any {
-        let path: String = "/account"
-        let params: [String: Any?] = [:]
-        let headers: [String: String] = [
-            "content-type": "application/json"
-        ]
-        return try await client.call(
-            method: "DELETE",
-            path: path,
-            headers: headers,
-            params: params        )
-    }
-
-    ///
     /// Update Account Email
     ///
     /// Update currently logged in user account email address. After changing user
@@ -169,7 +143,7 @@ open class Account: Service {
     ///
     /// Update currently logged in user password. For validation, user is required
     /// to pass in the new password, and the old password. For users created with
-    /// OAuth and Team Invites, oldPassword is optional.
+    /// OAuth, Team Invites and Magic URL, oldPassword is optional.
     ///
     /// @param String password
     /// @param String oldPassword
@@ -437,6 +411,10 @@ open class Account: Service {
     ///
     /// Update Session (Refresh Tokens)
     ///
+    /// Access tokens have limited lifespan and expire to mitigate security risks.
+    /// If session was created using an OAuth provider, this route can be used to
+    /// "refresh" the access token.
+    ///
     /// @param String sessionId
     /// @throws Exception
     /// @return array
@@ -494,6 +472,35 @@ open class Account: Service {
             path: path,
             headers: headers,
             params: params        )
+    }
+
+    ///
+    /// Update Account Status
+    ///
+    /// Block the currently logged in user account. Behind the scene, the user
+    /// record is not deleted but permanently blocked from any access. To
+    /// completely delete a user, use the Users API instead.
+    ///
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateStatus(
+    ) async throws -> AppwriteModels.User {
+        let path: String = "/account/status"
+        let params: [String: Any?] = [:]
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let converter: ([String: Any]) -> AppwriteModels.User = { dict in
+            return AppwriteModels.User.from(map: dict)
+        }
+        return try await client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
     }
 
     ///
@@ -603,33 +610,6 @@ open class Account: Service {
     }
 
     ///
-    /// Delete Account
-    ///
-    /// Delete a currently logged in user account. Behind the scene, the user
-    /// record is not deleted but permanently blocked from any access. This is done
-    /// to avoid deleted accounts being overtaken by new users with the same email
-    /// address. Any user-related resources like documents or storage files should
-    /// be deleted separately.
-    ///
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func delete(
-        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await delete(
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
     /// Update Account Email
     ///
     /// Update currently logged in user account email address. After changing user
@@ -726,7 +706,7 @@ open class Account: Service {
     ///
     /// Update currently logged in user password. For validation, user is required
     /// to pass in the new password, and the old password. For users created with
-    /// OAuth and Team Invites, oldPassword is optional.
+    /// OAuth, Team Invites and Magic URL, oldPassword is optional.
     ///
     /// @param String password
     /// @param String oldPassword
@@ -960,6 +940,10 @@ open class Account: Service {
     ///
     /// Update Session (Refresh Tokens)
     ///
+    /// Access tokens have limited lifespan and expire to mitigate security risks.
+    /// If session was created using an OAuth provider, this route can be used to
+    /// "refresh" the access token.
+    ///
     /// @param String sessionId
     /// @throws Exception
     /// @return array
@@ -1002,6 +986,31 @@ open class Account: Service {
             do {
                 let result = try await deleteSession(
                     sessionId: sessionId
+                )
+                completion?(.success(result))
+            } catch {
+                completion?(.failure(error as! AppwriteError))
+            }
+        }
+    }
+
+    ///
+    /// Update Account Status
+    ///
+    /// Block the currently logged in user account. Behind the scene, the user
+    /// record is not deleted but permanently blocked from any access. To
+    /// completely delete a user, use the Users API instead.
+    ///
+    /// @throws Exception
+    /// @return array
+    ///
+    @available(*, deprecated, message: "Use the async overload instead")
+    open func updateStatus(
+        completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil
+    ) {
+        Task {
+            do {
+                let result = try await updateStatus(
                 )
                 completion?(.success(result))
             } catch {
