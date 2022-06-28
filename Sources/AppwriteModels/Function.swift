@@ -5,17 +5,17 @@ public class Function {
     /// Function ID.
     public let id: String
 
+    /// Function creation date in Unix timestamp.
+    public let createdAt: Int
+
+    /// Function update date in Unix timestamp.
+    public let updatedAt: Int
+
     /// Execution permissions.
     public let execute: [Any]
 
     /// Function name.
     public let name: String
-
-    /// Function creation date in Unix timestamp.
-    public let dateCreated: Int
-
-    /// Function update date in Unix timestamp.
-    public let dateUpdated: Int
 
     /// Function status. Possible values: `disabled`, `enabled`
     public let status: String
@@ -46,10 +46,10 @@ public class Function {
 
     init(
         id: String,
+        createdAt: Int,
+        updatedAt: Int,
         execute: [Any],
         name: String,
-        dateCreated: Int,
-        dateUpdated: Int,
         status: String,
         runtime: String,
         deployment: String,
@@ -61,10 +61,10 @@ public class Function {
         timeout: Int
     ) {
         self.id = id
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
         self.execute = execute
         self.name = name
-        self.dateCreated = dateCreated
-        self.dateUpdated = dateUpdated
         self.status = status
         self.runtime = runtime
         self.deployment = deployment
@@ -79,10 +79,10 @@ public class Function {
     public static func from(map: [String: Any]) -> Function {
         return Function(
             id: map["$id"] as! String,
+            createdAt: map["$createdAt"] as! Int,
+            updatedAt: map["$updatedAt"] as! Int,
             execute: map["execute"] as! [Any],
             name: map["name"] as! String,
-            dateCreated: map["dateCreated"] as! Int,
-            dateUpdated: map["dateUpdated"] as! Int,
             status: map["status"] as! String,
             runtime: map["runtime"] as! String,
             deployment: map["deployment"] as! String,
@@ -98,10 +98,10 @@ public class Function {
     public func toMap() -> [String: Any] {
         return [
             "$id": id as Any,
+            "$createdAt": createdAt as Any,
+            "$updatedAt": updatedAt as Any,
             "execute": execute as Any,
             "name": name as Any,
-            "dateCreated": dateCreated as Any,
-            "dateUpdated": dateUpdated as Any,
             "status": status as Any,
             "runtime": runtime as Any,
             "deployment": deployment as Any,

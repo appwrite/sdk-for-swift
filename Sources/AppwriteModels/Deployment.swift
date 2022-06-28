@@ -5,14 +5,17 @@ public class Deployment {
     /// Deployment ID.
     public let id: String
 
+    /// Deployment creation date in Unix timestamp.
+    public let createdAt: Int
+
+    /// Deployment update date in Unix timestamp.
+    public let updatedAt: Int
+
     /// Resource ID.
     public let resourceId: String
 
     /// Resource type.
     public let resourceType: String
-
-    /// The deployment creation date in Unix timestamp.
-    public let dateCreated: Int
 
     /// The entrypoint file to use to execute the deployment code.
     public let entrypoint: String
@@ -37,9 +40,10 @@ public class Deployment {
 
     init(
         id: String,
+        createdAt: Int,
+        updatedAt: Int,
         resourceId: String,
         resourceType: String,
-        dateCreated: Int,
         entrypoint: String,
         size: Int,
         buildId: String,
@@ -49,9 +53,10 @@ public class Deployment {
         buildStderr: String
     ) {
         self.id = id
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
         self.resourceId = resourceId
         self.resourceType = resourceType
-        self.dateCreated = dateCreated
         self.entrypoint = entrypoint
         self.size = size
         self.buildId = buildId
@@ -64,9 +69,10 @@ public class Deployment {
     public static func from(map: [String: Any]) -> Deployment {
         return Deployment(
             id: map["$id"] as! String,
+            createdAt: map["$createdAt"] as! Int,
+            updatedAt: map["$updatedAt"] as! Int,
             resourceId: map["resourceId"] as! String,
             resourceType: map["resourceType"] as! String,
-            dateCreated: map["dateCreated"] as! Int,
             entrypoint: map["entrypoint"] as! String,
             size: map["size"] as! Int,
             buildId: map["buildId"] as! String,
@@ -80,9 +86,10 @@ public class Deployment {
     public func toMap() -> [String: Any] {
         return [
             "$id": id as Any,
+            "$createdAt": createdAt as Any,
+            "$updatedAt": updatedAt as Any,
             "resourceId": resourceId as Any,
             "resourceType": resourceType as Any,
-            "dateCreated": dateCreated as Any,
             "entrypoint": entrypoint as Any,
             "size": size as Any,
             "buildId": buildId as Any,
@@ -92,5 +99,5 @@ public class Deployment {
             "buildStderr": buildStderr as Any
         ]
     }
-                                                
+                                                    
 }

@@ -175,6 +175,43 @@ open class Account: Service {
     }
 
     ///
+    /// Update Account Phone
+    ///
+    /// Update currently logged in user account phone number. After changing phone
+    /// number, the user confirmation status will get reset. A new confirmation SMS
+    /// is not sent automatically however you can use the phone confirmation
+    /// endpoint again to send the confirmation SMS.
+    ///
+    /// @param String number
+    /// @param String password
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updatePhone(
+        number: String,
+        password: String
+    ) async throws -> AppwriteModels.User {
+        let path: String = "/account/phone"
+        let params: [String: Any?] = [
+            "number": number,
+            "password": password
+        ]
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let converter: ([String: Any]) -> AppwriteModels.User = { dict in
+            return AppwriteModels.User.from(map: dict)
+        }
+        return try await client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
     /// Get Account Preferences
     ///
     /// Get currently logged in user preferences as a key-value object.
@@ -513,8 +550,8 @@ open class Account: Service {
     /// should redirect the user back to your app and allow you to complete the
     /// verification process by verifying both the **userId** and **secret**
     /// parameters. Learn more about how to [complete the verification
-    /// process](/docs/client/account#accountUpdateVerification). The verification
-    /// link sent to the user's email address is valid for 7 days.
+    /// process](/docs/client/account#accountUpdateEmailVerification). The
+    /// verification link sent to the user's email address is valid for 7 days.
     /// 
     /// Please note that in order to avoid a [Redirect
     /// Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md),
@@ -566,6 +603,76 @@ open class Account: Service {
         secret: String
     ) async throws -> AppwriteModels.Token {
         let path: String = "/account/verification"
+        let params: [String: Any?] = [
+            "userId": userId,
+            "secret": secret
+        ]
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let converter: ([String: Any]) -> AppwriteModels.Token = { dict in
+            return AppwriteModels.Token.from(map: dict)
+        }
+        return try await client.call(
+            method: "PUT",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create Phone Verification
+    ///
+    /// Use this endpoint to send a verification message to your user's phone
+    /// number to confirm they are the valid owners of that address. The provided
+    /// secret should allow you to complete the verification process by verifying
+    /// both the **userId** and **secret** parameters. Learn more about how to
+    /// [complete the verification
+    /// process](/docs/client/account#accountUpdatePhoneVerification). The
+    /// verification link sent to the user's phone number is valid for 15 minutes.
+    ///
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createPhoneVerification(
+    ) async throws -> AppwriteModels.Token {
+        let path: String = "/account/verification/phone"
+        let params: [String: Any?] = [:]
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let converter: ([String: Any]) -> AppwriteModels.Token = { dict in
+            return AppwriteModels.Token.from(map: dict)
+        }
+        return try await client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create Phone Verification (confirmation)
+    ///
+    /// Use this endpoint to complete the user phone verification process. Use the
+    /// **userId** and **secret** that were sent to your user's phone number to
+    /// verify the user email ownership. If confirmed this route will return a 200
+    /// status code.
+    ///
+    /// @param String userId
+    /// @param String secret
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updatePhoneVerification(
+        userId: String,
+        secret: String
+    ) async throws -> AppwriteModels.Token {
+        let path: String = "/account/verification/phone"
         let params: [String: Any?] = [
             "userId": userId,
             "secret": secret
@@ -724,6 +831,38 @@ open class Account: Service {
                 let result = try await updatePassword(
                     password: password,
                     oldPassword: oldPassword
+                )
+                completion?(.success(result))
+            } catch {
+                completion?(.failure(error as! AppwriteError))
+            }
+        }
+    }
+
+    ///
+    /// Update Account Phone
+    ///
+    /// Update currently logged in user account phone number. After changing phone
+    /// number, the user confirmation status will get reset. A new confirmation SMS
+    /// is not sent automatically however you can use the phone confirmation
+    /// endpoint again to send the confirmation SMS.
+    ///
+    /// @param String number
+    /// @param String password
+    /// @throws Exception
+    /// @return array
+    ///
+    @available(*, deprecated, message: "Use the async overload instead")
+    open func updatePhone(
+        number: String,
+        password: String,
+        completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil
+    ) {
+        Task {
+            do {
+                let result = try await updatePhone(
+                    number: number,
+                    password: password
                 )
                 completion?(.success(result))
             } catch {
@@ -1029,8 +1168,8 @@ open class Account: Service {
     /// should redirect the user back to your app and allow you to complete the
     /// verification process by verifying both the **userId** and **secret**
     /// parameters. Learn more about how to [complete the verification
-    /// process](/docs/client/account#accountUpdateVerification). The verification
-    /// link sent to the user's email address is valid for 7 days.
+    /// process](/docs/client/account#accountUpdateEmailVerification). The
+    /// verification link sent to the user's email address is valid for 7 days.
     /// 
     /// Please note that in order to avoid a [Redirect
     /// Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md),
@@ -1081,6 +1220,67 @@ open class Account: Service {
         Task {
             do {
                 let result = try await updateVerification(
+                    userId: userId,
+                    secret: secret
+                )
+                completion?(.success(result))
+            } catch {
+                completion?(.failure(error as! AppwriteError))
+            }
+        }
+    }
+
+    ///
+    /// Create Phone Verification
+    ///
+    /// Use this endpoint to send a verification message to your user's phone
+    /// number to confirm they are the valid owners of that address. The provided
+    /// secret should allow you to complete the verification process by verifying
+    /// both the **userId** and **secret** parameters. Learn more about how to
+    /// [complete the verification
+    /// process](/docs/client/account#accountUpdatePhoneVerification). The
+    /// verification link sent to the user's phone number is valid for 15 minutes.
+    ///
+    /// @throws Exception
+    /// @return array
+    ///
+    @available(*, deprecated, message: "Use the async overload instead")
+    open func createPhoneVerification(
+        completion: ((Result<AppwriteModels.Token, AppwriteError>) -> Void)? = nil
+    ) {
+        Task {
+            do {
+                let result = try await createPhoneVerification(
+                )
+                completion?(.success(result))
+            } catch {
+                completion?(.failure(error as! AppwriteError))
+            }
+        }
+    }
+
+    ///
+    /// Create Phone Verification (confirmation)
+    ///
+    /// Use this endpoint to complete the user phone verification process. Use the
+    /// **userId** and **secret** that were sent to your user's phone number to
+    /// verify the user email ownership. If confirmed this route will return a 200
+    /// status code.
+    ///
+    /// @param String userId
+    /// @param String secret
+    /// @throws Exception
+    /// @return array
+    ///
+    @available(*, deprecated, message: "Use the async overload instead")
+    open func updatePhoneVerification(
+        userId: String,
+        secret: String,
+        completion: ((Result<AppwriteModels.Token, AppwriteError>) -> Void)? = nil
+    ) {
+        Task {
+            do {
+                let result = try await updatePhoneVerification(
                     userId: userId,
                     secret: secret
                 )

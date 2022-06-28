@@ -5,6 +5,12 @@ public class Bucket {
     /// Bucket ID.
     public let id: String
 
+    /// Bucket creation date in Unix timestamp.
+    public let createdAt: Int
+
+    /// Bucket update date in Unix timestamp.
+    public let updatedAt: Int
+
     /// File read permissions.
     public let read: [Any]
 
@@ -13,12 +19,6 @@ public class Bucket {
 
     /// Bucket permission model. Possible values: `bucket` or `file`
     public let permission: String
-
-    /// Bucket creation date in Unix timestamp.
-    public let dateCreated: Int
-
-    /// Bucket update date in Unix timestamp.
-    public let dateUpdated: Int
 
     /// Bucket name.
     public let name: String
@@ -40,11 +40,11 @@ public class Bucket {
 
     init(
         id: String,
+        createdAt: Int,
+        updatedAt: Int,
         read: [Any],
         write: [Any],
         permission: String,
-        dateCreated: Int,
-        dateUpdated: Int,
         name: String,
         enabled: Bool,
         maximumFileSize: Int,
@@ -53,11 +53,11 @@ public class Bucket {
         antivirus: Bool
     ) {
         self.id = id
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
         self.read = read
         self.write = write
         self.permission = permission
-        self.dateCreated = dateCreated
-        self.dateUpdated = dateUpdated
         self.name = name
         self.enabled = enabled
         self.maximumFileSize = maximumFileSize
@@ -69,11 +69,11 @@ public class Bucket {
     public static func from(map: [String: Any]) -> Bucket {
         return Bucket(
             id: map["$id"] as! String,
+            createdAt: map["$createdAt"] as! Int,
+            updatedAt: map["$updatedAt"] as! Int,
             read: map["$read"] as! [Any],
             write: map["$write"] as! [Any],
             permission: map["permission"] as! String,
-            dateCreated: map["dateCreated"] as! Int,
-            dateUpdated: map["dateUpdated"] as! Int,
             name: map["name"] as! String,
             enabled: map["enabled"] as! Bool,
             maximumFileSize: map["maximumFileSize"] as! Int,
@@ -86,11 +86,11 @@ public class Bucket {
     public func toMap() -> [String: Any] {
         return [
             "$id": id as Any,
+            "$createdAt": createdAt as Any,
+            "$updatedAt": updatedAt as Any,
             "$read": read as Any,
             "$write": write as Any,
             "permission": permission as Any,
-            "dateCreated": dateCreated as Any,
-            "dateUpdated": dateUpdated as Any,
             "name": name as Any,
             "enabled": enabled as Any,
             "maximumFileSize": maximumFileSize as Any,

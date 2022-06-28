@@ -314,7 +314,7 @@ open class Functions: Service {
     ///
     /// @param String functionId
     /// @param String entrypoint
-    /// @param File code
+    /// @param InputFile code
     /// @param Bool activate
     /// @throws Exception
     /// @return array
@@ -322,7 +322,7 @@ open class Functions: Service {
     open func createDeployment(
         functionId: String,
         entrypoint: String,
-        code: File,
+        code: InputFile,
         activate: Bool,
         onProgress: ((UploadProgress) -> Void)? = nil
     ) async throws -> AppwriteModels.Deployment {
@@ -913,7 +913,7 @@ open class Functions: Service {
     ///
     /// @param String functionId
     /// @param String entrypoint
-    /// @param File code
+    /// @param InputFile code
     /// @param Bool activate
     /// @throws Exception
     /// @return array
@@ -922,7 +922,7 @@ open class Functions: Service {
     open func createDeployment(
         functionId: String,
         entrypoint: String,
-        code: File,
+        code: InputFile,
         activate: Bool,
         onProgress: ((UploadProgress) -> Void)? = nil,
         completion: ((Result<AppwriteModels.Deployment, AppwriteError>) -> Void)? = nil

@@ -341,6 +341,43 @@ open class Users: Service {
     }
 
     ///
+    /// Update Phone
+    ///
+    /// Update the user phone by its unique ID.
+    ///
+    /// @param String userId
+    /// @param String number
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updatePhone(
+        userId: String,
+        number: String
+    ) async throws -> AppwriteModels.User {
+        var path: String = "/users/{userId}/phone"
+        path = path.replacingOccurrences(
+          of: "{userId}",
+          with: userId
+        )
+        let params: [String: Any?] = [
+            "number": number
+        ]
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let converter: ([String: Any]) -> AppwriteModels.User = { dict in
+            return AppwriteModels.User.from(map: dict)
+        }
+        return try await client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
     /// Get User Preferences
     ///
     /// Get the user preferences by its unique ID.
@@ -555,7 +592,7 @@ open class Users: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updateVerification(
+    open func updateEmailVerification(
         userId: String,
         emailVerification: Bool
     ) async throws -> AppwriteModels.User {
@@ -566,6 +603,43 @@ open class Users: Service {
         )
         let params: [String: Any?] = [
             "emailVerification": emailVerification
+        ]
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let converter: ([String: Any]) -> AppwriteModels.User = { dict in
+            return AppwriteModels.User.from(map: dict)
+        }
+        return try await client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update Phone Verification
+    ///
+    /// Update the user phone verification status by its unique ID.
+    ///
+    /// @param String userId
+    /// @param Bool phoneVerification
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updatePhoneVerification(
+        userId: String,
+        phoneVerification: Bool
+    ) async throws -> AppwriteModels.User {
+        var path: String = "/users/{userId}/verification/phone"
+        path = path.replacingOccurrences(
+          of: "{userId}",
+          with: userId
+        )
+        let params: [String: Any?] = [
+            "phoneVerification": phoneVerification
         ]
         let headers: [String: String] = [
             "content-type": "application/json"
@@ -862,6 +936,35 @@ open class Users: Service {
     }
 
     ///
+    /// Update Phone
+    ///
+    /// Update the user phone by its unique ID.
+    ///
+    /// @param String userId
+    /// @param String number
+    /// @throws Exception
+    /// @return array
+    ///
+    @available(*, deprecated, message: "Use the async overload instead")
+    open func updatePhone(
+        userId: String,
+        number: String,
+        completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil
+    ) {
+        Task {
+            do {
+                let result = try await updatePhone(
+                    userId: userId,
+                    number: number
+                )
+                completion?(.success(result))
+            } catch {
+                completion?(.failure(error as! AppwriteError))
+            }
+        }
+    }
+
+    ///
     /// Get User Preferences
     ///
     /// Get the user preferences by its unique ID.
@@ -1040,16 +1143,45 @@ open class Users: Service {
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
-    open func updateVerification(
+    open func updateEmailVerification(
         userId: String,
         emailVerification: Bool,
         completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
-                let result = try await updateVerification(
+                let result = try await updateEmailVerification(
                     userId: userId,
                     emailVerification: emailVerification
+                )
+                completion?(.success(result))
+            } catch {
+                completion?(.failure(error as! AppwriteError))
+            }
+        }
+    }
+
+    ///
+    /// Update Phone Verification
+    ///
+    /// Update the user phone verification status by its unique ID.
+    ///
+    /// @param String userId
+    /// @param Bool phoneVerification
+    /// @throws Exception
+    /// @return array
+    ///
+    @available(*, deprecated, message: "Use the async overload instead")
+    open func updatePhoneVerification(
+        userId: String,
+        phoneVerification: Bool,
+        completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil
+    ) {
+        Task {
+            do {
+                let result = try await updatePhoneVerification(
+                    userId: userId,
+                    phoneVerification: phoneVerification
                 )
                 completion?(.success(result))
             } catch {

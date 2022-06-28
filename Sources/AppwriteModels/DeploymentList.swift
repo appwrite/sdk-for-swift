@@ -29,5 +29,5 @@ public class DeploymentList {
             "deployments": deployments.map { $0.toMap() } as Any
         ]
     }
-                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                
 }

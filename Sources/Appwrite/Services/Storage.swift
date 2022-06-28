@@ -310,7 +310,7 @@ open class Storage: Service {
     ///
     /// @param String bucketId
     /// @param String fileId
-    /// @param File file
+    /// @param InputFile file
     /// @param [Any] read
     /// @param [Any] write
     /// @throws Exception
@@ -319,7 +319,7 @@ open class Storage: Service {
     open func createFile(
         bucketId: String,
         fileId: String,
-        file: File,
+        file: InputFile,
         read: [Any]? = nil,
         write: [Any]? = nil,
         onProgress: ((UploadProgress) -> Void)? = nil
@@ -891,7 +891,7 @@ open class Storage: Service {
     ///
     /// @param String bucketId
     /// @param String fileId
-    /// @param File file
+    /// @param InputFile file
     /// @param [Any] read
     /// @param [Any] write
     /// @throws Exception
@@ -901,7 +901,7 @@ open class Storage: Service {
     open func createFile(
         bucketId: String,
         fileId: String,
-        file: File,
+        file: InputFile,
         read: [Any]? = nil,
         write: [Any]? = nil,
         onProgress: ((UploadProgress) -> Void)? = nil,
