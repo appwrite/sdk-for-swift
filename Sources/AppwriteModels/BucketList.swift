@@ -29,5 +29,5 @@ public class BucketList {
             "buckets": buckets.map { $0.toMap() } as Any
         ]
     }
-                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                            
 }

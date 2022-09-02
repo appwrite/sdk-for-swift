@@ -15,18 +15,18 @@ public class AttributeBoolean {
     public let xrequired: Bool
 
     /// Is attribute an array?
-    public let array: Bool?
+    public let array: Bool
 
     /// Default value for attribute when not provided. Cannot be set when attribute is required.
-    public let xdefault: Bool?
+    public let xdefault: Bool
 
     init(
         key: String,
         type: String,
         status: String,
         xrequired: Bool,
-        array: Bool?,
-        xdefault: Bool?
+        array: Bool,
+        xdefault: Bool
     ) {
         self.key = key
         self.type = type
@@ -42,8 +42,8 @@ public class AttributeBoolean {
             type: map["type"] as! String,
             status: map["status"] as! String,
             xrequired: map["required"] as! Bool,
-            array: map["array"] as? Bool,
-            xdefault: map["default"] as? Bool
+            array: map["array"] as! Bool,
+            xdefault: map["default"] as! Bool
         )
     }
 

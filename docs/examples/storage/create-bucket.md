@@ -9,7 +9,7 @@ func main() async throws {
     let bucket = try await storage.createBucket(
         bucketId: "[BUCKET_ID]",
         name: "[NAME]",
-        permission: "file"
+        fileSecurity: xfalse
     )
 
     print(String(describing: bucket)

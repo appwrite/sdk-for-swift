@@ -5,20 +5,17 @@ public class Bucket {
     /// Bucket ID.
     public let id: String
 
-    /// Bucket creation date in Unix timestamp.
-    public let createdAt: Int
+    /// Bucket creation time in Datetime
+    public let createdAt: String
 
-    /// Bucket update date in Unix timestamp.
-    public let updatedAt: Int
+    /// Bucket update date in Datetime
+    public let updatedAt: String
 
-    /// File read permissions.
-    public let read: [Any]
+    /// Bucket permissions. [Learn more about permissions](/docs/permissions).
+    public let permissions: [Any]
 
-    /// File write permissions.
-    public let write: [Any]
-
-    /// Bucket permission model. Possible values: `bucket` or `file`
-    public let permission: String
+    /// Whether file-level security is enabled. [Learn more about permissions](/docs/permissions).
+    public let fileSecurity: String
 
     /// Bucket name.
     public let name: String
@@ -32,6 +29,9 @@ public class Bucket {
     /// Allowed file extensions.
     public let allowedFileExtensions: [Any]
 
+    /// Compression algorithm choosen for compression. Will be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd).
+    public let compression: String
+
     /// Bucket is encrypted.
     public let encryption: Bool
 
@@ -40,28 +40,28 @@ public class Bucket {
 
     init(
         id: String,
-        createdAt: Int,
-        updatedAt: Int,
-        read: [Any],
-        write: [Any],
-        permission: String,
+        createdAt: String,
+        updatedAt: String,
+        permissions: [Any],
+        fileSecurity: String,
         name: String,
         enabled: Bool,
         maximumFileSize: Int,
         allowedFileExtensions: [Any],
+        compression: String,
         encryption: Bool,
         antivirus: Bool
     ) {
         self.id = id
         self.createdAt = createdAt
         self.updatedAt = updatedAt
-        self.read = read
-        self.write = write
-        self.permission = permission
+        self.permissions = permissions
+        self.fileSecurity = fileSecurity
         self.name = name
         self.enabled = enabled
         self.maximumFileSize = maximumFileSize
         self.allowedFileExtensions = allowedFileExtensions
+        self.compression = compression
         self.encryption = encryption
         self.antivirus = antivirus
     }
@@ -69,15 +69,15 @@ public class Bucket {
     public static func from(map: [String: Any]) -> Bucket {
         return Bucket(
             id: map["$id"] as! String,
-            createdAt: map["$createdAt"] as! Int,
-            updatedAt: map["$updatedAt"] as! Int,
-            read: map["$read"] as! [Any],
-            write: map["$write"] as! [Any],
-            permission: map["permission"] as! String,
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String,
+            permissions: map["$permissions"] as! [Any],
+            fileSecurity: map["fileSecurity"] as! String,
             name: map["name"] as! String,
             enabled: map["enabled"] as! Bool,
             maximumFileSize: map["maximumFileSize"] as! Int,
             allowedFileExtensions: map["allowedFileExtensions"] as! [Any],
+            compression: map["compression"] as! String,
             encryption: map["encryption"] as! Bool,
             antivirus: map["antivirus"] as! Bool
         )
@@ -88,13 +88,13 @@ public class Bucket {
             "$id": id as Any,
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
-            "$read": read as Any,
-            "$write": write as Any,
-            "permission": permission as Any,
+            "$permissions": permissions as Any,
+            "fileSecurity": fileSecurity as Any,
             "name": name as Any,
             "enabled": enabled as Any,
             "maximumFileSize": maximumFileSize as Any,
             "allowedFileExtensions": allowedFileExtensions as Any,
+            "compression": compression as Any,
             "encryption": encryption as Any,
             "antivirus": antivirus as Any
         ]

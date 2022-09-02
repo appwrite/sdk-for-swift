@@ -5,11 +5,11 @@ public class Function {
     /// Function ID.
     public let id: String
 
-    /// Function creation date in Unix timestamp.
-    public let createdAt: Int
+    /// Function creation date in Datetime
+    public let createdAt: String
 
-    /// Function update date in Unix timestamp.
-    public let updatedAt: Int
+    /// Function update date in Datetime
+    public let updatedAt: String
 
     /// Execution permissions.
     public let execute: [Any]
@@ -26,8 +26,8 @@ public class Function {
     /// Function&#039;s active deployment ID.
     public let deployment: String
 
-    /// Function environment variables.
-    public let vars: [String : Any]
+    /// Function variables.
+    public let vars: [Variable]
 
     /// Function trigger events.
     public let events: [Any]
@@ -35,29 +35,29 @@ public class Function {
     /// Function execution schedult in CRON format.
     public let schedule: String
 
-    /// Function next scheduled execution date in Unix timestamp.
-    public let scheduleNext: Int
+    /// Function&#039;s next scheduled execution time in Datetime.
+    public let scheduleNext: String
 
-    /// Function next scheduled execution date in Unix timestamp.
-    public let schedulePrevious: Int
+    /// Function&#039;s previous scheduled execution time in Datetime.
+    public let schedulePrevious: String
 
     /// Function execution timeout in seconds.
     public let timeout: Int
 
     init(
         id: String,
-        createdAt: Int,
-        updatedAt: Int,
+        createdAt: String,
+        updatedAt: String,
         execute: [Any],
         name: String,
         status: String,
         runtime: String,
         deployment: String,
-        vars: [String : Any],
+        vars: [Variable],
         events: [Any],
         schedule: String,
-        scheduleNext: Int,
-        schedulePrevious: Int,
+        scheduleNext: String,
+        schedulePrevious: String,
         timeout: Int
     ) {
         self.id = id
@@ -79,18 +79,18 @@ public class Function {
     public static func from(map: [String: Any]) -> Function {
         return Function(
             id: map["$id"] as! String,
-            createdAt: map["$createdAt"] as! Int,
-            updatedAt: map["$updatedAt"] as! Int,
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String,
             execute: map["execute"] as! [Any],
             name: map["name"] as! String,
             status: map["status"] as! String,
             runtime: map["runtime"] as! String,
             deployment: map["deployment"] as! String,
-            vars: map["vars"] as! [String : Any],
+            vars: (map["vars"] as! [[String: Any]]).map { Variable.from(map: $0) },
             events: map["events"] as! [Any],
             schedule: map["schedule"] as! String,
-            scheduleNext: map["scheduleNext"] as! Int,
-            schedulePrevious: map["schedulePrevious"] as! Int,
+            scheduleNext: map["scheduleNext"] as! String,
+            schedulePrevious: map["schedulePrevious"] as! String,
             timeout: map["timeout"] as! Int
         )
     }
@@ -105,7 +105,7 @@ public class Function {
             "status": status as Any,
             "runtime": runtime as Any,
             "deployment": deployment as Any,
-            "vars": vars as Any,
+            "vars": vars.map { $0.toMap() } as Any,
             "events": events as Any,
             "schedule": schedule as Any,
             "scheduleNext": scheduleNext as Any,
@@ -113,5 +113,5 @@ public class Function {
             "timeout": timeout as Any
         ]
     }
-                                                            
+                                                                                                                                                                                                                                                                                                                                            
 }

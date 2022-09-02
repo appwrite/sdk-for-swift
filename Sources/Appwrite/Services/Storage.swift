@@ -10,32 +10,21 @@ open class Storage: Service {
     /// Get a list of all the storage buckets. You can use the query params to
     /// filter your results.
     ///
+    /// @param [String] queries
     /// @param String search
-    /// @param Int limit
-    /// @param Int offset
-    /// @param String cursor
-    /// @param String cursorDirection
-    /// @param String orderType
     /// @throws Exception
     /// @return array
     ///
     open func listBuckets(
-        search: String? = nil,
-        limit: Int? = nil,
-        offset: Int? = nil,
-        cursor: String? = nil,
-        cursorDirection: String? = nil,
-        orderType: String? = nil
+        queries: [String]? = nil,
+        search: String? = nil
     ) async throws -> AppwriteModels.BucketList {
         let path: String = "/storage/buckets"
         let params: [String: Any?] = [
-            "search": search,
-            "limit": limit,
-            "offset": offset,
-            "cursor": cursor,
-            "cursorDirection": cursorDirection,
-            "orderType": orderType
+            "queries": queries,
+            "search": search
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -58,12 +47,12 @@ open class Storage: Service {
     ///
     /// @param String bucketId
     /// @param String name
-    /// @param String permission
-    /// @param [Any] read
-    /// @param [Any] write
+    /// @param Bool fileSecurity
+    /// @param [String] permissions
     /// @param Bool enabled
     /// @param Int maximumFileSize
-    /// @param [Any] allowedFileExtensions
+    /// @param [String] allowedFileExtensions
+    /// @param String compression
     /// @param Bool encryption
     /// @param Bool antivirus
     /// @throws Exception
@@ -72,12 +61,12 @@ open class Storage: Service {
     open func createBucket(
         bucketId: String,
         name: String,
-        permission: String,
-        read: [Any]? = nil,
-        write: [Any]? = nil,
+        fileSecurity: Bool,
+        permissions: [String]? = nil,
         enabled: Bool? = nil,
         maximumFileSize: Int? = nil,
-        allowedFileExtensions: [Any]? = nil,
+        allowedFileExtensions: [String]? = nil,
+        compression: String? = nil,
         encryption: Bool? = nil,
         antivirus: Bool? = nil
     ) async throws -> AppwriteModels.Bucket {
@@ -85,15 +74,16 @@ open class Storage: Service {
         let params: [String: Any?] = [
             "bucketId": bucketId,
             "name": name,
-            "permission": permission,
-            "read": read,
-            "write": write,
+            "permissions": permissions,
+            "fileSecurity": fileSecurity,
             "enabled": enabled,
             "maximumFileSize": maximumFileSize,
             "allowedFileExtensions": allowedFileExtensions,
+            "compression": compression,
             "encryption": encryption,
             "antivirus": antivirus
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -125,9 +115,9 @@ open class Storage: Service {
         var path: String = "/storage/buckets/{bucketId}"
         path = path.replacingOccurrences(
           of: "{bucketId}",
-          with: bucketId
-        )
+          with: bucketId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -150,12 +140,12 @@ open class Storage: Service {
     ///
     /// @param String bucketId
     /// @param String name
-    /// @param String permission
-    /// @param [Any] read
-    /// @param [Any] write
+    /// @param Bool fileSecurity
+    /// @param [String] permissions
     /// @param Bool enabled
     /// @param Int maximumFileSize
-    /// @param [Any] allowedFileExtensions
+    /// @param [String] allowedFileExtensions
+    /// @param String compression
     /// @param Bool encryption
     /// @param Bool antivirus
     /// @throws Exception
@@ -164,31 +154,31 @@ open class Storage: Service {
     open func updateBucket(
         bucketId: String,
         name: String,
-        permission: String,
-        read: [Any]? = nil,
-        write: [Any]? = nil,
+        fileSecurity: Bool,
+        permissions: [String]? = nil,
         enabled: Bool? = nil,
         maximumFileSize: Int? = nil,
-        allowedFileExtensions: [Any]? = nil,
+        allowedFileExtensions: [String]? = nil,
+        compression: String? = nil,
         encryption: Bool? = nil,
         antivirus: Bool? = nil
     ) async throws -> AppwriteModels.Bucket {
         var path: String = "/storage/buckets/{bucketId}"
         path = path.replacingOccurrences(
           of: "{bucketId}",
-          with: bucketId
-        )
+          with: bucketId        )
         let params: [String: Any?] = [
             "name": name,
-            "permission": permission,
-            "read": read,
-            "write": write,
+            "permissions": permissions,
+            "fileSecurity": fileSecurity,
             "enabled": enabled,
             "maximumFileSize": maximumFileSize,
             "allowedFileExtensions": allowedFileExtensions,
+            "compression": compression,
             "encryption": encryption,
             "antivirus": antivirus
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -219,9 +209,9 @@ open class Storage: Service {
         var path: String = "/storage/buckets/{bucketId}"
         path = path.replacingOccurrences(
           of: "{bucketId}",
-          with: bucketId
-        )
+          with: bucketId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -240,37 +230,25 @@ open class Storage: Service {
     /// project's files. [Learn more about different API modes](/docs/admin).
     ///
     /// @param String bucketId
+    /// @param [String] queries
     /// @param String search
-    /// @param Int limit
-    /// @param Int offset
-    /// @param String cursor
-    /// @param String cursorDirection
-    /// @param String orderType
     /// @throws Exception
     /// @return array
     ///
     open func listFiles(
         bucketId: String,
-        search: String? = nil,
-        limit: Int? = nil,
-        offset: Int? = nil,
-        cursor: String? = nil,
-        cursorDirection: String? = nil,
-        orderType: String? = nil
+        queries: [String]? = nil,
+        search: String? = nil
     ) async throws -> AppwriteModels.FileList {
         var path: String = "/storage/buckets/{bucketId}/files"
         path = path.replacingOccurrences(
           of: "{bucketId}",
-          with: bucketId
-        )
+          with: bucketId        )
         let params: [String: Any?] = [
-            "search": search,
-            "limit": limit,
-            "offset": offset,
-            "cursor": cursor,
-            "cursorDirection": cursorDirection,
-            "orderType": orderType
+            "queries": queries,
+            "search": search
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -291,8 +269,8 @@ open class Storage: Service {
     ///
     /// Create a new file. Before using this route, you should create a new bucket
     /// resource using either a [server
-    /// integration](/docs/server/database#storageCreateBucket) API or directly
-    /// from your Appwrite console.
+    /// integration](/docs/server/storage#storageCreateBucket) API or directly from
+    /// your Appwrite console.
     /// 
     /// Larger files should be uploaded using multiple requests with the
     /// [content-range](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Range)
@@ -311,8 +289,7 @@ open class Storage: Service {
     /// @param String bucketId
     /// @param String fileId
     /// @param InputFile file
-    /// @param [Any] read
-    /// @param [Any] write
+    /// @param [String] permissions
     /// @throws Exception
     /// @return array
     ///
@@ -320,21 +297,19 @@ open class Storage: Service {
         bucketId: String,
         fileId: String,
         file: InputFile,
-        read: [Any]? = nil,
-        write: [Any]? = nil,
+        permissions: [String]? = nil,
         onProgress: ((UploadProgress) -> Void)? = nil
     ) async throws -> AppwriteModels.File {
         var path: String = "/storage/buckets/{bucketId}/files"
         path = path.replacingOccurrences(
           of: "{bucketId}",
-          with: bucketId
-        )
+          with: bucketId        )
         var params: [String: Any?] = [
             "fileId": fileId,
             "file": file,
-            "read": read,
-            "write": write
+            "permissions": permissions
         ]
+
         var headers: [String: String] = [
             "content-type": "multipart/form-data"
         ]
@@ -372,13 +347,12 @@ open class Storage: Service {
         var path: String = "/storage/buckets/{bucketId}/files/{fileId}"
         path = path.replacingOccurrences(
           of: "{bucketId}",
-          with: bucketId
-        )
+          with: bucketId        )
         path = path.replacingOccurrences(
           of: "{fileId}",
-          with: fileId
-        )
+          with: fileId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -402,30 +376,26 @@ open class Storage: Service {
     ///
     /// @param String bucketId
     /// @param String fileId
-    /// @param [Any] read
-    /// @param [Any] write
+    /// @param [String] permissions
     /// @throws Exception
     /// @return array
     ///
     open func updateFile(
         bucketId: String,
         fileId: String,
-        read: [Any]? = nil,
-        write: [Any]? = nil
+        permissions: [String]? = nil
     ) async throws -> AppwriteModels.File {
         var path: String = "/storage/buckets/{bucketId}/files/{fileId}"
         path = path.replacingOccurrences(
           of: "{bucketId}",
-          with: bucketId
-        )
+          with: bucketId        )
         path = path.replacingOccurrences(
           of: "{fileId}",
-          with: fileId
-        )
+          with: fileId        )
         let params: [String: Any?] = [
-            "read": read,
-            "write": write
+            "permissions": permissions
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -459,13 +429,12 @@ open class Storage: Service {
         var path: String = "/storage/buckets/{bucketId}/files/{fileId}"
         path = path.replacingOccurrences(
           of: "{bucketId}",
-          with: bucketId
-        )
+          with: bucketId        )
         path = path.replacingOccurrences(
           of: "{fileId}",
-          with: fileId
-        )
+          with: fileId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -495,16 +464,15 @@ open class Storage: Service {
         var path: String = "/storage/buckets/{bucketId}/files/{fileId}/download"
         path = path.replacingOccurrences(
           of: "{bucketId}",
-          with: bucketId
-        )
+          with: bucketId        )
         path = path.replacingOccurrences(
           of: "{fileId}",
-          with: fileId
-        )
+          with: fileId        )
         let params: [String: Any?] = [
             "project": client.config["project"],
             "key": client.config["key"]
         ]
+
         return try await client.call(
             method: "GET",
             path: path,
@@ -555,12 +523,10 @@ open class Storage: Service {
         var path: String = "/storage/buckets/{bucketId}/files/{fileId}/preview"
         path = path.replacingOccurrences(
           of: "{bucketId}",
-          with: bucketId
-        )
+          with: bucketId        )
         path = path.replacingOccurrences(
           of: "{fileId}",
-          with: fileId
-        )
+          with: fileId        )
         let params: [String: Any?] = [
             "width": width,
             "height": height,
@@ -576,6 +542,7 @@ open class Storage: Service {
             "project": client.config["project"],
             "key": client.config["key"]
         ]
+
         return try await client.call(
             method: "GET",
             path: path,
@@ -602,16 +569,15 @@ open class Storage: Service {
         var path: String = "/storage/buckets/{bucketId}/files/{fileId}/view"
         path = path.replacingOccurrences(
           of: "{bucketId}",
-          with: bucketId
-        )
+          with: bucketId        )
         path = path.replacingOccurrences(
           of: "{fileId}",
-          with: fileId
-        )
+          with: fileId        )
         let params: [String: Any?] = [
             "project": client.config["project"],
             "key": client.config["key"]
         ]
+
         return try await client.call(
             method: "GET",
             path: path,
@@ -626,34 +592,22 @@ open class Storage: Service {
     /// Get a list of all the storage buckets. You can use the query params to
     /// filter your results.
     ///
+    /// @param [String] queries
     /// @param String search
-    /// @param Int limit
-    /// @param Int offset
-    /// @param String cursor
-    /// @param String cursorDirection
-    /// @param String orderType
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func listBuckets(
+        queries: [String]? = nil,
         search: String? = nil,
-        limit: Int? = nil,
-        offset: Int? = nil,
-        cursor: String? = nil,
-        cursorDirection: String? = nil,
-        orderType: String? = nil,
         completion: ((Result<AppwriteModels.BucketList, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await listBuckets(
-                    search: search,
-                    limit: limit,
-                    offset: offset,
-                    cursor: cursor,
-                    cursorDirection: cursorDirection,
-                    orderType: orderType
+                    queries: queries,
+                    search: search
                 )
                 completion?(.success(result))
             } catch {
@@ -669,12 +623,12 @@ open class Storage: Service {
     ///
     /// @param String bucketId
     /// @param String name
-    /// @param String permission
-    /// @param [Any] read
-    /// @param [Any] write
+    /// @param Bool fileSecurity
+    /// @param [String] permissions
     /// @param Bool enabled
     /// @param Int maximumFileSize
-    /// @param [Any] allowedFileExtensions
+    /// @param [String] allowedFileExtensions
+    /// @param String compression
     /// @param Bool encryption
     /// @param Bool antivirus
     /// @throws Exception
@@ -684,12 +638,12 @@ open class Storage: Service {
     open func createBucket(
         bucketId: String,
         name: String,
-        permission: String,
-        read: [Any]? = nil,
-        write: [Any]? = nil,
+        fileSecurity: Bool,
+        permissions: [String]? = nil,
         enabled: Bool? = nil,
         maximumFileSize: Int? = nil,
-        allowedFileExtensions: [Any]? = nil,
+        allowedFileExtensions: [String]? = nil,
+        compression: String? = nil,
         encryption: Bool? = nil,
         antivirus: Bool? = nil,
         completion: ((Result<AppwriteModels.Bucket, AppwriteError>) -> Void)? = nil
@@ -699,12 +653,12 @@ open class Storage: Service {
                 let result = try await createBucket(
                     bucketId: bucketId,
                     name: name,
-                    permission: permission,
-                    read: read,
-                    write: write,
+                    fileSecurity: fileSecurity,
+                    permissions: permissions,
                     enabled: enabled,
                     maximumFileSize: maximumFileSize,
                     allowedFileExtensions: allowedFileExtensions,
+                    compression: compression,
                     encryption: encryption,
                     antivirus: antivirus
                 )
@@ -749,12 +703,12 @@ open class Storage: Service {
     ///
     /// @param String bucketId
     /// @param String name
-    /// @param String permission
-    /// @param [Any] read
-    /// @param [Any] write
+    /// @param Bool fileSecurity
+    /// @param [String] permissions
     /// @param Bool enabled
     /// @param Int maximumFileSize
-    /// @param [Any] allowedFileExtensions
+    /// @param [String] allowedFileExtensions
+    /// @param String compression
     /// @param Bool encryption
     /// @param Bool antivirus
     /// @throws Exception
@@ -764,12 +718,12 @@ open class Storage: Service {
     open func updateBucket(
         bucketId: String,
         name: String,
-        permission: String,
-        read: [Any]? = nil,
-        write: [Any]? = nil,
+        fileSecurity: Bool,
+        permissions: [String]? = nil,
         enabled: Bool? = nil,
         maximumFileSize: Int? = nil,
-        allowedFileExtensions: [Any]? = nil,
+        allowedFileExtensions: [String]? = nil,
+        compression: String? = nil,
         encryption: Bool? = nil,
         antivirus: Bool? = nil,
         completion: ((Result<AppwriteModels.Bucket, AppwriteError>) -> Void)? = nil
@@ -779,12 +733,12 @@ open class Storage: Service {
                 let result = try await updateBucket(
                     bucketId: bucketId,
                     name: name,
-                    permission: permission,
-                    read: read,
-                    write: write,
+                    fileSecurity: fileSecurity,
+                    permissions: permissions,
                     enabled: enabled,
                     maximumFileSize: maximumFileSize,
                     allowedFileExtensions: allowedFileExtensions,
+                    compression: compression,
                     encryption: encryption,
                     antivirus: antivirus
                 )
@@ -829,36 +783,24 @@ open class Storage: Service {
     /// project's files. [Learn more about different API modes](/docs/admin).
     ///
     /// @param String bucketId
+    /// @param [String] queries
     /// @param String search
-    /// @param Int limit
-    /// @param Int offset
-    /// @param String cursor
-    /// @param String cursorDirection
-    /// @param String orderType
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func listFiles(
         bucketId: String,
+        queries: [String]? = nil,
         search: String? = nil,
-        limit: Int? = nil,
-        offset: Int? = nil,
-        cursor: String? = nil,
-        cursorDirection: String? = nil,
-        orderType: String? = nil,
         completion: ((Result<AppwriteModels.FileList, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await listFiles(
                     bucketId: bucketId,
-                    search: search,
-                    limit: limit,
-                    offset: offset,
-                    cursor: cursor,
-                    cursorDirection: cursorDirection,
-                    orderType: orderType
+                    queries: queries,
+                    search: search
                 )
                 completion?(.success(result))
             } catch {
@@ -872,8 +814,8 @@ open class Storage: Service {
     ///
     /// Create a new file. Before using this route, you should create a new bucket
     /// resource using either a [server
-    /// integration](/docs/server/database#storageCreateBucket) API or directly
-    /// from your Appwrite console.
+    /// integration](/docs/server/storage#storageCreateBucket) API or directly from
+    /// your Appwrite console.
     /// 
     /// Larger files should be uploaded using multiple requests with the
     /// [content-range](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Range)
@@ -892,8 +834,7 @@ open class Storage: Service {
     /// @param String bucketId
     /// @param String fileId
     /// @param InputFile file
-    /// @param [Any] read
-    /// @param [Any] write
+    /// @param [String] permissions
     /// @throws Exception
     /// @return array
     ///
@@ -902,8 +843,7 @@ open class Storage: Service {
         bucketId: String,
         fileId: String,
         file: InputFile,
-        read: [Any]? = nil,
-        write: [Any]? = nil,
+        permissions: [String]? = nil,
         onProgress: ((UploadProgress) -> Void)? = nil,
         completion: ((Result<AppwriteModels.File, AppwriteError>) -> Void)? = nil
     ) {
@@ -913,8 +853,7 @@ open class Storage: Service {
                     bucketId: bucketId,
                     fileId: fileId,
                     file: file,
-                    read: read,
-                    write: write,
+                    permissions: permissions,
                     onProgress: onProgress
                 )
                 completion?(.success(result))
@@ -962,8 +901,7 @@ open class Storage: Service {
     ///
     /// @param String bucketId
     /// @param String fileId
-    /// @param [Any] read
-    /// @param [Any] write
+    /// @param [String] permissions
     /// @throws Exception
     /// @return array
     ///
@@ -971,8 +909,7 @@ open class Storage: Service {
     open func updateFile(
         bucketId: String,
         fileId: String,
-        read: [Any]? = nil,
-        write: [Any]? = nil,
+        permissions: [String]? = nil,
         completion: ((Result<AppwriteModels.File, AppwriteError>) -> Void)? = nil
     ) {
         Task {
@@ -980,8 +917,7 @@ open class Storage: Service {
                 let result = try await updateFile(
                     bucketId: bucketId,
                     fileId: fileId,
-                    read: read,
-                    write: write
+                    permissions: permissions
                 )
                 completion?(.success(result))
             } catch {

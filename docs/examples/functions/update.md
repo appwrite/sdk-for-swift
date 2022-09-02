@@ -9,7 +9,7 @@ func main() async throws {
     let function = try await functions.update(
         functionId: "[FUNCTION_ID]",
         name: "[NAME]",
-        execute: []
+        execute: ["any"]
     )
 
     print(String(describing: function)

@@ -5,23 +5,32 @@ public class User {
     /// User ID.
     public let id: String
 
-    /// User creation date in Unix timestamp.
-    public let createdAt: Int
+    /// User creation date in Datetime.
+    public let createdAt: String
 
-    /// User update date in Unix timestamp.
-    public let updatedAt: Int
+    /// User update date in Datetime.
+    public let updatedAt: String
 
     /// User name.
     public let name: String
 
-    /// User registration date in Unix timestamp.
-    public let registration: Int
+    /// Hashed user password.
+    public let password: String
+
+    /// Password hashing algorithm.
+    public let hash: String
+
+    /// Password hashing algorithm configuration.
+    public let hashOptions: Any
+
+    /// User registration date in Datetime.
+    public let registration: String
 
     /// User status. Pass `true` for enabled and `false` for disabled.
     public let status: Bool
 
-    /// Unix timestamp of the most recent password update
-    public let passwordUpdate: Int
+    /// Datetime of the most recent password update
+    public let passwordUpdate: String
 
     /// User email address.
     public let email: String
@@ -40,12 +49,15 @@ public class User {
 
     init(
         id: String,
-        createdAt: Int,
-        updatedAt: Int,
+        createdAt: String,
+        updatedAt: String,
         name: String,
-        registration: Int,
+        password: String,
+        hash: String,
+        hashOptions: Any,
+        registration: String,
         status: Bool,
-        passwordUpdate: Int,
+        passwordUpdate: String,
         email: String,
         phone: String,
         emailVerification: Bool,
@@ -56,6 +68,9 @@ public class User {
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.name = name
+        self.password = password
+        self.hash = hash
+        self.hashOptions = hashOptions
         self.registration = registration
         self.status = status
         self.passwordUpdate = passwordUpdate
@@ -69,12 +84,15 @@ public class User {
     public static func from(map: [String: Any]) -> User {
         return User(
             id: map["$id"] as! String,
-            createdAt: map["$createdAt"] as! Int,
-            updatedAt: map["$updatedAt"] as! Int,
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String,
             name: map["name"] as! String,
-            registration: map["registration"] as! Int,
+            password: map["password"] as! String,
+            hash: map["hash"] as! String,
+            hashOptions: map["hashOptions"] as! Any,
+            registration: map["registration"] as! String,
             status: map["status"] as! Bool,
-            passwordUpdate: map["passwordUpdate"] as! Int,
+            passwordUpdate: map["passwordUpdate"] as! String,
             email: map["email"] as! String,
             phone: map["phone"] as! String,
             emailVerification: map["emailVerification"] as! Bool,
@@ -89,6 +107,9 @@ public class User {
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
             "name": name as Any,
+            "password": password as Any,
+            "hash": hash as Any,
+            "hashOptions": hashOptions as Any,
             "registration": registration as Any,
             "status": status as Any,
             "passwordUpdate": passwordUpdate as Any,
@@ -99,5 +120,5 @@ public class User {
             "prefs": prefs.toMap() as Any
         ]
     }
-                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                                                
 }

@@ -16,6 +16,7 @@ open class Health: Service {
     ) async throws -> AppwriteModels.HealthStatus {
         let path: String = "/health"
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -43,6 +44,7 @@ open class Health: Service {
     ) async throws -> AppwriteModels.HealthAntivirus {
         let path: String = "/health/anti-virus"
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -71,6 +73,7 @@ open class Health: Service {
     ) async throws -> AppwriteModels.HealthStatus {
         let path: String = "/health/cache"
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -98,6 +101,7 @@ open class Health: Service {
     ) async throws -> AppwriteModels.HealthStatus {
         let path: String = "/health/db"
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -127,6 +131,7 @@ open class Health: Service {
     ) async throws -> AppwriteModels.HealthQueue {
         let path: String = "/health/queue/certificates"
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -152,6 +157,7 @@ open class Health: Service {
     ) async throws -> AppwriteModels.HealthQueue {
         let path: String = "/health/queue/functions"
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -180,6 +186,7 @@ open class Health: Service {
     ) async throws -> AppwriteModels.HealthQueue {
         let path: String = "/health/queue/logs"
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -208,6 +215,7 @@ open class Health: Service {
     ) async throws -> AppwriteModels.HealthQueue {
         let path: String = "/health/queue/webhooks"
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -235,6 +243,7 @@ open class Health: Service {
     ) async throws -> AppwriteModels.HealthStatus {
         let path: String = "/health/storage/local"
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -268,6 +277,7 @@ open class Health: Service {
     ) async throws -> AppwriteModels.HealthTime {
         let path: String = "/health/time"
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]

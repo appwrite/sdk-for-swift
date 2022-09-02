@@ -5,17 +5,14 @@ public class Collection {
     /// Collection ID.
     public let id: String
 
-    /// Collection creation date in Unix timestamp.
-    public let createdAt: Int
+    /// Collection creation date in Datetime
+    public let createdAt: String
 
-    /// Collection update date in Unix timestamp.
-    public let updatedAt: Int
+    /// Collection update date in Datetime
+    public let updatedAt: String
 
-    /// Collection read permissions.
-    public let read: [Any]
-
-    /// Collection write permissions.
-    public let write: [Any]
+    /// Collection permissions. [Learn more about permissions](/docs/permissions).
+    public let permissions: [Any]
 
     /// Database ID.
     public let databaseId: String
@@ -26,8 +23,8 @@ public class Collection {
     /// Collection enabled.
     public let enabled: Bool
 
-    /// Collection permission model. Possible values: `document` or `collection`
-    public let permission: String
+    /// Whether document-level permissions are enabled. [Learn more about permissions](/docs/permissions).
+    public let documentSecurity: Bool
 
     /// Collection attributes.
     public let attributes: [Any]
@@ -37,26 +34,24 @@ public class Collection {
 
     init(
         id: String,
-        createdAt: Int,
-        updatedAt: Int,
-        read: [Any],
-        write: [Any],
+        createdAt: String,
+        updatedAt: String,
+        permissions: [Any],
         databaseId: String,
         name: String,
         enabled: Bool,
-        permission: String,
+        documentSecurity: Bool,
         attributes: [Any],
         indexes: [Index]
     ) {
         self.id = id
         self.createdAt = createdAt
         self.updatedAt = updatedAt
-        self.read = read
-        self.write = write
+        self.permissions = permissions
         self.databaseId = databaseId
         self.name = name
         self.enabled = enabled
-        self.permission = permission
+        self.documentSecurity = documentSecurity
         self.attributes = attributes
         self.indexes = indexes
     }
@@ -64,14 +59,13 @@ public class Collection {
     public static func from(map: [String: Any]) -> Collection {
         return Collection(
             id: map["$id"] as! String,
-            createdAt: map["$createdAt"] as! Int,
-            updatedAt: map["$updatedAt"] as! Int,
-            read: map["$read"] as! [Any],
-            write: map["$write"] as! [Any],
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String,
+            permissions: map["$permissions"] as! [Any],
             databaseId: map["databaseId"] as! String,
             name: map["name"] as! String,
             enabled: map["enabled"] as! Bool,
-            permission: map["permission"] as! String,
+            documentSecurity: map["documentSecurity"] as! Bool,
             attributes: map["attributes"] as! [Any],
             indexes: (map["indexes"] as! [[String: Any]]).map { Index.from(map: $0) }
         )
@@ -82,15 +76,14 @@ public class Collection {
             "$id": id as Any,
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
-            "$read": read as Any,
-            "$write": write as Any,
+            "$permissions": permissions as Any,
             "databaseId": databaseId as Any,
             "name": name as Any,
             "enabled": enabled as Any,
-            "permission": permission as Any,
+            "documentSecurity": documentSecurity as Any,
             "attributes": attributes as Any,
             "indexes": indexes.map { $0.toMap() } as Any
         ]
     }
-                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                            
 }

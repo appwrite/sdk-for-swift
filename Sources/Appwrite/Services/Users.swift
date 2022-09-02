@@ -10,32 +10,21 @@ open class Users: Service {
     /// Get a list of all the project's users. You can use the query params to
     /// filter your results.
     ///
+    /// @param [String] queries
     /// @param String search
-    /// @param Int limit
-    /// @param Int offset
-    /// @param String cursor
-    /// @param String cursorDirection
-    /// @param String orderType
     /// @throws Exception
     /// @return array
     ///
     open func list(
-        search: String? = nil,
-        limit: Int? = nil,
-        offset: Int? = nil,
-        cursor: String? = nil,
-        cursorDirection: String? = nil,
-        orderType: String? = nil
+        queries: [String]? = nil,
+        search: String? = nil
     ) async throws -> AppwriteModels.UserList {
         let path: String = "/users"
         let params: [String: Any?] = [
-            "search": search,
-            "limit": limit,
-            "offset": offset,
-            "cursor": cursor,
-            "cursorDirection": cursorDirection,
-            "orderType": orderType
+            "queries": queries,
+            "search": search
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -58,6 +47,7 @@ open class Users: Service {
     ///
     /// @param String userId
     /// @param String email
+    /// @param String phone
     /// @param String password
     /// @param String name
     /// @throws Exception
@@ -65,17 +55,355 @@ open class Users: Service {
     ///
     open func create(
         userId: String,
-        email: String,
-        password: String,
+        email: String? = nil,
+        phone: String? = nil,
+        password: String? = nil,
         name: String? = nil
     ) async throws -> AppwriteModels.User {
         let path: String = "/users"
         let params: [String: Any?] = [
             "userId": userId,
             "email": email,
+            "phone": phone,
             "password": password,
             "name": name
         ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let converter: ([String: Any]) -> AppwriteModels.User = { dict in
+            return AppwriteModels.User.from(map: dict)
+        }
+        return try await client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create User with Argon2 Password
+    ///
+    /// Create a new user. Password provided must be hashed with the
+    /// [Argon2](https://en.wikipedia.org/wiki/Argon2) algorithm. Use the [POST
+    /// /users](/docs/server/users#usersCreate) endpoint to create users with a
+    /// plain text password.
+    ///
+    /// @param String userId
+    /// @param String email
+    /// @param String password
+    /// @param String name
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createArgon2User(
+        userId: String,
+        email: String,
+        password: String,
+        name: String? = nil
+    ) async throws -> AppwriteModels.User {
+        let path: String = "/users/argon2"
+        let params: [String: Any?] = [
+            "userId": userId,
+            "email": email,
+            "password": password,
+            "name": name
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let converter: ([String: Any]) -> AppwriteModels.User = { dict in
+            return AppwriteModels.User.from(map: dict)
+        }
+        return try await client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create User with Bcrypt Password
+    ///
+    /// Create a new user. Password provided must be hashed with the
+    /// [Bcrypt](https://en.wikipedia.org/wiki/Bcrypt) algorithm. Use the [POST
+    /// /users](/docs/server/users#usersCreate) endpoint to create users with a
+    /// plain text password.
+    ///
+    /// @param String userId
+    /// @param String email
+    /// @param String password
+    /// @param String name
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createBcryptUser(
+        userId: String,
+        email: String,
+        password: String,
+        name: String? = nil
+    ) async throws -> AppwriteModels.User {
+        let path: String = "/users/bcrypt"
+        let params: [String: Any?] = [
+            "userId": userId,
+            "email": email,
+            "password": password,
+            "name": name
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let converter: ([String: Any]) -> AppwriteModels.User = { dict in
+            return AppwriteModels.User.from(map: dict)
+        }
+        return try await client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create User with MD5 Password
+    ///
+    /// Create a new user. Password provided must be hashed with the
+    /// [MD5](https://en.wikipedia.org/wiki/MD5) algorithm. Use the [POST
+    /// /users](/docs/server/users#usersCreate) endpoint to create users with a
+    /// plain text password.
+    ///
+    /// @param String userId
+    /// @param String email
+    /// @param String password
+    /// @param String name
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createMD5User(
+        userId: String,
+        email: String,
+        password: String,
+        name: String? = nil
+    ) async throws -> AppwriteModels.User {
+        let path: String = "/users/md5"
+        let params: [String: Any?] = [
+            "userId": userId,
+            "email": email,
+            "password": password,
+            "name": name
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let converter: ([String: Any]) -> AppwriteModels.User = { dict in
+            return AppwriteModels.User.from(map: dict)
+        }
+        return try await client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create User with PHPass Password
+    ///
+    /// Create a new user. Password provided must be hashed with the
+    /// [PHPass](https://www.openwall.com/phpass/) algorithm. Use the [POST
+    /// /users](/docs/server/users#usersCreate) endpoint to create users with a
+    /// plain text password.
+    ///
+    /// @param String userId
+    /// @param String email
+    /// @param String password
+    /// @param String name
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createPHPassUser(
+        userId: String,
+        email: String,
+        password: String,
+        name: String? = nil
+    ) async throws -> AppwriteModels.User {
+        let path: String = "/users/phpass"
+        let params: [String: Any?] = [
+            "userId": userId,
+            "email": email,
+            "password": password,
+            "name": name
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let converter: ([String: Any]) -> AppwriteModels.User = { dict in
+            return AppwriteModels.User.from(map: dict)
+        }
+        return try await client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create User with Scrypt Password
+    ///
+    /// Create a new user. Password provided must be hashed with the
+    /// [Scrypt](https://github.com/Tarsnap/scrypt) algorithm. Use the [POST
+    /// /users](/docs/server/users#usersCreate) endpoint to create users with a
+    /// plain text password.
+    ///
+    /// @param String userId
+    /// @param String email
+    /// @param String password
+    /// @param String passwordSalt
+    /// @param Int passwordCpu
+    /// @param Int passwordMemory
+    /// @param Int passwordParallel
+    /// @param Int passwordLength
+    /// @param String name
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createScryptUser(
+        userId: String,
+        email: String,
+        password: String,
+        passwordSalt: String,
+        passwordCpu: Int,
+        passwordMemory: Int,
+        passwordParallel: Int,
+        passwordLength: Int,
+        name: String? = nil
+    ) async throws -> AppwriteModels.User {
+        let path: String = "/users/scrypt"
+        let params: [String: Any?] = [
+            "userId": userId,
+            "email": email,
+            "password": password,
+            "passwordSalt": passwordSalt,
+            "passwordCpu": passwordCpu,
+            "passwordMemory": passwordMemory,
+            "passwordParallel": passwordParallel,
+            "passwordLength": passwordLength,
+            "name": name
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let converter: ([String: Any]) -> AppwriteModels.User = { dict in
+            return AppwriteModels.User.from(map: dict)
+        }
+        return try await client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create User with Scrypt Modified Password
+    ///
+    /// Create a new user. Password provided must be hashed with the [Scrypt
+    /// Modified](https://gist.github.com/Meldiron/eecf84a0225eccb5a378d45bb27462cc)
+    /// algorithm. Use the [POST /users](/docs/server/users#usersCreate) endpoint
+    /// to create users with a plain text password.
+    ///
+    /// @param String userId
+    /// @param String email
+    /// @param String password
+    /// @param String passwordSalt
+    /// @param String passwordSaltSeparator
+    /// @param String passwordSignerKey
+    /// @param String name
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createScryptModifiedUser(
+        userId: String,
+        email: String,
+        password: String,
+        passwordSalt: String,
+        passwordSaltSeparator: String,
+        passwordSignerKey: String,
+        name: String? = nil
+    ) async throws -> AppwriteModels.User {
+        let path: String = "/users/scrypt-modified"
+        let params: [String: Any?] = [
+            "userId": userId,
+            "email": email,
+            "password": password,
+            "passwordSalt": passwordSalt,
+            "passwordSaltSeparator": passwordSaltSeparator,
+            "passwordSignerKey": passwordSignerKey,
+            "name": name
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let converter: ([String: Any]) -> AppwriteModels.User = { dict in
+            return AppwriteModels.User.from(map: dict)
+        }
+        return try await client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create User with SHA Password
+    ///
+    /// Create a new user. Password provided must be hashed with the
+    /// [SHA](https://en.wikipedia.org/wiki/Secure_Hash_Algorithm) algorithm. Use
+    /// the [POST /users](/docs/server/users#usersCreate) endpoint to create users
+    /// with a plain text password.
+    ///
+    /// @param String userId
+    /// @param String email
+    /// @param String password
+    /// @param String passwordVersion
+    /// @param String name
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createSHAUser(
+        userId: String,
+        email: String,
+        password: String,
+        passwordVersion: String? = nil,
+        name: String? = nil
+    ) async throws -> AppwriteModels.User {
+        let path: String = "/users/sha"
+        let params: [String: Any?] = [
+            "userId": userId,
+            "email": email,
+            "password": password,
+            "passwordVersion": passwordVersion,
+            "name": name
+        ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -106,9 +434,9 @@ open class Users: Service {
         var path: String = "/users/{userId}"
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId
-        )
+          with: userId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -143,9 +471,9 @@ open class Users: Service {
         var path: String = "/users/{userId}"
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId
-        )
+          with: userId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -173,11 +501,11 @@ open class Users: Service {
         var path: String = "/users/{userId}/email"
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId
-        )
+          with: userId        )
         let params: [String: Any?] = [
             "email": email
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -199,25 +527,22 @@ open class Users: Service {
     /// Get the user activity logs list by its unique ID.
     ///
     /// @param String userId
-    /// @param Int limit
-    /// @param Int offset
+    /// @param [String] queries
     /// @throws Exception
     /// @return array
     ///
     open func getLogs(
         userId: String,
-        limit: Int? = nil,
-        offset: Int? = nil
+        queries: [String]? = nil
     ) async throws -> AppwriteModels.LogList {
         var path: String = "/users/{userId}/logs"
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId
-        )
+          with: userId        )
         let params: [String: Any?] = [
-            "limit": limit,
-            "offset": offset
+            "queries": queries
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -248,9 +573,9 @@ open class Users: Service {
         var path: String = "/users/{userId}/memberships"
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId
-        )
+          with: userId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -283,11 +608,11 @@ open class Users: Service {
         var path: String = "/users/{userId}/name"
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId
-        )
+          with: userId        )
         let params: [String: Any?] = [
             "name": name
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -320,11 +645,11 @@ open class Users: Service {
         var path: String = "/users/{userId}/password"
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId
-        )
+          with: userId        )
         let params: [String: Any?] = [
             "password": password
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -357,11 +682,11 @@ open class Users: Service {
         var path: String = "/users/{userId}/phone"
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId
-        )
+          with: userId        )
         let params: [String: Any?] = [
             "number": number
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -392,9 +717,9 @@ open class Users: Service {
         var path: String = "/users/{userId}/prefs"
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId
-        )
+          with: userId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -429,11 +754,11 @@ open class Users: Service {
         var path: String = "/users/{userId}/prefs"
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId
-        )
+          with: userId        )
         let params: [String: Any?] = [
             "prefs": prefs
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -464,9 +789,9 @@ open class Users: Service {
         var path: String = "/users/{userId}/sessions"
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId
-        )
+          with: userId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -497,9 +822,9 @@ open class Users: Service {
         var path: String = "/users/{userId}/sessions"
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId
-        )
+          with: userId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -527,13 +852,12 @@ open class Users: Service {
         var path: String = "/users/{userId}/sessions/{sessionId}"
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId
-        )
+          with: userId        )
         path = path.replacingOccurrences(
           of: "{sessionId}",
-          with: sessionId
-        )
+          with: sessionId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -562,11 +886,11 @@ open class Users: Service {
         var path: String = "/users/{userId}/status"
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId
-        )
+          with: userId        )
         let params: [String: Any?] = [
             "status": status
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -599,11 +923,11 @@ open class Users: Service {
         var path: String = "/users/{userId}/verification"
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId
-        )
+          with: userId        )
         let params: [String: Any?] = [
             "emailVerification": emailVerification
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -636,11 +960,11 @@ open class Users: Service {
         var path: String = "/users/{userId}/verification/phone"
         path = path.replacingOccurrences(
           of: "{userId}",
-          with: userId
-        )
+          with: userId        )
         let params: [String: Any?] = [
             "phoneVerification": phoneVerification
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -663,34 +987,22 @@ open class Users: Service {
     /// Get a list of all the project's users. You can use the query params to
     /// filter your results.
     ///
+    /// @param [String] queries
     /// @param String search
-    /// @param Int limit
-    /// @param Int offset
-    /// @param String cursor
-    /// @param String cursorDirection
-    /// @param String orderType
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func list(
+        queries: [String]? = nil,
         search: String? = nil,
-        limit: Int? = nil,
-        offset: Int? = nil,
-        cursor: String? = nil,
-        cursorDirection: String? = nil,
-        orderType: String? = nil,
         completion: ((Result<AppwriteModels.UserList, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await list(
-                    search: search,
-                    limit: limit,
-                    offset: offset,
-                    cursor: cursor,
-                    cursorDirection: cursorDirection,
-                    orderType: orderType
+                    queries: queries,
+                    search: search
                 )
                 completion?(.success(result))
             } catch {
@@ -706,6 +1018,7 @@ open class Users: Service {
     ///
     /// @param String userId
     /// @param String email
+    /// @param String phone
     /// @param String password
     /// @param String name
     /// @throws Exception
@@ -714,8 +1027,9 @@ open class Users: Service {
     @available(*, deprecated, message: "Use the async overload instead")
     open func create(
         userId: String,
-        email: String,
-        password: String,
+        email: String? = nil,
+        phone: String? = nil,
+        password: String? = nil,
         name: String? = nil,
         completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil
     ) {
@@ -724,7 +1038,301 @@ open class Users: Service {
                 let result = try await create(
                     userId: userId,
                     email: email,
+                    phone: phone,
                     password: password,
+                    name: name
+                )
+                completion?(.success(result))
+            } catch {
+                completion?(.failure(error as! AppwriteError))
+            }
+        }
+    }
+
+    ///
+    /// Create User with Argon2 Password
+    ///
+    /// Create a new user. Password provided must be hashed with the
+    /// [Argon2](https://en.wikipedia.org/wiki/Argon2) algorithm. Use the [POST
+    /// /users](/docs/server/users#usersCreate) endpoint to create users with a
+    /// plain text password.
+    ///
+    /// @param String userId
+    /// @param String email
+    /// @param String password
+    /// @param String name
+    /// @throws Exception
+    /// @return array
+    ///
+    @available(*, deprecated, message: "Use the async overload instead")
+    open func createArgon2User(
+        userId: String,
+        email: String,
+        password: String,
+        name: String? = nil,
+        completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil
+    ) {
+        Task {
+            do {
+                let result = try await createArgon2User(
+                    userId: userId,
+                    email: email,
+                    password: password,
+                    name: name
+                )
+                completion?(.success(result))
+            } catch {
+                completion?(.failure(error as! AppwriteError))
+            }
+        }
+    }
+
+    ///
+    /// Create User with Bcrypt Password
+    ///
+    /// Create a new user. Password provided must be hashed with the
+    /// [Bcrypt](https://en.wikipedia.org/wiki/Bcrypt) algorithm. Use the [POST
+    /// /users](/docs/server/users#usersCreate) endpoint to create users with a
+    /// plain text password.
+    ///
+    /// @param String userId
+    /// @param String email
+    /// @param String password
+    /// @param String name
+    /// @throws Exception
+    /// @return array
+    ///
+    @available(*, deprecated, message: "Use the async overload instead")
+    open func createBcryptUser(
+        userId: String,
+        email: String,
+        password: String,
+        name: String? = nil,
+        completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil
+    ) {
+        Task {
+            do {
+                let result = try await createBcryptUser(
+                    userId: userId,
+                    email: email,
+                    password: password,
+                    name: name
+                )
+                completion?(.success(result))
+            } catch {
+                completion?(.failure(error as! AppwriteError))
+            }
+        }
+    }
+
+    ///
+    /// Create User with MD5 Password
+    ///
+    /// Create a new user. Password provided must be hashed with the
+    /// [MD5](https://en.wikipedia.org/wiki/MD5) algorithm. Use the [POST
+    /// /users](/docs/server/users#usersCreate) endpoint to create users with a
+    /// plain text password.
+    ///
+    /// @param String userId
+    /// @param String email
+    /// @param String password
+    /// @param String name
+    /// @throws Exception
+    /// @return array
+    ///
+    @available(*, deprecated, message: "Use the async overload instead")
+    open func createMD5User(
+        userId: String,
+        email: String,
+        password: String,
+        name: String? = nil,
+        completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil
+    ) {
+        Task {
+            do {
+                let result = try await createMD5User(
+                    userId: userId,
+                    email: email,
+                    password: password,
+                    name: name
+                )
+                completion?(.success(result))
+            } catch {
+                completion?(.failure(error as! AppwriteError))
+            }
+        }
+    }
+
+    ///
+    /// Create User with PHPass Password
+    ///
+    /// Create a new user. Password provided must be hashed with the
+    /// [PHPass](https://www.openwall.com/phpass/) algorithm. Use the [POST
+    /// /users](/docs/server/users#usersCreate) endpoint to create users with a
+    /// plain text password.
+    ///
+    /// @param String userId
+    /// @param String email
+    /// @param String password
+    /// @param String name
+    /// @throws Exception
+    /// @return array
+    ///
+    @available(*, deprecated, message: "Use the async overload instead")
+    open func createPHPassUser(
+        userId: String,
+        email: String,
+        password: String,
+        name: String? = nil,
+        completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil
+    ) {
+        Task {
+            do {
+                let result = try await createPHPassUser(
+                    userId: userId,
+                    email: email,
+                    password: password,
+                    name: name
+                )
+                completion?(.success(result))
+            } catch {
+                completion?(.failure(error as! AppwriteError))
+            }
+        }
+    }
+
+    ///
+    /// Create User with Scrypt Password
+    ///
+    /// Create a new user. Password provided must be hashed with the
+    /// [Scrypt](https://github.com/Tarsnap/scrypt) algorithm. Use the [POST
+    /// /users](/docs/server/users#usersCreate) endpoint to create users with a
+    /// plain text password.
+    ///
+    /// @param String userId
+    /// @param String email
+    /// @param String password
+    /// @param String passwordSalt
+    /// @param Int passwordCpu
+    /// @param Int passwordMemory
+    /// @param Int passwordParallel
+    /// @param Int passwordLength
+    /// @param String name
+    /// @throws Exception
+    /// @return array
+    ///
+    @available(*, deprecated, message: "Use the async overload instead")
+    open func createScryptUser(
+        userId: String,
+        email: String,
+        password: String,
+        passwordSalt: String,
+        passwordCpu: Int,
+        passwordMemory: Int,
+        passwordParallel: Int,
+        passwordLength: Int,
+        name: String? = nil,
+        completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil
+    ) {
+        Task {
+            do {
+                let result = try await createScryptUser(
+                    userId: userId,
+                    email: email,
+                    password: password,
+                    passwordSalt: passwordSalt,
+                    passwordCpu: passwordCpu,
+                    passwordMemory: passwordMemory,
+                    passwordParallel: passwordParallel,
+                    passwordLength: passwordLength,
+                    name: name
+                )
+                completion?(.success(result))
+            } catch {
+                completion?(.failure(error as! AppwriteError))
+            }
+        }
+    }
+
+    ///
+    /// Create User with Scrypt Modified Password
+    ///
+    /// Create a new user. Password provided must be hashed with the [Scrypt
+    /// Modified](https://gist.github.com/Meldiron/eecf84a0225eccb5a378d45bb27462cc)
+    /// algorithm. Use the [POST /users](/docs/server/users#usersCreate) endpoint
+    /// to create users with a plain text password.
+    ///
+    /// @param String userId
+    /// @param String email
+    /// @param String password
+    /// @param String passwordSalt
+    /// @param String passwordSaltSeparator
+    /// @param String passwordSignerKey
+    /// @param String name
+    /// @throws Exception
+    /// @return array
+    ///
+    @available(*, deprecated, message: "Use the async overload instead")
+    open func createScryptModifiedUser(
+        userId: String,
+        email: String,
+        password: String,
+        passwordSalt: String,
+        passwordSaltSeparator: String,
+        passwordSignerKey: String,
+        name: String? = nil,
+        completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil
+    ) {
+        Task {
+            do {
+                let result = try await createScryptModifiedUser(
+                    userId: userId,
+                    email: email,
+                    password: password,
+                    passwordSalt: passwordSalt,
+                    passwordSaltSeparator: passwordSaltSeparator,
+                    passwordSignerKey: passwordSignerKey,
+                    name: name
+                )
+                completion?(.success(result))
+            } catch {
+                completion?(.failure(error as! AppwriteError))
+            }
+        }
+    }
+
+    ///
+    /// Create User with SHA Password
+    ///
+    /// Create a new user. Password provided must be hashed with the
+    /// [SHA](https://en.wikipedia.org/wiki/Secure_Hash_Algorithm) algorithm. Use
+    /// the [POST /users](/docs/server/users#usersCreate) endpoint to create users
+    /// with a plain text password.
+    ///
+    /// @param String userId
+    /// @param String email
+    /// @param String password
+    /// @param String passwordVersion
+    /// @param String name
+    /// @throws Exception
+    /// @return array
+    ///
+    @available(*, deprecated, message: "Use the async overload instead")
+    open func createSHAUser(
+        userId: String,
+        email: String,
+        password: String,
+        passwordVersion: String? = nil,
+        name: String? = nil,
+        completion: ((Result<AppwriteModels.User, AppwriteError>) -> Void)? = nil
+    ) {
+        Task {
+            do {
+                let result = try await createSHAUser(
+                    userId: userId,
+                    email: email,
+                    password: password,
+                    passwordVersion: passwordVersion,
                     name: name
                 )
                 completion?(.success(result))
@@ -825,24 +1433,21 @@ open class Users: Service {
     /// Get the user activity logs list by its unique ID.
     ///
     /// @param String userId
-    /// @param Int limit
-    /// @param Int offset
+    /// @param [String] queries
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func getLogs(
         userId: String,
-        limit: Int? = nil,
-        offset: Int? = nil,
+        queries: [String]? = nil,
         completion: ((Result<AppwriteModels.LogList, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await getLogs(
                     userId: userId,
-                    limit: limit,
-                    offset: offset
+                    queries: queries
                 )
                 completion?(.success(result))
             } catch {

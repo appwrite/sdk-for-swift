@@ -4,43 +4,27 @@ import NIO
 import AppwriteModels
 
 open class Databases: Service {
-    var databaseId: String
-
-    public init(_ client: Client, _ databaseId: String)
-    {
-        self.databaseId = databaseId
-        super.init(client)
-    }
-
     ///
     /// List Databases
     ///
+    /// Get a list of all databases from the current Appwrite project. You can use
+    /// the search parameter to filter your results.
+    ///
+    /// @param [String] queries
     /// @param String search
-    /// @param Int limit
-    /// @param Int offset
-    /// @param String cursor
-    /// @param String cursorDirection
-    /// @param String orderType
     /// @throws Exception
     /// @return array
     ///
     open func list(
-        search: String? = nil,
-        limit: Int? = nil,
-        offset: Int? = nil,
-        cursor: String? = nil,
-        cursorDirection: String? = nil,
-        orderType: String? = nil
+        queries: [String]? = nil,
+        search: String? = nil
     ) async throws -> AppwriteModels.DatabaseList {
         let path: String = "/databases"
         let params: [String: Any?] = [
-            "search": search,
-            "limit": limit,
-            "offset": offset,
-            "cursor": cursor,
-            "cursorDirection": cursorDirection,
-            "orderType": orderType
+            "queries": queries,
+            "search": search
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -59,19 +43,24 @@ open class Databases: Service {
     ///
     /// Create Database
     ///
+    /// Create a new Database.
+    /// 
+    ///
     /// @param String databaseId
     /// @param String name
     /// @throws Exception
     /// @return array
     ///
     open func create(
+        databaseId: String,
         name: String
     ) async throws -> AppwriteModels.Database {
         let path: String = "/databases"
         let params: [String: Any?] = [
-            "databaseId": self.databaseId,
+            "databaseId": databaseId,
             "name": name
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -90,23 +79,27 @@ open class Databases: Service {
     ///
     /// Get Database
     ///
+    /// Get a database by its unique ID. This endpoint response returns a JSON
+    /// object with the database metadata.
+    ///
     /// @param String databaseId
     /// @throws Exception
     /// @return array
     ///
     open func get(
-    ) async throws -> AppwriteModels.Collection {
+        databaseId: String
+    ) async throws -> AppwriteModels.Database {
         var path: String = "/databases/{databaseId}"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.Collection = { dict in
-            return AppwriteModels.Collection.from(map: dict)
+        let converter: ([String: Any]) -> AppwriteModels.Database = { dict in
+            return AppwriteModels.Database.from(map: dict)
         }
         return try await client.call(
             method: "GET",
@@ -120,27 +113,30 @@ open class Databases: Service {
     ///
     /// Update Database
     ///
+    /// Update a database by its unique ID.
+    ///
     /// @param String databaseId
     /// @param String name
     /// @throws Exception
     /// @return array
     ///
     open func update(
+        databaseId: String,
         name: String
-    ) async throws -> AppwriteModels.Collection {
+    ) async throws -> AppwriteModels.Database {
         var path: String = "/databases/{databaseId}"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         let params: [String: Any?] = [
             "name": name
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.Collection = { dict in
-            return AppwriteModels.Collection.from(map: dict)
+        let converter: ([String: Any]) -> AppwriteModels.Database = { dict in
+            return AppwriteModels.Database.from(map: dict)
         }
         return try await client.call(
             method: "PUT",
@@ -154,18 +150,22 @@ open class Databases: Service {
     ///
     /// Delete Database
     ///
+    /// Delete a database by its unique ID. Only API keys with with databases.write
+    /// scope can delete a database.
+    ///
     /// @param String databaseId
     /// @throws Exception
     /// @return array
     ///
     open func delete(
+        databaseId: String
     ) async throws -> Any {
         var path: String = "/databases/{databaseId}"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -179,37 +179,29 @@ open class Databases: Service {
     ///
     /// List Collections
     ///
+    /// Get a list of all collections that belong to the provided databaseId. You
+    /// can use the search parameter to filter your results.
+    ///
     /// @param String databaseId
+    /// @param [String] queries
     /// @param String search
-    /// @param Int limit
-    /// @param Int offset
-    /// @param String cursor
-    /// @param String cursorDirection
-    /// @param String orderType
     /// @throws Exception
     /// @return array
     ///
     open func listCollections(
-        search: String? = nil,
-        limit: Int? = nil,
-        offset: Int? = nil,
-        cursor: String? = nil,
-        cursorDirection: String? = nil,
-        orderType: String? = nil
+        databaseId: String,
+        queries: [String]? = nil,
+        search: String? = nil
     ) async throws -> AppwriteModels.CollectionList {
         var path: String = "/databases/{databaseId}/collections"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         let params: [String: Any?] = [
-            "search": search,
-            "limit": limit,
-            "offset": offset,
-            "cursor": cursor,
-            "cursorDirection": cursorDirection,
-            "orderType": orderType
+            "queries": queries,
+            "search": search
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -228,34 +220,37 @@ open class Databases: Service {
     ///
     /// Create Collection
     ///
+    /// Create a new Collection. Before using this route, you should create a new
+    /// database resource using either a [server
+    /// integration](/docs/server/databases#databasesCreateCollection) API or
+    /// directly from your database console.
+    ///
     /// @param String databaseId
     /// @param String collectionId
     /// @param String name
-    /// @param String permission
-    /// @param [Any] read
-    /// @param [Any] write
+    /// @param [String] permissions
+    /// @param Bool documentSecurity
     /// @throws Exception
     /// @return array
     ///
     open func createCollection(
+        databaseId: String,
         collectionId: String,
         name: String,
-        permission: String,
-        read: [Any],
-        write: [Any]
+        permissions: [String],
+        documentSecurity: Bool
     ) async throws -> AppwriteModels.Collection {
         var path: String = "/databases/{databaseId}/collections"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         let params: [String: Any?] = [
             "collectionId": collectionId,
             "name": name,
-            "permission": permission,
-            "read": read,
-            "write": write
+            "permissions": permissions,
+            "documentSecurity": documentSecurity
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -274,24 +269,27 @@ open class Databases: Service {
     ///
     /// Get Collection
     ///
+    /// Get a collection by its unique ID. This endpoint response returns a JSON
+    /// object with the collection metadata.
+    ///
     /// @param String databaseId
     /// @param String collectionId
     /// @throws Exception
     /// @return array
     ///
     open func getCollection(
+        databaseId: String,
         collectionId: String
     ) async throws -> AppwriteModels.Collection {
         var path: String = "/databases/{databaseId}/collections/{collectionId}"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -310,40 +308,39 @@ open class Databases: Service {
     ///
     /// Update Collection
     ///
+    /// Update a collection by its unique ID.
+    ///
     /// @param String databaseId
     /// @param String collectionId
     /// @param String name
-    /// @param String permission
-    /// @param [Any] read
-    /// @param [Any] write
+    /// @param Bool documentSecurity
+    /// @param [String] permissions
     /// @param Bool enabled
     /// @throws Exception
     /// @return array
     ///
     open func updateCollection(
+        databaseId: String,
         collectionId: String,
         name: String,
-        permission: String,
-        read: [Any]? = nil,
-        write: [Any]? = nil,
+        documentSecurity: Bool,
+        permissions: [String]? = nil,
         enabled: Bool? = nil
     ) async throws -> AppwriteModels.Collection {
         var path: String = "/databases/{databaseId}/collections/{collectionId}"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         let params: [String: Any?] = [
             "name": name,
-            "permission": permission,
-            "read": read,
-            "write": write,
+            "permissions": permissions,
+            "documentSecurity": documentSecurity,
             "enabled": enabled
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -362,24 +359,27 @@ open class Databases: Service {
     ///
     /// Delete Collection
     ///
+    /// Delete a collection by its unique ID. Only users with write permissions
+    /// have access to delete this resource.
+    ///
     /// @param String databaseId
     /// @param String collectionId
     /// @throws Exception
     /// @return array
     ///
     open func deleteCollection(
+        databaseId: String,
         collectionId: String
     ) async throws -> Any {
         var path: String = "/databases/{databaseId}/collections/{collectionId}"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -399,18 +399,18 @@ open class Databases: Service {
     /// @return array
     ///
     open func listAttributes(
+        databaseId: String,
         collectionId: String
     ) async throws -> AppwriteModels.AttributeList {
         var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -429,6 +429,9 @@ open class Databases: Service {
     ///
     /// Create Boolean Attribute
     ///
+    /// Create a boolean attribute.
+    /// 
+    ///
     /// @param String databaseId
     /// @param String collectionId
     /// @param String key
@@ -439,6 +442,7 @@ open class Databases: Service {
     /// @return array
     ///
     open func createBooleanAttribute(
+        databaseId: String,
         collectionId: String,
         key: String,
         xrequired: Bool,
@@ -448,18 +452,17 @@ open class Databases: Service {
         var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/boolean"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         let params: [String: Any?] = [
             "key": key,
             "required": xrequired,
             "default": xdefault,
             "array": array
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -476,7 +479,59 @@ open class Databases: Service {
     }
 
     ///
+    /// Create DateTime Attribute
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param String key
+    /// @param Bool required
+    /// @param String default
+    /// @param Bool array
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createDatetimeAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        xrequired: Bool,
+        xdefault: String? = nil,
+        array: Bool? = nil
+    ) async throws -> AppwriteModels.AttributeDatetime {
+        var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/datetime"
+        path = path.replacingOccurrences(
+          of: "{databaseId}",
+          with: databaseId        )
+        path = path.replacingOccurrences(
+          of: "{collectionId}",
+          with: collectionId        )
+        let params: [String: Any?] = [
+            "key": key,
+            "required": xrequired,
+            "default": xdefault,
+            "array": array
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let converter: ([String: Any]) -> AppwriteModels.AttributeDatetime = { dict in
+            return AppwriteModels.AttributeDatetime.from(map: dict)
+        }
+        return try await client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
     /// Create Email Attribute
+    ///
+    /// Create an email attribute.
+    /// 
     ///
     /// @param String databaseId
     /// @param String collectionId
@@ -488,6 +543,7 @@ open class Databases: Service {
     /// @return array
     ///
     open func createEmailAttribute(
+        databaseId: String,
         collectionId: String,
         key: String,
         xrequired: Bool,
@@ -497,18 +553,17 @@ open class Databases: Service {
         var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/email"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         let params: [String: Any?] = [
             "key": key,
             "required": xrequired,
             "default": xdefault,
             "array": array
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -530,7 +585,7 @@ open class Databases: Service {
     /// @param String databaseId
     /// @param String collectionId
     /// @param String key
-    /// @param [Any] elements
+    /// @param [String] elements
     /// @param Bool required
     /// @param String default
     /// @param Bool array
@@ -538,9 +593,10 @@ open class Databases: Service {
     /// @return array
     ///
     open func createEnumAttribute(
+        databaseId: String,
         collectionId: String,
         key: String,
-        elements: [Any],
+        elements: [String],
         xrequired: Bool,
         xdefault: String? = nil,
         array: Bool? = nil
@@ -548,12 +604,10 @@ open class Databases: Service {
         var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/enum"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         let params: [String: Any?] = [
             "key": key,
             "elements": elements,
@@ -561,6 +615,7 @@ open class Databases: Service {
             "default": xdefault,
             "array": array
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -579,6 +634,10 @@ open class Databases: Service {
     ///
     /// Create Float Attribute
     ///
+    /// Create a float attribute. Optionally, minimum and maximum values can be
+    /// provided.
+    /// 
+    ///
     /// @param String databaseId
     /// @param String collectionId
     /// @param String key
@@ -591,6 +650,7 @@ open class Databases: Service {
     /// @return array
     ///
     open func createFloatAttribute(
+        databaseId: String,
         collectionId: String,
         key: String,
         xrequired: Bool,
@@ -602,12 +662,10 @@ open class Databases: Service {
         var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/float"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         let params: [String: Any?] = [
             "key": key,
             "required": xrequired,
@@ -616,6 +674,7 @@ open class Databases: Service {
             "default": xdefault,
             "array": array
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -634,6 +693,10 @@ open class Databases: Service {
     ///
     /// Create Integer Attribute
     ///
+    /// Create an integer attribute. Optionally, minimum and maximum values can be
+    /// provided.
+    /// 
+    ///
     /// @param String databaseId
     /// @param String collectionId
     /// @param String key
@@ -646,6 +709,7 @@ open class Databases: Service {
     /// @return array
     ///
     open func createIntegerAttribute(
+        databaseId: String,
         collectionId: String,
         key: String,
         xrequired: Bool,
@@ -657,12 +721,10 @@ open class Databases: Service {
         var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/integer"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         let params: [String: Any?] = [
             "key": key,
             "required": xrequired,
@@ -671,6 +733,7 @@ open class Databases: Service {
             "default": xdefault,
             "array": array
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -689,6 +752,9 @@ open class Databases: Service {
     ///
     /// Create IP Address Attribute
     ///
+    /// Create IP address attribute.
+    /// 
+    ///
     /// @param String databaseId
     /// @param String collectionId
     /// @param String key
@@ -699,6 +765,7 @@ open class Databases: Service {
     /// @return array
     ///
     open func createIpAttribute(
+        databaseId: String,
         collectionId: String,
         key: String,
         xrequired: Bool,
@@ -708,18 +775,17 @@ open class Databases: Service {
         var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/ip"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         let params: [String: Any?] = [
             "key": key,
             "required": xrequired,
             "default": xdefault,
             "array": array
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -738,6 +804,9 @@ open class Databases: Service {
     ///
     /// Create String Attribute
     ///
+    /// Create a string attribute.
+    /// 
+    ///
     /// @param String databaseId
     /// @param String collectionId
     /// @param String key
@@ -749,6 +818,7 @@ open class Databases: Service {
     /// @return array
     ///
     open func createStringAttribute(
+        databaseId: String,
         collectionId: String,
         key: String,
         size: Int,
@@ -759,12 +829,10 @@ open class Databases: Service {
         var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/string"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         let params: [String: Any?] = [
             "key": key,
             "size": size,
@@ -772,6 +840,7 @@ open class Databases: Service {
             "default": xdefault,
             "array": array
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -790,6 +859,9 @@ open class Databases: Service {
     ///
     /// Create URL Attribute
     ///
+    /// Create a URL attribute.
+    /// 
+    ///
     /// @param String databaseId
     /// @param String collectionId
     /// @param String key
@@ -800,6 +872,7 @@ open class Databases: Service {
     /// @return array
     ///
     open func createUrlAttribute(
+        databaseId: String,
         collectionId: String,
         key: String,
         xrequired: Bool,
@@ -809,18 +882,17 @@ open class Databases: Service {
         var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/url"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         let params: [String: Any?] = [
             "key": key,
             "required": xrequired,
             "default": xdefault,
             "array": array
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -846,23 +918,22 @@ open class Databases: Service {
     /// @return array
     ///
     open func getAttribute(
+        databaseId: String,
         collectionId: String,
         key: String
     ) async throws -> Any {
         var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/{key}"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         path = path.replacingOccurrences(
           of: "{key}",
-          with: key
-        )
+          with: key        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -883,23 +954,22 @@ open class Databases: Service {
     /// @return array
     ///
     open func deleteAttribute(
+        databaseId: String,
         collectionId: String,
         key: String
     ) async throws -> Any {
         var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/{key}"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         path = path.replacingOccurrences(
           of: "{key}",
-          with: key
-        )
+          with: key        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -913,46 +983,33 @@ open class Databases: Service {
     ///
     /// List Documents
     ///
+    /// Get a list of all the user's documents in a given collection. You can use
+    /// the query params to filter your results. On admin mode, this endpoint will
+    /// return a list of all of documents belonging to the provided collectionId.
+    /// [Learn more about different API modes](/docs/admin).
+    ///
     /// @param String databaseId
     /// @param String collectionId
-    /// @param [Any] queries
-    /// @param Int limit
-    /// @param Int offset
-    /// @param String cursor
-    /// @param String cursorDirection
-    /// @param [Any] orderAttributes
-    /// @param [Any] orderTypes
+    /// @param [String] queries
     /// @throws Exception
     /// @return array
     ///
     open func listDocuments(
+        databaseId: String,
         collectionId: String,
-        queries: [Any]? = nil,
-        limit: Int? = nil,
-        offset: Int? = nil,
-        cursor: String? = nil,
-        cursorDirection: String? = nil,
-        orderAttributes: [Any]? = nil,
-        orderTypes: [Any]? = nil
+        queries: [String]? = nil
     ) async throws -> AppwriteModels.DocumentList {
         var path: String = "/databases/{databaseId}/collections/{collectionId}/documents"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         let params: [String: Any?] = [
-            "queries": queries,
-            "limit": limit,
-            "offset": offset,
-            "cursor": cursor,
-            "cursorDirection": cursorDirection,
-            "orderAttributes": orderAttributes,
-            "orderTypes": orderTypes
+            "queries": queries
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -971,37 +1028,39 @@ open class Databases: Service {
     ///
     /// Create Document
     ///
+    /// Create a new Document. Before using this route, you should create a new
+    /// collection resource using either a [server
+    /// integration](/docs/server/databases#databasesCreateCollection) API or
+    /// directly from your database console.
+    ///
     /// @param String databaseId
     /// @param String collectionId
     /// @param String documentId
     /// @param Any data
-    /// @param [Any] read
-    /// @param [Any] write
+    /// @param [String] permissions
     /// @throws Exception
     /// @return array
     ///
     open func createDocument(
+        databaseId: String,
         collectionId: String,
         documentId: String,
         data: Any,
-        read: [Any]? = nil,
-        write: [Any]? = nil
+        permissions: [String]? = nil
     ) async throws -> AppwriteModels.Document {
         var path: String = "/databases/{databaseId}/collections/{collectionId}/documents"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         let params: [String: Any?] = [
             "documentId": documentId,
             "data": data,
-            "read": read,
-            "write": write
+            "permissions": permissions
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -1020,6 +1079,9 @@ open class Databases: Service {
     ///
     /// Get Document
     ///
+    /// Get a document by its unique ID. This endpoint response returns a JSON
+    /// object with the document data.
+    ///
     /// @param String databaseId
     /// @param String collectionId
     /// @param String documentId
@@ -1027,23 +1089,22 @@ open class Databases: Service {
     /// @return array
     ///
     open func getDocument(
+        databaseId: String,
         collectionId: String,
         documentId: String
     ) async throws -> AppwriteModels.Document {
         var path: String = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         path = path.replacingOccurrences(
           of: "{documentId}",
-          with: documentId
-        )
+          with: documentId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -1062,40 +1123,39 @@ open class Databases: Service {
     ///
     /// Update Document
     ///
+    /// Update a document by its unique ID. Using the patch method you can pass
+    /// only specific fields that will get updated.
+    ///
     /// @param String databaseId
     /// @param String collectionId
     /// @param String documentId
     /// @param Any data
-    /// @param [Any] read
-    /// @param [Any] write
+    /// @param [String] permissions
     /// @throws Exception
     /// @return array
     ///
     open func updateDocument(
+        databaseId: String,
         collectionId: String,
         documentId: String,
         data: Any? = nil,
-        read: [Any]? = nil,
-        write: [Any]? = nil
+        permissions: [String]? = nil
     ) async throws -> AppwriteModels.Document {
         var path: String = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         path = path.replacingOccurrences(
           of: "{documentId}",
-          with: documentId
-        )
+          with: documentId        )
         let params: [String: Any?] = [
             "data": data,
-            "read": read,
-            "write": write
+            "permissions": permissions
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -1114,6 +1174,8 @@ open class Databases: Service {
     ///
     /// Delete Document
     ///
+    /// Delete a document by its unique ID.
+    ///
     /// @param String databaseId
     /// @param String collectionId
     /// @param String documentId
@@ -1121,23 +1183,22 @@ open class Databases: Service {
     /// @return array
     ///
     open func deleteDocument(
+        databaseId: String,
         collectionId: String,
         documentId: String
     ) async throws -> Any {
         var path: String = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         path = path.replacingOccurrences(
           of: "{documentId}",
-          with: documentId
-        )
+          with: documentId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -1157,18 +1218,18 @@ open class Databases: Service {
     /// @return array
     ///
     open func listIndexes(
+        databaseId: String,
         collectionId: String
     ) async throws -> AppwriteModels.IndexList {
         var path: String = "/databases/{databaseId}/collections/{collectionId}/indexes"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -1191,33 +1252,33 @@ open class Databases: Service {
     /// @param String collectionId
     /// @param String key
     /// @param String type
-    /// @param [Any] attributes
-    /// @param [Any] orders
+    /// @param [String] attributes
+    /// @param [String] orders
     /// @throws Exception
     /// @return array
     ///
     open func createIndex(
+        databaseId: String,
         collectionId: String,
         key: String,
         type: String,
-        attributes: [Any],
-        orders: [Any]? = nil
+        attributes: [String],
+        orders: [String]? = nil
     ) async throws -> AppwriteModels.Index {
         var path: String = "/databases/{databaseId}/collections/{collectionId}/indexes"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         let params: [String: Any?] = [
             "key": key,
             "type": type,
             "attributes": attributes,
             "orders": orders
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -1243,23 +1304,22 @@ open class Databases: Service {
     /// @return array
     ///
     open func getIndex(
+        databaseId: String,
         collectionId: String,
         key: String
     ) async throws -> AppwriteModels.Index {
         var path: String = "/databases/{databaseId}/collections/{collectionId}/indexes/{key}"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         path = path.replacingOccurrences(
           of: "{key}",
-          with: key
-        )
+          with: key        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -1285,23 +1345,22 @@ open class Databases: Service {
     /// @return array
     ///
     open func deleteIndex(
+        databaseId: String,
         collectionId: String,
         key: String
     ) async throws -> Any {
         var path: String = "/databases/{databaseId}/collections/{collectionId}/indexes/{key}"
         path = path.replacingOccurrences(
           of: "{databaseId}",
-          with: self.databaseId
-        )
+          with: databaseId        )
         path = path.replacingOccurrences(
           of: "{collectionId}",
-          with: collectionId
-        )
+          with: collectionId        )
         path = path.replacingOccurrences(
           of: "{key}",
-          with: key
-        )
+          with: key        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -1316,34 +1375,25 @@ open class Databases: Service {
     ///
     /// List Databases
     ///
+    /// Get a list of all databases from the current Appwrite project. You can use
+    /// the search parameter to filter your results.
+    ///
+    /// @param [String] queries
     /// @param String search
-    /// @param Int limit
-    /// @param Int offset
-    /// @param String cursor
-    /// @param String cursorDirection
-    /// @param String orderType
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func list(
+        queries: [String]? = nil,
         search: String? = nil,
-        limit: Int? = nil,
-        offset: Int? = nil,
-        cursor: String? = nil,
-        cursorDirection: String? = nil,
-        orderType: String? = nil,
         completion: ((Result<AppwriteModels.DatabaseList, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await list(
-                    search: search,
-                    limit: limit,
-                    offset: offset,
-                    cursor: cursor,
-                    cursorDirection: cursorDirection,
-                    orderType: orderType
+                    queries: queries,
+                    search: search
                 )
                 completion?(.success(result))
             } catch {
@@ -1355,18 +1405,24 @@ open class Databases: Service {
     ///
     /// Create Database
     ///
+    /// Create a new Database.
+    /// 
+    ///
+    /// @param String databaseId
     /// @param String name
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func create(
+        databaseId: String,
         name: String,
         completion: ((Result<AppwriteModels.Database, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await create(
+                    databaseId: databaseId,
                     name: name
                 )
                 completion?(.success(result))
@@ -1379,16 +1435,22 @@ open class Databases: Service {
     ///
     /// Get Database
     ///
+    /// Get a database by its unique ID. This endpoint response returns a JSON
+    /// object with the database metadata.
+    ///
+    /// @param String databaseId
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func get(
-        completion: ((Result<AppwriteModels.Collection, AppwriteError>) -> Void)? = nil
+        databaseId: String,
+        completion: ((Result<AppwriteModels.Database, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await get(
+                    databaseId: databaseId
                 )
                 completion?(.success(result))
             } catch {
@@ -1400,18 +1462,23 @@ open class Databases: Service {
     ///
     /// Update Database
     ///
+    /// Update a database by its unique ID.
+    ///
+    /// @param String databaseId
     /// @param String name
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func update(
+        databaseId: String,
         name: String,
-        completion: ((Result<AppwriteModels.Collection, AppwriteError>) -> Void)? = nil
+        completion: ((Result<AppwriteModels.Database, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await update(
+                    databaseId: databaseId,
                     name: name
                 )
                 completion?(.success(result))
@@ -1424,16 +1491,22 @@ open class Databases: Service {
     ///
     /// Delete Database
     ///
+    /// Delete a database by its unique ID. Only API keys with with databases.write
+    /// scope can delete a database.
+    ///
+    /// @param String databaseId
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func delete(
+        databaseId: String,
         completion: ((Result<Any, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await delete(
+                    databaseId: databaseId
                 )
                 completion?(.success(result))
             } catch {
@@ -1445,34 +1518,28 @@ open class Databases: Service {
     ///
     /// List Collections
     ///
+    /// Get a list of all collections that belong to the provided databaseId. You
+    /// can use the search parameter to filter your results.
+    ///
+    /// @param String databaseId
+    /// @param [String] queries
     /// @param String search
-    /// @param Int limit
-    /// @param Int offset
-    /// @param String cursor
-    /// @param String cursorDirection
-    /// @param String orderType
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func listCollections(
+        databaseId: String,
+        queries: [String]? = nil,
         search: String? = nil,
-        limit: Int? = nil,
-        offset: Int? = nil,
-        cursor: String? = nil,
-        cursorDirection: String? = nil,
-        orderType: String? = nil,
         completion: ((Result<AppwriteModels.CollectionList, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await listCollections(
-                    search: search,
-                    limit: limit,
-                    offset: offset,
-                    cursor: cursor,
-                    cursorDirection: cursorDirection,
-                    orderType: orderType
+                    databaseId: databaseId,
+                    queries: queries,
+                    search: search
                 )
                 completion?(.success(result))
             } catch {
@@ -1484,31 +1551,36 @@ open class Databases: Service {
     ///
     /// Create Collection
     ///
+    /// Create a new Collection. Before using this route, you should create a new
+    /// database resource using either a [server
+    /// integration](/docs/server/databases#databasesCreateCollection) API or
+    /// directly from your database console.
+    ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @param String name
-    /// @param String permission
-    /// @param [Any] read
-    /// @param [Any] write
+    /// @param [String] permissions
+    /// @param Bool documentSecurity
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func createCollection(
+        databaseId: String,
         collectionId: String,
         name: String,
-        permission: String,
-        read: [Any],
-        write: [Any],
+        permissions: [String],
+        documentSecurity: Bool,
         completion: ((Result<AppwriteModels.Collection, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await createCollection(
+                    databaseId: databaseId,
                     collectionId: collectionId,
                     name: name,
-                    permission: permission,
-                    read: read,
-                    write: write
+                    permissions: permissions,
+                    documentSecurity: documentSecurity
                 )
                 completion?(.success(result))
             } catch {
@@ -1520,18 +1592,24 @@ open class Databases: Service {
     ///
     /// Get Collection
     ///
+    /// Get a collection by its unique ID. This endpoint response returns a JSON
+    /// object with the collection metadata.
+    ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func getCollection(
+        databaseId: String,
         collectionId: String,
         completion: ((Result<AppwriteModels.Collection, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await getCollection(
+                    databaseId: databaseId,
                     collectionId: collectionId
                 )
                 completion?(.success(result))
@@ -1544,33 +1622,35 @@ open class Databases: Service {
     ///
     /// Update Collection
     ///
+    /// Update a collection by its unique ID.
+    ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @param String name
-    /// @param String permission
-    /// @param [Any] read
-    /// @param [Any] write
+    /// @param Bool documentSecurity
+    /// @param [String] permissions
     /// @param Bool enabled
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func updateCollection(
+        databaseId: String,
         collectionId: String,
         name: String,
-        permission: String,
-        read: [Any]? = nil,
-        write: [Any]? = nil,
+        documentSecurity: Bool,
+        permissions: [String]? = nil,
         enabled: Bool? = nil,
         completion: ((Result<AppwriteModels.Collection, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await updateCollection(
+                    databaseId: databaseId,
                     collectionId: collectionId,
                     name: name,
-                    permission: permission,
-                    read: read,
-                    write: write,
+                    documentSecurity: documentSecurity,
+                    permissions: permissions,
                     enabled: enabled
                 )
                 completion?(.success(result))
@@ -1583,18 +1663,24 @@ open class Databases: Service {
     ///
     /// Delete Collection
     ///
+    /// Delete a collection by its unique ID. Only users with write permissions
+    /// have access to delete this resource.
+    ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func deleteCollection(
+        databaseId: String,
         collectionId: String,
         completion: ((Result<Any, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await deleteCollection(
+                    databaseId: databaseId,
                     collectionId: collectionId
                 )
                 completion?(.success(result))
@@ -1607,18 +1693,21 @@ open class Databases: Service {
     ///
     /// List Attributes
     ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func listAttributes(
+        databaseId: String,
         collectionId: String,
         completion: ((Result<AppwriteModels.AttributeList, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await listAttributes(
+                    databaseId: databaseId,
                     collectionId: collectionId
                 )
                 completion?(.success(result))
@@ -1631,6 +1720,10 @@ open class Databases: Service {
     ///
     /// Create Boolean Attribute
     ///
+    /// Create a boolean attribute.
+    /// 
+    ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @param String key
     /// @param Bool required
@@ -1641,6 +1734,7 @@ open class Databases: Service {
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func createBooleanAttribute(
+        databaseId: String,
         collectionId: String,
         key: String,
         xrequired: Bool,
@@ -1651,6 +1745,46 @@ open class Databases: Service {
         Task {
             do {
                 let result = try await createBooleanAttribute(
+                    databaseId: databaseId,
+                    collectionId: collectionId,
+                    key: key,
+                    xrequired: xrequired,
+                    xdefault: xdefault,
+                    array: array
+                )
+                completion?(.success(result))
+            } catch {
+                completion?(.failure(error as! AppwriteError))
+            }
+        }
+    }
+
+    ///
+    /// Create DateTime Attribute
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param String key
+    /// @param Bool required
+    /// @param String default
+    /// @param Bool array
+    /// @throws Exception
+    /// @return array
+    ///
+    @available(*, deprecated, message: "Use the async overload instead")
+    open func createDatetimeAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        xrequired: Bool,
+        xdefault: String? = nil,
+        array: Bool? = nil,
+        completion: ((Result<AppwriteModels.AttributeDatetime, AppwriteError>) -> Void)? = nil
+    ) {
+        Task {
+            do {
+                let result = try await createDatetimeAttribute(
+                    databaseId: databaseId,
                     collectionId: collectionId,
                     key: key,
                     xrequired: xrequired,
@@ -1667,6 +1801,10 @@ open class Databases: Service {
     ///
     /// Create Email Attribute
     ///
+    /// Create an email attribute.
+    /// 
+    ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @param String key
     /// @param Bool required
@@ -1677,6 +1815,7 @@ open class Databases: Service {
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func createEmailAttribute(
+        databaseId: String,
         collectionId: String,
         key: String,
         xrequired: Bool,
@@ -1687,6 +1826,7 @@ open class Databases: Service {
         Task {
             do {
                 let result = try await createEmailAttribute(
+                    databaseId: databaseId,
                     collectionId: collectionId,
                     key: key,
                     xrequired: xrequired,
@@ -1703,9 +1843,10 @@ open class Databases: Service {
     ///
     /// Create Enum Attribute
     ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @param String key
-    /// @param [Any] elements
+    /// @param [String] elements
     /// @param Bool required
     /// @param String default
     /// @param Bool array
@@ -1714,9 +1855,10 @@ open class Databases: Service {
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func createEnumAttribute(
+        databaseId: String,
         collectionId: String,
         key: String,
-        elements: [Any],
+        elements: [String],
         xrequired: Bool,
         xdefault: String? = nil,
         array: Bool? = nil,
@@ -1725,6 +1867,7 @@ open class Databases: Service {
         Task {
             do {
                 let result = try await createEnumAttribute(
+                    databaseId: databaseId,
                     collectionId: collectionId,
                     key: key,
                     elements: elements,
@@ -1742,6 +1885,11 @@ open class Databases: Service {
     ///
     /// Create Float Attribute
     ///
+    /// Create a float attribute. Optionally, minimum and maximum values can be
+    /// provided.
+    /// 
+    ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @param String key
     /// @param Bool required
@@ -1754,6 +1902,7 @@ open class Databases: Service {
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func createFloatAttribute(
+        databaseId: String,
         collectionId: String,
         key: String,
         xrequired: Bool,
@@ -1766,6 +1915,7 @@ open class Databases: Service {
         Task {
             do {
                 let result = try await createFloatAttribute(
+                    databaseId: databaseId,
                     collectionId: collectionId,
                     key: key,
                     xrequired: xrequired,
@@ -1784,6 +1934,11 @@ open class Databases: Service {
     ///
     /// Create Integer Attribute
     ///
+    /// Create an integer attribute. Optionally, minimum and maximum values can be
+    /// provided.
+    /// 
+    ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @param String key
     /// @param Bool required
@@ -1796,6 +1951,7 @@ open class Databases: Service {
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func createIntegerAttribute(
+        databaseId: String,
         collectionId: String,
         key: String,
         xrequired: Bool,
@@ -1808,6 +1964,7 @@ open class Databases: Service {
         Task {
             do {
                 let result = try await createIntegerAttribute(
+                    databaseId: databaseId,
                     collectionId: collectionId,
                     key: key,
                     xrequired: xrequired,
@@ -1826,6 +1983,10 @@ open class Databases: Service {
     ///
     /// Create IP Address Attribute
     ///
+    /// Create IP address attribute.
+    /// 
+    ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @param String key
     /// @param Bool required
@@ -1836,6 +1997,7 @@ open class Databases: Service {
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func createIpAttribute(
+        databaseId: String,
         collectionId: String,
         key: String,
         xrequired: Bool,
@@ -1846,6 +2008,7 @@ open class Databases: Service {
         Task {
             do {
                 let result = try await createIpAttribute(
+                    databaseId: databaseId,
                     collectionId: collectionId,
                     key: key,
                     xrequired: xrequired,
@@ -1862,6 +2025,10 @@ open class Databases: Service {
     ///
     /// Create String Attribute
     ///
+    /// Create a string attribute.
+    /// 
+    ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @param String key
     /// @param Int size
@@ -1873,6 +2040,7 @@ open class Databases: Service {
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func createStringAttribute(
+        databaseId: String,
         collectionId: String,
         key: String,
         size: Int,
@@ -1884,6 +2052,7 @@ open class Databases: Service {
         Task {
             do {
                 let result = try await createStringAttribute(
+                    databaseId: databaseId,
                     collectionId: collectionId,
                     key: key,
                     size: size,
@@ -1901,6 +2070,10 @@ open class Databases: Service {
     ///
     /// Create URL Attribute
     ///
+    /// Create a URL attribute.
+    /// 
+    ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @param String key
     /// @param Bool required
@@ -1911,6 +2084,7 @@ open class Databases: Service {
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func createUrlAttribute(
+        databaseId: String,
         collectionId: String,
         key: String,
         xrequired: Bool,
@@ -1921,6 +2095,7 @@ open class Databases: Service {
         Task {
             do {
                 let result = try await createUrlAttribute(
+                    databaseId: databaseId,
                     collectionId: collectionId,
                     key: key,
                     xrequired: xrequired,
@@ -1937,6 +2112,7 @@ open class Databases: Service {
     ///
     /// Get Attribute
     ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @param String key
     /// @throws Exception
@@ -1944,6 +2120,7 @@ open class Databases: Service {
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func getAttribute(
+        databaseId: String,
         collectionId: String,
         key: String,
         completion: ((Result<Any, AppwriteError>) -> Void)? = nil
@@ -1951,6 +2128,7 @@ open class Databases: Service {
         Task {
             do {
                 let result = try await getAttribute(
+                    databaseId: databaseId,
                     collectionId: collectionId,
                     key: key
                 )
@@ -1964,6 +2142,7 @@ open class Databases: Service {
     ///
     /// Delete Attribute
     ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @param String key
     /// @throws Exception
@@ -1971,6 +2150,7 @@ open class Databases: Service {
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func deleteAttribute(
+        databaseId: String,
         collectionId: String,
         key: String,
         completion: ((Result<Any, AppwriteError>) -> Void)? = nil
@@ -1978,6 +2158,7 @@ open class Databases: Service {
         Task {
             do {
                 let result = try await deleteAttribute(
+                    databaseId: databaseId,
                     collectionId: collectionId,
                     key: key
                 )
@@ -1991,40 +2172,30 @@ open class Databases: Service {
     ///
     /// List Documents
     ///
+    /// Get a list of all the user's documents in a given collection. You can use
+    /// the query params to filter your results. On admin mode, this endpoint will
+    /// return a list of all of documents belonging to the provided collectionId.
+    /// [Learn more about different API modes](/docs/admin).
+    ///
+    /// @param String databaseId
     /// @param String collectionId
-    /// @param [Any] queries
-    /// @param Int limit
-    /// @param Int offset
-    /// @param String cursor
-    /// @param String cursorDirection
-    /// @param [Any] orderAttributes
-    /// @param [Any] orderTypes
+    /// @param [String] queries
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func listDocuments(
+        databaseId: String,
         collectionId: String,
-        queries: [Any]? = nil,
-        limit: Int? = nil,
-        offset: Int? = nil,
-        cursor: String? = nil,
-        cursorDirection: String? = nil,
-        orderAttributes: [Any]? = nil,
-        orderTypes: [Any]? = nil,
+        queries: [String]? = nil,
         completion: ((Result<AppwriteModels.DocumentList, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await listDocuments(
+                    databaseId: databaseId,
                     collectionId: collectionId,
-                    queries: queries,
-                    limit: limit,
-                    offset: offset,
-                    cursor: cursor,
-                    cursorDirection: cursorDirection,
-                    orderAttributes: orderAttributes,
-                    orderTypes: orderTypes
+                    queries: queries
                 )
                 completion?(.success(result))
             } catch {
@@ -2036,31 +2207,36 @@ open class Databases: Service {
     ///
     /// Create Document
     ///
+    /// Create a new Document. Before using this route, you should create a new
+    /// collection resource using either a [server
+    /// integration](/docs/server/databases#databasesCreateCollection) API or
+    /// directly from your database console.
+    ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @param String documentId
     /// @param Any data
-    /// @param [Any] read
-    /// @param [Any] write
+    /// @param [String] permissions
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func createDocument(
+        databaseId: String,
         collectionId: String,
         documentId: String,
         data: Any,
-        read: [Any]? = nil,
-        write: [Any]? = nil,
+        permissions: [String]? = nil,
         completion: ((Result<AppwriteModels.Document, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await createDocument(
+                    databaseId: databaseId,
                     collectionId: collectionId,
                     documentId: documentId,
                     data: data,
-                    read: read,
-                    write: write
+                    permissions: permissions
                 )
                 completion?(.success(result))
             } catch {
@@ -2072,6 +2248,10 @@ open class Databases: Service {
     ///
     /// Get Document
     ///
+    /// Get a document by its unique ID. This endpoint response returns a JSON
+    /// object with the document data.
+    ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @param String documentId
     /// @throws Exception
@@ -2079,6 +2259,7 @@ open class Databases: Service {
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func getDocument(
+        databaseId: String,
         collectionId: String,
         documentId: String,
         completion: ((Result<AppwriteModels.Document, AppwriteError>) -> Void)? = nil
@@ -2086,6 +2267,7 @@ open class Databases: Service {
         Task {
             do {
                 let result = try await getDocument(
+                    databaseId: databaseId,
                     collectionId: collectionId,
                     documentId: documentId
                 )
@@ -2099,31 +2281,34 @@ open class Databases: Service {
     ///
     /// Update Document
     ///
+    /// Update a document by its unique ID. Using the patch method you can pass
+    /// only specific fields that will get updated.
+    ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @param String documentId
     /// @param Any data
-    /// @param [Any] read
-    /// @param [Any] write
+    /// @param [String] permissions
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func updateDocument(
+        databaseId: String,
         collectionId: String,
         documentId: String,
         data: Any? = nil,
-        read: [Any]? = nil,
-        write: [Any]? = nil,
+        permissions: [String]? = nil,
         completion: ((Result<AppwriteModels.Document, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await updateDocument(
+                    databaseId: databaseId,
                     collectionId: collectionId,
                     documentId: documentId,
                     data: data,
-                    read: read,
-                    write: write
+                    permissions: permissions
                 )
                 completion?(.success(result))
             } catch {
@@ -2135,6 +2320,9 @@ open class Databases: Service {
     ///
     /// Delete Document
     ///
+    /// Delete a document by its unique ID.
+    ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @param String documentId
     /// @throws Exception
@@ -2142,6 +2330,7 @@ open class Databases: Service {
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func deleteDocument(
+        databaseId: String,
         collectionId: String,
         documentId: String,
         completion: ((Result<Any, AppwriteError>) -> Void)? = nil
@@ -2149,6 +2338,7 @@ open class Databases: Service {
         Task {
             do {
                 let result = try await deleteDocument(
+                    databaseId: databaseId,
                     collectionId: collectionId,
                     documentId: documentId
                 )
@@ -2162,18 +2352,21 @@ open class Databases: Service {
     ///
     /// List Indexes
     ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func listIndexes(
+        databaseId: String,
         collectionId: String,
         completion: ((Result<AppwriteModels.IndexList, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await listIndexes(
+                    databaseId: databaseId,
                     collectionId: collectionId
                 )
                 completion?(.success(result))
@@ -2186,26 +2379,29 @@ open class Databases: Service {
     ///
     /// Create Index
     ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @param String key
     /// @param String type
-    /// @param [Any] attributes
-    /// @param [Any] orders
+    /// @param [String] attributes
+    /// @param [String] orders
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func createIndex(
+        databaseId: String,
         collectionId: String,
         key: String,
         type: String,
-        attributes: [Any],
-        orders: [Any]? = nil,
+        attributes: [String],
+        orders: [String]? = nil,
         completion: ((Result<AppwriteModels.Index, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await createIndex(
+                    databaseId: databaseId,
                     collectionId: collectionId,
                     key: key,
                     type: type,
@@ -2222,6 +2418,7 @@ open class Databases: Service {
     ///
     /// Get Index
     ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @param String key
     /// @throws Exception
@@ -2229,6 +2426,7 @@ open class Databases: Service {
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func getIndex(
+        databaseId: String,
         collectionId: String,
         key: String,
         completion: ((Result<AppwriteModels.Index, AppwriteError>) -> Void)? = nil
@@ -2236,6 +2434,7 @@ open class Databases: Service {
         Task {
             do {
                 let result = try await getIndex(
+                    databaseId: databaseId,
                     collectionId: collectionId,
                     key: key
                 )
@@ -2249,6 +2448,7 @@ open class Databases: Service {
     ///
     /// Delete Index
     ///
+    /// @param String databaseId
     /// @param String collectionId
     /// @param String key
     /// @throws Exception
@@ -2256,6 +2456,7 @@ open class Databases: Service {
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func deleteIndex(
+        databaseId: String,
         collectionId: String,
         key: String,
         completion: ((Result<Any, AppwriteError>) -> Void)? = nil
@@ -2263,6 +2464,7 @@ open class Databases: Service {
         Task {
             do {
                 let result = try await deleteIndex(
+                    databaseId: databaseId,
                     collectionId: collectionId,
                     key: key
                 )
