@@ -8,10 +8,10 @@ public class Database {
     /// Database name.
     public let name: String
 
-    /// Database creation date in Datetime
+    /// Database creation date in ISO 8601 format.
     public let createdAt: String
 
-    /// Database update date in Datetime
+    /// Database update date in ISO 8601 format.
     public let updatedAt: String
 
     init(

@@ -5,22 +5,22 @@ public class Account {
     /// User ID.
     public let id: String
 
-    /// User creation date in Datetime.
+    /// User creation date in ISO 8601 format.
     public let createdAt: String
 
-    /// User update date in Datetime.
+    /// User update date in ISO 8601 format.
     public let updatedAt: String
 
     /// User name.
     public let name: String
 
-    /// User registration date in Datetime.
+    /// User registration date in ISO 8601 format.
     public let registration: String
 
     /// User status. Pass `true` for enabled and `false` for disabled.
     public let status: Bool
 
-    /// Datetime of the most recent password update
+    /// Password update time in ISO 8601 format.
     public let passwordUpdate: String
 
     /// User email address.

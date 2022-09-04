@@ -8,10 +8,10 @@ public class File {
     /// Bucket ID.
     public let bucketId: String
 
-    /// File creation date in Datetime
+    /// File creation date in ISO 8601 format.
     public let createdAt: String
 
-    /// File update date in Datetime
+    /// File update date in ISO 8601 format.
     public let updatedAt: String
 
     /// File permissions. [Learn more about permissions](/docs/permissions).

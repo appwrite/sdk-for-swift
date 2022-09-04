@@ -8,10 +8,10 @@ public class Document {
     /// Collection ID.
     public let collection: String
 
-    /// Document creation date in Datetime
+    /// Document creation date in ISO 8601 format.
     public let createdAt: String
 
-    /// Document update date in Datetime
+    /// Document update date in ISO 8601 format.
     public let updatedAt: String
 
     /// Document permissions. [Learn more about permissions](/docs/permissions).

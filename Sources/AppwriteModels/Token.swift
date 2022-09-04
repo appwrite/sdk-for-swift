@@ -5,7 +5,7 @@ public class Token {
     /// Token ID.
     public let id: String
 
-    /// Token creation date in Datetime
+    /// Token creation date in ISO 8601 format.
     public let createdAt: String
 
     /// User ID.
@@ -14,7 +14,7 @@ public class Token {
     /// Token secret key. This will return an empty string unless the response is returned using an API key or as part of a webhook payload.
     public let secret: String
 
-    /// Token expiration date in Datetime.
+    /// Token expiration date in ISO 8601 format.
     public let expire: String
 
     init(

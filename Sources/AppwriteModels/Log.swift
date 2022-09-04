@@ -20,7 +20,7 @@ public class Log {
     /// IP session in use when the session was created.
     public let ip: String
 
-    /// Log creation date in Datetime.
+    /// Log creation date in ISO 8601 format.
     public let time: String
 
     /// Operating system code name. View list of [available options](https://github.com/appwrite/appwrite/blob/master/docs/lists/os.json).

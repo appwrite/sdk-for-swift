@@ -237,8 +237,8 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         name: String,
-        permissions: [String],
-        documentSecurity: Bool
+        permissions: [String]? = nil,
+        documentSecurity: Bool? = nil
     ) async throws -> AppwriteModels.Collection {
         var path: String = "/databases/{databaseId}/collections"
         path = path.replacingOccurrences(
@@ -313,8 +313,8 @@ open class Databases: Service {
     /// @param String databaseId
     /// @param String collectionId
     /// @param String name
-    /// @param Bool documentSecurity
     /// @param [String] permissions
+    /// @param Bool documentSecurity
     /// @param Bool enabled
     /// @throws Exception
     /// @return array
@@ -323,8 +323,8 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         name: String,
-        documentSecurity: Bool,
         permissions: [String]? = nil,
+        documentSecurity: Bool? = nil,
         enabled: Bool? = nil
     ) async throws -> AppwriteModels.Collection {
         var path: String = "/databases/{databaseId}/collections/{collectionId}"
@@ -1569,8 +1569,8 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         name: String,
-        permissions: [String],
-        documentSecurity: Bool,
+        permissions: [String]? = nil,
+        documentSecurity: Bool? = nil,
         completion: ((Result<AppwriteModels.Collection, AppwriteError>) -> Void)? = nil
     ) {
         Task {
@@ -1627,8 +1627,8 @@ open class Databases: Service {
     /// @param String databaseId
     /// @param String collectionId
     /// @param String name
-    /// @param Bool documentSecurity
     /// @param [String] permissions
+    /// @param Bool documentSecurity
     /// @param Bool enabled
     /// @throws Exception
     /// @return array
@@ -1638,8 +1638,8 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         name: String,
-        documentSecurity: Bool,
         permissions: [String]? = nil,
+        documentSecurity: Bool? = nil,
         enabled: Bool? = nil,
         completion: ((Result<AppwriteModels.Collection, AppwriteError>) -> Void)? = nil
     ) {
@@ -1649,8 +1649,8 @@ open class Databases: Service {
                     databaseId: databaseId,
                     collectionId: collectionId,
                     name: name,
-                    documentSecurity: documentSecurity,
                     permissions: permissions,
+                    documentSecurity: documentSecurity,
                     enabled: enabled
                 )
                 completion?(.success(result))

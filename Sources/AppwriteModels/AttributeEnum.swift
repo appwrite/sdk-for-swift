@@ -15,7 +15,7 @@ public class AttributeEnum {
     public let xrequired: Bool
 
     /// Is attribute an array?
-    public let array: Bool
+    public let array: Bool?
 
     /// Array of elements in enumerated type.
     public let elements: [Any]
@@ -24,17 +24,17 @@ public class AttributeEnum {
     public let format: String
 
     /// Default value for attribute when not provided. Cannot be set when attribute is required.
-    public let xdefault: String
+    public let xdefault: String?
 
     init(
         key: String,
         type: String,
         status: String,
         xrequired: Bool,
-        array: Bool,
+        array: Bool?,
         elements: [Any],
         format: String,
-        xdefault: String
+        xdefault: String?
     ) {
         self.key = key
         self.type = type
@@ -52,10 +52,10 @@ public class AttributeEnum {
             type: map["type"] as! String,
             status: map["status"] as! String,
             xrequired: map["required"] as! Bool,
-            array: map["array"] as! Bool,
+            array: map["array"] as? Bool,
             elements: map["elements"] as! [Any],
             format: map["format"] as! String,
-            xdefault: map["default"] as! String
+            xdefault: map["default"] as? String
         )
     }
 

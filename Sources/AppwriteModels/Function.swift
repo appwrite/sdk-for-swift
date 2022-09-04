@@ -5,10 +5,10 @@ public class Function {
     /// Function ID.
     public let id: String
 
-    /// Function creation date in Datetime
+    /// Function creation date in ISO 8601 format.
     public let createdAt: String
 
-    /// Function update date in Datetime
+    /// Function update date in ISO 8601 format.
     public let updatedAt: String
 
     /// Execution permissions.
@@ -35,10 +35,10 @@ public class Function {
     /// Function execution schedult in CRON format.
     public let schedule: String
 
-    /// Function&#039;s next scheduled execution time in Datetime.
+    /// Function&#039;s next scheduled execution time in ISO 8601 format.
     public let scheduleNext: String
 
-    /// Function&#039;s previous scheduled execution time in Datetime.
+    /// Function&#039;s previous scheduled execution time in ISO 8601 format.
     public let schedulePrevious: String
 
     /// Function execution timeout in seconds.

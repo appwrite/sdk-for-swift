@@ -5,10 +5,10 @@ public class Collection {
     /// Collection ID.
     public let id: String
 
-    /// Collection creation date in Datetime
+    /// Collection creation date in ISO 8601 format.
     public let createdAt: String
 
-    /// Collection update date in Datetime
+    /// Collection update date in ISO 8601 format.
     public let updatedAt: String
 
     /// Collection permissions. [Learn more about permissions](/docs/permissions).

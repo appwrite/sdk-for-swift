@@ -5,10 +5,10 @@ public class Team {
     /// Team ID.
     public let id: String
 
-    /// Team creation date in Datetime
+    /// Team creation date in ISO 8601 format.
     public let createdAt: String
 
-    /// Team update date in Datetime
+    /// Team update date in ISO 8601 format.
     public let updatedAt: String
 
     /// Team name.

@@ -47,8 +47,8 @@ open class Storage: Service {
     ///
     /// @param String bucketId
     /// @param String name
-    /// @param Bool fileSecurity
     /// @param [String] permissions
+    /// @param Bool fileSecurity
     /// @param Bool enabled
     /// @param Int maximumFileSize
     /// @param [String] allowedFileExtensions
@@ -61,8 +61,8 @@ open class Storage: Service {
     open func createBucket(
         bucketId: String,
         name: String,
-        fileSecurity: Bool,
         permissions: [String]? = nil,
+        fileSecurity: Bool? = nil,
         enabled: Bool? = nil,
         maximumFileSize: Int? = nil,
         allowedFileExtensions: [String]? = nil,
@@ -140,8 +140,8 @@ open class Storage: Service {
     ///
     /// @param String bucketId
     /// @param String name
-    /// @param Bool fileSecurity
     /// @param [String] permissions
+    /// @param Bool fileSecurity
     /// @param Bool enabled
     /// @param Int maximumFileSize
     /// @param [String] allowedFileExtensions
@@ -154,8 +154,8 @@ open class Storage: Service {
     open func updateBucket(
         bucketId: String,
         name: String,
-        fileSecurity: Bool,
         permissions: [String]? = nil,
+        fileSecurity: Bool? = nil,
         enabled: Bool? = nil,
         maximumFileSize: Int? = nil,
         allowedFileExtensions: [String]? = nil,
@@ -623,8 +623,8 @@ open class Storage: Service {
     ///
     /// @param String bucketId
     /// @param String name
-    /// @param Bool fileSecurity
     /// @param [String] permissions
+    /// @param Bool fileSecurity
     /// @param Bool enabled
     /// @param Int maximumFileSize
     /// @param [String] allowedFileExtensions
@@ -638,8 +638,8 @@ open class Storage: Service {
     open func createBucket(
         bucketId: String,
         name: String,
-        fileSecurity: Bool,
         permissions: [String]? = nil,
+        fileSecurity: Bool? = nil,
         enabled: Bool? = nil,
         maximumFileSize: Int? = nil,
         allowedFileExtensions: [String]? = nil,
@@ -653,8 +653,8 @@ open class Storage: Service {
                 let result = try await createBucket(
                     bucketId: bucketId,
                     name: name,
-                    fileSecurity: fileSecurity,
                     permissions: permissions,
+                    fileSecurity: fileSecurity,
                     enabled: enabled,
                     maximumFileSize: maximumFileSize,
                     allowedFileExtensions: allowedFileExtensions,
@@ -703,8 +703,8 @@ open class Storage: Service {
     ///
     /// @param String bucketId
     /// @param String name
-    /// @param Bool fileSecurity
     /// @param [String] permissions
+    /// @param Bool fileSecurity
     /// @param Bool enabled
     /// @param Int maximumFileSize
     /// @param [String] allowedFileExtensions
@@ -718,8 +718,8 @@ open class Storage: Service {
     open func updateBucket(
         bucketId: String,
         name: String,
-        fileSecurity: Bool,
         permissions: [String]? = nil,
+        fileSecurity: Bool? = nil,
         enabled: Bool? = nil,
         maximumFileSize: Int? = nil,
         allowedFileExtensions: [String]? = nil,
@@ -733,8 +733,8 @@ open class Storage: Service {
                 let result = try await updateBucket(
                     bucketId: bucketId,
                     name: name,
-                    fileSecurity: fileSecurity,
                     permissions: permissions,
+                    fileSecurity: fileSecurity,
                     enabled: enabled,
                     maximumFileSize: maximumFileSize,
                     allowedFileExtensions: allowedFileExtensions,

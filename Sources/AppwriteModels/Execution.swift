@@ -5,10 +5,10 @@ public class Execution {
     /// Execution ID.
     public let id: String
 
-    /// Execution creation date in Datetime
+    /// Execution creation date in ISO 8601 format.
     public let createdAt: String
 
-    /// Execution upate date in Datetime
+    /// Execution upate date in ISO 8601 format.
     public let updatedAt: String
 
     /// Execution roles.

@@ -5,13 +5,13 @@ public class Session {
     /// Session ID.
     public let id: String
 
-    /// Session creation date in Datetime
+    /// Session creation date in ISO 8601 format.
     public let createdAt: String
 
     /// User ID.
     public let userId: String
 
-    /// Session expiration date in Datetime
+    /// Session expiration date in ISO 8601 format.
     public let expire: String
 
     /// Session Provider.
@@ -23,7 +23,7 @@ public class Session {
     /// Session Provider Access Token.
     public let providerAccessToken: String
 
-    /// The date of when the access token expires in Datetime format.
+    /// The date of when the access token expires in ISO 8601 format.
     public let providerAccessTokenExpiry: String
 
     /// Session Provider Refresh Token.

@@ -5,10 +5,10 @@ public class Bucket {
     /// Bucket ID.
     public let id: String
 
-    /// Bucket creation time in Datetime
+    /// Bucket creation time in ISO 8601 format.
     public let createdAt: String
 
-    /// Bucket update date in Datetime
+    /// Bucket update date in ISO 8601 format.
     public let updatedAt: String
 
     /// Bucket permissions. [Learn more about permissions](/docs/permissions).

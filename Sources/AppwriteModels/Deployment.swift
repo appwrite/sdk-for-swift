@@ -5,10 +5,10 @@ public class Deployment {
     /// Deployment ID.
     public let id: String
 
-    /// Deployment creation date in Datetime
+    /// Deployment creation date in ISO 8601 format.
     public let createdAt: String
 
-    /// Deployment update date in Datetime
+    /// Deployment update date in ISO 8601 format.
     public let updatedAt: String
 
     /// Resource ID.

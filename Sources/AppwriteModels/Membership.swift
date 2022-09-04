@@ -5,10 +5,10 @@ public class Membership {
     /// Membership ID.
     public let id: String
 
-    /// Membership creation date in Datetime
+    /// Membership creation date in ISO 8601 format.
     public let createdAt: String
 
-    /// Membership update date in Datetime
+    /// Membership update date in ISO 8601 format.
     public let updatedAt: String
 
     /// User ID.
@@ -26,10 +26,10 @@ public class Membership {
     /// Team name.
     public let teamName: String
 
-    /// Date, the user has been invited to join the team in Datetime
+    /// Date, the user has been invited to join the team in ISO 8601 format.
     public let invited: String
 
-    /// Date, the user has accepted the invitation to join the team in Datetime
+    /// Date, the user has accepted the invitation to join the team in ISO 8601 format.
     public let joined: String
 
     /// User confirmation status, true if the user has joined the team or false otherwise.

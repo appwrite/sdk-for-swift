@@ -5,10 +5,10 @@ public class Variable {
     /// Variable ID.
     public let id: String
 
-    /// Variable creation date in Datetime
+    /// Variable creation date in ISO 8601 format.
     public let createdAt: String
 
-    /// Variable creation date in Datetime
+    /// Variable creation date in ISO 8601 format.
     public let updatedAt: String
 
     /// Variable key.

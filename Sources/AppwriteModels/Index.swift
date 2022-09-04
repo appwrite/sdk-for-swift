@@ -15,14 +15,14 @@ public class Index {
     public let attributes: [Any]
 
     /// Index orders.
-    public let orders: [Any]
+    public let orders: [Any]?
 
     init(
         key: String,
         type: String,
         status: String,
         attributes: [Any],
-        orders: [Any]
+        orders: [Any]?
     ) {
         self.key = key
         self.type = type
@@ -37,7 +37,7 @@ public class Index {
             type: map["type"] as! String,
             status: map["status"] as! String,
             attributes: map["attributes"] as! [Any],
-            orders: map["orders"] as! [Any]
+            orders: map["orders"] as? [Any]
         )
     }
 
