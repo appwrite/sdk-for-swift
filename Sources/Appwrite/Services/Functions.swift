@@ -10,32 +10,21 @@ open class Functions: Service {
     /// Get a list of all the project's functions. You can use the query params to
     /// filter your results.
     ///
+    /// @param [String] queries
     /// @param String search
-    /// @param Int limit
-    /// @param Int offset
-    /// @param String cursor
-    /// @param String cursorDirection
-    /// @param String orderType
     /// @throws Exception
     /// @return array
     ///
     open func list(
-        search: String? = nil,
-        limit: Int? = nil,
-        offset: Int? = nil,
-        cursor: String? = nil,
-        cursorDirection: String? = nil,
-        orderType: String? = nil
+        queries: [String]? = nil,
+        search: String? = nil
     ) async throws -> AppwriteModels.FunctionList {
         let path: String = "/functions"
         let params: [String: Any?] = [
-            "search": search,
-            "limit": limit,
-            "offset": offset,
-            "cursor": cursor,
-            "cursorDirection": cursorDirection,
-            "orderType": orderType
+            "queries": queries,
+            "search": search
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -60,10 +49,9 @@ open class Functions: Service {
     ///
     /// @param String functionId
     /// @param String name
-    /// @param [Any] execute
+    /// @param [String] execute
     /// @param String runtime
-    /// @param Any vars
-    /// @param [Any] events
+    /// @param [String] events
     /// @param String schedule
     /// @param Int timeout
     /// @throws Exception
@@ -72,10 +60,9 @@ open class Functions: Service {
     open func create(
         functionId: String,
         name: String,
-        execute: [Any],
+        execute: [String],
         runtime: String,
-        vars: Any? = nil,
-        events: [Any]? = nil,
+        events: [String]? = nil,
         schedule: String? = nil,
         timeout: Int? = nil
     ) async throws -> AppwriteModels.Function {
@@ -85,11 +72,11 @@ open class Functions: Service {
             "name": name,
             "execute": execute,
             "runtime": runtime,
-            "vars": vars,
             "events": events,
             "schedule": schedule,
             "timeout": timeout
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -117,6 +104,7 @@ open class Functions: Service {
     ) async throws -> AppwriteModels.RuntimeList {
         let path: String = "/functions/runtimes"
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -147,9 +135,9 @@ open class Functions: Service {
         var path: String = "/functions/{functionId}"
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -172,9 +160,8 @@ open class Functions: Service {
     ///
     /// @param String functionId
     /// @param String name
-    /// @param [Any] execute
-    /// @param Any vars
-    /// @param [Any] events
+    /// @param [String] execute
+    /// @param [String] events
     /// @param String schedule
     /// @param Int timeout
     /// @throws Exception
@@ -183,25 +170,23 @@ open class Functions: Service {
     open func update(
         functionId: String,
         name: String,
-        execute: [Any],
-        vars: Any? = nil,
-        events: [Any]? = nil,
+        execute: [String],
+        events: [String]? = nil,
         schedule: String? = nil,
         timeout: Int? = nil
     ) async throws -> AppwriteModels.Function {
         var path: String = "/functions/{functionId}"
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
         let params: [String: Any?] = [
             "name": name,
             "execute": execute,
-            "vars": vars,
             "events": events,
             "schedule": schedule,
             "timeout": timeout
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -232,9 +217,9 @@ open class Functions: Service {
         var path: String = "/functions/{functionId}"
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -252,37 +237,25 @@ open class Functions: Service {
     /// params to filter your results.
     ///
     /// @param String functionId
+    /// @param [String] queries
     /// @param String search
-    /// @param Int limit
-    /// @param Int offset
-    /// @param String cursor
-    /// @param String cursorDirection
-    /// @param String orderType
     /// @throws Exception
     /// @return array
     ///
     open func listDeployments(
         functionId: String,
-        search: String? = nil,
-        limit: Int? = nil,
-        offset: Int? = nil,
-        cursor: String? = nil,
-        cursorDirection: String? = nil,
-        orderType: String? = nil
+        queries: [String]? = nil,
+        search: String? = nil
     ) async throws -> AppwriteModels.DeploymentList {
         var path: String = "/functions/{functionId}/deployments"
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
         let params: [String: Any?] = [
-            "search": search,
-            "limit": limit,
-            "offset": offset,
-            "cursor": cursor,
-            "cursorDirection": cursorDirection,
-            "orderType": orderType
+            "queries": queries,
+            "search": search
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -329,13 +302,13 @@ open class Functions: Service {
         var path: String = "/functions/{functionId}/deployments"
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
         var params: [String: Any?] = [
             "entrypoint": entrypoint,
             "code": code,
             "activate": activate
         ]
+
         var headers: [String: String] = [
             "content-type": "multipart/form-data"
         ]
@@ -368,22 +341,21 @@ open class Functions: Service {
     open func getDeployment(
         functionId: String,
         deploymentId: String
-    ) async throws -> AppwriteModels.DeploymentList {
+    ) async throws -> AppwriteModels.Deployment {
         var path: String = "/functions/{functionId}/deployments/{deploymentId}"
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
         path = path.replacingOccurrences(
           of: "{deploymentId}",
-          with: deploymentId
-        )
+          with: deploymentId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.DeploymentList = { dict in
-            return AppwriteModels.DeploymentList.from(map: dict)
+        let converter: ([String: Any]) -> AppwriteModels.Deployment = { dict in
+            return AppwriteModels.Deployment.from(map: dict)
         }
         return try await client.call(
             method: "GET",
@@ -413,13 +385,12 @@ open class Functions: Service {
         var path: String = "/functions/{functionId}/deployments/{deploymentId}"
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
         path = path.replacingOccurrences(
           of: "{deploymentId}",
-          with: deploymentId
-        )
+          with: deploymentId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -452,13 +423,12 @@ open class Functions: Service {
         var path: String = "/functions/{functionId}/deployments/{deploymentId}"
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
         path = path.replacingOccurrences(
           of: "{deploymentId}",
-          with: deploymentId
-        )
+          with: deploymentId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -486,17 +456,15 @@ open class Functions: Service {
         var path: String = "/functions/{functionId}/deployments/{deploymentId}/builds/{buildId}"
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
         path = path.replacingOccurrences(
           of: "{deploymentId}",
-          with: deploymentId
-        )
+          with: deploymentId        )
         path = path.replacingOccurrences(
           of: "{buildId}",
-          with: buildId
-        )
+          with: buildId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -516,34 +484,25 @@ open class Functions: Service {
     /// different API modes](/docs/admin).
     ///
     /// @param String functionId
-    /// @param Int limit
-    /// @param Int offset
+    /// @param [String] queries
     /// @param String search
-    /// @param String cursor
-    /// @param String cursorDirection
     /// @throws Exception
     /// @return array
     ///
     open func listExecutions(
         functionId: String,
-        limit: Int? = nil,
-        offset: Int? = nil,
-        search: String? = nil,
-        cursor: String? = nil,
-        cursorDirection: String? = nil
+        queries: [String]? = nil,
+        search: String? = nil
     ) async throws -> AppwriteModels.ExecutionList {
         var path: String = "/functions/{functionId}/executions"
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
         let params: [String: Any?] = [
-            "limit": limit,
-            "offset": offset,
-            "search": search,
-            "cursor": cursor,
-            "cursorDirection": cursorDirection
+            "queries": queries,
+            "search": search
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -581,12 +540,12 @@ open class Functions: Service {
         var path: String = "/functions/{functionId}/executions"
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
         let params: [String: Any?] = [
             "data": data,
             "async": async
         ]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -619,13 +578,12 @@ open class Functions: Service {
         var path: String = "/functions/{functionId}/executions/{executionId}"
         path = path.replacingOccurrences(
           of: "{functionId}",
-          with: functionId
-        )
+          with: functionId        )
         path = path.replacingOccurrences(
           of: "{executionId}",
-          with: executionId
-        )
+          with: executionId        )
         let params: [String: Any?] = [:]
+
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
@@ -641,6 +599,203 @@ open class Functions: Service {
         )
     }
 
+    ///
+    /// List Variables
+    ///
+    /// Get a list of all variables of a specific function.
+    ///
+    /// @param String functionId
+    /// @param [String] queries
+    /// @param String search
+    /// @throws Exception
+    /// @return array
+    ///
+    open func listVariables(
+        functionId: String,
+        queries: [String]? = nil,
+        search: String? = nil
+    ) async throws -> AppwriteModels.VariableList {
+        var path: String = "/functions/{functionId}/variables"
+        path = path.replacingOccurrences(
+          of: "{functionId}",
+          with: functionId        )
+        let params: [String: Any?] = [
+            "queries": queries,
+            "search": search
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let converter: ([String: Any]) -> AppwriteModels.VariableList = { dict in
+            return AppwriteModels.VariableList.from(map: dict)
+        }
+        return try await client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create Variable
+    ///
+    /// Create a new function variable. These variables can be accessed within
+    /// function in the `env` object under the request variable.
+    ///
+    /// @param String functionId
+    /// @param String key
+    /// @param String value
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createVariable(
+        functionId: String,
+        key: String,
+        value: String
+    ) async throws -> AppwriteModels.Variable {
+        var path: String = "/functions/{functionId}/variables"
+        path = path.replacingOccurrences(
+          of: "{functionId}",
+          with: functionId        )
+        let params: [String: Any?] = [
+            "key": key,
+            "value": value
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let converter: ([String: Any]) -> AppwriteModels.Variable = { dict in
+            return AppwriteModels.Variable.from(map: dict)
+        }
+        return try await client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get Variable
+    ///
+    /// Get a variable by its unique ID.
+    ///
+    /// @param String functionId
+    /// @param String variableId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getVariable(
+        functionId: String,
+        variableId: String
+    ) async throws -> AppwriteModels.Variable {
+        var path: String = "/functions/{functionId}/variables/{variableId}"
+        path = path.replacingOccurrences(
+          of: "{functionId}",
+          with: functionId        )
+        path = path.replacingOccurrences(
+          of: "{variableId}",
+          with: variableId        )
+        let params: [String: Any?] = [:]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let converter: ([String: Any]) -> AppwriteModels.Variable = { dict in
+            return AppwriteModels.Variable.from(map: dict)
+        }
+        return try await client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update Variable
+    ///
+    /// Update variable by its unique ID.
+    ///
+    /// @param String functionId
+    /// @param String variableId
+    /// @param String key
+    /// @param String value
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateVariable(
+        functionId: String,
+        variableId: String,
+        key: String,
+        value: String? = nil
+    ) async throws -> AppwriteModels.Variable {
+        var path: String = "/functions/{functionId}/variables/{variableId}"
+        path = path.replacingOccurrences(
+          of: "{functionId}",
+          with: functionId        )
+        path = path.replacingOccurrences(
+          of: "{variableId}",
+          with: variableId        )
+        let params: [String: Any?] = [
+            "key": key,
+            "value": value
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        let converter: ([String: Any]) -> AppwriteModels.Variable = { dict in
+            return AppwriteModels.Variable.from(map: dict)
+        }
+        return try await client.call(
+            method: "PUT",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Delete Variable
+    ///
+    /// Delete a variable by its unique ID.
+    ///
+    /// @param String functionId
+    /// @param String variableId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func deleteVariable(
+        functionId: String,
+        variableId: String
+    ) async throws -> Any {
+        var path: String = "/functions/{functionId}/variables/{variableId}"
+        path = path.replacingOccurrences(
+          of: "{functionId}",
+          with: functionId        )
+        path = path.replacingOccurrences(
+          of: "{variableId}",
+          with: variableId        )
+        let params: [String: Any?] = [:]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+        return try await client.call(
+            method: "DELETE",
+            path: path,
+            headers: headers,
+            params: params        )
+    }
+
 
     ///
     /// List Functions
@@ -648,34 +803,22 @@ open class Functions: Service {
     /// Get a list of all the project's functions. You can use the query params to
     /// filter your results.
     ///
+    /// @param [String] queries
     /// @param String search
-    /// @param Int limit
-    /// @param Int offset
-    /// @param String cursor
-    /// @param String cursorDirection
-    /// @param String orderType
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func list(
+        queries: [String]? = nil,
         search: String? = nil,
-        limit: Int? = nil,
-        offset: Int? = nil,
-        cursor: String? = nil,
-        cursorDirection: String? = nil,
-        orderType: String? = nil,
         completion: ((Result<AppwriteModels.FunctionList, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await list(
-                    search: search,
-                    limit: limit,
-                    offset: offset,
-                    cursor: cursor,
-                    cursorDirection: cursorDirection,
-                    orderType: orderType
+                    queries: queries,
+                    search: search
                 )
                 completion?(.success(result))
             } catch {
@@ -693,10 +836,9 @@ open class Functions: Service {
     ///
     /// @param String functionId
     /// @param String name
-    /// @param [Any] execute
+    /// @param [String] execute
     /// @param String runtime
-    /// @param Any vars
-    /// @param [Any] events
+    /// @param [String] events
     /// @param String schedule
     /// @param Int timeout
     /// @throws Exception
@@ -706,10 +848,9 @@ open class Functions: Service {
     open func create(
         functionId: String,
         name: String,
-        execute: [Any],
+        execute: [String],
         runtime: String,
-        vars: Any? = nil,
-        events: [Any]? = nil,
+        events: [String]? = nil,
         schedule: String? = nil,
         timeout: Int? = nil,
         completion: ((Result<AppwriteModels.Function, AppwriteError>) -> Void)? = nil
@@ -721,7 +862,6 @@ open class Functions: Service {
                     name: name,
                     execute: execute,
                     runtime: runtime,
-                    vars: vars,
                     events: events,
                     schedule: schedule,
                     timeout: timeout
@@ -789,9 +929,8 @@ open class Functions: Service {
     ///
     /// @param String functionId
     /// @param String name
-    /// @param [Any] execute
-    /// @param Any vars
-    /// @param [Any] events
+    /// @param [String] execute
+    /// @param [String] events
     /// @param String schedule
     /// @param Int timeout
     /// @throws Exception
@@ -801,9 +940,8 @@ open class Functions: Service {
     open func update(
         functionId: String,
         name: String,
-        execute: [Any],
-        vars: Any? = nil,
-        events: [Any]? = nil,
+        execute: [String],
+        events: [String]? = nil,
         schedule: String? = nil,
         timeout: Int? = nil,
         completion: ((Result<AppwriteModels.Function, AppwriteError>) -> Void)? = nil
@@ -814,7 +952,6 @@ open class Functions: Service {
                     functionId: functionId,
                     name: name,
                     execute: execute,
-                    vars: vars,
                     events: events,
                     schedule: schedule,
                     timeout: timeout
@@ -859,36 +996,24 @@ open class Functions: Service {
     /// params to filter your results.
     ///
     /// @param String functionId
+    /// @param [String] queries
     /// @param String search
-    /// @param Int limit
-    /// @param Int offset
-    /// @param String cursor
-    /// @param String cursorDirection
-    /// @param String orderType
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func listDeployments(
         functionId: String,
+        queries: [String]? = nil,
         search: String? = nil,
-        limit: Int? = nil,
-        offset: Int? = nil,
-        cursor: String? = nil,
-        cursorDirection: String? = nil,
-        orderType: String? = nil,
         completion: ((Result<AppwriteModels.DeploymentList, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await listDeployments(
                     functionId: functionId,
-                    search: search,
-                    limit: limit,
-                    offset: offset,
-                    cursor: cursor,
-                    cursorDirection: cursorDirection,
-                    orderType: orderType
+                    queries: queries,
+                    search: search
                 )
                 completion?(.success(result))
             } catch {
@@ -957,7 +1082,7 @@ open class Functions: Service {
     open func getDeployment(
         functionId: String,
         deploymentId: String,
-        completion: ((Result<AppwriteModels.DeploymentList, AppwriteError>) -> Void)? = nil
+        completion: ((Result<AppwriteModels.Deployment, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
@@ -1071,33 +1196,24 @@ open class Functions: Service {
     /// different API modes](/docs/admin).
     ///
     /// @param String functionId
-    /// @param Int limit
-    /// @param Int offset
+    /// @param [String] queries
     /// @param String search
-    /// @param String cursor
-    /// @param String cursorDirection
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func listExecutions(
         functionId: String,
-        limit: Int? = nil,
-        offset: Int? = nil,
+        queries: [String]? = nil,
         search: String? = nil,
-        cursor: String? = nil,
-        cursorDirection: String? = nil,
         completion: ((Result<AppwriteModels.ExecutionList, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await listExecutions(
                     functionId: functionId,
-                    limit: limit,
-                    offset: offset,
-                    search: search,
-                    cursor: cursor,
-                    cursorDirection: cursorDirection
+                    queries: queries,
+                    search: search
                 )
                 completion?(.success(result))
             } catch {
@@ -1162,6 +1278,164 @@ open class Functions: Service {
                 let result = try await getExecution(
                     functionId: functionId,
                     executionId: executionId
+                )
+                completion?(.success(result))
+            } catch {
+                completion?(.failure(error as! AppwriteError))
+            }
+        }
+    }
+
+    ///
+    /// List Variables
+    ///
+    /// Get a list of all variables of a specific function.
+    ///
+    /// @param String functionId
+    /// @param [String] queries
+    /// @param String search
+    /// @throws Exception
+    /// @return array
+    ///
+    @available(*, deprecated, message: "Use the async overload instead")
+    open func listVariables(
+        functionId: String,
+        queries: [String]? = nil,
+        search: String? = nil,
+        completion: ((Result<AppwriteModels.VariableList, AppwriteError>) -> Void)? = nil
+    ) {
+        Task {
+            do {
+                let result = try await listVariables(
+                    functionId: functionId,
+                    queries: queries,
+                    search: search
+                )
+                completion?(.success(result))
+            } catch {
+                completion?(.failure(error as! AppwriteError))
+            }
+        }
+    }
+
+    ///
+    /// Create Variable
+    ///
+    /// Create a new function variable. These variables can be accessed within
+    /// function in the `env` object under the request variable.
+    ///
+    /// @param String functionId
+    /// @param String key
+    /// @param String value
+    /// @throws Exception
+    /// @return array
+    ///
+    @available(*, deprecated, message: "Use the async overload instead")
+    open func createVariable(
+        functionId: String,
+        key: String,
+        value: String,
+        completion: ((Result<AppwriteModels.Variable, AppwriteError>) -> Void)? = nil
+    ) {
+        Task {
+            do {
+                let result = try await createVariable(
+                    functionId: functionId,
+                    key: key,
+                    value: value
+                )
+                completion?(.success(result))
+            } catch {
+                completion?(.failure(error as! AppwriteError))
+            }
+        }
+    }
+
+    ///
+    /// Get Variable
+    ///
+    /// Get a variable by its unique ID.
+    ///
+    /// @param String functionId
+    /// @param String variableId
+    /// @throws Exception
+    /// @return array
+    ///
+    @available(*, deprecated, message: "Use the async overload instead")
+    open func getVariable(
+        functionId: String,
+        variableId: String,
+        completion: ((Result<AppwriteModels.Variable, AppwriteError>) -> Void)? = nil
+    ) {
+        Task {
+            do {
+                let result = try await getVariable(
+                    functionId: functionId,
+                    variableId: variableId
+                )
+                completion?(.success(result))
+            } catch {
+                completion?(.failure(error as! AppwriteError))
+            }
+        }
+    }
+
+    ///
+    /// Update Variable
+    ///
+    /// Update variable by its unique ID.
+    ///
+    /// @param String functionId
+    /// @param String variableId
+    /// @param String key
+    /// @param String value
+    /// @throws Exception
+    /// @return array
+    ///
+    @available(*, deprecated, message: "Use the async overload instead")
+    open func updateVariable(
+        functionId: String,
+        variableId: String,
+        key: String,
+        value: String? = nil,
+        completion: ((Result<AppwriteModels.Variable, AppwriteError>) -> Void)? = nil
+    ) {
+        Task {
+            do {
+                let result = try await updateVariable(
+                    functionId: functionId,
+                    variableId: variableId,
+                    key: key,
+                    value: value
+                )
+                completion?(.success(result))
+            } catch {
+                completion?(.failure(error as! AppwriteError))
+            }
+        }
+    }
+
+    ///
+    /// Delete Variable
+    ///
+    /// Delete a variable by its unique ID.
+    ///
+    /// @param String functionId
+    /// @param String variableId
+    /// @throws Exception
+    /// @return array
+    ///
+    @available(*, deprecated, message: "Use the async overload instead")
+    open func deleteVariable(
+        functionId: String,
+        variableId: String,
+        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
+    ) {
+        Task {
+            do {
+                let result = try await deleteVariable(
+                    functionId: functionId,
+                    variableId: variableId
                 )
                 completion?(.success(result))
             } catch {

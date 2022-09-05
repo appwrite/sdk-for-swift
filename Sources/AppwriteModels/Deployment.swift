@@ -5,11 +5,11 @@ public class Deployment {
     /// Deployment ID.
     public let id: String
 
-    /// Deployment creation date in Unix timestamp.
-    public let createdAt: Int
+    /// Deployment creation date in ISO 8601 format.
+    public let createdAt: String
 
-    /// Deployment update date in Unix timestamp.
-    public let updatedAt: Int
+    /// Deployment update date in ISO 8601 format.
+    public let updatedAt: String
 
     /// Resource ID.
     public let resourceId: String
@@ -29,7 +29,7 @@ public class Deployment {
     /// Whether the deployment should be automatically activated.
     public let activate: Bool
 
-    /// The deployment status.
+    /// The deployment status. Possible values are &quot;processing&quot;, &quot;building&quot;, &quot;pending&quot;, &quot;ready&quot;, and &quot;failed&quot;.
     public let status: String
 
     /// The build stdout.
@@ -40,8 +40,8 @@ public class Deployment {
 
     init(
         id: String,
-        createdAt: Int,
-        updatedAt: Int,
+        createdAt: String,
+        updatedAt: String,
         resourceId: String,
         resourceType: String,
         entrypoint: String,
@@ -69,8 +69,8 @@ public class Deployment {
     public static func from(map: [String: Any]) -> Deployment {
         return Deployment(
             id: map["$id"] as! String,
-            createdAt: map["$createdAt"] as! Int,
-            updatedAt: map["$updatedAt"] as! Int,
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String,
             resourceId: map["resourceId"] as! String,
             resourceType: map["resourceType"] as! String,
             entrypoint: map["entrypoint"] as! String,

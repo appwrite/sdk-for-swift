@@ -33,8 +33,7 @@ open class Avatars: Service {
         var path: String = "/avatars/browsers/{code}"
         path = path.replacingOccurrences(
           of: "{code}",
-          with: code
-        )
+          with: code        )
         let params: [String: Any?] = [
             "width": width,
             "height": height,
@@ -42,6 +41,7 @@ open class Avatars: Service {
             "project": client.config["project"],
             "key": client.config["key"]
         ]
+
         return try await client.call(
             method: "GET",
             path: path,
@@ -78,8 +78,7 @@ open class Avatars: Service {
         var path: String = "/avatars/credit-cards/{code}"
         path = path.replacingOccurrences(
           of: "{code}",
-          with: code
-        )
+          with: code        )
         let params: [String: Any?] = [
             "width": width,
             "height": height,
@@ -87,6 +86,7 @@ open class Avatars: Service {
             "project": client.config["project"],
             "key": client.config["key"]
         ]
+
         return try await client.call(
             method: "GET",
             path: path,
@@ -114,6 +114,7 @@ open class Avatars: Service {
             "project": client.config["project"],
             "key": client.config["key"]
         ]
+
         return try await client.call(
             method: "GET",
             path: path,
@@ -126,7 +127,8 @@ open class Avatars: Service {
     ///
     /// You can use this endpoint to show different country flags icons to your
     /// users. The code argument receives the 2 letter country code. Use width,
-    /// height and quality arguments to change the output settings.
+    /// height and quality arguments to change the output settings. Country codes
+    /// follow the [ISO 3166-1](http://en.wikipedia.org/wiki/ISO_3166-1) standard.
     /// 
     /// When one dimension is specified and the other is 0, the image is scaled
     /// with preserved aspect ratio. If both dimensions are 0, the API provides an
@@ -150,8 +152,7 @@ open class Avatars: Service {
         var path: String = "/avatars/flags/{code}"
         path = path.replacingOccurrences(
           of: "{code}",
-          with: code
-        )
+          with: code        )
         let params: [String: Any?] = [
             "width": width,
             "height": height,
@@ -159,6 +160,7 @@ open class Avatars: Service {
             "project": client.config["project"],
             "key": client.config["key"]
         ]
+
         return try await client.call(
             method: "GET",
             path: path,
@@ -199,6 +201,7 @@ open class Avatars: Service {
             "project": client.config["project"],
             "key": client.config["key"]
         ]
+
         return try await client.call(
             method: "GET",
             path: path,
@@ -229,7 +232,6 @@ open class Avatars: Service {
     /// @param String name
     /// @param Int width
     /// @param Int height
-    /// @param String color
     /// @param String background
     /// @throws Exception
     /// @return array
@@ -238,7 +240,6 @@ open class Avatars: Service {
         name: String? = nil,
         width: Int? = nil,
         height: Int? = nil,
-        color: String? = nil,
         background: String? = nil
     ) async throws -> ByteBuffer {
         let path: String = "/avatars/initials"
@@ -246,11 +247,11 @@ open class Avatars: Service {
             "name": name,
             "width": width,
             "height": height,
-            "color": color,
             "background": background,
             "project": client.config["project"],
             "key": client.config["key"]
         ]
+
         return try await client.call(
             method: "GET",
             path: path,
@@ -287,6 +288,7 @@ open class Avatars: Service {
             "project": client.config["project"],
             "key": client.config["key"]
         ]
+
         return try await client.call(
             method: "GET",
             path: path,
@@ -414,7 +416,8 @@ open class Avatars: Service {
     ///
     /// You can use this endpoint to show different country flags icons to your
     /// users. The code argument receives the 2 letter country code. Use width,
-    /// height and quality arguments to change the output settings.
+    /// height and quality arguments to change the output settings. Country codes
+    /// follow the [ISO 3166-1](http://en.wikipedia.org/wiki/ISO_3166-1) standard.
     /// 
     /// When one dimension is specified and the other is 0, the image is scaled
     /// with preserved aspect ratio. If both dimensions are 0, the API provides an
@@ -516,7 +519,6 @@ open class Avatars: Service {
     /// @param String name
     /// @param Int width
     /// @param Int height
-    /// @param String color
     /// @param String background
     /// @throws Exception
     /// @return array
@@ -526,7 +528,6 @@ open class Avatars: Service {
         name: String? = nil,
         width: Int? = nil,
         height: Int? = nil,
-        color: String? = nil,
         background: String? = nil,
         completion: ((Result<ByteBuffer, AppwriteError>) -> Void)? = nil
     ) {
@@ -536,7 +537,6 @@ open class Avatars: Service {
                     name: name,
                     width: width,
                     height: height,
-                    color: color,
                     background: background
                 )
                 completion?(.success(result))

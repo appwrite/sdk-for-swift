@@ -29,5 +29,5 @@ public class IndexList {
             "indexes": indexes.map { $0.toMap() } as Any
         ]
     }
-                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                            
 }

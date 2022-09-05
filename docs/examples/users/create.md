@@ -7,9 +7,7 @@ func main() async throws {
       .setKey("919c2d18fb5d4...a2ae413da83346ad2") // Your secret API key
     let users = Users(client)
     let user = try await users.create(
-        userId: "[USER_ID]",
-        email: "email@example.com",
-        password: "password"
+        userId: "[USER_ID]"
     )
 
     print(String(describing: user)
