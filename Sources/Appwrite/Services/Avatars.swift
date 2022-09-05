@@ -232,7 +232,6 @@ open class Avatars: Service {
     /// @param String name
     /// @param Int width
     /// @param Int height
-    /// @param String color
     /// @param String background
     /// @throws Exception
     /// @return array
@@ -241,7 +240,6 @@ open class Avatars: Service {
         name: String? = nil,
         width: Int? = nil,
         height: Int? = nil,
-        color: String? = nil,
         background: String? = nil
     ) async throws -> ByteBuffer {
         let path: String = "/avatars/initials"
@@ -249,7 +247,6 @@ open class Avatars: Service {
             "name": name,
             "width": width,
             "height": height,
-            "color": color,
             "background": background,
             "project": client.config["project"],
             "key": client.config["key"]
@@ -522,7 +519,6 @@ open class Avatars: Service {
     /// @param String name
     /// @param Int width
     /// @param Int height
-    /// @param String color
     /// @param String background
     /// @throws Exception
     /// @return array
@@ -532,7 +528,6 @@ open class Avatars: Service {
         name: String? = nil,
         width: Int? = nil,
         height: Int? = nil,
-        color: String? = nil,
         background: String? = nil,
         completion: ((Result<ByteBuffer, AppwriteError>) -> Void)? = nil
     ) {
@@ -542,7 +537,6 @@ open class Avatars: Service {
                     name: name,
                     width: width,
                     height: height,
-                    color: color,
                     background: background
                 )
                 completion?(.success(result))
