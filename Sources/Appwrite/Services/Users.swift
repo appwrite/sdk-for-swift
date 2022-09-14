@@ -522,7 +522,7 @@ open class Users: Service {
     }
 
     ///
-    /// Get User Logs
+    /// List User Logs
     ///
     /// Get the user activity logs list by its unique ID.
     ///
@@ -531,7 +531,7 @@ open class Users: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getLogs(
+    open func listLogs(
         userId: String,
         queries: [String]? = nil
     ) async throws -> AppwriteModels.LogList {
@@ -559,7 +559,7 @@ open class Users: Service {
     }
 
     ///
-    /// Get User Memberships
+    /// List User Memberships
     ///
     /// Get the user membership list by its unique ID.
     ///
@@ -567,7 +567,7 @@ open class Users: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getMemberships(
+    open func listMemberships(
         userId: String
     ) async throws -> AppwriteModels.MembershipList {
         var path: String = "/users/{userId}/memberships"
@@ -775,7 +775,7 @@ open class Users: Service {
     }
 
     ///
-    /// Get User Sessions
+    /// List User Sessions
     ///
     /// Get the user sessions list by its unique ID.
     ///
@@ -783,7 +783,7 @@ open class Users: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getSessions(
+    open func listSessions(
         userId: String
     ) async throws -> AppwriteModels.SessionList {
         var path: String = "/users/{userId}/sessions"
@@ -1428,7 +1428,7 @@ open class Users: Service {
     }
 
     ///
-    /// Get User Logs
+    /// List User Logs
     ///
     /// Get the user activity logs list by its unique ID.
     ///
@@ -1438,14 +1438,14 @@ open class Users: Service {
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
-    open func getLogs(
+    open func listLogs(
         userId: String,
         queries: [String]? = nil,
         completion: ((Result<AppwriteModels.LogList, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
-                let result = try await getLogs(
+                let result = try await listLogs(
                     userId: userId,
                     queries: queries
                 )
@@ -1457,7 +1457,7 @@ open class Users: Service {
     }
 
     ///
-    /// Get User Memberships
+    /// List User Memberships
     ///
     /// Get the user membership list by its unique ID.
     ///
@@ -1466,13 +1466,13 @@ open class Users: Service {
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
-    open func getMemberships(
+    open func listMemberships(
         userId: String,
         completion: ((Result<AppwriteModels.MembershipList, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
-                let result = try await getMemberships(
+                let result = try await listMemberships(
                     userId: userId
                 )
                 completion?(.success(result))
@@ -1627,7 +1627,7 @@ open class Users: Service {
     }
 
     ///
-    /// Get User Sessions
+    /// List User Sessions
     ///
     /// Get the user sessions list by its unique ID.
     ///
@@ -1636,13 +1636,13 @@ open class Users: Service {
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
-    open func getSessions(
+    open func listSessions(
         userId: String,
         completion: ((Result<AppwriteModels.SessionList, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
-                let result = try await getSessions(
+                let result = try await listSessions(
                     userId: userId
                 )
                 completion?(.success(result))

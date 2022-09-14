@@ -15,7 +15,7 @@ public class Bucket {
     public let permissions: [Any]
 
     /// Whether file-level security is enabled. [Learn more about permissions](/docs/permissions).
-    public let fileSecurity: String
+    public let fileSecurity: Bool
 
     /// Bucket name.
     public let name: String
@@ -43,7 +43,7 @@ public class Bucket {
         createdAt: String,
         updatedAt: String,
         permissions: [Any],
-        fileSecurity: String,
+        fileSecurity: Bool,
         name: String,
         enabled: Bool,
         maximumFileSize: Int,
@@ -72,7 +72,7 @@ public class Bucket {
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
             permissions: map["$permissions"] as! [Any],
-            fileSecurity: map["fileSecurity"] as! String,
+            fileSecurity: map["fileSecurity"] as! Bool,
             name: map["name"] as! String,
             enabled: map["enabled"] as! Bool,
             maximumFileSize: map["maximumFileSize"] as! Int,
