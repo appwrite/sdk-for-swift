@@ -75,7 +75,7 @@ open class Account: Service {
     }
 
     ///
-    /// Get Account Logs
+    /// List Account Logs
     ///
     /// Get currently logged in user list of latest security activity logs. Each
     /// log returns user IP address, location and date and time of log.
@@ -84,7 +84,7 @@ open class Account: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getLogs(
+    open func listLogs(
         queries: [String]? = nil
     ) async throws -> AppwriteModels.LogList {
         let path: String = "/account/logs"
@@ -369,7 +369,7 @@ open class Account: Service {
     }
 
     ///
-    /// Get Account Sessions
+    /// List Account Sessions
     ///
     /// Get currently logged in user list of active sessions across different
     /// devices.
@@ -377,7 +377,7 @@ open class Account: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getSessions(
+    open func listSessions(
     ) async throws -> AppwriteModels.SessionList {
         let path: String = "/account/sessions"
         let params: [String: Any?] = [:]
@@ -767,7 +767,7 @@ open class Account: Service {
     }
 
     ///
-    /// Get Account Logs
+    /// List Account Logs
     ///
     /// Get currently logged in user list of latest security activity logs. Each
     /// log returns user IP address, location and date and time of log.
@@ -777,13 +777,13 @@ open class Account: Service {
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
-    open func getLogs(
+    open func listLogs(
         queries: [String]? = nil,
         completion: ((Result<AppwriteModels.LogList, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
-                let result = try await getLogs(
+                let result = try await listLogs(
                     queries: queries
                 )
                 completion?(.success(result))
@@ -1014,7 +1014,7 @@ open class Account: Service {
     }
 
     ///
-    /// Get Account Sessions
+    /// List Account Sessions
     ///
     /// Get currently logged in user list of active sessions across different
     /// devices.
@@ -1023,12 +1023,12 @@ open class Account: Service {
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
-    open func getSessions(
+    open func listSessions(
         completion: ((Result<AppwriteModels.SessionList, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
-                let result = try await getSessions(
+                let result = try await listSessions(
                 )
                 completion?(.success(result))
             } catch {

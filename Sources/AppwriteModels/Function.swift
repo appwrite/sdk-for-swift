@@ -17,8 +17,8 @@ public class Function {
     /// Function name.
     public let name: String
 
-    /// Function status. Possible values: `disabled`, `enabled`
-    public let status: String
+    /// Function enabled.
+    public let enabled: Bool
 
     /// Function execution runtime.
     public let runtime: String
@@ -50,7 +50,7 @@ public class Function {
         updatedAt: String,
         execute: [Any],
         name: String,
-        status: String,
+        enabled: Bool,
         runtime: String,
         deployment: String,
         vars: [Variable],
@@ -65,7 +65,7 @@ public class Function {
         self.updatedAt = updatedAt
         self.execute = execute
         self.name = name
-        self.status = status
+        self.enabled = enabled
         self.runtime = runtime
         self.deployment = deployment
         self.vars = vars
@@ -83,7 +83,7 @@ public class Function {
             updatedAt: map["$updatedAt"] as! String,
             execute: map["execute"] as! [Any],
             name: map["name"] as! String,
-            status: map["status"] as! String,
+            enabled: map["enabled"] as! Bool,
             runtime: map["runtime"] as! String,
             deployment: map["deployment"] as! String,
             vars: (map["vars"] as! [[String: Any]]).map { Variable.from(map: $0) },
@@ -102,7 +102,7 @@ public class Function {
             "$updatedAt": updatedAt as Any,
             "execute": execute as Any,
             "name": name as Any,
-            "status": status as Any,
+            "enabled": enabled as Any,
             "runtime": runtime as Any,
             "deployment": deployment as Any,
             "vars": vars.map { $0.toMap() } as Any,

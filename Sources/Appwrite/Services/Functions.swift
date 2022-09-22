@@ -54,6 +54,7 @@ open class Functions: Service {
     /// @param [String] events
     /// @param String schedule
     /// @param Int timeout
+    /// @param Bool enabled
     /// @throws Exception
     /// @return array
     ///
@@ -64,7 +65,8 @@ open class Functions: Service {
         runtime: String,
         events: [String]? = nil,
         schedule: String? = nil,
-        timeout: Int? = nil
+        timeout: Int? = nil,
+        enabled: Bool? = nil
     ) async throws -> AppwriteModels.Function {
         let path: String = "/functions"
         let params: [String: Any?] = [
@@ -74,7 +76,8 @@ open class Functions: Service {
             "runtime": runtime,
             "events": events,
             "schedule": schedule,
-            "timeout": timeout
+            "timeout": timeout,
+            "enabled": enabled
         ]
 
         let headers: [String: String] = [
@@ -164,6 +167,7 @@ open class Functions: Service {
     /// @param [String] events
     /// @param String schedule
     /// @param Int timeout
+    /// @param Bool enabled
     /// @throws Exception
     /// @return array
     ///
@@ -173,7 +177,8 @@ open class Functions: Service {
         execute: [String],
         events: [String]? = nil,
         schedule: String? = nil,
-        timeout: Int? = nil
+        timeout: Int? = nil,
+        enabled: Bool? = nil
     ) async throws -> AppwriteModels.Function {
         var path: String = "/functions/{functionId}"
         path = path.replacingOccurrences(
@@ -184,7 +189,8 @@ open class Functions: Service {
             "execute": execute,
             "events": events,
             "schedule": schedule,
-            "timeout": timeout
+            "timeout": timeout,
+            "enabled": enabled
         ]
 
         let headers: [String: String] = [
@@ -605,24 +611,17 @@ open class Functions: Service {
     /// Get a list of all variables of a specific function.
     ///
     /// @param String functionId
-    /// @param [String] queries
-    /// @param String search
     /// @throws Exception
     /// @return array
     ///
     open func listVariables(
-        functionId: String,
-        queries: [String]? = nil,
-        search: String? = nil
+        functionId: String
     ) async throws -> AppwriteModels.VariableList {
         var path: String = "/functions/{functionId}/variables"
         path = path.replacingOccurrences(
           of: "{functionId}",
           with: functionId        )
-        let params: [String: Any?] = [
-            "queries": queries,
-            "search": search
-        ]
+        let params: [String: Any?] = [:]
 
         let headers: [String: String] = [
             "content-type": "application/json"
@@ -841,6 +840,7 @@ open class Functions: Service {
     /// @param [String] events
     /// @param String schedule
     /// @param Int timeout
+    /// @param Bool enabled
     /// @throws Exception
     /// @return array
     ///
@@ -853,6 +853,7 @@ open class Functions: Service {
         events: [String]? = nil,
         schedule: String? = nil,
         timeout: Int? = nil,
+        enabled: Bool? = nil,
         completion: ((Result<AppwriteModels.Function, AppwriteError>) -> Void)? = nil
     ) {
         Task {
@@ -864,7 +865,8 @@ open class Functions: Service {
                     runtime: runtime,
                     events: events,
                     schedule: schedule,
-                    timeout: timeout
+                    timeout: timeout,
+                    enabled: enabled
                 )
                 completion?(.success(result))
             } catch {
@@ -933,6 +935,7 @@ open class Functions: Service {
     /// @param [String] events
     /// @param String schedule
     /// @param Int timeout
+    /// @param Bool enabled
     /// @throws Exception
     /// @return array
     ///
@@ -944,6 +947,7 @@ open class Functions: Service {
         events: [String]? = nil,
         schedule: String? = nil,
         timeout: Int? = nil,
+        enabled: Bool? = nil,
         completion: ((Result<AppwriteModels.Function, AppwriteError>) -> Void)? = nil
     ) {
         Task {
@@ -954,7 +958,8 @@ open class Functions: Service {
                     execute: execute,
                     events: events,
                     schedule: schedule,
-                    timeout: timeout
+                    timeout: timeout,
+                    enabled: enabled
                 )
                 completion?(.success(result))
             } catch {
@@ -1292,24 +1297,18 @@ open class Functions: Service {
     /// Get a list of all variables of a specific function.
     ///
     /// @param String functionId
-    /// @param [String] queries
-    /// @param String search
     /// @throws Exception
     /// @return array
     ///
     @available(*, deprecated, message: "Use the async overload instead")
     open func listVariables(
         functionId: String,
-        queries: [String]? = nil,
-        search: String? = nil,
         completion: ((Result<AppwriteModels.VariableList, AppwriteError>) -> Void)? = nil
     ) {
         Task {
             do {
                 let result = try await listVariables(
-                    functionId: functionId,
-                    queries: queries,
-                    search: search
+                    functionId: functionId
                 )
                 completion?(.success(result))
             } catch {
