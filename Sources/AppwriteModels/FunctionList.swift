@@ -1,3 +1,4 @@
+import Foundation
 
 /// Functions List
 public class FunctionList {
@@ -8,6 +9,7 @@ public class FunctionList {
     /// List of functions.
     public let functions: [Function]
 
+
     init(
         total: Int,
         functions: [Function]
@@ -16,18 +18,17 @@ public class FunctionList {
         self.functions = functions
     }
 
-    public static func from(map: [String: Any]) -> FunctionList {
-        return FunctionList(
-            total: map["total"] as! Int,
-            functions: (map["functions"] as! [[String: Any]]).map { Function.from(map: $0) }
-        )
-    }
-
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
             "functions": functions.map { $0.toMap() } as Any
         ]
     }
-                                                                                                                                                                                                                                                                                            
+
+    public static func from(map: [String: Any] ) -> FunctionList {
+        return FunctionList(
+            total: map["total"] as! Int,
+            functions: (map["functions"] as! [[String: Any]]).map { Function.from(map: $0) }
+        )
+    }
 }

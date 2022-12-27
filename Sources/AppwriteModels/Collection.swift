@@ -1,3 +1,4 @@
+import Foundation
 
 /// Collection
 public class Collection {
@@ -32,6 +33,7 @@ public class Collection {
     /// Collection indexes.
     public let indexes: [Index]
 
+
     init(
         id: String,
         createdAt: String,
@@ -56,21 +58,6 @@ public class Collection {
         self.indexes = indexes
     }
 
-    public static func from(map: [String: Any]) -> Collection {
-        return Collection(
-            id: map["$id"] as! String,
-            createdAt: map["$createdAt"] as! String,
-            updatedAt: map["$updatedAt"] as! String,
-            permissions: map["$permissions"] as! [Any],
-            databaseId: map["databaseId"] as! String,
-            name: map["name"] as! String,
-            enabled: map["enabled"] as! Bool,
-            documentSecurity: map["documentSecurity"] as! Bool,
-            attributes: map["attributes"] as! [Any],
-            indexes: (map["indexes"] as! [[String: Any]]).map { Index.from(map: $0) }
-        )
-    }
-
     public func toMap() -> [String: Any] {
         return [
             "$id": id as Any,
@@ -85,5 +72,19 @@ public class Collection {
             "indexes": indexes.map { $0.toMap() } as Any
         ]
     }
-                                                                                                                                                                                                                                                                                                                            
+
+    public static func from(map: [String: Any] ) -> Collection {
+        return Collection(
+            id: map["$id"] as! String,
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String,
+            permissions: map["$permissions"] as! [Any],
+            databaseId: map["databaseId"] as! String,
+            name: map["name"] as! String,
+            enabled: map["enabled"] as! Bool,
+            documentSecurity: map["documentSecurity"] as! Bool,
+            attributes: map["attributes"] as! [Any],
+            indexes: (map["indexes"] as! [[String: Any]]).map { Index.from(map: $0) }
+        )
+    }
 }

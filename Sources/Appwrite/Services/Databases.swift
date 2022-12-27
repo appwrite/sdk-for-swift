@@ -3,7 +3,9 @@ import Foundation
 import NIO
 import AppwriteModels
 
+/// The Databases service allows you to create structured collections of documents, query and filter lists of documents
 open class Databases: Service {
+
     ///
     /// List Databases
     ///
@@ -20,6 +22,7 @@ open class Databases: Service {
         search: String? = nil
     ) async throws -> AppwriteModels.DatabaseList {
         let path: String = "/databases"
+
         let params: [String: Any?] = [
             "queries": queries,
             "search": search
@@ -28,9 +31,11 @@ open class Databases: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.DatabaseList = { dict in
-            return AppwriteModels.DatabaseList.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.DatabaseList = { response in
+            return AppwriteModels.DatabaseList.from(map: response as! [String: Any])
         }
+
         return try await client.call(
             method: "GET",
             path: path,
@@ -56,6 +61,7 @@ open class Databases: Service {
         name: String
     ) async throws -> AppwriteModels.Database {
         let path: String = "/databases"
+
         let params: [String: Any?] = [
             "databaseId": databaseId,
             "name": name
@@ -64,9 +70,11 @@ open class Databases: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.Database = { dict in
-            return AppwriteModels.Database.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.Database = { response in
+            return AppwriteModels.Database.from(map: response as! [String: Any])
         }
+
         return try await client.call(
             method: "POST",
             path: path,
@@ -89,18 +97,19 @@ open class Databases: Service {
     open func get(
         databaseId: String
     ) async throws -> AppwriteModels.Database {
-        var path: String = "/databases/{databaseId}"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        let params: [String: Any?] = [:]
+        let path: String = "/databases/{databaseId}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+
+        let params: [String: Any] = [:]
 
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.Database = { dict in
-            return AppwriteModels.Database.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.Database = { response in
+            return AppwriteModels.Database.from(map: response as! [String: Any])
         }
+
         return try await client.call(
             method: "GET",
             path: path,
@@ -124,10 +133,9 @@ open class Databases: Service {
         databaseId: String,
         name: String
     ) async throws -> AppwriteModels.Database {
-        var path: String = "/databases/{databaseId}"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
+        let path: String = "/databases/{databaseId}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+
         let params: [String: Any?] = [
             "name": name
         ]
@@ -135,9 +143,11 @@ open class Databases: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.Database = { dict in
-            return AppwriteModels.Database.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.Database = { response in
+            return AppwriteModels.Database.from(map: response as! [String: Any])
         }
+
         return try await client.call(
             method: "PUT",
             path: path,
@@ -160,15 +170,15 @@ open class Databases: Service {
     open func delete(
         databaseId: String
     ) async throws -> Any {
-        var path: String = "/databases/{databaseId}"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        let params: [String: Any?] = [:]
+        let path: String = "/databases/{databaseId}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+
+        let params: [String: Any] = [:]
 
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         return try await client.call(
             method: "DELETE",
             path: path,
@@ -193,10 +203,9 @@ open class Databases: Service {
         queries: [String]? = nil,
         search: String? = nil
     ) async throws -> AppwriteModels.CollectionList {
-        var path: String = "/databases/{databaseId}/collections"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
+        let path: String = "/databases/{databaseId}/collections"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+
         let params: [String: Any?] = [
             "queries": queries,
             "search": search
@@ -205,9 +214,11 @@ open class Databases: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.CollectionList = { dict in
-            return AppwriteModels.CollectionList.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.CollectionList = { response in
+            return AppwriteModels.CollectionList.from(map: response as! [String: Any])
         }
+
         return try await client.call(
             method: "GET",
             path: path,
@@ -240,10 +251,9 @@ open class Databases: Service {
         permissions: [String]? = nil,
         documentSecurity: Bool? = nil
     ) async throws -> AppwriteModels.Collection {
-        var path: String = "/databases/{databaseId}/collections"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
+        let path: String = "/databases/{databaseId}/collections"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+
         let params: [String: Any?] = [
             "collectionId": collectionId,
             "name": name,
@@ -254,9 +264,11 @@ open class Databases: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.Collection = { dict in
-            return AppwriteModels.Collection.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.Collection = { response in
+            return AppwriteModels.Collection.from(map: response as! [String: Any])
         }
+
         return try await client.call(
             method: "POST",
             path: path,
@@ -281,21 +293,20 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String
     ) async throws -> AppwriteModels.Collection {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
-        let params: [String: Any?] = [:]
+        let path: String = "/databases/{databaseId}/collections/{collectionId}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
+        let params: [String: Any] = [:]
 
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.Collection = { dict in
-            return AppwriteModels.Collection.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.Collection = { response in
+            return AppwriteModels.Collection.from(map: response as! [String: Any])
         }
+
         return try await client.call(
             method: "GET",
             path: path,
@@ -327,13 +338,10 @@ open class Databases: Service {
         documentSecurity: Bool? = nil,
         enabled: Bool? = nil
     ) async throws -> AppwriteModels.Collection {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
+        let path: String = "/databases/{databaseId}/collections/{collectionId}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
         let params: [String: Any?] = [
             "name": name,
             "permissions": permissions,
@@ -344,9 +352,11 @@ open class Databases: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.Collection = { dict in
-            return AppwriteModels.Collection.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.Collection = { response in
+            return AppwriteModels.Collection.from(map: response as! [String: Any])
         }
+
         return try await client.call(
             method: "PUT",
             path: path,
@@ -371,18 +381,16 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String
     ) async throws -> Any {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
-        let params: [String: Any?] = [:]
+        let path: String = "/databases/{databaseId}/collections/{collectionId}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
+        let params: [String: Any] = [:]
 
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         return try await client.call(
             method: "DELETE",
             path: path,
@@ -402,21 +410,20 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String
     ) async throws -> AppwriteModels.AttributeList {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
-        let params: [String: Any?] = [:]
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
+        let params: [String: Any] = [:]
 
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.AttributeList = { dict in
-            return AppwriteModels.AttributeList.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.AttributeList = { response in
+            return AppwriteModels.AttributeList.from(map: response as! [String: Any])
         }
+
         return try await client.call(
             method: "GET",
             path: path,
@@ -449,13 +456,10 @@ open class Databases: Service {
         xdefault: Bool? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeBoolean {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/boolean"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/boolean"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
         let params: [String: Any?] = [
             "key": key,
             "required": xrequired,
@@ -466,9 +470,11 @@ open class Databases: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.AttributeBoolean = { dict in
-            return AppwriteModels.AttributeBoolean.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.AttributeBoolean = { response in
+            return AppwriteModels.AttributeBoolean.from(map: response as! [String: Any])
         }
+
         return try await client.call(
             method: "POST",
             path: path,
@@ -498,13 +504,10 @@ open class Databases: Service {
         xdefault: String? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeDatetime {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/datetime"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/datetime"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
         let params: [String: Any?] = [
             "key": key,
             "required": xrequired,
@@ -515,9 +518,11 @@ open class Databases: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.AttributeDatetime = { dict in
-            return AppwriteModels.AttributeDatetime.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.AttributeDatetime = { response in
+            return AppwriteModels.AttributeDatetime.from(map: response as! [String: Any])
         }
+
         return try await client.call(
             method: "POST",
             path: path,
@@ -550,13 +555,10 @@ open class Databases: Service {
         xdefault: String? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeEmail {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/email"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/email"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
         let params: [String: Any?] = [
             "key": key,
             "required": xrequired,
@@ -567,9 +569,11 @@ open class Databases: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.AttributeEmail = { dict in
-            return AppwriteModels.AttributeEmail.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.AttributeEmail = { response in
+            return AppwriteModels.AttributeEmail.from(map: response as! [String: Any])
         }
+
         return try await client.call(
             method: "POST",
             path: path,
@@ -601,13 +605,10 @@ open class Databases: Service {
         xdefault: String? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeEnum {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/enum"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/enum"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
         let params: [String: Any?] = [
             "key": key,
             "elements": elements,
@@ -619,9 +620,11 @@ open class Databases: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.AttributeEnum = { dict in
-            return AppwriteModels.AttributeEnum.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.AttributeEnum = { response in
+            return AppwriteModels.AttributeEnum.from(map: response as! [String: Any])
         }
+
         return try await client.call(
             method: "POST",
             path: path,
@@ -659,13 +662,10 @@ open class Databases: Service {
         xdefault: Double? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeFloat {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/float"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/float"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
         let params: [String: Any?] = [
             "key": key,
             "required": xrequired,
@@ -678,9 +678,11 @@ open class Databases: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.AttributeFloat = { dict in
-            return AppwriteModels.AttributeFloat.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.AttributeFloat = { response in
+            return AppwriteModels.AttributeFloat.from(map: response as! [String: Any])
         }
+
         return try await client.call(
             method: "POST",
             path: path,
@@ -718,13 +720,10 @@ open class Databases: Service {
         xdefault: Int? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeInteger {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/integer"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/integer"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
         let params: [String: Any?] = [
             "key": key,
             "required": xrequired,
@@ -737,9 +736,11 @@ open class Databases: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.AttributeInteger = { dict in
-            return AppwriteModels.AttributeInteger.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.AttributeInteger = { response in
+            return AppwriteModels.AttributeInteger.from(map: response as! [String: Any])
         }
+
         return try await client.call(
             method: "POST",
             path: path,
@@ -772,13 +773,10 @@ open class Databases: Service {
         xdefault: String? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeIp {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/ip"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/ip"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
         let params: [String: Any?] = [
             "key": key,
             "required": xrequired,
@@ -789,9 +787,11 @@ open class Databases: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.AttributeIp = { dict in
-            return AppwriteModels.AttributeIp.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.AttributeIp = { response in
+            return AppwriteModels.AttributeIp.from(map: response as! [String: Any])
         }
+
         return try await client.call(
             method: "POST",
             path: path,
@@ -826,13 +826,10 @@ open class Databases: Service {
         xdefault: String? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeString {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/string"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/string"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
         let params: [String: Any?] = [
             "key": key,
             "size": size,
@@ -844,9 +841,11 @@ open class Databases: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.AttributeString = { dict in
-            return AppwriteModels.AttributeString.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.AttributeString = { response in
+            return AppwriteModels.AttributeString.from(map: response as! [String: Any])
         }
+
         return try await client.call(
             method: "POST",
             path: path,
@@ -879,13 +878,10 @@ open class Databases: Service {
         xdefault: String? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeUrl {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/url"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/url"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
         let params: [String: Any?] = [
             "key": key,
             "required": xrequired,
@@ -896,9 +892,11 @@ open class Databases: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.AttributeUrl = { dict in
-            return AppwriteModels.AttributeUrl.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.AttributeUrl = { response in
+            return AppwriteModels.AttributeUrl.from(map: response as! [String: Any])
         }
+
         return try await client.call(
             method: "POST",
             path: path,
@@ -922,21 +920,17 @@ open class Databases: Service {
         collectionId: String,
         key: String
     ) async throws -> Any {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/{key}"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
-        path = path.replacingOccurrences(
-          of: "{key}",
-          with: key        )
-        let params: [String: Any?] = [:]
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let params: [String: Any] = [:]
 
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         return try await client.call(
             method: "GET",
             path: path,
@@ -958,21 +952,17 @@ open class Databases: Service {
         collectionId: String,
         key: String
     ) async throws -> Any {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/{key}"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
-        path = path.replacingOccurrences(
-          of: "{key}",
-          with: key        )
-        let params: [String: Any?] = [:]
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let params: [String: Any] = [:]
 
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         return try await client.call(
             method: "DELETE",
             path: path,
@@ -984,9 +974,50 @@ open class Databases: Service {
     /// List Documents
     ///
     /// Get a list of all the user's documents in a given collection. You can use
-    /// the query params to filter your results. On admin mode, this endpoint will
-    /// return a list of all of documents belonging to the provided collectionId.
-    /// [Learn more about different API modes](/docs/admin).
+    /// the query params to filter your results.
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param [String] queries
+    /// @throws Exception
+    /// @return array
+    ///
+    open func listDocuments<T>(
+        databaseId: String,
+        collectionId: String,
+        queries: [String]? = nil
+        nestedType: T.Type,
+    ) async throws -> AppwriteModels.DocumentList<T> {
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/documents"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
+        let params: [String: Any?] = [
+            "queries": queries
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.DocumentList<T> = { response in
+            return AppwriteModels.DocumentList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// List Documents
+    ///
+    /// Get a list of all the user's documents in a given collection. You can use
+    /// the query params to filter your results.
     ///
     /// @param String databaseId
     /// @param String collectionId
@@ -998,26 +1029,59 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         queries: [String]? = nil
-    ) async throws -> AppwriteModels.DocumentList {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}/documents"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
+    ) async throws -> AppwriteModels.DocumentList<[String: AnyCodable]> {
+        return try await listDocuments(
+            databaseId: databaseId,
+            collectionId: collectionId,
+            queries: queries
+            nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
+    /// Create Document
+    ///
+    /// Create a new Document. Before using this route, you should create a new
+    /// collection resource using either a [server
+    /// integration](/docs/server/databases#databasesCreateCollection) API or
+    /// directly from your database console.
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param String documentId
+    /// @param Any data
+    /// @param [String] permissions
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createDocument<T>(
+        databaseId: String,
+        collectionId: String,
+        documentId: String,
+        data: T,
+        permissions: [String]? = nil
+        nestedType: T.Type,
+    ) async throws -> AppwriteModels.Document<T> {
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/documents"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
         let params: [String: Any?] = [
-            "queries": queries
+            "documentId": documentId,
+            "data": data,
+            "permissions": permissions
         ]
 
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.DocumentList = { dict in
-            return AppwriteModels.DocumentList.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.Document<T> = { response in
+            return AppwriteModels.Document.from(map: response as! [String: Any])
         }
+
         return try await client.call(
-            method: "GET",
+            method: "POST",
             path: path,
             headers: headers,
             params: params,
@@ -1047,28 +1111,52 @@ open class Databases: Service {
         documentId: String,
         data: Any,
         permissions: [String]? = nil
-    ) async throws -> AppwriteModels.Document {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}/documents"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
-        let params: [String: Any?] = [
-            "documentId": documentId,
-            "data": data,
-            "permissions": permissions
-        ]
+    ) async throws -> AppwriteModels.Document<[String: AnyCodable]> {
+        return try await createDocument(
+            databaseId: databaseId,
+            collectionId: collectionId,
+            documentId: documentId,
+            data: data,
+            permissions: permissions
+            nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
+    /// Get Document
+    ///
+    /// Get a document by its unique ID. This endpoint response returns a JSON
+    /// object with the document data.
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param String documentId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getDocument<T>(
+        databaseId: String,
+        collectionId: String,
+        documentId: String
+        nestedType: T.Type,
+    ) async throws -> AppwriteModels.Document<T> {
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{documentId}", with: documentId)
+
+        let params: [String: Any] = [:]
 
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.Document = { dict in
-            return AppwriteModels.Document.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.Document<T> = { response in
+            return AppwriteModels.Document.from(map: response as! [String: Any])
         }
+
         return try await client.call(
-            method: "POST",
+            method: "GET",
             path: path,
             headers: headers,
             params: params,
@@ -1092,27 +1180,57 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         documentId: String
-    ) async throws -> AppwriteModels.Document {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
-        path = path.replacingOccurrences(
-          of: "{documentId}",
-          with: documentId        )
-        let params: [String: Any?] = [:]
+    ) async throws -> AppwriteModels.Document<[String: AnyCodable]> {
+        return try await getDocument(
+            databaseId: databaseId,
+            collectionId: collectionId,
+            documentId: documentId
+            nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
+    /// Update Document
+    ///
+    /// Update a document by its unique ID. Using the patch method you can pass
+    /// only specific fields that will get updated.
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param String documentId
+    /// @param Any data
+    /// @param [String] permissions
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateDocument<T>(
+        databaseId: String,
+        collectionId: String,
+        documentId: String,
+        data: T? = nil,
+        permissions: [String]? = nil
+        nestedType: T.Type,
+    ) async throws -> AppwriteModels.Document<T> {
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{documentId}", with: documentId)
+
+        let params: [String: Any?] = [
+            "data": data,
+            "permissions": permissions
+        ]
 
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.Document = { dict in
-            return AppwriteModels.Document.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.Document<T> = { response in
+            return AppwriteModels.Document.from(map: response as! [String: Any])
         }
+
         return try await client.call(
-            method: "GET",
+            method: "PATCH",
             path: path,
             headers: headers,
             params: params,
@@ -1140,34 +1258,14 @@ open class Databases: Service {
         documentId: String,
         data: Any? = nil,
         permissions: [String]? = nil
-    ) async throws -> AppwriteModels.Document {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
-        path = path.replacingOccurrences(
-          of: "{documentId}",
-          with: documentId        )
-        let params: [String: Any?] = [
-            "data": data,
-            "permissions": permissions
-        ]
-
-        let headers: [String: String] = [
-            "content-type": "application/json"
-        ]
-        let converter: ([String: Any]) -> AppwriteModels.Document = { dict in
-            return AppwriteModels.Document.from(map: dict)
-        }
-        return try await client.call(
-            method: "PATCH",
-            path: path,
-            headers: headers,
-            params: params,
-            converter: converter
+    ) async throws -> AppwriteModels.Document<[String: AnyCodable]> {
+        return try await updateDocument(
+            databaseId: databaseId,
+            collectionId: collectionId,
+            documentId: documentId,
+            data: data,
+            permissions: permissions
+            nestedType: [String: AnyCodable].self
         )
     }
 
@@ -1187,21 +1285,17 @@ open class Databases: Service {
         collectionId: String,
         documentId: String
     ) async throws -> Any {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
-        path = path.replacingOccurrences(
-          of: "{documentId}",
-          with: documentId        )
-        let params: [String: Any?] = [:]
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{documentId}", with: documentId)
+
+        let params: [String: Any] = [:]
 
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         return try await client.call(
             method: "DELETE",
             path: path,
@@ -1221,21 +1315,20 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String
     ) async throws -> AppwriteModels.IndexList {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}/indexes"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
-        let params: [String: Any?] = [:]
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/indexes"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
+        let params: [String: Any] = [:]
 
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.IndexList = { dict in
-            return AppwriteModels.IndexList.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.IndexList = { response in
+            return AppwriteModels.IndexList.from(map: response as! [String: Any])
         }
+
         return try await client.call(
             method: "GET",
             path: path,
@@ -1265,13 +1358,10 @@ open class Databases: Service {
         attributes: [String],
         orders: [String]? = nil
     ) async throws -> AppwriteModels.Index {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}/indexes"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/indexes"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
         let params: [String: Any?] = [
             "key": key,
             "type": type,
@@ -1282,9 +1372,11 @@ open class Databases: Service {
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.Index = { dict in
-            return AppwriteModels.Index.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.Index = { response in
+            return AppwriteModels.Index.from(map: response as! [String: Any])
         }
+
         return try await client.call(
             method: "POST",
             path: path,
@@ -1308,24 +1400,21 @@ open class Databases: Service {
         collectionId: String,
         key: String
     ) async throws -> AppwriteModels.Index {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}/indexes/{key}"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
-        path = path.replacingOccurrences(
-          of: "{key}",
-          with: key        )
-        let params: [String: Any?] = [:]
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/indexes/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let params: [String: Any] = [:]
 
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
-        let converter: ([String: Any]) -> AppwriteModels.Index = { dict in
-            return AppwriteModels.Index.from(map: dict)
+
+        let converter: (Any) -> AppwriteModels.Index = { response in
+            return AppwriteModels.Index.from(map: response as! [String: Any])
         }
+
         return try await client.call(
             method: "GET",
             path: path,
@@ -1349,21 +1438,17 @@ open class Databases: Service {
         collectionId: String,
         key: String
     ) async throws -> Any {
-        var path: String = "/databases/{databaseId}/collections/{collectionId}/indexes/{key}"
-        path = path.replacingOccurrences(
-          of: "{databaseId}",
-          with: databaseId        )
-        path = path.replacingOccurrences(
-          of: "{collectionId}",
-          with: collectionId        )
-        path = path.replacingOccurrences(
-          of: "{key}",
-          with: key        )
-        let params: [String: Any?] = [:]
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/indexes/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let params: [String: Any] = [:]
 
         let headers: [String: String] = [
             "content-type": "application/json"
         ]
+
         return try await client.call(
             method: "DELETE",
             path: path,
@@ -1371,1108 +1456,5 @@ open class Databases: Service {
             params: params        )
     }
 
-
-    ///
-    /// List Databases
-    ///
-    /// Get a list of all databases from the current Appwrite project. You can use
-    /// the search parameter to filter your results.
-    ///
-    /// @param [String] queries
-    /// @param String search
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func list(
-        queries: [String]? = nil,
-        search: String? = nil,
-        completion: ((Result<AppwriteModels.DatabaseList, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await list(
-                    queries: queries,
-                    search: search
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Create Database
-    ///
-    /// Create a new Database.
-    /// 
-    ///
-    /// @param String databaseId
-    /// @param String name
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func create(
-        databaseId: String,
-        name: String,
-        completion: ((Result<AppwriteModels.Database, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await create(
-                    databaseId: databaseId,
-                    name: name
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Get Database
-    ///
-    /// Get a database by its unique ID. This endpoint response returns a JSON
-    /// object with the database metadata.
-    ///
-    /// @param String databaseId
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func get(
-        databaseId: String,
-        completion: ((Result<AppwriteModels.Database, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await get(
-                    databaseId: databaseId
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Update Database
-    ///
-    /// Update a database by its unique ID.
-    ///
-    /// @param String databaseId
-    /// @param String name
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func update(
-        databaseId: String,
-        name: String,
-        completion: ((Result<AppwriteModels.Database, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await update(
-                    databaseId: databaseId,
-                    name: name
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Delete Database
-    ///
-    /// Delete a database by its unique ID. Only API keys with with databases.write
-    /// scope can delete a database.
-    ///
-    /// @param String databaseId
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func delete(
-        databaseId: String,
-        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await delete(
-                    databaseId: databaseId
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// List Collections
-    ///
-    /// Get a list of all collections that belong to the provided databaseId. You
-    /// can use the search parameter to filter your results.
-    ///
-    /// @param String databaseId
-    /// @param [String] queries
-    /// @param String search
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func listCollections(
-        databaseId: String,
-        queries: [String]? = nil,
-        search: String? = nil,
-        completion: ((Result<AppwriteModels.CollectionList, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await listCollections(
-                    databaseId: databaseId,
-                    queries: queries,
-                    search: search
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Create Collection
-    ///
-    /// Create a new Collection. Before using this route, you should create a new
-    /// database resource using either a [server
-    /// integration](/docs/server/databases#databasesCreateCollection) API or
-    /// directly from your database console.
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String name
-    /// @param [String] permissions
-    /// @param Bool documentSecurity
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func createCollection(
-        databaseId: String,
-        collectionId: String,
-        name: String,
-        permissions: [String]? = nil,
-        documentSecurity: Bool? = nil,
-        completion: ((Result<AppwriteModels.Collection, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await createCollection(
-                    databaseId: databaseId,
-                    collectionId: collectionId,
-                    name: name,
-                    permissions: permissions,
-                    documentSecurity: documentSecurity
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Get Collection
-    ///
-    /// Get a collection by its unique ID. This endpoint response returns a JSON
-    /// object with the collection metadata.
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func getCollection(
-        databaseId: String,
-        collectionId: String,
-        completion: ((Result<AppwriteModels.Collection, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await getCollection(
-                    databaseId: databaseId,
-                    collectionId: collectionId
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Update Collection
-    ///
-    /// Update a collection by its unique ID.
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String name
-    /// @param [String] permissions
-    /// @param Bool documentSecurity
-    /// @param Bool enabled
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func updateCollection(
-        databaseId: String,
-        collectionId: String,
-        name: String,
-        permissions: [String]? = nil,
-        documentSecurity: Bool? = nil,
-        enabled: Bool? = nil,
-        completion: ((Result<AppwriteModels.Collection, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await updateCollection(
-                    databaseId: databaseId,
-                    collectionId: collectionId,
-                    name: name,
-                    permissions: permissions,
-                    documentSecurity: documentSecurity,
-                    enabled: enabled
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Delete Collection
-    ///
-    /// Delete a collection by its unique ID. Only users with write permissions
-    /// have access to delete this resource.
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func deleteCollection(
-        databaseId: String,
-        collectionId: String,
-        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await deleteCollection(
-                    databaseId: databaseId,
-                    collectionId: collectionId
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// List Attributes
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func listAttributes(
-        databaseId: String,
-        collectionId: String,
-        completion: ((Result<AppwriteModels.AttributeList, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await listAttributes(
-                    databaseId: databaseId,
-                    collectionId: collectionId
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Create Boolean Attribute
-    ///
-    /// Create a boolean attribute.
-    /// 
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Bool required
-    /// @param Bool default
-    /// @param Bool array
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func createBooleanAttribute(
-        databaseId: String,
-        collectionId: String,
-        key: String,
-        xrequired: Bool,
-        xdefault: Bool? = nil,
-        array: Bool? = nil,
-        completion: ((Result<AppwriteModels.AttributeBoolean, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await createBooleanAttribute(
-                    databaseId: databaseId,
-                    collectionId: collectionId,
-                    key: key,
-                    xrequired: xrequired,
-                    xdefault: xdefault,
-                    array: array
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Create DateTime Attribute
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Bool required
-    /// @param String default
-    /// @param Bool array
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func createDatetimeAttribute(
-        databaseId: String,
-        collectionId: String,
-        key: String,
-        xrequired: Bool,
-        xdefault: String? = nil,
-        array: Bool? = nil,
-        completion: ((Result<AppwriteModels.AttributeDatetime, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await createDatetimeAttribute(
-                    databaseId: databaseId,
-                    collectionId: collectionId,
-                    key: key,
-                    xrequired: xrequired,
-                    xdefault: xdefault,
-                    array: array
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Create Email Attribute
-    ///
-    /// Create an email attribute.
-    /// 
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Bool required
-    /// @param String default
-    /// @param Bool array
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func createEmailAttribute(
-        databaseId: String,
-        collectionId: String,
-        key: String,
-        xrequired: Bool,
-        xdefault: String? = nil,
-        array: Bool? = nil,
-        completion: ((Result<AppwriteModels.AttributeEmail, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await createEmailAttribute(
-                    databaseId: databaseId,
-                    collectionId: collectionId,
-                    key: key,
-                    xrequired: xrequired,
-                    xdefault: xdefault,
-                    array: array
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Create Enum Attribute
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param [String] elements
-    /// @param Bool required
-    /// @param String default
-    /// @param Bool array
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func createEnumAttribute(
-        databaseId: String,
-        collectionId: String,
-        key: String,
-        elements: [String],
-        xrequired: Bool,
-        xdefault: String? = nil,
-        array: Bool? = nil,
-        completion: ((Result<AppwriteModels.AttributeEnum, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await createEnumAttribute(
-                    databaseId: databaseId,
-                    collectionId: collectionId,
-                    key: key,
-                    elements: elements,
-                    xrequired: xrequired,
-                    xdefault: xdefault,
-                    array: array
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Create Float Attribute
-    ///
-    /// Create a float attribute. Optionally, minimum and maximum values can be
-    /// provided.
-    /// 
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Bool required
-    /// @param Double min
-    /// @param Double max
-    /// @param Double default
-    /// @param Bool array
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func createFloatAttribute(
-        databaseId: String,
-        collectionId: String,
-        key: String,
-        xrequired: Bool,
-        min: Double? = nil,
-        max: Double? = nil,
-        xdefault: Double? = nil,
-        array: Bool? = nil,
-        completion: ((Result<AppwriteModels.AttributeFloat, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await createFloatAttribute(
-                    databaseId: databaseId,
-                    collectionId: collectionId,
-                    key: key,
-                    xrequired: xrequired,
-                    min: min,
-                    max: max,
-                    xdefault: xdefault,
-                    array: array
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Create Integer Attribute
-    ///
-    /// Create an integer attribute. Optionally, minimum and maximum values can be
-    /// provided.
-    /// 
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Bool required
-    /// @param Int min
-    /// @param Int max
-    /// @param Int default
-    /// @param Bool array
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func createIntegerAttribute(
-        databaseId: String,
-        collectionId: String,
-        key: String,
-        xrequired: Bool,
-        min: Int? = nil,
-        max: Int? = nil,
-        xdefault: Int? = nil,
-        array: Bool? = nil,
-        completion: ((Result<AppwriteModels.AttributeInteger, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await createIntegerAttribute(
-                    databaseId: databaseId,
-                    collectionId: collectionId,
-                    key: key,
-                    xrequired: xrequired,
-                    min: min,
-                    max: max,
-                    xdefault: xdefault,
-                    array: array
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Create IP Address Attribute
-    ///
-    /// Create IP address attribute.
-    /// 
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Bool required
-    /// @param String default
-    /// @param Bool array
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func createIpAttribute(
-        databaseId: String,
-        collectionId: String,
-        key: String,
-        xrequired: Bool,
-        xdefault: String? = nil,
-        array: Bool? = nil,
-        completion: ((Result<AppwriteModels.AttributeIp, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await createIpAttribute(
-                    databaseId: databaseId,
-                    collectionId: collectionId,
-                    key: key,
-                    xrequired: xrequired,
-                    xdefault: xdefault,
-                    array: array
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Create String Attribute
-    ///
-    /// Create a string attribute.
-    /// 
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Int size
-    /// @param Bool required
-    /// @param String default
-    /// @param Bool array
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func createStringAttribute(
-        databaseId: String,
-        collectionId: String,
-        key: String,
-        size: Int,
-        xrequired: Bool,
-        xdefault: String? = nil,
-        array: Bool? = nil,
-        completion: ((Result<AppwriteModels.AttributeString, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await createStringAttribute(
-                    databaseId: databaseId,
-                    collectionId: collectionId,
-                    key: key,
-                    size: size,
-                    xrequired: xrequired,
-                    xdefault: xdefault,
-                    array: array
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Create URL Attribute
-    ///
-    /// Create a URL attribute.
-    /// 
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Bool required
-    /// @param String default
-    /// @param Bool array
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func createUrlAttribute(
-        databaseId: String,
-        collectionId: String,
-        key: String,
-        xrequired: Bool,
-        xdefault: String? = nil,
-        array: Bool? = nil,
-        completion: ((Result<AppwriteModels.AttributeUrl, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await createUrlAttribute(
-                    databaseId: databaseId,
-                    collectionId: collectionId,
-                    key: key,
-                    xrequired: xrequired,
-                    xdefault: xdefault,
-                    array: array
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Get Attribute
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func getAttribute(
-        databaseId: String,
-        collectionId: String,
-        key: String,
-        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await getAttribute(
-                    databaseId: databaseId,
-                    collectionId: collectionId,
-                    key: key
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Delete Attribute
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func deleteAttribute(
-        databaseId: String,
-        collectionId: String,
-        key: String,
-        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await deleteAttribute(
-                    databaseId: databaseId,
-                    collectionId: collectionId,
-                    key: key
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// List Documents
-    ///
-    /// Get a list of all the user's documents in a given collection. You can use
-    /// the query params to filter your results. On admin mode, this endpoint will
-    /// return a list of all of documents belonging to the provided collectionId.
-    /// [Learn more about different API modes](/docs/admin).
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param [String] queries
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func listDocuments(
-        databaseId: String,
-        collectionId: String,
-        queries: [String]? = nil,
-        completion: ((Result<AppwriteModels.DocumentList, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await listDocuments(
-                    databaseId: databaseId,
-                    collectionId: collectionId,
-                    queries: queries
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Create Document
-    ///
-    /// Create a new Document. Before using this route, you should create a new
-    /// collection resource using either a [server
-    /// integration](/docs/server/databases#databasesCreateCollection) API or
-    /// directly from your database console.
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String documentId
-    /// @param Any data
-    /// @param [String] permissions
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func createDocument(
-        databaseId: String,
-        collectionId: String,
-        documentId: String,
-        data: Any,
-        permissions: [String]? = nil,
-        completion: ((Result<AppwriteModels.Document, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await createDocument(
-                    databaseId: databaseId,
-                    collectionId: collectionId,
-                    documentId: documentId,
-                    data: data,
-                    permissions: permissions
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Get Document
-    ///
-    /// Get a document by its unique ID. This endpoint response returns a JSON
-    /// object with the document data.
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String documentId
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func getDocument(
-        databaseId: String,
-        collectionId: String,
-        documentId: String,
-        completion: ((Result<AppwriteModels.Document, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await getDocument(
-                    databaseId: databaseId,
-                    collectionId: collectionId,
-                    documentId: documentId
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Update Document
-    ///
-    /// Update a document by its unique ID. Using the patch method you can pass
-    /// only specific fields that will get updated.
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String documentId
-    /// @param Any data
-    /// @param [String] permissions
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func updateDocument(
-        databaseId: String,
-        collectionId: String,
-        documentId: String,
-        data: Any? = nil,
-        permissions: [String]? = nil,
-        completion: ((Result<AppwriteModels.Document, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await updateDocument(
-                    databaseId: databaseId,
-                    collectionId: collectionId,
-                    documentId: documentId,
-                    data: data,
-                    permissions: permissions
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Delete Document
-    ///
-    /// Delete a document by its unique ID.
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String documentId
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func deleteDocument(
-        databaseId: String,
-        collectionId: String,
-        documentId: String,
-        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await deleteDocument(
-                    databaseId: databaseId,
-                    collectionId: collectionId,
-                    documentId: documentId
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// List Indexes
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func listIndexes(
-        databaseId: String,
-        collectionId: String,
-        completion: ((Result<AppwriteModels.IndexList, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await listIndexes(
-                    databaseId: databaseId,
-                    collectionId: collectionId
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Create Index
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param String type
-    /// @param [String] attributes
-    /// @param [String] orders
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func createIndex(
-        databaseId: String,
-        collectionId: String,
-        key: String,
-        type: String,
-        attributes: [String],
-        orders: [String]? = nil,
-        completion: ((Result<AppwriteModels.Index, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await createIndex(
-                    databaseId: databaseId,
-                    collectionId: collectionId,
-                    key: key,
-                    type: type,
-                    attributes: attributes,
-                    orders: orders
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Get Index
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func getIndex(
-        databaseId: String,
-        collectionId: String,
-        key: String,
-        completion: ((Result<AppwriteModels.Index, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await getIndex(
-                    databaseId: databaseId,
-                    collectionId: collectionId,
-                    key: key
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
-
-    ///
-    /// Delete Index
-    ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @throws Exception
-    /// @return array
-    ///
-    @available(*, deprecated, message: "Use the async overload instead")
-    open func deleteIndex(
-        databaseId: String,
-        collectionId: String,
-        key: String,
-        completion: ((Result<Any, AppwriteError>) -> Void)? = nil
-    ) {
-        Task {
-            do {
-                let result = try await deleteIndex(
-                    databaseId: databaseId,
-                    collectionId: collectionId,
-                    key: key
-                )
-                completion?(.success(result))
-            } catch {
-                completion?(.failure(error as! AppwriteError))
-            }
-        }
-    }
 
 }

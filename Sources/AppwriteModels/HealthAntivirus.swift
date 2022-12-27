@@ -1,3 +1,4 @@
+import Foundation
 
 /// Health Antivirus
 public class HealthAntivirus {
@@ -8,6 +9,7 @@ public class HealthAntivirus {
     /// Antivirus status. Possible values can are: `disabled`, `offline`, `online`
     public let status: String
 
+
     init(
         version: String,
         status: String
@@ -16,18 +18,17 @@ public class HealthAntivirus {
         self.status = status
     }
 
-    public static func from(map: [String: Any]) -> HealthAntivirus {
-        return HealthAntivirus(
-            version: map["version"] as! String,
-            status: map["status"] as! String
-        )
-    }
-
     public func toMap() -> [String: Any] {
         return [
             "version": version as Any,
             "status": status as Any
         ]
     }
-            
+
+    public static func from(map: [String: Any] ) -> HealthAntivirus {
+        return HealthAntivirus(
+            version: map["version"] as! String,
+            status: map["status"] as! String
+        )
+    }
 }

@@ -1,3 +1,4 @@
+import Foundation
 
 /// Bucket
 public class Bucket {
@@ -38,6 +39,7 @@ public class Bucket {
     /// Virus scanning is enabled.
     public let antivirus: Bool
 
+
     init(
         id: String,
         createdAt: String,
@@ -66,23 +68,6 @@ public class Bucket {
         self.antivirus = antivirus
     }
 
-    public static func from(map: [String: Any]) -> Bucket {
-        return Bucket(
-            id: map["$id"] as! String,
-            createdAt: map["$createdAt"] as! String,
-            updatedAt: map["$updatedAt"] as! String,
-            permissions: map["$permissions"] as! [Any],
-            fileSecurity: map["fileSecurity"] as! Bool,
-            name: map["name"] as! String,
-            enabled: map["enabled"] as! Bool,
-            maximumFileSize: map["maximumFileSize"] as! Int,
-            allowedFileExtensions: map["allowedFileExtensions"] as! [Any],
-            compression: map["compression"] as! String,
-            encryption: map["encryption"] as! Bool,
-            antivirus: map["antivirus"] as! Bool
-        )
-    }
-
     public func toMap() -> [String: Any] {
         return [
             "$id": id as Any,
@@ -99,5 +84,21 @@ public class Bucket {
             "antivirus": antivirus as Any
         ]
     }
-                                                    
+
+    public static func from(map: [String: Any] ) -> Bucket {
+        return Bucket(
+            id: map["$id"] as! String,
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String,
+            permissions: map["$permissions"] as! [Any],
+            fileSecurity: map["fileSecurity"] as! Bool,
+            name: map["name"] as! String,
+            enabled: map["enabled"] as! Bool,
+            maximumFileSize: map["maximumFileSize"] as! Int,
+            allowedFileExtensions: map["allowedFileExtensions"] as! [Any],
+            compression: map["compression"] as! String,
+            encryption: map["encryption"] as! Bool,
+            antivirus: map["antivirus"] as! Bool
+        )
+    }
 }

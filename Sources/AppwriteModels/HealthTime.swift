@@ -1,3 +1,4 @@
+import Foundation
 
 /// Health Time
 public class HealthTime {
@@ -11,6 +12,7 @@ public class HealthTime {
     /// Difference of unix remote and local timestamps in milliseconds.
     public let diff: Int
 
+
     init(
         remoteTime: Int,
         localTime: Int,
@@ -21,14 +23,6 @@ public class HealthTime {
         self.diff = diff
     }
 
-    public static func from(map: [String: Any]) -> HealthTime {
-        return HealthTime(
-            remoteTime: map["remoteTime"] as! Int,
-            localTime: map["localTime"] as! Int,
-            diff: map["diff"] as! Int
-        )
-    }
-
     public func toMap() -> [String: Any] {
         return [
             "remoteTime": remoteTime as Any,
@@ -36,5 +30,12 @@ public class HealthTime {
             "diff": diff as Any
         ]
     }
-                
+
+    public static func from(map: [String: Any] ) -> HealthTime {
+        return HealthTime(
+            remoteTime: map["remoteTime"] as! Int,
+            localTime: map["localTime"] as! Int,
+            diff: map["diff"] as! Int
+        )
+    }
 }

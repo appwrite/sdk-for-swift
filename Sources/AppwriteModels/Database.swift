@@ -1,3 +1,4 @@
+import Foundation
 
 /// Database
 public class Database {
@@ -14,6 +15,7 @@ public class Database {
     /// Database update date in ISO 8601 format.
     public let updatedAt: String
 
+
     init(
         id: String,
         name: String,
@@ -26,15 +28,6 @@ public class Database {
         self.updatedAt = updatedAt
     }
 
-    public static func from(map: [String: Any]) -> Database {
-        return Database(
-            id: map["$id"] as! String,
-            name: map["name"] as! String,
-            createdAt: map["$createdAt"] as! String,
-            updatedAt: map["$updatedAt"] as! String
-        )
-    }
-
     public func toMap() -> [String: Any] {
         return [
             "$id": id as Any,
@@ -43,5 +36,13 @@ public class Database {
             "$updatedAt": updatedAt as Any
         ]
     }
-                    
+
+    public static func from(map: [String: Any] ) -> Database {
+        return Database(
+            id: map["$id"] as! String,
+            name: map["name"] as! String,
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String
+        )
+    }
 }

@@ -1,3 +1,4 @@
+import Foundation
 
 /// AttributeInteger
 public class AttributeInteger {
@@ -15,26 +16,27 @@ public class AttributeInteger {
     public let xrequired: Bool
 
     /// Is attribute an array?
-    public let array: Bool?
+    public let array: Bool??
 
     /// Minimum value to enforce for new documents.
-    public let min: Int?
+    public let min: Int??
 
     /// Maximum value to enforce for new documents.
-    public let max: Int?
+    public let max: Int??
 
     /// Default value for attribute when not provided. Cannot be set when attribute is required.
-    public let xdefault: Int?
+    public let xdefault: Int??
+
 
     init(
         key: String,
         type: String,
         status: String,
         xrequired: Bool,
-        array: Bool?,
-        min: Int?,
-        max: Int?,
-        xdefault: Int?
+        array: Bool??,
+        min: Int??,
+        max: Int??,
+        xdefault: Int??
     ) {
         self.key = key
         self.type = type
@@ -44,19 +46,6 @@ public class AttributeInteger {
         self.min = min
         self.max = max
         self.xdefault = xdefault
-    }
-
-    public static func from(map: [String: Any]) -> AttributeInteger {
-        return AttributeInteger(
-            key: map["key"] as! String,
-            type: map["type"] as! String,
-            status: map["status"] as! String,
-            xrequired: map["required"] as! Bool,
-            array: map["array"] as? Bool,
-            min: map["min"] as? Int,
-            max: map["max"] as? Int,
-            xdefault: map["default"] as? Int
-        )
     }
 
     public func toMap() -> [String: Any] {
@@ -71,5 +60,17 @@ public class AttributeInteger {
             "xdefault": xdefault as Any
         ]
     }
-                                    
+
+    public static func from(map: [String: Any] ) -> AttributeInteger {
+        return AttributeInteger(
+            key: map["key"] as! String,
+            type: map["type"] as! String,
+            status: map["status"] as! String,
+            xrequired: map["required"] as! Bool,
+            array: map["array"] as? Bool?,
+            min: map["min"] as? Int?,
+            max: map["max"] as? Int?,
+            xdefault: map["default"] as? Int?
+        )
+    }
 }

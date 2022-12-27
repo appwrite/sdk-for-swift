@@ -1,3 +1,4 @@
+import Foundation
 
 /// Runtimes List
 public class RuntimeList {
@@ -8,6 +9,7 @@ public class RuntimeList {
     /// List of runtimes.
     public let runtimes: [Runtime]
 
+
     init(
         total: Int,
         runtimes: [Runtime]
@@ -16,18 +18,17 @@ public class RuntimeList {
         self.runtimes = runtimes
     }
 
-    public static func from(map: [String: Any]) -> RuntimeList {
-        return RuntimeList(
-            total: map["total"] as! Int,
-            runtimes: (map["runtimes"] as! [[String: Any]]).map { Runtime.from(map: $0) }
-        )
-    }
-
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
             "runtimes": runtimes.map { $0.toMap() } as Any
         ]
     }
-                                                                                                                                                                                                                                                                                            
+
+    public static func from(map: [String: Any] ) -> RuntimeList {
+        return RuntimeList(
+            total: map["total"] as! Int,
+            runtimes: (map["runtimes"] as! [[String: Any]]).map { Runtime.from(map: $0) }
+        )
+    }
 }

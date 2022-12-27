@@ -1,3 +1,4 @@
+import Foundation
 
 /// Variables List
 public class VariableList {
@@ -8,6 +9,7 @@ public class VariableList {
     /// List of variables.
     public let variables: [Variable]
 
+
     init(
         total: Int,
         variables: [Variable]
@@ -16,18 +18,17 @@ public class VariableList {
         self.variables = variables
     }
 
-    public static func from(map: [String: Any]) -> VariableList {
-        return VariableList(
-            total: map["total"] as! Int,
-            variables: (map["variables"] as! [[String: Any]]).map { Variable.from(map: $0) }
-        )
-    }
-
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
             "variables": variables.map { $0.toMap() } as Any
         ]
     }
-                                                                                                                                                                                                                                                                                            
+
+    public static func from(map: [String: Any] ) -> VariableList {
+        return VariableList(
+            total: map["total"] as! Int,
+            variables: (map["variables"] as! [[String: Any]]).map { Variable.from(map: $0) }
+        )
+    }
 }

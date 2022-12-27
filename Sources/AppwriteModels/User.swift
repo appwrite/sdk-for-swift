@@ -1,6 +1,7 @@
+import Foundation
 
 /// User
-public class User {
+public class User<T : Codable> {
 
     /// User ID.
     public let id: String
@@ -45,7 +46,8 @@ public class User {
     public let phoneVerification: Bool
 
     /// User preferences as a key-value object
-    public let prefs: Preferences
+    public let prefs: Preferences<T>
+
 
     init(
         id: String,
@@ -62,7 +64,7 @@ public class User {
         phone: String,
         emailVerification: Bool,
         phoneVerification: Bool,
-        prefs: Preferences
+        prefs: Preferences<T>
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -79,26 +81,6 @@ public class User {
         self.emailVerification = emailVerification
         self.phoneVerification = phoneVerification
         self.prefs = prefs
-    }
-
-    public static func from(map: [String: Any]) -> User {
-        return User(
-            id: map["$id"] as! String,
-            createdAt: map["$createdAt"] as! String,
-            updatedAt: map["$updatedAt"] as! String,
-            name: map["name"] as! String,
-            password: map["password"] as! String,
-            hash: map["hash"] as! String,
-            hashOptions: map["hashOptions"] as! Any,
-            registration: map["registration"] as! String,
-            status: map["status"] as! Bool,
-            passwordUpdate: map["passwordUpdate"] as! String,
-            email: map["email"] as! String,
-            phone: map["phone"] as! String,
-            emailVerification: map["emailVerification"] as! Bool,
-            phoneVerification: map["phoneVerification"] as! Bool,
-            prefs: Preferences.from(map: map["prefs"] as! [String: Any])
-        )
     }
 
     public func toMap() -> [String: Any] {
@@ -120,5 +102,24 @@ public class User {
             "prefs": prefs.toMap() as Any
         ]
     }
-                                                                                                                                                                                                                                                                                                                                                
+
+    public static func from(map: [String: Any] ) -> User {
+        return User(
+            id: map["$id"] as! String,
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String,
+            name: map["name"] as! String,
+            password: map["password"] as! String,
+            hash: map["hash"] as! String,
+            hashOptions: map["hashOptions"] as! Any,
+            registration: map["registration"] as! String,
+            status: map["status"] as! Bool,
+            passwordUpdate: map["passwordUpdate"] as! String,
+            email: map["email"] as! String,
+            phone: map["phone"] as! String,
+            emailVerification: map["emailVerification"] as! Bool,
+            phoneVerification: map["phoneVerification"] as! Bool,
+            prefs: Preferences.from(map: map["prefs"] as! [String: Any])
+        )
+    }
 }

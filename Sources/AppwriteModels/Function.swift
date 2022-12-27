@@ -1,3 +1,4 @@
+import Foundation
 
 /// Function
 public class Function {
@@ -44,6 +45,7 @@ public class Function {
     /// Function execution timeout in seconds.
     public let timeout: Int
 
+
     init(
         id: String,
         createdAt: String,
@@ -76,25 +78,6 @@ public class Function {
         self.timeout = timeout
     }
 
-    public static func from(map: [String: Any]) -> Function {
-        return Function(
-            id: map["$id"] as! String,
-            createdAt: map["$createdAt"] as! String,
-            updatedAt: map["$updatedAt"] as! String,
-            execute: map["execute"] as! [Any],
-            name: map["name"] as! String,
-            enabled: map["enabled"] as! Bool,
-            runtime: map["runtime"] as! String,
-            deployment: map["deployment"] as! String,
-            vars: (map["vars"] as! [[String: Any]]).map { Variable.from(map: $0) },
-            events: map["events"] as! [Any],
-            schedule: map["schedule"] as! String,
-            scheduleNext: map["scheduleNext"] as! String,
-            schedulePrevious: map["schedulePrevious"] as! String,
-            timeout: map["timeout"] as! Int
-        )
-    }
-
     public func toMap() -> [String: Any] {
         return [
             "$id": id as Any,
@@ -113,5 +96,23 @@ public class Function {
             "timeout": timeout as Any
         ]
     }
-                                                                                                                                                                                                                                                                                                                                            
+
+    public static func from(map: [String: Any] ) -> Function {
+        return Function(
+            id: map["$id"] as! String,
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String,
+            execute: map["execute"] as! [Any],
+            name: map["name"] as! String,
+            enabled: map["enabled"] as! Bool,
+            runtime: map["runtime"] as! String,
+            deployment: map["deployment"] as! String,
+            vars: (map["vars"] as! [[String: Any]]).map { Variable.from(map: $0) },
+            events: map["events"] as! [Any],
+            schedule: map["schedule"] as! String,
+            scheduleNext: map["scheduleNext"] as! String,
+            schedulePrevious: map["schedulePrevious"] as! String,
+            timeout: map["timeout"] as! Int
+        )
+    }
 }
