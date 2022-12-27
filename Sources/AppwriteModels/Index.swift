@@ -1,3 +1,4 @@
+import Foundation
 
 /// Index
 public class Index {
@@ -15,30 +16,21 @@ public class Index {
     public let attributes: [Any]
 
     /// Index orders.
-    public let orders: [Any]?
+    public let orders: [Any]??
+
 
     init(
         key: String,
         type: String,
         status: String,
         attributes: [Any],
-        orders: [Any]?
+        orders: [Any]??
     ) {
         self.key = key
         self.type = type
         self.status = status
         self.attributes = attributes
         self.orders = orders
-    }
-
-    public static func from(map: [String: Any]) -> Index {
-        return Index(
-            key: map["key"] as! String,
-            type: map["type"] as! String,
-            status: map["status"] as! String,
-            attributes: map["attributes"] as! [Any],
-            orders: map["orders"] as? [Any]
-        )
     }
 
     public func toMap() -> [String: Any] {
@@ -50,5 +42,14 @@ public class Index {
             "orders": orders as Any
         ]
     }
-                        
+
+    public static func from(map: [String: Any] ) -> Index {
+        return Index(
+            key: map["key"] as! String,
+            type: map["type"] as! String,
+            status: map["status"] as! String,
+            attributes: map["attributes"] as! [Any],
+            orders: map["orders"] as? [Any]?
+        )
+    }
 }

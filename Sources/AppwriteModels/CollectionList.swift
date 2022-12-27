@@ -1,3 +1,4 @@
+import Foundation
 
 /// Collections List
 public class CollectionList {
@@ -8,6 +9,7 @@ public class CollectionList {
     /// List of collections.
     public let collections: [Collection]
 
+
     init(
         total: Int,
         collections: [Collection]
@@ -16,18 +18,17 @@ public class CollectionList {
         self.collections = collections
     }
 
-    public static func from(map: [String: Any]) -> CollectionList {
-        return CollectionList(
-            total: map["total"] as! Int,
-            collections: (map["collections"] as! [[String: Any]]).map { Collection.from(map: $0) }
-        )
-    }
-
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
             "collections": collections.map { $0.toMap() } as Any
         ]
     }
-                                                                                                                                                                                                                                                                                            
+
+    public static func from(map: [String: Any] ) -> CollectionList {
+        return CollectionList(
+            total: map["total"] as! Int,
+            collections: (map["collections"] as! [[String: Any]]).map { Collection.from(map: $0) }
+        )
+    }
 }

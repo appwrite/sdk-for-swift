@@ -1,3 +1,4 @@
+import Foundation
 
 /// Attributes List
 public class AttributeList {
@@ -8,6 +9,7 @@ public class AttributeList {
     /// List of attributes.
     public let attributes: [Any]
 
+
     init(
         total: Int,
         attributes: [Any]
@@ -16,18 +18,17 @@ public class AttributeList {
         self.attributes = attributes
     }
 
-    public static func from(map: [String: Any]) -> AttributeList {
-        return AttributeList(
-            total: map["total"] as! Int,
-            attributes: map["attributes"] as! [Any]
-        )
-    }
-
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
             "attributes": attributes as Any
         ]
     }
-            
+
+    public static func from(map: [String: Any] ) -> AttributeList {
+        return AttributeList(
+            total: map["total"] as! Int,
+            attributes: map["attributes"] as! [Any]
+        )
+    }
 }

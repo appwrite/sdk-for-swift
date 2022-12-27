@@ -1,3 +1,4 @@
+import Foundation
 
 /// Variable
 public class Variable {
@@ -20,6 +21,7 @@ public class Variable {
     /// Function ID.
     public let functionId: String
 
+
     init(
         id: String,
         createdAt: String,
@@ -36,17 +38,6 @@ public class Variable {
         self.functionId = functionId
     }
 
-    public static func from(map: [String: Any]) -> Variable {
-        return Variable(
-            id: map["$id"] as! String,
-            createdAt: map["$createdAt"] as! String,
-            updatedAt: map["$updatedAt"] as! String,
-            key: map["key"] as! String,
-            value: map["value"] as! String,
-            functionId: map["functionId"] as! String
-        )
-    }
-
     public func toMap() -> [String: Any] {
         return [
             "$id": id as Any,
@@ -57,5 +48,15 @@ public class Variable {
             "functionId": functionId as Any
         ]
     }
-                            
+
+    public static func from(map: [String: Any] ) -> Variable {
+        return Variable(
+            id: map["$id"] as! String,
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String,
+            key: map["key"] as! String,
+            value: map["value"] as! String,
+            functionId: map["functionId"] as! String
+        )
+    }
 }

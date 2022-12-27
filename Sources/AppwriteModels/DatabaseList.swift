@@ -1,3 +1,4 @@
+import Foundation
 
 /// Databases List
 public class DatabaseList {
@@ -8,6 +9,7 @@ public class DatabaseList {
     /// List of databases.
     public let databases: [Database]
 
+
     init(
         total: Int,
         databases: [Database]
@@ -16,18 +18,17 @@ public class DatabaseList {
         self.databases = databases
     }
 
-    public static func from(map: [String: Any]) -> DatabaseList {
-        return DatabaseList(
-            total: map["total"] as! Int,
-            databases: (map["databases"] as! [[String: Any]]).map { Database.from(map: $0) }
-        )
-    }
-
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
             "databases": databases.map { $0.toMap() } as Any
         ]
     }
-                                                                                                                                                                                                                                                                                            
+
+    public static func from(map: [String: Any] ) -> DatabaseList {
+        return DatabaseList(
+            total: map["total"] as! Int,
+            databases: (map["databases"] as! [[String: Any]]).map { Database.from(map: $0) }
+        )
+    }
 }

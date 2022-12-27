@@ -1,3 +1,4 @@
+import Foundation
 
 /// Deployment
 public class Deployment {
@@ -38,6 +39,10 @@ public class Deployment {
     /// The build stderr.
     public let buildStderr: String
 
+    /// The current build time in seconds.
+    public let buildTime: Int
+
+
     init(
         id: String,
         createdAt: String,
@@ -50,7 +55,8 @@ public class Deployment {
         activate: Bool,
         status: String,
         buildStdout: String,
-        buildStderr: String
+        buildStderr: String,
+        buildTime: Int
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -64,23 +70,7 @@ public class Deployment {
         self.status = status
         self.buildStdout = buildStdout
         self.buildStderr = buildStderr
-    }
-
-    public static func from(map: [String: Any]) -> Deployment {
-        return Deployment(
-            id: map["$id"] as! String,
-            createdAt: map["$createdAt"] as! String,
-            updatedAt: map["$updatedAt"] as! String,
-            resourceId: map["resourceId"] as! String,
-            resourceType: map["resourceType"] as! String,
-            entrypoint: map["entrypoint"] as! String,
-            size: map["size"] as! Int,
-            buildId: map["buildId"] as! String,
-            activate: map["activate"] as! Bool,
-            status: map["status"] as! String,
-            buildStdout: map["buildStdout"] as! String,
-            buildStderr: map["buildStderr"] as! String
-        )
+        self.buildTime = buildTime
     }
 
     public func toMap() -> [String: Any] {
@@ -96,8 +86,26 @@ public class Deployment {
             "activate": activate as Any,
             "status": status as Any,
             "buildStdout": buildStdout as Any,
-            "buildStderr": buildStderr as Any
+            "buildStderr": buildStderr as Any,
+            "buildTime": buildTime as Any
         ]
     }
-                                                    
+
+    public static func from(map: [String: Any] ) -> Deployment {
+        return Deployment(
+            id: map["$id"] as! String,
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String,
+            resourceId: map["resourceId"] as! String,
+            resourceType: map["resourceType"] as! String,
+            entrypoint: map["entrypoint"] as! String,
+            size: map["size"] as! Int,
+            buildId: map["buildId"] as! String,
+            activate: map["activate"] as! Bool,
+            status: map["status"] as! String,
+            buildStdout: map["buildStdout"] as! String,
+            buildStderr: map["buildStderr"] as! String,
+            buildTime: map["buildTime"] as! Int
+        )
+    }
 }

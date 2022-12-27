@@ -1,3 +1,4 @@
+import Foundation
 
 /// Runtime
 public class Runtime {
@@ -23,6 +24,7 @@ public class Runtime {
     /// List of supported architectures.
     public let supports: [Any]
 
+
     init(
         id: String,
         name: String,
@@ -41,18 +43,6 @@ public class Runtime {
         self.supports = supports
     }
 
-    public static func from(map: [String: Any]) -> Runtime {
-        return Runtime(
-            id: map["$id"] as! String,
-            name: map["name"] as! String,
-            version: map["version"] as! String,
-            base: map["base"] as! String,
-            image: map["image"] as! String,
-            logo: map["logo"] as! String,
-            supports: map["supports"] as! [Any]
-        )
-    }
-
     public func toMap() -> [String: Any] {
         return [
             "$id": id as Any,
@@ -64,5 +54,16 @@ public class Runtime {
             "supports": supports as Any
         ]
     }
-                                
+
+    public static func from(map: [String: Any] ) -> Runtime {
+        return Runtime(
+            id: map["$id"] as! String,
+            name: map["name"] as! String,
+            version: map["version"] as! String,
+            base: map["base"] as! String,
+            image: map["image"] as! String,
+            logo: map["logo"] as! String,
+            supports: map["supports"] as! [Any]
+        )
+    }
 }

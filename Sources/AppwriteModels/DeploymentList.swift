@@ -1,3 +1,4 @@
+import Foundation
 
 /// Deployments List
 public class DeploymentList {
@@ -8,6 +9,7 @@ public class DeploymentList {
     /// List of deployments.
     public let deployments: [Deployment]
 
+
     init(
         total: Int,
         deployments: [Deployment]
@@ -16,18 +18,17 @@ public class DeploymentList {
         self.deployments = deployments
     }
 
-    public static func from(map: [String: Any]) -> DeploymentList {
-        return DeploymentList(
-            total: map["total"] as! Int,
-            deployments: (map["deployments"] as! [[String: Any]]).map { Deployment.from(map: $0) }
-        )
-    }
-
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
             "deployments": deployments.map { $0.toMap() } as Any
         ]
     }
-                                                                                                                                                                                                                                                                                            
+
+    public static func from(map: [String: Any] ) -> DeploymentList {
+        return DeploymentList(
+            total: map["total"] as! Int,
+            deployments: (map["deployments"] as! [[String: Any]]).map { Deployment.from(map: $0) }
+        )
+    }
 }

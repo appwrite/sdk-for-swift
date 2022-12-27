@@ -1,26 +1,21 @@
+import Foundation
 
 /// Users List
-public class UserList {
+public class UserList<T : Codable> {
 
     /// Total number of users documents that matched your query.
     public let total: Int
 
     /// List of users.
-    public let users: [User]
+    public let users: [User<T>]
+
 
     init(
         total: Int,
-        users: [User]
+        users: [User<T>]
     ) {
         self.total = total
         self.users = users
-    }
-
-    public static func from(map: [String: Any]) -> UserList {
-        return UserList(
-            total: map["total"] as! Int,
-            users: (map["users"] as! [[String: Any]]).map { User.from(map: $0) }
-        )
     }
 
     public func toMap() -> [String: Any] {
@@ -29,5 +24,11 @@ public class UserList {
             "users": users.map { $0.toMap() } as Any
         ]
     }
-                                                                                                                                                                                                                                                                                            
+
+    public static func from(map: [String: Any] ) -> UserList {
+        return UserList(
+            total: map["total"] as! Int,
+            users: (map["users"] as! [[String: Any]]).map { User.from(map: $0) }
+        )
+    }
 }

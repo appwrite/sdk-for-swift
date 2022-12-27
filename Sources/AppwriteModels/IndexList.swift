@@ -1,3 +1,4 @@
+import Foundation
 
 /// Indexes List
 public class IndexList {
@@ -8,6 +9,7 @@ public class IndexList {
     /// List of indexes.
     public let indexes: [Index]
 
+
     init(
         total: Int,
         indexes: [Index]
@@ -16,18 +18,17 @@ public class IndexList {
         self.indexes = indexes
     }
 
-    public static func from(map: [String: Any]) -> IndexList {
-        return IndexList(
-            total: map["total"] as! Int,
-            indexes: (map["indexes"] as! [[String: Any]]).map { Index.from(map: $0) }
-        )
-    }
-
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
             "indexes": indexes.map { $0.toMap() } as Any
         ]
     }
-                                                                                                                                                                                                                                                                                            
+
+    public static func from(map: [String: Any] ) -> IndexList {
+        return IndexList(
+            total: map["total"] as! Int,
+            indexes: (map["indexes"] as! [[String: Any]]).map { Index.from(map: $0) }
+        )
+    }
 }

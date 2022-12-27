@@ -1,3 +1,4 @@
+import Foundation
 
 /// AttributeDatetime
 public class AttributeDatetime {
@@ -15,22 +16,23 @@ public class AttributeDatetime {
     public let xrequired: Bool
 
     /// Is attribute an array?
-    public let array: Bool?
+    public let array: Bool??
 
     /// ISO 8601 format.
     public let format: String
 
     /// Default value for attribute when not provided. Only null is optional
-    public let xdefault: String?
+    public let xdefault: String??
+
 
     init(
         key: String,
         type: String,
         status: String,
         xrequired: Bool,
-        array: Bool?,
+        array: Bool??,
         format: String,
-        xdefault: String?
+        xdefault: String??
     ) {
         self.key = key
         self.type = type
@@ -39,18 +41,6 @@ public class AttributeDatetime {
         self.array = array
         self.format = format
         self.xdefault = xdefault
-    }
-
-    public static func from(map: [String: Any]) -> AttributeDatetime {
-        return AttributeDatetime(
-            key: map["key"] as! String,
-            type: map["type"] as! String,
-            status: map["status"] as! String,
-            xrequired: map["required"] as! Bool,
-            array: map["array"] as? Bool,
-            format: map["format"] as! String,
-            xdefault: map["default"] as? String
-        )
     }
 
     public func toMap() -> [String: Any] {
@@ -64,5 +54,16 @@ public class AttributeDatetime {
             "xdefault": xdefault as Any
         ]
     }
-                                
+
+    public static func from(map: [String: Any] ) -> AttributeDatetime {
+        return AttributeDatetime(
+            key: map["key"] as! String,
+            type: map["type"] as! String,
+            status: map["status"] as! String,
+            xrequired: map["required"] as! Bool,
+            array: map["array"] as? Bool?,
+            format: map["format"] as! String,
+            xdefault: map["default"] as? String?
+        )
+    }
 }
