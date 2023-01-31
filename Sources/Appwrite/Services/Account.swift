@@ -15,7 +15,7 @@ open class Account: Service {
     /// @return array
     ///
     open func get<T>(
-        nestedType: T.Type,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.Account<T> {
         let path: String = "/account"
 
@@ -72,8 +72,8 @@ open class Account: Service {
     ///
     open func updateEmail<T>(
         email: String,
-        password: String
-        nestedType: T.Type,
+        password: String,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.Account<T> {
         let path: String = "/account/email"
 
@@ -173,8 +173,8 @@ open class Account: Service {
     /// @return array
     ///
     open func updateName<T>(
-        name: String
-        nestedType: T.Type,
+        name: String,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.Account<T> {
         let path: String = "/account/name"
 
@@ -231,8 +231,8 @@ open class Account: Service {
     ///
     open func updatePassword<T>(
         password: String,
-        oldPassword: String? = nil
-        nestedType: T.Type,
+        oldPassword: String? = nil,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.Account<T> {
         let path: String = "/account/password"
 
@@ -297,8 +297,8 @@ open class Account: Service {
     ///
     open func updatePhone<T>(
         phone: String,
-        password: String
-        nestedType: T.Type,
+        password: String,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.Account<T> {
         let path: String = "/account/phone"
 
@@ -358,7 +358,7 @@ open class Account: Service {
     /// @return array
     ///
     open func getPrefs<T>(
-        nestedType: T.Type,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.Preferences<T> {
         let path: String = "/account/prefs"
 
@@ -408,8 +408,8 @@ open class Account: Service {
     /// @return array
     ///
     open func updatePrefs<T>(
-        prefs: T
-        nestedType: T.Type,
+        prefs: T,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.Account<T> {
         let path: String = "/account/prefs"
 
@@ -722,7 +722,7 @@ open class Account: Service {
     /// @return array
     ///
     open func updateStatus<T>(
-        nestedType: T.Type,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.Account<T> {
         let path: String = "/account/status"
 

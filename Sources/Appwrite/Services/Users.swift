@@ -19,8 +19,8 @@ open class Users: Service {
     ///
     open func list<T>(
         queries: [String]? = nil,
-        search: String? = nil
-        nestedType: T.Type,
+        search: String? = nil,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.UserList<T> {
         let path: String = "/users"
 
@@ -86,8 +86,8 @@ open class Users: Service {
         email: String? = nil,
         phone: String? = nil,
         password: String? = nil,
-        name: String? = nil
-        nestedType: T.Type,
+        name: String? = nil,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
         let path: String = "/users"
 
@@ -165,8 +165,8 @@ open class Users: Service {
         userId: String,
         email: String,
         password: String,
-        name: String? = nil
-        nestedType: T.Type,
+        name: String? = nil,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
         let path: String = "/users/argon2"
 
@@ -243,8 +243,8 @@ open class Users: Service {
         userId: String,
         email: String,
         password: String,
-        name: String? = nil
-        nestedType: T.Type,
+        name: String? = nil,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
         let path: String = "/users/bcrypt"
 
@@ -321,8 +321,8 @@ open class Users: Service {
         userId: String,
         email: String,
         password: String,
-        name: String? = nil
-        nestedType: T.Type,
+        name: String? = nil,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
         let path: String = "/users/md5"
 
@@ -399,8 +399,8 @@ open class Users: Service {
         userId: String,
         email: String,
         password: String,
-        name: String? = nil
-        nestedType: T.Type,
+        name: String? = nil,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
         let path: String = "/users/phpass"
 
@@ -487,8 +487,8 @@ open class Users: Service {
         passwordMemory: Int,
         passwordParallel: Int,
         passwordLength: Int,
-        name: String? = nil
-        nestedType: T.Type,
+        name: String? = nil,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
         let path: String = "/users/scrypt"
 
@@ -591,8 +591,8 @@ open class Users: Service {
         passwordSalt: String,
         passwordSaltSeparator: String,
         passwordSignerKey: String,
-        name: String? = nil
-        nestedType: T.Type,
+        name: String? = nil,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
         let path: String = "/users/scrypt-modified"
 
@@ -683,8 +683,8 @@ open class Users: Service {
         email: String,
         password: String,
         passwordVersion: String? = nil,
-        name: String? = nil
-        nestedType: T.Type,
+        name: String? = nil,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
         let path: String = "/users/sha"
 
@@ -756,8 +756,8 @@ open class Users: Service {
     /// @return array
     ///
     open func get<T>(
-        userId: String
-        nestedType: T.Type,
+        userId: String,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
         let path: String = "/users/{userId}"
             .replacingOccurrences(of: "{userId}", with: userId)
@@ -843,8 +843,8 @@ open class Users: Service {
     ///
     open func updateEmail<T>(
         userId: String,
-        email: String
-        nestedType: T.Type,
+        email: String,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
         let path: String = "/users/{userId}/email"
             .replacingOccurrences(of: "{userId}", with: userId)
@@ -975,8 +975,8 @@ open class Users: Service {
     ///
     open func updateName<T>(
         userId: String,
-        name: String
-        nestedType: T.Type,
+        name: String,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
         let path: String = "/users/{userId}/name"
             .replacingOccurrences(of: "{userId}", with: userId)
@@ -1035,8 +1035,8 @@ open class Users: Service {
     ///
     open func updatePassword<T>(
         userId: String,
-        password: String
-        nestedType: T.Type,
+        password: String,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
         let path: String = "/users/{userId}/password"
             .replacingOccurrences(of: "{userId}", with: userId)
@@ -1095,8 +1095,8 @@ open class Users: Service {
     ///
     open func updatePhone<T>(
         userId: String,
-        number: String
-        nestedType: T.Type,
+        number: String,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
         let path: String = "/users/{userId}/phone"
             .replacingOccurrences(of: "{userId}", with: userId)
@@ -1153,8 +1153,8 @@ open class Users: Service {
     /// @return array
     ///
     open func getPrefs<T>(
-        userId: String
-        nestedType: T.Type,
+        userId: String,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.Preferences<T> {
         let path: String = "/users/{userId}/prefs"
             .replacingOccurrences(of: "{userId}", with: userId)
@@ -1210,8 +1210,8 @@ open class Users: Service {
     ///
     open func updatePrefs<T>(
         userId: String,
-        prefs: T
-        nestedType: T.Type,
+        prefs: T,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.Preferences<T> {
         let path: String = "/users/{userId}/prefs"
             .replacingOccurrences(of: "{userId}", with: userId)
@@ -1366,8 +1366,8 @@ open class Users: Service {
     ///
     open func updateStatus<T>(
         userId: String,
-        status: Bool
-        nestedType: T.Type,
+        status: Bool,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
         let path: String = "/users/{userId}/status"
             .replacingOccurrences(of: "{userId}", with: userId)
@@ -1427,8 +1427,8 @@ open class Users: Service {
     ///
     open func updateEmailVerification<T>(
         userId: String,
-        emailVerification: Bool
-        nestedType: T.Type,
+        emailVerification: Bool,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
         let path: String = "/users/{userId}/verification"
             .replacingOccurrences(of: "{userId}", with: userId)
@@ -1487,8 +1487,8 @@ open class Users: Service {
     ///
     open func updatePhoneVerification<T>(
         userId: String,
-        phoneVerification: Bool
-        nestedType: T.Type,
+        phoneVerification: Bool,
+        nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
         let path: String = "/users/{userId}/verification/phone"
             .replacingOccurrences(of: "{userId}", with: userId)
