@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// Health Status
 public class HealthStatus {

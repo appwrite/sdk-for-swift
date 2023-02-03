@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// Users List
 public class UserList<T : Codable> {

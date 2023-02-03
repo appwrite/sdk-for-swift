@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// AttributeIP
 public class AttributeIp {

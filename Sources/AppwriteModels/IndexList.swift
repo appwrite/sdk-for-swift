@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// Indexes List
 public class IndexList {

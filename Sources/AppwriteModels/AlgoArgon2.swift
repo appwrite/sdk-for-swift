@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// AlgoArgon2
 public class AlgoArgon2 {

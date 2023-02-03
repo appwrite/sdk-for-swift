@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// Deployment
 public class Deployment {

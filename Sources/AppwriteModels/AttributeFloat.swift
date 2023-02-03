@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// AttributeFloat
 public class AttributeFloat {

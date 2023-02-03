@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// AttributeEnum
 public class AttributeEnum {

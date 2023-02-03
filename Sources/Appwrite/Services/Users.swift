@@ -1,6 +1,7 @@
 import AsyncHTTPClient
 import Foundation
 import NIO
+import JSONCodable
 import AppwriteModels
 
 /// The Users service allows you to manage your project users.
@@ -63,7 +64,7 @@ open class Users: Service {
     ) async throws -> AppwriteModels.UserList<[String: AnyCodable]> {
         return try await list(
             queries: queries,
-            search: search
+            search: search,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -141,7 +142,7 @@ open class Users: Service {
             email: email,
             phone: phone,
             password: password,
-            name: name
+            name: name,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -219,7 +220,7 @@ open class Users: Service {
             userId: userId,
             email: email,
             password: password,
-            name: name
+            name: name,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -297,7 +298,7 @@ open class Users: Service {
             userId: userId,
             email: email,
             password: password,
-            name: name
+            name: name,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -375,7 +376,7 @@ open class Users: Service {
             userId: userId,
             email: email,
             password: password,
-            name: name
+            name: name,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -453,7 +454,7 @@ open class Users: Service {
             userId: userId,
             email: email,
             password: password,
-            name: name
+            name: name,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -561,7 +562,7 @@ open class Users: Service {
             passwordMemory: passwordMemory,
             passwordParallel: passwordParallel,
             passwordLength: passwordLength,
-            name: name
+            name: name,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -657,7 +658,7 @@ open class Users: Service {
             passwordSalt: passwordSalt,
             passwordSaltSeparator: passwordSaltSeparator,
             passwordSignerKey: passwordSignerKey,
-            name: name
+            name: name,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -741,7 +742,7 @@ open class Users: Service {
             email: email,
             password: password,
             passwordVersion: passwordVersion,
-            name: name
+            name: name,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -794,7 +795,7 @@ open class Users: Service {
         userId: String
     ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
         return try await get(
-            userId: userId
+            userId: userId,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -886,7 +887,7 @@ open class Users: Service {
     ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
         return try await updateEmail(
             userId: userId,
-            email: email
+            email: email,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -1018,7 +1019,7 @@ open class Users: Service {
     ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
         return try await updateName(
             userId: userId,
-            name: name
+            name: name,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -1078,7 +1079,7 @@ open class Users: Service {
     ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
         return try await updatePassword(
             userId: userId,
-            password: password
+            password: password,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -1138,7 +1139,7 @@ open class Users: Service {
     ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
         return try await updatePhone(
             userId: userId,
-            number: number
+            number: number,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -1191,7 +1192,7 @@ open class Users: Service {
         userId: String
     ) async throws -> AppwriteModels.Preferences<[String: AnyCodable]> {
         return try await getPrefs(
-            userId: userId
+            userId: userId,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -1210,7 +1211,7 @@ open class Users: Service {
     ///
     open func updatePrefs<T>(
         userId: String,
-        prefs: T,
+        prefs: Any,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Preferences<T> {
         let path: String = "/users/{userId}/prefs"
@@ -1255,7 +1256,7 @@ open class Users: Service {
     ) async throws -> AppwriteModels.Preferences<[String: AnyCodable]> {
         return try await updatePrefs(
             userId: userId,
-            prefs: prefs
+            prefs: prefs,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -1410,7 +1411,7 @@ open class Users: Service {
     ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
         return try await updateStatus(
             userId: userId,
-            status: status
+            status: status,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -1470,7 +1471,7 @@ open class Users: Service {
     ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
         return try await updateEmailVerification(
             userId: userId,
-            emailVerification: emailVerification
+            emailVerification: emailVerification,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -1530,7 +1531,7 @@ open class Users: Service {
     ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
         return try await updatePhoneVerification(
             userId: userId,
-            phoneVerification: phoneVerification
+            phoneVerification: phoneVerification,
             nestedType: [String: AnyCodable].self
         )
     }

@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// AlgoPHPass
 public class AlgoPhpass {

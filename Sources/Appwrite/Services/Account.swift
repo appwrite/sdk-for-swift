@@ -1,6 +1,7 @@
 import AsyncHTTPClient
 import Foundation
 import NIO
+import JSONCodable
 import AppwriteModels
 
 /// The Account service allows you to authenticate and manage a user account.
@@ -122,7 +123,7 @@ open class Account: Service {
     ) async throws -> AppwriteModels.Account<[String: AnyCodable]> {
         return try await updateEmail(
             email: email,
-            password: password
+            password: password,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -212,7 +213,7 @@ open class Account: Service {
         name: String
     ) async throws -> AppwriteModels.Account<[String: AnyCodable]> {
         return try await updateName(
-            name: name
+            name: name,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -276,7 +277,7 @@ open class Account: Service {
     ) async throws -> AppwriteModels.Account<[String: AnyCodable]> {
         return try await updatePassword(
             password: password,
-            oldPassword: oldPassword
+            oldPassword: oldPassword,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -344,7 +345,7 @@ open class Account: Service {
     ) async throws -> AppwriteModels.Account<[String: AnyCodable]> {
         return try await updatePhone(
             phone: phone,
-            password: password
+            password: password,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -408,7 +409,7 @@ open class Account: Service {
     /// @return array
     ///
     open func updatePrefs<T>(
-        prefs: T,
+        prefs: Any,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Account<T> {
         let path: String = "/account/prefs"
@@ -449,7 +450,7 @@ open class Account: Service {
         prefs: Any
     ) async throws -> AppwriteModels.Account<[String: AnyCodable]> {
         return try await updatePrefs(
-            prefs: prefs
+            prefs: prefs,
             nestedType: [String: AnyCodable].self
         )
     }
