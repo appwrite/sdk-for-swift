@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// Health Antivirus
 public class HealthAntivirus {

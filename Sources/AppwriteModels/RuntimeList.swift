@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// Runtimes List
 public class RuntimeList {

@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// Runtime
 public class Runtime {

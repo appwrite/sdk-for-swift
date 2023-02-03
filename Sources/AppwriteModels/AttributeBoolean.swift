@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// AttributeBoolean
 public class AttributeBoolean {

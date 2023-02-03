@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// AlgoScryptModified
 public class AlgoScryptModified {

@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// Functions List
 public class FunctionList {

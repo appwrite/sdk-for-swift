@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// Bucket
 public class Bucket {

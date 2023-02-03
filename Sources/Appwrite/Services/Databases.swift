@@ -1,6 +1,7 @@
 import AsyncHTTPClient
 import Foundation
 import NIO
+import JSONCodable
 import AppwriteModels
 
 /// The Databases service allows you to create structured collections of documents, query and filter lists of documents
@@ -1033,7 +1034,7 @@ open class Databases: Service {
         return try await listDocuments(
             databaseId: databaseId,
             collectionId: collectionId,
-            queries: queries
+            queries: queries,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -1058,7 +1059,7 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         documentId: String,
-        data: T,
+        data: Any,
         permissions: [String]? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Document<T> {
@@ -1117,7 +1118,7 @@ open class Databases: Service {
             collectionId: collectionId,
             documentId: documentId,
             data: data,
-            permissions: permissions
+            permissions: permissions,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -1184,7 +1185,7 @@ open class Databases: Service {
         return try await getDocument(
             databaseId: databaseId,
             collectionId: collectionId,
-            documentId: documentId
+            documentId: documentId,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -1207,7 +1208,7 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         documentId: String,
-        data: T? = nil,
+        data: Any? = nil,
         permissions: [String]? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Document<T> {
@@ -1264,7 +1265,7 @@ open class Databases: Service {
             collectionId: collectionId,
             documentId: documentId,
             data: data,
-            permissions: permissions
+            permissions: permissions,
             nestedType: [String: AnyCodable].self
         )
     }

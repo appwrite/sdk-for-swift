@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// Variable
 public class Variable {

@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// AttributeURL
 public class AttributeUrl {

@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// AttributeInteger
 public class AttributeInteger {

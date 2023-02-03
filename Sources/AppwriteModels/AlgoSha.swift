@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// AlgoSHA
 public class AlgoSha {

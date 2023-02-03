@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// AlgoMD5
 public class AlgoMd5 {

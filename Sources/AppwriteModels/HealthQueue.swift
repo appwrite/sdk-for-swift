@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// Health Queue
 public class HealthQueue {

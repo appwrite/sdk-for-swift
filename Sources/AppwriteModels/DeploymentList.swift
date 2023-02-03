@@ -1,4 +1,5 @@
 import Foundation
+import JSONCodable
 
 /// Deployments List
 public class DeploymentList {
