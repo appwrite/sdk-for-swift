@@ -39,7 +39,9 @@ open class Avatars: Service {
         let params: [String: Any?] = [
             "width": width,
             "height": height,
-            "quality": quality
+            "quality": quality,
+            "project": client.config["project"],
+            "key": client.config["key"]
         ]
 
         return try await client.call(
@@ -81,7 +83,9 @@ open class Avatars: Service {
         let params: [String: Any?] = [
             "width": width,
             "height": height,
-            "quality": quality
+            "quality": quality,
+            "project": client.config["project"],
+            "key": client.config["key"]
         ]
 
         return try await client.call(
@@ -108,7 +112,9 @@ open class Avatars: Service {
         let path: String = "/avatars/favicon"
 
         let params: [String: Any?] = [
-            "url": url
+            "url": url,
+            "project": client.config["project"],
+            "key": client.config["key"]
         ]
 
         return try await client.call(
@@ -151,7 +157,9 @@ open class Avatars: Service {
         let params: [String: Any?] = [
             "width": width,
             "height": height,
-            "quality": quality
+            "quality": quality,
+            "project": client.config["project"],
+            "key": client.config["key"]
         ]
 
         return try await client.call(
@@ -191,7 +199,9 @@ open class Avatars: Service {
         let params: [String: Any?] = [
             "url": url,
             "width": width,
-            "height": height
+            "height": height,
+            "project": client.config["project"],
+            "key": client.config["key"]
         ]
 
         return try await client.call(
@@ -240,7 +250,9 @@ open class Avatars: Service {
             "name": name,
             "width": width,
             "height": height,
-            "background": background
+            "background": background,
+            "project": client.config["project"],
+            "key": client.config["key"]
         ]
 
         return try await client.call(
@@ -276,7 +288,9 @@ open class Avatars: Service {
             "text": text,
             "size": size,
             "margin": margin,
-            "download": download
+            "download": download,
+            "project": client.config["project"],
+            "key": client.config["key"]
         ]
 
         return try await client.call(
