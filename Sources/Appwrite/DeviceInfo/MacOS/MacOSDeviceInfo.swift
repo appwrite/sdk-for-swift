@@ -1,17 +1,23 @@
 #if os(macOS)
 import Foundation
 
-class MacOSDeviceInfo : DeviceInfo {
-    let computerName = Sysctl.hostName
-    let hostName = Sysctl.osType
-    let arch = Sysctl.machine
-    let model = Sysctl.model
-    let kernelVersion = Sysctl.version
-    let osRelease = Sysctl.osRelease
-    let activeCPUs = Sysctl.activeCPUs
-    
-    public static func get() -> MacOSDeviceInfo {
-        return MacOSDeviceInfo()
+class MacOSDeviceInfo {
+    let computerName: String
+    let hostName: String
+    let arch: String
+    let model: String
+    let kernelVersion: String
+    let osRelease: String
+    let activeCPUs: Int
+
+    public init() {
+        computerName = Sysctl.hostName
+        hostName = Sysctl.osType
+        arch = Sysctl.machine
+        model = Sysctl.model
+        kernelVersion = Sysctl.version
+        osRelease = Sysctl.osRelease
+        activeCPUs = Int(Sysctl.activeCPUs)
     }
 }
 #endif

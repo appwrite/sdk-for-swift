@@ -486,6 +486,51 @@ open class Databases: Service {
     }
 
     ///
+    /// Update Boolean Attribute
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param String key
+    /// @param Bool required
+    /// @param Bool default
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateBooleanAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        xrequired: Bool,
+        xdefault: Bool? = nil
+    ) async throws -> AppwriteModels.AttributeBoolean {
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/boolean/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let params: [String: Any?] = [
+            "required": xrequired,
+            "default": xdefault
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributeBoolean = { response in
+            return AppwriteModels.AttributeBoolean.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
     /// Create DateTime Attribute
     ///
     /// @param String databaseId
@@ -526,6 +571,51 @@ open class Databases: Service {
 
         return try await client.call(
             method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update DateTime Attribute
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param String key
+    /// @param Bool required
+    /// @param String default
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateDatetimeAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        xrequired: Bool,
+        xdefault: String? = nil
+    ) async throws -> AppwriteModels.AttributeDatetime {
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/datetime/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let params: [String: Any?] = [
+            "required": xrequired,
+            "default": xdefault
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributeDatetime = { response in
+            return AppwriteModels.AttributeDatetime.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
             path: path,
             headers: headers,
             params: params,
@@ -585,6 +675,55 @@ open class Databases: Service {
     }
 
     ///
+    /// Update Email Attribute
+    ///
+    /// Update an email attribute. Changing the `default` value will not update
+    /// already existing documents.
+    /// 
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param String key
+    /// @param Bool required
+    /// @param String default
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateEmailAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        xrequired: Bool,
+        xdefault: String? = nil
+    ) async throws -> AppwriteModels.AttributeEmail {
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/email/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let params: [String: Any?] = [
+            "required": xrequired,
+            "default": xdefault
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributeEmail = { response in
+            return AppwriteModels.AttributeEmail.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
     /// Create Enum Attribute
     ///
     /// @param String databaseId
@@ -628,6 +767,58 @@ open class Databases: Service {
 
         return try await client.call(
             method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update Enum Attribute
+    ///
+    /// Update an enum attribute. Changing the `default` value will not update
+    /// already existing documents.
+    /// 
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param String key
+    /// @param [String] elements
+    /// @param Bool required
+    /// @param String default
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateEnumAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        elements: [String],
+        xrequired: Bool,
+        xdefault: String? = nil
+    ) async throws -> AppwriteModels.AttributeEnum {
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/enum/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let params: [String: Any?] = [
+            "elements": elements,
+            "required": xrequired,
+            "default": xdefault
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributeEnum = { response in
+            return AppwriteModels.AttributeEnum.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
             path: path,
             headers: headers,
             params: params,
@@ -694,6 +885,61 @@ open class Databases: Service {
     }
 
     ///
+    /// Update Float Attribute
+    ///
+    /// Update a float attribute. Changing the `default` value will not update
+    /// already existing documents.
+    /// 
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param String key
+    /// @param Bool required
+    /// @param Double min
+    /// @param Double max
+    /// @param Double default
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateFloatAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        xrequired: Bool,
+        min: Double,
+        max: Double,
+        xdefault: Double? = nil
+    ) async throws -> AppwriteModels.AttributeFloat {
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/float/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let params: [String: Any?] = [
+            "required": xrequired,
+            "min": min,
+            "max": max,
+            "default": xdefault
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributeFloat = { response in
+            return AppwriteModels.AttributeFloat.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
     /// Create Integer Attribute
     ///
     /// Create an integer attribute. Optionally, minimum and maximum values can be
@@ -752,6 +998,61 @@ open class Databases: Service {
     }
 
     ///
+    /// Update Integer Attribute
+    ///
+    /// Update an integer attribute. Changing the `default` value will not update
+    /// already existing documents.
+    /// 
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param String key
+    /// @param Bool required
+    /// @param Int min
+    /// @param Int max
+    /// @param Int default
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateIntegerAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        xrequired: Bool,
+        min: Int,
+        max: Int,
+        xdefault: Int? = nil
+    ) async throws -> AppwriteModels.AttributeInteger {
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/integer/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let params: [String: Any?] = [
+            "required": xrequired,
+            "min": min,
+            "max": max,
+            "default": xdefault
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributeInteger = { response in
+            return AppwriteModels.AttributeInteger.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
     /// Create IP Address Attribute
     ///
     /// Create IP address attribute.
@@ -791,6 +1092,113 @@ open class Databases: Service {
 
         let converter: (Any) -> AppwriteModels.AttributeIp = { response in
             return AppwriteModels.AttributeIp.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update IP Address Attribute
+    ///
+    /// Update an ip attribute. Changing the `default` value will not update
+    /// already existing documents.
+    /// 
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param String key
+    /// @param Bool required
+    /// @param String default
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateIpAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        xrequired: Bool,
+        xdefault: String? = nil
+    ) async throws -> AppwriteModels.AttributeIp {
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/ip/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let params: [String: Any?] = [
+            "required": xrequired,
+            "default": xdefault
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributeIp = { response in
+            return AppwriteModels.AttributeIp.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create Relationship Attribute
+    ///
+    /// Create relationship attribute. [Learn more about relationship
+    /// attributes](docs/databases-relationships#relationship-attributes).
+    /// 
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param String relatedCollectionId
+    /// @param String type
+    /// @param Bool twoWay
+    /// @param String key
+    /// @param String twoWayKey
+    /// @param String onDelete
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createRelationshipAttribute(
+        databaseId: String,
+        collectionId: String,
+        relatedCollectionId: String,
+        type: String,
+        twoWay: Bool? = nil,
+        key: String? = nil,
+        twoWayKey: String? = nil,
+        onDelete: String? = nil
+    ) async throws -> AppwriteModels.AttributeRelationship {
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/relationship"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
+        let params: [String: Any?] = [
+            "relatedCollectionId": relatedCollectionId,
+            "type": type,
+            "twoWay": twoWay,
+            "key": key,
+            "twoWayKey": twoWayKey,
+            "onDelete": onDelete
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributeRelationship = { response in
+            return AppwriteModels.AttributeRelationship.from(map: response as! [String: Any])
         }
 
         return try await client.call(
@@ -857,6 +1265,55 @@ open class Databases: Service {
     }
 
     ///
+    /// Update String Attribute
+    ///
+    /// Update a string attribute. Changing the `default` value will not update
+    /// already existing documents.
+    /// 
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param String key
+    /// @param Bool required
+    /// @param String default
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateStringAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        xrequired: Bool,
+        xdefault: String? = nil
+    ) async throws -> AppwriteModels.AttributeString {
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/string/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let params: [String: Any?] = [
+            "required": xrequired,
+            "default": xdefault
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributeString = { response in
+            return AppwriteModels.AttributeString.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
     /// Create URL Attribute
     ///
     /// Create a URL attribute.
@@ -900,6 +1357,55 @@ open class Databases: Service {
 
         return try await client.call(
             method: "POST",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update URL Attribute
+    ///
+    /// Update an url attribute. Changing the `default` value will not update
+    /// already existing documents.
+    /// 
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param String key
+    /// @param Bool required
+    /// @param String default
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateUrlAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        xrequired: Bool,
+        xdefault: String? = nil
+    ) async throws -> AppwriteModels.AttributeUrl {
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/url/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let params: [String: Any?] = [
+            "required": xrequired,
+            "default": xdefault
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributeUrl = { response in
+            return AppwriteModels.AttributeUrl.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
             path: path,
             headers: headers,
             params: params,
@@ -969,6 +1475,52 @@ open class Databases: Service {
             path: path,
             headers: headers,
             params: params        )
+    }
+
+    ///
+    /// Update Relationship Attribute
+    ///
+    /// Update relationship attribute. [Learn more about relationship
+    /// attributes](docs/databases-relationships#relationship-attributes).
+    /// 
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param String key
+    /// @param String onDelete
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateRelationshipAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        onDelete: String? = nil
+    ) async throws -> AppwriteModels.AttributeRelationship {
+        let path: String = "/databases/{databaseId}/collections/{collectionId}/attributes/{key}/relationship"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let params: [String: Any?] = [
+            "onDelete": onDelete
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributeRelationship = { response in
+            return AppwriteModels.AttributeRelationship.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
     }
 
     ///
@@ -1132,6 +1684,7 @@ open class Databases: Service {
     /// @param String databaseId
     /// @param String collectionId
     /// @param String documentId
+    /// @param [String] queries
     /// @throws Exception
     /// @return array
     ///
@@ -1139,6 +1692,7 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         documentId: String,
+        queries: [String]? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Document<T> {
         let path: String = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
@@ -1146,7 +1700,9 @@ open class Databases: Service {
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
             .replacingOccurrences(of: "{documentId}", with: documentId)
 
-        let params: [String: Any] = [:]
+        let params: [String: Any?] = [
+            "queries": queries
+        ]
 
         let headers: [String: String] = [
             "content-type": "application/json"
@@ -1174,18 +1730,21 @@ open class Databases: Service {
     /// @param String databaseId
     /// @param String collectionId
     /// @param String documentId
+    /// @param [String] queries
     /// @throws Exception
     /// @return array
     ///
     open func getDocument(
         databaseId: String,
         collectionId: String,
-        documentId: String
+        documentId: String,
+        queries: [String]? = nil
     ) async throws -> AppwriteModels.Document<[String: AnyCodable]> {
         return try await getDocument(
             databaseId: databaseId,
             collectionId: collectionId,
             documentId: documentId,
+            queries: queries,
             nestedType: [String: AnyCodable].self
         )
     }

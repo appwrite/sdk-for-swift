@@ -5,10 +5,13 @@ let client = Client()
     .setProject("5df5acd0d48c2") // Your project ID
     .setKey("919c2d18fb5d4...a2ae413da83346ad2") // Your secret API key
 
-let teams = Teams(client)
+let databases = Databases(client)
 
-let team = try await teams.update(
-    teamId: "[TEAM_ID]",
-    name: "[NAME]"
+let attributeEmail = try await databases.updateEmailAttribute(
+    databaseId: "[DATABASE_ID]",
+    collectionId: "[COLLECTION_ID]",
+    key: "",
+    required: xfalse,
+    default: "email@example.com"
 )
 

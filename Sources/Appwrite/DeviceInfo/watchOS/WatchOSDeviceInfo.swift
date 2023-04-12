@@ -1,8 +1,8 @@
-#if os(iOS) || os(tvOS)
+#if os(watchOS)
 import Foundation
-import UIKit
+import WatchKit
 
-class IOSDeviceInfo {
+class WatchOSDeviceInfo {
 
     let name: String
     let systemName: String
@@ -13,15 +13,15 @@ class IOSDeviceInfo {
     let modelIdentifier: String
 
     public init() {
-        let device = UIDevice.current
+        let device = WKInterfaceDevice.current()
 
-        name =  device.name
+        name = device.name
         systemName = device.systemName
         systemVersion = device.systemVersion
         model = device.model
         localizedModel = device.localizedModel
         identifierForVendor = device.identifierForVendor?.uuidString ?? ""
-        modelIdentifier = UIDevice.modelName
+        modelIdentifier = WKInterfaceDevice.modelName
     }
 }
 #endif

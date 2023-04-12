@@ -7,9 +7,8 @@ let client = Client()
 
 let teams = Teams(client)
 
-let membership = try await teams.createMembership(
+let team = try await teams.updateName(
     teamId: "[TEAM_ID]",
-    roles: [],
-    url: "https://example.com"
+    name: "[NAME]"
 )
 

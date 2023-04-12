@@ -55,8 +55,8 @@ open class Functions: Service {
     ///
     /// @param String functionId
     /// @param String name
-    /// @param [String] execute
     /// @param String runtime
+    /// @param [String] execute
     /// @param [String] events
     /// @param String schedule
     /// @param Int timeout
@@ -67,8 +67,8 @@ open class Functions: Service {
     open func create(
         functionId: String,
         name: String,
-        execute: [String],
         runtime: String,
+        execute: [String]? = nil,
         events: [String]? = nil,
         schedule: String? = nil,
         timeout: Int? = nil,
@@ -187,7 +187,7 @@ open class Functions: Service {
     open func update(
         functionId: String,
         name: String,
-        execute: [String],
+        execute: [String]? = nil,
         events: [String]? = nil,
         schedule: String? = nil,
         timeout: Int? = nil,
