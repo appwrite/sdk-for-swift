@@ -13,6 +13,9 @@ public class AttributeBoolean {
     /// Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
     public let status: String
 
+    /// Error message. Displays error generated on failure of creating or deleting an attribute.
+    public let error: String
+
     /// Is attribute required?
     public let xrequired: Bool
 
@@ -27,6 +30,7 @@ public class AttributeBoolean {
         key: String,
         type: String,
         status: String,
+        error: String,
         xrequired: Bool,
         array: Bool??,
         xdefault: Bool??
@@ -34,6 +38,7 @@ public class AttributeBoolean {
         self.key = key
         self.type = type
         self.status = status
+        self.error = error
         self.xrequired = xrequired
         self.array = array
         self.xdefault = xdefault
@@ -44,6 +49,7 @@ public class AttributeBoolean {
             "key": key as Any,
             "type": type as Any,
             "status": status as Any,
+            "error": error as Any,
             "xrequired": xrequired as Any,
             "array": array as Any,
             "xdefault": xdefault as Any
@@ -55,6 +61,7 @@ public class AttributeBoolean {
             key: map["key"] as! String,
             type: map["type"] as! String,
             status: map["status"] as! String,
+            error: map["error"] as! String,
             xrequired: map["required"] as! Bool,
             array: map["array"] as? Bool?,
             xdefault: map["default"] as? Bool?

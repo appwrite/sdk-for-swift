@@ -22,7 +22,7 @@ open class Storage: Service {
         queries: [String]? = nil,
         search: String? = nil
     ) async throws -> AppwriteModels.BucketList {
-        let path: String = "/storage/buckets"
+        let api_path: String = "/storage/buckets"
 
         let params: [String: Any?] = [
             "queries": queries,
@@ -39,7 +39,7 @@ open class Storage: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -76,7 +76,7 @@ open class Storage: Service {
         encryption: Bool? = nil,
         antivirus: Bool? = nil
     ) async throws -> AppwriteModels.Bucket {
-        let path: String = "/storage/buckets"
+        let api_path: String = "/storage/buckets"
 
         let params: [String: Any?] = [
             "bucketId": bucketId,
@@ -101,7 +101,7 @@ open class Storage: Service {
 
         return try await client.call(
             method: "POST",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -121,7 +121,7 @@ open class Storage: Service {
     open func getBucket(
         bucketId: String
     ) async throws -> AppwriteModels.Bucket {
-        let path: String = "/storage/buckets/{bucketId}"
+        let api_path: String = "/storage/buckets/{bucketId}"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
 
         let params: [String: Any] = [:]
@@ -136,7 +136,7 @@ open class Storage: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -173,7 +173,7 @@ open class Storage: Service {
         encryption: Bool? = nil,
         antivirus: Bool? = nil
     ) async throws -> AppwriteModels.Bucket {
-        let path: String = "/storage/buckets/{bucketId}"
+        let api_path: String = "/storage/buckets/{bucketId}"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
 
         let params: [String: Any?] = [
@@ -198,7 +198,7 @@ open class Storage: Service {
 
         return try await client.call(
             method: "PUT",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -217,7 +217,7 @@ open class Storage: Service {
     open func deleteBucket(
         bucketId: String
     ) async throws -> Any {
-        let path: String = "/storage/buckets/{bucketId}"
+        let api_path: String = "/storage/buckets/{bucketId}"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
 
         let params: [String: Any] = [:]
@@ -228,7 +228,7 @@ open class Storage: Service {
 
         return try await client.call(
             method: "DELETE",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params        )
     }
@@ -250,7 +250,7 @@ open class Storage: Service {
         queries: [String]? = nil,
         search: String? = nil
     ) async throws -> AppwriteModels.FileList {
-        let path: String = "/storage/buckets/{bucketId}/files"
+        let api_path: String = "/storage/buckets/{bucketId}/files"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
 
         let params: [String: Any?] = [
@@ -268,7 +268,7 @@ open class Storage: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -311,7 +311,7 @@ open class Storage: Service {
         permissions: [String]? = nil,
         onProgress: ((UploadProgress) -> Void)? = nil
     ) async throws -> AppwriteModels.File {
-        let path: String = "/storage/buckets/{bucketId}/files"
+        let api_path: String = "/storage/buckets/{bucketId}/files"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
 
         var params: [String: Any?] = [
@@ -331,7 +331,7 @@ open class Storage: Service {
         let idParamName: String? = "fileId"
         let paramName = "file"
         return try await client.chunkedUpload(
-            path: path,
+            path: api_path,
             headers: &headers,
             params: &params,
             paramName: paramName,
@@ -356,7 +356,7 @@ open class Storage: Service {
         bucketId: String,
         fileId: String
     ) async throws -> AppwriteModels.File {
-        let path: String = "/storage/buckets/{bucketId}/files/{fileId}"
+        let api_path: String = "/storage/buckets/{bucketId}/files/{fileId}"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
             .replacingOccurrences(of: "{fileId}", with: fileId)
 
@@ -372,7 +372,7 @@ open class Storage: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -387,6 +387,7 @@ open class Storage: Service {
     ///
     /// @param String bucketId
     /// @param String fileId
+    /// @param String name
     /// @param [String] permissions
     /// @throws Exception
     /// @return array
@@ -394,13 +395,15 @@ open class Storage: Service {
     open func updateFile(
         bucketId: String,
         fileId: String,
+        name: String? = nil,
         permissions: [String]? = nil
     ) async throws -> AppwriteModels.File {
-        let path: String = "/storage/buckets/{bucketId}/files/{fileId}"
+        let api_path: String = "/storage/buckets/{bucketId}/files/{fileId}"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
             .replacingOccurrences(of: "{fileId}", with: fileId)
 
         let params: [String: Any?] = [
+            "name": name,
             "permissions": permissions
         ]
 
@@ -414,7 +417,7 @@ open class Storage: Service {
 
         return try await client.call(
             method: "PUT",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -436,7 +439,7 @@ open class Storage: Service {
         bucketId: String,
         fileId: String
     ) async throws -> Any {
-        let path: String = "/storage/buckets/{bucketId}/files/{fileId}"
+        let api_path: String = "/storage/buckets/{bucketId}/files/{fileId}"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
             .replacingOccurrences(of: "{fileId}", with: fileId)
 
@@ -448,7 +451,7 @@ open class Storage: Service {
 
         return try await client.call(
             method: "DELETE",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params        )
     }
@@ -469,7 +472,7 @@ open class Storage: Service {
         bucketId: String,
         fileId: String
     ) async throws -> ByteBuffer {
-        let path: String = "/storage/buckets/{bucketId}/files/{fileId}/download"
+        let api_path: String = "/storage/buckets/{bucketId}/files/{fileId}/download"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
             .replacingOccurrences(of: "{fileId}", with: fileId)
 
@@ -477,7 +480,7 @@ open class Storage: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
             params: params
         )
     }
@@ -522,7 +525,7 @@ open class Storage: Service {
         background: String? = nil,
         output: String? = nil
     ) async throws -> ByteBuffer {
-        let path: String = "/storage/buckets/{bucketId}/files/{fileId}/preview"
+        let api_path: String = "/storage/buckets/{bucketId}/files/{fileId}/preview"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
             .replacingOccurrences(of: "{fileId}", with: fileId)
 
@@ -544,7 +547,7 @@ open class Storage: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
             params: params
         )
     }
@@ -565,7 +568,7 @@ open class Storage: Service {
         bucketId: String,
         fileId: String
     ) async throws -> ByteBuffer {
-        let path: String = "/storage/buckets/{bucketId}/files/{fileId}/view"
+        let api_path: String = "/storage/buckets/{bucketId}/files/{fileId}/view"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
             .replacingOccurrences(of: "{fileId}", with: fileId)
 
@@ -573,7 +576,7 @@ open class Storage: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
             params: params
         )
     }

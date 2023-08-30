@@ -17,7 +17,7 @@ open class Health: Service {
     ///
     open func get(
     ) async throws -> AppwriteModels.HealthStatus {
-        let path: String = "/health"
+        let api_path: String = "/health"
 
         let params: [String: Any] = [:]
 
@@ -31,7 +31,7 @@ open class Health: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -48,7 +48,7 @@ open class Health: Service {
     ///
     open func getAntivirus(
     ) async throws -> AppwriteModels.HealthAntivirus {
-        let path: String = "/health/anti-virus"
+        let api_path: String = "/health/anti-virus"
 
         let params: [String: Any] = [:]
 
@@ -62,7 +62,7 @@ open class Health: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -72,7 +72,7 @@ open class Health: Service {
     ///
     /// Get Cache
     ///
-    /// Check the Appwrite in-memory cache server is up and connection is
+    /// Check the Appwrite in-memory cache servers are up and connection is
     /// successful.
     ///
     /// @throws Exception
@@ -80,7 +80,7 @@ open class Health: Service {
     ///
     open func getCache(
     ) async throws -> AppwriteModels.HealthStatus {
-        let path: String = "/health/cache"
+        let api_path: String = "/health/cache"
 
         let params: [String: Any] = [:]
 
@@ -94,7 +94,7 @@ open class Health: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -104,14 +104,14 @@ open class Health: Service {
     ///
     /// Get DB
     ///
-    /// Check the Appwrite database server is up and connection is successful.
+    /// Check the Appwrite database servers are up and connection is successful.
     ///
     /// @throws Exception
     /// @return array
     ///
     open func getDB(
     ) async throws -> AppwriteModels.HealthStatus {
-        let path: String = "/health/db"
+        let api_path: String = "/health/db"
 
         let params: [String: Any] = [:]
 
@@ -125,7 +125,70 @@ open class Health: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get PubSub
+    ///
+    /// Check the Appwrite pub-sub servers are up and connection is successful.
+    ///
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getPubSub(
+    ) async throws -> AppwriteModels.HealthStatus {
+        let api_path: String = "/health/pubsub"
+
+        let params: [String: Any] = [:]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.HealthStatus = { response in
+            return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: api_path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get Queue
+    ///
+    /// Check the Appwrite queue messaging servers are up and connection is
+    /// successful.
+    ///
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getQueue(
+    ) async throws -> AppwriteModels.HealthStatus {
+        let api_path: String = "/health/queue"
+
+        let params: [String: Any] = [:]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.HealthStatus = { response in
+            return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -144,7 +207,7 @@ open class Health: Service {
     ///
     open func getQueueCertificates(
     ) async throws -> AppwriteModels.HealthQueue {
-        let path: String = "/health/queue/certificates"
+        let api_path: String = "/health/queue/certificates"
 
         let params: [String: Any] = [:]
 
@@ -158,7 +221,7 @@ open class Health: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -173,7 +236,7 @@ open class Health: Service {
     ///
     open func getQueueFunctions(
     ) async throws -> AppwriteModels.HealthQueue {
-        let path: String = "/health/queue/functions"
+        let api_path: String = "/health/queue/functions"
 
         let params: [String: Any] = [:]
 
@@ -187,7 +250,7 @@ open class Health: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -205,7 +268,7 @@ open class Health: Service {
     ///
     open func getQueueLogs(
     ) async throws -> AppwriteModels.HealthQueue {
-        let path: String = "/health/queue/logs"
+        let api_path: String = "/health/queue/logs"
 
         let params: [String: Any] = [:]
 
@@ -219,7 +282,7 @@ open class Health: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -237,7 +300,7 @@ open class Health: Service {
     ///
     open func getQueueWebhooks(
     ) async throws -> AppwriteModels.HealthQueue {
-        let path: String = "/health/queue/webhooks"
+        let api_path: String = "/health/queue/webhooks"
 
         let params: [String: Any] = [:]
 
@@ -251,7 +314,7 @@ open class Health: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -268,7 +331,7 @@ open class Health: Service {
     ///
     open func getStorageLocal(
     ) async throws -> AppwriteModels.HealthStatus {
-        let path: String = "/health/storage/local"
+        let api_path: String = "/health/storage/local"
 
         let params: [String: Any] = [:]
 
@@ -282,7 +345,7 @@ open class Health: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -305,7 +368,7 @@ open class Health: Service {
     ///
     open func getTime(
     ) async throws -> AppwriteModels.HealthTime {
-        let path: String = "/health/time"
+        let api_path: String = "/health/time"
 
         let params: [String: Any] = [:]
 
@@ -319,7 +382,7 @@ open class Health: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter

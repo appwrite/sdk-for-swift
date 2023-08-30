@@ -23,7 +23,7 @@ open class Users: Service {
         search: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.UserList<T> {
-        let path: String = "/users"
+        let api_path: String = "/users"
 
         let params: [String: Any?] = [
             "queries": queries,
@@ -40,7 +40,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -90,7 +90,7 @@ open class Users: Service {
         name: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let path: String = "/users"
+        let api_path: String = "/users"
 
         let params: [String: Any?] = [
             "userId": userId,
@@ -110,7 +110,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "POST",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -169,7 +169,7 @@ open class Users: Service {
         name: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let path: String = "/users/argon2"
+        let api_path: String = "/users/argon2"
 
         let params: [String: Any?] = [
             "userId": userId,
@@ -188,7 +188,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "POST",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -247,7 +247,7 @@ open class Users: Service {
         name: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let path: String = "/users/bcrypt"
+        let api_path: String = "/users/bcrypt"
 
         let params: [String: Any?] = [
             "userId": userId,
@@ -266,7 +266,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "POST",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -304,6 +304,72 @@ open class Users: Service {
     }
 
     ///
+    /// List Identities
+    ///
+    /// Get identities for all users.
+    ///
+    /// @param String queries
+    /// @param String search
+    /// @throws Exception
+    /// @return array
+    ///
+    open func listIdentities(
+        queries: String? = nil,
+        search: String? = nil
+    ) async throws -> AppwriteModels.IdentityList {
+        let api_path: String = "/users/identities"
+
+        let params: [String: Any?] = [
+            "queries": queries,
+            "search": search
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.IdentityList = { response in
+            return AppwriteModels.IdentityList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: api_path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Delete Identity
+    ///
+    /// Delete an identity by its unique ID.
+    ///
+    /// @param String identityId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func deleteIdentity(
+        identityId: String
+    ) async throws -> Any {
+        let api_path: String = "/users/identities/{identityId}"
+            .replacingOccurrences(of: "{identityId}", with: identityId)
+
+        let params: [String: Any] = [:]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        return try await client.call(
+            method: "DELETE",
+            path: api_path,
+            headers: headers,
+            params: params        )
+    }
+
+    ///
     /// Create User with MD5 Password
     ///
     /// Create a new user. Password provided must be hashed with the
@@ -325,7 +391,7 @@ open class Users: Service {
         name: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let path: String = "/users/md5"
+        let api_path: String = "/users/md5"
 
         let params: [String: Any?] = [
             "userId": userId,
@@ -344,7 +410,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "POST",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -403,7 +469,7 @@ open class Users: Service {
         name: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let path: String = "/users/phpass"
+        let api_path: String = "/users/phpass"
 
         let params: [String: Any?] = [
             "userId": userId,
@@ -422,7 +488,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "POST",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -491,7 +557,7 @@ open class Users: Service {
         name: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let path: String = "/users/scrypt"
+        let api_path: String = "/users/scrypt"
 
         let params: [String: Any?] = [
             "userId": userId,
@@ -515,7 +581,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "POST",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -595,7 +661,7 @@ open class Users: Service {
         name: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let path: String = "/users/scrypt-modified"
+        let api_path: String = "/users/scrypt-modified"
 
         let params: [String: Any?] = [
             "userId": userId,
@@ -617,7 +683,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "POST",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -687,7 +753,7 @@ open class Users: Service {
         name: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let path: String = "/users/sha"
+        let api_path: String = "/users/sha"
 
         let params: [String: Any?] = [
             "userId": userId,
@@ -707,7 +773,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "POST",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -760,7 +826,7 @@ open class Users: Service {
         userId: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let path: String = "/users/{userId}"
+        let api_path: String = "/users/{userId}"
             .replacingOccurrences(of: "{userId}", with: userId)
 
         let params: [String: Any] = [:]
@@ -775,7 +841,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -816,7 +882,7 @@ open class Users: Service {
     open func delete(
         userId: String
     ) async throws -> Any {
-        let path: String = "/users/{userId}"
+        let api_path: String = "/users/{userId}"
             .replacingOccurrences(of: "{userId}", with: userId)
 
         let params: [String: Any] = [:]
@@ -827,7 +893,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "DELETE",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params        )
     }
@@ -847,7 +913,7 @@ open class Users: Service {
         email: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let path: String = "/users/{userId}/email"
+        let api_path: String = "/users/{userId}/email"
             .replacingOccurrences(of: "{userId}", with: userId)
 
         let params: [String: Any?] = [
@@ -864,7 +930,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "PATCH",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -893,6 +959,76 @@ open class Users: Service {
     }
 
     ///
+    /// Update User Labels
+    ///
+    /// Update the user labels by its unique ID. 
+    /// 
+    /// Labels can be used to grant access to resources. While teams are a way for
+    /// user's to share access to a resource, labels can be defined by the
+    /// developer to grant access without an invitation. See the [Permissions
+    /// docs](/docs/permissions) for more info.
+    ///
+    /// @param String userId
+    /// @param [String] labels
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateLabels<T>(
+        userId: String,
+        labels: [String],
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.User<T> {
+        let api_path: String = "/users/{userId}/labels"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let params: [String: Any?] = [
+            "labels": labels
+        ]
+
+        let headers: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.User<T> = { response in
+            return AppwriteModels.User.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PUT",
+            path: api_path,
+            headers: headers,
+            params: params,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update User Labels
+    ///
+    /// Update the user labels by its unique ID. 
+    /// 
+    /// Labels can be used to grant access to resources. While teams are a way for
+    /// user's to share access to a resource, labels can be defined by the
+    /// developer to grant access without an invitation. See the [Permissions
+    /// docs](/docs/permissions) for more info.
+    ///
+    /// @param String userId
+    /// @param [String] labels
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateLabels(
+        userId: String,
+        labels: [String]
+    ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
+        return try await updateLabels(
+            userId: userId,
+            labels: labels,
+            nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
     /// List User Logs
     ///
     /// Get the user activity logs list by its unique ID.
@@ -906,7 +1042,7 @@ open class Users: Service {
         userId: String,
         queries: [String]? = nil
     ) async throws -> AppwriteModels.LogList {
-        let path: String = "/users/{userId}/logs"
+        let api_path: String = "/users/{userId}/logs"
             .replacingOccurrences(of: "{userId}", with: userId)
 
         let params: [String: Any?] = [
@@ -923,7 +1059,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -942,7 +1078,7 @@ open class Users: Service {
     open func listMemberships(
         userId: String
     ) async throws -> AppwriteModels.MembershipList {
-        let path: String = "/users/{userId}/memberships"
+        let api_path: String = "/users/{userId}/memberships"
             .replacingOccurrences(of: "{userId}", with: userId)
 
         let params: [String: Any] = [:]
@@ -957,7 +1093,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -979,7 +1115,7 @@ open class Users: Service {
         name: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let path: String = "/users/{userId}/name"
+        let api_path: String = "/users/{userId}/name"
             .replacingOccurrences(of: "{userId}", with: userId)
 
         let params: [String: Any?] = [
@@ -996,7 +1132,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "PATCH",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -1039,7 +1175,7 @@ open class Users: Service {
         password: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let path: String = "/users/{userId}/password"
+        let api_path: String = "/users/{userId}/password"
             .replacingOccurrences(of: "{userId}", with: userId)
 
         let params: [String: Any?] = [
@@ -1056,7 +1192,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "PATCH",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -1099,7 +1235,7 @@ open class Users: Service {
         number: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let path: String = "/users/{userId}/phone"
+        let api_path: String = "/users/{userId}/phone"
             .replacingOccurrences(of: "{userId}", with: userId)
 
         let params: [String: Any?] = [
@@ -1116,7 +1252,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "PATCH",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -1157,7 +1293,7 @@ open class Users: Service {
         userId: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Preferences<T> {
-        let path: String = "/users/{userId}/prefs"
+        let api_path: String = "/users/{userId}/prefs"
             .replacingOccurrences(of: "{userId}", with: userId)
 
         let params: [String: Any] = [:]
@@ -1172,7 +1308,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -1214,7 +1350,7 @@ open class Users: Service {
         prefs: Any,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Preferences<T> {
-        let path: String = "/users/{userId}/prefs"
+        let api_path: String = "/users/{userId}/prefs"
             .replacingOccurrences(of: "{userId}", with: userId)
 
         let params: [String: Any?] = [
@@ -1231,7 +1367,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "PATCH",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -1273,7 +1409,7 @@ open class Users: Service {
     open func listSessions(
         userId: String
     ) async throws -> AppwriteModels.SessionList {
-        let path: String = "/users/{userId}/sessions"
+        let api_path: String = "/users/{userId}/sessions"
             .replacingOccurrences(of: "{userId}", with: userId)
 
         let params: [String: Any] = [:]
@@ -1288,7 +1424,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "GET",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -1307,7 +1443,7 @@ open class Users: Service {
     open func deleteSessions(
         userId: String
     ) async throws -> Any {
-        let path: String = "/users/{userId}/sessions"
+        let api_path: String = "/users/{userId}/sessions"
             .replacingOccurrences(of: "{userId}", with: userId)
 
         let params: [String: Any] = [:]
@@ -1318,7 +1454,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "DELETE",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params        )
     }
@@ -1337,7 +1473,7 @@ open class Users: Service {
         userId: String,
         sessionId: String
     ) async throws -> Any {
-        let path: String = "/users/{userId}/sessions/{sessionId}"
+        let api_path: String = "/users/{userId}/sessions/{sessionId}"
             .replacingOccurrences(of: "{userId}", with: userId)
             .replacingOccurrences(of: "{sessionId}", with: sessionId)
 
@@ -1349,7 +1485,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "DELETE",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params        )
     }
@@ -1370,7 +1506,7 @@ open class Users: Service {
         status: Bool,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let path: String = "/users/{userId}/status"
+        let api_path: String = "/users/{userId}/status"
             .replacingOccurrences(of: "{userId}", with: userId)
 
         let params: [String: Any?] = [
@@ -1387,7 +1523,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "PATCH",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -1431,7 +1567,7 @@ open class Users: Service {
         emailVerification: Bool,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let path: String = "/users/{userId}/verification"
+        let api_path: String = "/users/{userId}/verification"
             .replacingOccurrences(of: "{userId}", with: userId)
 
         let params: [String: Any?] = [
@@ -1448,7 +1584,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "PATCH",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
@@ -1491,7 +1627,7 @@ open class Users: Service {
         phoneVerification: Bool,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let path: String = "/users/{userId}/verification/phone"
+        let api_path: String = "/users/{userId}/verification/phone"
             .replacingOccurrences(of: "{userId}", with: userId)
 
         let params: [String: Any?] = [
@@ -1508,7 +1644,7 @@ open class Users: Service {
 
         return try await client.call(
             method: "PATCH",
-            path: path,
+            path: api_path,
             headers: headers,
             params: params,
             converter: converter
