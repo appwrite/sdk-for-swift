@@ -13,6 +13,9 @@ public class AttributeUrl {
     /// Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
     public let status: String
 
+    /// Error message. Displays error generated on failure of creating or deleting an attribute.
+    public let error: String
+
     /// Is attribute required?
     public let xrequired: Bool
 
@@ -30,6 +33,7 @@ public class AttributeUrl {
         key: String,
         type: String,
         status: String,
+        error: String,
         xrequired: Bool,
         array: Bool??,
         format: String,
@@ -38,6 +42,7 @@ public class AttributeUrl {
         self.key = key
         self.type = type
         self.status = status
+        self.error = error
         self.xrequired = xrequired
         self.array = array
         self.format = format
@@ -49,6 +54,7 @@ public class AttributeUrl {
             "key": key as Any,
             "type": type as Any,
             "status": status as Any,
+            "error": error as Any,
             "xrequired": xrequired as Any,
             "array": array as Any,
             "format": format as Any,
@@ -61,6 +67,7 @@ public class AttributeUrl {
             key: map["key"] as! String,
             type: map["type"] as! String,
             status: map["status"] as! String,
+            error: map["error"] as! String,
             xrequired: map["required"] as! Bool,
             array: map["array"] as? Bool?,
             format: map["format"] as! String,

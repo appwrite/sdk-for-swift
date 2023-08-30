@@ -19,8 +19,11 @@ public class Variable {
     /// Variable value.
     public let value: String
 
-    /// Function ID.
-    public let functionId: String
+    /// Service to which the variable belongs. Possible values are &quot;project&quot;, &quot;function&quot;
+    public let resourceType: String
+
+    /// ID of resource to which the variable belongs. If resourceType is &quot;project&quot;, it is empty. If resourceType is &quot;function&quot;, it is ID of the function.
+    public let resourceId: String
 
 
     init(
@@ -29,14 +32,16 @@ public class Variable {
         updatedAt: String,
         key: String,
         value: String,
-        functionId: String
+        resourceType: String,
+        resourceId: String
     ) {
         self.id = id
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.key = key
         self.value = value
-        self.functionId = functionId
+        self.resourceType = resourceType
+        self.resourceId = resourceId
     }
 
     public func toMap() -> [String: Any] {
@@ -46,7 +51,8 @@ public class Variable {
             "$updatedAt": updatedAt as Any,
             "key": key as Any,
             "value": value as Any,
-            "functionId": functionId as Any
+            "resourceType": resourceType as Any,
+            "resourceId": resourceId as Any
         ]
     }
 
@@ -57,7 +63,8 @@ public class Variable {
             updatedAt: map["$updatedAt"] as! String,
             key: map["key"] as! String,
             value: map["value"] as! String,
-            functionId: map["functionId"] as! String
+            resourceType: map["resourceType"] as! String,
+            resourceId: map["resourceId"] as! String
         )
     }
 }
