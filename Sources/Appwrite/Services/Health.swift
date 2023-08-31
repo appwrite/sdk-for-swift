@@ -17,11 +17,11 @@ open class Health: Service {
     ///
     open func get(
     ) async throws -> AppwriteModels.HealthStatus {
-        let api_path: String = "/health"
+        let apiPath: String = "/health"
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -31,9 +31,9 @@ open class Health: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -48,11 +48,11 @@ open class Health: Service {
     ///
     open func getAntivirus(
     ) async throws -> AppwriteModels.HealthAntivirus {
-        let api_path: String = "/health/anti-virus"
+        let apiPath: String = "/health/anti-virus"
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -62,9 +62,9 @@ open class Health: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -80,11 +80,11 @@ open class Health: Service {
     ///
     open func getCache(
     ) async throws -> AppwriteModels.HealthStatus {
-        let api_path: String = "/health/cache"
+        let apiPath: String = "/health/cache"
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -94,9 +94,9 @@ open class Health: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -111,11 +111,11 @@ open class Health: Service {
     ///
     open func getDB(
     ) async throws -> AppwriteModels.HealthStatus {
-        let api_path: String = "/health/db"
+        let apiPath: String = "/health/db"
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -125,9 +125,9 @@ open class Health: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -142,11 +142,11 @@ open class Health: Service {
     ///
     open func getPubSub(
     ) async throws -> AppwriteModels.HealthStatus {
-        let api_path: String = "/health/pubsub"
+        let apiPath: String = "/health/pubsub"
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -156,9 +156,9 @@ open class Health: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -174,11 +174,11 @@ open class Health: Service {
     ///
     open func getQueue(
     ) async throws -> AppwriteModels.HealthStatus {
-        let api_path: String = "/health/queue"
+        let apiPath: String = "/health/queue"
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -188,9 +188,9 @@ open class Health: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -207,11 +207,11 @@ open class Health: Service {
     ///
     open func getQueueCertificates(
     ) async throws -> AppwriteModels.HealthQueue {
-        let api_path: String = "/health/queue/certificates"
+        let apiPath: String = "/health/queue/certificates"
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -221,9 +221,9 @@ open class Health: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -236,11 +236,11 @@ open class Health: Service {
     ///
     open func getQueueFunctions(
     ) async throws -> AppwriteModels.HealthQueue {
-        let api_path: String = "/health/queue/functions"
+        let apiPath: String = "/health/queue/functions"
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -250,9 +250,9 @@ open class Health: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -268,11 +268,11 @@ open class Health: Service {
     ///
     open func getQueueLogs(
     ) async throws -> AppwriteModels.HealthQueue {
-        let api_path: String = "/health/queue/logs"
+        let apiPath: String = "/health/queue/logs"
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -282,9 +282,9 @@ open class Health: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -300,11 +300,11 @@ open class Health: Service {
     ///
     open func getQueueWebhooks(
     ) async throws -> AppwriteModels.HealthQueue {
-        let api_path: String = "/health/queue/webhooks"
+        let apiPath: String = "/health/queue/webhooks"
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -314,9 +314,9 @@ open class Health: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -331,11 +331,11 @@ open class Health: Service {
     ///
     open func getStorageLocal(
     ) async throws -> AppwriteModels.HealthStatus {
-        let api_path: String = "/health/storage/local"
+        let apiPath: String = "/health/storage/local"
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -345,9 +345,9 @@ open class Health: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -368,11 +368,11 @@ open class Health: Service {
     ///
     open func getTime(
     ) async throws -> AppwriteModels.HealthTime {
-        let api_path: String = "/health/time"
+        let apiPath: String = "/health/time"
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -382,9 +382,9 @@ open class Health: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }

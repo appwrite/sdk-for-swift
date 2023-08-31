@@ -33,10 +33,10 @@ open class Avatars: Service {
         height: Int? = nil,
         quality: Int? = nil
     ) async throws -> ByteBuffer {
-        let api_path: String = "/avatars/browsers/{code}"
+        let apiPath: String = "/avatars/browsers/{code}"
             .replacingOccurrences(of: "{code}", with: code)
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "width": width,
             "height": height,
             "quality": quality,
@@ -46,8 +46,8 @@ open class Avatars: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            params: params
+            path: apiPath,
+            params: apiParams
         )
     }
 
@@ -77,10 +77,10 @@ open class Avatars: Service {
         height: Int? = nil,
         quality: Int? = nil
     ) async throws -> ByteBuffer {
-        let api_path: String = "/avatars/credit-cards/{code}"
+        let apiPath: String = "/avatars/credit-cards/{code}"
             .replacingOccurrences(of: "{code}", with: code)
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "width": width,
             "height": height,
             "quality": quality,
@@ -90,8 +90,8 @@ open class Avatars: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            params: params
+            path: apiPath,
+            params: apiParams
         )
     }
 
@@ -109,9 +109,9 @@ open class Avatars: Service {
     open func getFavicon(
         url: String
     ) async throws -> ByteBuffer {
-        let api_path: String = "/avatars/favicon"
+        let apiPath: String = "/avatars/favicon"
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "url": url,
             "project": client.config["project"],
             "key": client.config["key"]
@@ -119,8 +119,8 @@ open class Avatars: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            params: params
+            path: apiPath,
+            params: apiParams
         )
     }
 
@@ -151,10 +151,10 @@ open class Avatars: Service {
         height: Int? = nil,
         quality: Int? = nil
     ) async throws -> ByteBuffer {
-        let api_path: String = "/avatars/flags/{code}"
+        let apiPath: String = "/avatars/flags/{code}"
             .replacingOccurrences(of: "{code}", with: code)
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "width": width,
             "height": height,
             "quality": quality,
@@ -164,8 +164,8 @@ open class Avatars: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            params: params
+            path: apiPath,
+            params: apiParams
         )
     }
 
@@ -194,9 +194,9 @@ open class Avatars: Service {
         width: Int? = nil,
         height: Int? = nil
     ) async throws -> ByteBuffer {
-        let api_path: String = "/avatars/image"
+        let apiPath: String = "/avatars/image"
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "url": url,
             "width": width,
             "height": height,
@@ -206,8 +206,8 @@ open class Avatars: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            params: params
+            path: apiPath,
+            params: apiParams
         )
     }
 
@@ -244,9 +244,9 @@ open class Avatars: Service {
         height: Int? = nil,
         background: String? = nil
     ) async throws -> ByteBuffer {
-        let api_path: String = "/avatars/initials"
+        let apiPath: String = "/avatars/initials"
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "name": name,
             "width": width,
             "height": height,
@@ -257,8 +257,8 @@ open class Avatars: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            params: params
+            path: apiPath,
+            params: apiParams
         )
     }
 
@@ -282,9 +282,9 @@ open class Avatars: Service {
         margin: Int? = nil,
         download: Bool? = nil
     ) async throws -> ByteBuffer {
-        let api_path: String = "/avatars/qr"
+        let apiPath: String = "/avatars/qr"
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "text": text,
             "size": size,
             "margin": margin,
@@ -295,8 +295,8 @@ open class Avatars: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            params: params
+            path: apiPath,
+            params: apiParams
         )
     }
 

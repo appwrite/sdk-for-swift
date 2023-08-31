@@ -23,14 +23,14 @@ open class Users: Service {
         search: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.UserList<T> {
-        let api_path: String = "/users"
+        let apiPath: String = "/users"
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -40,9 +40,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -90,9 +90,9 @@ open class Users: Service {
         name: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let api_path: String = "/users"
+        let apiPath: String = "/users"
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "userId": userId,
             "email": email,
             "phone": phone,
@@ -100,7 +100,7 @@ open class Users: Service {
             "name": name
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -110,9 +110,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "POST",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -169,16 +169,16 @@ open class Users: Service {
         name: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let api_path: String = "/users/argon2"
+        let apiPath: String = "/users/argon2"
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "userId": userId,
             "email": email,
             "password": password,
             "name": name
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -188,9 +188,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "POST",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -247,16 +247,16 @@ open class Users: Service {
         name: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let api_path: String = "/users/bcrypt"
+        let apiPath: String = "/users/bcrypt"
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "userId": userId,
             "email": email,
             "password": password,
             "name": name
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -266,9 +266,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "POST",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -317,14 +317,14 @@ open class Users: Service {
         queries: String? = nil,
         search: String? = nil
     ) async throws -> AppwriteModels.IdentityList {
-        let api_path: String = "/users/identities"
+        let apiPath: String = "/users/identities"
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -334,9 +334,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -353,20 +353,20 @@ open class Users: Service {
     open func deleteIdentity(
         identityId: String
     ) async throws -> Any {
-        let api_path: String = "/users/identities/{identityId}"
+        let apiPath: String = "/users/identities/{identityId}"
             .replacingOccurrences(of: "{identityId}", with: identityId)
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
         return try await client.call(
             method: "DELETE",
-            path: api_path,
-            headers: headers,
-            params: params        )
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams        )
     }
 
     ///
@@ -391,16 +391,16 @@ open class Users: Service {
         name: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let api_path: String = "/users/md5"
+        let apiPath: String = "/users/md5"
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "userId": userId,
             "email": email,
             "password": password,
             "name": name
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -410,9 +410,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "POST",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -469,16 +469,16 @@ open class Users: Service {
         name: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let api_path: String = "/users/phpass"
+        let apiPath: String = "/users/phpass"
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "userId": userId,
             "email": email,
             "password": password,
             "name": name
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -488,9 +488,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "POST",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -557,9 +557,9 @@ open class Users: Service {
         name: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let api_path: String = "/users/scrypt"
+        let apiPath: String = "/users/scrypt"
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "userId": userId,
             "email": email,
             "password": password,
@@ -571,7 +571,7 @@ open class Users: Service {
             "name": name
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -581,9 +581,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "POST",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -661,9 +661,9 @@ open class Users: Service {
         name: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let api_path: String = "/users/scrypt-modified"
+        let apiPath: String = "/users/scrypt-modified"
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "userId": userId,
             "email": email,
             "password": password,
@@ -673,7 +673,7 @@ open class Users: Service {
             "name": name
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -683,9 +683,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "POST",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -753,9 +753,9 @@ open class Users: Service {
         name: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let api_path: String = "/users/sha"
+        let apiPath: String = "/users/sha"
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "userId": userId,
             "email": email,
             "password": password,
@@ -763,7 +763,7 @@ open class Users: Service {
             "name": name
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -773,9 +773,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "POST",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -826,12 +826,12 @@ open class Users: Service {
         userId: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let api_path: String = "/users/{userId}"
+        let apiPath: String = "/users/{userId}"
             .replacingOccurrences(of: "{userId}", with: userId)
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -841,9 +841,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -882,20 +882,20 @@ open class Users: Service {
     open func delete(
         userId: String
     ) async throws -> Any {
-        let api_path: String = "/users/{userId}"
+        let apiPath: String = "/users/{userId}"
             .replacingOccurrences(of: "{userId}", with: userId)
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
         return try await client.call(
             method: "DELETE",
-            path: api_path,
-            headers: headers,
-            params: params        )
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams        )
     }
 
     ///
@@ -913,14 +913,14 @@ open class Users: Service {
         email: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let api_path: String = "/users/{userId}/email"
+        let apiPath: String = "/users/{userId}/email"
             .replacingOccurrences(of: "{userId}", with: userId)
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "email": email
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -930,9 +930,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "PATCH",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -978,14 +978,14 @@ open class Users: Service {
         labels: [String],
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let api_path: String = "/users/{userId}/labels"
+        let apiPath: String = "/users/{userId}/labels"
             .replacingOccurrences(of: "{userId}", with: userId)
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "labels": labels
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -995,9 +995,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "PUT",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -1042,14 +1042,14 @@ open class Users: Service {
         userId: String,
         queries: [String]? = nil
     ) async throws -> AppwriteModels.LogList {
-        let api_path: String = "/users/{userId}/logs"
+        let apiPath: String = "/users/{userId}/logs"
             .replacingOccurrences(of: "{userId}", with: userId)
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "queries": queries
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -1059,9 +1059,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -1078,12 +1078,12 @@ open class Users: Service {
     open func listMemberships(
         userId: String
     ) async throws -> AppwriteModels.MembershipList {
-        let api_path: String = "/users/{userId}/memberships"
+        let apiPath: String = "/users/{userId}/memberships"
             .replacingOccurrences(of: "{userId}", with: userId)
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -1093,9 +1093,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -1115,14 +1115,14 @@ open class Users: Service {
         name: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let api_path: String = "/users/{userId}/name"
+        let apiPath: String = "/users/{userId}/name"
             .replacingOccurrences(of: "{userId}", with: userId)
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "name": name
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -1132,9 +1132,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "PATCH",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -1175,14 +1175,14 @@ open class Users: Service {
         password: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let api_path: String = "/users/{userId}/password"
+        let apiPath: String = "/users/{userId}/password"
             .replacingOccurrences(of: "{userId}", with: userId)
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "password": password
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -1192,9 +1192,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "PATCH",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -1235,14 +1235,14 @@ open class Users: Service {
         number: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let api_path: String = "/users/{userId}/phone"
+        let apiPath: String = "/users/{userId}/phone"
             .replacingOccurrences(of: "{userId}", with: userId)
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "number": number
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -1252,9 +1252,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "PATCH",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -1293,12 +1293,12 @@ open class Users: Service {
         userId: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Preferences<T> {
-        let api_path: String = "/users/{userId}/prefs"
+        let apiPath: String = "/users/{userId}/prefs"
             .replacingOccurrences(of: "{userId}", with: userId)
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -1308,9 +1308,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -1350,14 +1350,14 @@ open class Users: Service {
         prefs: Any,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Preferences<T> {
-        let api_path: String = "/users/{userId}/prefs"
+        let apiPath: String = "/users/{userId}/prefs"
             .replacingOccurrences(of: "{userId}", with: userId)
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "prefs": prefs
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -1367,9 +1367,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "PATCH",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -1409,12 +1409,12 @@ open class Users: Service {
     open func listSessions(
         userId: String
     ) async throws -> AppwriteModels.SessionList {
-        let api_path: String = "/users/{userId}/sessions"
+        let apiPath: String = "/users/{userId}/sessions"
             .replacingOccurrences(of: "{userId}", with: userId)
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -1424,9 +1424,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -1443,20 +1443,20 @@ open class Users: Service {
     open func deleteSessions(
         userId: String
     ) async throws -> Any {
-        let api_path: String = "/users/{userId}/sessions"
+        let apiPath: String = "/users/{userId}/sessions"
             .replacingOccurrences(of: "{userId}", with: userId)
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
         return try await client.call(
             method: "DELETE",
-            path: api_path,
-            headers: headers,
-            params: params        )
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams        )
     }
 
     ///
@@ -1473,21 +1473,21 @@ open class Users: Service {
         userId: String,
         sessionId: String
     ) async throws -> Any {
-        let api_path: String = "/users/{userId}/sessions/{sessionId}"
+        let apiPath: String = "/users/{userId}/sessions/{sessionId}"
             .replacingOccurrences(of: "{userId}", with: userId)
             .replacingOccurrences(of: "{sessionId}", with: sessionId)
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
         return try await client.call(
             method: "DELETE",
-            path: api_path,
-            headers: headers,
-            params: params        )
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams        )
     }
 
     ///
@@ -1506,14 +1506,14 @@ open class Users: Service {
         status: Bool,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let api_path: String = "/users/{userId}/status"
+        let apiPath: String = "/users/{userId}/status"
             .replacingOccurrences(of: "{userId}", with: userId)
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "status": status
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -1523,9 +1523,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "PATCH",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -1567,14 +1567,14 @@ open class Users: Service {
         emailVerification: Bool,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let api_path: String = "/users/{userId}/verification"
+        let apiPath: String = "/users/{userId}/verification"
             .replacingOccurrences(of: "{userId}", with: userId)
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "emailVerification": emailVerification
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -1584,9 +1584,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "PATCH",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -1627,14 +1627,14 @@ open class Users: Service {
         phoneVerification: Bool,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let api_path: String = "/users/{userId}/verification/phone"
+        let apiPath: String = "/users/{userId}/verification/phone"
             .replacingOccurrences(of: "{userId}", with: userId)
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "phoneVerification": phoneVerification
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -1644,9 +1644,9 @@ open class Users: Service {
 
         return try await client.call(
             method: "PATCH",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
