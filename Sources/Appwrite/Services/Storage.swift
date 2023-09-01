@@ -22,14 +22,14 @@ open class Storage: Service {
         queries: [String]? = nil,
         search: String? = nil
     ) async throws -> AppwriteModels.BucketList {
-        let api_path: String = "/storage/buckets"
+        let apiPath: String = "/storage/buckets"
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -39,9 +39,9 @@ open class Storage: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -76,9 +76,9 @@ open class Storage: Service {
         encryption: Bool? = nil,
         antivirus: Bool? = nil
     ) async throws -> AppwriteModels.Bucket {
-        let api_path: String = "/storage/buckets"
+        let apiPath: String = "/storage/buckets"
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "bucketId": bucketId,
             "name": name,
             "permissions": permissions,
@@ -91,7 +91,7 @@ open class Storage: Service {
             "antivirus": antivirus
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -101,9 +101,9 @@ open class Storage: Service {
 
         return try await client.call(
             method: "POST",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -121,12 +121,12 @@ open class Storage: Service {
     open func getBucket(
         bucketId: String
     ) async throws -> AppwriteModels.Bucket {
-        let api_path: String = "/storage/buckets/{bucketId}"
+        let apiPath: String = "/storage/buckets/{bucketId}"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -136,9 +136,9 @@ open class Storage: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -173,10 +173,10 @@ open class Storage: Service {
         encryption: Bool? = nil,
         antivirus: Bool? = nil
     ) async throws -> AppwriteModels.Bucket {
-        let api_path: String = "/storage/buckets/{bucketId}"
+        let apiPath: String = "/storage/buckets/{bucketId}"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "name": name,
             "permissions": permissions,
             "fileSecurity": fileSecurity,
@@ -188,7 +188,7 @@ open class Storage: Service {
             "antivirus": antivirus
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -198,9 +198,9 @@ open class Storage: Service {
 
         return try await client.call(
             method: "PUT",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -217,20 +217,20 @@ open class Storage: Service {
     open func deleteBucket(
         bucketId: String
     ) async throws -> Any {
-        let api_path: String = "/storage/buckets/{bucketId}"
+        let apiPath: String = "/storage/buckets/{bucketId}"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
         return try await client.call(
             method: "DELETE",
-            path: api_path,
-            headers: headers,
-            params: params        )
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams        )
     }
 
     ///
@@ -250,15 +250,15 @@ open class Storage: Service {
         queries: [String]? = nil,
         search: String? = nil
     ) async throws -> AppwriteModels.FileList {
-        let api_path: String = "/storage/buckets/{bucketId}/files"
+        let apiPath: String = "/storage/buckets/{bucketId}/files"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -268,9 +268,9 @@ open class Storage: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -311,16 +311,16 @@ open class Storage: Service {
         permissions: [String]? = nil,
         onProgress: ((UploadProgress) -> Void)? = nil
     ) async throws -> AppwriteModels.File {
-        let api_path: String = "/storage/buckets/{bucketId}/files"
+        let apiPath: String = "/storage/buckets/{bucketId}/files"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
 
-        var params: [String: Any?] = [
+        var apiParams: [String: Any?] = [
             "fileId": fileId,
             "file": file,
             "permissions": permissions
         ]
 
-        var headers: [String: String] = [
+        var apiHeaders: [String: String] = [
             "content-type": "multipart/form-data"
         ]
 
@@ -331,9 +331,9 @@ open class Storage: Service {
         let idParamName: String? = "fileId"
         let paramName = "file"
         return try await client.chunkedUpload(
-            path: api_path,
-            headers: &headers,
-            params: &params,
+            path: apiPath,
+            headers: &apiHeaders,
+            params: &apiParams,
             paramName: paramName,
             idParamName: idParamName,
             converter: converter,
@@ -356,13 +356,13 @@ open class Storage: Service {
         bucketId: String,
         fileId: String
     ) async throws -> AppwriteModels.File {
-        let api_path: String = "/storage/buckets/{bucketId}/files/{fileId}"
+        let apiPath: String = "/storage/buckets/{bucketId}/files/{fileId}"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
             .replacingOccurrences(of: "{fileId}", with: fileId)
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -372,9 +372,9 @@ open class Storage: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -398,16 +398,16 @@ open class Storage: Service {
         name: String? = nil,
         permissions: [String]? = nil
     ) async throws -> AppwriteModels.File {
-        let api_path: String = "/storage/buckets/{bucketId}/files/{fileId}"
+        let apiPath: String = "/storage/buckets/{bucketId}/files/{fileId}"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
             .replacingOccurrences(of: "{fileId}", with: fileId)
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "name": name,
             "permissions": permissions
         ]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
@@ -417,9 +417,9 @@ open class Storage: Service {
 
         return try await client.call(
             method: "PUT",
-            path: api_path,
-            headers: headers,
-            params: params,
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
             converter: converter
         )
     }
@@ -439,21 +439,21 @@ open class Storage: Service {
         bucketId: String,
         fileId: String
     ) async throws -> Any {
-        let api_path: String = "/storage/buckets/{bucketId}/files/{fileId}"
+        let apiPath: String = "/storage/buckets/{bucketId}/files/{fileId}"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
             .replacingOccurrences(of: "{fileId}", with: fileId)
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
-        let headers: [String: String] = [
+        let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
         return try await client.call(
             method: "DELETE",
-            path: api_path,
-            headers: headers,
-            params: params        )
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams        )
     }
 
     ///
@@ -472,16 +472,16 @@ open class Storage: Service {
         bucketId: String,
         fileId: String
     ) async throws -> ByteBuffer {
-        let api_path: String = "/storage/buckets/{bucketId}/files/{fileId}/download"
+        let apiPath: String = "/storage/buckets/{bucketId}/files/{fileId}/download"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
             .replacingOccurrences(of: "{fileId}", with: fileId)
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            params: params
+            path: apiPath,
+            params: apiParams
         )
     }
 
@@ -525,11 +525,11 @@ open class Storage: Service {
         background: String? = nil,
         output: String? = nil
     ) async throws -> ByteBuffer {
-        let api_path: String = "/storage/buckets/{bucketId}/files/{fileId}/preview"
+        let apiPath: String = "/storage/buckets/{bucketId}/files/{fileId}/preview"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
             .replacingOccurrences(of: "{fileId}", with: fileId)
 
-        let params: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "width": width,
             "height": height,
             "gravity": gravity,
@@ -547,8 +547,8 @@ open class Storage: Service {
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            params: params
+            path: apiPath,
+            params: apiParams
         )
     }
 
@@ -568,16 +568,16 @@ open class Storage: Service {
         bucketId: String,
         fileId: String
     ) async throws -> ByteBuffer {
-        let api_path: String = "/storage/buckets/{bucketId}/files/{fileId}/view"
+        let apiPath: String = "/storage/buckets/{bucketId}/files/{fileId}/view"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
             .replacingOccurrences(of: "{fileId}", with: fileId)
 
-        let params: [String: Any] = [:]
+        let apiParams: [String: Any] = [:]
 
         return try await client.call(
             method: "GET",
-            path: api_path,
-            params: params
+            path: apiPath,
+            params: apiParams
         )
     }
 
