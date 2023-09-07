@@ -232,7 +232,7 @@ open class Functions: Service {
     open func update(
         functionId: String,
         name: String,
-        runtime: String,
+        runtime: String? = nil,
         execute: [String]? = nil,
         events: [String]? = nil,
         schedule: String? = nil,
