@@ -39,7 +39,7 @@ open class Health: Service {
     }
 
     ///
-    /// Get Antivirus
+    /// Get antivirus
     ///
     /// Check the Appwrite Antivirus server is up and connection is successful.
     ///
@@ -70,7 +70,7 @@ open class Health: Service {
     }
 
     ///
-    /// Get Cache
+    /// Get cache
     ///
     /// Check the Appwrite in-memory cache servers are up and connection is
     /// successful.
@@ -133,7 +133,7 @@ open class Health: Service {
     }
 
     ///
-    /// Get PubSub
+    /// Get pubsub
     ///
     /// Check the Appwrite pub-sub servers are up and connection is successful.
     ///
@@ -164,7 +164,7 @@ open class Health: Service {
     }
 
     ///
-    /// Get Queue
+    /// Get queue
     ///
     /// Check the Appwrite queue messaging servers are up and connection is
     /// successful.
@@ -196,20 +196,60 @@ open class Health: Service {
     }
 
     ///
-    /// Get Certificates Queue
+    /// Get builds queue
+    ///
+    /// Get the number of builds that are waiting to be processed in the Appwrite
+    /// internal queue server.
+    ///
+    /// @param Int threshold
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getQueueBuilds(
+        threshold: Int? = nil
+    ) async throws -> AppwriteModels.HealthQueue {
+        let apiPath: String = "/health/queue/builds"
+
+        let apiParams: [String: Any?] = [
+            "threshold": threshold
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+            return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get certificates queue
     ///
     /// Get the number of certificates that are waiting to be issued against
     /// [Letsencrypt](https://letsencrypt.org/) in the Appwrite internal queue
     /// server.
     ///
+    /// @param Int threshold
     /// @throws Exception
     /// @return array
     ///
     open func getQueueCertificates(
+        threshold: Int? = nil
     ) async throws -> AppwriteModels.HealthQueue {
         let apiPath: String = "/health/queue/certificates"
 
-        let apiParams: [String: Any] = [:]
+        let apiParams: [String: Any?] = [
+            "threshold": threshold
+        ]
 
         let apiHeaders: [String: String] = [
             "content-type": "application/json"
@@ -229,16 +269,95 @@ open class Health: Service {
     }
 
     ///
-    /// Get Functions Queue
+    /// Get databases queue
     ///
+    /// Get the number of database changes that are waiting to be processed in the
+    /// Appwrite internal queue server.
+    ///
+    /// @param String name
+    /// @param Int threshold
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getQueueDatabases(
+        name: String? = nil,
+        threshold: Int? = nil
+    ) async throws -> AppwriteModels.HealthQueue {
+        let apiPath: String = "/health/queue/databases"
+
+        let apiParams: [String: Any?] = [
+            "name": name,
+            "threshold": threshold
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+            return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get deletes queue
+    ///
+    /// Get the number of background destructive changes that are waiting to be
+    /// processed in the Appwrite internal queue server.
+    ///
+    /// @param Int threshold
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getQueueDeletes(
+        threshold: Int? = nil
+    ) async throws -> AppwriteModels.HealthQueue {
+        let apiPath: String = "/health/queue/deletes"
+
+        let apiParams: [String: Any?] = [
+            "threshold": threshold
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+            return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get functions queue
+    ///
+    /// @param Int threshold
     /// @throws Exception
     /// @return array
     ///
     open func getQueueFunctions(
+        threshold: Int? = nil
     ) async throws -> AppwriteModels.HealthQueue {
         let apiPath: String = "/health/queue/functions"
 
-        let apiParams: [String: Any] = [:]
+        let apiParams: [String: Any?] = [
+            "threshold": threshold
+        ]
 
         let apiHeaders: [String: String] = [
             "content-type": "application/json"
@@ -258,19 +377,23 @@ open class Health: Service {
     }
 
     ///
-    /// Get Logs Queue
+    /// Get logs queue
     ///
     /// Get the number of logs that are waiting to be processed in the Appwrite
     /// internal queue server.
     ///
+    /// @param Int threshold
     /// @throws Exception
     /// @return array
     ///
     open func getQueueLogs(
+        threshold: Int? = nil
     ) async throws -> AppwriteModels.HealthQueue {
         let apiPath: String = "/health/queue/logs"
 
-        let apiParams: [String: Any] = [:]
+        let apiParams: [String: Any?] = [
+            "threshold": threshold
+        ]
 
         let apiHeaders: [String: String] = [
             "content-type": "application/json"
@@ -290,19 +413,131 @@ open class Health: Service {
     }
 
     ///
-    /// Get Webhooks Queue
+    /// Get mails queue
+    ///
+    /// Get the number of mails that are waiting to be processed in the Appwrite
+    /// internal queue server.
+    ///
+    /// @param Int threshold
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getQueueMails(
+        threshold: Int? = nil
+    ) async throws -> AppwriteModels.HealthQueue {
+        let apiPath: String = "/health/queue/mails"
+
+        let apiParams: [String: Any?] = [
+            "threshold": threshold
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+            return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get messaging queue
+    ///
+    /// Get the number of messages that are waiting to be processed in the Appwrite
+    /// internal queue server.
+    ///
+    /// @param Int threshold
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getQueueMessaging(
+        threshold: Int? = nil
+    ) async throws -> AppwriteModels.HealthQueue {
+        let apiPath: String = "/health/queue/messaging"
+
+        let apiParams: [String: Any?] = [
+            "threshold": threshold
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+            return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get migrations queue
+    ///
+    /// Get the number of migrations that are waiting to be processed in the
+    /// Appwrite internal queue server.
+    ///
+    /// @param Int threshold
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getQueueMigrations(
+        threshold: Int? = nil
+    ) async throws -> AppwriteModels.HealthQueue {
+        let apiPath: String = "/health/queue/migrations"
+
+        let apiParams: [String: Any?] = [
+            "threshold": threshold
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+            return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get webhooks queue
     ///
     /// Get the number of webhooks that are waiting to be processed in the Appwrite
     /// internal queue server.
     ///
+    /// @param Int threshold
     /// @throws Exception
     /// @return array
     ///
     open func getQueueWebhooks(
+        threshold: Int? = nil
     ) async throws -> AppwriteModels.HealthQueue {
         let apiPath: String = "/health/queue/webhooks"
 
-        let apiParams: [String: Any] = [:]
+        let apiParams: [String: Any?] = [
+            "threshold": threshold
+        ]
 
         let apiHeaders: [String: String] = [
             "content-type": "application/json"
@@ -322,7 +557,7 @@ open class Health: Service {
     }
 
     ///
-    /// Get Local Storage
+    /// Get local storage
     ///
     /// Check the Appwrite local storage device is up and connection is successful.
     ///
@@ -353,7 +588,7 @@ open class Health: Service {
     }
 
     ///
-    /// Get Time
+    /// Get time
     ///
     /// Check the Appwrite server time is synced with Google remote NTP server. We
     /// use this technology to smoothly handle leap seconds with no disruptive
