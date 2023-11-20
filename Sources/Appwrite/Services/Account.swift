@@ -8,7 +8,7 @@ import AppwriteModels
 open class Account: Service {
 
     ///
-    /// Get Account
+    /// Get account
     ///
     /// Get the currently logged in user.
     ///
@@ -40,7 +40,7 @@ open class Account: Service {
     }
 
     ///
-    /// Get Account
+    /// Get account
     ///
     /// Get the currently logged in user.
     ///
@@ -55,7 +55,7 @@ open class Account: Service {
     }
 
     ///
-    /// Update Email
+    /// Update email
     ///
     /// Update currently logged in user account email address. After changing user
     /// address, the user confirmation status will get reset. A new confirmation
@@ -101,7 +101,7 @@ open class Account: Service {
     }
 
     ///
-    /// Update Email
+    /// Update email
     ///
     /// Update currently logged in user account email address. After changing user
     /// address, the user confirmation status will get reset. A new confirmation
@@ -192,7 +192,7 @@ open class Account: Service {
     }
 
     ///
-    /// List Logs
+    /// List logs
     ///
     /// Get the list of latest security activity logs for the currently logged in
     /// user. Each log returns user IP address, location and date and time of log.
@@ -228,7 +228,7 @@ open class Account: Service {
     }
 
     ///
-    /// Update Name
+    /// Update name
     ///
     /// Update currently logged in user account name.
     ///
@@ -264,7 +264,7 @@ open class Account: Service {
     }
 
     ///
-    /// Update Name
+    /// Update name
     ///
     /// Update currently logged in user account name.
     ///
@@ -282,7 +282,7 @@ open class Account: Service {
     }
 
     ///
-    /// Update Password
+    /// Update password
     ///
     /// Update currently logged in user password. For validation, user is required
     /// to pass in the new password, and the old password. For users created with
@@ -323,7 +323,7 @@ open class Account: Service {
     }
 
     ///
-    /// Update Password
+    /// Update password
     ///
     /// Update currently logged in user password. For validation, user is required
     /// to pass in the new password, and the old password. For users created with
@@ -346,12 +346,12 @@ open class Account: Service {
     }
 
     ///
-    /// Update Phone
+    /// Update phone
     ///
     /// Update the currently logged in user's phone number. After updating the
     /// phone number, the phone verification status will be reset. A confirmation
     /// SMS is not sent automatically, however you can use the [POST
-    /// /account/verification/phone](/docs/client/account#accountCreatePhoneVerification)
+    /// /account/verification/phone](https://appwrite.io/docs/references/cloud/client-web/account#createPhoneVerification)
     /// endpoint to send a confirmation SMS.
     ///
     /// @param String phone
@@ -389,12 +389,12 @@ open class Account: Service {
     }
 
     ///
-    /// Update Phone
+    /// Update phone
     ///
     /// Update the currently logged in user's phone number. After updating the
     /// phone number, the phone verification status will be reset. A confirmation
     /// SMS is not sent automatically, however you can use the [POST
-    /// /account/verification/phone](/docs/client/account#accountCreatePhoneVerification)
+    /// /account/verification/phone](https://appwrite.io/docs/references/cloud/client-web/account#createPhoneVerification)
     /// endpoint to send a confirmation SMS.
     ///
     /// @param String phone
@@ -414,7 +414,7 @@ open class Account: Service {
     }
 
     ///
-    /// Get Account Preferences
+    /// Get account preferences
     ///
     /// Get the preferences as a key-value object for the currently logged in user.
     ///
@@ -446,7 +446,7 @@ open class Account: Service {
     }
 
     ///
-    /// Get Account Preferences
+    /// Get account preferences
     ///
     /// Get the preferences as a key-value object for the currently logged in user.
     ///
@@ -461,7 +461,7 @@ open class Account: Service {
     }
 
     ///
-    /// Update Preferences
+    /// Update preferences
     ///
     /// Update currently logged in user account preferences. The object you pass is
     /// stored as is, and replaces any previous value. The maximum allowed prefs
@@ -499,7 +499,7 @@ open class Account: Service {
     }
 
     ///
-    /// Update Preferences
+    /// Update preferences
     ///
     /// Update currently logged in user account preferences. The object you pass is
     /// stored as is, and replaces any previous value. The maximum allowed prefs
@@ -519,16 +519,16 @@ open class Account: Service {
     }
 
     ///
-    /// Create Password Recovery
+    /// Create password recovery
     ///
     /// Sends the user an email with a temporary secret key for password reset.
     /// When the user clicks the confirmation link he is redirected back to your
     /// app password reset URL with the secret key and email address values
     /// attached to the URL query string. Use the query string params to submit a
     /// request to the [PUT
-    /// /account/recovery](/docs/client/account#accountUpdateRecovery) endpoint to
-    /// complete the process. The verification link sent to the user's email
-    /// address is valid for 1 hour.
+    /// /account/recovery](https://appwrite.io/docs/references/cloud/client-web/account#updateRecovery)
+    /// endpoint to complete the process. The verification link sent to the user's
+    /// email address is valid for 1 hour.
     ///
     /// @param String email
     /// @param String url
@@ -564,12 +564,13 @@ open class Account: Service {
     }
 
     ///
-    /// Create Password Recovery (confirmation)
+    /// Create password recovery (confirmation)
     ///
     /// Use this endpoint to complete the user account password reset. Both the
     /// **userId** and **secret** arguments will be passed as query parameters to
     /// the redirect URL you have provided when sending your request to the [POST
-    /// /account/recovery](/docs/client/account#accountCreateRecovery) endpoint.
+    /// /account/recovery](https://appwrite.io/docs/references/cloud/client-web/account#createRecovery)
+    /// endpoint.
     /// 
     /// Please note that in order to avoid a [Redirect
     /// Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md)
@@ -616,7 +617,7 @@ open class Account: Service {
     }
 
     ///
-    /// List Sessions
+    /// List sessions
     ///
     /// Get the list of active sessions across different devices for the currently
     /// logged in user.
@@ -648,7 +649,7 @@ open class Account: Service {
     }
 
     ///
-    /// Delete Sessions
+    /// Delete sessions
     ///
     /// Delete all sessions from the user account and remove any sessions cookies
     /// from the end client.
@@ -674,7 +675,7 @@ open class Account: Service {
     }
 
     ///
-    /// Get Session
+    /// Get session
     ///
     /// Use this endpoint to get a logged in user's session using a Session ID.
     /// Inputting 'current' will return the current session being used.
@@ -709,7 +710,7 @@ open class Account: Service {
     }
 
     ///
-    /// Update OAuth Session (Refresh Tokens)
+    /// Update OAuth session (refresh tokens)
     ///
     /// Access tokens have limited lifespan and expire to mitigate security risks.
     /// If session was created using an OAuth provider, this route can be used to
@@ -745,12 +746,13 @@ open class Account: Service {
     }
 
     ///
-    /// Delete Session
+    /// Delete session
     ///
     /// Logout the user. Use 'current' as the session ID to logout on this device,
     /// use a session ID to logout on another device. If you're looking to logout
     /// the user on all devices, use [Delete
-    /// Sessions](/docs/client/account#accountDeleteSessions) instead.
+    /// Sessions](https://appwrite.io/docs/references/cloud/client-web/account#deleteSessions)
+    /// instead.
     ///
     /// @param String sessionId
     /// @throws Exception
@@ -776,7 +778,7 @@ open class Account: Service {
     }
 
     ///
-    /// Update Status
+    /// Update status
     ///
     /// Block the currently logged in user account. Behind the scene, the user
     /// record is not deleted but permanently blocked from any access. To
@@ -810,7 +812,7 @@ open class Account: Service {
     }
 
     ///
-    /// Update Status
+    /// Update status
     ///
     /// Block the currently logged in user account. Behind the scene, the user
     /// record is not deleted but permanently blocked from any access. To
@@ -827,7 +829,7 @@ open class Account: Service {
     }
 
     ///
-    /// Create Email Verification
+    /// Create email verification
     ///
     /// Use this endpoint to send a verification message to your user email address
     /// to confirm they are the valid owners of that address. Both the **userId**
@@ -836,8 +838,8 @@ open class Account: Service {
     /// should redirect the user back to your app and allow you to complete the
     /// verification process by verifying both the **userId** and **secret**
     /// parameters. Learn more about how to [complete the verification
-    /// process](/docs/client/account#accountUpdateEmailVerification). The
-    /// verification link sent to the user's email address is valid for 7 days.
+    /// process](https://appwrite.io/docs/references/cloud/client-web/account#updateVerification).
+    /// The verification link sent to the user's email address is valid for 7 days.
     /// 
     /// Please note that in order to avoid a [Redirect
     /// Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md),
@@ -876,7 +878,7 @@ open class Account: Service {
     }
 
     ///
-    /// Create Email Verification (confirmation)
+    /// Create email verification (confirmation)
     ///
     /// Use this endpoint to complete the user email verification process. Use both
     /// the **userId** and **secret** parameters that were attached to your app URL
@@ -917,14 +919,16 @@ open class Account: Service {
     }
 
     ///
-    /// Create Phone Verification
+    /// Create phone verification
     ///
     /// Use this endpoint to send a verification SMS to the currently logged in
     /// user. This endpoint is meant for use after updating a user's phone number
-    /// using the [accountUpdatePhone](/docs/client/account#accountUpdatePhone)
+    /// using the
+    /// [accountUpdatePhone](https://appwrite.io/docs/references/cloud/client-web/account#updatePhone)
     /// endpoint. Learn more about how to [complete the verification
-    /// process](/docs/client/account#accountUpdatePhoneVerification). The
-    /// verification code sent to the user's phone number is valid for 15 minutes.
+    /// process](https://appwrite.io/docs/references/cloud/client-web/account#updatePhoneVerification).
+    /// The verification code sent to the user's phone number is valid for 15
+    /// minutes.
     ///
     /// @throws Exception
     /// @return array
@@ -953,7 +957,7 @@ open class Account: Service {
     }
 
     ///
-    /// Create Phone Verification (confirmation)
+    /// Create phone verification (confirmation)
     ///
     /// Use this endpoint to complete the user phone verification process. Use the
     /// **userId** and **secret** that were sent to your user's phone number to

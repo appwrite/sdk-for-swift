@@ -13,10 +13,10 @@ public class Bucket {
     /// Bucket update date in ISO 8601 format.
     public let updatedAt: String
 
-    /// Bucket permissions. [Learn more about permissions](/docs/permissions).
+    /// Bucket permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
     public let permissions: [Any]
 
-    /// Whether file-level security is enabled. [Learn more about permissions](/docs/permissions).
+    /// Whether file-level security is enabled. [Learn more about permissions](https://appwrite.io/docs/permissions).
     public let fileSecurity: Bool
 
     /// Bucket name.
