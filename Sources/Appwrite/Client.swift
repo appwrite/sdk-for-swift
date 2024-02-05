@@ -6,8 +6,6 @@ import Foundation
 import AsyncHTTPClient
 @_exported import AppwriteModels
 
-typealias CookieListener = (_ existing: [String], _ new: [String]) -> Void
-
 let DASHDASH = "--"
 let CRLF = "\r\n"
 
@@ -17,8 +15,6 @@ open class Client {
     public static var chunkSize = 5 * 1024 * 1024 // 5MB
 
     open var endPoint = "https://HOSTNAME/v1"
-
-    open var endPointRealtime: String? = nil
 
     open var headers: [String: String] = [
         "content-type": "application/json",
@@ -35,8 +31,6 @@ open class Client {
 
     internal var http: HTTPClient
 
-    internal static var cookieListener: CookieListener? = nil
-
     private static let boundaryChars = "abcdefghijklmnopqrstuvwxyz1234567890"
 
     private static let boundary = randomBoundary()
@@ -49,7 +43,6 @@ open class Client {
         http = Client.createHTTP()
         addUserAgentHeader()
         addOriginHeader()
-        NotificationHandler.shared.client = self
     }
 
     private static func createHTTP(
@@ -222,38 +215,6 @@ open class Client {
     open func setEndpoint(_ endPoint: String) -> Client {
         self.endPoint = endPoint
 
-        if (self.endPointRealtime == nil && endPoint.starts(with: "http")) {
-            self.endPointRealtime = endPoint
-                .replacingOccurrences(of: "http://", with: "ws://")
-                .replacingOccurrences(of: "https://", with: "wss://")
-        }
-
-        return self
-    }
-
-    ///
-    /// Set realtime endpoint.
-    ///
-    /// @param String endPoint
-    ///
-    /// @return Client
-    ///
-    open func setEndpointRealtime(_ endPoint: String) -> Client {
-        self.endPointRealtime = endPoint
-
-        return self
-    }
-
-    ///
-    /// Set push provider ID.
-    ///
-    /// @param String endpoint
-    ///
-    /// @return this
-    ///
-    open func setPushProviderId(_ providerId: String) -> Client {
-        NotificationHandler.shared.providerId = providerId
-
         return self
     }
 
@@ -378,15 +339,6 @@ open class Client {
 
         switch response.status.code {
         case 0..<400:
-            if response.headers["Set-Cookie"].count > 0 {
-                let domain = URL(string: request.url)!.host!
-                let existing = UserDefaults.standard.stringArray(forKey: domain)
-                let new = response.headers["Set-Cookie"]
-
-                Client.cookieListener?(existing ?? [], new)
-
-                UserDefaults.standard.set(new, forKey: domain)
-            }
             switch T.self {
             case is Bool.Type:
                 return true as! T
