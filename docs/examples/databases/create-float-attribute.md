@@ -11,6 +11,6 @@ let attributeFloat = try await databases.createFloatAttribute(
     databaseId: "[DATABASE_ID]",
     collectionId: "[COLLECTION_ID]",
     key: "",
-    required: xfalse
+    required: `false`
 )
 

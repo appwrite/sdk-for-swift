@@ -2,6 +2,7 @@ import AsyncHTTPClient
 import Foundation
 import NIO
 import JSONCodable
+import AppwriteEnums
 import AppwriteModels
 
 /// The Functions Service allows you view, create and manage your Cloud Functions.
@@ -56,7 +57,7 @@ open class Functions: Service {
     ///
     /// @param String functionId
     /// @param String name
-    /// @param String runtime
+    /// @param AppwriteEnums.Runtime runtime
     /// @param [String] execute
     /// @param [String] events
     /// @param String schedule
@@ -80,7 +81,7 @@ open class Functions: Service {
     open func create(
         functionId: String,
         name: String,
-        runtime: String,
+        runtime: AppwriteEnums.Runtime,
         execute: [String]? = nil,
         events: [String]? = nil,
         schedule: String? = nil,
@@ -213,7 +214,7 @@ open class Functions: Service {
     ///
     /// @param String functionId
     /// @param String name
-    /// @param String runtime
+    /// @param AppwriteEnums.Runtime runtime
     /// @param [String] execute
     /// @param [String] events
     /// @param String schedule
@@ -233,7 +234,7 @@ open class Functions: Service {
     open func update(
         functionId: String,
         name: String,
-        runtime: String? = nil,
+        runtime: AppwriteEnums.Runtime? = nil,
         execute: [String]? = nil,
         events: [String]? = nil,
         schedule: String? = nil,
@@ -641,7 +642,7 @@ open class Functions: Service {
     /// @param String body
     /// @param Bool async
     /// @param String path
-    /// @param String method
+    /// @param AppwriteEnums.ExecutionMethod method
     /// @param Any headers
     /// @throws Exception
     /// @return array
@@ -651,7 +652,7 @@ open class Functions: Service {
         body: String? = nil,
         async: Bool? = nil,
         path: String? = nil,
-        method: String? = nil,
+        method: AppwriteEnums.ExecutionMethod? = nil,
         headers: Any? = nil
     ) async throws -> AppwriteModels.Execution {
         let apiPath: String = "/functions/{functionId}/executions"

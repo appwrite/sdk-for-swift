@@ -17,7 +17,7 @@ public class AttributeRelationship {
     public let error: String
 
     /// Is attribute required?
-    public let xrequired: Bool
+    public let `required`: Bool
 
     /// Is attribute an array?
     public let array: Bool??
@@ -46,7 +46,7 @@ public class AttributeRelationship {
         type: String,
         status: String,
         error: String,
-        xrequired: Bool,
+        `required`: Bool,
         array: Bool??,
         relatedCollection: String,
         relationType: String,
@@ -59,7 +59,7 @@ public class AttributeRelationship {
         self.type = type
         self.status = status
         self.error = error
-        self.xrequired = xrequired
+        self.`required` = `required`
         self.array = array
         self.relatedCollection = relatedCollection
         self.relationType = relationType
@@ -75,7 +75,7 @@ public class AttributeRelationship {
             "type": type as Any,
             "status": status as Any,
             "error": error as Any,
-            "xrequired": xrequired as Any,
+            "`required`": `required` as Any,
             "array": array as Any,
             "relatedCollection": relatedCollection as Any,
             "relationType": relationType as Any,
@@ -92,7 +92,7 @@ public class AttributeRelationship {
             type: map["type"] as! String,
             status: map["status"] as! String,
             error: map["error"] as! String,
-            xrequired: map["required"] as! Bool,
+            `required`: map["required"] as! Bool,
             array: map["array"] as? Bool?,
             relatedCollection: map["relatedCollection"] as! String,
             relationType: map["relationType"] as! String,

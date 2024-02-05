@@ -11,6 +11,6 @@ let attributeEmail = try await databases.createEmailAttribute(
     databaseId: "[DATABASE_ID]",
     collectionId: "[COLLECTION_ID]",
     key: "",
-    required: xfalse
+    required: `false`
 )
 
