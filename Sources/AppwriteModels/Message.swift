@@ -43,9 +43,6 @@ public class Message {
     /// Status of delivery.
     public let status: String
 
-    /// Message description.
-    public let description: String??
-
 
     init(
         id: String,
@@ -60,8 +57,7 @@ public class Message {
         deliveryErrors: [Any]??,
         deliveredTotal: Int,
         data: Any,
-        status: String,
-        description: String??
+        status: String
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -76,7 +72,6 @@ public class Message {
         self.deliveredTotal = deliveredTotal
         self.data = data
         self.status = status
-        self.description = description
     }
 
     public func toMap() -> [String: Any] {
@@ -93,8 +88,7 @@ public class Message {
             "deliveryErrors": deliveryErrors as Any,
             "deliveredTotal": deliveredTotal as Any,
             "data": data as Any,
-            "status": status as Any,
-            "description": description as Any
+            "status": status as Any
         ]
     }
 
@@ -112,8 +106,7 @@ public class Message {
             deliveryErrors: map["deliveryErrors"] as? [Any]?,
             deliveredTotal: map["deliveredTotal"] as! Int,
             data: map["data"] as! Any,
-            status: map["status"] as! String,
-            description: map["description"] as? String?
+            status: map["status"] as! String
         )
     }
 }

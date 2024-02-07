@@ -19,24 +19,19 @@ public class Topic {
     /// Total count of subscribers subscribed to topic.
     public let total: Int
 
-    /// Description of the topic.
-    public let description: String??
-
 
     init(
         id: String,
         createdAt: String,
         updatedAt: String,
         name: String,
-        total: Int,
-        description: String??
+        total: Int
     ) {
         self.id = id
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.name = name
         self.total = total
-        self.description = description
     }
 
     public func toMap() -> [String: Any] {
@@ -45,8 +40,7 @@ public class Topic {
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
             "name": name as Any,
-            "total": total as Any,
-            "description": description as Any
+            "total": total as Any
         ]
     }
 
@@ -56,8 +50,7 @@ public class Topic {
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
             name: map["name"] as! String,
-            total: map["total"] as! Int,
-            description: map["description"] as? String?
+            total: map["total"] as! Int
         )
     }
 }
