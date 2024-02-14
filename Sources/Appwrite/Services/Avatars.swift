@@ -2,7 +2,6 @@ import AsyncHTTPClient
 import Foundation
 import NIO
 import JSONCodable
-import AppwriteEnums
 import AppwriteModels
 
 /// The Avatars service aims to help you complete everyday tasks related to your app image, icons, and avatars.
@@ -22,7 +21,7 @@ open class Avatars: Service {
     /// image at source quality. If dimensions are not specified, the default size
     /// of image returned is 100x100px.
     ///
-    /// @param AppwriteEnums.Browser code
+    /// @param String code
     /// @param Int width
     /// @param Int height
     /// @param Int quality
@@ -30,20 +29,20 @@ open class Avatars: Service {
     /// @return array
     ///
     open func getBrowser(
-        code: AppwriteEnums.Browser,
+        code: String,
         width: Int? = nil,
         height: Int? = nil,
         quality: Int? = nil
     ) async throws -> ByteBuffer {
         let apiPath: String = "/avatars/browsers/{code}"
-            .replacingOccurrences(of: "{code}", with: code.rawValue)
+            .replacingOccurrences(of: "{code}", with: code)
 
         let apiParams: [String: Any?] = [
             "width": width,
             "height": height,
             "quality": quality,
             "project": client.config["project"],
-            "session": client.config["session"]
+            "key": client.config["key"]
         ]
 
         return try await client.call(
@@ -66,7 +65,7 @@ open class Avatars: Service {
     /// of image returned is 100x100px.
     /// 
     ///
-    /// @param AppwriteEnums.CreditCard code
+    /// @param String code
     /// @param Int width
     /// @param Int height
     /// @param Int quality
@@ -74,20 +73,20 @@ open class Avatars: Service {
     /// @return array
     ///
     open func getCreditCard(
-        code: AppwriteEnums.CreditCard,
+        code: String,
         width: Int? = nil,
         height: Int? = nil,
         quality: Int? = nil
     ) async throws -> ByteBuffer {
         let apiPath: String = "/avatars/credit-cards/{code}"
-            .replacingOccurrences(of: "{code}", with: code.rawValue)
+            .replacingOccurrences(of: "{code}", with: code)
 
         let apiParams: [String: Any?] = [
             "width": width,
             "height": height,
             "quality": quality,
             "project": client.config["project"],
-            "session": client.config["session"]
+            "key": client.config["key"]
         ]
 
         return try await client.call(
@@ -116,7 +115,7 @@ open class Avatars: Service {
         let apiParams: [String: Any?] = [
             "url": url,
             "project": client.config["project"],
-            "session": client.config["session"]
+            "key": client.config["key"]
         ]
 
         return try await client.call(
@@ -140,7 +139,7 @@ open class Avatars: Service {
     /// of image returned is 100x100px.
     /// 
     ///
-    /// @param AppwriteEnums.Flag code
+    /// @param String code
     /// @param Int width
     /// @param Int height
     /// @param Int quality
@@ -148,20 +147,20 @@ open class Avatars: Service {
     /// @return array
     ///
     open func getFlag(
-        code: AppwriteEnums.Flag,
+        code: String,
         width: Int? = nil,
         height: Int? = nil,
         quality: Int? = nil
     ) async throws -> ByteBuffer {
         let apiPath: String = "/avatars/flags/{code}"
-            .replacingOccurrences(of: "{code}", with: code.rawValue)
+            .replacingOccurrences(of: "{code}", with: code)
 
         let apiParams: [String: Any?] = [
             "width": width,
             "height": height,
             "quality": quality,
             "project": client.config["project"],
-            "session": client.config["session"]
+            "key": client.config["key"]
         ]
 
         return try await client.call(
@@ -203,7 +202,7 @@ open class Avatars: Service {
             "width": width,
             "height": height,
             "project": client.config["project"],
-            "session": client.config["session"]
+            "key": client.config["key"]
         ]
 
         return try await client.call(
@@ -254,7 +253,7 @@ open class Avatars: Service {
             "height": height,
             "background": background,
             "project": client.config["project"],
-            "session": client.config["session"]
+            "key": client.config["key"]
         ]
 
         return try await client.call(
@@ -292,7 +291,7 @@ open class Avatars: Service {
             "margin": margin,
             "download": download,
             "project": client.config["project"],
-            "session": client.config["session"]
+            "key": client.config["key"]
         ]
 
         return try await client.call(

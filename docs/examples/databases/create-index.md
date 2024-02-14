@@ -1,5 +1,4 @@
 import Appwrite
-import AppwriteEnums
 
 let client = Client()
     .setEndpoint("https://cloud.appwrite.io/v1") // Your API Endpoint
@@ -12,7 +11,7 @@ let index = try await databases.createIndex(
     databaseId: "[DATABASE_ID]",
     collectionId: "[COLLECTION_ID]",
     key: "",
-    type: .key,
+    type: "key",
     attributes: []
 )
 

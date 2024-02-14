@@ -11,6 +11,6 @@ let attributeUrl = try await databases.createUrlAttribute(
     databaseId: "[DATABASE_ID]",
     collectionId: "[COLLECTION_ID]",
     key: "",
-    required: `false`
+    required: xfalse
 )
 

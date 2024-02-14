@@ -17,7 +17,7 @@ public class AttributeInteger {
     public let error: String
 
     /// Is attribute required?
-    public let `required`: Bool
+    public let xrequired: Bool
 
     /// Is attribute an array?
     public let array: Bool??
@@ -29,7 +29,7 @@ public class AttributeInteger {
     public let max: Int??
 
     /// Default value for attribute when not provided. Cannot be set when attribute is required.
-    public let `default`: Int??
+    public let xdefault: Int??
 
 
     init(
@@ -37,21 +37,21 @@ public class AttributeInteger {
         type: String,
         status: String,
         error: String,
-        `required`: Bool,
+        xrequired: Bool,
         array: Bool??,
         min: Int??,
         max: Int??,
-        `default`: Int??
+        xdefault: Int??
     ) {
         self.key = key
         self.type = type
         self.status = status
         self.error = error
-        self.`required` = `required`
+        self.xrequired = xrequired
         self.array = array
         self.min = min
         self.max = max
-        self.`default` = `default`
+        self.xdefault = xdefault
     }
 
     public func toMap() -> [String: Any] {
@@ -60,11 +60,11 @@ public class AttributeInteger {
             "type": type as Any,
             "status": status as Any,
             "error": error as Any,
-            "`required`": `required` as Any,
+            "xrequired": xrequired as Any,
             "array": array as Any,
             "min": min as Any,
             "max": max as Any,
-            "`default`": `default` as Any
+            "xdefault": xdefault as Any
         ]
     }
 
@@ -74,11 +74,11 @@ public class AttributeInteger {
             type: map["type"] as! String,
             status: map["status"] as! String,
             error: map["error"] as! String,
-            `required`: map["required"] as! Bool,
+            xrequired: map["required"] as! Bool,
             array: map["array"] as? Bool?,
             min: map["min"] as? Int?,
             max: map["max"] as? Int?,
-            `default`: map["default"] as? Int?
+            xdefault: map["default"] as? Int?
         )
     }
 }

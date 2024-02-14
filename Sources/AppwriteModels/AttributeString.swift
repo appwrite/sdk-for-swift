@@ -17,7 +17,7 @@ public class AttributeString {
     public let error: String
 
     /// Is attribute required?
-    public let `required`: Bool
+    public let xrequired: Bool
 
     /// Is attribute an array?
     public let array: Bool??
@@ -26,7 +26,7 @@ public class AttributeString {
     public let size: Int
 
     /// Default value for attribute when not provided. Cannot be set when attribute is required.
-    public let `default`: String??
+    public let xdefault: String??
 
 
     init(
@@ -34,19 +34,19 @@ public class AttributeString {
         type: String,
         status: String,
         error: String,
-        `required`: Bool,
+        xrequired: Bool,
         array: Bool??,
         size: Int,
-        `default`: String??
+        xdefault: String??
     ) {
         self.key = key
         self.type = type
         self.status = status
         self.error = error
-        self.`required` = `required`
+        self.xrequired = xrequired
         self.array = array
         self.size = size
-        self.`default` = `default`
+        self.xdefault = xdefault
     }
 
     public func toMap() -> [String: Any] {
@@ -55,10 +55,10 @@ public class AttributeString {
             "type": type as Any,
             "status": status as Any,
             "error": error as Any,
-            "`required`": `required` as Any,
+            "xrequired": xrequired as Any,
             "array": array as Any,
             "size": size as Any,
-            "`default`": `default` as Any
+            "xdefault": xdefault as Any
         ]
     }
 
@@ -68,10 +68,10 @@ public class AttributeString {
             type: map["type"] as! String,
             status: map["status"] as! String,
             error: map["error"] as! String,
-            `required`: map["required"] as! Bool,
+            xrequired: map["required"] as! Bool,
             array: map["array"] as? Bool?,
             size: map["size"] as! Int,
-            `default`: map["default"] as? String?
+            xdefault: map["default"] as? String?
         )
     }
 }

@@ -2,7 +2,6 @@ import AsyncHTTPClient
 import Foundation
 import NIO
 import JSONCodable
-import AppwriteEnums
 import AppwriteModels
 
 /// The Storage service allows you to manage your project files.
@@ -59,7 +58,7 @@ open class Storage: Service {
     /// @param Bool enabled
     /// @param Int maximumFileSize
     /// @param [String] allowedFileExtensions
-    /// @param AppwriteEnums.Compression compression
+    /// @param String compression
     /// @param Bool encryption
     /// @param Bool antivirus
     /// @throws Exception
@@ -73,7 +72,7 @@ open class Storage: Service {
         enabled: Bool? = nil,
         maximumFileSize: Int? = nil,
         allowedFileExtensions: [String]? = nil,
-        compression: AppwriteEnums.Compression? = nil,
+        compression: String? = nil,
         encryption: Bool? = nil,
         antivirus: Bool? = nil
     ) async throws -> AppwriteModels.Bucket {
@@ -156,7 +155,7 @@ open class Storage: Service {
     /// @param Bool enabled
     /// @param Int maximumFileSize
     /// @param [String] allowedFileExtensions
-    /// @param AppwriteEnums.Compression compression
+    /// @param String compression
     /// @param Bool encryption
     /// @param Bool antivirus
     /// @throws Exception
@@ -170,7 +169,7 @@ open class Storage: Service {
         enabled: Bool? = nil,
         maximumFileSize: Int? = nil,
         allowedFileExtensions: [String]? = nil,
-        compression: AppwriteEnums.Compression? = nil,
+        compression: String? = nil,
         encryption: Bool? = nil,
         antivirus: Bool? = nil
     ) async throws -> AppwriteModels.Bucket {
@@ -499,7 +498,7 @@ open class Storage: Service {
     /// @param String fileId
     /// @param Int width
     /// @param Int height
-    /// @param AppwriteEnums.ImageGravity gravity
+    /// @param String gravity
     /// @param Int quality
     /// @param Int borderWidth
     /// @param String borderColor
@@ -507,7 +506,7 @@ open class Storage: Service {
     /// @param Double opacity
     /// @param Int rotation
     /// @param String background
-    /// @param AppwriteEnums.ImageFormat output
+    /// @param String output
     /// @throws Exception
     /// @return array
     ///
@@ -516,7 +515,7 @@ open class Storage: Service {
         fileId: String,
         width: Int? = nil,
         height: Int? = nil,
-        gravity: AppwriteEnums.ImageGravity? = nil,
+        gravity: String? = nil,
         quality: Int? = nil,
         borderWidth: Int? = nil,
         borderColor: String? = nil,
@@ -524,7 +523,7 @@ open class Storage: Service {
         opacity: Double? = nil,
         rotation: Int? = nil,
         background: String? = nil,
-        output: AppwriteEnums.ImageFormat? = nil
+        output: String? = nil
     ) async throws -> ByteBuffer {
         let apiPath: String = "/storage/buckets/{bucketId}/files/{fileId}/preview"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
@@ -543,7 +542,7 @@ open class Storage: Service {
             "background": background,
             "output": output,
             "project": client.config["project"],
-            "session": client.config["session"]
+            "key": client.config["key"]
         ]
 
         return try await client.call(

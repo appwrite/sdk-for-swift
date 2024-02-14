@@ -11,6 +11,6 @@ let attributeBoolean = try await databases.createBooleanAttribute(
     databaseId: "[DATABASE_ID]",
     collectionId: "[COLLECTION_ID]",
     key: "",
-    required: `false`
+    required: xfalse
 )
 

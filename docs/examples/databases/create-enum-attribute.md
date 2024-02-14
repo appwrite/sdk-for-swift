@@ -12,6 +12,6 @@ let attributeEnum = try await databases.createEnumAttribute(
     collectionId: "[COLLECTION_ID]",
     key: "",
     elements: [],
-    required: `false`
+    required: xfalse
 )
 

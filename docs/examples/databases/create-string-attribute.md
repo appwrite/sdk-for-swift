@@ -12,6 +12,6 @@ let attributeString = try await databases.createStringAttribute(
     collectionId: "[COLLECTION_ID]",
     key: "",
     size: 1,
-    required: `false`
+    required: xfalse
 )
 

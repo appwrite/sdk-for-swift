@@ -1,5 +1,4 @@
 import Appwrite
-import AppwriteEnums
 
 let client = Client()
     .setEndpoint("https://cloud.appwrite.io/v1") // Your API Endpoint
@@ -11,6 +10,6 @@ let functions = Functions(client)
 let function = try await functions.create(
     functionId: "[FUNCTION_ID]",
     name: "[NAME]",
-    runtime: .node180
+    runtime: "node-18.0"
 )
 
