@@ -7,7 +7,7 @@ let client = Client()
 
 let functions = Functions(client)
 
-let byteBuffer = try await functions.downloadDeployment(
+let bytes = try await functions.downloadDeployment(
     functionId: "[FUNCTION_ID]",
     deploymentId: "[DEPLOYMENT_ID]"
 )

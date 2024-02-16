@@ -11,6 +11,6 @@ let attributeInteger = try await databases.createIntegerAttribute(
     databaseId: "[DATABASE_ID]",
     collectionId: "[COLLECTION_ID]",
     key: "",
-    required: xfalse
+    required: `false`
 )
 

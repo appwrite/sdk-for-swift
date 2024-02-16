@@ -17,7 +17,7 @@ public class AttributeFloat {
     public let error: String
 
     /// Is attribute required?
-    public let xrequired: Bool
+    public let `required`: Bool
 
     /// Is attribute an array?
     public let array: Bool??
@@ -29,7 +29,7 @@ public class AttributeFloat {
     public let max: Double??
 
     /// Default value for attribute when not provided. Cannot be set when attribute is required.
-    public let xdefault: Double??
+    public let `default`: Double??
 
 
     init(
@@ -37,21 +37,21 @@ public class AttributeFloat {
         type: String,
         status: String,
         error: String,
-        xrequired: Bool,
+        `required`: Bool,
         array: Bool??,
         min: Double??,
         max: Double??,
-        xdefault: Double??
+        `default`: Double??
     ) {
         self.key = key
         self.type = type
         self.status = status
         self.error = error
-        self.xrequired = xrequired
+        self.`required` = `required`
         self.array = array
         self.min = min
         self.max = max
-        self.xdefault = xdefault
+        self.`default` = `default`
     }
 
     public func toMap() -> [String: Any] {
@@ -60,11 +60,11 @@ public class AttributeFloat {
             "type": type as Any,
             "status": status as Any,
             "error": error as Any,
-            "xrequired": xrequired as Any,
+            "`required`": `required` as Any,
             "array": array as Any,
             "min": min as Any,
             "max": max as Any,
-            "xdefault": xdefault as Any
+            "`default`": `default` as Any
         ]
     }
 
@@ -74,11 +74,11 @@ public class AttributeFloat {
             type: map["type"] as! String,
             status: map["status"] as! String,
             error: map["error"] as! String,
-            xrequired: map["required"] as! Bool,
+            `required`: map["required"] as! Bool,
             array: map["array"] as? Bool?,
             min: map["min"] as? Double?,
             max: map["max"] as? Double?,
-            xdefault: map["default"] as? Double?
+            `default`: map["default"] as? Double?
         )
     }
 }

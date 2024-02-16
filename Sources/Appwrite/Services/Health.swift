@@ -2,6 +2,7 @@ import AsyncHTTPClient
 import Foundation
 import NIO
 import JSONCodable
+import AppwriteEnums
 import AppwriteModels
 
 /// The Health service allows you to both validate and monitor your Appwrite server&#039;s health.
@@ -90,6 +91,41 @@ open class Health: Service {
 
         let converter: (Any) -> AppwriteModels.HealthStatus = { response in
             return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get the SSL certificate for a domain
+    ///
+    /// Get the SSL certificate for a domain
+    ///
+    /// @param String domain
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getCertificate(
+        domain: String? = nil
+    ) async throws -> AppwriteModels.HealthCertificate {
+        let apiPath: String = "/health/certificate"
+
+        let apiParams: [String: Any?] = [
+            "domain": domain
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.HealthCertificate = { response in
+            return AppwriteModels.HealthCertificate.from(map: response as! [String: Any])
         }
 
         return try await client.call(
@@ -321,6 +357,45 @@ open class Health: Service {
         threshold: Int? = nil
     ) async throws -> AppwriteModels.HealthQueue {
         let apiPath: String = "/health/queue/deletes"
+
+        let apiParams: [String: Any?] = [
+            "threshold": threshold
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+            return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get number of failed queue jobs
+    ///
+    /// Returns the amount of failed jobs in a given queue.
+    /// 
+    ///
+    /// @param AppwriteEnums.Name name
+    /// @param Int threshold
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getFailedJobs(
+        name: AppwriteEnums.Name,
+        threshold: Int? = nil
+    ) async throws -> AppwriteModels.HealthQueue {
+        let apiPath: String = "/health/queue/failed/{name}"
+            .replacingOccurrences(of: "{name}", with: name.rawValue)
 
         let apiParams: [String: Any?] = [
             "threshold": threshold

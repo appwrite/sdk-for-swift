@@ -2,6 +2,7 @@ import AsyncHTTPClient
 import Foundation
 import NIO
 import JSONCodable
+import AppwriteEnums
 import AppwriteModels
 
 /// The Databases service allows you to create structured collections of documents, query and filter lists of documents
@@ -466,8 +467,8 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         key: String,
-        xrequired: Bool,
-        xdefault: Bool? = nil,
+        `required`: Bool,
+        `default`: Bool? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeBoolean {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/boolean"
@@ -476,8 +477,8 @@ open class Databases: Service {
 
         let apiParams: [String: Any?] = [
             "key": key,
-            "required": xrequired,
-            "default": xdefault,
+            "required": `required`,
+            "default": `default`,
             "array": array
         ]
 
@@ -513,8 +514,8 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         key: String,
-        xrequired: Bool,
-        xdefault: Bool? = nil
+        `required`: Bool,
+        `default`: Bool? = nil
     ) async throws -> AppwriteModels.AttributeBoolean {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/boolean/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -522,8 +523,8 @@ open class Databases: Service {
             .replacingOccurrences(of: "{key}", with: key)
 
         let apiParams: [String: Any?] = [
-            "required": xrequired,
-            "default": xdefault
+            "required": `required`,
+            "default": `default`
         ]
 
         let apiHeaders: [String: String] = [
@@ -559,8 +560,8 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         key: String,
-        xrequired: Bool,
-        xdefault: String? = nil,
+        `required`: Bool,
+        `default`: String? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeDatetime {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/datetime"
@@ -569,8 +570,8 @@ open class Databases: Service {
 
         let apiParams: [String: Any?] = [
             "key": key,
-            "required": xrequired,
-            "default": xdefault,
+            "required": `required`,
+            "default": `default`,
             "array": array
         ]
 
@@ -606,8 +607,8 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         key: String,
-        xrequired: Bool,
-        xdefault: String? = nil
+        `required`: Bool,
+        `default`: String? = nil
     ) async throws -> AppwriteModels.AttributeDatetime {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/datetime/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -615,8 +616,8 @@ open class Databases: Service {
             .replacingOccurrences(of: "{key}", with: key)
 
         let apiParams: [String: Any?] = [
-            "required": xrequired,
-            "default": xdefault
+            "required": `required`,
+            "default": `default`
         ]
 
         let apiHeaders: [String: String] = [
@@ -655,8 +656,8 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         key: String,
-        xrequired: Bool,
-        xdefault: String? = nil,
+        `required`: Bool,
+        `default`: String? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeEmail {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/email"
@@ -665,8 +666,8 @@ open class Databases: Service {
 
         let apiParams: [String: Any?] = [
             "key": key,
-            "required": xrequired,
-            "default": xdefault,
+            "required": `required`,
+            "default": `default`,
             "array": array
         ]
 
@@ -706,8 +707,8 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         key: String,
-        xrequired: Bool,
-        xdefault: String? = nil
+        `required`: Bool,
+        `default`: String? = nil
     ) async throws -> AppwriteModels.AttributeEmail {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/email/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -715,8 +716,8 @@ open class Databases: Service {
             .replacingOccurrences(of: "{key}", with: key)
 
         let apiParams: [String: Any?] = [
-            "required": xrequired,
-            "default": xdefault
+            "required": `required`,
+            "default": `default`
         ]
 
         let apiHeaders: [String: String] = [
@@ -754,8 +755,8 @@ open class Databases: Service {
         collectionId: String,
         key: String,
         elements: [String],
-        xrequired: Bool,
-        xdefault: String? = nil,
+        `required`: Bool,
+        `default`: String? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeEnum {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/enum"
@@ -765,8 +766,8 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "key": key,
             "elements": elements,
-            "required": xrequired,
-            "default": xdefault,
+            "required": `required`,
+            "default": `default`,
             "array": array
         ]
 
@@ -808,8 +809,8 @@ open class Databases: Service {
         collectionId: String,
         key: String,
         elements: [String],
-        xrequired: Bool,
-        xdefault: String? = nil
+        `required`: Bool,
+        `default`: String? = nil
     ) async throws -> AppwriteModels.AttributeEnum {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/enum/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -818,8 +819,8 @@ open class Databases: Service {
 
         let apiParams: [String: Any?] = [
             "elements": elements,
-            "required": xrequired,
-            "default": xdefault
+            "required": `required`,
+            "default": `default`
         ]
 
         let apiHeaders: [String: String] = [
@@ -861,10 +862,10 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         key: String,
-        xrequired: Bool,
+        `required`: Bool,
         min: Double? = nil,
         max: Double? = nil,
-        xdefault: Double? = nil,
+        `default`: Double? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeFloat {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/float"
@@ -873,10 +874,10 @@ open class Databases: Service {
 
         let apiParams: [String: Any?] = [
             "key": key,
-            "required": xrequired,
+            "required": `required`,
             "min": min,
             "max": max,
-            "default": xdefault,
+            "default": `default`,
             "array": array
         ]
 
@@ -918,10 +919,10 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         key: String,
-        xrequired: Bool,
+        `required`: Bool,
         min: Double,
         max: Double,
-        xdefault: Double? = nil
+        `default`: Double? = nil
     ) async throws -> AppwriteModels.AttributeFloat {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/float/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -929,10 +930,10 @@ open class Databases: Service {
             .replacingOccurrences(of: "{key}", with: key)
 
         let apiParams: [String: Any?] = [
-            "required": xrequired,
+            "required": `required`,
             "min": min,
             "max": max,
-            "default": xdefault
+            "default": `default`
         ]
 
         let apiHeaders: [String: String] = [
@@ -974,10 +975,10 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         key: String,
-        xrequired: Bool,
+        `required`: Bool,
         min: Int? = nil,
         max: Int? = nil,
-        xdefault: Int? = nil,
+        `default`: Int? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeInteger {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/integer"
@@ -986,10 +987,10 @@ open class Databases: Service {
 
         let apiParams: [String: Any?] = [
             "key": key,
-            "required": xrequired,
+            "required": `required`,
             "min": min,
             "max": max,
-            "default": xdefault,
+            "default": `default`,
             "array": array
         ]
 
@@ -1031,10 +1032,10 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         key: String,
-        xrequired: Bool,
+        `required`: Bool,
         min: Int,
         max: Int,
-        xdefault: Int? = nil
+        `default`: Int? = nil
     ) async throws -> AppwriteModels.AttributeInteger {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/integer/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -1042,10 +1043,10 @@ open class Databases: Service {
             .replacingOccurrences(of: "{key}", with: key)
 
         let apiParams: [String: Any?] = [
-            "required": xrequired,
+            "required": `required`,
             "min": min,
             "max": max,
-            "default": xdefault
+            "default": `default`
         ]
 
         let apiHeaders: [String: String] = [
@@ -1084,8 +1085,8 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         key: String,
-        xrequired: Bool,
-        xdefault: String? = nil,
+        `required`: Bool,
+        `default`: String? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeIp {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/ip"
@@ -1094,8 +1095,8 @@ open class Databases: Service {
 
         let apiParams: [String: Any?] = [
             "key": key,
-            "required": xrequired,
-            "default": xdefault,
+            "required": `required`,
+            "default": `default`,
             "array": array
         ]
 
@@ -1135,8 +1136,8 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         key: String,
-        xrequired: Bool,
-        xdefault: String? = nil
+        `required`: Bool,
+        `default`: String? = nil
     ) async throws -> AppwriteModels.AttributeIp {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/ip/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -1144,8 +1145,8 @@ open class Databases: Service {
             .replacingOccurrences(of: "{key}", with: key)
 
         let apiParams: [String: Any?] = [
-            "required": xrequired,
-            "default": xdefault
+            "required": `required`,
+            "default": `default`
         ]
 
         let apiHeaders: [String: String] = [
@@ -1175,11 +1176,11 @@ open class Databases: Service {
     /// @param String databaseId
     /// @param String collectionId
     /// @param String relatedCollectionId
-    /// @param String type
+    /// @param AppwriteEnums.RelationshipType type
     /// @param Bool twoWay
     /// @param String key
     /// @param String twoWayKey
-    /// @param String onDelete
+    /// @param AppwriteEnums.RelationMutate onDelete
     /// @throws Exception
     /// @return array
     ///
@@ -1187,11 +1188,11 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         relatedCollectionId: String,
-        type: String,
+        type: AppwriteEnums.RelationshipType,
         twoWay: Bool? = nil,
         key: String? = nil,
         twoWayKey: String? = nil,
-        onDelete: String? = nil
+        onDelete: AppwriteEnums.RelationMutate? = nil
     ) async throws -> AppwriteModels.AttributeRelationship {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/relationship"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -1245,8 +1246,8 @@ open class Databases: Service {
         collectionId: String,
         key: String,
         size: Int,
-        xrequired: Bool,
-        xdefault: String? = nil,
+        `required`: Bool,
+        `default`: String? = nil,
         array: Bool? = nil,
         encrypt: Bool? = nil
     ) async throws -> AppwriteModels.AttributeString {
@@ -1257,8 +1258,8 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "key": key,
             "size": size,
-            "required": xrequired,
-            "default": xdefault,
+            "required": `required`,
+            "default": `default`,
             "array": array,
             "encrypt": encrypt
         ]
@@ -1299,8 +1300,8 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         key: String,
-        xrequired: Bool,
-        xdefault: String? = nil
+        `required`: Bool,
+        `default`: String? = nil
     ) async throws -> AppwriteModels.AttributeString {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/string/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -1308,8 +1309,8 @@ open class Databases: Service {
             .replacingOccurrences(of: "{key}", with: key)
 
         let apiParams: [String: Any?] = [
-            "required": xrequired,
-            "default": xdefault
+            "required": `required`,
+            "default": `default`
         ]
 
         let apiHeaders: [String: String] = [
@@ -1348,8 +1349,8 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         key: String,
-        xrequired: Bool,
-        xdefault: String? = nil,
+        `required`: Bool,
+        `default`: String? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeUrl {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/url"
@@ -1358,8 +1359,8 @@ open class Databases: Service {
 
         let apiParams: [String: Any?] = [
             "key": key,
-            "required": xrequired,
-            "default": xdefault,
+            "required": `required`,
+            "default": `default`,
             "array": array
         ]
 
@@ -1399,8 +1400,8 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         key: String,
-        xrequired: Bool,
-        xdefault: String? = nil
+        `required`: Bool,
+        `default`: String? = nil
     ) async throws -> AppwriteModels.AttributeUrl {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/url/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -1408,8 +1409,8 @@ open class Databases: Service {
             .replacingOccurrences(of: "{key}", with: key)
 
         let apiParams: [String: Any?] = [
-            "required": xrequired,
-            "default": xdefault
+            "required": `required`,
+            "default": `default`
         ]
 
         let apiHeaders: [String: String] = [
@@ -1503,7 +1504,7 @@ open class Databases: Service {
     /// @param String databaseId
     /// @param String collectionId
     /// @param String key
-    /// @param String onDelete
+    /// @param AppwriteEnums.RelationMutate onDelete
     /// @throws Exception
     /// @return array
     ///
@@ -1511,7 +1512,7 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         key: String,
-        onDelete: String? = nil
+        onDelete: AppwriteEnums.RelationMutate? = nil
     ) async throws -> AppwriteModels.AttributeRelationship {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/{key}/relationship"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -1924,7 +1925,7 @@ open class Databases: Service {
     /// @param String databaseId
     /// @param String collectionId
     /// @param String key
-    /// @param String type
+    /// @param AppwriteEnums.IndexType type
     /// @param [String] attributes
     /// @param [String] orders
     /// @throws Exception
@@ -1934,7 +1935,7 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         key: String,
-        type: String,
+        type: AppwriteEnums.IndexType,
         attributes: [String],
         orders: [String]? = nil
     ) async throws -> AppwriteModels.Index {
