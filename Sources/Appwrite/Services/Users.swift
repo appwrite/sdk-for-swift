@@ -1196,14 +1196,14 @@ open class Users: Service {
     /// Delete Authenticator
     ///
     /// @param String userId
-    /// @param AppwriteEnums.Type type
+    /// @param AppwriteEnums.AuthenticatorType type
     /// @param String otp
     /// @throws Exception
     /// @return array
     ///
     open func deleteAuthenticator<T>(
         userId: String,
-        type: AppwriteEnums.Type,
+        type: AppwriteEnums.AuthenticatorType,
         otp: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
@@ -1236,14 +1236,14 @@ open class Users: Service {
     /// Delete Authenticator
     ///
     /// @param String userId
-    /// @param AppwriteEnums.Type type
+    /// @param AppwriteEnums.AuthenticatorType type
     /// @param String otp
     /// @throws Exception
     /// @return array
     ///
     open func deleteAuthenticator(
         userId: String,
-        type: AppwriteEnums.Type,
+        type: AppwriteEnums.AuthenticatorType,
         otp: String
     ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
         return try await deleteAuthenticator(
