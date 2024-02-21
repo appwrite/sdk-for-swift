@@ -7,9 +7,10 @@ let client = Client()
 
 let messaging = Messaging(client)
 
-let provider = try await messaging.createSMTPProvider(
+let provider = try await messaging.createFcmProvider(
     providerId: "[PROVIDER_ID]",
     name: "[NAME]",
-    host: "[HOST]"
+    serviceAccountJSON: [:], // optional
+    enabled: false // optional
 )
 

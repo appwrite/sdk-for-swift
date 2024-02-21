@@ -7,8 +7,13 @@ let client = Client()
 
 let messaging = Messaging(client)
 
-let message = try await messaging.createSMS(
+let message = try await messaging.updateSms(
     messageId: "[MESSAGE_ID]",
-    content: "[CONTENT]"
+    topics: [], // optional
+    users: [], // optional
+    targets: [], // optional
+    content: "[CONTENT]", // optional
+    status: .draft, // optional
+    scheduledAt: "" // optional
 )
 

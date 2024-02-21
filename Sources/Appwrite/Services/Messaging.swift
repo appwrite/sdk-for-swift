@@ -11,6 +11,8 @@ open class Messaging: Service {
     ///
     /// List messages
     ///
+    /// Get a list of all messages from the current Appwrite project.
+    ///
     /// @param [String] queries
     /// @param String search
     /// @throws Exception
@@ -45,7 +47,9 @@ open class Messaging: Service {
     }
 
     ///
-    /// Create an email.
+    /// Create an email
+    ///
+    /// Create a new email message.
     ///
     /// @param String messageId
     /// @param String subject
@@ -55,6 +59,7 @@ open class Messaging: Service {
     /// @param [String] targets
     /// @param [String] cc
     /// @param [String] bcc
+    /// @param [String] attachments
     /// @param AppwriteEnums.MessageStatus status
     /// @param Bool html
     /// @param String scheduledAt
@@ -70,6 +75,7 @@ open class Messaging: Service {
         targets: [String]? = nil,
         cc: [String]? = nil,
         bcc: [String]? = nil,
+        attachments: [String]? = nil,
         status: AppwriteEnums.MessageStatus? = nil,
         html: Bool? = nil,
         scheduledAt: String? = nil
@@ -85,6 +91,7 @@ open class Messaging: Service {
             "targets": targets,
             "cc": cc,
             "bcc": bcc,
+            "attachments": attachments,
             "status": status,
             "html": html,
             "scheduledAt": scheduledAt
@@ -108,7 +115,10 @@ open class Messaging: Service {
     }
 
     ///
-    /// Update an email.
+    /// Update an email
+    ///
+    /// Update an email message by its unique ID.
+    /// 
     ///
     /// @param String messageId
     /// @param [String] topics
@@ -171,7 +181,9 @@ open class Messaging: Service {
     }
 
     ///
-    /// Create a push notification.
+    /// Create a push notification
+    ///
+    /// Create a new push notification.
     ///
     /// @param String messageId
     /// @param String title
@@ -181,6 +193,7 @@ open class Messaging: Service {
     /// @param [String] targets
     /// @param Any data
     /// @param String action
+    /// @param String image
     /// @param String icon
     /// @param String sound
     /// @param String color
@@ -200,6 +213,7 @@ open class Messaging: Service {
         targets: [String]? = nil,
         data: Any? = nil,
         action: String? = nil,
+        image: String? = nil,
         icon: String? = nil,
         sound: String? = nil,
         color: String? = nil,
@@ -219,6 +233,7 @@ open class Messaging: Service {
             "targets": targets,
             "data": data,
             "action": action,
+            "image": image,
             "icon": icon,
             "sound": sound,
             "color": color,
@@ -246,7 +261,10 @@ open class Messaging: Service {
     }
 
     ///
-    /// Update a push notification.
+    /// Update a push notification
+    ///
+    /// Update a push notification by its unique ID.
+    /// 
     ///
     /// @param String messageId
     /// @param [String] topics
@@ -256,6 +274,7 @@ open class Messaging: Service {
     /// @param String body
     /// @param Any data
     /// @param String action
+    /// @param String image
     /// @param String icon
     /// @param String sound
     /// @param String color
@@ -275,6 +294,7 @@ open class Messaging: Service {
         body: String? = nil,
         data: Any? = nil,
         action: String? = nil,
+        image: String? = nil,
         icon: String? = nil,
         sound: String? = nil,
         color: String? = nil,
@@ -294,6 +314,7 @@ open class Messaging: Service {
             "body": body,
             "data": data,
             "action": action,
+            "image": image,
             "icon": icon,
             "sound": sound,
             "color": color,
@@ -321,7 +342,9 @@ open class Messaging: Service {
     }
 
     ///
-    /// Create an SMS.
+    /// Create an SMS
+    ///
+    /// Create a new SMS message.
     ///
     /// @param String messageId
     /// @param String content
@@ -333,7 +356,7 @@ open class Messaging: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func createSMS(
+    open func createSms(
         messageId: String,
         content: String,
         topics: [String]? = nil,
@@ -372,7 +395,10 @@ open class Messaging: Service {
     }
 
     ///
-    /// Update an SMS.
+    /// Update an SMS
+    ///
+    /// Update an email message by its unique ID.
+    /// 
     ///
     /// @param String messageId
     /// @param [String] topics
@@ -384,7 +410,7 @@ open class Messaging: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updateSMS(
+    open func updateSms(
         messageId: String,
         topics: [String]? = nil,
         users: [String]? = nil,
@@ -424,6 +450,9 @@ open class Messaging: Service {
 
     ///
     /// Get a message
+    ///
+    /// Get a message by its unique ID.
+    /// 
     ///
     /// @param String messageId
     /// @throws Exception
@@ -483,6 +512,8 @@ open class Messaging: Service {
     ///
     /// List message logs
     ///
+    /// Get the message activity logs listed by its unique ID.
+    ///
     /// @param String messageId
     /// @param [String] queries
     /// @throws Exception
@@ -519,8 +550,7 @@ open class Messaging: Service {
     ///
     /// List message targets
     ///
-    /// List the targets associated with a message as set via the targets
-    /// attribute.
+    /// Get a list of the targets associated with a message.
     ///
     /// @param String messageId
     /// @param [String] queries
@@ -558,6 +588,8 @@ open class Messaging: Service {
     ///
     /// List providers
     ///
+    /// Get a list of all providers from the current Appwrite project.
+    ///
     /// @param [String] queries
     /// @param String search
     /// @throws Exception
@@ -594,6 +626,8 @@ open class Messaging: Service {
     ///
     /// Create APNS provider
     ///
+    /// Create a new Apple Push Notification service provider.
+    ///
     /// @param String providerId
     /// @param String name
     /// @param String authKey
@@ -604,7 +638,7 @@ open class Messaging: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func createAPNSProvider(
+    open func createApnsProvider(
         providerId: String,
         name: String,
         authKey: String? = nil,
@@ -644,6 +678,8 @@ open class Messaging: Service {
 
     ///
     /// Update APNS provider
+    ///
+    /// Update a Apple Push Notification service provider by its unique ID.
     ///
     /// @param String providerId
     /// @param String name
@@ -696,6 +732,8 @@ open class Messaging: Service {
     ///
     /// Create FCM provider
     ///
+    /// Create a new Firebase Cloud Messaging provider.
+    ///
     /// @param String providerId
     /// @param String name
     /// @param Any serviceAccountJSON
@@ -703,7 +741,7 @@ open class Messaging: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func createFCMProvider(
+    open func createFcmProvider(
         providerId: String,
         name: String,
         serviceAccountJSON: Any? = nil,
@@ -737,6 +775,8 @@ open class Messaging: Service {
 
     ///
     /// Update FCM provider
+    ///
+    /// Update a Firebase Cloud Messaging provider by its unique ID.
     ///
     /// @param String providerId
     /// @param String name
@@ -779,6 +819,8 @@ open class Messaging: Service {
 
     ///
     /// Create Mailgun provider
+    ///
+    /// Create a new Mailgun provider.
     ///
     /// @param String providerId
     /// @param String name
@@ -840,6 +882,8 @@ open class Messaging: Service {
     ///
     /// Update Mailgun provider
     ///
+    /// Update a Mailgun provider by its unique ID.
+    ///
     /// @param String providerId
     /// @param String name
     /// @param String apiKey
@@ -900,6 +944,8 @@ open class Messaging: Service {
     ///
     /// Create Msg91 provider
     ///
+    /// Create a new MSG91 provider.
+    ///
     /// @param String providerId
     /// @param String name
     /// @param String from
@@ -947,6 +993,8 @@ open class Messaging: Service {
 
     ///
     /// Update Msg91 provider
+    ///
+    /// Update a MSG91 provider by its unique ID.
     ///
     /// @param String providerId
     /// @param String name
@@ -1050,6 +1098,8 @@ open class Messaging: Service {
     ///
     /// Update Sendgrid provider
     ///
+    /// Update a Sendgrid provider by its unique ID.
+    ///
     /// @param String providerId
     /// @param String name
     /// @param Bool enabled
@@ -1104,13 +1154,15 @@ open class Messaging: Service {
     ///
     /// Create SMTP provider
     ///
+    /// Create a new SMTP provider.
+    ///
     /// @param String providerId
     /// @param String name
     /// @param String host
     /// @param Int port
     /// @param String username
     /// @param String password
-    /// @param AppwriteEnums.SMTPEncryption encryption
+    /// @param AppwriteEnums.Encryption encryption
     /// @param Bool autoTLS
     /// @param String mailer
     /// @param String fromName
@@ -1121,14 +1173,14 @@ open class Messaging: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func createSMTPProvider(
+    open func createSmtpProvider(
         providerId: String,
         name: String,
         host: String,
         port: Int? = nil,
         username: String? = nil,
         password: String? = nil,
-        encryption: AppwriteEnums.SMTPEncryption? = nil,
+        encryption: AppwriteEnums.Encryption? = nil,
         autoTLS: Bool? = nil,
         mailer: String? = nil,
         fromName: String? = nil,
@@ -1176,13 +1228,15 @@ open class Messaging: Service {
     ///
     /// Update SMTP provider
     ///
+    /// Update a SMTP provider by its unique ID.
+    ///
     /// @param String providerId
     /// @param String name
     /// @param String host
     /// @param Int port
     /// @param String username
     /// @param String password
-    /// @param AppwriteEnums.SMTPEncryption encryption
+    /// @param AppwriteEnums.Encryption encryption
     /// @param Bool autoTLS
     /// @param String mailer
     /// @param String fromName
@@ -1193,14 +1247,14 @@ open class Messaging: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updateSMTPProvider(
+    open func updateSmtpProvider(
         providerId: String,
         name: String? = nil,
         host: String? = nil,
         port: Int? = nil,
         username: String? = nil,
         password: String? = nil,
-        encryption: AppwriteEnums.SMTPEncryption? = nil,
+        encryption: AppwriteEnums.Encryption? = nil,
         autoTLS: Bool? = nil,
         mailer: String? = nil,
         fromName: String? = nil,
@@ -1247,6 +1301,8 @@ open class Messaging: Service {
 
     ///
     /// Create Telesign provider
+    ///
+    /// Create a new Telesign provider.
     ///
     /// @param String providerId
     /// @param String name
@@ -1296,6 +1352,8 @@ open class Messaging: Service {
     ///
     /// Update Telesign provider
     ///
+    /// Update a Telesign provider by its unique ID.
+    ///
     /// @param String providerId
     /// @param String name
     /// @param Bool enabled
@@ -1343,6 +1401,8 @@ open class Messaging: Service {
 
     ///
     /// Create Textmagic provider
+    ///
+    /// Create a new Textmagic provider.
     ///
     /// @param String providerId
     /// @param String name
@@ -1392,6 +1452,8 @@ open class Messaging: Service {
     ///
     /// Update Textmagic provider
     ///
+    /// Update a Textmagic provider by its unique ID.
+    ///
     /// @param String providerId
     /// @param String name
     /// @param Bool enabled
@@ -1439,6 +1501,8 @@ open class Messaging: Service {
 
     ///
     /// Create Twilio provider
+    ///
+    /// Create a new Twilio provider.
     ///
     /// @param String providerId
     /// @param String name
@@ -1488,6 +1552,8 @@ open class Messaging: Service {
     ///
     /// Update Twilio provider
     ///
+    /// Update a Twilio provider by its unique ID.
+    ///
     /// @param String providerId
     /// @param String name
     /// @param Bool enabled
@@ -1535,6 +1601,8 @@ open class Messaging: Service {
 
     ///
     /// Create Vonage provider
+    ///
+    /// Create a new Vonage provider.
     ///
     /// @param String providerId
     /// @param String name
@@ -1584,6 +1652,8 @@ open class Messaging: Service {
     ///
     /// Update Vonage provider
     ///
+    /// Update a Vonage provider by its unique ID.
+    ///
     /// @param String providerId
     /// @param String name
     /// @param Bool enabled
@@ -1632,6 +1702,9 @@ open class Messaging: Service {
     ///
     /// Get provider
     ///
+    /// Get a provider by its unique ID.
+    /// 
+    ///
     /// @param String providerId
     /// @throws Exception
     /// @return array
@@ -1664,6 +1737,8 @@ open class Messaging: Service {
     ///
     /// Delete provider
     ///
+    /// Delete a provider by its unique ID.
+    ///
     /// @param String providerId
     /// @throws Exception
     /// @return array
@@ -1689,6 +1764,8 @@ open class Messaging: Service {
 
     ///
     /// List provider logs
+    ///
+    /// Get the provider activity logs listed by its unique ID.
     ///
     /// @param String providerId
     /// @param [String] queries
@@ -1726,6 +1803,8 @@ open class Messaging: Service {
     ///
     /// List subscriber logs
     ///
+    /// Get the subscriber activity logs listed by its unique ID.
+    ///
     /// @param String subscriberId
     /// @param [String] queries
     /// @throws Exception
@@ -1760,7 +1839,9 @@ open class Messaging: Service {
     }
 
     ///
-    /// List topics.
+    /// List topics
+    ///
+    /// Get a list of all topics from the current Appwrite project.
     ///
     /// @param [String] queries
     /// @param String search
@@ -1796,7 +1877,9 @@ open class Messaging: Service {
     }
 
     ///
-    /// Create a topic.
+    /// Create a topic
+    ///
+    /// Create a new topic.
     ///
     /// @param String topicId
     /// @param String name
@@ -1835,7 +1918,10 @@ open class Messaging: Service {
     }
 
     ///
-    /// Get a topic.
+    /// Get a topic
+    ///
+    /// Get a topic by its unique ID.
+    /// 
     ///
     /// @param String topicId
     /// @throws Exception
@@ -1867,7 +1953,10 @@ open class Messaging: Service {
     }
 
     ///
-    /// Update a topic.
+    /// Update a topic
+    ///
+    /// Update a topic by its unique ID.
+    /// 
     ///
     /// @param String topicId
     /// @param String name
@@ -1903,7 +1992,9 @@ open class Messaging: Service {
     }
 
     ///
-    /// Delete a topic.
+    /// Delete a topic
+    ///
+    /// Delete a topic by its unique ID.
     ///
     /// @param String topicId
     /// @throws Exception
@@ -1930,6 +2021,8 @@ open class Messaging: Service {
 
     ///
     /// List topic logs
+    ///
+    /// Get the topic activity logs listed by its unique ID.
     ///
     /// @param String topicId
     /// @param [String] queries
@@ -1965,7 +2058,9 @@ open class Messaging: Service {
     }
 
     ///
-    /// List subscribers.
+    /// List subscribers
+    ///
+    /// Get a list of all subscribers from the current Appwrite project.
     ///
     /// @param String topicId
     /// @param [String] queries
@@ -2004,7 +2099,9 @@ open class Messaging: Service {
     }
 
     ///
-    /// Create a subscriber.
+    /// Create a subscriber
+    ///
+    /// Create a new subscriber.
     ///
     /// @param String topicId
     /// @param String subscriberId
@@ -2043,7 +2140,10 @@ open class Messaging: Service {
     }
 
     ///
-    /// Get a subscriber.
+    /// Get a subscriber
+    ///
+    /// Get a subscriber by its unique ID.
+    /// 
     ///
     /// @param String topicId
     /// @param String subscriberId
@@ -2078,7 +2178,9 @@ open class Messaging: Service {
     }
 
     ///
-    /// Delete a subscriber.
+    /// Delete a subscriber
+    ///
+    /// Delete a subscriber by its unique ID.
     ///
     /// @param String topicId
     /// @param String subscriberId

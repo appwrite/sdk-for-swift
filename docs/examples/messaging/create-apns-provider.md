@@ -7,8 +7,13 @@ let client = Client()
 
 let messaging = Messaging(client)
 
-let provider = try await messaging.createFCMProvider(
+let provider = try await messaging.createApnsProvider(
     providerId: "[PROVIDER_ID]",
-    name: "[NAME]"
+    name: "[NAME]",
+    authKey: "[AUTH_KEY]", // optional
+    authKeyId: "[AUTH_KEY_ID]", // optional
+    teamId: "[TEAM_ID]", // optional
+    bundleId: "[BUNDLE_ID]", // optional
+    enabled: false // optional
 )
 

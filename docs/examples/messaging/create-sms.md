@@ -7,7 +7,13 @@ let client = Client()
 
 let messaging = Messaging(client)
 
-let provider = try await messaging.updateSMTPProvider(
-    providerId: "[PROVIDER_ID]"
+let message = try await messaging.createSms(
+    messageId: "[MESSAGE_ID]",
+    content: "[CONTENT]",
+    topics: [], // optional
+    users: [], // optional
+    targets: [], // optional
+    status: .draft, // optional
+    scheduledAt: "" // optional
 )
 
