@@ -581,6 +581,10 @@ open class Functions: Service {
 
         let apiParams: [String: Any] = [:]
 
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
         return try await client.call(
             method: "GET",
             path: apiPath,

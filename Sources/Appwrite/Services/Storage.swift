@@ -479,6 +479,10 @@ open class Storage: Service {
 
         let apiParams: [String: Any] = [:]
 
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
         return try await client.call(
             method: "GET",
             path: apiPath,
@@ -546,6 +550,10 @@ open class Storage: Service {
             "session": client.config["session"]
         ]
 
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
         return try await client.call(
             method: "GET",
             path: apiPath,
@@ -574,6 +582,10 @@ open class Storage: Service {
             .replacingOccurrences(of: "{fileId}", with: fileId)
 
         let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
 
         return try await client.call(
             method: "GET",

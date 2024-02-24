@@ -21,7 +21,7 @@ open class Client {
         "x-sdk-name": "Swift",
         "x-sdk-platform": "server",
         "x-sdk-language": "swift",
-        "x-sdk-version": "5.0.0-rc.4",
+        "x-sdk-version": "5.0.0-rc.5",
         "x-appwrite-response-format": "1.5.0"
     ]
 
@@ -30,6 +30,8 @@ open class Client {
     internal var selfSigned: Bool = false
 
     internal var http: HTTPClient
+
+    internal var httpForRedirect: HTTPClient
 
     private static let boundaryChars = "abcdefghijklmnopqrstuvwxyz1234567890"
 
@@ -41,24 +43,20 @@ open class Client {
 
     public init() {
         http = Client.createHTTP()
+        httpForRedirect = Client.createHTTP(redirectConfiguration: .disallow)
         addUserAgentHeader()
         addOriginHeader()
     }
 
     private static func createHTTP(
         selfSigned: Bool = false,
-        maxRedirects: Int = 5,
-        alloweRedirectCycles: Bool = false,
+        redirectConfiguration: HTTPClient.Configuration.RedirectConfiguration = .follow(max: 5, allowCycles: false),
         connectTimeout: TimeAmount = .seconds(30),
         readTimeout: TimeAmount = .seconds(30)
     ) -> HTTPClient {
         let timeout = HTTPClient.Configuration.Timeout(
             connect: connectTimeout,
             read: readTimeout
-        )
-        let redirect = HTTPClient.Configuration.RedirectConfiguration.follow(
-            max: 5,
-            allowCycles: false
         )
         var tls = TLSConfiguration
             .makeClientConfiguration()
@@ -71,7 +69,7 @@ open class Client {
             eventLoopGroupProvider: eventLoopGroupProvider,
             configuration: HTTPClient.Configuration(
                 tlsConfiguration: tls,
-                redirectConfiguration: redirect,
+                redirectConfiguration: redirectConfiguration,
                 timeout: timeout,
                 decompression: .enabled(limit: .none)
             )
@@ -82,6 +80,7 @@ open class Client {
     deinit {
         do {
             try http.syncShutdown()
+            try httpForRedirect.syncShutdown()
         } catch {
             print(error)
         }
@@ -157,21 +156,6 @@ open class Client {
     open func setSession(_ value: String) -> Client {
         config["session"] = value
         _ = addHeader(key: "X-Appwrite-Session", value: value)
-        return self
-    }
-
-    ///
-    /// Set ForwardedFor
-    ///
-    /// The IP address of the client that made the request
-    ///
-    /// @param String value
-    ///
-    /// @return Client
-    ///
-    open func setForwardedFor(_ value: String) -> Client {
-        config["forwardedfor"] = value
-        _ = addHeader(key: "X-Forwarded-For", value: value)
         return self
     }
 
@@ -291,6 +275,74 @@ open class Client {
         sink: ((ByteBuffer) -> Void)? = nil,
         converter: ((Any) -> T)? = nil
     ) async throws -> T {
+        let request = try prepareRequest(
+            method: method,
+            path: path,
+            headers: headers,
+            params: params
+        )
+
+        return try await execute(request, converter: converter)
+    }
+
+    ///
+    /// Make an redirect API call
+    ///
+    /// @param String method
+    /// @param String path
+    /// @param Dictionary<String, Any?> params
+    /// @param Dictionary<String, String> headers
+    /// @return String
+    /// @throws Exception
+    ///
+    open func redirect(
+        method: String,
+        path: String = "",
+        headers: [String: String] = [:],
+        params: [String: Any?] = [:]
+    ) async throws -> String? {
+        let request = try prepareRequest(
+            method: method,
+            path: path,
+            headers: headers,
+            params: params
+        )
+
+        let response = try await httpForRedirect.execute(
+            request,
+            timeout: .seconds(30)
+        )
+
+        if response.status.code >= 400 {
+            var message = ""
+            var data = try await response.body.collect(upTo: Int.max)
+            var type = ""
+
+            do {
+                let dict = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+
+                message = dict?["message"] as? String ?? response.status.reasonPhrase
+                type = dict?["type"] as? String ?? ""
+            } catch {
+                message =  data.readString(length: data.readableBytes)!
+            }
+
+            throw AppwriteError(
+                message: message,
+                code: Int(response.status.code),
+                type: type
+            )
+        }
+
+        return response.headers["location"].first
+    }
+
+    private func prepareRequest(
+        method: String,
+        path: String = "",
+        headers: [String: String] = [:],
+        params: [String: Any?] = [:]
+    ) throws -> HTTPClientRequest {
         let validParams = params.filter { $0.value != nil }
 
         let queryParameters = method == "GET" && !validParams.isEmpty
@@ -307,13 +359,11 @@ open class Client {
 
         request.addDomainCookies()
 
-        if "GET" == method {
-            return try await execute(request, converter: converter)
+        if "GET" != method {
+            try buildBody(for: &request, with: validParams)
         }
 
-        try buildBody(for: &request, with: validParams)
-
-        return try await execute(request, withSink: sink, converter: converter)
+        return request
     }
 
     private func buildBody(
@@ -329,7 +379,6 @@ open class Client {
 
     private func execute<T>(
         _ request: HTTPClientRequest,
-        withSink bufferSink: ((ByteBuffer) -> Void)? = nil,
         converter: ((Any) -> T)? = nil
     ) async throws -> T {
         let response = try await http.execute(

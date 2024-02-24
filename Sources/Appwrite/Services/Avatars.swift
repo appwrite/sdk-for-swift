@@ -46,6 +46,10 @@ open class Avatars: Service {
             "session": client.config["session"]
         ]
 
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
         return try await client.call(
             method: "GET",
             path: apiPath,
@@ -90,6 +94,10 @@ open class Avatars: Service {
             "session": client.config["session"]
         ]
 
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
         return try await client.call(
             method: "GET",
             path: apiPath,
@@ -117,6 +125,10 @@ open class Avatars: Service {
             "url": url,
             "project": client.config["project"],
             "session": client.config["session"]
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
         ]
 
         return try await client.call(
@@ -164,6 +176,10 @@ open class Avatars: Service {
             "session": client.config["session"]
         ]
 
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
         return try await client.call(
             method: "GET",
             path: apiPath,
@@ -204,6 +220,10 @@ open class Avatars: Service {
             "height": height,
             "project": client.config["project"],
             "session": client.config["session"]
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
         ]
 
         return try await client.call(
@@ -257,6 +277,10 @@ open class Avatars: Service {
             "session": client.config["session"]
         ]
 
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
         return try await client.call(
             method: "GET",
             path: apiPath,
@@ -293,6 +317,10 @@ open class Avatars: Service {
             "download": download,
             "project": client.config["project"],
             "session": client.config["session"]
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
         ]
 
         return try await client.call(

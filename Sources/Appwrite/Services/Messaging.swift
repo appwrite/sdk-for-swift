@@ -634,6 +634,7 @@ open class Messaging: Service {
     /// @param String authKeyId
     /// @param String teamId
     /// @param String bundleId
+    /// @param Bool sandbox
     /// @param Bool enabled
     /// @throws Exception
     /// @return array
@@ -645,6 +646,7 @@ open class Messaging: Service {
         authKeyId: String? = nil,
         teamId: String? = nil,
         bundleId: String? = nil,
+        sandbox: Bool? = nil,
         enabled: Bool? = nil
     ) async throws -> AppwriteModels.Provider {
         let apiPath: String = "/messaging/providers/apns"
@@ -656,6 +658,7 @@ open class Messaging: Service {
             "authKeyId": authKeyId,
             "teamId": teamId,
             "bundleId": bundleId,
+            "sandbox": sandbox,
             "enabled": enabled
         ]
 
@@ -688,17 +691,19 @@ open class Messaging: Service {
     /// @param String authKeyId
     /// @param String teamId
     /// @param String bundleId
+    /// @param Bool sandbox
     /// @throws Exception
     /// @return array
     ///
-    open func updateAPNSProvider(
+    open func updateApnsProvider(
         providerId: String,
         name: String? = nil,
         enabled: Bool? = nil,
         authKey: String? = nil,
         authKeyId: String? = nil,
         teamId: String? = nil,
-        bundleId: String? = nil
+        bundleId: String? = nil,
+        sandbox: Bool? = nil
     ) async throws -> AppwriteModels.Provider {
         let apiPath: String = "/messaging/providers/apns/{providerId}"
             .replacingOccurrences(of: "{providerId}", with: providerId)
@@ -709,7 +714,8 @@ open class Messaging: Service {
             "authKey": authKey,
             "authKeyId": authKeyId,
             "teamId": teamId,
-            "bundleId": bundleId
+            "bundleId": bundleId,
+            "sandbox": sandbox
         ]
 
         let apiHeaders: [String: String] = [
@@ -785,7 +791,7 @@ open class Messaging: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updateFCMProvider(
+    open func updateFcmProvider(
         providerId: String,
         name: String? = nil,
         enabled: Bool? = nil,
@@ -1162,7 +1168,7 @@ open class Messaging: Service {
     /// @param Int port
     /// @param String username
     /// @param String password
-    /// @param AppwriteEnums.Encryption encryption
+    /// @param AppwriteEnums.SmtpEncryption encryption
     /// @param Bool autoTLS
     /// @param String mailer
     /// @param String fromName
@@ -1180,7 +1186,7 @@ open class Messaging: Service {
         port: Int? = nil,
         username: String? = nil,
         password: String? = nil,
-        encryption: AppwriteEnums.Encryption? = nil,
+        encryption: AppwriteEnums.SmtpEncryption? = nil,
         autoTLS: Bool? = nil,
         mailer: String? = nil,
         fromName: String? = nil,
@@ -1236,7 +1242,7 @@ open class Messaging: Service {
     /// @param Int port
     /// @param String username
     /// @param String password
-    /// @param AppwriteEnums.Encryption encryption
+    /// @param AppwriteEnums.SmtpEncryption encryption
     /// @param Bool autoTLS
     /// @param String mailer
     /// @param String fromName
@@ -1254,7 +1260,7 @@ open class Messaging: Service {
         port: Int? = nil,
         username: String? = nil,
         password: String? = nil,
-        encryption: AppwriteEnums.Encryption? = nil,
+        encryption: AppwriteEnums.SmtpEncryption? = nil,
         autoTLS: Bool? = nil,
         mailer: String? = nil,
         fromName: String? = nil,
@@ -1960,18 +1966,21 @@ open class Messaging: Service {
     ///
     /// @param String topicId
     /// @param String name
+    /// @param [String] subscribe
     /// @throws Exception
     /// @return array
     ///
     open func updateTopic(
         topicId: String,
-        name: String? = nil
+        name: String? = nil,
+        subscribe: [String]? = nil
     ) async throws -> AppwriteModels.Topic {
         let apiPath: String = "/messaging/topics/{topicId}"
             .replacingOccurrences(of: "{topicId}", with: topicId)
 
         let apiParams: [String: Any?] = [
-            "name": name
+            "name": name,
+            "subscribe": subscribe
         ]
 
         let apiHeaders: [String: String] = [
