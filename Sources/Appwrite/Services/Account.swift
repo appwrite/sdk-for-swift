@@ -350,6 +350,8 @@ open class Account: Service {
     ///
     /// Update MFA
     ///
+    /// Enable or disable MFA on an account.
+    ///
     /// @param Bool mfa
     /// @throws Exception
     /// @return array
@@ -383,6 +385,8 @@ open class Account: Service {
 
     ///
     /// Update MFA
+    ///
+    /// Enable or disable MFA on an account.
     ///
     /// @param Bool mfa
     /// @throws Exception
@@ -433,6 +437,8 @@ open class Account: Service {
     ///
     /// Create MFA Challenge (confirmation)
     ///
+    /// Complete the MFA challenge by providing the one-time password.
+    ///
     /// @param String challengeId
     /// @param String otp
     /// @throws Exception
@@ -463,6 +469,8 @@ open class Account: Service {
     ///
     /// List Factors
     ///
+    /// List the factors available on the account to be used as a MFA challange.
+    ///
     /// @throws Exception
     /// @return array
     ///
@@ -491,6 +499,11 @@ open class Account: Service {
 
     ///
     /// Add Authenticator
+    ///
+    /// Add an authenticator app to be used as an MFA factor. Verify the
+    /// authenticator using the [verify
+    /// authenticator](/docs/references/cloud/client-web/account#verifyAuthenticator)
+    /// method.
     ///
     /// @param AppwriteEnums.AuthenticatorType type
     /// @throws Exception
@@ -523,6 +536,10 @@ open class Account: Service {
 
     ///
     /// Verify Authenticator
+    ///
+    /// Verify an authenticator app after adding it using the [add
+    /// authenticator](/docs/references/cloud/client-web/account#addAuthenticator)
+    /// method.
     ///
     /// @param AppwriteEnums.AuthenticatorType type
     /// @param String otp
@@ -561,6 +578,10 @@ open class Account: Service {
     ///
     /// Verify Authenticator
     ///
+    /// Verify an authenticator app after adding it using the [add
+    /// authenticator](/docs/references/cloud/client-web/account#addAuthenticator)
+    /// method.
+    ///
     /// @param AppwriteEnums.AuthenticatorType type
     /// @param String otp
     /// @throws Exception
@@ -579,6 +600,8 @@ open class Account: Service {
 
     ///
     /// Delete Authenticator
+    ///
+    /// Delete an authenticator for a user by ID.
     ///
     /// @param AppwriteEnums.AuthenticatorType type
     /// @param String otp
@@ -616,6 +639,8 @@ open class Account: Service {
 
     ///
     /// Delete Authenticator
+    ///
+    /// Delete an authenticator for a user by ID.
     ///
     /// @param AppwriteEnums.AuthenticatorType type
     /// @param String otp
@@ -1158,7 +1183,7 @@ open class Account: Service {
     }
 
     ///
-    /// Create session (deprecated)
+    /// Update magic URL session
     ///
     /// Use this endpoint to create a session from token. Provide the **userId**
     /// and **secret** parameters from the successful response of authentication
@@ -1198,57 +1223,42 @@ open class Account: Service {
     }
 
     ///
-    /// Create OAuth2 session
+    /// Update phone session
     ///
-    /// Allow the user to login to their account using the OAuth2 provider of their
-    /// choice. Each OAuth2 provider should be enabled from the Appwrite console
-    /// first. Use the success and failure arguments to provide a redirect URL's
-    /// back to your app when login is completed.
-    /// 
-    /// If there is already an active session, the new session will be attached to
-    /// the logged-in account. If there are no active sessions, the server will
-    /// attempt to look for a user with the same email address as the email
-    /// received from the OAuth2 provider and attach the new session to the
-    /// existing user. If no matching user is found - the server will create a new
-    /// user.
-    /// 
-    /// A user is limited to 10 active sessions at a time by default. [Learn more
-    /// about session
-    /// limits](https://appwrite.io/docs/authentication-security#limits).
-    /// 
+    /// Use this endpoint to create a session from token. Provide the **userId**
+    /// and **secret** parameters from the successful response of authentication
+    /// flows initiated by token creation. For example, magic URL and phone login.
     ///
-    /// @param AppwriteEnums.OAuthProvider provider
-    /// @param String success
-    /// @param String failure
-    /// @param [String] scopes
+    /// @param String userId
+    /// @param String secret
     /// @throws Exception
     /// @return array
     ///
-    open func createOAuth2Session(
-        provider: AppwriteEnums.OAuthProvider,
-        success: String? = nil,
-        failure: String? = nil,
-        scopes: [String]? = nil
-    ) async throws -> String? {
-        let apiPath: String = "/account/sessions/oauth2/{provider}"
-            .replacingOccurrences(of: "{provider}", with: provider.rawValue)
+    open func updatePhoneSession(
+        userId: String,
+        secret: String
+    ) async throws -> AppwriteModels.Session {
+        let apiPath: String = "/account/sessions/phone"
 
         let apiParams: [String: Any?] = [
-            "success": success,
-            "failure": failure,
-            "scopes": scopes,
-            "project": client.config["project"]
+            "userId": userId,
+            "secret": secret
         ]
 
         let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
-        return try await client.redirect(
-            method: "GET",
+        let converter: (Any) -> AppwriteModels.Session = { response in
+            return AppwriteModels.Session.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PUT",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams
+            params: apiParams,
+            converter: converter
         )
     }
 
@@ -1328,7 +1338,7 @@ open class Account: Service {
     }
 
     ///
-    /// Update (or renew) a session
+    /// Update (or renew) session
     ///
     /// Extend session's expiry to increase it's lifespan. Extending a session is
     /// useful when session length is short such as 5 minutes.

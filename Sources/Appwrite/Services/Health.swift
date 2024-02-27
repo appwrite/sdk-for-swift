@@ -421,6 +421,9 @@ open class Health: Service {
     ///
     /// Get functions queue
     ///
+    /// Get the number of function executions that are waiting to be processed in
+    /// the Appwrite internal queue server.
+    ///
     /// @param Int threshold
     /// @throws Exception
     /// @return array

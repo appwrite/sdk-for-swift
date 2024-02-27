@@ -412,6 +412,8 @@ open class Databases: Service {
     ///
     /// List attributes
     ///
+    /// List attributes in the collection.
+    ///
     /// @param String databaseId
     /// @param String collectionId
     /// @param [String] queries
@@ -502,6 +504,9 @@ open class Databases: Service {
     ///
     /// Update boolean attribute
     ///
+    /// Update a boolean attribute. Changing the `default` value will not update
+    /// already existing documents.
+    ///
     /// @param String databaseId
     /// @param String collectionId
     /// @param String key
@@ -546,6 +551,8 @@ open class Databases: Service {
 
     ///
     /// Create datetime attribute
+    ///
+    /// Create a date time attribute according to the ISO 8601 standard.
     ///
     /// @param String databaseId
     /// @param String collectionId
@@ -594,6 +601,9 @@ open class Databases: Service {
 
     ///
     /// Update dateTime attribute
+    ///
+    /// Update a date time attribute. Changing the `default` value will not update
+    /// already existing documents.
     ///
     /// @param String databaseId
     /// @param String collectionId
@@ -739,6 +749,10 @@ open class Databases: Service {
 
     ///
     /// Create enum attribute
+    ///
+    /// Create an enumeration attribute. The `elements` param acts as a white-list
+    /// of accepted values for this attribute. 
+    /// 
     ///
     /// @param String databaseId
     /// @param String collectionId
@@ -1433,6 +1447,8 @@ open class Databases: Service {
     ///
     /// Get attribute
     ///
+    /// Get attribute by ID.
+    ///
     /// @param String databaseId
     /// @param String collectionId
     /// @param String key
@@ -1464,6 +1480,8 @@ open class Databases: Service {
 
     ///
     /// Delete attribute
+    ///
+    /// Deletes an attribute.
     ///
     /// @param String databaseId
     /// @param String collectionId
@@ -1883,6 +1901,8 @@ open class Databases: Service {
     ///
     /// List indexes
     ///
+    /// List indexes in the collection.
+    ///
     /// @param String databaseId
     /// @param String collectionId
     /// @param [String] queries
@@ -1921,6 +1941,10 @@ open class Databases: Service {
 
     ///
     /// Create index
+    ///
+    /// Creates an index on the attributes listed. Your index should include all
+    /// the attributes you will query in a single request.
+    /// Attributes can be `key`, `fulltext`, and `unique`.
     ///
     /// @param String databaseId
     /// @param String collectionId
@@ -1970,6 +1994,8 @@ open class Databases: Service {
     ///
     /// Get index
     ///
+    /// Get index by ID.
+    ///
     /// @param String databaseId
     /// @param String collectionId
     /// @param String key
@@ -2007,6 +2033,8 @@ open class Databases: Service {
 
     ///
     /// Delete index
+    ///
+    /// Delete an index.
     ///
     /// @param String databaseId
     /// @param String collectionId

@@ -1107,6 +1107,8 @@ open class Users: Service {
     ///
     /// Update MFA
     ///
+    /// Enable or disable MFA on a user account.
+    ///
     /// @param String userId
     /// @param Bool mfa
     /// @throws Exception
@@ -1144,6 +1146,8 @@ open class Users: Service {
     ///
     /// Update MFA
     ///
+    /// Enable or disable MFA on a user account.
+    ///
     /// @param String userId
     /// @param Bool mfa
     /// @throws Exception
@@ -1162,6 +1166,8 @@ open class Users: Service {
 
     ///
     /// List Factors
+    ///
+    /// List the factors available on the account to be used as a MFA challange.
     ///
     /// @param String userId
     /// @throws Exception
@@ -1195,25 +1201,23 @@ open class Users: Service {
     ///
     /// Delete Authenticator
     ///
+    /// Delete an authenticator app.
+    ///
     /// @param String userId
     /// @param AppwriteEnums.AuthenticatorType type
-    /// @param String otp
     /// @throws Exception
     /// @return array
     ///
     open func deleteAuthenticator<T>(
         userId: String,
         type: AppwriteEnums.AuthenticatorType,
-        otp: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
         let apiPath: String = "/users/{userId}/mfa/{type}"
             .replacingOccurrences(of: "{userId}", with: userId)
             .replacingOccurrences(of: "{type}", with: type.rawValue)
 
-        let apiParams: [String: Any?] = [
-            "otp": otp
-        ]
+        let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
             "content-type": "application/json"
@@ -1235,21 +1239,20 @@ open class Users: Service {
     ///
     /// Delete Authenticator
     ///
+    /// Delete an authenticator app.
+    ///
     /// @param String userId
     /// @param AppwriteEnums.AuthenticatorType type
-    /// @param String otp
     /// @throws Exception
     /// @return array
     ///
     open func deleteAuthenticator(
         userId: String,
-        type: AppwriteEnums.AuthenticatorType,
-        otp: String
+        type: AppwriteEnums.AuthenticatorType
     ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
         return try await deleteAuthenticator(
             userId: userId,
             type: type,
-            otp: otp,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -1748,6 +1751,8 @@ open class Users: Service {
     ///
     /// List User Targets
     ///
+    /// List the messaging targets that are associated with a user.
+    ///
     /// @param String userId
     /// @param [String] queries
     /// @throws Exception
@@ -1783,6 +1788,8 @@ open class Users: Service {
 
     ///
     /// Create User Target
+    ///
+    /// Create a messaging target.
     ///
     /// @param String userId
     /// @param String targetId
@@ -1832,6 +1839,8 @@ open class Users: Service {
     ///
     /// Get User Target
     ///
+    /// Get a user's push notification target by ID.
+    ///
     /// @param String userId
     /// @param String targetId
     /// @throws Exception
@@ -1866,6 +1875,8 @@ open class Users: Service {
 
     ///
     /// Update User target
+    ///
+    /// Update a messaging target.
     ///
     /// @param String userId
     /// @param String targetId
@@ -1911,6 +1922,8 @@ open class Users: Service {
 
     ///
     /// Delete user target
+    ///
+    /// Delete a messaging target.
     ///
     /// @param String userId
     /// @param String targetId

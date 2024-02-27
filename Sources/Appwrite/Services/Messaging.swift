@@ -47,7 +47,7 @@ open class Messaging: Service {
     }
 
     ///
-    /// Create an email
+    /// Create email
     ///
     /// Create a new email message.
     ///
@@ -60,7 +60,7 @@ open class Messaging: Service {
     /// @param [String] cc
     /// @param [String] bcc
     /// @param [String] attachments
-    /// @param AppwriteEnums.MessageStatus status
+    /// @param Bool draft
     /// @param Bool html
     /// @param String scheduledAt
     /// @throws Exception
@@ -76,7 +76,7 @@ open class Messaging: Service {
         cc: [String]? = nil,
         bcc: [String]? = nil,
         attachments: [String]? = nil,
-        status: AppwriteEnums.MessageStatus? = nil,
+        draft: Bool? = nil,
         html: Bool? = nil,
         scheduledAt: String? = nil
     ) async throws -> AppwriteModels.Message {
@@ -92,7 +92,7 @@ open class Messaging: Service {
             "cc": cc,
             "bcc": bcc,
             "attachments": attachments,
-            "status": status,
+            "draft": draft,
             "html": html,
             "scheduledAt": scheduledAt
         ]
@@ -115,7 +115,7 @@ open class Messaging: Service {
     }
 
     ///
-    /// Update an email
+    /// Update email
     ///
     /// Update an email message by its unique ID.
     /// 
@@ -126,7 +126,7 @@ open class Messaging: Service {
     /// @param [String] targets
     /// @param String subject
     /// @param String content
-    /// @param AppwriteEnums.MessageStatus status
+    /// @param Bool draft
     /// @param Bool html
     /// @param [String] cc
     /// @param [String] bcc
@@ -141,7 +141,7 @@ open class Messaging: Service {
         targets: [String]? = nil,
         subject: String? = nil,
         content: String? = nil,
-        status: AppwriteEnums.MessageStatus? = nil,
+        draft: Bool? = nil,
         html: Bool? = nil,
         cc: [String]? = nil,
         bcc: [String]? = nil,
@@ -156,7 +156,7 @@ open class Messaging: Service {
             "targets": targets,
             "subject": subject,
             "content": content,
-            "status": status,
+            "draft": draft,
             "html": html,
             "cc": cc,
             "bcc": bcc,
@@ -181,7 +181,7 @@ open class Messaging: Service {
     }
 
     ///
-    /// Create a push notification
+    /// Create push notification
     ///
     /// Create a new push notification.
     ///
@@ -199,7 +199,7 @@ open class Messaging: Service {
     /// @param String color
     /// @param String tag
     /// @param String badge
-    /// @param AppwriteEnums.MessageStatus status
+    /// @param Bool draft
     /// @param String scheduledAt
     /// @throws Exception
     /// @return array
@@ -219,7 +219,7 @@ open class Messaging: Service {
         color: String? = nil,
         tag: String? = nil,
         badge: String? = nil,
-        status: AppwriteEnums.MessageStatus? = nil,
+        draft: Bool? = nil,
         scheduledAt: String? = nil
     ) async throws -> AppwriteModels.Message {
         let apiPath: String = "/messaging/messages/push"
@@ -239,7 +239,7 @@ open class Messaging: Service {
             "color": color,
             "tag": tag,
             "badge": badge,
-            "status": status,
+            "draft": draft,
             "scheduledAt": scheduledAt
         ]
 
@@ -261,7 +261,7 @@ open class Messaging: Service {
     }
 
     ///
-    /// Update a push notification
+    /// Update push notification
     ///
     /// Update a push notification by its unique ID.
     /// 
@@ -280,7 +280,7 @@ open class Messaging: Service {
     /// @param String color
     /// @param String tag
     /// @param Int badge
-    /// @param AppwriteEnums.MessageStatus status
+    /// @param Bool draft
     /// @param String scheduledAt
     /// @throws Exception
     /// @return array
@@ -300,7 +300,7 @@ open class Messaging: Service {
         color: String? = nil,
         tag: String? = nil,
         badge: Int? = nil,
-        status: AppwriteEnums.MessageStatus? = nil,
+        draft: Bool? = nil,
         scheduledAt: String? = nil
     ) async throws -> AppwriteModels.Message {
         let apiPath: String = "/messaging/messages/push/{messageId}"
@@ -320,7 +320,7 @@ open class Messaging: Service {
             "color": color,
             "tag": tag,
             "badge": badge,
-            "status": status,
+            "draft": draft,
             "scheduledAt": scheduledAt
         ]
 
@@ -342,7 +342,7 @@ open class Messaging: Service {
     }
 
     ///
-    /// Create an SMS
+    /// Create SMS
     ///
     /// Create a new SMS message.
     ///
@@ -351,7 +351,7 @@ open class Messaging: Service {
     /// @param [String] topics
     /// @param [String] users
     /// @param [String] targets
-    /// @param AppwriteEnums.MessageStatus status
+    /// @param Bool draft
     /// @param String scheduledAt
     /// @throws Exception
     /// @return array
@@ -362,7 +362,7 @@ open class Messaging: Service {
         topics: [String]? = nil,
         users: [String]? = nil,
         targets: [String]? = nil,
-        status: AppwriteEnums.MessageStatus? = nil,
+        draft: Bool? = nil,
         scheduledAt: String? = nil
     ) async throws -> AppwriteModels.Message {
         let apiPath: String = "/messaging/messages/sms"
@@ -373,7 +373,7 @@ open class Messaging: Service {
             "topics": topics,
             "users": users,
             "targets": targets,
-            "status": status,
+            "draft": draft,
             "scheduledAt": scheduledAt
         ]
 
@@ -395,7 +395,7 @@ open class Messaging: Service {
     }
 
     ///
-    /// Update an SMS
+    /// Update SMS
     ///
     /// Update an email message by its unique ID.
     /// 
@@ -405,7 +405,7 @@ open class Messaging: Service {
     /// @param [String] users
     /// @param [String] targets
     /// @param String content
-    /// @param AppwriteEnums.MessageStatus status
+    /// @param Bool draft
     /// @param String scheduledAt
     /// @throws Exception
     /// @return array
@@ -416,7 +416,7 @@ open class Messaging: Service {
         users: [String]? = nil,
         targets: [String]? = nil,
         content: String? = nil,
-        status: AppwriteEnums.MessageStatus? = nil,
+        draft: Bool? = nil,
         scheduledAt: String? = nil
     ) async throws -> AppwriteModels.Message {
         let apiPath: String = "/messaging/messages/sms/{messageId}"
@@ -427,7 +427,7 @@ open class Messaging: Service {
             "users": users,
             "targets": targets,
             "content": content,
-            "status": status,
+            "draft": draft,
             "scheduledAt": scheduledAt
         ]
 
@@ -449,7 +449,7 @@ open class Messaging: Service {
     }
 
     ///
-    /// Get a message
+    /// Get message
     ///
     /// Get a message by its unique ID.
     /// 
@@ -484,7 +484,10 @@ open class Messaging: Service {
     }
 
     ///
-    /// Delete a message
+    /// Delete message
+    ///
+    /// Delete a message. If the message is not a draft or scheduled, but has been
+    /// sent, this will not recall the message.
     ///
     /// @param String messageId
     /// @throws Exception
@@ -1049,6 +1052,8 @@ open class Messaging: Service {
 
     ///
     /// Create Sendgrid provider
+    ///
+    /// Create a new Sendgrid provider.
     ///
     /// @param String providerId
     /// @param String name
@@ -1883,7 +1888,7 @@ open class Messaging: Service {
     }
 
     ///
-    /// Create a topic
+    /// Create topic
     ///
     /// Create a new topic.
     ///
@@ -1924,7 +1929,7 @@ open class Messaging: Service {
     }
 
     ///
-    /// Get a topic
+    /// Get topic
     ///
     /// Get a topic by its unique ID.
     /// 
@@ -1959,7 +1964,7 @@ open class Messaging: Service {
     }
 
     ///
-    /// Update a topic
+    /// Update topic
     ///
     /// Update a topic by its unique ID.
     /// 
@@ -2001,7 +2006,7 @@ open class Messaging: Service {
     }
 
     ///
-    /// Delete a topic
+    /// Delete topic
     ///
     /// Delete a topic by its unique ID.
     ///
@@ -2108,7 +2113,7 @@ open class Messaging: Service {
     }
 
     ///
-    /// Create a subscriber
+    /// Create subscriber
     ///
     /// Create a new subscriber.
     ///
@@ -2149,7 +2154,7 @@ open class Messaging: Service {
     }
 
     ///
-    /// Get a subscriber
+    /// Get subscriber
     ///
     /// Get a subscriber by its unique ID.
     /// 
@@ -2187,7 +2192,7 @@ open class Messaging: Service {
     }
 
     ///
-    /// Delete a subscriber
+    /// Delete subscriber
     ///
     /// Delete a subscriber by its unique ID.
     ///
