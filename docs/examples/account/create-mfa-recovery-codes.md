@@ -1,5 +1,4 @@
 import Appwrite
-import AppwriteEnums
 
 let client = Client()
     .setEndpoint("https://cloud.appwrite.io/v1") // Your API Endpoint
@@ -8,8 +7,5 @@ let client = Client()
 
 let account = Account(client)
 
-let user = try await account.verifyAuthenticator(
-    type: .totp,
-    otp: "<OTP>"
-)
+let mfaRecoveryCodes = try await account.createMfaRecoveryCodes()
 

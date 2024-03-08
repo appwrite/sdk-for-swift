@@ -6,10 +6,10 @@ let client = Client()
     .setProject("5df5acd0d48c2") // Your project ID
     .setKey("919c2d18fb5d4...a2ae413da83346ad2") // Your secret API key
 
-let health = Health(client)
+let users = Users(client)
 
-let healthQueue = try await health.getFailedJobs(
-    name: .v1Database,
-    threshold: 0 // optional
+let user = try await users.deleteMfaAuthenticator(
+    userId: "<USER_ID>",
+    type: .totp
 )
 

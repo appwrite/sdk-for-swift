@@ -7,8 +7,5 @@ let client = Client()
 
 let account = Account(client)
 
-let result = try await account.updateChallenge(
-    challengeId: "<CHALLENGE_ID>",
-    otp: "<OTP>"
-)
+let mfaRecoveryCodes = try await account.updateMfaRecoveryCodes()
 

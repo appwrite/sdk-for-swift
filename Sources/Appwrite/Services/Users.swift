@@ -1165,40 +1165,6 @@ open class Users: Service {
     }
 
     ///
-    /// List Factors
-    ///
-    /// List the factors available on the account to be used as a MFA challange.
-    ///
-    /// @param String userId
-    /// @throws Exception
-    /// @return array
-    ///
-    open func listFactors(
-        userId: String
-    ) async throws -> AppwriteModels.MfaFactors {
-        let apiPath: String = "/users/{userId}/mfa/factors"
-            .replacingOccurrences(of: "{userId}", with: userId)
-
-        let apiParams: [String: Any] = [:]
-
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
-
-        let converter: (Any) -> AppwriteModels.MfaFactors = { response in
-            return AppwriteModels.MfaFactors.from(map: response as! [String: Any])
-        }
-
-        return try await client.call(
-            method: "GET",
-            path: apiPath,
-            headers: apiHeaders,
-            params: apiParams,
-            converter: converter
-        )
-    }
-
-    ///
     /// Delete Authenticator
     ///
     /// Delete an authenticator app.
@@ -1208,12 +1174,12 @@ open class Users: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func deleteAuthenticator<T>(
+    open func deleteMfaAuthenticator<T>(
         userId: String,
         type: AppwriteEnums.AuthenticatorType,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
-        let apiPath: String = "/users/{userId}/mfa/{type}"
+        let apiPath: String = "/users/{userId}/mfa/authenticators/{type}"
             .replacingOccurrences(of: "{userId}", with: userId)
             .replacingOccurrences(of: "{type}", with: type.rawValue)
 
@@ -1246,14 +1212,159 @@ open class Users: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func deleteAuthenticator(
+    open func deleteMfaAuthenticator(
         userId: String,
         type: AppwriteEnums.AuthenticatorType
     ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
-        return try await deleteAuthenticator(
+        return try await deleteMfaAuthenticator(
             userId: userId,
             type: type,
             nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
+    /// List Factors
+    ///
+    /// List the factors available on the account to be used as a MFA challange.
+    ///
+    /// @param String userId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func listMfaFactors(
+        userId: String
+    ) async throws -> AppwriteModels.MfaFactors {
+        let apiPath: String = "/users/{userId}/mfa/factors"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.MfaFactors = { response in
+            return AppwriteModels.MfaFactors.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get MFA Recovery Codes
+    ///
+    /// Get recovery codes that can be used as backup for MFA flow by User ID.
+    /// Before getting codes, they must be generated using
+    /// [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes)
+    /// method.
+    ///
+    /// @param String userId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getMfaRecoveryCodes(
+        userId: String
+    ) async throws -> AppwriteModels.MfaRecoveryCodes {
+        let apiPath: String = "/users/{userId}/mfa/recovery-codes"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.MfaRecoveryCodes = { response in
+            return AppwriteModels.MfaRecoveryCodes.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Regenerate MFA Recovery Codes
+    ///
+    /// Regenerate recovery codes that can be used as backup for MFA flow by User
+    /// ID. Before regenerating codes, they must be first generated using
+    /// [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes)
+    /// method.
+    ///
+    /// @param String userId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateMfaRecoveryCodes(
+        userId: String
+    ) async throws -> AppwriteModels.MfaRecoveryCodes {
+        let apiPath: String = "/users/{userId}/mfa/recovery-codes"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.MfaRecoveryCodes = { response in
+            return AppwriteModels.MfaRecoveryCodes.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PUT",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create MFA Recovery Codes
+    ///
+    /// Generate recovery codes used as backup for MFA flow for User ID. Recovery
+    /// codes can be used as a MFA verification type in
+    /// [createMfaChallenge](/docs/references/cloud/client-web/account#createMfaChallenge)
+    /// method by client SDK.
+    ///
+    /// @param String userId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createMfaRecoveryCodes(
+        userId: String
+    ) async throws -> AppwriteModels.MfaRecoveryCodes {
+        let apiPath: String = "/users/{userId}/mfa/recovery-codes"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.MfaRecoveryCodes = { response in
+            return AppwriteModels.MfaRecoveryCodes.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
         )
     }
 

@@ -13,7 +13,7 @@
 
 Appwrite is an open-source backend as a service server that abstract and simplify complex and repetitive development tasks behind a very simple to use REST API. Appwrite aims to help you develop your apps faster and in a more secure way. Use the Swift SDK to integrate your app with the Appwrite server to easily start interacting with all of Appwrite backend APIs and tools. For full API documentation and tutorials go to [https://appwrite.io/docs](https://appwrite.io/docs)
 
-![Appwrite](https://appwrite.io/images/github.png)
+![Appwrite](https://github.com/appwrite/appwrite/raw/main/public/images/github.png)
 
 ## Installation
 
@@ -33,7 +33,7 @@ Add the package to your `Package.swift` dependencies:
 
 ```swift
     dependencies: [
-        .package(url: "git@github.com:appwrite/sdk-for-swift.git", from: "5.0.0-rc.6"),
+        .package(url: "git@github.com:appwrite/sdk-for-swift.git", from: "5.0.0"),
     ],
 ```
 

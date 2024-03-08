@@ -599,6 +599,78 @@ open class Health: Service {
     }
 
     ///
+    /// Get usage queue
+    ///
+    /// Get the number of metrics that are waiting to be processed in the Appwrite
+    /// internal queue server.
+    ///
+    /// @param Int threshold
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getQueueUsage(
+        threshold: Int? = nil
+    ) async throws -> AppwriteModels.HealthQueue {
+        let apiPath: String = "/health/queue/usage"
+
+        let apiParams: [String: Any?] = [
+            "threshold": threshold
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+            return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get usage dump queue
+    ///
+    /// Get the number of projects containing metrics that are waiting to be
+    /// processed in the Appwrite internal queue server.
+    ///
+    /// @param Int threshold
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getQueueUsage(
+        threshold: Int? = nil
+    ) async throws -> AppwriteModels.HealthQueue {
+        let apiPath: String = "/health/queue/usage-dump"
+
+        let apiParams: [String: Any?] = [
+            "threshold": threshold
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+            return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
     /// Get webhooks queue
     ///
     /// Get the number of webhooks that are waiting to be processed in the Appwrite
@@ -623,6 +695,37 @@ open class Health: Service {
 
         let converter: (Any) -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get storage
+    ///
+    /// Check the Appwrite storage device is up and connection is successful.
+    ///
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getStorage(
+    ) async throws -> AppwriteModels.HealthStatus {
+        let apiPath: String = "/health/storage"
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.HealthStatus = { response in
+            return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
         }
 
         return try await client.call(
