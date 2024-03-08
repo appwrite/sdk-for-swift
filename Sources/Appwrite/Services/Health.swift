@@ -644,7 +644,7 @@ open class Health: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func getQueueUsage(
+    open func getQueueUsageDump(
         threshold: Int? = nil
     ) async throws -> AppwriteModels.HealthQueue {
         let apiPath: String = "/health/queue/usage-dump"
