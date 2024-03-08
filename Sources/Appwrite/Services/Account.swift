@@ -2,6 +2,7 @@ import AsyncHTTPClient
 import Foundation
 import NIO
 import JSONCodable
+import AppwriteEnums
 import AppwriteModels
 
 /// The Account service allows you to authenticate and manage a user account.
@@ -50,6 +51,90 @@ open class Account: Service {
     open func get(
     ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
         return try await get(
+            nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
+    /// Create account
+    ///
+    /// Use this endpoint to allow a new user to register a new account in your
+    /// project. After the user registration completes successfully, you can use
+    /// the
+    /// [/account/verfication](https://appwrite.io/docs/references/cloud/client-web/account#createVerification)
+    /// route to start verifying the user email address. To allow the new user to
+    /// login to their new account, you need to create a new [account
+    /// session](https://appwrite.io/docs/references/cloud/client-web/account#createEmailSession).
+    ///
+    /// @param String userId
+    /// @param String email
+    /// @param String password
+    /// @param String name
+    /// @throws Exception
+    /// @return array
+    ///
+    open func create<T>(
+        userId: String,
+        email: String,
+        password: String,
+        name: String? = nil,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.User<T> {
+        let apiPath: String = "/account"
+
+        let apiParams: [String: Any?] = [
+            "userId": userId,
+            "email": email,
+            "password": password,
+            "name": name
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.User<T> = { response in
+            return AppwriteModels.User.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create account
+    ///
+    /// Use this endpoint to allow a new user to register a new account in your
+    /// project. After the user registration completes successfully, you can use
+    /// the
+    /// [/account/verfication](https://appwrite.io/docs/references/cloud/client-web/account#createVerification)
+    /// route to start verifying the user email address. To allow the new user to
+    /// login to their new account, you need to create a new [account
+    /// session](https://appwrite.io/docs/references/cloud/client-web/account#createEmailSession).
+    ///
+    /// @param String userId
+    /// @param String email
+    /// @param String password
+    /// @param String name
+    /// @throws Exception
+    /// @return array
+    ///
+    open func create(
+        userId: String,
+        email: String,
+        password: String,
+        name: String? = nil
+    ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
+        return try await create(
+            userId: userId,
+            email: email,
+            password: password,
+            name: name,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -133,12 +218,12 @@ open class Account: Service {
     ///
     /// Get the list of identities for the currently logged in user.
     ///
-    /// @param String queries
+    /// @param [String] queries
     /// @throws Exception
     /// @return array
     ///
     open func listIdentities(
-        queries: String? = nil
+        queries: [String]? = nil
     ) async throws -> AppwriteModels.IdentityList {
         let apiPath: String = "/account/identities"
 
@@ -164,7 +249,7 @@ open class Account: Service {
     }
 
     ///
-    /// Delete Identity
+    /// Delete identity
     ///
     /// Delete an identity by its unique ID.
     ///
@@ -189,6 +274,41 @@ open class Account: Service {
             path: apiPath,
             headers: apiHeaders,
             params: apiParams        )
+    }
+
+    ///
+    /// Create JWT
+    ///
+    /// Use this endpoint to create a JSON Web Token. You can use the resulting JWT
+    /// to authenticate on behalf of the current user when working with the
+    /// Appwrite server-side API and SDKs. The JWT secret is valid for 15 minutes
+    /// from its creation and will be invalid if the user will logout in that time
+    /// frame.
+    ///
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createJWT(
+    ) async throws -> AppwriteModels.Jwt {
+        let apiPath: String = "/account/jwt"
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Jwt = { response in
+            return AppwriteModels.Jwt.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
     }
 
     ///
@@ -220,6 +340,428 @@ open class Account: Service {
 
         return try await client.call(
             method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update MFA
+    ///
+    /// Enable or disable MFA on an account.
+    ///
+    /// @param Bool mfa
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateMFA<T>(
+        mfa: Bool,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.User<T> {
+        let apiPath: String = "/account/mfa"
+
+        let apiParams: [String: Any?] = [
+            "mfa": mfa
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.User<T> = { response in
+            return AppwriteModels.User.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update MFA
+    ///
+    /// Enable or disable MFA on an account.
+    ///
+    /// @param Bool mfa
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateMFA(
+        mfa: Bool
+    ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
+        return try await updateMFA(
+            mfa: mfa,
+            nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
+    /// Add Authenticator
+    ///
+    /// Add an authenticator app to be used as an MFA factor. Verify the
+    /// authenticator using the [verify
+    /// authenticator](/docs/references/cloud/client-web/account#verifyAuthenticator)
+    /// method.
+    ///
+    /// @param AppwriteEnums.AuthenticatorType type
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createMfaAuthenticator(
+        type: AppwriteEnums.AuthenticatorType
+    ) async throws -> AppwriteModels.MfaType {
+        let apiPath: String = "/account/mfa/authenticators/{type}"
+            .replacingOccurrences(of: "{type}", with: type.rawValue)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.MfaType = { response in
+            return AppwriteModels.MfaType.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Verify Authenticator
+    ///
+    /// Verify an authenticator app after adding it using the [add
+    /// authenticator](/docs/references/cloud/client-web/account#addAuthenticator)
+    /// method.
+    ///
+    /// @param AppwriteEnums.AuthenticatorType type
+    /// @param String otp
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateMfaAuthenticator<T>(
+        type: AppwriteEnums.AuthenticatorType,
+        otp: String,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.User<T> {
+        let apiPath: String = "/account/mfa/authenticators/{type}"
+            .replacingOccurrences(of: "{type}", with: type.rawValue)
+
+        let apiParams: [String: Any?] = [
+            "otp": otp
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.User<T> = { response in
+            return AppwriteModels.User.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PUT",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Verify Authenticator
+    ///
+    /// Verify an authenticator app after adding it using the [add
+    /// authenticator](/docs/references/cloud/client-web/account#addAuthenticator)
+    /// method.
+    ///
+    /// @param AppwriteEnums.AuthenticatorType type
+    /// @param String otp
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateMfaAuthenticator(
+        type: AppwriteEnums.AuthenticatorType,
+        otp: String
+    ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
+        return try await updateMfaAuthenticator(
+            type: type,
+            otp: otp,
+            nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
+    /// Delete Authenticator
+    ///
+    /// Delete an authenticator for a user by ID.
+    ///
+    /// @param AppwriteEnums.AuthenticatorType type
+    /// @param String otp
+    /// @throws Exception
+    /// @return array
+    ///
+    open func deleteMfaAuthenticator<T>(
+        type: AppwriteEnums.AuthenticatorType,
+        otp: String,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.User<T> {
+        let apiPath: String = "/account/mfa/authenticators/{type}"
+            .replacingOccurrences(of: "{type}", with: type.rawValue)
+
+        let apiParams: [String: Any?] = [
+            "otp": otp
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.User<T> = { response in
+            return AppwriteModels.User.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "DELETE",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Delete Authenticator
+    ///
+    /// Delete an authenticator for a user by ID.
+    ///
+    /// @param AppwriteEnums.AuthenticatorType type
+    /// @param String otp
+    /// @throws Exception
+    /// @return array
+    ///
+    open func deleteMfaAuthenticator(
+        type: AppwriteEnums.AuthenticatorType,
+        otp: String
+    ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
+        return try await deleteMfaAuthenticator(
+            type: type,
+            otp: otp,
+            nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
+    /// Create 2FA Challenge
+    ///
+    /// Begin the process of MFA verification after sign-in. Finish the flow with
+    /// [updateMfaChallenge](/docs/references/cloud/client-web/account#updateMfaChallenge)
+    /// method.
+    ///
+    /// @param AppwriteEnums.AuthenticationFactor factor
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createMfaChallenge(
+        factor: AppwriteEnums.AuthenticationFactor
+    ) async throws -> AppwriteModels.MfaChallenge {
+        let apiPath: String = "/account/mfa/challenge"
+
+        let apiParams: [String: Any?] = [
+            "factor": factor
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.MfaChallenge = { response in
+            return AppwriteModels.MfaChallenge.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create MFA Challenge (confirmation)
+    ///
+    /// Complete the MFA challenge by providing the one-time password. Finish the
+    /// process of MFA verification by providing the one-time password. To begin
+    /// the flow, use
+    /// [createMfaChallenge](/docs/references/cloud/client-web/account#createMfaChallenge)
+    /// method.
+    ///
+    /// @param String challengeId
+    /// @param String otp
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateMfaChallenge(
+        challengeId: String,
+        otp: String
+    ) async throws -> Any {
+        let apiPath: String = "/account/mfa/challenge"
+
+        let apiParams: [String: Any?] = [
+            "challengeId": challengeId,
+            "otp": otp
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        return try await client.call(
+            method: "PUT",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams        )
+    }
+
+    ///
+    /// List Factors
+    ///
+    /// List the factors available on the account to be used as a MFA challange.
+    ///
+    /// @throws Exception
+    /// @return array
+    ///
+    open func listMfaFactors(
+    ) async throws -> AppwriteModels.MfaFactors {
+        let apiPath: String = "/account/mfa/factors"
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.MfaFactors = { response in
+            return AppwriteModels.MfaFactors.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get MFA Recovery Codes
+    ///
+    /// Get recovery codes that can be used as backup for MFA flow. Before getting
+    /// codes, they must be generated using
+    /// [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes)
+    /// method. An OTP challenge is required to read recovery codes.
+    ///
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getMfaRecoveryCodes(
+    ) async throws -> AppwriteModels.MfaRecoveryCodes {
+        let apiPath: String = "/account/mfa/recovery-codes"
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.MfaRecoveryCodes = { response in
+            return AppwriteModels.MfaRecoveryCodes.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create MFA Recovery Codes
+    ///
+    /// Generate recovery codes as backup for MFA flow. It's recommended to
+    /// generate and show then immediately after user successfully adds their
+    /// authehticator. Recovery codes can be used as a MFA verification type in
+    /// [createMfaChallenge](/docs/references/cloud/client-web/account#createMfaChallenge)
+    /// method.
+    ///
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createMfaRecoveryCodes(
+    ) async throws -> AppwriteModels.MfaRecoveryCodes {
+        let apiPath: String = "/account/mfa/recovery-codes"
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.MfaRecoveryCodes = { response in
+            return AppwriteModels.MfaRecoveryCodes.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Regenerate MFA Recovery Codes
+    ///
+    /// Regenerate recovery codes that can be used as backup for MFA flow. Before
+    /// regenerating codes, they must be first generated using
+    /// [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes)
+    /// method. An OTP challenge is required to regenreate recovery codes.
+    ///
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateMfaRecoveryCodes(
+    ) async throws -> AppwriteModels.MfaRecoveryCodes {
+        let apiPath: String = "/account/mfa/recovery-codes"
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.MfaRecoveryCodes = { response in
+            return AppwriteModels.MfaRecoveryCodes.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
             path: apiPath,
             headers: apiHeaders,
             params: apiParams,
@@ -580,23 +1122,20 @@ open class Account: Service {
     /// @param String userId
     /// @param String secret
     /// @param String password
-    /// @param String passwordAgain
     /// @throws Exception
     /// @return array
     ///
     open func updateRecovery(
         userId: String,
         secret: String,
-        password: String,
-        passwordAgain: String
+        password: String
     ) async throws -> AppwriteModels.Token {
         let apiPath: String = "/account/recovery"
 
         let apiParams: [String: Any?] = [
             "userId": userId,
             "secret": secret,
-            "password": password,
-            "passwordAgain": passwordAgain
+            "password": password
         ]
 
         let apiHeaders: [String: String] = [
@@ -675,6 +1214,206 @@ open class Account: Service {
     }
 
     ///
+    /// Create anonymous session
+    ///
+    /// Use this endpoint to allow a new user to register an anonymous account in
+    /// your project. This route will also create a new session for the user. To
+    /// allow the new user to convert an anonymous account to a normal account, you
+    /// need to update its [email and
+    /// password](https://appwrite.io/docs/references/cloud/client-web/account#updateEmail)
+    /// or create an [OAuth2
+    /// session](https://appwrite.io/docs/references/cloud/client-web/account#CreateOAuth2Session).
+    ///
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createAnonymousSession(
+    ) async throws -> AppwriteModels.Session {
+        let apiPath: String = "/account/sessions/anonymous"
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Session = { response in
+            return AppwriteModels.Session.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create email password session
+    ///
+    /// Allow the user to login into their account by providing a valid email and
+    /// password combination. This route will create a new session for the user.
+    /// 
+    /// A user is limited to 10 active sessions at a time by default. [Learn more
+    /// about session
+    /// limits](https://appwrite.io/docs/authentication-security#limits).
+    ///
+    /// @param String email
+    /// @param String password
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createEmailPasswordSession(
+        email: String,
+        password: String
+    ) async throws -> AppwriteModels.Session {
+        let apiPath: String = "/account/sessions/email"
+
+        let apiParams: [String: Any?] = [
+            "email": email,
+            "password": password
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Session = { response in
+            return AppwriteModels.Session.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update magic URL session
+    ///
+    /// Use this endpoint to create a session from token. Provide the **userId**
+    /// and **secret** parameters from the successful response of authentication
+    /// flows initiated by token creation. For example, magic URL and phone login.
+    ///
+    /// @param String userId
+    /// @param String secret
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateMagicURLSession(
+        userId: String,
+        secret: String
+    ) async throws -> AppwriteModels.Session {
+        let apiPath: String = "/account/sessions/magic-url"
+
+        let apiParams: [String: Any?] = [
+            "userId": userId,
+            "secret": secret
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Session = { response in
+            return AppwriteModels.Session.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PUT",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update phone session
+    ///
+    /// Use this endpoint to create a session from token. Provide the **userId**
+    /// and **secret** parameters from the successful response of authentication
+    /// flows initiated by token creation. For example, magic URL and phone login.
+    ///
+    /// @param String userId
+    /// @param String secret
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updatePhoneSession(
+        userId: String,
+        secret: String
+    ) async throws -> AppwriteModels.Session {
+        let apiPath: String = "/account/sessions/phone"
+
+        let apiParams: [String: Any?] = [
+            "userId": userId,
+            "secret": secret
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Session = { response in
+            return AppwriteModels.Session.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PUT",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create session
+    ///
+    /// Use this endpoint to create a session from token. Provide the **userId**
+    /// and **secret** parameters from the successful response of authentication
+    /// flows initiated by token creation. For example, magic URL and phone login.
+    ///
+    /// @param String userId
+    /// @param String secret
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createSession(
+        userId: String,
+        secret: String
+    ) async throws -> AppwriteModels.Session {
+        let apiPath: String = "/account/sessions/token"
+
+        let apiParams: [String: Any?] = [
+            "userId": userId,
+            "secret": secret
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Session = { response in
+            return AppwriteModels.Session.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
     /// Get session
     ///
     /// Use this endpoint to get a logged in user's session using a Session ID.
@@ -710,11 +1449,11 @@ open class Account: Service {
     }
 
     ///
-    /// Update OAuth session (refresh tokens)
+    /// Update session
     ///
-    /// Access tokens have limited lifespan and expire to mitigate security risks.
-    /// If session was created using an OAuth provider, this route can be used to
-    /// "refresh" the access token.
+    /// Use this endpoint to extend a session's length. Extending a session is
+    /// useful when session expiry is short. If the session was created using an
+    /// OAuth provider, this endpoint refreshes the access token from the provider.
     ///
     /// @param String sessionId
     /// @throws Exception
@@ -825,6 +1564,215 @@ open class Account: Service {
     ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
         return try await updateStatus(
             nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
+    /// Create email token (OTP)
+    ///
+    /// Sends the user an email with a secret key for creating a session. If the
+    /// provided user ID has not be registered, a new user will be created. Use the
+    /// returned user ID and secret and submit a request to the [POST
+    /// /v1/account/sessions/token](https://appwrite.io/docs/references/cloud/client-web/account#createSession)
+    /// endpoint to complete the login process. The secret sent to the user's email
+    /// is valid for 15 minutes.
+    /// 
+    /// A user is limited to 10 active sessions at a time by default. [Learn more
+    /// about session
+    /// limits](https://appwrite.io/docs/authentication-security#limits).
+    ///
+    /// @param String userId
+    /// @param String email
+    /// @param Bool phrase
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createEmailToken(
+        userId: String,
+        email: String,
+        phrase: Bool? = nil
+    ) async throws -> AppwriteModels.Token {
+        let apiPath: String = "/account/tokens/email"
+
+        let apiParams: [String: Any?] = [
+            "userId": userId,
+            "email": email,
+            "phrase": phrase
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Token = { response in
+            return AppwriteModels.Token.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create magic URL token
+    ///
+    /// Sends the user an email with a secret key for creating a session. If the
+    /// provided user ID has not been registered, a new user will be created. When
+    /// the user clicks the link in the email, the user is redirected back to the
+    /// URL you provided with the secret key and userId values attached to the URL
+    /// query string. Use the query string parameters to submit a request to the
+    /// [POST
+    /// /v1/account/sessions/token](https://appwrite.io/docs/references/cloud/client-web/account#createSession)
+    /// endpoint to complete the login process. The link sent to the user's email
+    /// address is valid for 1 hour. If you are on a mobile device you can leave
+    /// the URL parameter empty, so that the login completion will be handled by
+    /// your Appwrite instance by default.
+    /// 
+    /// A user is limited to 10 active sessions at a time by default. [Learn more
+    /// about session
+    /// limits](https://appwrite.io/docs/authentication-security#limits).
+    /// 
+    ///
+    /// @param String userId
+    /// @param String email
+    /// @param String url
+    /// @param Bool phrase
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createMagicURLToken(
+        userId: String,
+        email: String,
+        url: String? = nil,
+        phrase: Bool? = nil
+    ) async throws -> AppwriteModels.Token {
+        let apiPath: String = "/account/tokens/magic-url"
+
+        let apiParams: [String: Any?] = [
+            "userId": userId,
+            "email": email,
+            "url": url,
+            "phrase": phrase
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Token = { response in
+            return AppwriteModels.Token.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create OAuth2 token
+    ///
+    /// Allow the user to login to their account using the OAuth2 provider of their
+    /// choice. Each OAuth2 provider should be enabled from the Appwrite console
+    /// first. Use the success and failure arguments to provide a redirect URL's
+    /// back to your app when login is completed. 
+    /// 
+    /// If authentication succeeds, `userId` and `secret` of a token will be
+    /// appended to the success URL as query parameters. These can be used to
+    /// create a new session using the [Create
+    /// session](https://appwrite.io/docs/references/cloud/client-web/account#createSession)
+    /// endpoint.
+    /// 
+    /// A user is limited to 10 active sessions at a time by default. [Learn more
+    /// about session
+    /// limits](https://appwrite.io/docs/authentication-security#limits).
+    ///
+    /// @param AppwriteEnums.OAuthProvider provider
+    /// @param String success
+    /// @param String failure
+    /// @param [String] scopes
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createOAuth2Token(
+        provider: AppwriteEnums.OAuthProvider,
+        success: String? = nil,
+        failure: String? = nil,
+        scopes: [String]? = nil
+    ) async throws -> String? {
+        let apiPath: String = "/account/tokens/oauth2/{provider}"
+            .replacingOccurrences(of: "{provider}", with: provider.rawValue)
+
+        let apiParams: [String: Any?] = [
+            "success": success,
+            "failure": failure,
+            "scopes": scopes,
+            "project": client.config["project"]
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        return try await client.redirect(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams
+        )
+    }
+
+    ///
+    /// Create phone token
+    ///
+    /// Sends the user an SMS with a secret key for creating a session. If the
+    /// provided user ID has not be registered, a new user will be created. Use the
+    /// returned user ID and secret and submit a request to the [POST
+    /// /v1/account/sessions/token](https://appwrite.io/docs/references/cloud/client-web/account#createSession)
+    /// endpoint to complete the login process. The secret sent to the user's phone
+    /// is valid for 15 minutes.
+    /// 
+    /// A user is limited to 10 active sessions at a time by default. [Learn more
+    /// about session
+    /// limits](https://appwrite.io/docs/authentication-security#limits).
+    ///
+    /// @param String userId
+    /// @param String phone
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createPhoneToken(
+        userId: String,
+        phone: String
+    ) async throws -> AppwriteModels.Token {
+        let apiPath: String = "/account/tokens/phone"
+
+        let apiParams: [String: Any?] = [
+            "userId": userId,
+            "phone": phone
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Token = { response in
+            return AppwriteModels.Token.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
         )
     }
 

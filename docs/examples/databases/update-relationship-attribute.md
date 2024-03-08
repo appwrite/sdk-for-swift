@@ -1,4 +1,5 @@
 import Appwrite
+import AppwriteEnums
 
 let client = Client()
     .setEndpoint("https://cloud.appwrite.io/v1") // Your API Endpoint
@@ -8,8 +9,9 @@ let client = Client()
 let databases = Databases(client)
 
 let attributeRelationship = try await databases.updateRelationshipAttribute(
-    databaseId: "[DATABASE_ID]",
-    collectionId: "[COLLECTION_ID]",
-    key: ""
+    databaseId: "<DATABASE_ID>",
+    collectionId: "<COLLECTION_ID>",
+    key: "",
+    onDelete: .cascade // optional
 )
 

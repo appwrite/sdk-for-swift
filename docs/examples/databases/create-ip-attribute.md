@@ -8,9 +8,11 @@ let client = Client()
 let databases = Databases(client)
 
 let attributeIp = try await databases.createIpAttribute(
-    databaseId: "[DATABASE_ID]",
-    collectionId: "[COLLECTION_ID]",
+    databaseId: "<DATABASE_ID>",
+    collectionId: "<COLLECTION_ID>",
     key: "",
-    required: xfalse
+    required: false,
+    default: "", // optional
+    array: false // optional
 )
 

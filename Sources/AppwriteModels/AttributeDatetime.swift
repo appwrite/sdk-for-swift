@@ -17,7 +17,7 @@ public class AttributeDatetime {
     public let error: String
 
     /// Is attribute required?
-    public let xrequired: Bool
+    public let `required`: Bool
 
     /// Is attribute an array?
     public let array: Bool??
@@ -26,7 +26,7 @@ public class AttributeDatetime {
     public let format: String
 
     /// Default value for attribute when not provided. Only null is optional
-    public let xdefault: String??
+    public let `default`: String??
 
 
     init(
@@ -34,19 +34,19 @@ public class AttributeDatetime {
         type: String,
         status: String,
         error: String,
-        xrequired: Bool,
+        `required`: Bool,
         array: Bool??,
         format: String,
-        xdefault: String??
+        `default`: String??
     ) {
         self.key = key
         self.type = type
         self.status = status
         self.error = error
-        self.xrequired = xrequired
+        self.`required` = `required`
         self.array = array
         self.format = format
-        self.xdefault = xdefault
+        self.`default` = `default`
     }
 
     public func toMap() -> [String: Any] {
@@ -55,10 +55,10 @@ public class AttributeDatetime {
             "type": type as Any,
             "status": status as Any,
             "error": error as Any,
-            "xrequired": xrequired as Any,
+            "`required`": `required` as Any,
             "array": array as Any,
             "format": format as Any,
-            "xdefault": xdefault as Any
+            "`default`": `default` as Any
         ]
     }
 
@@ -68,10 +68,10 @@ public class AttributeDatetime {
             type: map["type"] as! String,
             status: map["status"] as! String,
             error: map["error"] as! String,
-            xrequired: map["required"] as! Bool,
+            `required`: map["required"] as! Bool,
             array: map["array"] as? Bool?,
             format: map["format"] as! String,
-            xdefault: map["default"] as? String?
+            `default`: map["default"] as? String?
         )
     }
 }

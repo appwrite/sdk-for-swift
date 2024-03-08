@@ -8,9 +8,11 @@ let client = Client()
 let databases = Databases(client)
 
 let attributeEmail = try await databases.createEmailAttribute(
-    databaseId: "[DATABASE_ID]",
-    collectionId: "[COLLECTION_ID]",
+    databaseId: "<DATABASE_ID>",
+    collectionId: "<COLLECTION_ID>",
     key: "",
-    required: xfalse
+    required: false,
+    default: "email@example.com", // optional
+    array: false // optional
 )
 

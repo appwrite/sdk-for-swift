@@ -17,13 +17,13 @@ public class AttributeBoolean {
     public let error: String
 
     /// Is attribute required?
-    public let xrequired: Bool
+    public let `required`: Bool
 
     /// Is attribute an array?
     public let array: Bool??
 
     /// Default value for attribute when not provided. Cannot be set when attribute is required.
-    public let xdefault: Bool??
+    public let `default`: Bool??
 
 
     init(
@@ -31,17 +31,17 @@ public class AttributeBoolean {
         type: String,
         status: String,
         error: String,
-        xrequired: Bool,
+        `required`: Bool,
         array: Bool??,
-        xdefault: Bool??
+        `default`: Bool??
     ) {
         self.key = key
         self.type = type
         self.status = status
         self.error = error
-        self.xrequired = xrequired
+        self.`required` = `required`
         self.array = array
-        self.xdefault = xdefault
+        self.`default` = `default`
     }
 
     public func toMap() -> [String: Any] {
@@ -50,9 +50,9 @@ public class AttributeBoolean {
             "type": type as Any,
             "status": status as Any,
             "error": error as Any,
-            "xrequired": xrequired as Any,
+            "`required`": `required` as Any,
             "array": array as Any,
-            "xdefault": xdefault as Any
+            "`default`": `default` as Any
         ]
     }
 
@@ -62,9 +62,9 @@ public class AttributeBoolean {
             type: map["type"] as! String,
             status: map["status"] as! String,
             error: map["error"] as! String,
-            xrequired: map["required"] as! Bool,
+            `required`: map["required"] as! Bool,
             array: map["array"] as? Bool?,
-            xdefault: map["default"] as? Bool?
+            `default`: map["default"] as? Bool?
         )
     }
 }

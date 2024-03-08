@@ -8,10 +8,10 @@ let client = Client()
 let databases = Databases(client)
 
 let attributeInteger = try await databases.updateIntegerAttribute(
-    databaseId: "[DATABASE_ID]",
-    collectionId: "[COLLECTION_ID]",
+    databaseId: "<DATABASE_ID>",
+    collectionId: "<COLLECTION_ID>",
     key: "",
-    required: xfalse,
+    required: false,
     min: 0,
     max: 0,
     default: 0

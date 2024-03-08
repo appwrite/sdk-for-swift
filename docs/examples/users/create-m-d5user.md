@@ -8,8 +8,9 @@ let client = Client()
 let users = Users(client)
 
 let user = try await users.createMD5User(
-    userId: "[USER_ID]",
+    userId: "<USER_ID>",
     email: "email@example.com",
-    password: "password"
+    password: "password",
+    name: "<NAME>" // optional
 )
 

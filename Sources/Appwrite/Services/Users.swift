@@ -2,6 +2,7 @@ import AsyncHTTPClient
 import Foundation
 import NIO
 import JSONCodable
+import AppwriteEnums
 import AppwriteModels
 
 /// The Users service allows you to manage your project users.
@@ -308,13 +309,13 @@ open class Users: Service {
     ///
     /// Get identities for all users.
     ///
-    /// @param String queries
+    /// @param [String] queries
     /// @param String search
     /// @throws Exception
     /// @return array
     ///
     open func listIdentities(
-        queries: String? = nil,
+        queries: [String]? = nil,
         search: String? = nil
     ) async throws -> AppwriteModels.IdentityList {
         let apiPath: String = "/users/identities"
@@ -342,7 +343,7 @@ open class Users: Service {
     }
 
     ///
-    /// Delete Identity
+    /// Delete identity
     ///
     /// Delete an identity by its unique ID.
     ///
@@ -742,7 +743,7 @@ open class Users: Service {
     /// @param String userId
     /// @param String email
     /// @param String password
-    /// @param String passwordVersion
+    /// @param AppwriteEnums.PasswordHash passwordVersion
     /// @param String name
     /// @throws Exception
     /// @return array
@@ -751,7 +752,7 @@ open class Users: Service {
         userId: String,
         email: String,
         password: String,
-        passwordVersion: String? = nil,
+        passwordVersion: AppwriteEnums.PasswordHash? = nil,
         name: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
@@ -793,7 +794,7 @@ open class Users: Service {
     /// @param String userId
     /// @param String email
     /// @param String password
-    /// @param String passwordVersion
+    /// @param AppwriteEnums.PasswordHash passwordVersion
     /// @param String name
     /// @throws Exception
     /// @return array
@@ -802,7 +803,7 @@ open class Users: Service {
         userId: String,
         email: String,
         password: String,
-        passwordVersion: String? = nil,
+        passwordVersion: AppwriteEnums.PasswordHash? = nil,
         name: String? = nil
     ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
         return try await createSHAUser(
@@ -1096,6 +1097,270 @@ open class Users: Service {
 
         return try await client.call(
             method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update MFA
+    ///
+    /// Enable or disable MFA on a user account.
+    ///
+    /// @param String userId
+    /// @param Bool mfa
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateMfa<T>(
+        userId: String,
+        mfa: Bool,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.User<T> {
+        let apiPath: String = "/users/{userId}/mfa"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let apiParams: [String: Any?] = [
+            "mfa": mfa
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.User<T> = { response in
+            return AppwriteModels.User.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update MFA
+    ///
+    /// Enable or disable MFA on a user account.
+    ///
+    /// @param String userId
+    /// @param Bool mfa
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateMfa(
+        userId: String,
+        mfa: Bool
+    ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
+        return try await updateMfa(
+            userId: userId,
+            mfa: mfa,
+            nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
+    /// Delete Authenticator
+    ///
+    /// Delete an authenticator app.
+    ///
+    /// @param String userId
+    /// @param AppwriteEnums.AuthenticatorType type
+    /// @throws Exception
+    /// @return array
+    ///
+    open func deleteMfaAuthenticator<T>(
+        userId: String,
+        type: AppwriteEnums.AuthenticatorType,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.User<T> {
+        let apiPath: String = "/users/{userId}/mfa/authenticators/{type}"
+            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{type}", with: type.rawValue)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.User<T> = { response in
+            return AppwriteModels.User.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "DELETE",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Delete Authenticator
+    ///
+    /// Delete an authenticator app.
+    ///
+    /// @param String userId
+    /// @param AppwriteEnums.AuthenticatorType type
+    /// @throws Exception
+    /// @return array
+    ///
+    open func deleteMfaAuthenticator(
+        userId: String,
+        type: AppwriteEnums.AuthenticatorType
+    ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
+        return try await deleteMfaAuthenticator(
+            userId: userId,
+            type: type,
+            nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
+    /// List Factors
+    ///
+    /// List the factors available on the account to be used as a MFA challange.
+    ///
+    /// @param String userId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func listMfaFactors(
+        userId: String
+    ) async throws -> AppwriteModels.MfaFactors {
+        let apiPath: String = "/users/{userId}/mfa/factors"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.MfaFactors = { response in
+            return AppwriteModels.MfaFactors.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get MFA Recovery Codes
+    ///
+    /// Get recovery codes that can be used as backup for MFA flow by User ID.
+    /// Before getting codes, they must be generated using
+    /// [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes)
+    /// method.
+    ///
+    /// @param String userId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getMfaRecoveryCodes(
+        userId: String
+    ) async throws -> AppwriteModels.MfaRecoveryCodes {
+        let apiPath: String = "/users/{userId}/mfa/recovery-codes"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.MfaRecoveryCodes = { response in
+            return AppwriteModels.MfaRecoveryCodes.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Regenerate MFA Recovery Codes
+    ///
+    /// Regenerate recovery codes that can be used as backup for MFA flow by User
+    /// ID. Before regenerating codes, they must be first generated using
+    /// [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes)
+    /// method.
+    ///
+    /// @param String userId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateMfaRecoveryCodes(
+        userId: String
+    ) async throws -> AppwriteModels.MfaRecoveryCodes {
+        let apiPath: String = "/users/{userId}/mfa/recovery-codes"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.MfaRecoveryCodes = { response in
+            return AppwriteModels.MfaRecoveryCodes.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PUT",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create MFA Recovery Codes
+    ///
+    /// Generate recovery codes used as backup for MFA flow for User ID. Recovery
+    /// codes can be used as a MFA verification type in
+    /// [createMfaChallenge](/docs/references/cloud/client-web/account#createMfaChallenge)
+    /// method by client SDK.
+    ///
+    /// @param String userId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createMfaRecoveryCodes(
+        userId: String
+    ) async throws -> AppwriteModels.MfaRecoveryCodes {
+        let apiPath: String = "/users/{userId}/mfa/recovery-codes"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.MfaRecoveryCodes = { response in
+            return AppwriteModels.MfaRecoveryCodes.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
             path: apiPath,
             headers: apiHeaders,
             params: apiParams,
@@ -1435,6 +1700,45 @@ open class Users: Service {
     }
 
     ///
+    /// Create session
+    ///
+    /// Creates a session for a user. Returns an immediately usable session object.
+    /// 
+    /// If you want to generate a token for a custom authentication flow, use the
+    /// [POST
+    /// /users/{userId}/tokens](https://appwrite.io/docs/server/users#createToken)
+    /// endpoint.
+    ///
+    /// @param String userId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createSession(
+        userId: String
+    ) async throws -> AppwriteModels.Session {
+        let apiPath: String = "/users/{userId}/sessions"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Session = { response in
+            return AppwriteModels.Session.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
     /// Delete user sessions
     ///
     /// Delete all user's sessions by using the user's unique ID.
@@ -1552,6 +1856,254 @@ open class Users: Service {
             userId: userId,
             status: status,
             nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
+    /// List User Targets
+    ///
+    /// List the messaging targets that are associated with a user.
+    ///
+    /// @param String userId
+    /// @param [String] queries
+    /// @throws Exception
+    /// @return array
+    ///
+    open func listTargets(
+        userId: String,
+        queries: [String]? = nil
+    ) async throws -> AppwriteModels.TargetList {
+        let apiPath: String = "/users/{userId}/targets"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let apiParams: [String: Any?] = [
+            "queries": queries
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.TargetList = { response in
+            return AppwriteModels.TargetList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create User Target
+    ///
+    /// Create a messaging target.
+    ///
+    /// @param String userId
+    /// @param String targetId
+    /// @param AppwriteEnums.MessagingProviderType providerType
+    /// @param String identifier
+    /// @param String providerId
+    /// @param String name
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createTarget(
+        userId: String,
+        targetId: String,
+        providerType: AppwriteEnums.MessagingProviderType,
+        identifier: String,
+        providerId: String? = nil,
+        name: String? = nil
+    ) async throws -> AppwriteModels.Target {
+        let apiPath: String = "/users/{userId}/targets"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let apiParams: [String: Any?] = [
+            "targetId": targetId,
+            "providerType": providerType,
+            "identifier": identifier,
+            "providerId": providerId,
+            "name": name
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Target = { response in
+            return AppwriteModels.Target.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get User Target
+    ///
+    /// Get a user's push notification target by ID.
+    ///
+    /// @param String userId
+    /// @param String targetId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getTarget(
+        userId: String,
+        targetId: String
+    ) async throws -> AppwriteModels.Target {
+        let apiPath: String = "/users/{userId}/targets/{targetId}"
+            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{targetId}", with: targetId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Target = { response in
+            return AppwriteModels.Target.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update User target
+    ///
+    /// Update a messaging target.
+    ///
+    /// @param String userId
+    /// @param String targetId
+    /// @param String identifier
+    /// @param String providerId
+    /// @param String name
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateTarget(
+        userId: String,
+        targetId: String,
+        identifier: String? = nil,
+        providerId: String? = nil,
+        name: String? = nil
+    ) async throws -> AppwriteModels.Target {
+        let apiPath: String = "/users/{userId}/targets/{targetId}"
+            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{targetId}", with: targetId)
+
+        let apiParams: [String: Any?] = [
+            "identifier": identifier,
+            "providerId": providerId,
+            "name": name
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Target = { response in
+            return AppwriteModels.Target.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Delete user target
+    ///
+    /// Delete a messaging target.
+    ///
+    /// @param String userId
+    /// @param String targetId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func deleteTarget(
+        userId: String,
+        targetId: String
+    ) async throws -> Any {
+        let apiPath: String = "/users/{userId}/targets/{targetId}"
+            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{targetId}", with: targetId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        return try await client.call(
+            method: "DELETE",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams        )
+    }
+
+    ///
+    /// Create token
+    ///
+    /// Returns a token with a secret key for creating a session. If the provided
+    /// user ID has not be registered, a new user will be created. Use the returned
+    /// user ID and secret and submit a request to the [PUT
+    /// /account/sessions/custom](https://appwrite.io/docs/references/cloud/client-web/account#updateCustomSession)
+    /// endpoint to complete the login process.
+    ///
+    /// @param String userId
+    /// @param Int length
+    /// @param Int expire
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createToken(
+        userId: String,
+        length: Int? = nil,
+        expire: Int? = nil
+    ) async throws -> AppwriteModels.Token {
+        let apiPath: String = "/users/{userId}/tokens"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let apiParams: [String: Any?] = [
+            "length": length,
+            "expire": expire
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Token = { response in
+            return AppwriteModels.Token.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
         )
     }
 

@@ -14,55 +14,49 @@ open class Client {
     // MARK: Properties
     public static var chunkSize = 5 * 1024 * 1024 // 5MB
 
-    open var endPoint = "https://HOSTNAME/v1"
-
-    open var endPointRealtime: String? = nil
+    open var endPoint = "https://cloud.appwrite.io/v1"
 
     open var headers: [String: String] = [
-        "content-type": "",
+        "content-type": "application/json",
         "x-sdk-name": "Swift",
         "x-sdk-platform": "server",
         "x-sdk-language": "swift",
-        "x-sdk-version": "4.1.0",
-        "X-Appwrite-Response-Format": "1.4.0"
+        "x-sdk-version": "5.0.0",
+        "x-appwrite-response-format": "1.5.0"
     ]
 
-    open var config: [String: String] = [:]
+    internal var config: [String: String] = [:]
 
-    open var selfSigned: Bool = false
+    internal var selfSigned: Bool = false
 
-    open var http: HTTPClient
+    internal var http: HTTPClient
 
-    private static let boundaryChars =
-        "abcdefghijklmnopqrstuvwxyz1234567890"
+    internal var httpForRedirect: HTTPClient
+
+    private static let boundaryChars = "abcdefghijklmnopqrstuvwxyz1234567890"
 
     private static let boundary = randomBoundary()
 
-    private static var eventLoopGroupProvider =
-        HTTPClient.EventLoopGroupProvider.createNew
+    private static var eventLoopGroupProvider = HTTPClient.EventLoopGroupProvider.singleton
 
     // MARK: Methods
 
     public init() {
         http = Client.createHTTP()
+        httpForRedirect = Client.createHTTP(redirectConfiguration: .disallow)
         addUserAgentHeader()
         addOriginHeader()
     }
 
     private static func createHTTP(
         selfSigned: Bool = false,
-        maxRedirects: Int = 5,
-        alloweRedirectCycles: Bool = false,
+        redirectConfiguration: HTTPClient.Configuration.RedirectConfiguration = .follow(max: 5, allowCycles: false),
         connectTimeout: TimeAmount = .seconds(30),
         readTimeout: TimeAmount = .seconds(30)
     ) -> HTTPClient {
         let timeout = HTTPClient.Configuration.Timeout(
             connect: connectTimeout,
             read: readTimeout
-        )
-        let redirect = HTTPClient.Configuration.RedirectConfiguration.follow(
-            max: 5,
-            allowCycles: false
         )
         var tls = TLSConfiguration
             .makeClientConfiguration()
@@ -75,7 +69,7 @@ open class Client {
             eventLoopGroupProvider: eventLoopGroupProvider,
             configuration: HTTPClient.Configuration(
                 tlsConfiguration: tls,
-                redirectConfiguration: redirect,
+                redirectConfiguration: redirectConfiguration,
                 timeout: timeout,
                 decompression: .enabled(limit: .none)
             )
@@ -86,6 +80,7 @@ open class Client {
     deinit {
         do {
             try http.syncShutdown()
+            try httpForRedirect.syncShutdown()
         } catch {
             print(error)
         }
@@ -149,6 +144,36 @@ open class Client {
         return self
     }
 
+    ///
+    /// Set Session
+    ///
+    /// The user session to authenticate with
+    ///
+    /// @param String value
+    ///
+    /// @return Client
+    ///
+    open func setSession(_ value: String) -> Client {
+        config["session"] = value
+        _ = addHeader(key: "X-Appwrite-Session", value: value)
+        return self
+    }
+
+    ///
+    /// Set ForwardedUserAgent
+    ///
+    /// The user agent string of the client that made the request
+    ///
+    /// @param String value
+    ///
+    /// @return Client
+    ///
+    open func setForwardedUserAgent(_ value: String) -> Client {
+        config["forwardeduseragent"] = value
+        _ = addHeader(key: "X-Forwarded-User-Agent", value: value)
+        return self
+    }
+
 
     ///
     /// Set self signed
@@ -173,25 +198,6 @@ open class Client {
     ///
     open func setEndpoint(_ endPoint: String) -> Client {
         self.endPoint = endPoint
-
-        if (self.endPointRealtime == nil && endPoint.starts(with: "http")) {
-            self.endPointRealtime = endPoint
-                .replacingOccurrences(of: "http://", with: "ws://")
-                .replacingOccurrences(of: "https://", with: "wss://")
-        }
-
-        return self
-    }
-
-    ///
-    /// Set realtime endpoint.
-    ///
-    /// @param String endPoint
-    ///
-    /// @return Client
-    ///
-    open func setEndpointRealtime(_ endPoint: String) -> Client {
-        self.endPointRealtime = endPoint
 
         return self
     }
@@ -269,6 +275,74 @@ open class Client {
         sink: ((ByteBuffer) -> Void)? = nil,
         converter: ((Any) -> T)? = nil
     ) async throws -> T {
+        let request = try prepareRequest(
+            method: method,
+            path: path,
+            headers: headers,
+            params: params
+        )
+
+        return try await execute(request, converter: converter)
+    }
+
+    ///
+    /// Make an redirect API call
+    ///
+    /// @param String method
+    /// @param String path
+    /// @param Dictionary<String, Any?> params
+    /// @param Dictionary<String, String> headers
+    /// @return String
+    /// @throws Exception
+    ///
+    open func redirect(
+        method: String,
+        path: String = "",
+        headers: [String: String] = [:],
+        params: [String: Any?] = [:]
+    ) async throws -> String? {
+        let request = try prepareRequest(
+            method: method,
+            path: path,
+            headers: headers,
+            params: params
+        )
+
+        let response = try await httpForRedirect.execute(
+            request,
+            timeout: .seconds(30)
+        )
+
+        if response.status.code >= 400 {
+            var message = ""
+            var data = try await response.body.collect(upTo: Int.max)
+            var type = ""
+
+            do {
+                let dict = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+
+                message = dict?["message"] as? String ?? response.status.reasonPhrase
+                type = dict?["type"] as? String ?? ""
+            } catch {
+                message =  data.readString(length: data.readableBytes)!
+            }
+
+            throw AppwriteError(
+                message: message,
+                code: Int(response.status.code),
+                type: type
+            )
+        }
+
+        return response.headers["location"].first
+    }
+
+    private func prepareRequest(
+        method: String,
+        path: String = "",
+        headers: [String: String] = [:],
+        params: [String: Any?] = [:]
+    ) throws -> HTTPClientRequest {
         let validParams = params.filter { $0.value != nil }
 
         let queryParameters = method == "GET" && !validParams.isEmpty
@@ -285,13 +359,11 @@ open class Client {
 
         request.addDomainCookies()
 
-        if "GET" == method {
-            return try await execute(request, converter: converter)
+        if "GET" != method {
+            try buildBody(for: &request, with: validParams)
         }
 
-        try buildBody(for: &request, with: validParams)
-
-        return try await execute(request, withSink: sink, converter: converter)
+        return request
     }
 
     private func buildBody(
@@ -307,67 +379,49 @@ open class Client {
 
     private func execute<T>(
         _ request: HTTPClientRequest,
-        withSink bufferSink: ((ByteBuffer) -> Void)? = nil,
         converter: ((Any) -> T)? = nil
     ) async throws -> T {
-        func complete(with response: HTTPClientResponse) async throws -> T {
-            switch response.status.code {
-            case 0..<400:
-                if response.headers["Set-Cookie"].count > 0 {
-                    UserDefaults.standard.set(
-                        response.headers["Set-Cookie"],
-                        forKey: URL(string: request.url)!.host! + "-cookies"
-                    )
-                }
-                switch T.self {
-                case is Bool.Type:
-                    return true as! T
-                case is ByteBuffer.Type:
-                    return try await response.body.collect(upTo: Int.max) as! T
-                default:
-                    let data = try await response.body.collect(upTo: Int.max)
-                    if data.readableBytes == 0 {
-                        return true as! T
-                    }
-                    let dict = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-
-                    return converter?(dict!) ?? dict! as! T
-                }
-            default:
-                var message = ""
-                var data = try await response.body.collect(upTo: Int.max)
-                var type = ""
-                
-                do {
-                    let dict = try JSONSerialization.jsonObject(with: data) as? [String: Any]
-
-                    message = dict?["message"] as? String ?? response.status.reasonPhrase
-                    type = dict?["type"] as? String ?? ""
-                } catch {
-                    message =  data.readString(length: data.readableBytes)!
-                }
-
-                throw AppwriteError(
-                    message: message,
-                    code: Int(response.status.code),
-                    type: type
-                )
-            }
-        }
-
-        if bufferSink == nil {
-            let response = try await http.execute(
-                request, 
-                timeout: .seconds(30)
-            )
-            return try await complete(with: response)
-        }
-
         let response = try await http.execute(
             request,
             timeout: .seconds(30)
         )
-        return try await complete(with: response)
+
+        switch response.status.code {
+        case 0..<400:
+            switch T.self {
+            case is Bool.Type:
+                return true as! T
+            case is ByteBuffer.Type:
+                return try await response.body.collect(upTo: Int.max) as! T
+            default:
+                let data = try await response.body.collect(upTo: Int.max)
+                if data.readableBytes == 0 {
+                    return true as! T
+                }
+                let dict = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+
+                return converter?(dict!) ?? dict! as! T
+            }
+        default:
+            var message = ""
+            var data = try await response.body.collect(upTo: Int.max)
+            var type = ""
+
+            do {
+                let dict = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+
+                message = dict?["message"] as? String ?? response.status.reasonPhrase
+                type = dict?["type"] as? String ?? ""
+            } catch {
+                message =  data.readString(length: data.readableBytes)!
+            }
+
+            throw AppwriteError(
+                message: message,
+                code: Int(response.status.code),
+                type: type
+            )
+        }
     }
 
     func chunkedUpload<T>(
@@ -426,7 +480,7 @@ open class Client {
         while offset < size {
             let slice = (input.data as! ByteBuffer).getSlice(at: offset, length: Client.chunkSize)
                 ?? (input.data as! ByteBuffer).getSlice(at: offset, length: Int(size - offset))
-            
+
             params[paramName] = InputFile.fromBuffer(slice!, filename: input.filename, mimeType: input.mimeType)
             headers["content-range"] = "bytes \(offset)-\(min((offset + Client.chunkSize) - 1, size - 1))/\(size)"
 
@@ -481,7 +535,12 @@ open class Client {
                 || param is [Bool: Any] {
                 encodedParams[key] = param
             } else {
-                encodedParams[key] = try! (param as! Encodable).toJson()
+                let value = try! (param as! Encodable).toJson()
+
+                let range = value.index(value.startIndex, offsetBy: 1)..<value.index(value.endIndex, offsetBy: -1)
+                let substring = value[range]
+
+                encodedParams[key] = substring
             }
         }
 
@@ -616,26 +675,5 @@ extension Client {
         #endif
 
         return device
-    }
-}
-
-extension Client {
-
-    public enum HTTPStatus: Int {
-      case unknown = -1
-      case ok = 200
-      case created = 201
-      case accepted = 202
-      case movedPermanently = 301
-      case found = 302
-      case badRequest = 400
-      case notAuthorized = 401
-      case paymentRequired = 402
-      case forbidden = 403
-      case notFound = 404
-      case methodNotAllowed = 405
-      case notAcceptable = 406
-      case internalServerError = 500
-      case notImplemented = 501
     }
 }

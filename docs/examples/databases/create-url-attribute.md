@@ -8,9 +8,11 @@ let client = Client()
 let databases = Databases(client)
 
 let attributeUrl = try await databases.createUrlAttribute(
-    databaseId: "[DATABASE_ID]",
-    collectionId: "[COLLECTION_ID]",
+    databaseId: "<DATABASE_ID>",
+    collectionId: "<COLLECTION_ID>",
     key: "",
-    required: xfalse
+    required: false,
+    default: "https://example.com", // optional
+    array: false // optional
 )
 

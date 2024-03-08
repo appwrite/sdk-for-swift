@@ -8,7 +8,7 @@ let client = Client()
 let users = Users(client)
 
 let user = try await users.updatePhoneVerification(
-    userId: "[USER_ID]",
-    phoneVerification: xfalse
+    userId: "<USER_ID>",
+    phoneVerification: false
 )
 

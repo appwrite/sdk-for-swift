@@ -8,9 +8,13 @@ let client = Client()
 let databases = Databases(client)
 
 let attributeFloat = try await databases.createFloatAttribute(
-    databaseId: "[DATABASE_ID]",
-    collectionId: "[COLLECTION_ID]",
+    databaseId: "<DATABASE_ID>",
+    collectionId: "<COLLECTION_ID>",
     key: "",
-    required: xfalse
+    required: false,
+    min: 0, // optional
+    max: 0, // optional
+    default: 0, // optional
+    array: false // optional
 )
 
