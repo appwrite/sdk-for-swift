@@ -21,7 +21,7 @@ open class Client {
         "x-sdk-name": "Swift",
         "x-sdk-platform": "server",
         "x-sdk-language": "swift",
-        "x-sdk-version": "5.0.0",
+        "x-sdk-version": "5.0.1",
         "x-appwrite-response-format": "1.5.0"
     ]
 
@@ -643,6 +643,8 @@ extension Client {
         return "tvos"
         #elseif os(macOS)
         return "macos"
+        #elseif os(visionOS)
+        return "visionos"
         #elseif os(Linux)
         return "linux"
         #elseif os(Windows)
@@ -666,6 +668,9 @@ extension Client {
         #elseif os(macOS)
         let info = deviceInfo.macOSInfo
         device = "(Macintosh; \(info!.model))"
+        #elseif os(visionOS)
+        let info = deviceInfo.iOSInfo
+        device = "\(info!.modelIdentifier) visionOS/\(info!.systemVersion)"
         #elseif os(Linux)
         let info = deviceInfo.linuxInfo
         device = "(Linux; U; \(info!.id) \(info!.version))"
