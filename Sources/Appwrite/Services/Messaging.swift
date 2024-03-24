@@ -957,7 +957,7 @@ open class Messaging: Service {
     ///
     /// @param String providerId
     /// @param String name
-    /// @param String from
+    /// @param String templateId
     /// @param String senderId
     /// @param String authKey
     /// @param Bool enabled
@@ -967,7 +967,7 @@ open class Messaging: Service {
     open func createMsg91Provider(
         providerId: String,
         name: String,
-        from: String? = nil,
+        templateId: String? = nil,
         senderId: String? = nil,
         authKey: String? = nil,
         enabled: Bool? = nil
@@ -977,7 +977,7 @@ open class Messaging: Service {
         let apiParams: [String: Any?] = [
             "providerId": providerId,
             "name": name,
-            "from": from,
+            "templateId": templateId,
             "senderId": senderId,
             "authKey": authKey,
             "enabled": enabled
@@ -1008,9 +1008,9 @@ open class Messaging: Service {
     /// @param String providerId
     /// @param String name
     /// @param Bool enabled
+    /// @param String templateId
     /// @param String senderId
     /// @param String authKey
-    /// @param String from
     /// @throws Exception
     /// @return array
     ///
@@ -1018,9 +1018,9 @@ open class Messaging: Service {
         providerId: String,
         name: String? = nil,
         enabled: Bool? = nil,
+        templateId: String? = nil,
         senderId: String? = nil,
-        authKey: String? = nil,
-        from: String? = nil
+        authKey: String? = nil
     ) async throws -> AppwriteModels.Provider {
         let apiPath: String = "/messaging/providers/msg91/{providerId}"
             .replacingOccurrences(of: "{providerId}", with: providerId)
@@ -1028,9 +1028,9 @@ open class Messaging: Service {
         let apiParams: [String: Any?] = [
             "name": name,
             "enabled": enabled,
+            "templateId": templateId,
             "senderId": senderId,
-            "authKey": authKey,
-            "from": from
+            "authKey": authKey
         ]
 
         let apiHeaders: [String: String] = [
