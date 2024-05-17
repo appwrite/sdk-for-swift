@@ -131,6 +131,7 @@ open class Messaging: Service {
     /// @param [String] cc
     /// @param [String] bcc
     /// @param String scheduledAt
+    /// @param [String] attachments
     /// @throws Exception
     /// @return array
     ///
@@ -145,7 +146,8 @@ open class Messaging: Service {
         html: Bool? = nil,
         cc: [String]? = nil,
         bcc: [String]? = nil,
-        scheduledAt: String? = nil
+        scheduledAt: String? = nil,
+        attachments: [String]? = nil
     ) async throws -> AppwriteModels.Message {
         let apiPath: String = "/messaging/messages/email/{messageId}"
             .replacingOccurrences(of: "{messageId}", with: messageId)
@@ -160,7 +162,8 @@ open class Messaging: Service {
             "html": html,
             "cc": cc,
             "bcc": bcc,
-            "scheduledAt": scheduledAt
+            "scheduledAt": scheduledAt,
+            "attachments": attachments
         ]
 
         let apiHeaders: [String: String] = [

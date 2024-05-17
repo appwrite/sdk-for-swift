@@ -20,6 +20,7 @@ public enum Runtime: String, Codable {
     case python310 = "python-3.10"
     case python311 = "python-3.11"
     case python312 = "python-3.12"
+    case pythonMl311 = "python-ml-3.11"
     case deno140 = "deno-1.40"
     case dart215 = "dart-2.15"
     case dart216 = "dart-2.16"
