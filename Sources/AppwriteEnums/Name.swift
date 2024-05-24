@@ -13,7 +13,6 @@ public enum Name: String, Codable {
     case v1Builds = "v1-builds"
     case v1Messaging = "v1-messaging"
     case v1Migrations = "v1-migrations"
-    case hamsterv1 = "hamsterv1"
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
