@@ -34,6 +34,9 @@ public class Function {
     /// Function&#039;s active deployment ID.
     public let deployment: String
 
+    /// Allowed permission scopes.
+    public let scopes: [Any]
+
     /// Function variables.
     public let vars: [Variable]
 
@@ -82,6 +85,7 @@ public class Function {
         logging: Bool,
         runtime: String,
         deployment: String,
+        scopes: [Any],
         vars: [Variable],
         events: [Any],
         schedule: String,
@@ -105,6 +109,7 @@ public class Function {
         self.logging = logging
         self.runtime = runtime
         self.deployment = deployment
+        self.scopes = scopes
         self.vars = vars
         self.events = events
         self.schedule = schedule
@@ -131,6 +136,7 @@ public class Function {
             "logging": logging as Any,
             "runtime": runtime as Any,
             "deployment": deployment as Any,
+            "scopes": scopes as Any,
             "vars": vars.map { $0.toMap() } as Any,
             "events": events as Any,
             "schedule": schedule as Any,
@@ -158,6 +164,7 @@ public class Function {
             logging: map["logging"] as! Bool,
             runtime: map["runtime"] as! String,
             deployment: map["deployment"] as! String,
+            scopes: map["scopes"] as! [Any],
             vars: (map["vars"] as! [[String: Any]]).map { Variable.from(map: $0) },
             events: map["events"] as! [Any],
             schedule: map["schedule"] as! String,

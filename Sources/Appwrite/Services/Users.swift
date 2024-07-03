@@ -963,6 +963,49 @@ open class Users: Service {
     }
 
     ///
+    /// Create user JWT
+    ///
+    /// Use this endpoint to create a JSON Web Token for user by its unique ID. You
+    /// can use the resulting JWT to authenticate on behalf of the user. The JWT
+    /// secret will become invalid if the session it uses gets deleted.
+    ///
+    /// @param String userId
+    /// @param String sessionId
+    /// @param Int duration
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createJWT(
+        userId: String,
+        sessionId: String? = nil,
+        duration: Int? = nil
+    ) async throws -> AppwriteModels.Jwt {
+        let apiPath: String = "/users/{userId}/jwts"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let apiParams: [String: Any?] = [
+            "sessionId": sessionId,
+            "duration": duration
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Jwt = { response in
+            return AppwriteModels.Jwt.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
     /// Update user labels
     ///
     /// Update the user labels by its unique ID. 
