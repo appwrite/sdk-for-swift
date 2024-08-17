@@ -21,8 +21,8 @@ open class Client {
         "x-sdk-name": "Swift",
         "x-sdk-platform": "server",
         "x-sdk-language": "swift",
-        "x-sdk-version": "5.0.2",
-        "x-appwrite-response-format": "1.5.0"
+        "x-sdk-version": "6.0.0-rc.1",
+        "x-appwrite-response-format": "1.6.0"
     ]
 
     internal var config: [String: String] = [:]

@@ -7,6 +7,9 @@ public class Runtime {
     /// Runtime ID.
     public let id: String
 
+    /// Parent runtime key.
+    public let key: String
+
     /// Runtime Name.
     public let name: String
 
@@ -28,6 +31,7 @@ public class Runtime {
 
     init(
         id: String,
+        key: String,
         name: String,
         version: String,
         base: String,
@@ -36,6 +40,7 @@ public class Runtime {
         supports: [Any]
     ) {
         self.id = id
+        self.key = key
         self.name = name
         self.version = version
         self.base = base
@@ -47,6 +52,7 @@ public class Runtime {
     public func toMap() -> [String: Any] {
         return [
             "$id": id as Any,
+            "key": key as Any,
             "name": name as Any,
             "version": version as Any,
             "base": base as Any,
@@ -59,6 +65,7 @@ public class Runtime {
     public static func from(map: [String: Any] ) -> Runtime {
         return Runtime(
             id: map["$id"] as! String,
+            key: map["key"] as! String,
             name: map["name"] as! String,
             version: map["version"] as! String,
             base: map["base"] as! String,

@@ -75,7 +75,7 @@ open class Functions: Service {
     /// @param String templateRepository
     /// @param String templateOwner
     /// @param String templateRootDirectory
-    /// @param String templateBranch
+    /// @param String templateVersion
     /// @throws Exception
     /// @return array
     ///
@@ -100,7 +100,7 @@ open class Functions: Service {
         templateRepository: String? = nil,
         templateOwner: String? = nil,
         templateRootDirectory: String? = nil,
-        templateBranch: String? = nil
+        templateVersion: String? = nil
     ) async throws -> AppwriteModels.Function {
         let apiPath: String = "/functions"
 
@@ -125,7 +125,7 @@ open class Functions: Service {
             "templateRepository": templateRepository,
             "templateOwner": templateOwner,
             "templateRootDirectory": templateRootDirectory,
-            "templateBranch": templateBranch
+            "templateVersion": templateVersion
         ]
 
         let apiHeaders: [String: String] = [
@@ -165,6 +165,88 @@ open class Functions: Service {
 
         let converter: (Any) -> AppwriteModels.RuntimeList = { response in
             return AppwriteModels.RuntimeList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// List function templates
+    ///
+    /// List available function templates. You can use template details in
+    /// [createFunction](/docs/references/cloud/server-nodejs/functions#create)
+    /// method.
+    ///
+    /// @param [String] runtimes
+    /// @param [String] useCases
+    /// @param Int limit
+    /// @param Int offset
+    /// @throws Exception
+    /// @return array
+    ///
+    open func listTemplates(
+        runtimes: [String]? = nil,
+        useCases: [String]? = nil,
+        limit: Int? = nil,
+        offset: Int? = nil
+    ) async throws -> AppwriteModels.TemplateFunctionList {
+        let apiPath: String = "/functions/templates"
+
+        let apiParams: [String: Any?] = [
+            "runtimes": runtimes,
+            "useCases": useCases,
+            "limit": limit,
+            "offset": offset
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.TemplateFunctionList = { response in
+            return AppwriteModels.TemplateFunctionList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get function template
+    ///
+    /// Get a function template using ID. You can use template details in
+    /// [createFunction](/docs/references/cloud/server-nodejs/functions#create)
+    /// method.
+    ///
+    /// @param String templateId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getTemplate(
+        templateId: String
+    ) async throws -> AppwriteModels.TemplateFunction {
+        let apiPath: String = "/functions/templates/{templateId}"
+            .replacingOccurrences(of: "{templateId}", with: templateId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.TemplateFunction = { response in
+            return AppwriteModels.TemplateFunction.from(map: response as! [String: Any])
         }
 
         return try await client.call(
@@ -462,7 +544,7 @@ open class Functions: Service {
     }
 
     ///
-    /// Update function deployment
+    /// Update deployment
     ///
     /// Update the function code deployment ID using the unique function ID. Use
     /// this endpoint to switch the code deployment that should be executed by the
@@ -600,7 +682,7 @@ open class Functions: Service {
     }
 
     ///
-    /// Download Deployment
+    /// Download deployment
     ///
     /// Get a Deployment's contents by its unique ID. This endpoint supports range
     /// requests for partial or streaming file download.
@@ -610,7 +692,7 @@ open class Functions: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func downloadDeployment(
+    open func getDeploymentDownload(
         functionId: String,
         deploymentId: String
     ) async throws -> ByteBuffer {
@@ -698,12 +780,13 @@ open class Functions: Service {
         path: String? = nil,
         method: AppwriteEnums.ExecutionMethod? = nil,
         headers: Any? = nil,
-        scheduledAt: String? = nil
+        scheduledAt: String? = nil,
+        onProgress: ((UploadProgress) -> Void)? = nil
     ) async throws -> AppwriteModels.Execution {
         let apiPath: String = "/functions/{functionId}/executions"
             .replacingOccurrences(of: "{functionId}", with: functionId)
 
-        let apiParams: [String: Any?] = [
+        var apiParams: [String: Any?] = [
             "body": body,
             "async": async,
             "path": path,
@@ -712,20 +795,23 @@ open class Functions: Service {
             "scheduledAt": scheduledAt
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
+        var apiHeaders: [String: String] = [
+            "content-type": "multipart/form-data"
         ]
 
         let converter: (Any) -> AppwriteModels.Execution = { response in
             return AppwriteModels.Execution.from(map: response as! [String: Any])
         }
 
-        return try await client.call(
-            method: "POST",
+        let idParamName: String? = nil
+        return try await client.chunkedUpload(
             path: apiPath,
-            headers: apiHeaders,
-            params: apiParams,
-            converter: converter
+            headers: &apiHeaders,
+            params: &apiParams,
+            paramName: paramName,
+            idParamName: idParamName,
+            converter: converter,
+            onProgress: onProgress
         )
     }
 
