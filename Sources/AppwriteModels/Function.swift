@@ -73,6 +73,9 @@ public class Function {
     /// Is VCS (Version Control System) connection is in silent mode? When in silence mode, no comments will be posted on the repository pull or merge requests
     public let providerSilentMode: Bool
 
+    /// Machine specification for builds and executions.
+    public let specification: String
+
 
     init(
         id: String,
@@ -97,7 +100,8 @@ public class Function {
         providerRepositoryId: String,
         providerBranch: String,
         providerRootDirectory: String,
-        providerSilentMode: Bool
+        providerSilentMode: Bool,
+        specification: String
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -122,6 +126,7 @@ public class Function {
         self.providerBranch = providerBranch
         self.providerRootDirectory = providerRootDirectory
         self.providerSilentMode = providerSilentMode
+        self.specification = specification
     }
 
     public func toMap() -> [String: Any] {
@@ -148,7 +153,8 @@ public class Function {
             "providerRepositoryId": providerRepositoryId as Any,
             "providerBranch": providerBranch as Any,
             "providerRootDirectory": providerRootDirectory as Any,
-            "providerSilentMode": providerSilentMode as Any
+            "providerSilentMode": providerSilentMode as Any,
+            "specification": specification as Any
         ]
     }
 
@@ -176,7 +182,8 @@ public class Function {
             providerRepositoryId: map["providerRepositoryId"] as! String,
             providerBranch: map["providerBranch"] as! String,
             providerRootDirectory: map["providerRootDirectory"] as! String,
-            providerSilentMode: map["providerSilentMode"] as! Bool
+            providerSilentMode: map["providerSilentMode"] as! Bool,
+            specification: map["specification"] as! String
         )
     }
 }

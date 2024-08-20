@@ -76,6 +76,7 @@ open class Functions: Service {
     /// @param String templateOwner
     /// @param String templateRootDirectory
     /// @param String templateVersion
+    /// @param String specification
     /// @throws Exception
     /// @return array
     ///
@@ -100,7 +101,8 @@ open class Functions: Service {
         templateRepository: String? = nil,
         templateOwner: String? = nil,
         templateRootDirectory: String? = nil,
-        templateVersion: String? = nil
+        templateVersion: String? = nil,
+        specification: String? = nil
     ) async throws -> AppwriteModels.Function {
         let apiPath: String = "/functions"
 
@@ -125,7 +127,8 @@ open class Functions: Service {
             "templateRepository": templateRepository,
             "templateOwner": templateOwner,
             "templateRootDirectory": templateRootDirectory,
-            "templateVersion": templateVersion
+            "templateVersion": templateVersion,
+            "specification": specification
         ]
 
         let apiHeaders: [String: String] = [
@@ -165,6 +168,38 @@ open class Functions: Service {
 
         let converter: (Any) -> AppwriteModels.RuntimeList = { response in
             return AppwriteModels.RuntimeList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// List available function runtime specifications
+    ///
+    /// List allowed function specifications for this instance.
+    /// 
+    ///
+    /// @throws Exception
+    /// @return array
+    ///
+    open func listSpecifications(
+    ) async throws -> AppwriteModels.SpecificationList {
+        let apiPath: String = "/functions/specifications"
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.SpecificationList = { response in
+            return AppwriteModels.SpecificationList.from(map: response as! [String: Any])
         }
 
         return try await client.call(
@@ -314,6 +349,7 @@ open class Functions: Service {
     /// @param String providerBranch
     /// @param Bool providerSilentMode
     /// @param String providerRootDirectory
+    /// @param String specification
     /// @throws Exception
     /// @return array
     ///
@@ -334,7 +370,8 @@ open class Functions: Service {
         providerRepositoryId: String? = nil,
         providerBranch: String? = nil,
         providerSilentMode: Bool? = nil,
-        providerRootDirectory: String? = nil
+        providerRootDirectory: String? = nil,
+        specification: String? = nil
     ) async throws -> AppwriteModels.Function {
         let apiPath: String = "/functions/{functionId}"
             .replacingOccurrences(of: "{functionId}", with: functionId)
@@ -355,7 +392,8 @@ open class Functions: Service {
             "providerRepositoryId": providerRepositoryId,
             "providerBranch": providerBranch,
             "providerSilentMode": providerSilentMode,
-            "providerRootDirectory": providerRootDirectory
+            "providerRootDirectory": providerRootDirectory,
+            "specification": specification
         ]
 
         let apiHeaders: [String: String] = [
@@ -780,13 +818,12 @@ open class Functions: Service {
         path: String? = nil,
         method: AppwriteEnums.ExecutionMethod? = nil,
         headers: Any? = nil,
-        scheduledAt: String? = nil,
-        onProgress: ((UploadProgress) -> Void)? = nil
+        scheduledAt: String? = nil
     ) async throws -> AppwriteModels.Execution {
         let apiPath: String = "/functions/{functionId}/executions"
             .replacingOccurrences(of: "{functionId}", with: functionId)
 
-        var apiParams: [String: Any?] = [
+        let apiParams: [String: Any?] = [
             "body": body,
             "async": async,
             "path": path,
@@ -795,23 +832,20 @@ open class Functions: Service {
             "scheduledAt": scheduledAt
         ]
 
-        var apiHeaders: [String: String] = [
-            "content-type": "multipart/form-data"
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
         ]
 
         let converter: (Any) -> AppwriteModels.Execution = { response in
             return AppwriteModels.Execution.from(map: response as! [String: Any])
         }
 
-        let idParamName: String? = nil
-        return try await client.chunkedUpload(
+        return try await client.call(
+            method: "POST",
             path: apiPath,
-            headers: &apiHeaders,
-            params: &apiParams,
-            paramName: paramName,
-            idParamName: idParamName,
-            converter: converter,
-            onProgress: onProgress
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
         )
     }
 
