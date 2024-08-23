@@ -28,6 +28,9 @@ public class Deployment {
     /// The code size in bytes.
     public let size: Int
 
+    /// The build output size in bytes.
+    public let buildSize: Int
+
     /// The current build ID.
     public let buildId: String
 
@@ -83,6 +86,7 @@ public class Deployment {
         resourceType: String,
         entrypoint: String,
         size: Int,
+        buildSize: Int,
         buildId: String,
         activate: Bool,
         status: String,
@@ -107,6 +111,7 @@ public class Deployment {
         self.resourceType = resourceType
         self.entrypoint = entrypoint
         self.size = size
+        self.buildSize = buildSize
         self.buildId = buildId
         self.activate = activate
         self.status = status
@@ -134,6 +139,7 @@ public class Deployment {
             "resourceType": resourceType as Any,
             "entrypoint": entrypoint as Any,
             "size": size as Any,
+            "buildSize": buildSize as Any,
             "buildId": buildId as Any,
             "activate": activate as Any,
             "status": status as Any,
@@ -162,6 +168,7 @@ public class Deployment {
             resourceType: map["resourceType"] as! String,
             entrypoint: map["entrypoint"] as! String,
             size: map["size"] as! Int,
+            buildSize: map["buildSize"] as! Int,
             buildId: map["buildId"] as! String,
             activate: map["activate"] as! Bool,
             status: map["status"] as! String,
