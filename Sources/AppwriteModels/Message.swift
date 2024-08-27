@@ -7,41 +7,54 @@ public class Message {
     /// Message ID.
     public let id: String
 
+
     /// Message creation time in ISO 8601 format.
     public let createdAt: String
+
 
     /// Message update date in ISO 8601 format.
     public let updatedAt: String
 
+
     /// Message provider type.
     public let providerType: String
+
 
     /// Topic IDs set as recipients.
     public let topics: [Any]
 
+
     /// User IDs set as recipients.
     public let users: [Any]
+
 
     /// Target IDs set as recipients.
     public let targets: [Any]
 
+
     /// The scheduled time for message.
-    public let scheduledAt: String??
+    public let scheduledAt: String?
+
 
     /// The time when the message was delivered.
-    public let deliveredAt: String??
+    public let deliveredAt: String?
+
 
     /// Delivery errors if any.
-    public let deliveryErrors: [Any]??
+    public let deliveryErrors: [Any]?
+
 
     /// Number of recipients the message was delivered to.
     public let deliveredTotal: Int
 
+
     /// Data of the message.
     public let data: Any
 
+
     /// Status of delivery.
     public let status: String
+
 
 
     init(
@@ -52,9 +65,9 @@ public class Message {
         topics: [Any],
         users: [Any],
         targets: [Any],
-        scheduledAt: String??,
-        deliveredAt: String??,
-        deliveryErrors: [Any]??,
+        scheduledAt: String?,
+        deliveredAt: String?,
+        deliveryErrors: [Any]?,
         deliveredTotal: Int,
         data: Any,
         status: String

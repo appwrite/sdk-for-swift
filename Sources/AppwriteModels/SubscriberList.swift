@@ -7,8 +7,10 @@ public class SubscriberList {
     /// Total number of subscribers documents that matched your query.
     public let total: Int
 
+
     /// List of subscribers.
     public let subscribers: [Subscriber]
+
 
 
     init(

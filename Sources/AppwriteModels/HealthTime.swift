@@ -7,11 +7,14 @@ public class HealthTime {
     /// Current unix timestamp on trustful remote server.
     public let remoteTime: Int
 
+
     /// Current unix timestamp of local server where Appwrite runs.
     public let localTime: Int
 
+
     /// Difference of unix remote and local timestamps in milliseconds.
     public let diff: Int
+
 
 
     init(

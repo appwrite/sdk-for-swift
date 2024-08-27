@@ -7,8 +7,10 @@ public class HealthAntivirus {
     /// Antivirus version.
     public let version: String
 
+
     /// Antivirus status. Possible values can are: `disabled`, `offline`, `online`
     public let status: String
+
 
 
     init(

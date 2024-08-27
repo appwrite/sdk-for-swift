@@ -7,14 +7,18 @@ public class Specification {
     /// Memory size in MB.
     public let memory: Int
 
+
     /// Number of CPUs.
     public let cpus: Double
+
 
     /// Is size enabled.
     public let enabled: Bool
 
+
     /// Size slug.
     public let slug: String
+
 
 
     init(

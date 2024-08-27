@@ -7,8 +7,10 @@ public class DeploymentList {
     /// Total number of deployments documents that matched your query.
     public let total: Int
 
+
     /// List of deployments.
     public let deployments: [Deployment]
+
 
 
     init(

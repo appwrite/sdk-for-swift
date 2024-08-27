@@ -7,8 +7,10 @@ public class MessageList {
     /// Total number of messages documents that matched your query.
     public let total: Int
 
+
     /// List of messages.
     public let messages: [Message]
+
 
 
     init(

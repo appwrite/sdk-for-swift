@@ -7,8 +7,10 @@ public class SpecificationList {
     /// Total number of specifications documents that matched your query.
     public let total: Int
 
+
     /// List of specifications.
     public let specifications: [Specification]
+
 
 
     init(

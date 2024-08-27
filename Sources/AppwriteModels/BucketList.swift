@@ -7,8 +7,10 @@ public class BucketList {
     /// Total number of buckets documents that matched your query.
     public let total: Int
 
+
     /// List of buckets.
     public let buckets: [Bucket]
+
 
 
     init(

@@ -7,32 +7,42 @@ public class Collection {
     /// Collection ID.
     public let id: String
 
+
     /// Collection creation date in ISO 8601 format.
     public let createdAt: String
+
 
     /// Collection update date in ISO 8601 format.
     public let updatedAt: String
 
+
     /// Collection permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
     public let permissions: [Any]
+
 
     /// Database ID.
     public let databaseId: String
 
+
     /// Collection name.
     public let name: String
+
 
     /// Collection enabled. Can be &#039;enabled&#039; or &#039;disabled&#039;. When disabled, the collection is inaccessible to users, but remains accessible to Server SDKs using API keys.
     public let enabled: Bool
 
+
     /// Whether document-level permissions are enabled. [Learn more about permissions](https://appwrite.io/docs/permissions).
     public let documentSecurity: Bool
+
 
     /// Collection attributes.
     public let attributes: [Any]
 
+
     /// Collection indexes.
     public let indexes: [Index]
+
 
 
     init(

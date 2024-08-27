@@ -7,8 +7,10 @@ public class VariableList {
     /// Total number of variables documents that matched your query.
     public let total: Int
 
+
     /// List of variables.
     public let variables: [Variable]
+
 
 
     init(

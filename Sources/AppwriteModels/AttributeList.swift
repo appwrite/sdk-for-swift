@@ -7,8 +7,10 @@ public class AttributeList {
     /// Total number of attributes in the given collection.
     public let total: Int
 
+
     /// List of attributes.
     public let attributes: [Any]
+
 
 
     init(
