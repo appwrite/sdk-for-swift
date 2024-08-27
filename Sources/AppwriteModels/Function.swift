@@ -7,68 +7,98 @@ public class Function {
     /// Function ID.
     public let id: String
 
+
     /// Function creation date in ISO 8601 format.
     public let createdAt: String
+
 
     /// Function update date in ISO 8601 format.
     public let updatedAt: String
 
+
     /// Execution permissions.
     public let execute: [Any]
+
 
     /// Function name.
     public let name: String
 
+
     /// Function enabled.
     public let enabled: Bool
+
 
     /// Is the function deployed with the latest configuration? This is set to false if you&#039;ve changed an environment variables, entrypoint, commands, or other settings that needs redeploy to be applied. When the value is false, redeploy the function to update it with the latest configuration.
     public let live: Bool
 
+
     /// Whether executions will be logged. When set to false, executions will not be logged, but will reduce resource used by your Appwrite project.
     public let logging: Bool
+
 
     /// Function execution runtime.
     public let runtime: String
 
+
     /// Function&#039;s active deployment ID.
     public let deployment: String
+
+
+    /// Allowed permission scopes.
+    public let scopes: [Any]
+
 
     /// Function variables.
     public let vars: [Variable]
 
+
     /// Function trigger events.
     public let events: [Any]
+
 
     /// Function execution schedult in CRON format.
     public let schedule: String
 
+
     /// Function execution timeout in seconds.
     public let timeout: Int
+
 
     /// The entrypoint file used to execute the deployment.
     public let entrypoint: String
 
+
     /// The build command used to build the deployment.
     public let commands: String
+
 
     /// Version of Open Runtimes used for the function.
     public let version: String
 
+
     /// Function VCS (Version Control System) installation id.
     public let installationId: String
+
 
     /// VCS (Version Control System) Repository ID
     public let providerRepositoryId: String
 
+
     /// VCS (Version Control System) branch name
     public let providerBranch: String
+
 
     /// Path to function in VCS (Version Control System) repository
     public let providerRootDirectory: String
 
+
     /// Is VCS (Version Control System) connection is in silent mode? When in silence mode, no comments will be posted on the repository pull or merge requests
     public let providerSilentMode: Bool
+
+
+    /// Machine specification for builds and executions.
+    public let specification: String
+
 
 
     init(
@@ -82,6 +112,7 @@ public class Function {
         logging: Bool,
         runtime: String,
         deployment: String,
+        scopes: [Any],
         vars: [Variable],
         events: [Any],
         schedule: String,
@@ -93,7 +124,8 @@ public class Function {
         providerRepositoryId: String,
         providerBranch: String,
         providerRootDirectory: String,
-        providerSilentMode: Bool
+        providerSilentMode: Bool,
+        specification: String
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -105,6 +137,7 @@ public class Function {
         self.logging = logging
         self.runtime = runtime
         self.deployment = deployment
+        self.scopes = scopes
         self.vars = vars
         self.events = events
         self.schedule = schedule
@@ -117,6 +150,7 @@ public class Function {
         self.providerBranch = providerBranch
         self.providerRootDirectory = providerRootDirectory
         self.providerSilentMode = providerSilentMode
+        self.specification = specification
     }
 
     public func toMap() -> [String: Any] {
@@ -131,6 +165,7 @@ public class Function {
             "logging": logging as Any,
             "runtime": runtime as Any,
             "deployment": deployment as Any,
+            "scopes": scopes as Any,
             "vars": vars.map { $0.toMap() } as Any,
             "events": events as Any,
             "schedule": schedule as Any,
@@ -142,7 +177,8 @@ public class Function {
             "providerRepositoryId": providerRepositoryId as Any,
             "providerBranch": providerBranch as Any,
             "providerRootDirectory": providerRootDirectory as Any,
-            "providerSilentMode": providerSilentMode as Any
+            "providerSilentMode": providerSilentMode as Any,
+            "specification": specification as Any
         ]
     }
 
@@ -158,6 +194,7 @@ public class Function {
             logging: map["logging"] as! Bool,
             runtime: map["runtime"] as! String,
             deployment: map["deployment"] as! String,
+            scopes: map["scopes"] as! [Any],
             vars: (map["vars"] as! [[String: Any]]).map { Variable.from(map: $0) },
             events: map["events"] as! [Any],
             schedule: map["schedule"] as! String,
@@ -169,7 +206,8 @@ public class Function {
             providerRepositoryId: map["providerRepositoryId"] as! String,
             providerBranch: map["providerBranch"] as! String,
             providerRootDirectory: map["providerRootDirectory"] as! String,
-            providerSilentMode: map["providerSilentMode"] as! Bool
+            providerSilentMode: map["providerSilentMode"] as! Bool,
+            specification: map["specification"] as! String
         )
     }
 }

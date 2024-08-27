@@ -7,23 +7,30 @@ public class AttributeBoolean {
     /// Attribute Key.
     public let key: String
 
+
     /// Attribute type.
     public let type: String
+
 
     /// Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
     public let status: String
 
+
     /// Error message. Displays error generated on failure of creating or deleting an attribute.
     public let error: String
+
 
     /// Is attribute required?
     public let `required`: Bool
 
+
     /// Is attribute an array?
-    public let array: Bool??
+    public let array: Bool?
+
 
     /// Default value for attribute when not provided. Cannot be set when attribute is required.
-    public let `default`: Bool??
+    public let `default`: Bool?
+
 
 
     init(
@@ -32,8 +39,8 @@ public class AttributeBoolean {
         status: String,
         error: String,
         `required`: Bool,
-        array: Bool??,
-        `default`: Bool??
+        array: Bool?,
+        `default`: Bool?
     ) {
         self.key = key
         self.type = type

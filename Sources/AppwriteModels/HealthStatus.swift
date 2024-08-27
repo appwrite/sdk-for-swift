@@ -7,11 +7,14 @@ public class HealthStatus {
     /// Name of the service.
     public let name: String
 
+
     /// Duration in milliseconds how long the health check took.
     public let ping: Int
 
+
     /// Service status. Possible values can are: `pass`, `fail`
     public let status: String
+
 
 
     init(

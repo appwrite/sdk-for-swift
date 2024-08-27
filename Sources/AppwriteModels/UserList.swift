@@ -7,8 +7,10 @@ public class UserList<T : Codable> {
     /// Total number of users documents that matched your query.
     public let total: Int
 
+
     /// List of users.
     public let users: [User<T>]
+
 
 
     init(

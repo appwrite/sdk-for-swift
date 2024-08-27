@@ -7,26 +7,34 @@ public class Topic {
     /// Topic ID.
     public let id: String
 
+
     /// Topic creation time in ISO 8601 format.
     public let createdAt: String
+
 
     /// Topic update date in ISO 8601 format.
     public let updatedAt: String
 
+
     /// The name of the topic.
     public let name: String
+
 
     /// Total count of email subscribers subscribed to the topic.
     public let emailTotal: Int
 
+
     /// Total count of SMS subscribers subscribed to the topic.
     public let smsTotal: Int
+
 
     /// Total count of push subscribers subscribed to the topic.
     public let pushTotal: Int
 
+
     /// Subscribe permissions.
     public let subscribe: [Any]
+
 
 
     init(
