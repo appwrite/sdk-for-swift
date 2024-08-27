@@ -212,42 +212,6 @@ open class Functions: Service {
     }
 
     ///
-    /// Get function template
-    ///
-    /// Get a function template using ID. You can use template details in
-    /// [createFunction](/docs/references/cloud/server-nodejs/functions#create)
-    /// method.
-    ///
-    /// @param String templateId
-    /// @throws Exception
-    /// @return array
-    ///
-    open func getTemplate(
-        templateId: String
-    ) async throws -> AppwriteModels.TemplateFunction {
-        let apiPath: String = "/functions/templates/{templateId}"
-            .replacingOccurrences(of: "{templateId}", with: templateId)
-
-        let apiParams: [String: Any] = [:]
-
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
-
-        let converter: (Any) -> AppwriteModels.TemplateFunction = { response in
-            return AppwriteModels.TemplateFunction.from(map: response as! [String: Any])
-        }
-
-        return try await client.call(
-            method: "GET",
-            path: apiPath,
-            headers: apiHeaders,
-            params: apiParams,
-            converter: converter
-        )
-    }
-
-    ///
     /// Get function
     ///
     /// Get a function by its unique ID.
