@@ -7,38 +7,29 @@ public class AttributeEnum {
     /// Attribute Key.
     public let key: String
 
-
     /// Attribute type.
     public let type: String
-
 
     /// Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
     public let status: String
 
-
     /// Error message. Displays error generated on failure of creating or deleting an attribute.
     public let error: String
-
 
     /// Is attribute required?
     public let `required`: Bool
 
-
     /// Is attribute an array?
     public let array: Bool?
-
 
     /// Array of elements in enumerated type.
     public let elements: [Any]
 
-
     /// String format.
     public let format: String
 
-
     /// Default value for attribute when not provided. Cannot be set when attribute is required.
     public let `default`: String?
-
 
 
     init(
@@ -84,10 +75,10 @@ public class AttributeEnum {
             status: map["status"] as! String,
             error: map["error"] as! String,
             `required`: map["required"] as! Bool,
-            array: map["array"] as? Bool?,
+            array: map["array"] as? Bool,
             elements: map["elements"] as! [Any],
             format: map["format"] as! String,
-            `default`: map["default"] as? String?
+            `default`: map["default"] as? String
         )
     }
 }

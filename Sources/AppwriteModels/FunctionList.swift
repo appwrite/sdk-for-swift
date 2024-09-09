@@ -7,10 +7,8 @@ public class FunctionList {
     /// Total number of functions documents that matched your query.
     public let total: Int
 
-
     /// List of functions.
     public let functions: [Function]
-
 
 
     init(

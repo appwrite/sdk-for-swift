@@ -7,38 +7,29 @@ public class Provider {
     /// Provider ID.
     public let id: String
 
-
     /// Provider creation time in ISO 8601 format.
     public let createdAt: String
-
 
     /// Provider update date in ISO 8601 format.
     public let updatedAt: String
 
-
     /// The name for the provider instance.
     public let name: String
-
 
     /// The name of the provider service.
     public let provider: String
 
-
     /// Is provider enabled?
     public let enabled: Bool
-
 
     /// Type of provider.
     public let type: String
 
-
     /// Provider credentials.
     public let credentials: Any
 
-
     /// Provider options.
     public let options: Any?
-
 
 
     init(
@@ -87,7 +78,7 @@ public class Provider {
             enabled: map["enabled"] as! Bool,
             type: map["type"] as! String,
             credentials: map["credentials"] as! Any,
-            options: map["options"] as? Any?
+            options: map["options"] as? Any
         )
     }
 }

@@ -7,38 +7,29 @@ public class Build {
     /// Build ID.
     public let id: String
 
-
     /// The deployment that created this build.
     public let deploymentId: String
-
 
     /// The build status. There are a few different types and each one means something different. \nFailed - The deployment build has failed. More details can usually be found in buildStderr\nReady - The deployment build was successful and the deployment is ready to be deployed\nProcessing - The deployment is currently waiting to have a build triggered\nBuilding - The deployment is currently being built
     public let status: String
 
-
     /// The stdout of the build.
     public let stdout: String
-
 
     /// The stderr of the build.
     public let stderr: String
 
-
     /// The deployment creation date in ISO 8601 format.
     public let startTime: String
-
 
     /// The time the build was finished in ISO 8601 format.
     public let endTime: String
 
-
     /// The build duration in seconds.
     public let duration: Int
 
-
     /// The code size in bytes.
     public let size: Int
-
 
 
     init(
