@@ -7,8 +7,10 @@ public class IndexList {
     /// Total number of indexes documents that matched your query.
     public let total: Int
 
+
     /// List of indexes.
     public let indexes: [Index]
+
 
 
     init(

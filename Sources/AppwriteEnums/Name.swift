@@ -8,7 +8,7 @@ public enum Name: String, Codable {
     case v1Functions = "v1-functions"
     case v1Usage = "v1-usage"
     case v1UsageDump = "v1-usage-dump"
-    case webhooksv1 = "webhooksv1"
+    case v1Webhooks = "v1-webhooks"
     case v1Certificates = "v1-certificates"
     case v1Builds = "v1-builds"
     case v1Messaging = "v1-messaging"

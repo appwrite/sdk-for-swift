@@ -111,6 +111,7 @@ open class Avatars: Service {
     /// Use this endpoint to fetch the favorite icon (AKA favicon) of any remote
     /// website URL.
     /// 
+    /// This endpoint does not follow HTTP redirects.
     ///
     /// @param String url
     /// @throws Exception
@@ -200,6 +201,7 @@ open class Avatars: Service {
     /// image at source quality. If dimensions are not specified, the default size
     /// of image returned is 400x400px.
     /// 
+    /// This endpoint does not follow HTTP redirects.
     ///
     /// @param String url
     /// @param Int width

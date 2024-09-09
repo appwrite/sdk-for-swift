@@ -7,8 +7,10 @@ public class CollectionList {
     /// Total number of collections documents that matched your query.
     public let total: Int
 
+
     /// List of collections.
     public let collections: [Collection]
+
 
 
     init(

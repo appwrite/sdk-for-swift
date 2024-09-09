@@ -66,6 +66,7 @@ open class Functions: Service {
     /// @param Bool logging
     /// @param String entrypoint
     /// @param String commands
+    /// @param [String] scopes
     /// @param String installationId
     /// @param String providerRepositoryId
     /// @param String providerBranch
@@ -74,7 +75,8 @@ open class Functions: Service {
     /// @param String templateRepository
     /// @param String templateOwner
     /// @param String templateRootDirectory
-    /// @param String templateBranch
+    /// @param String templateVersion
+    /// @param String specification
     /// @throws Exception
     /// @return array
     ///
@@ -90,6 +92,7 @@ open class Functions: Service {
         logging: Bool? = nil,
         entrypoint: String? = nil,
         commands: String? = nil,
+        scopes: [String]? = nil,
         installationId: String? = nil,
         providerRepositoryId: String? = nil,
         providerBranch: String? = nil,
@@ -98,7 +101,8 @@ open class Functions: Service {
         templateRepository: String? = nil,
         templateOwner: String? = nil,
         templateRootDirectory: String? = nil,
-        templateBranch: String? = nil
+        templateVersion: String? = nil,
+        specification: String? = nil
     ) async throws -> AppwriteModels.Function {
         let apiPath: String = "/functions"
 
@@ -114,6 +118,7 @@ open class Functions: Service {
             "logging": logging,
             "entrypoint": entrypoint,
             "commands": commands,
+            "scopes": scopes,
             "installationId": installationId,
             "providerRepositoryId": providerRepositoryId,
             "providerBranch": providerBranch,
@@ -122,7 +127,8 @@ open class Functions: Service {
             "templateRepository": templateRepository,
             "templateOwner": templateOwner,
             "templateRootDirectory": templateRootDirectory,
-            "templateBranch": templateBranch
+            "templateVersion": templateVersion,
+            "specification": specification
         ]
 
         let apiHeaders: [String: String] = [
@@ -162,6 +168,38 @@ open class Functions: Service {
 
         let converter: (Any) -> AppwriteModels.RuntimeList = { response in
             return AppwriteModels.RuntimeList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// List available function runtime specifications
+    ///
+    /// List allowed function specifications for this instance.
+    /// 
+    ///
+    /// @throws Exception
+    /// @return array
+    ///
+    open func listSpecifications(
+    ) async throws -> AppwriteModels.SpecificationList {
+        let apiPath: String = "/functions/specifications"
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.SpecificationList = { response in
+            return AppwriteModels.SpecificationList.from(map: response as! [String: Any])
         }
 
         return try await client.call(
@@ -223,11 +261,13 @@ open class Functions: Service {
     /// @param Bool logging
     /// @param String entrypoint
     /// @param String commands
+    /// @param [String] scopes
     /// @param String installationId
     /// @param String providerRepositoryId
     /// @param String providerBranch
     /// @param Bool providerSilentMode
     /// @param String providerRootDirectory
+    /// @param String specification
     /// @throws Exception
     /// @return array
     ///
@@ -243,11 +283,13 @@ open class Functions: Service {
         logging: Bool? = nil,
         entrypoint: String? = nil,
         commands: String? = nil,
+        scopes: [String]? = nil,
         installationId: String? = nil,
         providerRepositoryId: String? = nil,
         providerBranch: String? = nil,
         providerSilentMode: Bool? = nil,
-        providerRootDirectory: String? = nil
+        providerRootDirectory: String? = nil,
+        specification: String? = nil
     ) async throws -> AppwriteModels.Function {
         let apiPath: String = "/functions/{functionId}"
             .replacingOccurrences(of: "{functionId}", with: functionId)
@@ -263,11 +305,13 @@ open class Functions: Service {
             "logging": logging,
             "entrypoint": entrypoint,
             "commands": commands,
+            "scopes": scopes,
             "installationId": installationId,
             "providerRepositoryId": providerRepositoryId,
             "providerBranch": providerBranch,
             "providerSilentMode": providerSilentMode,
-            "providerRootDirectory": providerRootDirectory
+            "providerRootDirectory": providerRootDirectory,
+            "specification": specification
         ]
 
         let apiHeaders: [String: String] = [
@@ -456,7 +500,7 @@ open class Functions: Service {
     }
 
     ///
-    /// Update function deployment
+    /// Update deployment
     ///
     /// Update the function code deployment ID using the unique function ID. Use
     /// this endpoint to switch the code deployment that should be executed by the
@@ -526,10 +570,7 @@ open class Functions: Service {
     }
 
     ///
-    /// Create build
-    ///
-    /// Create a new build for an Appwrite Function deployment. This endpoint can
-    /// be used to retry a failed build.
+    /// Rebuild deployment
     ///
     /// @param String functionId
     /// @param String deploymentId
@@ -540,14 +581,15 @@ open class Functions: Service {
     open func createBuild(
         functionId: String,
         deploymentId: String,
-        buildId: String
+        buildId: String? = nil
     ) async throws -> Any {
-        let apiPath: String = "/functions/{functionId}/deployments/{deploymentId}/builds/{buildId}"
+        let apiPath: String = "/functions/{functionId}/deployments/{deploymentId}/build"
             .replacingOccurrences(of: "{functionId}", with: functionId)
             .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
-            .replacingOccurrences(of: "{buildId}", with: buildId)
 
-        let apiParams: [String: Any] = [:]
+        let apiParams: [String: Any?] = [
+            "buildId": buildId
+        ]
 
         let apiHeaders: [String: String] = [
             "content-type": "application/json"
@@ -561,7 +603,42 @@ open class Functions: Service {
     }
 
     ///
-    /// Download Deployment
+    /// Cancel deployment
+    ///
+    /// @param String functionId
+    /// @param String deploymentId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateDeploymentBuild(
+        functionId: String,
+        deploymentId: String
+    ) async throws -> AppwriteModels.Build {
+        let apiPath: String = "/functions/{functionId}/deployments/{deploymentId}/build"
+            .replacingOccurrences(of: "{functionId}", with: functionId)
+            .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Build = { response in
+            return AppwriteModels.Build.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Download deployment
     ///
     /// Get a Deployment's contents by its unique ID. This endpoint supports range
     /// requests for partial or streaming file download.
@@ -571,7 +648,7 @@ open class Functions: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func downloadDeployment(
+    open func getDeploymentDownload(
         functionId: String,
         deploymentId: String
     ) async throws -> ByteBuffer {
@@ -648,6 +725,7 @@ open class Functions: Service {
     /// @param String path
     /// @param AppwriteEnums.ExecutionMethod method
     /// @param Any headers
+    /// @param String scheduledAt
     /// @throws Exception
     /// @return array
     ///
@@ -657,7 +735,8 @@ open class Functions: Service {
         async: Bool? = nil,
         path: String? = nil,
         method: AppwriteEnums.ExecutionMethod? = nil,
-        headers: Any? = nil
+        headers: Any? = nil,
+        scheduledAt: String? = nil
     ) async throws -> AppwriteModels.Execution {
         let apiPath: String = "/functions/{functionId}/executions"
             .replacingOccurrences(of: "{functionId}", with: functionId)
@@ -667,7 +746,8 @@ open class Functions: Service {
             "async": async,
             "path": path,
             "method": method,
-            "headers": headers
+            "headers": headers,
+            "scheduledAt": scheduledAt
         ]
 
         let apiHeaders: [String: String] = [
@@ -722,6 +802,38 @@ open class Functions: Service {
             params: apiParams,
             converter: converter
         )
+    }
+
+    ///
+    /// Delete execution
+    ///
+    /// Delete a function execution by its unique ID.
+    /// 
+    ///
+    /// @param String functionId
+    /// @param String executionId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func deleteExecution(
+        functionId: String,
+        executionId: String
+    ) async throws -> Any {
+        let apiPath: String = "/functions/{functionId}/executions/{executionId}"
+            .replacingOccurrences(of: "{functionId}", with: functionId)
+            .replacingOccurrences(of: "{executionId}", with: executionId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        return try await client.call(
+            method: "DELETE",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams        )
     }
 
     ///

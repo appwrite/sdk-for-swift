@@ -46,6 +46,7 @@ public enum Runtime: String, Codable {
     case cpp17 = "cpp-17"
     case cpp20 = "cpp-20"
     case bun10 = "bun-1.0"
+    case go123 = "go-1.23"
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()

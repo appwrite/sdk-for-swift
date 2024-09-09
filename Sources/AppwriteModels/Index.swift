@@ -7,20 +7,26 @@ public class Index {
     /// Index Key.
     public let key: String
 
+
     /// Index type.
     public let type: String
+
 
     /// Index status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
     public let status: String
 
+
     /// Error message. Displays error generated on failure of creating or deleting an index.
     public let error: String
+
 
     /// Index attributes.
     public let attributes: [Any]
 
+
     /// Index orders.
-    public let orders: [Any]??
+    public let orders: [Any]?
+
 
 
     init(
@@ -29,7 +35,7 @@ public class Index {
         status: String,
         error: String,
         attributes: [Any],
-        orders: [Any]??
+        orders: [Any]?
     ) {
         self.key = key
         self.type = type

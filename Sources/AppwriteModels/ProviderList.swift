@@ -7,8 +7,10 @@ public class ProviderList {
     /// Total number of providers documents that matched your query.
     public let total: Int
 
+
     /// List of providers.
     public let providers: [Provider]
+
 
 
     init(

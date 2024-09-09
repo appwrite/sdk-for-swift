@@ -7,71 +7,98 @@ public class Deployment {
     /// Deployment ID.
     public let id: String
 
+
     /// Deployment creation date in ISO 8601 format.
     public let createdAt: String
+
 
     /// Deployment update date in ISO 8601 format.
     public let updatedAt: String
 
+
     /// Type of deployment.
     public let type: String
+
 
     /// Resource ID.
     public let resourceId: String
 
+
     /// Resource type.
     public let resourceType: String
+
 
     /// The entrypoint file to use to execute the deployment code.
     public let entrypoint: String
 
+
     /// The code size in bytes.
     public let size: Int
+
+
+    /// The build output size in bytes.
+    public let buildSize: Int
+
 
     /// The current build ID.
     public let buildId: String
 
+
     /// Whether the deployment should be automatically activated.
     public let activate: Bool
+
 
     /// The deployment status. Possible values are &quot;processing&quot;, &quot;building&quot;, &quot;waiting&quot;, &quot;ready&quot;, and &quot;failed&quot;.
     public let status: String
 
+
     /// The build logs.
     public let buildLogs: String
+
 
     /// The current build time in seconds.
     public let buildTime: Int
 
+
     /// The name of the vcs provider repository
     public let providerRepositoryName: String
+
 
     /// The name of the vcs provider repository owner
     public let providerRepositoryOwner: String
 
+
     /// The url of the vcs provider repository
     public let providerRepositoryUrl: String
+
 
     /// The branch of the vcs repository
     public let providerBranch: String
 
+
     /// The commit hash of the vcs commit
     public let providerCommitHash: String
+
 
     /// The url of vcs commit author
     public let providerCommitAuthorUrl: String
 
+
     /// The name of vcs commit author
     public let providerCommitAuthor: String
+
 
     /// The commit message
     public let providerCommitMessage: String
 
+
     /// The url of the vcs commit
     public let providerCommitUrl: String
 
+
     /// The branch of the vcs repository
     public let providerBranchUrl: String
+
 
 
     init(
@@ -83,6 +110,7 @@ public class Deployment {
         resourceType: String,
         entrypoint: String,
         size: Int,
+        buildSize: Int,
         buildId: String,
         activate: Bool,
         status: String,
@@ -107,6 +135,7 @@ public class Deployment {
         self.resourceType = resourceType
         self.entrypoint = entrypoint
         self.size = size
+        self.buildSize = buildSize
         self.buildId = buildId
         self.activate = activate
         self.status = status
@@ -134,6 +163,7 @@ public class Deployment {
             "resourceType": resourceType as Any,
             "entrypoint": entrypoint as Any,
             "size": size as Any,
+            "buildSize": buildSize as Any,
             "buildId": buildId as Any,
             "activate": activate as Any,
             "status": status as Any,
@@ -162,6 +192,7 @@ public class Deployment {
             resourceType: map["resourceType"] as! String,
             entrypoint: map["entrypoint"] as! String,
             size: map["size"] as! Int,
+            buildSize: map["buildSize"] as! Int,
             buildId: map["buildId"] as! String,
             activate: map["activate"] as! Bool,
             status: map["status"] as! String,

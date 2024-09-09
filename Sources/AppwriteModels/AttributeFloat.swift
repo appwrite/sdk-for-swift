@@ -7,29 +7,38 @@ public class AttributeFloat {
     /// Attribute Key.
     public let key: String
 
+
     /// Attribute type.
     public let type: String
+
 
     /// Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
     public let status: String
 
+
     /// Error message. Displays error generated on failure of creating or deleting an attribute.
     public let error: String
+
 
     /// Is attribute required?
     public let `required`: Bool
 
+
     /// Is attribute an array?
-    public let array: Bool??
+    public let array: Bool?
+
 
     /// Minimum value to enforce for new documents.
-    public let min: Double??
+    public let min: Double?
+
 
     /// Maximum value to enforce for new documents.
-    public let max: Double??
+    public let max: Double?
+
 
     /// Default value for attribute when not provided. Cannot be set when attribute is required.
-    public let `default`: Double??
+    public let `default`: Double?
+
 
 
     init(
@@ -38,10 +47,10 @@ public class AttributeFloat {
         status: String,
         error: String,
         `required`: Bool,
-        array: Bool??,
-        min: Double??,
-        max: Double??,
-        `default`: Double??
+        array: Bool?,
+        min: Double?,
+        max: Double?,
+        `default`: Double?
     ) {
         self.key = key
         self.type = type

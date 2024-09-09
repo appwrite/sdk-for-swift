@@ -7,26 +7,34 @@ public class AttributeDatetime {
     /// Attribute Key.
     public let key: String
 
+
     /// Attribute type.
     public let type: String
+
 
     /// Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
     public let status: String
 
+
     /// Error message. Displays error generated on failure of creating or deleting an attribute.
     public let error: String
+
 
     /// Is attribute required?
     public let `required`: Bool
 
+
     /// Is attribute an array?
-    public let array: Bool??
+    public let array: Bool?
+
 
     /// ISO 8601 format.
     public let format: String
 
+
     /// Default value for attribute when not provided. Only null is optional
-    public let `default`: String??
+    public let `default`: String?
+
 
 
     init(
@@ -35,9 +43,9 @@ public class AttributeDatetime {
         status: String,
         error: String,
         `required`: Bool,
-        array: Bool??,
+        array: Bool?,
         format: String,
-        `default`: String??
+        `default`: String?
     ) {
         self.key = key
         self.type = type
