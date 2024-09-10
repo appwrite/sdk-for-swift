@@ -7,26 +7,20 @@ public class HealthCertificate {
     /// Certificate name
     public let name: String
 
-
     /// Subject SN
     public let subjectSN: String
-
 
     /// Issuer organisation
     public let issuerOrganisation: String
 
-
     /// Valid from
     public let validFrom: String
-
 
     /// Valid to
     public let validTo: String
 
-
     /// Signature type SN
     public let signatureTypeSN: String
-
 
 
     init(

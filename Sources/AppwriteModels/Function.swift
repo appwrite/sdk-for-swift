@@ -7,98 +7,74 @@ public class Function {
     /// Function ID.
     public let id: String
 
-
     /// Function creation date in ISO 8601 format.
     public let createdAt: String
-
 
     /// Function update date in ISO 8601 format.
     public let updatedAt: String
 
-
     /// Execution permissions.
     public let execute: [Any]
-
 
     /// Function name.
     public let name: String
 
-
     /// Function enabled.
     public let enabled: Bool
-
 
     /// Is the function deployed with the latest configuration? This is set to false if you&#039;ve changed an environment variables, entrypoint, commands, or other settings that needs redeploy to be applied. When the value is false, redeploy the function to update it with the latest configuration.
     public let live: Bool
 
-
     /// Whether executions will be logged. When set to false, executions will not be logged, but will reduce resource used by your Appwrite project.
     public let logging: Bool
-
 
     /// Function execution runtime.
     public let runtime: String
 
-
     /// Function&#039;s active deployment ID.
     public let deployment: String
-
 
     /// Allowed permission scopes.
     public let scopes: [Any]
 
-
     /// Function variables.
     public let vars: [Variable]
-
 
     /// Function trigger events.
     public let events: [Any]
 
-
     /// Function execution schedult in CRON format.
     public let schedule: String
-
 
     /// Function execution timeout in seconds.
     public let timeout: Int
 
-
     /// The entrypoint file used to execute the deployment.
     public let entrypoint: String
-
 
     /// The build command used to build the deployment.
     public let commands: String
 
-
     /// Version of Open Runtimes used for the function.
     public let version: String
-
 
     /// Function VCS (Version Control System) installation id.
     public let installationId: String
 
-
     /// VCS (Version Control System) Repository ID
     public let providerRepositoryId: String
-
 
     /// VCS (Version Control System) branch name
     public let providerBranch: String
 
-
     /// Path to function in VCS (Version Control System) repository
     public let providerRootDirectory: String
-
 
     /// Is VCS (Version Control System) connection is in silent mode? When in silence mode, no comments will be posted on the repository pull or merge requests
     public let providerSilentMode: Bool
 
-
     /// Machine specification for builds and executions.
     public let specification: String
-
 
 
     init(

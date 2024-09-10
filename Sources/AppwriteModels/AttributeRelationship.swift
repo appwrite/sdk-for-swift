@@ -7,50 +7,38 @@ public class AttributeRelationship {
     /// Attribute Key.
     public let key: String
 
-
     /// Attribute type.
     public let type: String
-
 
     /// Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
     public let status: String
 
-
     /// Error message. Displays error generated on failure of creating or deleting an attribute.
     public let error: String
-
 
     /// Is attribute required?
     public let `required`: Bool
 
-
     /// Is attribute an array?
     public let array: Bool?
-
 
     /// The ID of the related collection.
     public let relatedCollection: String
 
-
     /// The type of the relationship.
     public let relationType: String
-
 
     /// Is the relationship two-way?
     public let twoWay: Bool
 
-
     /// The key of the two-way relationship.
     public let twoWayKey: String
-
 
     /// How deleting the parent document will propagate to child documents.
     public let onDelete: String
 
-
     /// Whether this is the parent or child side of the relationship
     public let side: String
-
 
 
     init(
@@ -105,7 +93,7 @@ public class AttributeRelationship {
             status: map["status"] as! String,
             error: map["error"] as! String,
             `required`: map["required"] as! Bool,
-            array: map["array"] as? Bool?,
+            array: map["array"] as? Bool,
             relatedCollection: map["relatedCollection"] as! String,
             relationType: map["relationType"] as! String,
             twoWay: map["twoWay"] as! Bool,

@@ -7,10 +7,8 @@ public class DatabaseList {
     /// Total number of databases documents that matched your query.
     public let total: Int
 
-
     /// List of databases.
     public let databases: [Database]
-
 
 
     init(

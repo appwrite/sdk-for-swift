@@ -7,30 +7,23 @@ public class Variable {
     /// Variable ID.
     public let id: String
 
-
     /// Variable creation date in ISO 8601 format.
     public let createdAt: String
-
 
     /// Variable creation date in ISO 8601 format.
     public let updatedAt: String
 
-
     /// Variable key.
     public let key: String
-
 
     /// Variable value.
     public let value: String
 
-
     /// Service to which the variable belongs. Possible values are &quot;project&quot;, &quot;function&quot;
     public let resourceType: String
 
-
     /// ID of resource to which the variable belongs. If resourceType is &quot;project&quot;, it is empty. If resourceType is &quot;function&quot;, it is ID of the function.
     public let resourceId: String
-
 
 
     init(

@@ -7,10 +7,8 @@ public class TargetList {
     /// Total number of targets documents that matched your query.
     public let total: Int
 
-
     /// List of targets.
     public let targets: [Target]
-
 
 
     init(
