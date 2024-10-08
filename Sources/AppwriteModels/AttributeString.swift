@@ -22,6 +22,12 @@ public class AttributeString {
     /// Is attribute an array?
     public let array: Bool?
 
+    /// Attribute creation date in ISO 8601 format.
+    public let createdAt: String
+
+    /// Attribute update date in ISO 8601 format.
+    public let updatedAt: String
+
     /// Attribute size.
     public let size: Int
 
@@ -36,6 +42,8 @@ public class AttributeString {
         error: String,
         `required`: Bool,
         array: Bool?,
+        createdAt: String,
+        updatedAt: String,
         size: Int,
         `default`: String?
     ) {
@@ -45,6 +53,8 @@ public class AttributeString {
         self.error = error
         self.`required` = `required`
         self.array = array
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
         self.size = size
         self.`default` = `default`
     }
@@ -57,6 +67,8 @@ public class AttributeString {
             "error": error as Any,
             "`required`": `required` as Any,
             "array": array as Any,
+            "$createdAt": createdAt as Any,
+            "$updatedAt": updatedAt as Any,
             "size": size as Any,
             "`default`": `default` as Any
         ]
@@ -70,6 +82,8 @@ public class AttributeString {
             error: map["error"] as! String,
             `required`: map["required"] as! Bool,
             array: map["array"] as? Bool,
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String,
             size: map["size"] as! Int,
             `default`: map["default"] as? String
         )

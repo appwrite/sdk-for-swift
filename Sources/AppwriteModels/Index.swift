@@ -22,6 +22,12 @@ public class Index {
     /// Index orders.
     public let orders: [Any]?
 
+    /// Index creation date in ISO 8601 format.
+    public let createdAt: String
+
+    /// Index update date in ISO 8601 format.
+    public let updatedAt: String
+
 
     init(
         key: String,
@@ -29,7 +35,9 @@ public class Index {
         status: String,
         error: String,
         attributes: [Any],
-        orders: [Any]?
+        orders: [Any]?,
+        createdAt: String,
+        updatedAt: String
     ) {
         self.key = key
         self.type = type
@@ -37,6 +45,8 @@ public class Index {
         self.error = error
         self.attributes = attributes
         self.orders = orders
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
     }
 
     public func toMap() -> [String: Any] {
@@ -46,7 +56,9 @@ public class Index {
             "status": status as Any,
             "error": error as Any,
             "attributes": attributes as Any,
-            "orders": orders as Any
+            "orders": orders as Any,
+            "$createdAt": createdAt as Any,
+            "$updatedAt": updatedAt as Any
         ]
     }
 
@@ -57,7 +69,9 @@ public class Index {
             status: map["status"] as! String,
             error: map["error"] as! String,
             attributes: map["attributes"] as! [Any],
-            orders: map["orders"] as? [Any]
+            orders: map["orders"] as? [Any],
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String
         )
     }
 }

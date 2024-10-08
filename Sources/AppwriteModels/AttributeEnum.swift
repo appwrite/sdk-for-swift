@@ -22,6 +22,12 @@ public class AttributeEnum {
     /// Is attribute an array?
     public let array: Bool?
 
+    /// Attribute creation date in ISO 8601 format.
+    public let createdAt: String
+
+    /// Attribute update date in ISO 8601 format.
+    public let updatedAt: String
+
     /// Array of elements in enumerated type.
     public let elements: [Any]
 
@@ -39,6 +45,8 @@ public class AttributeEnum {
         error: String,
         `required`: Bool,
         array: Bool?,
+        createdAt: String,
+        updatedAt: String,
         elements: [Any],
         format: String,
         `default`: String?
@@ -49,6 +57,8 @@ public class AttributeEnum {
         self.error = error
         self.`required` = `required`
         self.array = array
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
         self.elements = elements
         self.format = format
         self.`default` = `default`
@@ -62,6 +72,8 @@ public class AttributeEnum {
             "error": error as Any,
             "`required`": `required` as Any,
             "array": array as Any,
+            "$createdAt": createdAt as Any,
+            "$updatedAt": updatedAt as Any,
             "elements": elements as Any,
             "format": format as Any,
             "`default`": `default` as Any
@@ -76,6 +88,8 @@ public class AttributeEnum {
             error: map["error"] as! String,
             `required`: map["required"] as! Bool,
             array: map["array"] as? Bool,
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String,
             elements: map["elements"] as! [Any],
             format: map["format"] as! String,
             `default`: map["default"] as? String
