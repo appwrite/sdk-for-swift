@@ -29,7 +29,7 @@ public class AttributeEnum {
     public let updatedAt: String
 
     /// Array of elements in enumerated type.
-    public let elements: [Any]
+    public let elements: [String]
 
     /// String format.
     public let format: String
@@ -47,7 +47,7 @@ public class AttributeEnum {
         array: Bool?,
         createdAt: String,
         updatedAt: String,
-        elements: [Any],
+        elements: [String],
         format: String,
         `default`: String?
     ) {
@@ -90,7 +90,7 @@ public class AttributeEnum {
             array: map["array"] as? Bool,
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
-            elements: map["elements"] as! [Any],
+            elements: map["elements"] as! [String],
             format: map["format"] as! String,
             `default`: map["default"] as? String
         )

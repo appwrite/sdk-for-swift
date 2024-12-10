@@ -1,12 +1,11 @@
 import Foundation
 
-public enum SmtpEncryption: String, Codable {
+public enum SmtpEncryption: String, CustomStringConvertible {
     case `none` = "none"
     case ssl = "ssl"
     case tls = "tls"
 
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encode(rawValue)
+    public var description: String {
+        return rawValue
     }
 }

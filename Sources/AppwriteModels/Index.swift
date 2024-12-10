@@ -17,10 +17,10 @@ public class Index {
     public let error: String
 
     /// Index attributes.
-    public let attributes: [Any]
+    public let attributes: [String]
 
     /// Index orders.
-    public let orders: [Any]?
+    public let orders: [String]?
 
     /// Index creation date in ISO 8601 format.
     public let createdAt: String
@@ -34,8 +34,8 @@ public class Index {
         type: String,
         status: String,
         error: String,
-        attributes: [Any],
-        orders: [Any]?,
+        attributes: [String],
+        orders: [String]?,
         createdAt: String,
         updatedAt: String
     ) {
@@ -68,8 +68,8 @@ public class Index {
             type: map["type"] as! String,
             status: map["status"] as! String,
             error: map["error"] as! String,
-            attributes: map["attributes"] as! [Any],
-            orders: map["orders"] as? [Any],
+            attributes: map["attributes"] as! [String],
+            orders: map["orders"] as? [String],
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String
         )

@@ -1,6 +1,6 @@
 import Foundation
 
-public enum Name: String, Codable {
+public enum Name: String, CustomStringConvertible {
     case v1Database = "v1-database"
     case v1Deletes = "v1-deletes"
     case v1Audits = "v1-audits"
@@ -14,8 +14,7 @@ public enum Name: String, Codable {
     case v1Messaging = "v1-messaging"
     case v1Migrations = "v1-migrations"
 
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encode(rawValue)
+    public var description: String {
+        return rawValue
     }
 }

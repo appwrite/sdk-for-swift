@@ -26,7 +26,7 @@ public class Topic {
     public let pushTotal: Int
 
     /// Subscribe permissions.
-    public let subscribe: [Any]
+    public let subscribe: [String]
 
 
     init(
@@ -37,7 +37,7 @@ public class Topic {
         emailTotal: Int,
         smsTotal: Int,
         pushTotal: Int,
-        subscribe: [Any]
+        subscribe: [String]
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -71,7 +71,7 @@ public class Topic {
             emailTotal: map["emailTotal"] as! Int,
             smsTotal: map["smsTotal"] as! Int,
             pushTotal: map["pushTotal"] as! Int,
-            subscribe: map["subscribe"] as! [Any]
+            subscribe: map["subscribe"] as! [String]
         )
     }
 }

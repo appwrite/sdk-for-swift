@@ -14,7 +14,7 @@ public class Collection {
     public let updatedAt: String
 
     /// Collection permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
-    public let permissions: [Any]
+    public let permissions: [String]
 
     /// Database ID.
     public let databaseId: String
@@ -39,7 +39,7 @@ public class Collection {
         id: String,
         createdAt: String,
         updatedAt: String,
-        permissions: [Any],
+        permissions: [String],
         databaseId: String,
         name: String,
         enabled: Bool,
@@ -79,7 +79,7 @@ public class Collection {
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
-            permissions: map["$permissions"] as! [Any],
+            permissions: map["$permissions"] as! [String],
             databaseId: map["databaseId"] as! String,
             name: map["name"] as! String,
             enabled: map["enabled"] as! Bool,

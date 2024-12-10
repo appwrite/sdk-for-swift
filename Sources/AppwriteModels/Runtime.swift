@@ -26,7 +26,7 @@ public class Runtime {
     public let logo: String
 
     /// List of supported architectures.
-    public let supports: [Any]
+    public let supports: [String]
 
 
     init(
@@ -37,7 +37,7 @@ public class Runtime {
         base: String,
         image: String,
         logo: String,
-        supports: [Any]
+        supports: [String]
     ) {
         self.id = id
         self.key = key
@@ -71,7 +71,7 @@ public class Runtime {
             base: map["base"] as! String,
             image: map["image"] as! String,
             logo: map["logo"] as! String,
-            supports: map["supports"] as! [Any]
+            supports: map["supports"] as! [String]
         )
     }
 }
