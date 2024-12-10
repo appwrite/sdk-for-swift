@@ -201,16 +201,19 @@ open class Messaging: Service {
     /// @param String sound
     /// @param String color
     /// @param String tag
-    /// @param String badge
+    /// @param Int badge
     /// @param Bool draft
     /// @param String scheduledAt
+    /// @param Bool contentAvailable
+    /// @param Bool critical
+    /// @param AppwriteEnums.MessagePriority priority
     /// @throws Exception
     /// @return array
     ///
     open func createPush(
         messageId: String,
-        title: String,
-        body: String,
+        title: String? = nil,
+        body: String? = nil,
         topics: [String]? = nil,
         users: [String]? = nil,
         targets: [String]? = nil,
@@ -221,9 +224,12 @@ open class Messaging: Service {
         sound: String? = nil,
         color: String? = nil,
         tag: String? = nil,
-        badge: String? = nil,
+        badge: Int? = nil,
         draft: Bool? = nil,
-        scheduledAt: String? = nil
+        scheduledAt: String? = nil,
+        contentAvailable: Bool? = nil,
+        critical: Bool? = nil,
+        priority: AppwriteEnums.MessagePriority? = nil
     ) async throws -> AppwriteModels.Message {
         let apiPath: String = "/messaging/messages/push"
 
@@ -243,7 +249,10 @@ open class Messaging: Service {
             "tag": tag,
             "badge": badge,
             "draft": draft,
-            "scheduledAt": scheduledAt
+            "scheduledAt": scheduledAt,
+            "contentAvailable": contentAvailable,
+            "critical": critical,
+            "priority": priority
         ]
 
         let apiHeaders: [String: String] = [
@@ -285,6 +294,9 @@ open class Messaging: Service {
     /// @param Int badge
     /// @param Bool draft
     /// @param String scheduledAt
+    /// @param Bool contentAvailable
+    /// @param Bool critical
+    /// @param AppwriteEnums.MessagePriority priority
     /// @throws Exception
     /// @return array
     ///
@@ -304,7 +316,10 @@ open class Messaging: Service {
         tag: String? = nil,
         badge: Int? = nil,
         draft: Bool? = nil,
-        scheduledAt: String? = nil
+        scheduledAt: String? = nil,
+        contentAvailable: Bool? = nil,
+        critical: Bool? = nil,
+        priority: AppwriteEnums.MessagePriority? = nil
     ) async throws -> AppwriteModels.Message {
         let apiPath: String = "/messaging/messages/push/{messageId}"
             .replacingOccurrences(of: "{messageId}", with: messageId)
@@ -324,7 +339,10 @@ open class Messaging: Service {
             "tag": tag,
             "badge": badge,
             "draft": draft,
-            "scheduledAt": scheduledAt
+            "scheduledAt": scheduledAt,
+            "contentAvailable": contentAvailable,
+            "critical": critical,
+            "priority": priority
         ]
 
         let apiHeaders: [String: String] = [

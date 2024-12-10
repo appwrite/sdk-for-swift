@@ -14,7 +14,7 @@ public class Function {
     public let updatedAt: String
 
     /// Execution permissions.
-    public let execute: [Any]
+    public let execute: [String]
 
     /// Function name.
     public let name: String
@@ -35,15 +35,15 @@ public class Function {
     public let deployment: String
 
     /// Allowed permission scopes.
-    public let scopes: [Any]
+    public let scopes: [String]
 
     /// Function variables.
     public let vars: [Variable]
 
     /// Function trigger events.
-    public let events: [Any]
+    public let events: [String]
 
-    /// Function execution schedult in CRON format.
+    /// Function execution schedule in CRON format.
     public let schedule: String
 
     /// Function execution timeout in seconds.
@@ -81,16 +81,16 @@ public class Function {
         id: String,
         createdAt: String,
         updatedAt: String,
-        execute: [Any],
+        execute: [String],
         name: String,
         enabled: Bool,
         live: Bool,
         logging: Bool,
         runtime: String,
         deployment: String,
-        scopes: [Any],
+        scopes: [String],
         vars: [Variable],
-        events: [Any],
+        events: [String],
         schedule: String,
         timeout: Int,
         entrypoint: String,
@@ -163,16 +163,16 @@ public class Function {
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
-            execute: map["execute"] as! [Any],
+            execute: map["execute"] as! [String],
             name: map["name"] as! String,
             enabled: map["enabled"] as! Bool,
             live: map["live"] as! Bool,
             logging: map["logging"] as! Bool,
             runtime: map["runtime"] as! String,
             deployment: map["deployment"] as! String,
-            scopes: map["scopes"] as! [Any],
+            scopes: map["scopes"] as! [String],
             vars: (map["vars"] as! [[String: Any]]).map { Variable.from(map: $0) },
-            events: map["events"] as! [Any],
+            events: map["events"] as! [String],
             schedule: map["schedule"] as! String,
             timeout: map["timeout"] as! Int,
             entrypoint: map["entrypoint"] as! String,

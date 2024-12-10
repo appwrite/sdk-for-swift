@@ -14,7 +14,7 @@ public class Bucket {
     public let updatedAt: String
 
     /// Bucket permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
-    public let permissions: [Any]
+    public let permissions: [String]
 
     /// Whether file-level security is enabled. [Learn more about permissions](https://appwrite.io/docs/permissions).
     public let fileSecurity: Bool
@@ -29,7 +29,7 @@ public class Bucket {
     public let maximumFileSize: Int
 
     /// Allowed file extensions.
-    public let allowedFileExtensions: [Any]
+    public let allowedFileExtensions: [String]
 
     /// Compression algorithm choosen for compression. Will be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd).
     public let compression: String
@@ -45,12 +45,12 @@ public class Bucket {
         id: String,
         createdAt: String,
         updatedAt: String,
-        permissions: [Any],
+        permissions: [String],
         fileSecurity: Bool,
         name: String,
         enabled: Bool,
         maximumFileSize: Int,
-        allowedFileExtensions: [Any],
+        allowedFileExtensions: [String],
         compression: String,
         encryption: Bool,
         antivirus: Bool
@@ -91,12 +91,12 @@ public class Bucket {
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
-            permissions: map["$permissions"] as! [Any],
+            permissions: map["$permissions"] as! [String],
             fileSecurity: map["fileSecurity"] as! Bool,
             name: map["name"] as! String,
             enabled: map["enabled"] as! Bool,
             maximumFileSize: map["maximumFileSize"] as! Int,
-            allowedFileExtensions: map["allowedFileExtensions"] as! [Any],
+            allowedFileExtensions: map["allowedFileExtensions"] as! [String],
             compression: map["compression"] as! String,
             encryption: map["encryption"] as! Bool,
             antivirus: map["antivirus"] as! Bool

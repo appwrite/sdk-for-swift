@@ -1,12 +1,11 @@
 import Foundation
 
-public enum RelationMutate: String, Codable {
+public enum RelationMutate: String, CustomStringConvertible {
     case cascade = "cascade"
     case restrict = "restrict"
     case setNull = "setNull"
 
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encode(rawValue)
+    public var description: String {
+        return rawValue
     }
 }

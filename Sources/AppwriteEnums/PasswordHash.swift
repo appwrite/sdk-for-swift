@@ -1,6 +1,6 @@
 import Foundation
 
-public enum PasswordHash: String, Codable {
+public enum PasswordHash: String, CustomStringConvertible {
     case sha1 = "sha1"
     case sha224 = "sha224"
     case sha256 = "sha256"
@@ -13,8 +13,7 @@ public enum PasswordHash: String, Codable {
     case sha3384 = "sha3-384"
     case sha3512 = "sha3-512"
 
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encode(rawValue)
+    public var description: String {
+        return rawValue
     }
 }

@@ -22,6 +22,12 @@ public class AttributeInteger {
     /// Is attribute an array?
     public let array: Bool?
 
+    /// Attribute creation date in ISO 8601 format.
+    public let createdAt: String
+
+    /// Attribute update date in ISO 8601 format.
+    public let updatedAt: String
+
     /// Minimum value to enforce for new documents.
     public let min: Int?
 
@@ -39,6 +45,8 @@ public class AttributeInteger {
         error: String,
         `required`: Bool,
         array: Bool?,
+        createdAt: String,
+        updatedAt: String,
         min: Int?,
         max: Int?,
         `default`: Int?
@@ -49,6 +57,8 @@ public class AttributeInteger {
         self.error = error
         self.`required` = `required`
         self.array = array
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
         self.min = min
         self.max = max
         self.`default` = `default`
@@ -62,6 +72,8 @@ public class AttributeInteger {
             "error": error as Any,
             "`required`": `required` as Any,
             "array": array as Any,
+            "$createdAt": createdAt as Any,
+            "$updatedAt": updatedAt as Any,
             "min": min as Any,
             "max": max as Any,
             "`default`": `default` as Any
@@ -76,6 +88,8 @@ public class AttributeInteger {
             error: map["error"] as! String,
             `required`: map["required"] as! Bool,
             array: map["array"] as? Bool,
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String,
             min: map["min"] as? Int,
             max: map["max"] as? Int,
             `default`: map["default"] as? Int

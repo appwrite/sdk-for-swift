@@ -22,6 +22,12 @@ public class AttributeRelationship {
     /// Is attribute an array?
     public let array: Bool?
 
+    /// Attribute creation date in ISO 8601 format.
+    public let createdAt: String
+
+    /// Attribute update date in ISO 8601 format.
+    public let updatedAt: String
+
     /// The ID of the related collection.
     public let relatedCollection: String
 
@@ -48,6 +54,8 @@ public class AttributeRelationship {
         error: String,
         `required`: Bool,
         array: Bool?,
+        createdAt: String,
+        updatedAt: String,
         relatedCollection: String,
         relationType: String,
         twoWay: Bool,
@@ -61,6 +69,8 @@ public class AttributeRelationship {
         self.error = error
         self.`required` = `required`
         self.array = array
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
         self.relatedCollection = relatedCollection
         self.relationType = relationType
         self.twoWay = twoWay
@@ -77,6 +87,8 @@ public class AttributeRelationship {
             "error": error as Any,
             "`required`": `required` as Any,
             "array": array as Any,
+            "$createdAt": createdAt as Any,
+            "$updatedAt": updatedAt as Any,
             "relatedCollection": relatedCollection as Any,
             "relationType": relationType as Any,
             "twoWay": twoWay as Any,
@@ -94,6 +106,8 @@ public class AttributeRelationship {
             error: map["error"] as! String,
             `required`: map["required"] as! Bool,
             array: map["array"] as? Bool,
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String,
             relatedCollection: map["relatedCollection"] as! String,
             relationType: map["relationType"] as! String,
             twoWay: map["twoWay"] as! Bool,

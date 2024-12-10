@@ -22,6 +22,12 @@ public class AttributeIp {
     /// Is attribute an array?
     public let array: Bool?
 
+    /// Attribute creation date in ISO 8601 format.
+    public let createdAt: String
+
+    /// Attribute update date in ISO 8601 format.
+    public let updatedAt: String
+
     /// String format.
     public let format: String
 
@@ -36,6 +42,8 @@ public class AttributeIp {
         error: String,
         `required`: Bool,
         array: Bool?,
+        createdAt: String,
+        updatedAt: String,
         format: String,
         `default`: String?
     ) {
@@ -45,6 +53,8 @@ public class AttributeIp {
         self.error = error
         self.`required` = `required`
         self.array = array
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
         self.format = format
         self.`default` = `default`
     }
@@ -57,6 +67,8 @@ public class AttributeIp {
             "error": error as Any,
             "`required`": `required` as Any,
             "array": array as Any,
+            "$createdAt": createdAt as Any,
+            "$updatedAt": updatedAt as Any,
             "format": format as Any,
             "`default`": `default` as Any
         ]
@@ -70,6 +82,8 @@ public class AttributeIp {
             error: map["error"] as! String,
             `required`: map["required"] as! Bool,
             array: map["array"] as? Bool,
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String,
             format: map["format"] as! String,
             `default`: map["default"] as? String
         )
