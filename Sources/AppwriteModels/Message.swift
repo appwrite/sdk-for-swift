@@ -17,13 +17,13 @@ public class Message {
     public let providerType: String
 
     /// Topic IDs set as recipients.
-    public let topics: [Any]
+    public let topics: [String]
 
     /// User IDs set as recipients.
-    public let users: [Any]
+    public let users: [String]
 
     /// Target IDs set as recipients.
-    public let targets: [Any]
+    public let targets: [String]
 
     /// The scheduled time for message.
     public let scheduledAt: String?
@@ -32,7 +32,7 @@ public class Message {
     public let deliveredAt: String?
 
     /// Delivery errors if any.
-    public let deliveryErrors: [Any]?
+    public let deliveryErrors: [String]?
 
     /// Number of recipients the message was delivered to.
     public let deliveredTotal: Int
@@ -49,12 +49,12 @@ public class Message {
         createdAt: String,
         updatedAt: String,
         providerType: String,
-        topics: [Any],
-        users: [Any],
-        targets: [Any],
+        topics: [String],
+        users: [String],
+        targets: [String],
         scheduledAt: String?,
         deliveredAt: String?,
-        deliveryErrors: [Any]?,
+        deliveryErrors: [String]?,
         deliveredTotal: Int,
         data: Any,
         status: String
@@ -98,12 +98,12 @@ public class Message {
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
             providerType: map["providerType"] as! String,
-            topics: map["topics"] as! [Any],
-            users: map["users"] as! [Any],
-            targets: map["targets"] as! [Any],
+            topics: map["topics"] as! [String],
+            users: map["users"] as! [String],
+            targets: map["targets"] as! [String],
             scheduledAt: map["scheduledAt"] as? String,
             deliveredAt: map["deliveredAt"] as? String,
-            deliveryErrors: map["deliveryErrors"] as? [Any],
+            deliveryErrors: map["deliveryErrors"] as? [String],
             deliveredTotal: map["deliveredTotal"] as! Int,
             data: map["data"] as! Any,
             status: map["status"] as! String

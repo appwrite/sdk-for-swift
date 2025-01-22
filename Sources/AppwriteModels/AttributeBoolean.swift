@@ -22,6 +22,12 @@ public class AttributeBoolean {
     /// Is attribute an array?
     public let array: Bool?
 
+    /// Attribute creation date in ISO 8601 format.
+    public let createdAt: String
+
+    /// Attribute update date in ISO 8601 format.
+    public let updatedAt: String
+
     /// Default value for attribute when not provided. Cannot be set when attribute is required.
     public let `default`: Bool?
 
@@ -33,6 +39,8 @@ public class AttributeBoolean {
         error: String,
         `required`: Bool,
         array: Bool?,
+        createdAt: String,
+        updatedAt: String,
         `default`: Bool?
     ) {
         self.key = key
@@ -41,6 +49,8 @@ public class AttributeBoolean {
         self.error = error
         self.`required` = `required`
         self.array = array
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
         self.`default` = `default`
     }
 
@@ -52,6 +62,8 @@ public class AttributeBoolean {
             "error": error as Any,
             "`required`": `required` as Any,
             "array": array as Any,
+            "$createdAt": createdAt as Any,
+            "$updatedAt": updatedAt as Any,
             "`default`": `default` as Any
         ]
     }
@@ -64,6 +76,8 @@ public class AttributeBoolean {
             error: map["error"] as! String,
             `required`: map["required"] as! Bool,
             array: map["array"] as? Bool,
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String,
             `default`: map["default"] as? Bool
         )
     }
