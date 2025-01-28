@@ -584,7 +584,7 @@ open class Account: Service {
     open func updateMfaChallenge(
         challengeId: String,
         otp: String
-    ) async throws -> Any {
+    ) async throws -> AppwriteModels.Session {
         let apiPath: String = "/account/mfa/challenge"
 
         let apiParams: [String: Any?] = [
@@ -596,11 +596,17 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
+        let converter: (Any) -> AppwriteModels.Session = { response in
+            return AppwriteModels.Session.from(map: response as! [String: Any])
+        }
+
         return try await client.call(
             method: "PUT",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams,
+            converter: converter
+        )
     }
 
     ///
