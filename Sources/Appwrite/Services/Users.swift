@@ -1235,30 +1235,7 @@ open class Users: Service {
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams,
-            converter: converter
-        )
-    }
-
-    ///
-    /// Delete authenticator
-    ///
-    /// Delete an authenticator app.
-    ///
-    /// @param String userId
-    /// @param AppwriteEnums.AuthenticatorType type
-    /// @throws Exception
-    /// @return array
-    ///
-    open func deleteMfaAuthenticator(
-        userId: String,
-        type: AppwriteEnums.AuthenticatorType
-    ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
-        return try await deleteMfaAuthenticator(
-            userId: userId,
-            type: type,
-            nestedType: [String: AnyCodable].self
-        )
+            params: apiParams        )
     }
 
     ///
