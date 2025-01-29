@@ -1217,11 +1217,10 @@ open class Users: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func deleteMfaAuthenticator<T>(
+    open func deleteMfaAuthenticator(
         userId: String,
-        type: AppwriteEnums.AuthenticatorType,
-        nestedType: T.Type
-    ) async throws -> AppwriteModels.User<T> {
+        type: AppwriteEnums.AuthenticatorType
+    ) async throws -> Any {
         let apiPath: String = "/users/{userId}/mfa/authenticators/{type}"
             .replacingOccurrences(of: "{userId}", with: userId)
             .replacingOccurrences(of: "{type}", with: type.rawValue)
@@ -1232,38 +1231,11 @@ open class Users: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.User<T> = { response in
-            return AppwriteModels.User.from(map: response as! [String: Any])
-        }
-
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams,
-            converter: converter
-        )
-    }
-
-    ///
-    /// Delete authenticator
-    ///
-    /// Delete an authenticator app.
-    ///
-    /// @param String userId
-    /// @param AppwriteEnums.AuthenticatorType type
-    /// @throws Exception
-    /// @return array
-    ///
-    open func deleteMfaAuthenticator(
-        userId: String,
-        type: AppwriteEnums.AuthenticatorType
-    ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
-        return try await deleteMfaAuthenticator(
-            userId: userId,
-            type: type,
-            nestedType: [String: AnyCodable].self
-        )
+            params: apiParams        )
     }
 
     ///
