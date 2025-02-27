@@ -9,8 +9,6 @@ import AppwriteModels
 open class Users: Service {
 
     ///
-    /// List users
-    ///
     /// Get a list of all the project's users. You can use the query params to
     /// filter your results.
     ///
@@ -49,8 +47,6 @@ open class Users: Service {
     }
 
     ///
-    /// List users
-    ///
     /// Get a list of all the project's users. You can use the query params to
     /// filter your results.
     ///
@@ -70,8 +66,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Create user
     ///
     /// Create a new user.
     ///
@@ -119,8 +113,6 @@ open class Users: Service {
     }
 
     ///
-    /// Create user
-    ///
     /// Create a new user.
     ///
     /// @param String userId
@@ -148,8 +140,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Create user with Argon2 password
     ///
     /// Create a new user. Password provided must be hashed with the
     /// [Argon2](https://en.wikipedia.org/wiki/Argon2) algorithm. Use the [POST
@@ -197,8 +187,6 @@ open class Users: Service {
     }
 
     ///
-    /// Create user with Argon2 password
-    ///
     /// Create a new user. Password provided must be hashed with the
     /// [Argon2](https://en.wikipedia.org/wiki/Argon2) algorithm. Use the [POST
     /// /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
@@ -226,8 +214,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Create user with bcrypt password
     ///
     /// Create a new user. Password provided must be hashed with the
     /// [Bcrypt](https://en.wikipedia.org/wiki/Bcrypt) algorithm. Use the [POST
@@ -275,8 +261,6 @@ open class Users: Service {
     }
 
     ///
-    /// Create user with bcrypt password
-    ///
     /// Create a new user. Password provided must be hashed with the
     /// [Bcrypt](https://en.wikipedia.org/wiki/Bcrypt) algorithm. Use the [POST
     /// /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
@@ -304,8 +288,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// List identities
     ///
     /// Get identities for all users.
     ///
@@ -343,8 +325,6 @@ open class Users: Service {
     }
 
     ///
-    /// Delete identity
-    ///
     /// Delete an identity by its unique ID.
     ///
     /// @param String identityId
@@ -370,8 +350,6 @@ open class Users: Service {
             params: apiParams        )
     }
 
-    ///
-    /// Create user with MD5 password
     ///
     /// Create a new user. Password provided must be hashed with the
     /// [MD5](https://en.wikipedia.org/wiki/MD5) algorithm. Use the [POST
@@ -419,8 +397,6 @@ open class Users: Service {
     }
 
     ///
-    /// Create user with MD5 password
-    ///
     /// Create a new user. Password provided must be hashed with the
     /// [MD5](https://en.wikipedia.org/wiki/MD5) algorithm. Use the [POST
     /// /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
@@ -448,8 +424,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Create user with PHPass password
     ///
     /// Create a new user. Password provided must be hashed with the
     /// [PHPass](https://www.openwall.com/phpass/) algorithm. Use the [POST
@@ -497,8 +471,6 @@ open class Users: Service {
     }
 
     ///
-    /// Create user with PHPass password
-    ///
     /// Create a new user. Password provided must be hashed with the
     /// [PHPass](https://www.openwall.com/phpass/) algorithm. Use the [POST
     /// /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
@@ -526,8 +498,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Create user with Scrypt password
     ///
     /// Create a new user. Password provided must be hashed with the
     /// [Scrypt](https://github.com/Tarsnap/scrypt) algorithm. Use the [POST
@@ -590,8 +560,6 @@ open class Users: Service {
     }
 
     ///
-    /// Create user with Scrypt password
-    ///
     /// Create a new user. Password provided must be hashed with the
     /// [Scrypt](https://github.com/Tarsnap/scrypt) algorithm. Use the [POST
     /// /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
@@ -634,8 +602,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Create user with Scrypt modified password
     ///
     /// Create a new user. Password provided must be hashed with the [Scrypt
     /// Modified](https://gist.github.com/Meldiron/eecf84a0225eccb5a378d45bb27462cc)
@@ -693,8 +659,6 @@ open class Users: Service {
     }
 
     ///
-    /// Create user with Scrypt modified password
-    ///
     /// Create a new user. Password provided must be hashed with the [Scrypt
     /// Modified](https://gist.github.com/Meldiron/eecf84a0225eccb5a378d45bb27462cc)
     /// algorithm. Use the [POST
@@ -732,8 +696,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Create user with SHA password
     ///
     /// Create a new user. Password provided must be hashed with the
     /// [SHA](https://en.wikipedia.org/wiki/Secure_Hash_Algorithm) algorithm. Use
@@ -784,8 +746,6 @@ open class Users: Service {
     }
 
     ///
-    /// Create user with SHA password
-    ///
     /// Create a new user. Password provided must be hashed with the
     /// [SHA](https://en.wikipedia.org/wiki/Secure_Hash_Algorithm) algorithm. Use
     /// the [POST /users](https://appwrite.io/docs/server/users#usersCreate)
@@ -816,8 +776,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Get user
     ///
     /// Get a user by its unique ID.
     ///
@@ -852,8 +810,6 @@ open class Users: Service {
     }
 
     ///
-    /// Get user
-    ///
     /// Get a user by its unique ID.
     ///
     /// @param String userId
@@ -869,8 +825,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Delete user
     ///
     /// Delete a user by its unique ID, thereby releasing it's ID. Since ID is
     /// released and can be reused, all user-related resources like documents or
@@ -902,8 +856,6 @@ open class Users: Service {
             params: apiParams        )
     }
 
-    ///
-    /// Update email
     ///
     /// Update the user email by its unique ID.
     ///
@@ -942,8 +894,6 @@ open class Users: Service {
     }
 
     ///
-    /// Update email
-    ///
     /// Update the user email by its unique ID.
     ///
     /// @param String userId
@@ -962,8 +912,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Create user JWT
     ///
     /// Use this endpoint to create a JSON Web Token for user by its unique ID. You
     /// can use the resulting JWT to authenticate on behalf of the user. The JWT
@@ -1005,8 +953,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Update user labels
     ///
     /// Update the user labels by its unique ID. 
     /// 
@@ -1050,8 +996,6 @@ open class Users: Service {
     }
 
     ///
-    /// Update user labels
-    ///
     /// Update the user labels by its unique ID. 
     /// 
     /// Labels can be used to grant access to resources. While teams are a way for
@@ -1075,8 +1019,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// List user logs
     ///
     /// Get the user activity logs list by its unique ID.
     ///
@@ -1114,8 +1056,6 @@ open class Users: Service {
     }
 
     ///
-    /// List user memberships
-    ///
     /// Get the user membership list by its unique ID.
     ///
     /// @param String userId
@@ -1147,8 +1087,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Update MFA
     ///
     /// Enable or disable MFA on a user account.
     ///
@@ -1187,8 +1125,6 @@ open class Users: Service {
     }
 
     ///
-    /// Update MFA
-    ///
     /// Enable or disable MFA on a user account.
     ///
     /// @param String userId
@@ -1207,8 +1143,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Delete authenticator
     ///
     /// Delete an authenticator app.
     ///
@@ -1238,8 +1172,6 @@ open class Users: Service {
             params: apiParams        )
     }
 
-    ///
-    /// List factors
     ///
     /// List the factors available on the account to be used as a MFA challange.
     ///
@@ -1272,8 +1204,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Get MFA recovery codes
     ///
     /// Get recovery codes that can be used as backup for MFA flow by User ID.
     /// Before getting codes, they must be generated using
@@ -1310,8 +1240,6 @@ open class Users: Service {
     }
 
     ///
-    /// Regenerate MFA recovery codes
-    ///
     /// Regenerate recovery codes that can be used as backup for MFA flow by User
     /// ID. Before regenerating codes, they must be first generated using
     /// [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes)
@@ -1347,8 +1275,6 @@ open class Users: Service {
     }
 
     ///
-    /// Create MFA recovery codes
-    ///
     /// Generate recovery codes used as backup for MFA flow for User ID. Recovery
     /// codes can be used as a MFA verification type in
     /// [createMfaChallenge](/docs/references/cloud/client-web/account#createMfaChallenge)
@@ -1383,8 +1309,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Update name
     ///
     /// Update the user name by its unique ID.
     ///
@@ -1423,8 +1347,6 @@ open class Users: Service {
     }
 
     ///
-    /// Update name
-    ///
     /// Update the user name by its unique ID.
     ///
     /// @param String userId
@@ -1443,8 +1365,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Update password
     ///
     /// Update the user password by its unique ID.
     ///
@@ -1483,8 +1403,6 @@ open class Users: Service {
     }
 
     ///
-    /// Update password
-    ///
     /// Update the user password by its unique ID.
     ///
     /// @param String userId
@@ -1503,8 +1421,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Update phone
     ///
     /// Update the user phone by its unique ID.
     ///
@@ -1543,8 +1459,6 @@ open class Users: Service {
     }
 
     ///
-    /// Update phone
-    ///
     /// Update the user phone by its unique ID.
     ///
     /// @param String userId
@@ -1563,8 +1477,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Get user preferences
     ///
     /// Get the user preferences by its unique ID.
     ///
@@ -1599,8 +1511,6 @@ open class Users: Service {
     }
 
     ///
-    /// Get user preferences
-    ///
     /// Get the user preferences by its unique ID.
     ///
     /// @param String userId
@@ -1616,8 +1526,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Update user preferences
     ///
     /// Update the user preferences by its unique ID. The object you pass is stored
     /// as is, and replaces any previous value. The maximum allowed prefs size is
@@ -1658,8 +1566,6 @@ open class Users: Service {
     }
 
     ///
-    /// Update user preferences
-    ///
     /// Update the user preferences by its unique ID. The object you pass is stored
     /// as is, and replaces any previous value. The maximum allowed prefs size is
     /// 64kB and throws error if exceeded.
@@ -1680,8 +1586,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// List user sessions
     ///
     /// Get the user sessions list by its unique ID.
     ///
@@ -1714,8 +1618,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Create session
     ///
     /// Creates a session for a user. Returns an immediately usable session object.
     /// 
@@ -1754,8 +1656,6 @@ open class Users: Service {
     }
 
     ///
-    /// Delete user sessions
-    ///
     /// Delete all user's sessions by using the user's unique ID.
     ///
     /// @param String userId
@@ -1781,8 +1681,6 @@ open class Users: Service {
             params: apiParams        )
     }
 
-    ///
-    /// Delete user session
     ///
     /// Delete a user sessions by its unique ID.
     ///
@@ -1812,8 +1710,6 @@ open class Users: Service {
             params: apiParams        )
     }
 
-    ///
-    /// Update user status
     ///
     /// Update the user status by its unique ID. Use this endpoint as an
     /// alternative to deleting a user if you want to keep user's ID reserved.
@@ -1853,8 +1749,6 @@ open class Users: Service {
     }
 
     ///
-    /// Update user status
-    ///
     /// Update the user status by its unique ID. Use this endpoint as an
     /// alternative to deleting a user if you want to keep user's ID reserved.
     ///
@@ -1874,8 +1768,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// List user targets
     ///
     /// List the messaging targets that are associated with a user.
     ///
@@ -1912,8 +1804,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Create user target
     ///
     /// Create a messaging target.
     ///
@@ -1963,8 +1853,6 @@ open class Users: Service {
     }
 
     ///
-    /// Get user target
-    ///
     /// Get a user's push notification target by ID.
     ///
     /// @param String userId
@@ -1999,8 +1887,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Update user target
     ///
     /// Update a messaging target.
     ///
@@ -2047,8 +1933,6 @@ open class Users: Service {
     }
 
     ///
-    /// Delete user target
-    ///
     /// Delete a messaging target.
     ///
     /// @param String userId
@@ -2077,8 +1961,6 @@ open class Users: Service {
             params: apiParams        )
     }
 
-    ///
-    /// Create token
     ///
     /// Returns a token with a secret key for creating a session. Use the user ID
     /// and secret and submit a request to the [PUT
@@ -2123,8 +2005,6 @@ open class Users: Service {
     }
 
     ///
-    /// Update email verification
-    ///
     /// Update the user email verification status by its unique ID.
     ///
     /// @param String userId
@@ -2162,8 +2042,6 @@ open class Users: Service {
     }
 
     ///
-    /// Update email verification
-    ///
     /// Update the user email verification status by its unique ID.
     ///
     /// @param String userId
@@ -2182,8 +2060,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Update phone verification
     ///
     /// Update the user phone verification status by its unique ID.
     ///
@@ -2221,8 +2097,6 @@ open class Users: Service {
         )
     }
 
-    ///
-    /// Update phone verification
     ///
     /// Update the user phone verification status by its unique ID.
     ///

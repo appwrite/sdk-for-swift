@@ -2,7 +2,20 @@ import Foundation
 import JSONCodable
 
 /// Collection
-public class Collection {
+open class Collection: Codable {
+
+    enum CodingKeys: String, CodingKey {
+        case id = "$id"
+        case createdAt = "$createdAt"
+        case updatedAt = "$updatedAt"
+        case permissions = "$permissions"
+        case databaseId = "databaseId"
+        case name = "name"
+        case enabled = "enabled"
+        case documentSecurity = "documentSecurity"
+        case attributes = "attributes"
+        case indexes = "indexes"
+    }
 
     /// Collection ID.
     public let id: String
@@ -29,7 +42,7 @@ public class Collection {
     public let documentSecurity: Bool
 
     /// Collection attributes.
-    public let attributes: [Any]
+    public let attributes: [AnyCodable]
 
     /// Collection indexes.
     public let indexes: [Index]
@@ -44,7 +57,7 @@ public class Collection {
         name: String,
         enabled: Bool,
         documentSecurity: Bool,
-        attributes: [Any],
+        attributes: [AnyCodable],
         indexes: [Index]
     ) {
         self.id = id
@@ -57,6 +70,36 @@ public class Collection {
         self.documentSecurity = documentSecurity
         self.attributes = attributes
         self.indexes = indexes
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.id = try container.decode(String.self, forKey: .id)
+        self.createdAt = try container.decode(String.self, forKey: .createdAt)
+        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
+        self.permissions = try container.decode([String].self, forKey: .permissions)
+        self.databaseId = try container.decode(String.self, forKey: .databaseId)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.enabled = try container.decode(Bool.self, forKey: .enabled)
+        self.documentSecurity = try container.decode(Bool.self, forKey: .documentSecurity)
+        self.attributes = try container.decode([AnyCodable].self, forKey: .attributes)
+        self.indexes = try container.decode([Index].self, forKey: .indexes)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(id, forKey: .id)
+        try container.encode(createdAt, forKey: .createdAt)
+        try container.encode(updatedAt, forKey: .updatedAt)
+        try container.encode(permissions, forKey: .permissions)
+        try container.encode(databaseId, forKey: .databaseId)
+        try container.encode(name, forKey: .name)
+        try container.encode(enabled, forKey: .enabled)
+        try container.encode(documentSecurity, forKey: .documentSecurity)
+        try container.encode(attributes, forKey: .attributes)
+        try container.encode(indexes, forKey: .indexes)
     }
 
     public func toMap() -> [String: Any] {
@@ -84,7 +127,7 @@ public class Collection {
             name: map["name"] as! String,
             enabled: map["enabled"] as! Bool,
             documentSecurity: map["documentSecurity"] as! Bool,
-            attributes: map["attributes"] as! [Any],
+            attributes: map["attributes"] as! [AnyCodable],
             indexes: (map["indexes"] as! [[String: Any]]).map { Index.from(map: $0) }
         )
     }

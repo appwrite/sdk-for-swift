@@ -2,7 +2,34 @@ import Foundation
 import JSONCodable
 
 /// Deployment
-public class Deployment {
+open class Deployment: Codable {
+
+    enum CodingKeys: String, CodingKey {
+        case id = "$id"
+        case createdAt = "$createdAt"
+        case updatedAt = "$updatedAt"
+        case type = "type"
+        case resourceId = "resourceId"
+        case resourceType = "resourceType"
+        case entrypoint = "entrypoint"
+        case size = "size"
+        case buildSize = "buildSize"
+        case buildId = "buildId"
+        case activate = "activate"
+        case status = "status"
+        case buildLogs = "buildLogs"
+        case buildTime = "buildTime"
+        case providerRepositoryName = "providerRepositoryName"
+        case providerRepositoryOwner = "providerRepositoryOwner"
+        case providerRepositoryUrl = "providerRepositoryUrl"
+        case providerBranch = "providerBranch"
+        case providerCommitHash = "providerCommitHash"
+        case providerCommitAuthorUrl = "providerCommitAuthorUrl"
+        case providerCommitAuthor = "providerCommitAuthor"
+        case providerCommitMessage = "providerCommitMessage"
+        case providerCommitUrl = "providerCommitUrl"
+        case providerBranchUrl = "providerBranchUrl"
+    }
 
     /// Deployment ID.
     public let id: String
@@ -127,6 +154,64 @@ public class Deployment {
         self.providerCommitMessage = providerCommitMessage
         self.providerCommitUrl = providerCommitUrl
         self.providerBranchUrl = providerBranchUrl
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.id = try container.decode(String.self, forKey: .id)
+        self.createdAt = try container.decode(String.self, forKey: .createdAt)
+        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
+        self.type = try container.decode(String.self, forKey: .type)
+        self.resourceId = try container.decode(String.self, forKey: .resourceId)
+        self.resourceType = try container.decode(String.self, forKey: .resourceType)
+        self.entrypoint = try container.decode(String.self, forKey: .entrypoint)
+        self.size = try container.decode(Int.self, forKey: .size)
+        self.buildSize = try container.decode(Int.self, forKey: .buildSize)
+        self.buildId = try container.decode(String.self, forKey: .buildId)
+        self.activate = try container.decode(Bool.self, forKey: .activate)
+        self.status = try container.decode(String.self, forKey: .status)
+        self.buildLogs = try container.decode(String.self, forKey: .buildLogs)
+        self.buildTime = try container.decode(Int.self, forKey: .buildTime)
+        self.providerRepositoryName = try container.decode(String.self, forKey: .providerRepositoryName)
+        self.providerRepositoryOwner = try container.decode(String.self, forKey: .providerRepositoryOwner)
+        self.providerRepositoryUrl = try container.decode(String.self, forKey: .providerRepositoryUrl)
+        self.providerBranch = try container.decode(String.self, forKey: .providerBranch)
+        self.providerCommitHash = try container.decode(String.self, forKey: .providerCommitHash)
+        self.providerCommitAuthorUrl = try container.decode(String.self, forKey: .providerCommitAuthorUrl)
+        self.providerCommitAuthor = try container.decode(String.self, forKey: .providerCommitAuthor)
+        self.providerCommitMessage = try container.decode(String.self, forKey: .providerCommitMessage)
+        self.providerCommitUrl = try container.decode(String.self, forKey: .providerCommitUrl)
+        self.providerBranchUrl = try container.decode(String.self, forKey: .providerBranchUrl)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(id, forKey: .id)
+        try container.encode(createdAt, forKey: .createdAt)
+        try container.encode(updatedAt, forKey: .updatedAt)
+        try container.encode(type, forKey: .type)
+        try container.encode(resourceId, forKey: .resourceId)
+        try container.encode(resourceType, forKey: .resourceType)
+        try container.encode(entrypoint, forKey: .entrypoint)
+        try container.encode(size, forKey: .size)
+        try container.encode(buildSize, forKey: .buildSize)
+        try container.encode(buildId, forKey: .buildId)
+        try container.encode(activate, forKey: .activate)
+        try container.encode(status, forKey: .status)
+        try container.encode(buildLogs, forKey: .buildLogs)
+        try container.encode(buildTime, forKey: .buildTime)
+        try container.encode(providerRepositoryName, forKey: .providerRepositoryName)
+        try container.encode(providerRepositoryOwner, forKey: .providerRepositoryOwner)
+        try container.encode(providerRepositoryUrl, forKey: .providerRepositoryUrl)
+        try container.encode(providerBranch, forKey: .providerBranch)
+        try container.encode(providerCommitHash, forKey: .providerCommitHash)
+        try container.encode(providerCommitAuthorUrl, forKey: .providerCommitAuthorUrl)
+        try container.encode(providerCommitAuthor, forKey: .providerCommitAuthor)
+        try container.encode(providerCommitMessage, forKey: .providerCommitMessage)
+        try container.encode(providerCommitUrl, forKey: .providerCommitUrl)
+        try container.encode(providerBranchUrl, forKey: .providerBranchUrl)
     }
 
     public func toMap() -> [String: Any] {

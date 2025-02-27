@@ -2,7 +2,19 @@ import Foundation
 import JSONCodable
 
 /// Provider
-public class Provider {
+open class Provider: Codable {
+
+    enum CodingKeys: String, CodingKey {
+        case id = "$id"
+        case createdAt = "$createdAt"
+        case updatedAt = "$updatedAt"
+        case name = "name"
+        case provider = "provider"
+        case enabled = "enabled"
+        case type = "type"
+        case credentials = "credentials"
+        case options = "options"
+    }
 
     /// Provider ID.
     public let id: String
@@ -26,10 +38,10 @@ public class Provider {
     public let type: String
 
     /// Provider credentials.
-    public let credentials: Any
+    public let credentials: [String: AnyCodable]
 
     /// Provider options.
-    public let options: Any?
+    public let options: [String: AnyCodable]?
 
 
     init(
@@ -40,8 +52,8 @@ public class Provider {
         provider: String,
         enabled: Bool,
         type: String,
-        credentials: Any,
-        options: Any?
+        credentials: [String: AnyCodable],
+        options: [String: AnyCodable]?
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -52,6 +64,34 @@ public class Provider {
         self.type = type
         self.credentials = credentials
         self.options = options
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.id = try container.decode(String.self, forKey: .id)
+        self.createdAt = try container.decode(String.self, forKey: .createdAt)
+        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.provider = try container.decode(String.self, forKey: .provider)
+        self.enabled = try container.decode(Bool.self, forKey: .enabled)
+        self.type = try container.decode(String.self, forKey: .type)
+        self.credentials = try container.decode([String: AnyCodable].self, forKey: .credentials)
+        self.options = try container.decodeIfPresent([String: AnyCodable].self, forKey: .options)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(id, forKey: .id)
+        try container.encode(createdAt, forKey: .createdAt)
+        try container.encode(updatedAt, forKey: .updatedAt)
+        try container.encode(name, forKey: .name)
+        try container.encode(provider, forKey: .provider)
+        try container.encode(enabled, forKey: .enabled)
+        try container.encode(type, forKey: .type)
+        try container.encode(credentials, forKey: .credentials)
+        try container.encodeIfPresent(options, forKey: .options)
     }
 
     public func toMap() -> [String: Any] {
@@ -77,8 +117,8 @@ public class Provider {
             provider: map["provider"] as! String,
             enabled: map["enabled"] as! Bool,
             type: map["type"] as! String,
-            credentials: map["credentials"] as! Any,
-            options: map["options"] as? Any
+            credentials: map["credentials"] as! [String: AnyCodable],
+            options: map["options"] as? [String: AnyCodable]
         )
     }
 }

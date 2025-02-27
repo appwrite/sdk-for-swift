@@ -2,7 +2,23 @@ import Foundation
 import JSONCodable
 
 /// Message
-public class Message {
+open class Message: Codable {
+
+    enum CodingKeys: String, CodingKey {
+        case id = "$id"
+        case createdAt = "$createdAt"
+        case updatedAt = "$updatedAt"
+        case providerType = "providerType"
+        case topics = "topics"
+        case users = "users"
+        case targets = "targets"
+        case scheduledAt = "scheduledAt"
+        case deliveredAt = "deliveredAt"
+        case deliveryErrors = "deliveryErrors"
+        case deliveredTotal = "deliveredTotal"
+        case data = "data"
+        case status = "status"
+    }
 
     /// Message ID.
     public let id: String
@@ -38,7 +54,7 @@ public class Message {
     public let deliveredTotal: Int
 
     /// Data of the message.
-    public let data: Any
+    public let data: [String: AnyCodable]
 
     /// Status of delivery.
     public let status: String
@@ -56,7 +72,7 @@ public class Message {
         deliveredAt: String?,
         deliveryErrors: [String]?,
         deliveredTotal: Int,
-        data: Any,
+        data: [String: AnyCodable],
         status: String
     ) {
         self.id = id
@@ -72,6 +88,42 @@ public class Message {
         self.deliveredTotal = deliveredTotal
         self.data = data
         self.status = status
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.id = try container.decode(String.self, forKey: .id)
+        self.createdAt = try container.decode(String.self, forKey: .createdAt)
+        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
+        self.providerType = try container.decode(String.self, forKey: .providerType)
+        self.topics = try container.decode([String].self, forKey: .topics)
+        self.users = try container.decode([String].self, forKey: .users)
+        self.targets = try container.decode([String].self, forKey: .targets)
+        self.scheduledAt = try container.decodeIfPresent(String.self, forKey: .scheduledAt)
+        self.deliveredAt = try container.decodeIfPresent(String.self, forKey: .deliveredAt)
+        self.deliveryErrors = try container.decodeIfPresent([String].self, forKey: .deliveryErrors)
+        self.deliveredTotal = try container.decode(Int.self, forKey: .deliveredTotal)
+        self.data = try container.decode([String: AnyCodable].self, forKey: .data)
+        self.status = try container.decode(String.self, forKey: .status)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(id, forKey: .id)
+        try container.encode(createdAt, forKey: .createdAt)
+        try container.encode(updatedAt, forKey: .updatedAt)
+        try container.encode(providerType, forKey: .providerType)
+        try container.encode(topics, forKey: .topics)
+        try container.encode(users, forKey: .users)
+        try container.encode(targets, forKey: .targets)
+        try container.encodeIfPresent(scheduledAt, forKey: .scheduledAt)
+        try container.encodeIfPresent(deliveredAt, forKey: .deliveredAt)
+        try container.encodeIfPresent(deliveryErrors, forKey: .deliveryErrors)
+        try container.encode(deliveredTotal, forKey: .deliveredTotal)
+        try container.encode(data, forKey: .data)
+        try container.encode(status, forKey: .status)
     }
 
     public func toMap() -> [String: Any] {
@@ -105,7 +157,7 @@ public class Message {
             deliveredAt: map["deliveredAt"] as? String,
             deliveryErrors: map["deliveryErrors"] as? [String],
             deliveredTotal: map["deliveredTotal"] as! Int,
-            data: map["data"] as! Any,
+            data: map["data"] as! [String: AnyCodable],
             status: map["status"] as! String
         )
     }

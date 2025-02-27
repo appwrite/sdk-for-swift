@@ -2,7 +2,13 @@ import Foundation
 import JSONCodable
 
 /// Health Status
-public class HealthStatus {
+open class HealthStatus: Codable {
+
+    enum CodingKeys: String, CodingKey {
+        case name = "name"
+        case ping = "ping"
+        case status = "status"
+    }
 
     /// Name of the service.
     public let name: String
@@ -22,6 +28,22 @@ public class HealthStatus {
         self.name = name
         self.ping = ping
         self.status = status
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.name = try container.decode(String.self, forKey: .name)
+        self.ping = try container.decode(Int.self, forKey: .ping)
+        self.status = try container.decode(String.self, forKey: .status)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(name, forKey: .name)
+        try container.encode(ping, forKey: .ping)
+        try container.encode(status, forKey: .status)
     }
 
     public func toMap() -> [String: Any] {

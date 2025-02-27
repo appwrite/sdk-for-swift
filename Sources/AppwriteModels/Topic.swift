@@ -2,7 +2,18 @@ import Foundation
 import JSONCodable
 
 /// Topic
-public class Topic {
+open class Topic: Codable {
+
+    enum CodingKeys: String, CodingKey {
+        case id = "$id"
+        case createdAt = "$createdAt"
+        case updatedAt = "$updatedAt"
+        case name = "name"
+        case emailTotal = "emailTotal"
+        case smsTotal = "smsTotal"
+        case pushTotal = "pushTotal"
+        case subscribe = "subscribe"
+    }
 
     /// Topic ID.
     public let id: String
@@ -47,6 +58,32 @@ public class Topic {
         self.smsTotal = smsTotal
         self.pushTotal = pushTotal
         self.subscribe = subscribe
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.id = try container.decode(String.self, forKey: .id)
+        self.createdAt = try container.decode(String.self, forKey: .createdAt)
+        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.emailTotal = try container.decode(Int.self, forKey: .emailTotal)
+        self.smsTotal = try container.decode(Int.self, forKey: .smsTotal)
+        self.pushTotal = try container.decode(Int.self, forKey: .pushTotal)
+        self.subscribe = try container.decode([String].self, forKey: .subscribe)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(id, forKey: .id)
+        try container.encode(createdAt, forKey: .createdAt)
+        try container.encode(updatedAt, forKey: .updatedAt)
+        try container.encode(name, forKey: .name)
+        try container.encode(emailTotal, forKey: .emailTotal)
+        try container.encode(smsTotal, forKey: .smsTotal)
+        try container.encode(pushTotal, forKey: .pushTotal)
+        try container.encode(subscribe, forKey: .subscribe)
     }
 
     public func toMap() -> [String: Any] {

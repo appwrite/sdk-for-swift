@@ -9,8 +9,6 @@ import AppwriteModels
 open class Storage: Service {
 
     ///
-    /// List buckets
-    ///
     /// Get a list of all the storage buckets. You can use the query params to
     /// filter your results.
     ///
@@ -47,8 +45,6 @@ open class Storage: Service {
         )
     }
 
-    ///
-    /// Create bucket
     ///
     /// Create a new storage bucket.
     ///
@@ -110,8 +106,6 @@ open class Storage: Service {
     }
 
     ///
-    /// Get bucket
-    ///
     /// Get a storage bucket by its unique ID. This endpoint response returns a
     /// JSON object with the storage bucket metadata.
     ///
@@ -144,8 +138,6 @@ open class Storage: Service {
         )
     }
 
-    ///
-    /// Update bucket
     ///
     /// Update a storage bucket by its unique ID.
     ///
@@ -207,8 +199,6 @@ open class Storage: Service {
     }
 
     ///
-    /// Delete bucket
-    ///
     /// Delete a storage bucket by its unique ID.
     ///
     /// @param String bucketId
@@ -234,8 +224,6 @@ open class Storage: Service {
             params: apiParams        )
     }
 
-    ///
-    /// List files
     ///
     /// Get a list of all the user files. You can use the query params to filter
     /// your results.
@@ -276,8 +264,6 @@ open class Storage: Service {
         )
     }
 
-    ///
-    /// Create file
     ///
     /// Create a new file. Before using this route, you should create a new bucket
     /// resource using either a [server
@@ -343,8 +329,6 @@ open class Storage: Service {
     }
 
     ///
-    /// Get file
-    ///
     /// Get a file by its unique ID. This endpoint response returns a JSON object
     /// with the file metadata.
     ///
@@ -380,8 +364,6 @@ open class Storage: Service {
         )
     }
 
-    ///
-    /// Update file
     ///
     /// Update a file by its unique ID. Only users with write permissions have
     /// access to update this resource.
@@ -426,8 +408,6 @@ open class Storage: Service {
     }
 
     ///
-    /// Delete file
-    ///
     /// Delete a file by its unique ID. Only users with write permissions have
     /// access to delete this resource.
     ///
@@ -457,8 +437,6 @@ open class Storage: Service {
             params: apiParams        )
     }
 
-    ///
-    /// Get file for download
     ///
     /// Get a file content by its unique ID. The endpoint response return with a
     /// 'Content-Disposition: attachment' header that tells the browser to start
@@ -490,8 +468,6 @@ open class Storage: Service {
         )
     }
 
-    ///
-    /// Get file preview
     ///
     /// Get a file preview image. Currently, this method supports preview for image
     /// files (jpg, png, and gif), other supported formats, like pdf, docs, slides,
@@ -561,8 +537,6 @@ open class Storage: Service {
         )
     }
 
-    ///
-    /// Get file for view
     ///
     /// Get a file content by its unique ID. This endpoint is similar to the
     /// download method but returns with no  'Content-Disposition: attachment'

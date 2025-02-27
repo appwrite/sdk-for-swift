@@ -2,7 +2,12 @@ import Foundation
 import JSONCodable
 
 /// Specifications List
-public class SpecificationList {
+open class SpecificationList: Codable {
+
+    enum CodingKeys: String, CodingKey {
+        case total = "total"
+        case specifications = "specifications"
+    }
 
     /// Total number of specifications documents that matched your query.
     public let total: Int
@@ -17,6 +22,20 @@ public class SpecificationList {
     ) {
         self.total = total
         self.specifications = specifications
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.total = try container.decode(Int.self, forKey: .total)
+        self.specifications = try container.decode([Specification].self, forKey: .specifications)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(total, forKey: .total)
+        try container.encode(specifications, forKey: .specifications)
     }
 
     public func toMap() -> [String: Any] {

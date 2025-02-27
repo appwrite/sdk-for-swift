@@ -2,7 +2,12 @@ import Foundation
 import JSONCodable
 
 /// Variables List
-public class VariableList {
+open class VariableList: Codable {
+
+    enum CodingKeys: String, CodingKey {
+        case total = "total"
+        case variables = "variables"
+    }
 
     /// Total number of variables documents that matched your query.
     public let total: Int
@@ -17,6 +22,20 @@ public class VariableList {
     ) {
         self.total = total
         self.variables = variables
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.total = try container.decode(Int.self, forKey: .total)
+        self.variables = try container.decode([Variable].self, forKey: .variables)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(total, forKey: .total)
+        try container.encode(variables, forKey: .variables)
     }
 
     public func toMap() -> [String: Any] {

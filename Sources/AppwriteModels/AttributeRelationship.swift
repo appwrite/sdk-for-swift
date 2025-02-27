@@ -2,7 +2,24 @@ import Foundation
 import JSONCodable
 
 /// AttributeRelationship
-public class AttributeRelationship {
+open class AttributeRelationship: Codable {
+
+    enum CodingKeys: String, CodingKey {
+        case key = "key"
+        case type = "type"
+        case status = "status"
+        case error = "error"
+        case `required` = "required"
+        case array = "array"
+        case createdAt = "$createdAt"
+        case updatedAt = "$updatedAt"
+        case relatedCollection = "relatedCollection"
+        case relationType = "relationType"
+        case twoWay = "twoWay"
+        case twoWayKey = "twoWayKey"
+        case onDelete = "onDelete"
+        case side = "side"
+    }
 
     /// Attribute Key.
     public let key: String
@@ -77,6 +94,44 @@ public class AttributeRelationship {
         self.twoWayKey = twoWayKey
         self.onDelete = onDelete
         self.side = side
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.key = try container.decode(String.self, forKey: .key)
+        self.type = try container.decode(String.self, forKey: .type)
+        self.status = try container.decode(String.self, forKey: .status)
+        self.error = try container.decode(String.self, forKey: .error)
+        self.`required` = try container.decode(Bool.self, forKey: .`required`)
+        self.array = try container.decodeIfPresent(Bool.self, forKey: .array)
+        self.createdAt = try container.decode(String.self, forKey: .createdAt)
+        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
+        self.relatedCollection = try container.decode(String.self, forKey: .relatedCollection)
+        self.relationType = try container.decode(String.self, forKey: .relationType)
+        self.twoWay = try container.decode(Bool.self, forKey: .twoWay)
+        self.twoWayKey = try container.decode(String.self, forKey: .twoWayKey)
+        self.onDelete = try container.decode(String.self, forKey: .onDelete)
+        self.side = try container.decode(String.self, forKey: .side)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(key, forKey: .key)
+        try container.encode(type, forKey: .type)
+        try container.encode(status, forKey: .status)
+        try container.encode(error, forKey: .error)
+        try container.encode(`required`, forKey: .`required`)
+        try container.encodeIfPresent(array, forKey: .array)
+        try container.encode(createdAt, forKey: .createdAt)
+        try container.encode(updatedAt, forKey: .updatedAt)
+        try container.encode(relatedCollection, forKey: .relatedCollection)
+        try container.encode(relationType, forKey: .relationType)
+        try container.encode(twoWay, forKey: .twoWay)
+        try container.encode(twoWayKey, forKey: .twoWayKey)
+        try container.encode(onDelete, forKey: .onDelete)
+        try container.encode(side, forKey: .side)
     }
 
     public func toMap() -> [String: Any] {
