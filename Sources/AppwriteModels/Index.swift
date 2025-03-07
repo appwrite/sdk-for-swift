@@ -2,7 +2,18 @@ import Foundation
 import JSONCodable
 
 /// Index
-public class Index {
+open class Index: Codable {
+
+    enum CodingKeys: String, CodingKey {
+        case key = "key"
+        case type = "type"
+        case status = "status"
+        case error = "error"
+        case attributes = "attributes"
+        case orders = "orders"
+        case createdAt = "$createdAt"
+        case updatedAt = "$updatedAt"
+    }
 
     /// Index Key.
     public let key: String
@@ -47,6 +58,32 @@ public class Index {
         self.orders = orders
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.key = try container.decode(String.self, forKey: .key)
+        self.type = try container.decode(String.self, forKey: .type)
+        self.status = try container.decode(String.self, forKey: .status)
+        self.error = try container.decode(String.self, forKey: .error)
+        self.attributes = try container.decode([String].self, forKey: .attributes)
+        self.orders = try container.decodeIfPresent([String].self, forKey: .orders)
+        self.createdAt = try container.decode(String.self, forKey: .createdAt)
+        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(key, forKey: .key)
+        try container.encode(type, forKey: .type)
+        try container.encode(status, forKey: .status)
+        try container.encode(error, forKey: .error)
+        try container.encode(attributes, forKey: .attributes)
+        try container.encodeIfPresent(orders, forKey: .orders)
+        try container.encode(createdAt, forKey: .createdAt)
+        try container.encode(updatedAt, forKey: .updatedAt)
     }
 
     public func toMap() -> [String: Any] {

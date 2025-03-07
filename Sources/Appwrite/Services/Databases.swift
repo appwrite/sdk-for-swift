@@ -9,8 +9,6 @@ import AppwriteModels
 open class Databases: Service {
 
     ///
-    /// List databases
-    ///
     /// Get a list of all databases from the current Appwrite project. You can use
     /// the search parameter to filter your results.
     ///
@@ -47,8 +45,6 @@ open class Databases: Service {
         )
     }
 
-    ///
-    /// Create database
     ///
     /// Create a new Database.
     /// 
@@ -90,8 +86,6 @@ open class Databases: Service {
     }
 
     ///
-    /// Get database
-    ///
     /// Get a database by its unique ID. This endpoint response returns a JSON
     /// object with the database metadata.
     ///
@@ -124,8 +118,6 @@ open class Databases: Service {
         )
     }
 
-    ///
-    /// Update database
     ///
     /// Update a database by its unique ID.
     ///
@@ -166,8 +158,6 @@ open class Databases: Service {
     }
 
     ///
-    /// Delete database
-    ///
     /// Delete a database by its unique ID. Only API keys with with databases.write
     /// scope can delete a database.
     ///
@@ -194,8 +184,6 @@ open class Databases: Service {
             params: apiParams        )
     }
 
-    ///
-    /// List collections
     ///
     /// Get a list of all collections that belong to the provided databaseId. You
     /// can use the search parameter to filter your results.
@@ -236,8 +224,6 @@ open class Databases: Service {
         )
     }
 
-    ///
-    /// Create collection
     ///
     /// Create a new Collection. Before using this route, you should create a new
     /// database resource using either a [server
@@ -290,8 +276,6 @@ open class Databases: Service {
     }
 
     ///
-    /// Get collection
-    ///
     /// Get a collection by its unique ID. This endpoint response returns a JSON
     /// object with the collection metadata.
     ///
@@ -327,8 +311,6 @@ open class Databases: Service {
         )
     }
 
-    ///
-    /// Update collection
     ///
     /// Update a collection by its unique ID.
     ///
@@ -378,8 +360,6 @@ open class Databases: Service {
     }
 
     ///
-    /// Delete collection
-    ///
     /// Delete a collection by its unique ID. Only users with write permissions
     /// have access to delete this resource.
     ///
@@ -409,8 +389,6 @@ open class Databases: Service {
             params: apiParams        )
     }
 
-    ///
-    /// List attributes
     ///
     /// List attributes in the collection.
     ///
@@ -450,8 +428,6 @@ open class Databases: Service {
         )
     }
 
-    ///
-    /// Create boolean attribute
     ///
     /// Create a boolean attribute.
     /// 
@@ -502,8 +478,6 @@ open class Databases: Service {
     }
 
     ///
-    /// Update boolean attribute
-    ///
     /// Update a boolean attribute. Changing the `default` value will not update
     /// already existing documents.
     ///
@@ -553,8 +527,6 @@ open class Databases: Service {
     }
 
     ///
-    /// Create datetime attribute
-    ///
     /// Create a date time attribute according to the ISO 8601 standard.
     ///
     /// @param String databaseId
@@ -602,8 +574,6 @@ open class Databases: Service {
         )
     }
 
-    ///
-    /// Update dateTime attribute
     ///
     /// Update a date time attribute. Changing the `default` value will not update
     /// already existing documents.
@@ -654,8 +624,6 @@ open class Databases: Service {
     }
 
     ///
-    /// Create email attribute
-    ///
     /// Create an email attribute.
     /// 
     ///
@@ -704,8 +672,6 @@ open class Databases: Service {
         )
     }
 
-    ///
-    /// Update email attribute
     ///
     /// Update an email attribute. Changing the `default` value will not update
     /// already existing documents.
@@ -756,8 +722,6 @@ open class Databases: Service {
         )
     }
 
-    ///
-    /// Create enum attribute
     ///
     /// Create an enumeration attribute. The `elements` param acts as a white-list
     /// of accepted values for this attribute. 
@@ -812,8 +776,6 @@ open class Databases: Service {
     }
 
     ///
-    /// Update enum attribute
-    ///
     /// Update an enum attribute. Changing the `default` value will not update
     /// already existing documents.
     /// 
@@ -866,8 +828,6 @@ open class Databases: Service {
         )
     }
 
-    ///
-    /// Create float attribute
     ///
     /// Create a float attribute. Optionally, minimum and maximum values can be
     /// provided.
@@ -925,8 +885,6 @@ open class Databases: Service {
     }
 
     ///
-    /// Update float attribute
-    ///
     /// Update a float attribute. Changing the `default` value will not update
     /// already existing documents.
     /// 
@@ -982,8 +940,6 @@ open class Databases: Service {
         )
     }
 
-    ///
-    /// Create integer attribute
     ///
     /// Create an integer attribute. Optionally, minimum and maximum values can be
     /// provided.
@@ -1041,8 +997,6 @@ open class Databases: Service {
     }
 
     ///
-    /// Update integer attribute
-    ///
     /// Update an integer attribute. Changing the `default` value will not update
     /// already existing documents.
     /// 
@@ -1099,8 +1053,6 @@ open class Databases: Service {
     }
 
     ///
-    /// Create IP address attribute
-    ///
     /// Create IP address attribute.
     /// 
     ///
@@ -1149,8 +1101,6 @@ open class Databases: Service {
         )
     }
 
-    ///
-    /// Update IP address attribute
     ///
     /// Update an ip attribute. Changing the `default` value will not update
     /// already existing documents.
@@ -1201,8 +1151,6 @@ open class Databases: Service {
         )
     }
 
-    ///
-    /// Create relationship attribute
     ///
     /// Create relationship attribute. [Learn more about relationship
     /// attributes](https://appwrite.io/docs/databases-relationships#relationship-attributes).
@@ -1260,8 +1208,6 @@ open class Databases: Service {
     }
 
     ///
-    /// Create string attribute
-    ///
     /// Create a string attribute.
     /// 
     ///
@@ -1317,8 +1263,6 @@ open class Databases: Service {
     }
 
     ///
-    /// Update string attribute
-    ///
     /// Update a string attribute. Changing the `default` value will not update
     /// already existing documents.
     /// 
@@ -1372,8 +1316,6 @@ open class Databases: Service {
     }
 
     ///
-    /// Create URL attribute
-    ///
     /// Create a URL attribute.
     /// 
     ///
@@ -1422,8 +1364,6 @@ open class Databases: Service {
         )
     }
 
-    ///
-    /// Update URL attribute
     ///
     /// Update an url attribute. Changing the `default` value will not update
     /// already existing documents.
@@ -1475,8 +1415,6 @@ open class Databases: Service {
     }
 
     ///
-    /// Get attribute
-    ///
     /// Get attribute by ID.
     ///
     /// @param String databaseId
@@ -1509,8 +1447,6 @@ open class Databases: Service {
     }
 
     ///
-    /// Delete attribute
-    ///
     /// Deletes an attribute.
     ///
     /// @param String databaseId
@@ -1542,8 +1478,6 @@ open class Databases: Service {
             params: apiParams        )
     }
 
-    ///
-    /// Update relationship attribute
     ///
     /// Update relationship attribute. [Learn more about relationship
     /// attributes](https://appwrite.io/docs/databases-relationships#relationship-attributes).
@@ -1592,8 +1526,6 @@ open class Databases: Service {
     }
 
     ///
-    /// List documents
-    ///
     /// Get a list of all the user's documents in a given collection. You can use
     /// the query params to filter your results.
     ///
@@ -1635,8 +1567,6 @@ open class Databases: Service {
     }
 
     ///
-    /// List documents
-    ///
     /// Get a list of all the user's documents in a given collection. You can use
     /// the query params to filter your results.
     ///
@@ -1659,8 +1589,6 @@ open class Databases: Service {
         )
     }
 
-    ///
-    /// Create document
     ///
     /// Create a new Document. Before using this route, you should create a new
     /// collection resource using either a [server
@@ -1711,8 +1639,6 @@ open class Databases: Service {
     }
 
     ///
-    /// Create document
-    ///
     /// Create a new Document. Before using this route, you should create a new
     /// collection resource using either a [server
     /// integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
@@ -1743,8 +1669,6 @@ open class Databases: Service {
         )
     }
 
-    ///
-    /// Get document
     ///
     /// Get a document by its unique ID. This endpoint response returns a JSON
     /// object with the document data.
@@ -1790,8 +1714,6 @@ open class Databases: Service {
     }
 
     ///
-    /// Get document
-    ///
     /// Get a document by its unique ID. This endpoint response returns a JSON
     /// object with the document data.
     ///
@@ -1817,8 +1739,6 @@ open class Databases: Service {
         )
     }
 
-    ///
-    /// Update document
     ///
     /// Update a document by its unique ID. Using the patch method you can pass
     /// only specific fields that will get updated.
@@ -1867,8 +1787,6 @@ open class Databases: Service {
     }
 
     ///
-    /// Update document
-    ///
     /// Update a document by its unique ID. Using the patch method you can pass
     /// only specific fields that will get updated.
     ///
@@ -1897,8 +1815,6 @@ open class Databases: Service {
         )
     }
 
-    ///
-    /// Delete document
     ///
     /// Delete a document by its unique ID.
     ///
@@ -1931,8 +1847,6 @@ open class Databases: Service {
             params: apiParams        )
     }
 
-    ///
-    /// List indexes
     ///
     /// List indexes in the collection.
     ///
@@ -1972,8 +1886,6 @@ open class Databases: Service {
         )
     }
 
-    ///
-    /// Create index
     ///
     /// Creates an index on the attributes listed. Your index should include all
     /// the attributes you will query in a single request.
@@ -2025,8 +1937,6 @@ open class Databases: Service {
     }
 
     ///
-    /// Get index
-    ///
     /// Get index by ID.
     ///
     /// @param String databaseId
@@ -2064,8 +1974,6 @@ open class Databases: Service {
         )
     }
 
-    ///
-    /// Delete index
     ///
     /// Delete an index.
     ///

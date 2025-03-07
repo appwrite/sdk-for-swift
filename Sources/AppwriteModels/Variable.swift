@@ -2,7 +2,17 @@ import Foundation
 import JSONCodable
 
 /// Variable
-public class Variable {
+open class Variable: Codable {
+
+    enum CodingKeys: String, CodingKey {
+        case id = "$id"
+        case createdAt = "$createdAt"
+        case updatedAt = "$updatedAt"
+        case key = "key"
+        case value = "value"
+        case resourceType = "resourceType"
+        case resourceId = "resourceId"
+    }
 
     /// Variable ID.
     public let id: String
@@ -42,6 +52,30 @@ public class Variable {
         self.value = value
         self.resourceType = resourceType
         self.resourceId = resourceId
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.id = try container.decode(String.self, forKey: .id)
+        self.createdAt = try container.decode(String.self, forKey: .createdAt)
+        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
+        self.key = try container.decode(String.self, forKey: .key)
+        self.value = try container.decode(String.self, forKey: .value)
+        self.resourceType = try container.decode(String.self, forKey: .resourceType)
+        self.resourceId = try container.decode(String.self, forKey: .resourceId)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(id, forKey: .id)
+        try container.encode(createdAt, forKey: .createdAt)
+        try container.encode(updatedAt, forKey: .updatedAt)
+        try container.encode(key, forKey: .key)
+        try container.encode(value, forKey: .value)
+        try container.encode(resourceType, forKey: .resourceType)
+        try container.encode(resourceId, forKey: .resourceId)
     }
 
     public func toMap() -> [String: Any] {

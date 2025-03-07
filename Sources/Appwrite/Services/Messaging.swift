@@ -9,8 +9,6 @@ import AppwriteModels
 open class Messaging: Service {
 
     ///
-    /// List messages
-    ///
     /// Get a list of all messages from the current Appwrite project.
     ///
     /// @param [String] queries
@@ -46,8 +44,6 @@ open class Messaging: Service {
         )
     }
 
-    ///
-    /// Create email
     ///
     /// Create a new email message.
     ///
@@ -115,9 +111,9 @@ open class Messaging: Service {
     }
 
     ///
-    /// Update email
-    ///
-    /// Update an email message by its unique ID.
+    /// Update an email message by its unique ID. This endpoint only works on
+    /// messages that are in draft status. Messages that are already processing,
+    /// sent, or failed cannot be updated.
     /// 
     ///
     /// @param String messageId
@@ -183,8 +179,6 @@ open class Messaging: Service {
         )
     }
 
-    ///
-    /// Create push notification
     ///
     /// Create a new push notification.
     ///
@@ -273,9 +267,9 @@ open class Messaging: Service {
     }
 
     ///
-    /// Update push notification
-    ///
-    /// Update a push notification by its unique ID.
+    /// Update a push notification by its unique ID. This endpoint only works on
+    /// messages that are in draft status. Messages that are already processing,
+    /// sent, or failed cannot be updated.
     /// 
     ///
     /// @param String messageId
@@ -363,8 +357,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Create SMS
-    ///
     /// Create a new SMS message.
     ///
     /// @param String messageId
@@ -416,9 +408,9 @@ open class Messaging: Service {
     }
 
     ///
-    /// Update SMS
-    ///
-    /// Update an SMS message by its unique ID.
+    /// Update an SMS message by its unique ID. This endpoint only works on
+    /// messages that are in draft status. Messages that are already processing,
+    /// sent, or failed cannot be updated.
     /// 
     ///
     /// @param String messageId
@@ -470,8 +462,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Get message
-    ///
     /// Get a message by its unique ID.
     /// 
     ///
@@ -505,8 +495,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Delete message
-    ///
     /// Delete a message. If the message is not a draft or scheduled, but has been
     /// sent, this will not recall the message.
     ///
@@ -533,8 +521,6 @@ open class Messaging: Service {
             params: apiParams        )
     }
 
-    ///
-    /// List message logs
     ///
     /// Get the message activity logs listed by its unique ID.
     ///
@@ -572,8 +558,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// List message targets
-    ///
     /// Get a list of the targets associated with a message.
     ///
     /// @param String messageId
@@ -610,8 +594,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// List providers
-    ///
     /// Get a list of all providers from the current Appwrite project.
     ///
     /// @param [String] queries
@@ -647,8 +629,6 @@ open class Messaging: Service {
         )
     }
 
-    ///
-    /// Create APNS provider
     ///
     /// Create a new Apple Push Notification service provider.
     ///
@@ -704,8 +684,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Update APNS provider
-    ///
     /// Update a Apple Push Notification service provider by its unique ID.
     ///
     /// @param String providerId
@@ -760,8 +738,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Create FCM provider
-    ///
     /// Create a new Firebase Cloud Messaging provider.
     ///
     /// @param String providerId
@@ -804,8 +780,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Update FCM provider
-    ///
     /// Update a Firebase Cloud Messaging provider by its unique ID.
     ///
     /// @param String providerId
@@ -847,8 +821,6 @@ open class Messaging: Service {
         )
     }
 
-    ///
-    /// Create Mailgun provider
     ///
     /// Create a new Mailgun provider.
     ///
@@ -910,8 +882,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Update Mailgun provider
-    ///
     /// Update a Mailgun provider by its unique ID.
     ///
     /// @param String providerId
@@ -972,8 +942,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Create Msg91 provider
-    ///
     /// Create a new MSG91 provider.
     ///
     /// @param String providerId
@@ -1022,8 +990,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Update Msg91 provider
-    ///
     /// Update a MSG91 provider by its unique ID.
     ///
     /// @param String providerId
@@ -1071,8 +1037,6 @@ open class Messaging: Service {
         )
     }
 
-    ///
-    /// Create Sendgrid provider
     ///
     /// Create a new Sendgrid provider.
     ///
@@ -1128,8 +1092,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Update Sendgrid provider
-    ///
     /// Update a Sendgrid provider by its unique ID.
     ///
     /// @param String providerId
@@ -1183,8 +1145,6 @@ open class Messaging: Service {
         )
     }
 
-    ///
-    /// Create SMTP provider
     ///
     /// Create a new SMTP provider.
     ///
@@ -1258,8 +1218,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Update SMTP provider
-    ///
     /// Update a SMTP provider by its unique ID.
     ///
     /// @param String providerId
@@ -1332,8 +1290,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Create Telesign provider
-    ///
     /// Create a new Telesign provider.
     ///
     /// @param String providerId
@@ -1381,8 +1337,6 @@ open class Messaging: Service {
         )
     }
 
-    ///
-    /// Update Telesign provider
     ///
     /// Update a Telesign provider by its unique ID.
     ///
@@ -1432,8 +1386,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Create Textmagic provider
-    ///
     /// Create a new Textmagic provider.
     ///
     /// @param String providerId
@@ -1481,8 +1433,6 @@ open class Messaging: Service {
         )
     }
 
-    ///
-    /// Update Textmagic provider
     ///
     /// Update a Textmagic provider by its unique ID.
     ///
@@ -1532,8 +1482,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Create Twilio provider
-    ///
     /// Create a new Twilio provider.
     ///
     /// @param String providerId
@@ -1581,8 +1529,6 @@ open class Messaging: Service {
         )
     }
 
-    ///
-    /// Update Twilio provider
     ///
     /// Update a Twilio provider by its unique ID.
     ///
@@ -1632,8 +1578,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Create Vonage provider
-    ///
     /// Create a new Vonage provider.
     ///
     /// @param String providerId
@@ -1681,8 +1625,6 @@ open class Messaging: Service {
         )
     }
 
-    ///
-    /// Update Vonage provider
     ///
     /// Update a Vonage provider by its unique ID.
     ///
@@ -1732,8 +1674,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Get provider
-    ///
     /// Get a provider by its unique ID.
     /// 
     ///
@@ -1767,8 +1707,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Delete provider
-    ///
     /// Delete a provider by its unique ID.
     ///
     /// @param String providerId
@@ -1794,8 +1732,6 @@ open class Messaging: Service {
             params: apiParams        )
     }
 
-    ///
-    /// List provider logs
     ///
     /// Get the provider activity logs listed by its unique ID.
     ///
@@ -1833,8 +1769,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// List subscriber logs
-    ///
     /// Get the subscriber activity logs listed by its unique ID.
     ///
     /// @param String subscriberId
@@ -1871,8 +1805,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// List topics
-    ///
     /// Get a list of all topics from the current Appwrite project.
     ///
     /// @param [String] queries
@@ -1908,8 +1840,6 @@ open class Messaging: Service {
         )
     }
 
-    ///
-    /// Create topic
     ///
     /// Create a new topic.
     ///
@@ -1950,8 +1880,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Get topic
-    ///
     /// Get a topic by its unique ID.
     /// 
     ///
@@ -1984,8 +1912,6 @@ open class Messaging: Service {
         )
     }
 
-    ///
-    /// Update topic
     ///
     /// Update a topic by its unique ID.
     /// 
@@ -2027,8 +1953,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Delete topic
-    ///
     /// Delete a topic by its unique ID.
     ///
     /// @param String topicId
@@ -2054,8 +1978,6 @@ open class Messaging: Service {
             params: apiParams        )
     }
 
-    ///
-    /// List topic logs
     ///
     /// Get the topic activity logs listed by its unique ID.
     ///
@@ -2092,8 +2014,6 @@ open class Messaging: Service {
         )
     }
 
-    ///
-    /// List subscribers
     ///
     /// Get a list of all subscribers from the current Appwrite project.
     ///
@@ -2134,8 +2054,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Create subscriber
-    ///
     /// Create a new subscriber.
     ///
     /// @param String topicId
@@ -2175,8 +2093,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Get subscriber
-    ///
     /// Get a subscriber by its unique ID.
     /// 
     ///
@@ -2212,8 +2128,6 @@ open class Messaging: Service {
         )
     }
 
-    ///
-    /// Delete subscriber
     ///
     /// Delete a subscriber by its unique ID.
     ///

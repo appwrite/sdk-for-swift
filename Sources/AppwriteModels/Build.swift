@@ -2,7 +2,19 @@ import Foundation
 import JSONCodable
 
 /// Build
-public class Build {
+open class Build: Codable {
+
+    enum CodingKeys: String, CodingKey {
+        case id = "$id"
+        case deploymentId = "deploymentId"
+        case status = "status"
+        case stdout = "stdout"
+        case stderr = "stderr"
+        case startTime = "startTime"
+        case endTime = "endTime"
+        case duration = "duration"
+        case size = "size"
+    }
 
     /// Build ID.
     public let id: String
@@ -52,6 +64,34 @@ public class Build {
         self.endTime = endTime
         self.duration = duration
         self.size = size
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.id = try container.decode(String.self, forKey: .id)
+        self.deploymentId = try container.decode(String.self, forKey: .deploymentId)
+        self.status = try container.decode(String.self, forKey: .status)
+        self.stdout = try container.decode(String.self, forKey: .stdout)
+        self.stderr = try container.decode(String.self, forKey: .stderr)
+        self.startTime = try container.decode(String.self, forKey: .startTime)
+        self.endTime = try container.decode(String.self, forKey: .endTime)
+        self.duration = try container.decode(Int.self, forKey: .duration)
+        self.size = try container.decode(Int.self, forKey: .size)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(id, forKey: .id)
+        try container.encode(deploymentId, forKey: .deploymentId)
+        try container.encode(status, forKey: .status)
+        try container.encode(stdout, forKey: .stdout)
+        try container.encode(stderr, forKey: .stderr)
+        try container.encode(startTime, forKey: .startTime)
+        try container.encode(endTime, forKey: .endTime)
+        try container.encode(duration, forKey: .duration)
+        try container.encode(size, forKey: .size)
     }
 
     public func toMap() -> [String: Any] {

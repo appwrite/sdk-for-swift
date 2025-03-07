@@ -21,7 +21,7 @@ open class Client {
         "x-sdk-name": "Swift",
         "x-sdk-platform": "server",
         "x-sdk-language": "swift",
-        "x-sdk-version": "7.0.0",
+        "x-sdk-version": "8.0.0",
         "x-appwrite-response-format": "1.6.0"
     ]
 
@@ -337,20 +337,24 @@ open class Client {
             var message = ""
             var data = try await response.body.collect(upTo: Int.max)
             var type = ""
+            var responseString = ""
 
             do {
                 let dict = try JSONSerialization.jsonObject(with: data) as? [String: Any]
 
                 message = dict?["message"] as? String ?? response.status.reasonPhrase
                 type = dict?["type"] as? String ?? ""
+                responseString = String(decoding: data.readableBytesView, as: UTF8.self)
             } catch {
                 message =  data.readString(length: data.readableBytes)!
+                responseString = message
             }
 
             throw AppwriteError(
                 message: message,
                 code: Int(response.status.code),
-                type: type
+                type: type,
+                response: responseString
             )
         }
 
@@ -434,20 +438,24 @@ open class Client {
         default:
             var message = ""
             var type = ""
+            var responseString = ""
 
             do {
                 let dict = try JSONSerialization.jsonObject(with: data) as? [String: Any]
 
                 message = dict?["message"] as? String ?? response.status.reasonPhrase
                 type = dict?["type"] as? String ?? ""
+                responseString = String(decoding: data.readableBytesView, as: UTF8.self)
             } catch {
                 message =  data.readString(length: data.readableBytes)!
+                responseString = message
             }
 
             throw AppwriteError(
                 message: message,
                 code: Int(response.status.code),
-                type: type
+                type: type,
+                response: responseString
             )
         }
     }

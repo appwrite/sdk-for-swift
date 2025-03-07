@@ -2,7 +2,22 @@ import Foundation
 import JSONCodable
 
 /// Bucket
-public class Bucket {
+open class Bucket: Codable {
+
+    enum CodingKeys: String, CodingKey {
+        case id = "$id"
+        case createdAt = "$createdAt"
+        case updatedAt = "$updatedAt"
+        case permissions = "$permissions"
+        case fileSecurity = "fileSecurity"
+        case name = "name"
+        case enabled = "enabled"
+        case maximumFileSize = "maximumFileSize"
+        case allowedFileExtensions = "allowedFileExtensions"
+        case compression = "compression"
+        case encryption = "encryption"
+        case antivirus = "antivirus"
+    }
 
     /// Bucket ID.
     public let id: String
@@ -67,6 +82,40 @@ public class Bucket {
         self.compression = compression
         self.encryption = encryption
         self.antivirus = antivirus
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.id = try container.decode(String.self, forKey: .id)
+        self.createdAt = try container.decode(String.self, forKey: .createdAt)
+        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
+        self.permissions = try container.decode([String].self, forKey: .permissions)
+        self.fileSecurity = try container.decode(Bool.self, forKey: .fileSecurity)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.enabled = try container.decode(Bool.self, forKey: .enabled)
+        self.maximumFileSize = try container.decode(Int.self, forKey: .maximumFileSize)
+        self.allowedFileExtensions = try container.decode([String].self, forKey: .allowedFileExtensions)
+        self.compression = try container.decode(String.self, forKey: .compression)
+        self.encryption = try container.decode(Bool.self, forKey: .encryption)
+        self.antivirus = try container.decode(Bool.self, forKey: .antivirus)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(id, forKey: .id)
+        try container.encode(createdAt, forKey: .createdAt)
+        try container.encode(updatedAt, forKey: .updatedAt)
+        try container.encode(permissions, forKey: .permissions)
+        try container.encode(fileSecurity, forKey: .fileSecurity)
+        try container.encode(name, forKey: .name)
+        try container.encode(enabled, forKey: .enabled)
+        try container.encode(maximumFileSize, forKey: .maximumFileSize)
+        try container.encode(allowedFileExtensions, forKey: .allowedFileExtensions)
+        try container.encode(compression, forKey: .compression)
+        try container.encode(encryption, forKey: .encryption)
+        try container.encode(antivirus, forKey: .antivirus)
     }
 
     public func toMap() -> [String: Any] {

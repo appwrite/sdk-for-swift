@@ -9,8 +9,6 @@ import AppwriteModels
 open class Health: Service {
 
     ///
-    /// Get HTTP
-    ///
     /// Check the Appwrite HTTP server is up and responsive.
     ///
     /// @throws Exception
@@ -39,8 +37,6 @@ open class Health: Service {
         )
     }
 
-    ///
-    /// Get antivirus
     ///
     /// Check the Appwrite Antivirus server is up and connection is successful.
     ///
@@ -71,8 +67,6 @@ open class Health: Service {
     }
 
     ///
-    /// Get cache
-    ///
     /// Check the Appwrite in-memory cache servers are up and connection is
     /// successful.
     ///
@@ -102,8 +96,6 @@ open class Health: Service {
         )
     }
 
-    ///
-    /// Get the SSL certificate for a domain
     ///
     /// Get the SSL certificate for a domain
     ///
@@ -138,8 +130,6 @@ open class Health: Service {
     }
 
     ///
-    /// Get DB
-    ///
     /// Check the Appwrite database servers are up and connection is successful.
     ///
     /// @throws Exception
@@ -168,8 +158,6 @@ open class Health: Service {
         )
     }
 
-    ///
-    /// Get pubsub
     ///
     /// Check the Appwrite pub-sub servers are up and connection is successful.
     ///
@@ -200,8 +188,6 @@ open class Health: Service {
     }
 
     ///
-    /// Get queue
-    ///
     /// Check the Appwrite queue messaging servers are up and connection is
     /// successful.
     ///
@@ -231,8 +217,6 @@ open class Health: Service {
         )
     }
 
-    ///
-    /// Get builds queue
     ///
     /// Get the number of builds that are waiting to be processed in the Appwrite
     /// internal queue server.
@@ -268,8 +252,6 @@ open class Health: Service {
     }
 
     ///
-    /// Get certificates queue
-    ///
     /// Get the number of certificates that are waiting to be issued against
     /// [Letsencrypt](https://letsencrypt.org/) in the Appwrite internal queue
     /// server.
@@ -304,8 +286,6 @@ open class Health: Service {
         )
     }
 
-    ///
-    /// Get databases queue
     ///
     /// Get the number of database changes that are waiting to be processed in the
     /// Appwrite internal queue server.
@@ -344,8 +324,6 @@ open class Health: Service {
     }
 
     ///
-    /// Get deletes queue
-    ///
     /// Get the number of background destructive changes that are waiting to be
     /// processed in the Appwrite internal queue server.
     ///
@@ -379,8 +357,6 @@ open class Health: Service {
         )
     }
 
-    ///
-    /// Get number of failed queue jobs
     ///
     /// Returns the amount of failed jobs in a given queue.
     /// 
@@ -419,8 +395,6 @@ open class Health: Service {
     }
 
     ///
-    /// Get functions queue
-    ///
     /// Get the number of function executions that are waiting to be processed in
     /// the Appwrite internal queue server.
     ///
@@ -454,8 +428,6 @@ open class Health: Service {
         )
     }
 
-    ///
-    /// Get logs queue
     ///
     /// Get the number of logs that are waiting to be processed in the Appwrite
     /// internal queue server.
@@ -491,8 +463,6 @@ open class Health: Service {
     }
 
     ///
-    /// Get mails queue
-    ///
     /// Get the number of mails that are waiting to be processed in the Appwrite
     /// internal queue server.
     ///
@@ -526,8 +496,6 @@ open class Health: Service {
         )
     }
 
-    ///
-    /// Get messaging queue
     ///
     /// Get the number of messages that are waiting to be processed in the Appwrite
     /// internal queue server.
@@ -563,8 +531,6 @@ open class Health: Service {
     }
 
     ///
-    /// Get migrations queue
-    ///
     /// Get the number of migrations that are waiting to be processed in the
     /// Appwrite internal queue server.
     ///
@@ -598,8 +564,6 @@ open class Health: Service {
         )
     }
 
-    ///
-    /// Get usage queue
     ///
     /// Get the number of metrics that are waiting to be processed in the Appwrite
     /// internal queue server.
@@ -635,8 +599,6 @@ open class Health: Service {
     }
 
     ///
-    /// Get usage dump queue
-    ///
     /// Get the number of projects containing metrics that are waiting to be
     /// processed in the Appwrite internal queue server.
     ///
@@ -670,8 +632,6 @@ open class Health: Service {
         )
     }
 
-    ///
-    /// Get webhooks queue
     ///
     /// Get the number of webhooks that are waiting to be processed in the Appwrite
     /// internal queue server.
@@ -707,8 +667,6 @@ open class Health: Service {
     }
 
     ///
-    /// Get storage
-    ///
     /// Check the Appwrite storage device is up and connection is successful.
     ///
     /// @throws Exception
@@ -738,8 +696,6 @@ open class Health: Service {
     }
 
     ///
-    /// Get local storage
-    ///
     /// Check the Appwrite local storage device is up and connection is successful.
     ///
     /// @throws Exception
@@ -768,8 +724,6 @@ open class Health: Service {
         )
     }
 
-    ///
-    /// Get time
     ///
     /// Check the Appwrite server time is synced with Google remote NTP server. We
     /// use this technology to smoothly handle leap seconds with no disruptive

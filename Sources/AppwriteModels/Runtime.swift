@@ -2,7 +2,18 @@ import Foundation
 import JSONCodable
 
 /// Runtime
-public class Runtime {
+open class Runtime: Codable {
+
+    enum CodingKeys: String, CodingKey {
+        case id = "$id"
+        case key = "key"
+        case name = "name"
+        case version = "version"
+        case base = "base"
+        case image = "image"
+        case logo = "logo"
+        case supports = "supports"
+    }
 
     /// Runtime ID.
     public let id: String
@@ -47,6 +58,32 @@ public class Runtime {
         self.image = image
         self.logo = logo
         self.supports = supports
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.id = try container.decode(String.self, forKey: .id)
+        self.key = try container.decode(String.self, forKey: .key)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.version = try container.decode(String.self, forKey: .version)
+        self.base = try container.decode(String.self, forKey: .base)
+        self.image = try container.decode(String.self, forKey: .image)
+        self.logo = try container.decode(String.self, forKey: .logo)
+        self.supports = try container.decode([String].self, forKey: .supports)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(id, forKey: .id)
+        try container.encode(key, forKey: .key)
+        try container.encode(name, forKey: .name)
+        try container.encode(version, forKey: .version)
+        try container.encode(base, forKey: .base)
+        try container.encode(image, forKey: .image)
+        try container.encode(logo, forKey: .logo)
+        try container.encode(supports, forKey: .supports)
     }
 
     public func toMap() -> [String: Any] {

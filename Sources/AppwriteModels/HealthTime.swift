@@ -2,7 +2,13 @@ import Foundation
 import JSONCodable
 
 /// Health Time
-public class HealthTime {
+open class HealthTime: Codable {
+
+    enum CodingKeys: String, CodingKey {
+        case remoteTime = "remoteTime"
+        case localTime = "localTime"
+        case diff = "diff"
+    }
 
     /// Current unix timestamp on trustful remote server.
     public let remoteTime: Int
@@ -22,6 +28,22 @@ public class HealthTime {
         self.remoteTime = remoteTime
         self.localTime = localTime
         self.diff = diff
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.remoteTime = try container.decode(Int.self, forKey: .remoteTime)
+        self.localTime = try container.decode(Int.self, forKey: .localTime)
+        self.diff = try container.decode(Int.self, forKey: .diff)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(remoteTime, forKey: .remoteTime)
+        try container.encode(localTime, forKey: .localTime)
+        try container.encode(diff, forKey: .diff)
     }
 
     public func toMap() -> [String: Any] {
