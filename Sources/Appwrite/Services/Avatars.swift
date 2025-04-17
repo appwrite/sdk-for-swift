@@ -44,9 +44,7 @@ open class Avatars: Service {
             "session": client.config["session"]
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         return try await client.call(
             method: "GET",
@@ -90,9 +88,7 @@ open class Avatars: Service {
             "session": client.config["session"]
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         return try await client.call(
             method: "GET",
@@ -122,9 +118,7 @@ open class Avatars: Service {
             "session": client.config["session"]
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         return try await client.call(
             method: "GET",
@@ -169,9 +163,7 @@ open class Avatars: Service {
             "session": client.config["session"]
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         return try await client.call(
             method: "GET",
@@ -214,9 +206,7 @@ open class Avatars: Service {
             "session": client.config["session"]
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         return try await client.call(
             method: "GET",
@@ -267,9 +257,7 @@ open class Avatars: Service {
             "session": client.config["session"]
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         return try await client.call(
             method: "GET",
@@ -307,9 +295,7 @@ open class Avatars: Service {
             "session": client.config["session"]
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         return try await client.call(
             method: "GET",

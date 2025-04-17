@@ -29,9 +29,7 @@ open class Users: Service {
             "search": search
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.UserList<T> = { response in
             return AppwriteModels.UserList.from(map: response as! [String: Any])
@@ -307,9 +305,7 @@ open class Users: Service {
             "search": search
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.IdentityList = { response in
             return AppwriteModels.IdentityList.from(map: response as! [String: Any])
@@ -792,9 +788,7 @@ open class Users: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.User<T> = { response in
             return AppwriteModels.User.from(map: response as! [String: Any])
@@ -1038,9 +1032,7 @@ open class Users: Service {
             "queries": queries
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.LogList = { response in
             return AppwriteModels.LogList.from(map: response as! [String: Any])
@@ -1070,9 +1062,7 @@ open class Users: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.MembershipList = { response in
             return AppwriteModels.MembershipList.from(map: response as! [String: Any])
@@ -1187,9 +1177,7 @@ open class Users: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.MfaFactors = { response in
             return AppwriteModels.MfaFactors.from(map: response as! [String: Any])
@@ -1222,9 +1210,7 @@ open class Users: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.MfaRecoveryCodes = { response in
             return AppwriteModels.MfaRecoveryCodes.from(map: response as! [String: Any])
@@ -1493,9 +1479,7 @@ open class Users: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.Preferences<T> = { response in
             return AppwriteModels.Preferences.from(map: response as! [String: Any])
@@ -1601,9 +1585,7 @@ open class Users: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.SessionList = { response in
             return AppwriteModels.SessionList.from(map: response as! [String: Any])
@@ -1787,9 +1769,7 @@ open class Users: Service {
             "queries": queries
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.TargetList = { response in
             return AppwriteModels.TargetList.from(map: response as! [String: Any])
@@ -1870,9 +1850,7 @@ open class Users: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.Target = { response in
             return AppwriteModels.Target.from(map: response as! [String: Any])
