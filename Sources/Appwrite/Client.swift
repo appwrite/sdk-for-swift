@@ -21,7 +21,7 @@ open class Client {
         "x-sdk-name": "Swift",
         "x-sdk-platform": "server",
         "x-sdk-language": "swift",
-        "x-sdk-version": "8.0.0",
+        "x-sdk-version": "8.0.1",
         "x-appwrite-response-format": "1.6.0"
     ]
 
@@ -197,8 +197,11 @@ open class Client {
     /// @return Client
     ///
     open func setEndpoint(_ endPoint: String) -> Client {
-        self.endPoint = endPoint
+        if !endPoint.hasPrefix("http://") && !endPoint.hasPrefix("https://") {
+            fatalError("Invalid endpoint URL: \(endPoint)")
+        }
 
+        self.endPoint = endPoint
         return self
     }
 

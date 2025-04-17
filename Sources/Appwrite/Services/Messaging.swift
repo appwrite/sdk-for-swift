@@ -27,9 +27,7 @@ open class Messaging: Service {
             "search": search
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.MessageList = { response in
             return AppwriteModels.MessageList.from(map: response as! [String: Any])
@@ -477,9 +475,7 @@ open class Messaging: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.Message = { response in
             return AppwriteModels.Message.from(map: response as! [String: Any])
@@ -540,9 +536,7 @@ open class Messaging: Service {
             "queries": queries
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.LogList = { response in
             return AppwriteModels.LogList.from(map: response as! [String: Any])
@@ -576,9 +570,7 @@ open class Messaging: Service {
             "queries": queries
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.TargetList = { response in
             return AppwriteModels.TargetList.from(map: response as! [String: Any])
@@ -612,9 +604,7 @@ open class Messaging: Service {
             "search": search
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.ProviderList = { response in
             return AppwriteModels.ProviderList.from(map: response as! [String: Any])
@@ -1689,9 +1679,7 @@ open class Messaging: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
@@ -1751,9 +1739,7 @@ open class Messaging: Service {
             "queries": queries
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.LogList = { response in
             return AppwriteModels.LogList.from(map: response as! [String: Any])
@@ -1787,9 +1773,7 @@ open class Messaging: Service {
             "queries": queries
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.LogList = { response in
             return AppwriteModels.LogList.from(map: response as! [String: Any])
@@ -1823,9 +1807,7 @@ open class Messaging: Service {
             "search": search
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.TopicList = { response in
             return AppwriteModels.TopicList.from(map: response as! [String: Any])
@@ -1895,9 +1877,7 @@ open class Messaging: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.Topic = { response in
             return AppwriteModels.Topic.from(map: response as! [String: Any])
@@ -1997,9 +1977,7 @@ open class Messaging: Service {
             "queries": queries
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.LogList = { response in
             return AppwriteModels.LogList.from(map: response as! [String: Any])
@@ -2036,9 +2014,7 @@ open class Messaging: Service {
             "search": search
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.SubscriberList = { response in
             return AppwriteModels.SubscriberList.from(map: response as! [String: Any])
@@ -2111,9 +2087,7 @@ open class Messaging: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.Subscriber = { response in
             return AppwriteModels.Subscriber.from(map: response as! [String: Any])

@@ -28,9 +28,7 @@ open class Databases: Service {
             "search": search
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.DatabaseList = { response in
             return AppwriteModels.DatabaseList.from(map: response as! [String: Any])
@@ -101,9 +99,7 @@ open class Databases: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.Database = { response in
             return AppwriteModels.Database.from(map: response as! [String: Any])
@@ -207,9 +203,7 @@ open class Databases: Service {
             "search": search
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.CollectionList = { response in
             return AppwriteModels.CollectionList.from(map: response as! [String: Any])
@@ -294,9 +288,7 @@ open class Databases: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.Collection = { response in
             return AppwriteModels.Collection.from(map: response as! [String: Any])
@@ -411,9 +403,7 @@ open class Databases: Service {
             "queries": queries
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.AttributeList = { response in
             return AppwriteModels.AttributeList.from(map: response as! [String: Any])
@@ -893,9 +883,9 @@ open class Databases: Service {
     /// @param String collectionId
     /// @param String key
     /// @param Bool required
+    /// @param Double default
     /// @param Double min
     /// @param Double max
-    /// @param Double default
     /// @param String newKey
     /// @throws Exception
     /// @return array
@@ -905,9 +895,9 @@ open class Databases: Service {
         collectionId: String,
         key: String,
         `required`: Bool,
-        min: Double,
-        max: Double,
         `default`: Double? = nil,
+        min: Double? = nil,
+        max: Double? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributeFloat {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/float/{key}"
@@ -1005,9 +995,9 @@ open class Databases: Service {
     /// @param String collectionId
     /// @param String key
     /// @param Bool required
+    /// @param Int default
     /// @param Int min
     /// @param Int max
-    /// @param Int default
     /// @param String newKey
     /// @throws Exception
     /// @return array
@@ -1017,9 +1007,9 @@ open class Databases: Service {
         collectionId: String,
         key: String,
         `required`: Bool,
-        min: Int,
-        max: Int,
         `default`: Int? = nil,
+        min: Int? = nil,
+        max: Int? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributeInteger {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/integer/{key}"
@@ -1435,9 +1425,7 @@ open class Databases: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         return try await client.call(
             method: "GET",
@@ -1549,9 +1537,7 @@ open class Databases: Service {
             "queries": queries
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.DocumentList<T> = { response in
             return AppwriteModels.DocumentList.from(map: response as! [String: Any])
@@ -1594,6 +1580,7 @@ open class Databases: Service {
     /// collection resource using either a [server
     /// integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
     /// API or directly from your database console.
+    /// 
     ///
     /// @param String databaseId
     /// @param String collectionId
@@ -1643,6 +1630,7 @@ open class Databases: Service {
     /// collection resource using either a [server
     /// integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
     /// API or directly from your database console.
+    /// 
     ///
     /// @param String databaseId
     /// @param String collectionId
@@ -1696,9 +1684,7 @@ open class Databases: Service {
             "queries": queries
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.Document<T> = { response in
             return AppwriteModels.Document.from(map: response as! [String: Any])
@@ -1869,9 +1855,7 @@ open class Databases: Service {
             "queries": queries
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.IndexList = { response in
             return AppwriteModels.IndexList.from(map: response as! [String: Any])
@@ -1957,9 +1941,7 @@ open class Databases: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.Index = { response in
             return AppwriteModels.Index.from(map: response as! [String: Any])

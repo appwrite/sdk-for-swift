@@ -28,9 +28,7 @@ open class Functions: Service {
             "search": search
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.FunctionList = { response in
             return AppwriteModels.FunctionList.from(map: response as! [String: Any])
@@ -156,9 +154,7 @@ open class Functions: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.RuntimeList = { response in
             return AppwriteModels.RuntimeList.from(map: response as! [String: Any])
@@ -186,9 +182,7 @@ open class Functions: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.SpecificationList = { response in
             return AppwriteModels.SpecificationList.from(map: response as! [String: Any])
@@ -218,9 +212,7 @@ open class Functions: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.Function = { response in
             return AppwriteModels.Function.from(map: response as! [String: Any])
@@ -368,9 +360,7 @@ open class Functions: Service {
             "search": search
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.DeploymentList = { response in
             return AppwriteModels.DeploymentList.from(map: response as! [String: Any])
@@ -462,9 +452,7 @@ open class Functions: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.Deployment = { response in
             return AppwriteModels.Deployment.from(map: response as! [String: Any])
@@ -640,9 +628,7 @@ open class Functions: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         return try await client.call(
             method: "GET",
@@ -674,9 +660,7 @@ open class Functions: Service {
             "search": search
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.ExecutionList = { response in
             return AppwriteModels.ExecutionList.from(map: response as! [String: Any])
@@ -763,9 +747,7 @@ open class Functions: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.Execution = { response in
             return AppwriteModels.Execution.from(map: response as! [String: Any])
@@ -825,9 +807,7 @@ open class Functions: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.VariableList = { response in
             return AppwriteModels.VariableList.from(map: response as! [String: Any])
@@ -900,9 +880,7 @@ open class Functions: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.Variable = { response in
             return AppwriteModels.Variable.from(map: response as! [String: Any])

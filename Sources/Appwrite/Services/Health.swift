@@ -20,9 +20,7 @@ open class Health: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.HealthStatus = { response in
             return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
@@ -49,9 +47,7 @@ open class Health: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.HealthAntivirus = { response in
             return AppwriteModels.HealthAntivirus.from(map: response as! [String: Any])
@@ -79,9 +75,7 @@ open class Health: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.HealthStatus = { response in
             return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
@@ -112,9 +106,7 @@ open class Health: Service {
             "domain": domain
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.HealthCertificate = { response in
             return AppwriteModels.HealthCertificate.from(map: response as! [String: Any])
@@ -141,9 +133,7 @@ open class Health: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.HealthStatus = { response in
             return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
@@ -170,39 +160,7 @@ open class Health: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
-
-        let converter: (Any) -> AppwriteModels.HealthStatus = { response in
-            return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
-        }
-
-        return try await client.call(
-            method: "GET",
-            path: apiPath,
-            headers: apiHeaders,
-            params: apiParams,
-            converter: converter
-        )
-    }
-
-    ///
-    /// Check the Appwrite queue messaging servers are up and connection is
-    /// successful.
-    ///
-    /// @throws Exception
-    /// @return array
-    ///
-    open func getQueue(
-    ) async throws -> AppwriteModels.HealthStatus {
-        let apiPath: String = "/health/queue"
-
-        let apiParams: [String: Any] = [:]
-
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.HealthStatus = { response in
             return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
@@ -234,9 +192,7 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -269,9 +225,7 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -306,9 +260,7 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -340,9 +292,7 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -377,9 +327,7 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -411,9 +359,7 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -445,9 +391,7 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -479,9 +423,7 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -513,9 +455,7 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -547,9 +487,39 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
+        let apiHeaders: [String: String] = [:]
+
+        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+            return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get the number of metrics that are waiting to be processed in the Appwrite
+    /// stats resources queue.
+    ///
+    /// @param Int threshold
+    /// @throws Exception
+    /// @return array
+    ///
+    open func getQueueStatsResources(
+        threshold: Int? = nil
+    ) async throws -> AppwriteModels.HealthQueue {
+        let apiPath: String = "/health/queue/stats-resources"
+
+        let apiParams: [String: Any?] = [
+            "threshold": threshold
         ]
+
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -575,49 +545,13 @@ open class Health: Service {
     open func getQueueUsage(
         threshold: Int? = nil
     ) async throws -> AppwriteModels.HealthQueue {
-        let apiPath: String = "/health/queue/usage"
+        let apiPath: String = "/health/queue/stats-usage"
 
         let apiParams: [String: Any?] = [
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
-
-        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
-            return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
-        }
-
-        return try await client.call(
-            method: "GET",
-            path: apiPath,
-            headers: apiHeaders,
-            params: apiParams,
-            converter: converter
-        )
-    }
-
-    ///
-    /// Get the number of projects containing metrics that are waiting to be
-    /// processed in the Appwrite internal queue server.
-    ///
-    /// @param Int threshold
-    /// @throws Exception
-    /// @return array
-    ///
-    open func getQueueUsageDump(
-        threshold: Int? = nil
-    ) async throws -> AppwriteModels.HealthQueue {
-        let apiPath: String = "/health/queue/usage-dump"
-
-        let apiParams: [String: Any?] = [
-            "threshold": threshold
-        ]
-
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -649,9 +583,7 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -678,9 +610,7 @@ open class Health: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.HealthStatus = { response in
             return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
@@ -707,9 +637,7 @@ open class Health: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.HealthStatus = { response in
             return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
@@ -742,9 +670,7 @@ open class Health: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.HealthTime = { response in
             return AppwriteModels.HealthTime.from(map: response as! [String: Any])

@@ -28,9 +28,7 @@ open class Storage: Service {
             "search": search
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.BucketList = { response in
             return AppwriteModels.BucketList.from(map: response as! [String: Any])
@@ -121,9 +119,7 @@ open class Storage: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.Bucket = { response in
             return AppwriteModels.Bucket.from(map: response as! [String: Any])
@@ -247,9 +243,7 @@ open class Storage: Service {
             "search": search
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.FileList = { response in
             return AppwriteModels.FileList.from(map: response as! [String: Any])
@@ -347,9 +341,7 @@ open class Storage: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         let converter: (Any) -> AppwriteModels.File = { response in
             return AppwriteModels.File.from(map: response as! [String: Any])
@@ -457,9 +449,7 @@ open class Storage: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         return try await client.call(
             method: "GET",
@@ -526,9 +516,7 @@ open class Storage: Service {
             "session": client.config["session"]
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         return try await client.call(
             method: "GET",
@@ -557,9 +545,7 @@ open class Storage: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         return try await client.call(
             method: "GET",
