@@ -1580,7 +1580,6 @@ open class Databases: Service {
     /// collection resource using either a [server
     /// integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
     /// API or directly from your database console.
-    /// 
     ///
     /// @param String databaseId
     /// @param String collectionId
@@ -1630,7 +1629,6 @@ open class Databases: Service {
     /// collection resource using either a [server
     /// integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
     /// API or directly from your database console.
-    /// 
     ///
     /// @param String databaseId
     /// @param String collectionId
@@ -1653,6 +1651,282 @@ open class Databases: Service {
             documentId: documentId,
             data: data,
             permissions: permissions,
+            nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
+    /// Create new Documents. Before using this route, you should create a new
+    /// collection resource using either a [server
+    /// integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
+    /// API or directly from your database console.
+    /// 
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param [Any] documents
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createDocuments<T>(
+        databaseId: String,
+        collectionId: String,
+        documents: [Any],
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.DocumentList<T> {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/documents"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
+        let apiParams: [String: Any?] = [
+            "documents": documents
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.DocumentList<T> = { response in
+            return AppwriteModels.DocumentList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create new Documents. Before using this route, you should create a new
+    /// collection resource using either a [server
+    /// integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
+    /// API or directly from your database console.
+    /// 
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param [Any] documents
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createDocuments(
+        databaseId: String,
+        collectionId: String,
+        documents: [Any]
+    ) async throws -> AppwriteModels.DocumentList<[String: AnyCodable]> {
+        return try await createDocuments(
+            databaseId: databaseId,
+            collectionId: collectionId,
+            documents: documents,
+            nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
+    /// Create or update Documents. Before using this route, you should create a
+    /// new collection resource using either a [server
+    /// integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
+    /// API or directly from your database console.
+    /// 
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param [Any] documents
+    /// @throws Exception
+    /// @return array
+    ///
+    open func upsertDocuments<T>(
+        databaseId: String,
+        collectionId: String,
+        documents: [Any]? = nil,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.DocumentList<T> {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/documents"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
+        let apiParams: [String: Any?] = [
+            "documents": documents
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.DocumentList<T> = { response in
+            return AppwriteModels.DocumentList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PUT",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create or update Documents. Before using this route, you should create a
+    /// new collection resource using either a [server
+    /// integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
+    /// API or directly from your database console.
+    /// 
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param [Any] documents
+    /// @throws Exception
+    /// @return array
+    ///
+    open func upsertDocuments(
+        databaseId: String,
+        collectionId: String,
+        documents: [Any]? = nil
+    ) async throws -> AppwriteModels.DocumentList<[String: AnyCodable]> {
+        return try await upsertDocuments(
+            databaseId: databaseId,
+            collectionId: collectionId,
+            documents: documents,
+            nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
+    /// Update all documents that match your queries, if no queries are submitted
+    /// then all documents are updated. You can pass only specific fields to be
+    /// updated.
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param Any data
+    /// @param [String] queries
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateDocuments<T>(
+        databaseId: String,
+        collectionId: String,
+        data: Any? = nil,
+        queries: [String]? = nil,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.DocumentList<T> {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/documents"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
+        let apiParams: [String: Any?] = [
+            "data": data,
+            "queries": queries
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.DocumentList<T> = { response in
+            return AppwriteModels.DocumentList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update all documents that match your queries, if no queries are submitted
+    /// then all documents are updated. You can pass only specific fields to be
+    /// updated.
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param Any data
+    /// @param [String] queries
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateDocuments(
+        databaseId: String,
+        collectionId: String,
+        data: Any? = nil,
+        queries: [String]? = nil
+    ) async throws -> AppwriteModels.DocumentList<[String: AnyCodable]> {
+        return try await updateDocuments(
+            databaseId: databaseId,
+            collectionId: collectionId,
+            data: data,
+            queries: queries,
+            nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
+    /// Bulk delete documents using queries, if no queries are passed then all
+    /// documents are deleted.
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param [String] queries
+    /// @throws Exception
+    /// @return array
+    ///
+    open func deleteDocuments<T>(
+        databaseId: String,
+        collectionId: String,
+        queries: [String]? = nil,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.DocumentList<T> {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/documents"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
+        let apiParams: [String: Any?] = [
+            "queries": queries
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.DocumentList<T> = { response in
+            return AppwriteModels.DocumentList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "DELETE",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Bulk delete documents using queries, if no queries are passed then all
+    /// documents are deleted.
+    ///
+    /// @param String databaseId
+    /// @param String collectionId
+    /// @param [String] queries
+    /// @throws Exception
+    /// @return array
+    ///
+    open func deleteDocuments(
+        databaseId: String,
+        collectionId: String,
+        queries: [String]? = nil
+    ) async throws -> AppwriteModels.DocumentList<[String: AnyCodable]> {
+        return try await deleteDocuments(
+            databaseId: databaseId,
+            collectionId: collectionId,
+            queries: queries,
             nestedType: [String: AnyCodable].self
         )
     }
