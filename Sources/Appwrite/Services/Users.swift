@@ -1051,16 +1051,23 @@ open class Users: Service {
     /// Get the user membership list by its unique ID.
     ///
     /// @param String userId
+    /// @param [String] queries
+    /// @param String search
     /// @throws Exception
     /// @return array
     ///
     open func listMemberships(
-        userId: String
+        userId: String,
+        queries: [String]? = nil,
+        search: String? = nil
     ) async throws -> AppwriteModels.MembershipList {
         let apiPath: String = "/users/{userId}/memberships"
             .replacingOccurrences(of: "{userId}", with: userId)
 
-        let apiParams: [String: Any] = [:]
+        let apiParams: [String: Any?] = [
+            "queries": queries,
+            "search": search
+        ]
 
         let apiHeaders: [String: String] = [:]
 

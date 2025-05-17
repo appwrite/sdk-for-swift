@@ -1660,7 +1660,6 @@ open class Databases: Service {
     /// collection resource using either a [server
     /// integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
     /// API or directly from your database console.
-    /// 
     ///
     /// @param String databaseId
     /// @param String collectionId
@@ -1704,7 +1703,6 @@ open class Databases: Service {
     /// collection resource using either a [server
     /// integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
     /// API or directly from your database console.
-    /// 
     ///
     /// @param String databaseId
     /// @param String collectionId
@@ -2155,6 +2153,7 @@ open class Databases: Service {
     /// @param AppwriteEnums.IndexType type
     /// @param [String] attributes
     /// @param [String] orders
+    /// @param [Int] lengths
     /// @throws Exception
     /// @return array
     ///
@@ -2164,7 +2163,8 @@ open class Databases: Service {
         key: String,
         type: AppwriteEnums.IndexType,
         attributes: [String],
-        orders: [String]? = nil
+        orders: [String]? = nil,
+        lengths: [Int]? = nil
     ) async throws -> AppwriteModels.Index {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/indexes"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -2174,7 +2174,8 @@ open class Databases: Service {
             "key": key,
             "type": type,
             "attributes": attributes,
-            "orders": orders
+            "orders": orders,
+            "lengths": lengths
         ]
 
         let apiHeaders: [String: String] = [

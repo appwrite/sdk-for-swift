@@ -8,6 +8,8 @@ let client = Client()
 let users = Users(client)
 
 let membershipList = try await users.listMemberships(
-    userId: "<USER_ID>"
+    userId: "<USER_ID>",
+    queries: [], // optional
+    search: "<SEARCH>" // optional
 )
 

@@ -10,6 +10,7 @@ open class Index: Codable {
         case status = "status"
         case error = "error"
         case attributes = "attributes"
+        case lengths = "lengths"
         case orders = "orders"
         case createdAt = "$createdAt"
         case updatedAt = "$updatedAt"
@@ -30,6 +31,9 @@ open class Index: Codable {
     /// Index attributes.
     public let attributes: [String]
 
+    /// Index attributes length.
+    public let lengths: [Int]
+
     /// Index orders.
     public let orders: [String]?
 
@@ -46,6 +50,7 @@ open class Index: Codable {
         status: String,
         error: String,
         attributes: [String],
+        lengths: [Int],
         orders: [String]?,
         createdAt: String,
         updatedAt: String
@@ -55,6 +60,7 @@ open class Index: Codable {
         self.status = status
         self.error = error
         self.attributes = attributes
+        self.lengths = lengths
         self.orders = orders
         self.createdAt = createdAt
         self.updatedAt = updatedAt
@@ -68,6 +74,7 @@ open class Index: Codable {
         self.status = try container.decode(String.self, forKey: .status)
         self.error = try container.decode(String.self, forKey: .error)
         self.attributes = try container.decode([String].self, forKey: .attributes)
+        self.lengths = try container.decode([Int].self, forKey: .lengths)
         self.orders = try container.decodeIfPresent([String].self, forKey: .orders)
         self.createdAt = try container.decode(String.self, forKey: .createdAt)
         self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
@@ -81,6 +88,7 @@ open class Index: Codable {
         try container.encode(status, forKey: .status)
         try container.encode(error, forKey: .error)
         try container.encode(attributes, forKey: .attributes)
+        try container.encode(lengths, forKey: .lengths)
         try container.encodeIfPresent(orders, forKey: .orders)
         try container.encode(createdAt, forKey: .createdAt)
         try container.encode(updatedAt, forKey: .updatedAt)
@@ -93,6 +101,7 @@ open class Index: Codable {
             "status": status as Any,
             "error": error as Any,
             "attributes": attributes as Any,
+            "lengths": lengths as Any,
             "orders": orders as Any,
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any
@@ -106,6 +115,7 @@ open class Index: Codable {
             status: map["status"] as! String,
             error: map["error"] as! String,
             attributes: map["attributes"] as! [String],
+            lengths: map["lengths"] as! [Int],
             orders: map["orders"] as? [String],
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String

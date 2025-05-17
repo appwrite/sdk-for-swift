@@ -11,6 +11,7 @@ let variable = try await functions.updateVariable(
     functionId: "<FUNCTION_ID>",
     variableId: "<VARIABLE_ID>",
     key: "<KEY>",
-    value: "<VALUE>" // optional
+    value: "<VALUE>", // optional
+    secret: false // optional
 )
 

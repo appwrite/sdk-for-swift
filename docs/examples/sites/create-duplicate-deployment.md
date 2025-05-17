@@ -5,11 +5,10 @@ let client = Client()
     .setProject("<YOUR_PROJECT_ID>") // Your project ID
     .setKey("<YOUR_API_KEY>") // Your secret API key
 
-let functions = Functions(client)
+let sites = Sites(client)
 
-let result = try await functions.createBuild(
-    functionId: "<FUNCTION_ID>",
-    deploymentId: "<DEPLOYMENT_ID>",
-    buildId: "<BUILD_ID>" // optional
+let deployment = try await sites.createDuplicateDeployment(
+    siteId: "<SITE_ID>",
+    deploymentId: "<DEPLOYMENT_ID>"
 )
 

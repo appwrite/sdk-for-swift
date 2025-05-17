@@ -5,10 +5,10 @@ let client = Client()
     .setProject("<YOUR_PROJECT_ID>") // Your project ID
     .setKey("<YOUR_API_KEY>") // Your secret API key
 
-let functions = Functions(client)
+let sites = Sites(client)
 
-let function = try await functions.updateDeployment(
-    functionId: "<FUNCTION_ID>",
+let deployment = try await sites.updateDeploymentStatus(
+    siteId: "<SITE_ID>",
     deploymentId: "<DEPLOYMENT_ID>"
 )
 

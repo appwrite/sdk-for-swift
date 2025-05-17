@@ -10,6 +10,7 @@ let functions = Functions(client)
 let variable = try await functions.createVariable(
     functionId: "<FUNCTION_ID>",
     key: "<KEY>",
-    value: "<VALUE>"
+    value: "<VALUE>",
+    secret: false // optional
 )
 
