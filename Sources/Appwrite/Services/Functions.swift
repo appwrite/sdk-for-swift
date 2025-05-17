@@ -66,10 +66,6 @@ open class Functions: Service {
     /// @param String providerBranch
     /// @param Bool providerSilentMode
     /// @param String providerRootDirectory
-    /// @param String templateRepository
-    /// @param String templateOwner
-    /// @param String templateRootDirectory
-    /// @param String templateVersion
     /// @param String specification
     /// @throws Exception
     /// @return array
@@ -92,10 +88,6 @@ open class Functions: Service {
         providerBranch: String? = nil,
         providerSilentMode: Bool? = nil,
         providerRootDirectory: String? = nil,
-        templateRepository: String? = nil,
-        templateOwner: String? = nil,
-        templateRootDirectory: String? = nil,
-        templateVersion: String? = nil,
         specification: String? = nil
     ) async throws -> AppwriteModels.Function {
         let apiPath: String = "/functions"
@@ -118,10 +110,6 @@ open class Functions: Service {
             "providerBranch": providerBranch,
             "providerSilentMode": providerSilentMode,
             "providerRootDirectory": providerRootDirectory,
-            "templateRepository": templateRepository,
-            "templateOwner": templateOwner,
-            "templateRootDirectory": templateRootDirectory,
-            "templateVersion": templateVersion,
             "specification": specification
         ]
 
@@ -171,7 +159,6 @@ open class Functions: Service {
 
     ///
     /// List allowed function specifications for this instance.
-    /// 
     ///
     /// @throws Exception
     /// @return array
@@ -338,7 +325,44 @@ open class Functions: Service {
     }
 
     ///
-    /// Get a list of all the project's code deployments. You can use the query
+    /// Update the function active deployment. Use this endpoint to switch the code
+    /// deployment that should be used when visitor opens your function.
+    ///
+    /// @param String functionId
+    /// @param String deploymentId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func updateFunctionDeployment(
+        functionId: String,
+        deploymentId: String
+    ) async throws -> AppwriteModels.Function {
+        let apiPath: String = "/functions/{functionId}/deployment"
+            .replacingOccurrences(of: "{functionId}", with: functionId)
+
+        let apiParams: [String: Any?] = [
+            "deploymentId": deploymentId
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Function = { response in
+            return AppwriteModels.Function.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get a list of all the function's code deployments. You can use the query
     /// params to filter your results.
     ///
     /// @param String functionId
@@ -435,7 +459,146 @@ open class Functions: Service {
     }
 
     ///
-    /// Get a code deployment by its unique ID.
+    /// Create a new build for an existing function deployment. This endpoint
+    /// allows you to rebuild a deployment with the updated function configuration,
+    /// including its entrypoint and build commands if they have been modified. The
+    /// build process will be queued and executed asynchronously. The original
+    /// deployment's code will be preserved and used for the new build.
+    ///
+    /// @param String functionId
+    /// @param String deploymentId
+    /// @param String buildId
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createDuplicateDeployment(
+        functionId: String,
+        deploymentId: String,
+        buildId: String? = nil
+    ) async throws -> AppwriteModels.Deployment {
+        let apiPath: String = "/functions/{functionId}/deployments/duplicate"
+            .replacingOccurrences(of: "{functionId}", with: functionId)
+
+        let apiParams: [String: Any?] = [
+            "deploymentId": deploymentId,
+            "buildId": buildId
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Deployment = { response in
+            return AppwriteModels.Deployment.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create a deployment based on a template.
+    /// 
+    /// Use this endpoint with combination of
+    /// [listTemplates](https://appwrite.io/docs/server/functions#listTemplates) to
+    /// find the template details.
+    ///
+    /// @param String functionId
+    /// @param String repository
+    /// @param String owner
+    /// @param String rootDirectory
+    /// @param String version
+    /// @param Bool activate
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createTemplateDeployment(
+        functionId: String,
+        repository: String,
+        owner: String,
+        rootDirectory: String,
+        version: String,
+        activate: Bool? = nil
+    ) async throws -> AppwriteModels.Deployment {
+        let apiPath: String = "/functions/{functionId}/deployments/template"
+            .replacingOccurrences(of: "{functionId}", with: functionId)
+
+        let apiParams: [String: Any?] = [
+            "repository": repository,
+            "owner": owner,
+            "rootDirectory": rootDirectory,
+            "version": version,
+            "activate": activate
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Deployment = { response in
+            return AppwriteModels.Deployment.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create a deployment when a function is connected to VCS.
+    /// 
+    /// This endpoint lets you create deployment from a branch, commit, or a tag.
+    ///
+    /// @param String functionId
+    /// @param AppwriteEnums.VCSDeploymentType type
+    /// @param String reference
+    /// @param Bool activate
+    /// @throws Exception
+    /// @return array
+    ///
+    open func createVcsDeployment(
+        functionId: String,
+        type: AppwriteEnums.VCSDeploymentType,
+        reference: String,
+        activate: Bool? = nil
+    ) async throws -> AppwriteModels.Deployment {
+        let apiPath: String = "/functions/{functionId}/deployments/vcs"
+            .replacingOccurrences(of: "{functionId}", with: functionId)
+
+        let apiParams: [String: Any?] = [
+            "type": type,
+            "reference": reference,
+            "activate": activate
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Deployment = { response in
+            return AppwriteModels.Deployment.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get a function deployment by its unique ID.
     ///
     /// @param String functionId
     /// @param String deploymentId
@@ -460,43 +623,6 @@ open class Functions: Service {
 
         return try await client.call(
             method: "GET",
-            path: apiPath,
-            headers: apiHeaders,
-            params: apiParams,
-            converter: converter
-        )
-    }
-
-    ///
-    /// Update the function code deployment ID using the unique function ID. Use
-    /// this endpoint to switch the code deployment that should be executed by the
-    /// execution endpoint.
-    ///
-    /// @param String functionId
-    /// @param String deploymentId
-    /// @throws Exception
-    /// @return array
-    ///
-    open func updateDeployment(
-        functionId: String,
-        deploymentId: String
-    ) async throws -> AppwriteModels.Function {
-        let apiPath: String = "/functions/{functionId}/deployments/{deploymentId}"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
-            .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
-
-        let apiParams: [String: Any] = [:]
-
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
-
-        let converter: (Any) -> AppwriteModels.Function = { response in
-            return AppwriteModels.Function.from(map: response as! [String: Any])
-        }
-
-        return try await client.call(
-            method: "PATCH",
             path: apiPath,
             headers: apiHeaders,
             params: apiParams,
@@ -534,40 +660,38 @@ open class Functions: Service {
     }
 
     ///
-    /// Create a new build for an existing function deployment. This endpoint
-    /// allows you to rebuild a deployment with the updated function configuration,
-    /// including its entrypoint and build commands if they have been modified The
-    /// build process will be queued and executed asynchronously. The original
-    /// deployment's code will be preserved and used for the new build.
+    /// Get a function deployment content by its unique ID. The endpoint response
+    /// return with a 'Content-Disposition: attachment' header that tells the
+    /// browser to start downloading the file to user downloads directory.
     ///
     /// @param String functionId
     /// @param String deploymentId
-    /// @param String buildId
+    /// @param AppwriteEnums.DeploymentDownloadType type
     /// @throws Exception
     /// @return array
     ///
-    open func createBuild(
+    open func getDeploymentDownload(
         functionId: String,
         deploymentId: String,
-        buildId: String? = nil
-    ) async throws -> Any {
-        let apiPath: String = "/functions/{functionId}/deployments/{deploymentId}/build"
+        type: AppwriteEnums.DeploymentDownloadType? = nil
+    ) async throws -> ByteBuffer {
+        let apiPath: String = "/functions/{functionId}/deployments/{deploymentId}/download"
             .replacingOccurrences(of: "{functionId}", with: functionId)
             .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
 
         let apiParams: [String: Any?] = [
-            "buildId": buildId
+            "type": type,
+            "project": client.config["project"],
+            "key": client.config["key"]
         ]
 
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
+        let apiHeaders: [String: String] = [:]
 
         return try await client.call(
-            method: "POST",
+            method: "GET",
             path: apiPath,
-            headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
 
     ///
@@ -582,11 +706,11 @@ open class Functions: Service {
     /// @throws Exception
     /// @return array
     ///
-    open func updateDeploymentBuild(
+    open func updateDeploymentStatus(
         functionId: String,
         deploymentId: String
-    ) async throws -> AppwriteModels.Build {
-        let apiPath: String = "/functions/{functionId}/deployments/{deploymentId}/build"
+    ) async throws -> AppwriteModels.Deployment {
+        let apiPath: String = "/functions/{functionId}/deployments/{deploymentId}/status"
             .replacingOccurrences(of: "{functionId}", with: functionId)
             .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
 
@@ -596,8 +720,8 @@ open class Functions: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Build = { response in
-            return AppwriteModels.Build.from(map: response as! [String: Any])
+        let converter: (Any) -> AppwriteModels.Deployment = { response in
+            return AppwriteModels.Deployment.from(map: response as! [String: Any])
         }
 
         return try await client.call(
@@ -610,54 +734,23 @@ open class Functions: Service {
     }
 
     ///
-    /// Get a Deployment's contents by its unique ID. This endpoint supports range
-    /// requests for partial or streaming file download.
-    ///
-    /// @param String functionId
-    /// @param String deploymentId
-    /// @throws Exception
-    /// @return array
-    ///
-    open func getDeploymentDownload(
-        functionId: String,
-        deploymentId: String
-    ) async throws -> ByteBuffer {
-        let apiPath: String = "/functions/{functionId}/deployments/{deploymentId}/download"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
-            .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
-
-        let apiParams: [String: Any] = [:]
-
-        let apiHeaders: [String: String] = [:]
-
-        return try await client.call(
-            method: "GET",
-            path: apiPath,
-            params: apiParams
-        )
-    }
-
-    ///
     /// Get a list of all the current user function execution logs. You can use the
     /// query params to filter your results.
     ///
     /// @param String functionId
     /// @param [String] queries
-    /// @param String search
     /// @throws Exception
     /// @return array
     ///
     open func listExecutions(
         functionId: String,
-        queries: [String]? = nil,
-        search: String? = nil
+        queries: [String]? = nil
     ) async throws -> AppwriteModels.ExecutionList {
         let apiPath: String = "/functions/{functionId}/executions"
             .replacingOccurrences(of: "{functionId}", with: functionId)
 
         let apiParams: [String: Any?] = [
-            "queries": queries,
-            "search": search
+            "queries": queries
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -764,7 +857,6 @@ open class Functions: Service {
 
     ///
     /// Delete a function execution by its unique ID.
-    /// 
     ///
     /// @param String functionId
     /// @param String executionId
@@ -829,20 +921,23 @@ open class Functions: Service {
     /// @param String functionId
     /// @param String key
     /// @param String value
+    /// @param Bool secret
     /// @throws Exception
     /// @return array
     ///
     open func createVariable(
         functionId: String,
         key: String,
-        value: String
+        value: String,
+        secret: Bool? = nil
     ) async throws -> AppwriteModels.Variable {
         let apiPath: String = "/functions/{functionId}/variables"
             .replacingOccurrences(of: "{functionId}", with: functionId)
 
         let apiParams: [String: Any?] = [
             "key": key,
-            "value": value
+            "value": value,
+            "secret": secret
         ]
 
         let apiHeaders: [String: String] = [
@@ -902,6 +997,7 @@ open class Functions: Service {
     /// @param String variableId
     /// @param String key
     /// @param String value
+    /// @param Bool secret
     /// @throws Exception
     /// @return array
     ///
@@ -909,7 +1005,8 @@ open class Functions: Service {
         functionId: String,
         variableId: String,
         key: String,
-        value: String? = nil
+        value: String? = nil,
+        secret: Bool? = nil
     ) async throws -> AppwriteModels.Variable {
         let apiPath: String = "/functions/{functionId}/variables/{variableId}"
             .replacingOccurrences(of: "{functionId}", with: functionId)
@@ -917,7 +1014,8 @@ open class Functions: Service {
 
         let apiParams: [String: Any?] = [
             "key": key,
-            "value": value
+            "value": value,
+            "secret": secret
         ]
 
         let apiHeaders: [String: String] = [

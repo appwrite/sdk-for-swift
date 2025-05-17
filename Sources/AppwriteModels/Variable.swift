@@ -10,6 +10,7 @@ open class Variable: Codable {
         case updatedAt = "$updatedAt"
         case key = "key"
         case value = "value"
+        case secret = "secret"
         case resourceType = "resourceType"
         case resourceId = "resourceId"
     }
@@ -29,6 +30,9 @@ open class Variable: Codable {
     /// Variable value.
     public let value: String
 
+    /// Variable secret flag. Secret variables can only be updated or deleted, but never read.
+    public let secret: Bool
+
     /// Service to which the variable belongs. Possible values are &quot;project&quot;, &quot;function&quot;
     public let resourceType: String
 
@@ -42,6 +46,7 @@ open class Variable: Codable {
         updatedAt: String,
         key: String,
         value: String,
+        secret: Bool,
         resourceType: String,
         resourceId: String
     ) {
@@ -50,6 +55,7 @@ open class Variable: Codable {
         self.updatedAt = updatedAt
         self.key = key
         self.value = value
+        self.secret = secret
         self.resourceType = resourceType
         self.resourceId = resourceId
     }
@@ -62,6 +68,7 @@ open class Variable: Codable {
         self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
         self.key = try container.decode(String.self, forKey: .key)
         self.value = try container.decode(String.self, forKey: .value)
+        self.secret = try container.decode(Bool.self, forKey: .secret)
         self.resourceType = try container.decode(String.self, forKey: .resourceType)
         self.resourceId = try container.decode(String.self, forKey: .resourceId)
     }
@@ -74,6 +81,7 @@ open class Variable: Codable {
         try container.encode(updatedAt, forKey: .updatedAt)
         try container.encode(key, forKey: .key)
         try container.encode(value, forKey: .value)
+        try container.encode(secret, forKey: .secret)
         try container.encode(resourceType, forKey: .resourceType)
         try container.encode(resourceId, forKey: .resourceId)
     }
@@ -85,6 +93,7 @@ open class Variable: Codable {
             "$updatedAt": updatedAt as Any,
             "key": key as Any,
             "value": value as Any,
+            "secret": secret as Any,
             "resourceType": resourceType as Any,
             "resourceId": resourceId as Any
         ]
@@ -97,6 +106,7 @@ open class Variable: Codable {
             updatedAt: map["$updatedAt"] as! String,
             key: map["key"] as! String,
             value: map["value"] as! String,
+            secret: map["secret"] as! Bool,
             resourceType: map["resourceType"] as! String,
             resourceId: map["resourceId"] as! String
         )

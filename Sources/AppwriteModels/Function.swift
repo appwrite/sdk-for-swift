@@ -14,7 +14,11 @@ open class Function: Codable {
         case live = "live"
         case logging = "logging"
         case runtime = "runtime"
-        case deployment = "deployment"
+        case deploymentId = "deploymentId"
+        case deploymentCreatedAt = "deploymentCreatedAt"
+        case latestDeploymentId = "latestDeploymentId"
+        case latestDeploymentCreatedAt = "latestDeploymentCreatedAt"
+        case latestDeploymentStatus = "latestDeploymentStatus"
         case scopes = "scopes"
         case vars = "vars"
         case events = "events"
@@ -52,14 +56,26 @@ open class Function: Codable {
     /// Is the function deployed with the latest configuration? This is set to false if you&#039;ve changed an environment variables, entrypoint, commands, or other settings that needs redeploy to be applied. When the value is false, redeploy the function to update it with the latest configuration.
     public let live: Bool
 
-    /// Whether executions will be logged. When set to false, executions will not be logged, but will reduce resource used by your Appwrite project.
+    /// When disabled, executions will exclude logs and errors, and will be slightly faster.
     public let logging: Bool
 
-    /// Function execution runtime.
+    /// Function execution and build runtime.
     public let runtime: String
 
     /// Function&#039;s active deployment ID.
-    public let deployment: String
+    public let deploymentId: String
+
+    /// Active deployment creation date in ISO 8601 format.
+    public let deploymentCreatedAt: String
+
+    /// Function&#039;s latest deployment ID.
+    public let latestDeploymentId: String
+
+    /// Latest deployment creation date in ISO 8601 format.
+    public let latestDeploymentCreatedAt: String
+
+    /// Status of latest deployment. Possible values are &quot;waiting&quot;, &quot;processing&quot;, &quot;building&quot;, &quot;ready&quot;, and &quot;failed&quot;.
+    public let latestDeploymentStatus: String
 
     /// Allowed permission scopes.
     public let scopes: [String]
@@ -114,7 +130,11 @@ open class Function: Codable {
         live: Bool,
         logging: Bool,
         runtime: String,
-        deployment: String,
+        deploymentId: String,
+        deploymentCreatedAt: String,
+        latestDeploymentId: String,
+        latestDeploymentCreatedAt: String,
+        latestDeploymentStatus: String,
         scopes: [String],
         vars: [Variable],
         events: [String],
@@ -139,7 +159,11 @@ open class Function: Codable {
         self.live = live
         self.logging = logging
         self.runtime = runtime
-        self.deployment = deployment
+        self.deploymentId = deploymentId
+        self.deploymentCreatedAt = deploymentCreatedAt
+        self.latestDeploymentId = latestDeploymentId
+        self.latestDeploymentCreatedAt = latestDeploymentCreatedAt
+        self.latestDeploymentStatus = latestDeploymentStatus
         self.scopes = scopes
         self.vars = vars
         self.events = events
@@ -168,7 +192,11 @@ open class Function: Codable {
         self.live = try container.decode(Bool.self, forKey: .live)
         self.logging = try container.decode(Bool.self, forKey: .logging)
         self.runtime = try container.decode(String.self, forKey: .runtime)
-        self.deployment = try container.decode(String.self, forKey: .deployment)
+        self.deploymentId = try container.decode(String.self, forKey: .deploymentId)
+        self.deploymentCreatedAt = try container.decode(String.self, forKey: .deploymentCreatedAt)
+        self.latestDeploymentId = try container.decode(String.self, forKey: .latestDeploymentId)
+        self.latestDeploymentCreatedAt = try container.decode(String.self, forKey: .latestDeploymentCreatedAt)
+        self.latestDeploymentStatus = try container.decode(String.self, forKey: .latestDeploymentStatus)
         self.scopes = try container.decode([String].self, forKey: .scopes)
         self.vars = try container.decode([Variable].self, forKey: .vars)
         self.events = try container.decode([String].self, forKey: .events)
@@ -197,7 +225,11 @@ open class Function: Codable {
         try container.encode(live, forKey: .live)
         try container.encode(logging, forKey: .logging)
         try container.encode(runtime, forKey: .runtime)
-        try container.encode(deployment, forKey: .deployment)
+        try container.encode(deploymentId, forKey: .deploymentId)
+        try container.encode(deploymentCreatedAt, forKey: .deploymentCreatedAt)
+        try container.encode(latestDeploymentId, forKey: .latestDeploymentId)
+        try container.encode(latestDeploymentCreatedAt, forKey: .latestDeploymentCreatedAt)
+        try container.encode(latestDeploymentStatus, forKey: .latestDeploymentStatus)
         try container.encode(scopes, forKey: .scopes)
         try container.encode(vars, forKey: .vars)
         try container.encode(events, forKey: .events)
@@ -225,7 +257,11 @@ open class Function: Codable {
             "live": live as Any,
             "logging": logging as Any,
             "runtime": runtime as Any,
-            "deployment": deployment as Any,
+            "deploymentId": deploymentId as Any,
+            "deploymentCreatedAt": deploymentCreatedAt as Any,
+            "latestDeploymentId": latestDeploymentId as Any,
+            "latestDeploymentCreatedAt": latestDeploymentCreatedAt as Any,
+            "latestDeploymentStatus": latestDeploymentStatus as Any,
             "scopes": scopes as Any,
             "vars": vars.map { $0.toMap() } as Any,
             "events": events as Any,
@@ -254,7 +290,11 @@ open class Function: Codable {
             live: map["live"] as! Bool,
             logging: map["logging"] as! Bool,
             runtime: map["runtime"] as! String,
-            deployment: map["deployment"] as! String,
+            deploymentId: map["deploymentId"] as! String,
+            deploymentCreatedAt: map["deploymentCreatedAt"] as! String,
+            latestDeploymentId: map["latestDeploymentId"] as! String,
+            latestDeploymentCreatedAt: map["latestDeploymentCreatedAt"] as! String,
+            latestDeploymentStatus: map["latestDeploymentStatus"] as! String,
             scopes: map["scopes"] as! [String],
             vars: (map["vars"] as! [[String: Any]]).map { Variable.from(map: $0) },
             events: map["events"] as! [String],
