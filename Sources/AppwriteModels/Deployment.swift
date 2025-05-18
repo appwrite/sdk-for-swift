@@ -12,13 +12,16 @@ open class Deployment: Codable {
         case resourceId = "resourceId"
         case resourceType = "resourceType"
         case entrypoint = "entrypoint"
-        case size = "size"
+        case sourceSize = "sourceSize"
         case buildSize = "buildSize"
+        case totalSize = "totalSize"
         case buildId = "buildId"
         case activate = "activate"
+        case screenshotLight = "screenshotLight"
+        case screenshotDark = "screenshotDark"
         case status = "status"
         case buildLogs = "buildLogs"
-        case buildTime = "buildTime"
+        case buildDuration = "buildDuration"
         case providerRepositoryName = "providerRepositoryName"
         case providerRepositoryOwner = "providerRepositoryOwner"
         case providerRepositoryUrl = "providerRepositoryUrl"
@@ -53,10 +56,13 @@ open class Deployment: Codable {
     public let entrypoint: String
 
     /// The code size in bytes.
-    public let size: Int
+    public let sourceSize: Int
 
     /// The build output size in bytes.
     public let buildSize: Int
+
+    /// The total size in bytes (source and build output).
+    public let totalSize: Int
 
     /// The current build ID.
     public let buildId: String
@@ -64,14 +70,20 @@ open class Deployment: Codable {
     /// Whether the deployment should be automatically activated.
     public let activate: Bool
 
-    /// The deployment status. Possible values are &quot;processing&quot;, &quot;building&quot;, &quot;waiting&quot;, &quot;ready&quot;, and &quot;failed&quot;.
+    /// Screenshot with light theme preference file ID.
+    public let screenshotLight: String
+
+    /// Screenshot with dark theme preference file ID.
+    public let screenshotDark: String
+
+    /// The deployment status. Possible values are &quot;waiting&quot;, &quot;processing&quot;, &quot;building&quot;, &quot;ready&quot;, and &quot;failed&quot;.
     public let status: String
 
     /// The build logs.
     public let buildLogs: String
 
     /// The current build time in seconds.
-    public let buildTime: Int
+    public let buildDuration: Int
 
     /// The name of the vcs provider repository
     public let providerRepositoryName: String
@@ -112,13 +124,16 @@ open class Deployment: Codable {
         resourceId: String,
         resourceType: String,
         entrypoint: String,
-        size: Int,
+        sourceSize: Int,
         buildSize: Int,
+        totalSize: Int,
         buildId: String,
         activate: Bool,
+        screenshotLight: String,
+        screenshotDark: String,
         status: String,
         buildLogs: String,
-        buildTime: Int,
+        buildDuration: Int,
         providerRepositoryName: String,
         providerRepositoryOwner: String,
         providerRepositoryUrl: String,
@@ -137,13 +152,16 @@ open class Deployment: Codable {
         self.resourceId = resourceId
         self.resourceType = resourceType
         self.entrypoint = entrypoint
-        self.size = size
+        self.sourceSize = sourceSize
         self.buildSize = buildSize
+        self.totalSize = totalSize
         self.buildId = buildId
         self.activate = activate
+        self.screenshotLight = screenshotLight
+        self.screenshotDark = screenshotDark
         self.status = status
         self.buildLogs = buildLogs
-        self.buildTime = buildTime
+        self.buildDuration = buildDuration
         self.providerRepositoryName = providerRepositoryName
         self.providerRepositoryOwner = providerRepositoryOwner
         self.providerRepositoryUrl = providerRepositoryUrl
@@ -166,13 +184,16 @@ open class Deployment: Codable {
         self.resourceId = try container.decode(String.self, forKey: .resourceId)
         self.resourceType = try container.decode(String.self, forKey: .resourceType)
         self.entrypoint = try container.decode(String.self, forKey: .entrypoint)
-        self.size = try container.decode(Int.self, forKey: .size)
+        self.sourceSize = try container.decode(Int.self, forKey: .sourceSize)
         self.buildSize = try container.decode(Int.self, forKey: .buildSize)
+        self.totalSize = try container.decode(Int.self, forKey: .totalSize)
         self.buildId = try container.decode(String.self, forKey: .buildId)
         self.activate = try container.decode(Bool.self, forKey: .activate)
+        self.screenshotLight = try container.decode(String.self, forKey: .screenshotLight)
+        self.screenshotDark = try container.decode(String.self, forKey: .screenshotDark)
         self.status = try container.decode(String.self, forKey: .status)
         self.buildLogs = try container.decode(String.self, forKey: .buildLogs)
-        self.buildTime = try container.decode(Int.self, forKey: .buildTime)
+        self.buildDuration = try container.decode(Int.self, forKey: .buildDuration)
         self.providerRepositoryName = try container.decode(String.self, forKey: .providerRepositoryName)
         self.providerRepositoryOwner = try container.decode(String.self, forKey: .providerRepositoryOwner)
         self.providerRepositoryUrl = try container.decode(String.self, forKey: .providerRepositoryUrl)
@@ -195,13 +216,16 @@ open class Deployment: Codable {
         try container.encode(resourceId, forKey: .resourceId)
         try container.encode(resourceType, forKey: .resourceType)
         try container.encode(entrypoint, forKey: .entrypoint)
-        try container.encode(size, forKey: .size)
+        try container.encode(sourceSize, forKey: .sourceSize)
         try container.encode(buildSize, forKey: .buildSize)
+        try container.encode(totalSize, forKey: .totalSize)
         try container.encode(buildId, forKey: .buildId)
         try container.encode(activate, forKey: .activate)
+        try container.encode(screenshotLight, forKey: .screenshotLight)
+        try container.encode(screenshotDark, forKey: .screenshotDark)
         try container.encode(status, forKey: .status)
         try container.encode(buildLogs, forKey: .buildLogs)
-        try container.encode(buildTime, forKey: .buildTime)
+        try container.encode(buildDuration, forKey: .buildDuration)
         try container.encode(providerRepositoryName, forKey: .providerRepositoryName)
         try container.encode(providerRepositoryOwner, forKey: .providerRepositoryOwner)
         try container.encode(providerRepositoryUrl, forKey: .providerRepositoryUrl)
@@ -223,13 +247,16 @@ open class Deployment: Codable {
             "resourceId": resourceId as Any,
             "resourceType": resourceType as Any,
             "entrypoint": entrypoint as Any,
-            "size": size as Any,
+            "sourceSize": sourceSize as Any,
             "buildSize": buildSize as Any,
+            "totalSize": totalSize as Any,
             "buildId": buildId as Any,
             "activate": activate as Any,
+            "screenshotLight": screenshotLight as Any,
+            "screenshotDark": screenshotDark as Any,
             "status": status as Any,
             "buildLogs": buildLogs as Any,
-            "buildTime": buildTime as Any,
+            "buildDuration": buildDuration as Any,
             "providerRepositoryName": providerRepositoryName as Any,
             "providerRepositoryOwner": providerRepositoryOwner as Any,
             "providerRepositoryUrl": providerRepositoryUrl as Any,
@@ -252,13 +279,16 @@ open class Deployment: Codable {
             resourceId: map["resourceId"] as! String,
             resourceType: map["resourceType"] as! String,
             entrypoint: map["entrypoint"] as! String,
-            size: map["size"] as! Int,
+            sourceSize: map["sourceSize"] as! Int,
             buildSize: map["buildSize"] as! Int,
+            totalSize: map["totalSize"] as! Int,
             buildId: map["buildId"] as! String,
             activate: map["activate"] as! Bool,
+            screenshotLight: map["screenshotLight"] as! String,
+            screenshotDark: map["screenshotDark"] as! String,
             status: map["status"] as! String,
             buildLogs: map["buildLogs"] as! String,
-            buildTime: map["buildTime"] as! Int,
+            buildDuration: map["buildDuration"] as! Int,
             providerRepositoryName: map["providerRepositoryName"] as! String,
             providerRepositoryOwner: map["providerRepositoryOwner"] as! String,
             providerRepositoryUrl: map["providerRepositoryUrl"] as! String,
