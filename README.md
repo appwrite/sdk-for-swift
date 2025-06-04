@@ -33,7 +33,7 @@ Add the package to your `Package.swift` dependencies:
 
 ```swift
     dependencies: [
-        .package(url: "git@github.com:appwrite/sdk-for-swift.git", from: "10.0.0"),
+        .package(url: "git@github.com:appwrite/sdk-for-swift.git", from: "10.1.0"),
     ],
 ```
 
