@@ -15,6 +15,7 @@ open class AttributeString: Codable {
         case updatedAt = "$updatedAt"
         case size = "size"
         case `default` = "default"
+        case encrypt = "encrypt"
     }
 
     /// Attribute Key.
@@ -47,6 +48,9 @@ open class AttributeString: Codable {
     /// Default value for attribute when not provided. Cannot be set when attribute is required.
     public let `default`: String?
 
+    /// Defines whether this attribute is encrypted or not.
+    public let encrypt: Bool?
+
 
     init(
         key: String,
@@ -58,7 +62,8 @@ open class AttributeString: Codable {
         createdAt: String,
         updatedAt: String,
         size: Int,
-        `default`: String?
+        `default`: String?,
+        encrypt: Bool?
     ) {
         self.key = key
         self.type = type
@@ -70,6 +75,7 @@ open class AttributeString: Codable {
         self.updatedAt = updatedAt
         self.size = size
         self.`default` = `default`
+        self.encrypt = encrypt
     }
 
     public required init(from decoder: Decoder) throws {
@@ -85,6 +91,7 @@ open class AttributeString: Codable {
         self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
         self.size = try container.decode(Int.self, forKey: .size)
         self.`default` = try container.decodeIfPresent(String.self, forKey: .`default`)
+        self.encrypt = try container.decodeIfPresent(Bool.self, forKey: .encrypt)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -100,6 +107,7 @@ open class AttributeString: Codable {
         try container.encode(updatedAt, forKey: .updatedAt)
         try container.encode(size, forKey: .size)
         try container.encodeIfPresent(`default`, forKey: .`default`)
+        try container.encodeIfPresent(encrypt, forKey: .encrypt)
     }
 
     public func toMap() -> [String: Any] {
@@ -113,7 +121,8 @@ open class AttributeString: Codable {
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
             "size": size as Any,
-            "`default`": `default` as Any
+            "`default`": `default` as Any,
+            "encrypt": encrypt as Any
         ]
     }
 
@@ -128,7 +137,8 @@ open class AttributeString: Codable {
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
             size: map["size"] as! Int,
-            `default`: map["default"] as? String
+            `default`: map["default"] as? String,
+            encrypt: map["encrypt"] as? Bool
         )
     }
 }

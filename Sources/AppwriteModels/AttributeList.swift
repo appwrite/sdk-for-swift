@@ -48,7 +48,7 @@ open class AttributeList: Codable {
     public static func from(map: [String: Any] ) -> AttributeList {
         return AttributeList(
             total: map["total"] as! Int,
-            attributes: map["attributes"] as! [AnyCodable]
+            attributes: (map["attributes"] as! [Any]).map { AnyCodable($0) }
         )
     }
 }

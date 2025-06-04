@@ -127,7 +127,7 @@ open class Collection: Codable {
             name: map["name"] as! String,
             enabled: map["enabled"] as! Bool,
             documentSecurity: map["documentSecurity"] as! Bool,
-            attributes: map["attributes"] as! [AnyCodable],
+            attributes: (map["attributes"] as! [Any]).map { AnyCodable($0) },
             indexes: (map["indexes"] as! [[String: Any]]).map { Index.from(map: $0) }
         )
     }
