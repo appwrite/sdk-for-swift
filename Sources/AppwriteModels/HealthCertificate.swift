@@ -83,12 +83,12 @@ open class HealthCertificate: Codable {
 
     public static func from(map: [String: Any] ) -> HealthCertificate {
         return HealthCertificate(
-            name: map["name"] as! String,
-            subjectSN: map["subjectSN"] as! String,
-            issuerOrganisation: map["issuerOrganisation"] as! String,
-            validFrom: map["validFrom"] as! String,
-            validTo: map["validTo"] as! String,
-            signatureTypeSN: map["signatureTypeSN"] as! String
+            name: map["name"] as? String ?? "",
+            subjectSN: map["subjectSN"] as? String ?? "",
+            issuerOrganisation: map["issuerOrganisation"] as? String ?? "",
+            validFrom: map["validFrom"] as? String ?? "",
+            validTo: map["validTo"] as? String ?? "",
+            signatureTypeSN: map["signatureTypeSN"] as? String ?? ""
         )
     }
 }

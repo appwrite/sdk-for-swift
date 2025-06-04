@@ -101,14 +101,14 @@ open class Runtime: Codable {
 
     public static func from(map: [String: Any] ) -> Runtime {
         return Runtime(
-            id: map["$id"] as! String,
-            key: map["key"] as! String,
-            name: map["name"] as! String,
-            version: map["version"] as! String,
-            base: map["base"] as! String,
-            image: map["image"] as! String,
-            logo: map["logo"] as! String,
-            supports: map["supports"] as! [String]
+            id: map["$id"] as? String ?? "",
+            key: map["key"] as? String ?? "",
+            name: map["name"] as? String ?? "",
+            version: map["version"] as? String ?? "",
+            base: map["base"] as? String ?? "",
+            image: map["image"] as? String ?? "",
+            logo: map["logo"] as? String ?? "",
+            supports: map["supports"] as? [String] ?? []
         )
     }
 }

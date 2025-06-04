@@ -47,8 +47,8 @@ open class BucketList: Codable {
 
     public static func from(map: [String: Any] ) -> BucketList {
         return BucketList(
-            total: map["total"] as! Int,
-            buckets: (map["buckets"] as! [[String: Any]]).map { Bucket.from(map: $0) }
+            total: map["total"] as? Int ?? 0,
+            buckets: (map["buckets"] as? [[String: Any]] ?? []).map { Bucket.from(map: $0) }
         )
     }
 }

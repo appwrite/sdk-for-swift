@@ -74,11 +74,11 @@ open class Database: Codable {
 
     public static func from(map: [String: Any] ) -> Database {
         return Database(
-            id: map["$id"] as! String,
-            name: map["name"] as! String,
-            createdAt: map["$createdAt"] as! String,
-            updatedAt: map["$updatedAt"] as! String,
-            enabled: map["enabled"] as! Bool
+            id: map["$id"] as? String ?? "",
+            name: map["name"] as? String ?? "",
+            createdAt: map["$createdAt"] as? String ?? "",
+            updatedAt: map["$updatedAt"] as? String ?? "",
+            enabled: map["enabled"] as? Bool ?? false
         )
     }
 }

@@ -47,8 +47,8 @@ open class SiteList: Codable {
 
     public static func from(map: [String: Any] ) -> SiteList {
         return SiteList(
-            total: map["total"] as! Int,
-            sites: (map["sites"] as! [[String: Any]]).map { Site.from(map: $0) }
+            total: map["total"] as? Int ?? 0,
+            sites: (map["sites"] as? [[String: Any]] ?? []).map { Site.from(map: $0) }
         )
     }
 }

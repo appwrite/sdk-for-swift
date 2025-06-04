@@ -155,20 +155,20 @@ open class AttributeRelationship: Codable {
 
     public static func from(map: [String: Any] ) -> AttributeRelationship {
         return AttributeRelationship(
-            key: map["key"] as! String,
-            type: map["type"] as! String,
-            status: map["status"] as! String,
-            error: map["error"] as! String,
-            `required`: map["required"] as! Bool,
+            key: map["key"] as? String ?? "",
+            type: map["type"] as? String ?? "",
+            status: map["status"] as? String ?? "",
+            error: map["error"] as? String ?? "",
+            `required`: map["required"] as? Bool ?? false,
             array: map["array"] as? Bool,
-            createdAt: map["$createdAt"] as! String,
-            updatedAt: map["$updatedAt"] as! String,
-            relatedCollection: map["relatedCollection"] as! String,
-            relationType: map["relationType"] as! String,
-            twoWay: map["twoWay"] as! Bool,
-            twoWayKey: map["twoWayKey"] as! String,
-            onDelete: map["onDelete"] as! String,
-            side: map["side"] as! String
+            createdAt: map["$createdAt"] as? String ?? "",
+            updatedAt: map["$updatedAt"] as? String ?? "",
+            relatedCollection: map["relatedCollection"] as? String ?? "",
+            relationType: map["relationType"] as? String ?? "",
+            twoWay: map["twoWay"] as? Bool ?? false,
+            twoWayKey: map["twoWayKey"] as? String ?? "",
+            onDelete: map["onDelete"] as? String ?? "",
+            side: map["side"] as? String ?? ""
         )
     }
 }

@@ -128,16 +128,16 @@ open class AttributeEnum: Codable {
 
     public static func from(map: [String: Any] ) -> AttributeEnum {
         return AttributeEnum(
-            key: map["key"] as! String,
-            type: map["type"] as! String,
-            status: map["status"] as! String,
-            error: map["error"] as! String,
-            `required`: map["required"] as! Bool,
+            key: map["key"] as? String ?? "",
+            type: map["type"] as? String ?? "",
+            status: map["status"] as? String ?? "",
+            error: map["error"] as? String ?? "",
+            `required`: map["required"] as? Bool ?? false,
             array: map["array"] as? Bool,
-            createdAt: map["$createdAt"] as! String,
-            updatedAt: map["$updatedAt"] as! String,
-            elements: map["elements"] as! [String],
-            format: map["format"] as! String,
+            createdAt: map["$createdAt"] as? String ?? "",
+            updatedAt: map["$updatedAt"] as? String ?? "",
+            elements: map["elements"] as? [String] ?? [],
+            format: map["format"] as? String ?? "",
             `default`: map["default"] as? String
         )
     }

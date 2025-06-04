@@ -74,11 +74,11 @@ open class Framework: Codable {
 
     public static func from(map: [String: Any] ) -> Framework {
         return Framework(
-            key: map["key"] as! String,
-            name: map["name"] as! String,
-            buildRuntime: map["buildRuntime"] as! String,
-            runtimes: map["runtimes"] as! [String],
-            adapters: (map["adapters"] as! [[String: Any]]).map { FrameworkAdapter.from(map: $0) }
+            key: map["key"] as? String ?? "",
+            name: map["name"] as? String ?? "",
+            buildRuntime: map["buildRuntime"] as? String ?? "",
+            runtimes: map["runtimes"] as? [String] ?? [],
+            adapters: (map["adapters"] as? [[String: Any]] ?? []).map { FrameworkAdapter.from(map: $0) }
         )
     }
 }

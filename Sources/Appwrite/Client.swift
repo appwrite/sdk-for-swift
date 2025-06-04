@@ -257,7 +257,7 @@ open class Client {
 
        return output.addingPercentEncoding(
            withAllowedCharacters: .urlHostAllowed
-       ) ?? ""
+       )?.replacingOccurrences(of: "+", with: "%2B") ?? "" // since urlHostAllowed doesn't include +
    }
 
     ///

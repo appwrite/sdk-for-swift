@@ -137,18 +137,18 @@ open class Bucket: Codable {
 
     public static func from(map: [String: Any] ) -> Bucket {
         return Bucket(
-            id: map["$id"] as! String,
-            createdAt: map["$createdAt"] as! String,
-            updatedAt: map["$updatedAt"] as! String,
-            permissions: map["$permissions"] as! [String],
-            fileSecurity: map["fileSecurity"] as! Bool,
-            name: map["name"] as! String,
-            enabled: map["enabled"] as! Bool,
-            maximumFileSize: map["maximumFileSize"] as! Int,
-            allowedFileExtensions: map["allowedFileExtensions"] as! [String],
-            compression: map["compression"] as! String,
-            encryption: map["encryption"] as! Bool,
-            antivirus: map["antivirus"] as! Bool
+            id: map["$id"] as? String ?? "",
+            createdAt: map["$createdAt"] as? String ?? "",
+            updatedAt: map["$updatedAt"] as? String ?? "",
+            permissions: map["$permissions"] as? [String] ?? [],
+            fileSecurity: map["fileSecurity"] as? Bool ?? false,
+            name: map["name"] as? String ?? "",
+            enabled: map["enabled"] as? Bool ?? false,
+            maximumFileSize: map["maximumFileSize"] as? Int ?? 0,
+            allowedFileExtensions: map["allowedFileExtensions"] as? [String] ?? [],
+            compression: map["compression"] as? String ?? "",
+            encryption: map["encryption"] as? Bool ?? false,
+            antivirus: map["antivirus"] as? Bool ?? false
         )
     }
 }

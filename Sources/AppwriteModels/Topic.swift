@@ -101,14 +101,14 @@ open class Topic: Codable {
 
     public static func from(map: [String: Any] ) -> Topic {
         return Topic(
-            id: map["$id"] as! String,
-            createdAt: map["$createdAt"] as! String,
-            updatedAt: map["$updatedAt"] as! String,
-            name: map["name"] as! String,
-            emailTotal: map["emailTotal"] as! Int,
-            smsTotal: map["smsTotal"] as! Int,
-            pushTotal: map["pushTotal"] as! Int,
-            subscribe: map["subscribe"] as! [String]
+            id: map["$id"] as? String ?? "",
+            createdAt: map["$createdAt"] as? String ?? "",
+            updatedAt: map["$updatedAt"] as? String ?? "",
+            name: map["name"] as? String ?? "",
+            emailTotal: map["emailTotal"] as? Int ?? 0,
+            smsTotal: map["smsTotal"] as? Int ?? 0,
+            pushTotal: map["pushTotal"] as? Int ?? 0,
+            subscribe: map["subscribe"] as? [String] ?? []
         )
     }
 }

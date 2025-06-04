@@ -74,11 +74,11 @@ open class FrameworkAdapter: Codable {
 
     public static func from(map: [String: Any] ) -> FrameworkAdapter {
         return FrameworkAdapter(
-            key: map["key"] as! String,
-            installCommand: map["installCommand"] as! String,
-            buildCommand: map["buildCommand"] as! String,
-            outputDirectory: map["outputDirectory"] as! String,
-            fallbackFile: map["fallbackFile"] as! String
+            key: map["key"] as? String ?? "",
+            installCommand: map["installCommand"] as? String ?? "",
+            buildCommand: map["buildCommand"] as? String ?? "",
+            outputDirectory: map["outputDirectory"] as? String ?? "",
+            fallbackFile: map["fallbackFile"] as? String ?? ""
         )
     }
 }

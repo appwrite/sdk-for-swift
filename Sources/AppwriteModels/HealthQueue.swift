@@ -38,7 +38,7 @@ open class HealthQueue: Codable {
 
     public static func from(map: [String: Any] ) -> HealthQueue {
         return HealthQueue(
-            size: map["size"] as! Int
+            size: map["size"] as? Int ?? 0
         )
     }
 }

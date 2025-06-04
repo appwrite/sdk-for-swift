@@ -47,8 +47,8 @@ open class TopicList: Codable {
 
     public static func from(map: [String: Any] ) -> TopicList {
         return TopicList(
-            total: map["total"] as! Int,
-            topics: (map["topics"] as! [[String: Any]]).map { Topic.from(map: $0) }
+            total: map["total"] as? Int ?? 0,
+            topics: (map["topics"] as? [[String: Any]] ?? []).map { Topic.from(map: $0) }
         )
     }
 }

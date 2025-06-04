@@ -47,8 +47,8 @@ open class DeploymentList: Codable {
 
     public static func from(map: [String: Any] ) -> DeploymentList {
         return DeploymentList(
-            total: map["total"] as! Int,
-            deployments: (map["deployments"] as! [[String: Any]]).map { Deployment.from(map: $0) }
+            total: map["total"] as? Int ?? 0,
+            deployments: (map["deployments"] as? [[String: Any]] ?? []).map { Deployment.from(map: $0) }
         )
     }
 }

@@ -47,8 +47,8 @@ open class DatabaseList: Codable {
 
     public static func from(map: [String: Any] ) -> DatabaseList {
         return DatabaseList(
-            total: map["total"] as! Int,
-            databases: (map["databases"] as! [[String: Any]]).map { Database.from(map: $0) }
+            total: map["total"] as? Int ?? 0,
+            databases: (map["databases"] as? [[String: Any]] ?? []).map { Database.from(map: $0) }
         )
     }
 }

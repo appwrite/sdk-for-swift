@@ -146,19 +146,19 @@ open class Message: Codable {
 
     public static func from(map: [String: Any] ) -> Message {
         return Message(
-            id: map["$id"] as! String,
-            createdAt: map["$createdAt"] as! String,
-            updatedAt: map["$updatedAt"] as! String,
-            providerType: map["providerType"] as! String,
-            topics: map["topics"] as! [String],
-            users: map["users"] as! [String],
-            targets: map["targets"] as! [String],
+            id: map["$id"] as? String ?? "",
+            createdAt: map["$createdAt"] as? String ?? "",
+            updatedAt: map["$updatedAt"] as? String ?? "",
+            providerType: map["providerType"] as? String ?? "",
+            topics: map["topics"] as? [String] ?? [],
+            users: map["users"] as? [String] ?? [],
+            targets: map["targets"] as? [String] ?? [],
             scheduledAt: map["scheduledAt"] as? String,
             deliveredAt: map["deliveredAt"] as? String,
             deliveryErrors: map["deliveryErrors"] as? [String],
-            deliveredTotal: map["deliveredTotal"] as! Int,
-            data: map["data"] as! [String: AnyCodable],
-            status: map["status"] as! String
+            deliveredTotal: map["deliveredTotal"] as? Int ?? 0,
+            data: map["data"] as? [String: AnyCodable] ?? [String: AnyCodable](),
+            status: map["status"] as? String ?? ""
         )
     }
 }

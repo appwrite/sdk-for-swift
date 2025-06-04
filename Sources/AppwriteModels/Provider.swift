@@ -110,14 +110,14 @@ open class Provider: Codable {
 
     public static func from(map: [String: Any] ) -> Provider {
         return Provider(
-            id: map["$id"] as! String,
-            createdAt: map["$createdAt"] as! String,
-            updatedAt: map["$updatedAt"] as! String,
-            name: map["name"] as! String,
-            provider: map["provider"] as! String,
-            enabled: map["enabled"] as! Bool,
-            type: map["type"] as! String,
-            credentials: map["credentials"] as! [String: AnyCodable],
+            id: map["$id"] as? String ?? "",
+            createdAt: map["$createdAt"] as? String ?? "",
+            updatedAt: map["$updatedAt"] as? String ?? "",
+            name: map["name"] as? String ?? "",
+            provider: map["provider"] as? String ?? "",
+            enabled: map["enabled"] as? Bool ?? false,
+            type: map["type"] as? String ?? "",
+            credentials: map["credentials"] as? [String: AnyCodable] ?? [String: AnyCodable](),
             options: map["options"] as? [String: AnyCodable]
         )
     }

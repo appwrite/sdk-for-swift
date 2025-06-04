@@ -47,8 +47,8 @@ open class CollectionList: Codable {
 
     public static func from(map: [String: Any] ) -> CollectionList {
         return CollectionList(
-            total: map["total"] as! Int,
-            collections: (map["collections"] as! [[String: Any]]).map { Collection.from(map: $0) }
+            total: map["total"] as? Int ?? 0,
+            collections: (map["collections"] as? [[String: Any]] ?? []).map { Collection.from(map: $0) }
         )
     }
 }
