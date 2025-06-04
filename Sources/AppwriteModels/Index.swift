@@ -110,15 +110,15 @@ open class Index: Codable {
 
     public static func from(map: [String: Any] ) -> Index {
         return Index(
-            key: map["key"] as? String ?? "",
-            type: map["type"] as? String ?? "",
-            status: map["status"] as? String ?? "",
-            error: map["error"] as? String ?? "",
-            attributes: map["attributes"] as? [String] ?? [],
-            lengths: map["lengths"] as? [Int] ?? [Int](),
+            key: map["key"] as! String,
+            type: map["type"] as! String,
+            status: map["status"] as! String,
+            error: map["error"] as! String,
+            attributes: map["attributes"] as! [String],
+            lengths: map["lengths"] as! [Int],
             orders: map["orders"] as? [String],
-            createdAt: map["$createdAt"] as? String ?? "",
-            updatedAt: map["$updatedAt"] as? String ?? ""
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String
         )
     }
 }

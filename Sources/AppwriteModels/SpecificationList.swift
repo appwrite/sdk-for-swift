@@ -47,8 +47,8 @@ open class SpecificationList: Codable {
 
     public static func from(map: [String: Any] ) -> SpecificationList {
         return SpecificationList(
-            total: map["total"] as? Int ?? 0,
-            specifications: (map["specifications"] as? [[String: Any]] ?? []).map { Specification.from(map: $0) }
+            total: map["total"] as! Int,
+            specifications: (map["specifications"] as! [[String: Any]]).map { Specification.from(map: $0) }
         )
     }
 }

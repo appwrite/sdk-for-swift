@@ -92,13 +92,13 @@ open class ResourceToken: Codable {
 
     public static func from(map: [String: Any] ) -> ResourceToken {
         return ResourceToken(
-            id: map["$id"] as? String ?? "",
-            createdAt: map["$createdAt"] as? String ?? "",
-            resourceId: map["resourceId"] as? String ?? "",
-            resourceType: map["resourceType"] as? String ?? "",
-            expire: map["expire"] as? String ?? "",
-            secret: map["secret"] as? String ?? "",
-            accessedAt: map["accessedAt"] as? String ?? ""
+            id: map["$id"] as! String,
+            createdAt: map["$createdAt"] as! String,
+            resourceId: map["resourceId"] as! String,
+            resourceType: map["resourceType"] as! String,
+            expire: map["expire"] as! String,
+            secret: map["secret"] as! String,
+            accessedAt: map["accessedAt"] as! String
         )
     }
 }

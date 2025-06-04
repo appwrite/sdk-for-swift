@@ -110,14 +110,14 @@ open class AttributeBoolean: Codable {
 
     public static func from(map: [String: Any] ) -> AttributeBoolean {
         return AttributeBoolean(
-            key: map["key"] as? String ?? "",
-            type: map["type"] as? String ?? "",
-            status: map["status"] as? String ?? "",
-            error: map["error"] as? String ?? "",
-            `required`: map["required"] as? Bool ?? false,
+            key: map["key"] as! String,
+            type: map["type"] as! String,
+            status: map["status"] as! String,
+            error: map["error"] as! String,
+            `required`: map["required"] as! Bool,
             array: map["array"] as? Bool,
-            createdAt: map["$createdAt"] as? String ?? "",
-            updatedAt: map["$updatedAt"] as? String ?? "",
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String,
             `default`: map["default"] as? Bool
         )
     }

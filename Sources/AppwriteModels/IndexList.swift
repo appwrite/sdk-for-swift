@@ -47,8 +47,8 @@ open class IndexList: Codable {
 
     public static func from(map: [String: Any] ) -> IndexList {
         return IndexList(
-            total: map["total"] as? Int ?? 0,
-            indexes: (map["indexes"] as? [[String: Any]] ?? []).map { Index.from(map: $0) }
+            total: map["total"] as! Int,
+            indexes: (map["indexes"] as! [[String: Any]]).map { Index.from(map: $0) }
         )
     }
 }

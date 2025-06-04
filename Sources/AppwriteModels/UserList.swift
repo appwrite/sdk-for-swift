@@ -47,8 +47,8 @@ open class UserList<T : Codable>: Codable {
 
     public static func from(map: [String: Any] ) -> UserList {
         return UserList(
-            total: map["total"] as? Int ?? 0,
-            users: (map["users"] as? [[String: Any]] ?? []).map { User.from(map: $0) }
+            total: map["total"] as! Int,
+            users: (map["users"] as! [[String: Any]]).map { User.from(map: $0) }
         )
     }
 }

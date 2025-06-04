@@ -47,8 +47,8 @@ open class RuntimeList: Codable {
 
     public static func from(map: [String: Any] ) -> RuntimeList {
         return RuntimeList(
-            total: map["total"] as? Int ?? 0,
-            runtimes: (map["runtimes"] as? [[String: Any]] ?? []).map { Runtime.from(map: $0) }
+            total: map["total"] as! Int,
+            runtimes: (map["runtimes"] as! [[String: Any]]).map { Runtime.from(map: $0) }
         )
     }
 }

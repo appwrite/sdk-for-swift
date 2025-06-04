@@ -56,9 +56,9 @@ open class HealthStatus: Codable {
 
     public static func from(map: [String: Any] ) -> HealthStatus {
         return HealthStatus(
-            name: map["name"] as? String ?? "",
-            ping: map["ping"] as? Int ?? 0,
-            status: map["status"] as? String ?? ""
+            name: map["name"] as! String,
+            ping: map["ping"] as! Int,
+            status: map["status"] as! String
         )
     }
 }

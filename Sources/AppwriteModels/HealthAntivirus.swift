@@ -47,8 +47,8 @@ open class HealthAntivirus: Codable {
 
     public static func from(map: [String: Any] ) -> HealthAntivirus {
         return HealthAntivirus(
-            version: map["version"] as? String ?? "",
-            status: map["status"] as? String ?? ""
+            version: map["version"] as! String,
+            status: map["status"] as! String
         )
     }
 }

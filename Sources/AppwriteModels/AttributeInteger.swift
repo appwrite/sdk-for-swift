@@ -128,14 +128,14 @@ open class AttributeInteger: Codable {
 
     public static func from(map: [String: Any] ) -> AttributeInteger {
         return AttributeInteger(
-            key: map["key"] as? String ?? "",
-            type: map["type"] as? String ?? "",
-            status: map["status"] as? String ?? "",
-            error: map["error"] as? String ?? "",
-            `required`: map["required"] as? Bool ?? false,
+            key: map["key"] as! String,
+            type: map["type"] as! String,
+            status: map["status"] as! String,
+            error: map["error"] as! String,
+            `required`: map["required"] as! Bool,
             array: map["array"] as? Bool,
-            createdAt: map["$createdAt"] as? String ?? "",
-            updatedAt: map["$updatedAt"] as? String ?? "",
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String,
             min: map["min"] as? Int,
             max: map["max"] as? Int,
             `default`: map["default"] as? Int

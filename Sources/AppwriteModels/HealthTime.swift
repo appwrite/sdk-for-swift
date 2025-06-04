@@ -56,9 +56,9 @@ open class HealthTime: Codable {
 
     public static func from(map: [String: Any] ) -> HealthTime {
         return HealthTime(
-            remoteTime: map["remoteTime"] as? Int ?? 0,
-            localTime: map["localTime"] as? Int ?? 0,
-            diff: map["diff"] as? Int ?? 0
+            remoteTime: map["remoteTime"] as! Int,
+            localTime: map["localTime"] as! Int,
+            diff: map["diff"] as! Int
         )
     }
 }

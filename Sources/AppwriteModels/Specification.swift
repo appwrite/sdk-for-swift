@@ -65,10 +65,10 @@ open class Specification: Codable {
 
     public static func from(map: [String: Any] ) -> Specification {
         return Specification(
-            memory: map["memory"] as? Int ?? 0,
-            cpus: map["cpus"] as? Double ?? 0.0,
-            enabled: map["enabled"] as? Bool ?? false,
-            slug: map["slug"] as? String ?? ""
+            memory: map["memory"] as! Int,
+            cpus: map["cpus"] as! Double,
+            enabled: map["enabled"] as! Bool,
+            slug: map["slug"] as! String
         )
     }
 }

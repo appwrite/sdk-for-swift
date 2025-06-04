@@ -101,14 +101,14 @@ open class Variable: Codable {
 
     public static func from(map: [String: Any] ) -> Variable {
         return Variable(
-            id: map["$id"] as? String ?? "",
-            createdAt: map["$createdAt"] as? String ?? "",
-            updatedAt: map["$updatedAt"] as? String ?? "",
-            key: map["key"] as? String ?? "",
-            value: map["value"] as? String ?? "",
-            secret: map["secret"] as? Bool ?? false,
-            resourceType: map["resourceType"] as? String ?? "",
-            resourceId: map["resourceId"] as? String ?? ""
+            id: map["$id"] as! String,
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String,
+            key: map["key"] as! String,
+            value: map["value"] as! String,
+            secret: map["secret"] as! Bool,
+            resourceType: map["resourceType"] as! String,
+            resourceId: map["resourceId"] as! String
         )
     }
 }

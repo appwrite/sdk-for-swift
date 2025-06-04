@@ -47,8 +47,8 @@ open class FunctionList: Codable {
 
     public static func from(map: [String: Any] ) -> FunctionList {
         return FunctionList(
-            total: map["total"] as? Int ?? 0,
-            functions: (map["functions"] as? [[String: Any]] ?? []).map { Function.from(map: $0) }
+            total: map["total"] as! Int,
+            functions: (map["functions"] as! [[String: Any]]).map { Function.from(map: $0) }
         )
     }
 }

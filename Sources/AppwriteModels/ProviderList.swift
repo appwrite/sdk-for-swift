@@ -47,8 +47,8 @@ open class ProviderList: Codable {
 
     public static func from(map: [String: Any] ) -> ProviderList {
         return ProviderList(
-            total: map["total"] as? Int ?? 0,
-            providers: (map["providers"] as? [[String: Any]] ?? []).map { Provider.from(map: $0) }
+            total: map["total"] as! Int,
+            providers: (map["providers"] as! [[String: Any]]).map { Provider.from(map: $0) }
         )
     }
 }

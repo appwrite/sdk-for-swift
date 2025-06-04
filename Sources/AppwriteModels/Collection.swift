@@ -119,16 +119,16 @@ open class Collection: Codable {
 
     public static func from(map: [String: Any] ) -> Collection {
         return Collection(
-            id: map["$id"] as? String ?? "",
-            createdAt: map["$createdAt"] as? String ?? "",
-            updatedAt: map["$updatedAt"] as? String ?? "",
-            permissions: map["$permissions"] as? [String] ?? [],
-            databaseId: map["databaseId"] as? String ?? "",
-            name: map["name"] as? String ?? "",
-            enabled: map["enabled"] as? Bool ?? false,
-            documentSecurity: map["documentSecurity"] as? Bool ?? false,
-            attributes: (map["attributes"] as? [Any] ?? []).map { AnyCodable($0) },
-            indexes: (map["indexes"] as? [[String: Any]] ?? []).map { Index.from(map: $0) }
+            id: map["$id"] as! String,
+            createdAt: map["$createdAt"] as! String,
+            updatedAt: map["$updatedAt"] as! String,
+            permissions: map["$permissions"] as! [String],
+            databaseId: map["databaseId"] as! String,
+            name: map["name"] as! String,
+            enabled: map["enabled"] as! Bool,
+            documentSecurity: map["documentSecurity"] as! Bool,
+            attributes: (map["attributes"] as! [Any]).map { AnyCodable($0) },
+            indexes: (map["indexes"] as! [[String: Any]]).map { Index.from(map: $0) }
         )
     }
 }

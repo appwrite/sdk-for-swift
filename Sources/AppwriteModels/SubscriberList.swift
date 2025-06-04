@@ -47,8 +47,8 @@ open class SubscriberList: Codable {
 
     public static func from(map: [String: Any] ) -> SubscriberList {
         return SubscriberList(
-            total: map["total"] as? Int ?? 0,
-            subscribers: (map["subscribers"] as? [[String: Any]] ?? []).map { Subscriber.from(map: $0) }
+            total: map["total"] as! Int,
+            subscribers: (map["subscribers"] as! [[String: Any]]).map { Subscriber.from(map: $0) }
         )
     }
 }
