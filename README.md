@@ -21,7 +21,7 @@ Appwrite is an open-source backend as a service server that abstract and simplif
 
 The Appwrite Swift SDK is available via Swift Package Manager. In order to use the Appwrite Swift SDK from Xcode, select File > **Add Packages**
 
-In the dialog that appears, enter the Appwrite Swift SDK [package URL](git@github.com:appwrite/sdk-for-swift.git) in the search field. Once found, select `sdk-for-apple`.
+In the dialog that appears, enter the Appwrite Swift SDK [package URL](git@github.com:appwrite/sdk-for-swift.git) in the search field. Once found, select `sdk-for-swift`.
 
 On the right, select your version rules and ensure your desired target is selected in the **Add to Project** field.
 
@@ -33,7 +33,7 @@ Add the package to your `Package.swift` dependencies:
 
 ```swift
     dependencies: [
-        .package(url: "git@github.com:appwrite/sdk-for-swift.git", from: "10.1.0"),
+        .package(url: "git@github.com:appwrite/sdk-for-swift.git", from: "10.2.0"),
     ],
 ```
 

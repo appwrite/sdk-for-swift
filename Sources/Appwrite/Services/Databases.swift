@@ -12,10 +12,11 @@ open class Databases: Service {
     /// Get a list of all databases from the current Appwrite project. You can use
     /// the search parameter to filter your results.
     ///
-    /// @param [String] queries
-    /// @param String search
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - queries: [String] (optional)
+    ///   - search: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DatabaseList
     ///
     open func list(
         queries: [String]? = nil,
@@ -47,11 +48,12 @@ open class Databases: Service {
     /// Create a new Database.
     /// 
     ///
-    /// @param String databaseId
-    /// @param String name
-    /// @param Bool enabled
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - name: String
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Database
     ///
     open func create(
         databaseId: String,
@@ -87,9 +89,10 @@ open class Databases: Service {
     /// Get a database by its unique ID. This endpoint response returns a JSON
     /// object with the database metadata.
     ///
-    /// @param String databaseId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Database
     ///
     open func get(
         databaseId: String
@@ -117,11 +120,12 @@ open class Databases: Service {
     ///
     /// Update a database by its unique ID.
     ///
-    /// @param String databaseId
-    /// @param String name
-    /// @param Bool enabled
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - name: String
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Database
     ///
     open func update(
         databaseId: String,
@@ -157,9 +161,10 @@ open class Databases: Service {
     /// Delete a database by its unique ID. Only API keys with with databases.write
     /// scope can delete a database.
     ///
-    /// @param String databaseId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func delete(
         databaseId: String
@@ -184,11 +189,12 @@ open class Databases: Service {
     /// Get a list of all collections that belong to the provided databaseId. You
     /// can use the search parameter to filter your results.
     ///
-    /// @param String databaseId
-    /// @param [String] queries
-    /// @param String search
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - queries: [String] (optional)
+    ///   - search: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.CollectionList
     ///
     open func listCollections(
         databaseId: String,
@@ -224,14 +230,15 @@ open class Databases: Service {
     /// integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
     /// API or directly from your database console.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String name
-    /// @param [String] permissions
-    /// @param Bool documentSecurity
-    /// @param Bool enabled
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - name: String
+    ///   - permissions: [String] (optional)
+    ///   - documentSecurity: Bool (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Collection
     ///
     open func createCollection(
         databaseId: String,
@@ -273,10 +280,11 @@ open class Databases: Service {
     /// Get a collection by its unique ID. This endpoint response returns a JSON
     /// object with the collection metadata.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Collection
     ///
     open func getCollection(
         databaseId: String,
@@ -306,14 +314,15 @@ open class Databases: Service {
     ///
     /// Update a collection by its unique ID.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String name
-    /// @param [String] permissions
-    /// @param Bool documentSecurity
-    /// @param Bool enabled
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - name: String
+    ///   - permissions: [String] (optional)
+    ///   - documentSecurity: Bool (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Collection
     ///
     open func updateCollection(
         databaseId: String,
@@ -355,10 +364,11 @@ open class Databases: Service {
     /// Delete a collection by its unique ID. Only users with write permissions
     /// have access to delete this resource.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func deleteCollection(
         databaseId: String,
@@ -384,11 +394,12 @@ open class Databases: Service {
     ///
     /// List attributes in the collection.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param [String] queries
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - queries: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeList
     ///
     open func listAttributes(
         databaseId: String,
@@ -422,14 +433,15 @@ open class Databases: Service {
     /// Create a boolean attribute.
     /// 
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Bool required
-    /// @param Bool default
-    /// @param Bool array
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: Bool (optional)
+    ///   - array: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeBoolean
     ///
     open func createBooleanAttribute(
         databaseId: String,
@@ -471,14 +483,15 @@ open class Databases: Service {
     /// Update a boolean attribute. Changing the `default` value will not update
     /// already existing documents.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Bool required
-    /// @param Bool default
-    /// @param String newKey
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: Bool (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeBoolean
     ///
     open func updateBooleanAttribute(
         databaseId: String,
@@ -519,14 +532,15 @@ open class Databases: Service {
     ///
     /// Create a date time attribute according to the ISO 8601 standard.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Bool required
-    /// @param String default
-    /// @param Bool array
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - array: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeDatetime
     ///
     open func createDatetimeAttribute(
         databaseId: String,
@@ -568,14 +582,15 @@ open class Databases: Service {
     /// Update a date time attribute. Changing the `default` value will not update
     /// already existing documents.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Bool required
-    /// @param String default
-    /// @param String newKey
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeDatetime
     ///
     open func updateDatetimeAttribute(
         databaseId: String,
@@ -617,14 +632,15 @@ open class Databases: Service {
     /// Create an email attribute.
     /// 
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Bool required
-    /// @param String default
-    /// @param Bool array
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - array: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeEmail
     ///
     open func createEmailAttribute(
         databaseId: String,
@@ -667,14 +683,15 @@ open class Databases: Service {
     /// already existing documents.
     /// 
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Bool required
-    /// @param String default
-    /// @param String newKey
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeEmail
     ///
     open func updateEmailAttribute(
         databaseId: String,
@@ -717,15 +734,16 @@ open class Databases: Service {
     /// of accepted values for this attribute. 
     /// 
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param [String] elements
-    /// @param Bool required
-    /// @param String default
-    /// @param Bool array
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - elements: [String]
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - array: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeEnum
     ///
     open func createEnumAttribute(
         databaseId: String,
@@ -770,15 +788,16 @@ open class Databases: Service {
     /// already existing documents.
     /// 
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param [String] elements
-    /// @param Bool required
-    /// @param String default
-    /// @param String newKey
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - elements: [String]
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeEnum
     ///
     open func updateEnumAttribute(
         databaseId: String,
@@ -823,16 +842,17 @@ open class Databases: Service {
     /// provided.
     /// 
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Bool required
-    /// @param Double min
-    /// @param Double max
-    /// @param Double default
-    /// @param Bool array
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - min: Double (optional)
+    ///   - max: Double (optional)
+    ///   - default: Double (optional)
+    ///   - array: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeFloat
     ///
     open func createFloatAttribute(
         databaseId: String,
@@ -879,16 +899,17 @@ open class Databases: Service {
     /// already existing documents.
     /// 
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Bool required
-    /// @param Double default
-    /// @param Double min
-    /// @param Double max
-    /// @param String newKey
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: Double (optional)
+    ///   - min: Double (optional)
+    ///   - max: Double (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeFloat
     ///
     open func updateFloatAttribute(
         databaseId: String,
@@ -935,16 +956,17 @@ open class Databases: Service {
     /// provided.
     /// 
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Bool required
-    /// @param Int min
-    /// @param Int max
-    /// @param Int default
-    /// @param Bool array
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - min: Int (optional)
+    ///   - max: Int (optional)
+    ///   - default: Int (optional)
+    ///   - array: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeInteger
     ///
     open func createIntegerAttribute(
         databaseId: String,
@@ -991,16 +1013,17 @@ open class Databases: Service {
     /// already existing documents.
     /// 
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Bool required
-    /// @param Int default
-    /// @param Int min
-    /// @param Int max
-    /// @param String newKey
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: Int (optional)
+    ///   - min: Int (optional)
+    ///   - max: Int (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeInteger
     ///
     open func updateIntegerAttribute(
         databaseId: String,
@@ -1046,14 +1069,15 @@ open class Databases: Service {
     /// Create IP address attribute.
     /// 
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Bool required
-    /// @param String default
-    /// @param Bool array
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - array: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeIp
     ///
     open func createIpAttribute(
         databaseId: String,
@@ -1096,14 +1120,15 @@ open class Databases: Service {
     /// already existing documents.
     /// 
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Bool required
-    /// @param String default
-    /// @param String newKey
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeIp
     ///
     open func updateIpAttribute(
         databaseId: String,
@@ -1146,16 +1171,17 @@ open class Databases: Service {
     /// attributes](https://appwrite.io/docs/databases-relationships#relationship-attributes).
     /// 
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String relatedCollectionId
-    /// @param AppwriteEnums.RelationshipType type
-    /// @param Bool twoWay
-    /// @param String key
-    /// @param String twoWayKey
-    /// @param AppwriteEnums.RelationMutate onDelete
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - relatedCollectionId: String
+    ///   - type: AppwriteEnums.RelationshipType
+    ///   - twoWay: Bool (optional)
+    ///   - key: String (optional)
+    ///   - twoWayKey: String (optional)
+    ///   - onDelete: AppwriteEnums.RelationMutate (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeRelationship
     ///
     open func createRelationshipAttribute(
         databaseId: String,
@@ -1201,16 +1227,17 @@ open class Databases: Service {
     /// Create a string attribute.
     /// 
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Int size
-    /// @param Bool required
-    /// @param String default
-    /// @param Bool array
-    /// @param Bool encrypt
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - size: Int
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - array: Bool (optional)
+    ///   - encrypt: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeString
     ///
     open func createStringAttribute(
         databaseId: String,
@@ -1257,15 +1284,16 @@ open class Databases: Service {
     /// already existing documents.
     /// 
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Bool required
-    /// @param String default
-    /// @param Int size
-    /// @param String newKey
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - size: Int (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeString
     ///
     open func updateStringAttribute(
         databaseId: String,
@@ -1309,14 +1337,15 @@ open class Databases: Service {
     /// Create a URL attribute.
     /// 
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Bool required
-    /// @param String default
-    /// @param Bool array
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - array: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeUrl
     ///
     open func createUrlAttribute(
         databaseId: String,
@@ -1359,14 +1388,15 @@ open class Databases: Service {
     /// already existing documents.
     /// 
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param Bool required
-    /// @param String default
-    /// @param String newKey
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeUrl
     ///
     open func updateUrlAttribute(
         databaseId: String,
@@ -1407,11 +1437,12 @@ open class Databases: Service {
     ///
     /// Get attribute by ID.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func getAttribute(
         databaseId: String,
@@ -1437,11 +1468,12 @@ open class Databases: Service {
     ///
     /// Deletes an attribute.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func deleteAttribute(
         databaseId: String,
@@ -1471,13 +1503,14 @@ open class Databases: Service {
     /// attributes](https://appwrite.io/docs/databases-relationships#relationship-attributes).
     /// 
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param AppwriteEnums.RelationMutate onDelete
-    /// @param String newKey
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - onDelete: AppwriteEnums.RelationMutate (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeRelationship
     ///
     open func updateRelationshipAttribute(
         databaseId: String,
@@ -1517,11 +1550,12 @@ open class Databases: Service {
     /// Get a list of all the user's documents in a given collection. You can use
     /// the query params to filter your results.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param [String] queries
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - queries: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DocumentList<T>
     ///
     open func listDocuments<T>(
         databaseId: String,
@@ -1556,11 +1590,12 @@ open class Databases: Service {
     /// Get a list of all the user's documents in a given collection. You can use
     /// the query params to filter your results.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param [String] queries
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - queries: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DocumentList<T>
     ///
     open func listDocuments(
         databaseId: String,
@@ -1581,13 +1616,14 @@ open class Databases: Service {
     /// integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
     /// API or directly from your database console.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String documentId
-    /// @param Any data
-    /// @param [String] permissions
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - documentId: String
+    ///   - data: Any
+    ///   - permissions: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Document<T>
     ///
     open func createDocument<T>(
         databaseId: String,
@@ -1630,13 +1666,14 @@ open class Databases: Service {
     /// integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
     /// API or directly from your database console.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String documentId
-    /// @param Any data
-    /// @param [String] permissions
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - documentId: String
+    ///   - data: Any
+    ///   - permissions: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Document<T>
     ///
     open func createDocument(
         databaseId: String,
@@ -1665,11 +1702,12 @@ open class Databases: Service {
     /// integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
     /// API or directly from your database console.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param [Any] documents
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - documents: [Any]
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DocumentList<T>
     ///
     open func createDocuments<T>(
         databaseId: String,
@@ -1712,11 +1750,12 @@ open class Databases: Service {
     /// integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
     /// API or directly from your database console.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param [Any] documents
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - documents: [Any]
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DocumentList<T>
     ///
     open func createDocuments(
         databaseId: String,
@@ -1740,18 +1779,18 @@ open class Databases: Service {
     /// new collection resource using either a [server
     /// integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
     /// API or directly from your database console.
-    /// 
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param [Any] documents
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - documents: [Any]
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DocumentList<T>
     ///
     open func upsertDocuments<T>(
         databaseId: String,
         collectionId: String,
-        documents: [Any]? = nil,
+        documents: [Any],
         nestedType: T.Type
     ) async throws -> AppwriteModels.DocumentList<T> {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/documents"
@@ -1788,18 +1827,18 @@ open class Databases: Service {
     /// new collection resource using either a [server
     /// integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
     /// API or directly from your database console.
-    /// 
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param [Any] documents
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - documents: [Any]
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DocumentList<T>
     ///
     open func upsertDocuments(
         databaseId: String,
         collectionId: String,
-        documents: [Any]? = nil
+        documents: [Any]
     ) async throws -> AppwriteModels.DocumentList<[String: AnyCodable]> {
         return try await upsertDocuments(
             databaseId: databaseId,
@@ -1810,16 +1849,21 @@ open class Databases: Service {
     }
 
     ///
+    /// **WARNING: Experimental Feature** - This endpoint is experimental and not
+    /// yet officially supported. It may be subject to breaking changes or removal
+    /// in future versions.
+    /// 
     /// Update all documents that match your queries, if no queries are submitted
     /// then all documents are updated. You can pass only specific fields to be
     /// updated.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param Any data
-    /// @param [String] queries
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - data: Any (optional)
+    ///   - queries: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DocumentList<T>
     ///
     open func updateDocuments<T>(
         databaseId: String,
@@ -1855,16 +1899,21 @@ open class Databases: Service {
     }
 
     ///
+    /// **WARNING: Experimental Feature** - This endpoint is experimental and not
+    /// yet officially supported. It may be subject to breaking changes or removal
+    /// in future versions.
+    /// 
     /// Update all documents that match your queries, if no queries are submitted
     /// then all documents are updated. You can pass only specific fields to be
     /// updated.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param Any data
-    /// @param [String] queries
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - data: Any (optional)
+    ///   - queries: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DocumentList<T>
     ///
     open func updateDocuments(
         databaseId: String,
@@ -1889,11 +1938,12 @@ open class Databases: Service {
     /// Bulk delete documents using queries, if no queries are passed then all
     /// documents are deleted.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param [String] queries
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - queries: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DocumentList<T>
     ///
     open func deleteDocuments<T>(
         databaseId: String,
@@ -1934,11 +1984,12 @@ open class Databases: Service {
     /// Bulk delete documents using queries, if no queries are passed then all
     /// documents are deleted.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param [String] queries
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - queries: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DocumentList<T>
     ///
     open func deleteDocuments(
         databaseId: String,
@@ -1957,12 +2008,13 @@ open class Databases: Service {
     /// Get a document by its unique ID. This endpoint response returns a JSON
     /// object with the document data.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String documentId
-    /// @param [String] queries
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - documentId: String
+    ///   - queries: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Document<T>
     ///
     open func getDocument<T>(
         databaseId: String,
@@ -1999,12 +2051,13 @@ open class Databases: Service {
     /// Get a document by its unique ID. This endpoint response returns a JSON
     /// object with the document data.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String documentId
-    /// @param [String] queries
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - documentId: String
+    ///   - queries: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Document<T>
     ///
     open func getDocument(
         databaseId: String,
@@ -2031,13 +2084,14 @@ open class Databases: Service {
     /// integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
     /// API or directly from your database console.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String documentId
-    /// @param Any data
-    /// @param [String] permissions
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - documentId: String
+    ///   - data: Any
+    ///   - permissions: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Document<T>
     ///
     open func upsertDocument<T>(
         databaseId: String,
@@ -2084,13 +2138,14 @@ open class Databases: Service {
     /// integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
     /// API or directly from your database console.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String documentId
-    /// @param Any data
-    /// @param [String] permissions
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - documentId: String
+    ///   - data: Any
+    ///   - permissions: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Document<T>
     ///
     open func upsertDocument(
         databaseId: String,
@@ -2113,13 +2168,14 @@ open class Databases: Service {
     /// Update a document by its unique ID. Using the patch method you can pass
     /// only specific fields that will get updated.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String documentId
-    /// @param Any data
-    /// @param [String] permissions
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - documentId: String
+    ///   - data: Any (optional)
+    ///   - permissions: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Document<T>
     ///
     open func updateDocument<T>(
         databaseId: String,
@@ -2160,13 +2216,14 @@ open class Databases: Service {
     /// Update a document by its unique ID. Using the patch method you can pass
     /// only specific fields that will get updated.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String documentId
-    /// @param Any data
-    /// @param [String] permissions
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - documentId: String
+    ///   - data: Any (optional)
+    ///   - permissions: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Document<T>
     ///
     open func updateDocument(
         databaseId: String,
@@ -2188,11 +2245,12 @@ open class Databases: Service {
     ///
     /// Delete a document by its unique ID.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String documentId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - documentId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func deleteDocument(
         databaseId: String,
@@ -2218,13 +2276,178 @@ open class Databases: Service {
     }
 
     ///
+    /// Decrement a specific attribute of a document by a given value.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - documentId: String
+    ///   - attribute: String
+    ///   - value: Double (optional)
+    ///   - min: Double (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Document<T>
+    ///
+    open func decrementDocumentAttribute<T>(
+        databaseId: String,
+        collectionId: String,
+        documentId: String,
+        attribute: String,
+        value: Double? = nil,
+        min: Double? = nil,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Document<T> {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/decrement"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{documentId}", with: documentId)
+            .replacingOccurrences(of: "{attribute}", with: attribute)
+
+        let apiParams: [String: Any?] = [
+            "value": value,
+            "min": min
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Document<T> = { response in
+            return AppwriteModels.Document.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Decrement a specific attribute of a document by a given value.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - documentId: String
+    ///   - attribute: String
+    ///   - value: Double (optional)
+    ///   - min: Double (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Document<T>
+    ///
+    open func decrementDocumentAttribute(
+        databaseId: String,
+        collectionId: String,
+        documentId: String,
+        attribute: String,
+        value: Double? = nil,
+        min: Double? = nil
+    ) async throws -> AppwriteModels.Document<[String: AnyCodable]> {
+        return try await decrementDocumentAttribute(
+            databaseId: databaseId,
+            collectionId: collectionId,
+            documentId: documentId,
+            attribute: attribute,
+            value: value,
+            min: min,
+            nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
+    /// Increment a specific attribute of a document by a given value.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - documentId: String
+    ///   - attribute: String
+    ///   - value: Double (optional)
+    ///   - max: Double (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Document<T>
+    ///
+    open func incrementDocumentAttribute<T>(
+        databaseId: String,
+        collectionId: String,
+        documentId: String,
+        attribute: String,
+        value: Double? = nil,
+        max: Double? = nil,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Document<T> {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/increment"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{documentId}", with: documentId)
+            .replacingOccurrences(of: "{attribute}", with: attribute)
+
+        let apiParams: [String: Any?] = [
+            "value": value,
+            "max": max
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Document<T> = { response in
+            return AppwriteModels.Document.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Increment a specific attribute of a document by a given value.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - documentId: String
+    ///   - attribute: String
+    ///   - value: Double (optional)
+    ///   - max: Double (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Document<T>
+    ///
+    open func incrementDocumentAttribute(
+        databaseId: String,
+        collectionId: String,
+        documentId: String,
+        attribute: String,
+        value: Double? = nil,
+        max: Double? = nil
+    ) async throws -> AppwriteModels.Document<[String: AnyCodable]> {
+        return try await incrementDocumentAttribute(
+            databaseId: databaseId,
+            collectionId: collectionId,
+            documentId: documentId,
+            attribute: attribute,
+            value: value,
+            max: max,
+            nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
     /// List indexes in the collection.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param [String] queries
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - queries: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.IndexList
     ///
     open func listIndexes(
         databaseId: String,
@@ -2259,15 +2482,16 @@ open class Databases: Service {
     /// the attributes you will query in a single request.
     /// Attributes can be `key`, `fulltext`, and `unique`.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @param AppwriteEnums.IndexType type
-    /// @param [String] attributes
-    /// @param [String] orders
-    /// @param [Int] lengths
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - type: AppwriteEnums.IndexType
+    ///   - attributes: [String]
+    ///   - orders: [String] (optional)
+    ///   - lengths: [Int] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Index
     ///
     open func createIndex(
         databaseId: String,
@@ -2310,11 +2534,12 @@ open class Databases: Service {
     ///
     /// Get index by ID.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Index
     ///
     open func getIndex(
         databaseId: String,
@@ -2346,11 +2571,12 @@ open class Databases: Service {
     ///
     /// Delete an index.
     ///
-    /// @param String databaseId
-    /// @param String collectionId
-    /// @param String key
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func deleteIndex(
         databaseId: String,

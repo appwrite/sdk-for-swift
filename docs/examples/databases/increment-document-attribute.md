@@ -7,9 +7,12 @@ let client = Client()
 
 let databases = Databases(client)
 
-let documentList = try await databases.upsertDocuments(
+let document = try await databases.incrementDocumentAttribute(
     databaseId: "<DATABASE_ID>",
     collectionId: "<COLLECTION_ID>",
-    documents: []
+    documentId: "<DOCUMENT_ID>",
+    attribute: "",
+    value: 0, // optional
+    max: 0 // optional
 )
 

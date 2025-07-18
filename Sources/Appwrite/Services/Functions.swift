@@ -12,10 +12,11 @@ open class Functions: Service {
     /// Get a list of all the project's functions. You can use the query params to
     /// filter your results.
     ///
-    /// @param [String] queries
-    /// @param String search
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - queries: [String] (optional)
+    ///   - search: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.FunctionList
     ///
     open func list(
         queries: [String]? = nil,
@@ -49,26 +50,27 @@ open class Functions: Service {
     /// project users or team with access to execute the function using the client
     /// API.
     ///
-    /// @param String functionId
-    /// @param String name
-    /// @param AppwriteEnums.Runtime runtime
-    /// @param [String] execute
-    /// @param [String] events
-    /// @param String schedule
-    /// @param Int timeout
-    /// @param Bool enabled
-    /// @param Bool logging
-    /// @param String entrypoint
-    /// @param String commands
-    /// @param [String] scopes
-    /// @param String installationId
-    /// @param String providerRepositoryId
-    /// @param String providerBranch
-    /// @param Bool providerSilentMode
-    /// @param String providerRootDirectory
-    /// @param String specification
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    ///   - name: String
+    ///   - runtime: AppwriteEnums.Runtime
+    ///   - execute: [String] (optional)
+    ///   - events: [String] (optional)
+    ///   - schedule: String (optional)
+    ///   - timeout: Int (optional)
+    ///   - enabled: Bool (optional)
+    ///   - logging: Bool (optional)
+    ///   - entrypoint: String (optional)
+    ///   - commands: String (optional)
+    ///   - scopes: [String] (optional)
+    ///   - installationId: String (optional)
+    ///   - providerRepositoryId: String (optional)
+    ///   - providerBranch: String (optional)
+    ///   - providerSilentMode: Bool (optional)
+    ///   - providerRootDirectory: String (optional)
+    ///   - specification: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Function
     ///
     open func create(
         functionId: String,
@@ -133,8 +135,8 @@ open class Functions: Service {
     ///
     /// Get a list of all runtimes that are currently active on your instance.
     ///
-    /// @throws Exception
-    /// @return array
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.RuntimeList
     ///
     open func listRuntimes(
     ) async throws -> AppwriteModels.RuntimeList {
@@ -160,8 +162,8 @@ open class Functions: Service {
     ///
     /// List allowed function specifications for this instance.
     ///
-    /// @throws Exception
-    /// @return array
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.SpecificationList
     ///
     open func listSpecifications(
     ) async throws -> AppwriteModels.SpecificationList {
@@ -187,9 +189,10 @@ open class Functions: Service {
     ///
     /// Get a function by its unique ID.
     ///
-    /// @param String functionId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Function
     ///
     open func get(
         functionId: String
@@ -217,26 +220,27 @@ open class Functions: Service {
     ///
     /// Update function by its unique ID.
     ///
-    /// @param String functionId
-    /// @param String name
-    /// @param AppwriteEnums.Runtime runtime
-    /// @param [String] execute
-    /// @param [String] events
-    /// @param String schedule
-    /// @param Int timeout
-    /// @param Bool enabled
-    /// @param Bool logging
-    /// @param String entrypoint
-    /// @param String commands
-    /// @param [String] scopes
-    /// @param String installationId
-    /// @param String providerRepositoryId
-    /// @param String providerBranch
-    /// @param Bool providerSilentMode
-    /// @param String providerRootDirectory
-    /// @param String specification
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    ///   - name: String
+    ///   - runtime: AppwriteEnums.Runtime (optional)
+    ///   - execute: [String] (optional)
+    ///   - events: [String] (optional)
+    ///   - schedule: String (optional)
+    ///   - timeout: Int (optional)
+    ///   - enabled: Bool (optional)
+    ///   - logging: Bool (optional)
+    ///   - entrypoint: String (optional)
+    ///   - commands: String (optional)
+    ///   - scopes: [String] (optional)
+    ///   - installationId: String (optional)
+    ///   - providerRepositoryId: String (optional)
+    ///   - providerBranch: String (optional)
+    ///   - providerSilentMode: Bool (optional)
+    ///   - providerRootDirectory: String (optional)
+    ///   - specification: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Function
     ///
     open func update(
         functionId: String,
@@ -301,9 +305,10 @@ open class Functions: Service {
     ///
     /// Delete a function by its unique ID.
     ///
-    /// @param String functionId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func delete(
         functionId: String
@@ -328,10 +333,11 @@ open class Functions: Service {
     /// Update the function active deployment. Use this endpoint to switch the code
     /// deployment that should be used when visitor opens your function.
     ///
-    /// @param String functionId
-    /// @param String deploymentId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    ///   - deploymentId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Function
     ///
     open func updateFunctionDeployment(
         functionId: String,
@@ -365,11 +371,12 @@ open class Functions: Service {
     /// Get a list of all the function's code deployments. You can use the query
     /// params to filter your results.
     ///
-    /// @param String functionId
-    /// @param [String] queries
-    /// @param String search
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    ///   - queries: [String] (optional)
+    ///   - search: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DeploymentList
     ///
     open func listDeployments(
         functionId: String,
@@ -411,13 +418,14 @@ open class Functions: Service {
     /// 
     /// Use the "command" param to set the entrypoint used to execute your code.
     ///
-    /// @param String functionId
-    /// @param InputFile code
-    /// @param Bool activate
-    /// @param String entrypoint
-    /// @param String commands
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    ///   - code: InputFile
+    ///   - activate: Bool
+    ///   - entrypoint: String (optional)
+    ///   - commands: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Deployment
     ///
     open func createDeployment(
         functionId: String,
@@ -465,11 +473,12 @@ open class Functions: Service {
     /// build process will be queued and executed asynchronously. The original
     /// deployment's code will be preserved and used for the new build.
     ///
-    /// @param String functionId
-    /// @param String deploymentId
-    /// @param String buildId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    ///   - deploymentId: String
+    ///   - buildId: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Deployment
     ///
     open func createDuplicateDeployment(
         functionId: String,
@@ -508,14 +517,15 @@ open class Functions: Service {
     /// [listTemplates](https://appwrite.io/docs/server/functions#listTemplates) to
     /// find the template details.
     ///
-    /// @param String functionId
-    /// @param String repository
-    /// @param String owner
-    /// @param String rootDirectory
-    /// @param String version
-    /// @param Bool activate
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    ///   - repository: String
+    ///   - owner: String
+    ///   - rootDirectory: String
+    ///   - version: String
+    ///   - activate: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Deployment
     ///
     open func createTemplateDeployment(
         functionId: String,
@@ -558,12 +568,13 @@ open class Functions: Service {
     /// 
     /// This endpoint lets you create deployment from a branch, commit, or a tag.
     ///
-    /// @param String functionId
-    /// @param AppwriteEnums.VCSDeploymentType type
-    /// @param String reference
-    /// @param Bool activate
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    ///   - type: AppwriteEnums.VCSDeploymentType
+    ///   - reference: String
+    ///   - activate: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Deployment
     ///
     open func createVcsDeployment(
         functionId: String,
@@ -600,10 +611,11 @@ open class Functions: Service {
     ///
     /// Get a function deployment by its unique ID.
     ///
-    /// @param String functionId
-    /// @param String deploymentId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    ///   - deploymentId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Deployment
     ///
     open func getDeployment(
         functionId: String,
@@ -633,10 +645,11 @@ open class Functions: Service {
     ///
     /// Delete a code deployment by its unique ID.
     ///
-    /// @param String functionId
-    /// @param String deploymentId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    ///   - deploymentId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func deleteDeployment(
         functionId: String,
@@ -664,11 +677,12 @@ open class Functions: Service {
     /// return with a 'Content-Disposition: attachment' header that tells the
     /// browser to start downloading the file to user downloads directory.
     ///
-    /// @param String functionId
-    /// @param String deploymentId
-    /// @param AppwriteEnums.DeploymentDownloadType type
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    ///   - deploymentId: String
+    ///   - type: AppwriteEnums.DeploymentDownloadType (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: ByteBuffer
     ///
     open func getDeploymentDownload(
         functionId: String,
@@ -701,10 +715,11 @@ open class Functions: Service {
     /// cancel builds that have already completed (status 'ready') or failed. The
     /// response includes the final build status and details.
     ///
-    /// @param String functionId
-    /// @param String deploymentId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    ///   - deploymentId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Deployment
     ///
     open func updateDeploymentStatus(
         functionId: String,
@@ -737,10 +752,11 @@ open class Functions: Service {
     /// Get a list of all the current user function execution logs. You can use the
     /// query params to filter your results.
     ///
-    /// @param String functionId
-    /// @param [String] queries
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    ///   - queries: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ExecutionList
     ///
     open func listExecutions(
         functionId: String,
@@ -774,15 +790,16 @@ open class Functions: Service {
     /// updates on the current execution status. Once this endpoint is called, your
     /// function execution process will start asynchronously.
     ///
-    /// @param String functionId
-    /// @param String body
-    /// @param Bool async
-    /// @param String path
-    /// @param AppwriteEnums.ExecutionMethod method
-    /// @param Any headers
-    /// @param String scheduledAt
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    ///   - body: String (optional)
+    ///   - async: Bool (optional)
+    ///   - path: String (optional)
+    ///   - method: AppwriteEnums.ExecutionMethod (optional)
+    ///   - headers: Any (optional)
+    ///   - scheduledAt: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Execution
     ///
     open func createExecution(
         functionId: String,
@@ -825,10 +842,11 @@ open class Functions: Service {
     ///
     /// Get a function execution log by its unique ID.
     ///
-    /// @param String functionId
-    /// @param String executionId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    ///   - executionId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Execution
     ///
     open func getExecution(
         functionId: String,
@@ -858,10 +876,11 @@ open class Functions: Service {
     ///
     /// Delete a function execution by its unique ID.
     ///
-    /// @param String functionId
-    /// @param String executionId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    ///   - executionId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func deleteExecution(
         functionId: String,
@@ -887,9 +906,10 @@ open class Functions: Service {
     ///
     /// Get a list of all variables of a specific function.
     ///
-    /// @param String functionId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.VariableList
     ///
     open func listVariables(
         functionId: String
@@ -918,12 +938,13 @@ open class Functions: Service {
     /// Create a new function environment variable. These variables can be accessed
     /// in the function at runtime as environment variables.
     ///
-    /// @param String functionId
-    /// @param String key
-    /// @param String value
-    /// @param Bool secret
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    ///   - key: String
+    ///   - value: String
+    ///   - secret: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Variable
     ///
     open func createVariable(
         functionId: String,
@@ -960,10 +981,11 @@ open class Functions: Service {
     ///
     /// Get a variable by its unique ID.
     ///
-    /// @param String functionId
-    /// @param String variableId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    ///   - variableId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Variable
     ///
     open func getVariable(
         functionId: String,
@@ -993,13 +1015,14 @@ open class Functions: Service {
     ///
     /// Update variable by its unique ID.
     ///
-    /// @param String functionId
-    /// @param String variableId
-    /// @param String key
-    /// @param String value
-    /// @param Bool secret
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    ///   - variableId: String
+    ///   - key: String
+    ///   - value: String (optional)
+    ///   - secret: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Variable
     ///
     open func updateVariable(
         functionId: String,
@@ -1038,10 +1061,11 @@ open class Functions: Service {
     ///
     /// Delete a variable by its unique ID.
     ///
-    /// @param String functionId
-    /// @param String variableId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - functionId: String
+    ///   - variableId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func deleteVariable(
         functionId: String,
