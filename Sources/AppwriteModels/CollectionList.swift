@@ -9,7 +9,7 @@ open class CollectionList: Codable {
         case collections = "collections"
     }
 
-    /// Total number of collections documents that matched your query.
+    /// Total number of collections rows that matched your query.
     public let total: Int
 
     /// List of collections.

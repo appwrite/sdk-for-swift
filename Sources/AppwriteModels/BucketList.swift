@@ -9,7 +9,7 @@ open class BucketList: Codable {
         case buckets = "buckets"
     }
 
-    /// Total number of buckets documents that matched your query.
+    /// Total number of buckets rows that matched your query.
     public let total: Int
 
     /// List of buckets.
