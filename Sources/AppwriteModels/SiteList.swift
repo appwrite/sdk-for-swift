@@ -9,7 +9,7 @@ open class SiteList: Codable {
         case sites = "sites"
     }
 
-    /// Total number of sites rows that matched your query.
+    /// Total number of sites documents that matched your query.
     public let total: Int
 
     /// List of sites.

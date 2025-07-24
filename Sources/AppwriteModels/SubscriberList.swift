@@ -9,7 +9,7 @@ open class SubscriberList: Codable {
         case subscribers = "subscribers"
     }
 
-    /// Total number of subscribers rows that matched your query.
+    /// Total number of subscribers documents that matched your query.
     public let total: Int
 
     /// List of subscribers.

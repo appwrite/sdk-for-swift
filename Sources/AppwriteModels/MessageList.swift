@@ -9,7 +9,7 @@ open class MessageList: Codable {
         case messages = "messages"
     }
 
-    /// Total number of messages rows that matched your query.
+    /// Total number of messages documents that matched your query.
     public let total: Int
 
     /// List of messages.

@@ -9,7 +9,7 @@ open class ProviderList: Codable {
         case providers = "providers"
     }
 
-    /// Total number of providers rows that matched your query.
+    /// Total number of providers documents that matched your query.
     public let total: Int
 
     /// List of providers.
