@@ -12,10 +12,11 @@ open class Storage: Service {
     /// Get a list of all the storage buckets. You can use the query params to
     /// filter your results.
     ///
-    /// @param [String] queries
-    /// @param String search
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - queries: [String] (optional)
+    ///   - search: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.BucketList
     ///
     open func listBuckets(
         queries: [String]? = nil,
@@ -46,18 +47,19 @@ open class Storage: Service {
     ///
     /// Create a new storage bucket.
     ///
-    /// @param String bucketId
-    /// @param String name
-    /// @param [String] permissions
-    /// @param Bool fileSecurity
-    /// @param Bool enabled
-    /// @param Int maximumFileSize
-    /// @param [String] allowedFileExtensions
-    /// @param AppwriteEnums.Compression compression
-    /// @param Bool encryption
-    /// @param Bool antivirus
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - bucketId: String
+    ///   - name: String
+    ///   - permissions: [String] (optional)
+    ///   - fileSecurity: Bool (optional)
+    ///   - enabled: Bool (optional)
+    ///   - maximumFileSize: Int (optional)
+    ///   - allowedFileExtensions: [String] (optional)
+    ///   - compression: AppwriteEnums.Compression (optional)
+    ///   - encryption: Bool (optional)
+    ///   - antivirus: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Bucket
     ///
     open func createBucket(
         bucketId: String,
@@ -107,9 +109,10 @@ open class Storage: Service {
     /// Get a storage bucket by its unique ID. This endpoint response returns a
     /// JSON object with the storage bucket metadata.
     ///
-    /// @param String bucketId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - bucketId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Bucket
     ///
     open func getBucket(
         bucketId: String
@@ -137,18 +140,19 @@ open class Storage: Service {
     ///
     /// Update a storage bucket by its unique ID.
     ///
-    /// @param String bucketId
-    /// @param String name
-    /// @param [String] permissions
-    /// @param Bool fileSecurity
-    /// @param Bool enabled
-    /// @param Int maximumFileSize
-    /// @param [String] allowedFileExtensions
-    /// @param AppwriteEnums.Compression compression
-    /// @param Bool encryption
-    /// @param Bool antivirus
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - bucketId: String
+    ///   - name: String
+    ///   - permissions: [String] (optional)
+    ///   - fileSecurity: Bool (optional)
+    ///   - enabled: Bool (optional)
+    ///   - maximumFileSize: Int (optional)
+    ///   - allowedFileExtensions: [String] (optional)
+    ///   - compression: AppwriteEnums.Compression (optional)
+    ///   - encryption: Bool (optional)
+    ///   - antivirus: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Bucket
     ///
     open func updateBucket(
         bucketId: String,
@@ -197,9 +201,10 @@ open class Storage: Service {
     ///
     /// Delete a storage bucket by its unique ID.
     ///
-    /// @param String bucketId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - bucketId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func deleteBucket(
         bucketId: String
@@ -224,11 +229,12 @@ open class Storage: Service {
     /// Get a list of all the user files. You can use the query params to filter
     /// your results.
     ///
-    /// @param String bucketId
-    /// @param [String] queries
-    /// @param String search
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - bucketId: String
+    ///   - queries: [String] (optional)
+    ///   - search: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.FileList
     ///
     open func listFiles(
         bucketId: String,
@@ -278,12 +284,13 @@ open class Storage: Service {
     /// chunking logic will be managed by the SDK internally.
     /// 
     ///
-    /// @param String bucketId
-    /// @param String fileId
-    /// @param InputFile file
-    /// @param [String] permissions
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - bucketId: String
+    ///   - fileId: String
+    ///   - file: InputFile
+    ///   - permissions: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.File
     ///
     open func createFile(
         bucketId: String,
@@ -326,10 +333,11 @@ open class Storage: Service {
     /// Get a file by its unique ID. This endpoint response returns a JSON object
     /// with the file metadata.
     ///
-    /// @param String bucketId
-    /// @param String fileId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - bucketId: String
+    ///   - fileId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.File
     ///
     open func getFile(
         bucketId: String,
@@ -360,12 +368,13 @@ open class Storage: Service {
     /// Update a file by its unique ID. Only users with write permissions have
     /// access to update this resource.
     ///
-    /// @param String bucketId
-    /// @param String fileId
-    /// @param String name
-    /// @param [String] permissions
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - bucketId: String
+    ///   - fileId: String
+    ///   - name: String (optional)
+    ///   - permissions: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.File
     ///
     open func updateFile(
         bucketId: String,
@@ -403,10 +412,11 @@ open class Storage: Service {
     /// Delete a file by its unique ID. Only users with write permissions have
     /// access to delete this resource.
     ///
-    /// @param String bucketId
-    /// @param String fileId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - bucketId: String
+    ///   - fileId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func deleteFile(
         bucketId: String,
@@ -434,11 +444,12 @@ open class Storage: Service {
     /// 'Content-Disposition: attachment' header that tells the browser to start
     /// downloading the file to user downloads directory.
     ///
-    /// @param String bucketId
-    /// @param String fileId
-    /// @param String token
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - bucketId: String
+    ///   - fileId: String
+    ///   - token: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: ByteBuffer
     ///
     open func getFileDownload(
         bucketId: String,
@@ -471,22 +482,23 @@ open class Storage: Service {
     /// string arguments for cutting and resizing your preview image. Preview is
     /// supported only for image files smaller than 10MB.
     ///
-    /// @param String bucketId
-    /// @param String fileId
-    /// @param Int width
-    /// @param Int height
-    /// @param AppwriteEnums.ImageGravity gravity
-    /// @param Int quality
-    /// @param Int borderWidth
-    /// @param String borderColor
-    /// @param Int borderRadius
-    /// @param Double opacity
-    /// @param Int rotation
-    /// @param String background
-    /// @param AppwriteEnums.ImageFormat output
-    /// @param String token
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - bucketId: String
+    ///   - fileId: String
+    ///   - width: Int (optional)
+    ///   - height: Int (optional)
+    ///   - gravity: AppwriteEnums.ImageGravity (optional)
+    ///   - quality: Int (optional)
+    ///   - borderWidth: Int (optional)
+    ///   - borderColor: String (optional)
+    ///   - borderRadius: Int (optional)
+    ///   - opacity: Double (optional)
+    ///   - rotation: Int (optional)
+    ///   - background: String (optional)
+    ///   - output: AppwriteEnums.ImageFormat (optional)
+    ///   - token: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: ByteBuffer
     ///
     open func getFilePreview(
         bucketId: String,
@@ -539,11 +551,12 @@ open class Storage: Service {
     /// download method but returns with no  'Content-Disposition: attachment'
     /// header.
     ///
-    /// @param String bucketId
-    /// @param String fileId
-    /// @param String token
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - bucketId: String
+    ///   - fileId: String
+    ///   - token: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: ByteBuffer
     ///
     open func getFileView(
         bucketId: String,

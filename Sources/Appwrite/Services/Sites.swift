@@ -12,10 +12,11 @@ open class Sites: Service {
     /// Get a list of all the project's sites. You can use the query params to
     /// filter your results.
     ///
-    /// @param [String] queries
-    /// @param String search
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - queries: [String] (optional)
+    ///   - search: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.SiteList
     ///
     open func list(
         queries: [String]? = nil,
@@ -46,26 +47,27 @@ open class Sites: Service {
     ///
     /// Create a new site.
     ///
-    /// @param String siteId
-    /// @param String name
-    /// @param AppwriteEnums.Framework framework
-    /// @param AppwriteEnums.BuildRuntime buildRuntime
-    /// @param Bool enabled
-    /// @param Bool logging
-    /// @param Int timeout
-    /// @param String installCommand
-    /// @param String buildCommand
-    /// @param String outputDirectory
-    /// @param AppwriteEnums.Adapter adapter
-    /// @param String installationId
-    /// @param String fallbackFile
-    /// @param String providerRepositoryId
-    /// @param String providerBranch
-    /// @param Bool providerSilentMode
-    /// @param String providerRootDirectory
-    /// @param String specification
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - siteId: String
+    ///   - name: String
+    ///   - framework: AppwriteEnums.Framework
+    ///   - buildRuntime: AppwriteEnums.BuildRuntime
+    ///   - enabled: Bool (optional)
+    ///   - logging: Bool (optional)
+    ///   - timeout: Int (optional)
+    ///   - installCommand: String (optional)
+    ///   - buildCommand: String (optional)
+    ///   - outputDirectory: String (optional)
+    ///   - adapter: AppwriteEnums.Adapter (optional)
+    ///   - installationId: String (optional)
+    ///   - fallbackFile: String (optional)
+    ///   - providerRepositoryId: String (optional)
+    ///   - providerBranch: String (optional)
+    ///   - providerSilentMode: Bool (optional)
+    ///   - providerRootDirectory: String (optional)
+    ///   - specification: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Site
     ///
     open func create(
         siteId: String,
@@ -131,8 +133,8 @@ open class Sites: Service {
     /// Get a list of all frameworks that are currently available on the server
     /// instance.
     ///
-    /// @throws Exception
-    /// @return array
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.FrameworkList
     ///
     open func listFrameworks(
     ) async throws -> AppwriteModels.FrameworkList {
@@ -158,8 +160,8 @@ open class Sites: Service {
     ///
     /// List allowed site specifications for this instance.
     ///
-    /// @throws Exception
-    /// @return array
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.SpecificationList
     ///
     open func listSpecifications(
     ) async throws -> AppwriteModels.SpecificationList {
@@ -185,9 +187,10 @@ open class Sites: Service {
     ///
     /// Get a site by its unique ID.
     ///
-    /// @param String siteId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - siteId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Site
     ///
     open func get(
         siteId: String
@@ -215,26 +218,27 @@ open class Sites: Service {
     ///
     /// Update site by its unique ID.
     ///
-    /// @param String siteId
-    /// @param String name
-    /// @param AppwriteEnums.Framework framework
-    /// @param Bool enabled
-    /// @param Bool logging
-    /// @param Int timeout
-    /// @param String installCommand
-    /// @param String buildCommand
-    /// @param String outputDirectory
-    /// @param AppwriteEnums.BuildRuntime buildRuntime
-    /// @param AppwriteEnums.Adapter adapter
-    /// @param String fallbackFile
-    /// @param String installationId
-    /// @param String providerRepositoryId
-    /// @param String providerBranch
-    /// @param Bool providerSilentMode
-    /// @param String providerRootDirectory
-    /// @param String specification
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - siteId: String
+    ///   - name: String
+    ///   - framework: AppwriteEnums.Framework
+    ///   - enabled: Bool (optional)
+    ///   - logging: Bool (optional)
+    ///   - timeout: Int (optional)
+    ///   - installCommand: String (optional)
+    ///   - buildCommand: String (optional)
+    ///   - outputDirectory: String (optional)
+    ///   - buildRuntime: AppwriteEnums.BuildRuntime (optional)
+    ///   - adapter: AppwriteEnums.Adapter (optional)
+    ///   - fallbackFile: String (optional)
+    ///   - installationId: String (optional)
+    ///   - providerRepositoryId: String (optional)
+    ///   - providerBranch: String (optional)
+    ///   - providerSilentMode: Bool (optional)
+    ///   - providerRootDirectory: String (optional)
+    ///   - specification: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Site
     ///
     open func update(
         siteId: String,
@@ -299,9 +303,10 @@ open class Sites: Service {
     ///
     /// Delete a site by its unique ID.
     ///
-    /// @param String siteId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - siteId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func delete(
         siteId: String
@@ -326,10 +331,11 @@ open class Sites: Service {
     /// Update the site active deployment. Use this endpoint to switch the code
     /// deployment that should be used when visitor opens your site.
     ///
-    /// @param String siteId
-    /// @param String deploymentId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - siteId: String
+    ///   - deploymentId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Site
     ///
     open func updateSiteDeployment(
         siteId: String,
@@ -363,11 +369,12 @@ open class Sites: Service {
     /// Get a list of all the site's code deployments. You can use the query params
     /// to filter your results.
     ///
-    /// @param String siteId
-    /// @param [String] queries
-    /// @param String search
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - siteId: String
+    ///   - queries: [String] (optional)
+    ///   - search: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DeploymentList
     ///
     open func listDeployments(
         siteId: String,
@@ -402,14 +409,15 @@ open class Sites: Service {
     /// version of your site code. To activate your newly uploaded code, you'll
     /// need to update the function's deployment to use your new deployment ID.
     ///
-    /// @param String siteId
-    /// @param InputFile code
-    /// @param Bool activate
-    /// @param String installCommand
-    /// @param String buildCommand
-    /// @param String outputDirectory
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - siteId: String
+    ///   - code: InputFile
+    ///   - activate: Bool
+    ///   - installCommand: String (optional)
+    ///   - buildCommand: String (optional)
+    ///   - outputDirectory: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Deployment
     ///
     open func createDeployment(
         siteId: String,
@@ -459,10 +467,11 @@ open class Sites: Service {
     /// process will be queued and executed asynchronously. The original
     /// deployment's code will be preserved and used for the new build.
     ///
-    /// @param String siteId
-    /// @param String deploymentId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - siteId: String
+    ///   - deploymentId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Deployment
     ///
     open func createDuplicateDeployment(
         siteId: String,
@@ -499,14 +508,15 @@ open class Sites: Service {
     /// [listTemplates](https://appwrite.io/docs/server/sites#listTemplates) to
     /// find the template details.
     ///
-    /// @param String siteId
-    /// @param String repository
-    /// @param String owner
-    /// @param String rootDirectory
-    /// @param String version
-    /// @param Bool activate
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - siteId: String
+    ///   - repository: String
+    ///   - owner: String
+    ///   - rootDirectory: String
+    ///   - version: String
+    ///   - activate: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Deployment
     ///
     open func createTemplateDeployment(
         siteId: String,
@@ -549,12 +559,13 @@ open class Sites: Service {
     /// 
     /// This endpoint lets you create deployment from a branch, commit, or a tag.
     ///
-    /// @param String siteId
-    /// @param AppwriteEnums.VCSDeploymentType type
-    /// @param String reference
-    /// @param Bool activate
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - siteId: String
+    ///   - type: AppwriteEnums.VCSDeploymentType
+    ///   - reference: String
+    ///   - activate: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Deployment
     ///
     open func createVcsDeployment(
         siteId: String,
@@ -591,10 +602,11 @@ open class Sites: Service {
     ///
     /// Get a site deployment by its unique ID.
     ///
-    /// @param String siteId
-    /// @param String deploymentId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - siteId: String
+    ///   - deploymentId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Deployment
     ///
     open func getDeployment(
         siteId: String,
@@ -624,10 +636,11 @@ open class Sites: Service {
     ///
     /// Delete a site deployment by its unique ID.
     ///
-    /// @param String siteId
-    /// @param String deploymentId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - siteId: String
+    ///   - deploymentId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func deleteDeployment(
         siteId: String,
@@ -655,11 +668,12 @@ open class Sites: Service {
     /// return with a 'Content-Disposition: attachment' header that tells the
     /// browser to start downloading the file to user downloads directory.
     ///
-    /// @param String siteId
-    /// @param String deploymentId
-    /// @param AppwriteEnums.DeploymentDownloadType type
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - siteId: String
+    ///   - deploymentId: String
+    ///   - type: AppwriteEnums.DeploymentDownloadType (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: ByteBuffer
     ///
     open func getDeploymentDownload(
         siteId: String,
@@ -692,10 +706,11 @@ open class Sites: Service {
     /// cancel builds that have already completed (status 'ready') or failed. The
     /// response includes the final build status and details.
     ///
-    /// @param String siteId
-    /// @param String deploymentId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - siteId: String
+    ///   - deploymentId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Deployment
     ///
     open func updateDeploymentStatus(
         siteId: String,
@@ -728,10 +743,11 @@ open class Sites: Service {
     /// Get a list of all site logs. You can use the query params to filter your
     /// results.
     ///
-    /// @param String siteId
-    /// @param [String] queries
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - siteId: String
+    ///   - queries: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ExecutionList
     ///
     open func listLogs(
         siteId: String,
@@ -762,10 +778,11 @@ open class Sites: Service {
     ///
     /// Get a site request log by its unique ID.
     ///
-    /// @param String siteId
-    /// @param String logId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - siteId: String
+    ///   - logId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Execution
     ///
     open func getLog(
         siteId: String,
@@ -795,10 +812,11 @@ open class Sites: Service {
     ///
     /// Delete a site log by its unique ID.
     ///
-    /// @param String siteId
-    /// @param String logId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - siteId: String
+    ///   - logId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func deleteLog(
         siteId: String,
@@ -824,9 +842,10 @@ open class Sites: Service {
     ///
     /// Get a list of all variables of a specific site.
     ///
-    /// @param String siteId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - siteId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.VariableList
     ///
     open func listVariables(
         siteId: String
@@ -855,12 +874,13 @@ open class Sites: Service {
     /// Create a new site variable. These variables can be accessed during build
     /// and runtime (server-side rendering) as environment variables.
     ///
-    /// @param String siteId
-    /// @param String key
-    /// @param String value
-    /// @param Bool secret
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - siteId: String
+    ///   - key: String
+    ///   - value: String
+    ///   - secret: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Variable
     ///
     open func createVariable(
         siteId: String,
@@ -897,10 +917,11 @@ open class Sites: Service {
     ///
     /// Get a variable by its unique ID.
     ///
-    /// @param String siteId
-    /// @param String variableId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - siteId: String
+    ///   - variableId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Variable
     ///
     open func getVariable(
         siteId: String,
@@ -930,13 +951,14 @@ open class Sites: Service {
     ///
     /// Update variable by its unique ID.
     ///
-    /// @param String siteId
-    /// @param String variableId
-    /// @param String key
-    /// @param String value
-    /// @param Bool secret
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - siteId: String
+    ///   - variableId: String
+    ///   - key: String
+    ///   - value: String (optional)
+    ///   - secret: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Variable
     ///
     open func updateVariable(
         siteId: String,
@@ -975,10 +997,11 @@ open class Sites: Service {
     ///
     /// Delete a variable by its unique ID.
     ///
-    /// @param String siteId
-    /// @param String variableId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - siteId: String
+    ///   - variableId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func deleteVariable(
         siteId: String,

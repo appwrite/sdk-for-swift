@@ -7,9 +7,12 @@ let client = Client()
 
 let databases = Databases(client)
 
-let documentList = try await databases.createDocuments(
+let document = try await databases.decrementDocumentAttribute(
     databaseId: "<DATABASE_ID>",
     collectionId: "<COLLECTION_ID>",
-    documents: []
+    documentId: "<DOCUMENT_ID>",
+    attribute: "",
+    value: 0, // optional
+    min: 0 // optional
 )
 

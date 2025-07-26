@@ -11,10 +11,11 @@ open class Messaging: Service {
     ///
     /// Get a list of all messages from the current Appwrite project.
     ///
-    /// @param [String] queries
-    /// @param String search
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - queries: [String] (optional)
+    ///   - search: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.MessageList
     ///
     open func listMessages(
         queries: [String]? = nil,
@@ -45,20 +46,21 @@ open class Messaging: Service {
     ///
     /// Create a new email message.
     ///
-    /// @param String messageId
-    /// @param String subject
-    /// @param String content
-    /// @param [String] topics
-    /// @param [String] users
-    /// @param [String] targets
-    /// @param [String] cc
-    /// @param [String] bcc
-    /// @param [String] attachments
-    /// @param Bool draft
-    /// @param Bool html
-    /// @param String scheduledAt
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - messageId: String
+    ///   - subject: String
+    ///   - content: String
+    ///   - topics: [String] (optional)
+    ///   - users: [String] (optional)
+    ///   - targets: [String] (optional)
+    ///   - cc: [String] (optional)
+    ///   - bcc: [String] (optional)
+    ///   - attachments: [String] (optional)
+    ///   - draft: Bool (optional)
+    ///   - html: Bool (optional)
+    ///   - scheduledAt: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Message
     ///
     open func createEmail(
         messageId: String,
@@ -114,20 +116,21 @@ open class Messaging: Service {
     /// sent, or failed cannot be updated.
     /// 
     ///
-    /// @param String messageId
-    /// @param [String] topics
-    /// @param [String] users
-    /// @param [String] targets
-    /// @param String subject
-    /// @param String content
-    /// @param Bool draft
-    /// @param Bool html
-    /// @param [String] cc
-    /// @param [String] bcc
-    /// @param String scheduledAt
-    /// @param [String] attachments
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - messageId: String
+    ///   - topics: [String] (optional)
+    ///   - users: [String] (optional)
+    ///   - targets: [String] (optional)
+    ///   - subject: String (optional)
+    ///   - content: String (optional)
+    ///   - draft: Bool (optional)
+    ///   - html: Bool (optional)
+    ///   - cc: [String] (optional)
+    ///   - bcc: [String] (optional)
+    ///   - scheduledAt: String (optional)
+    ///   - attachments: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Message
     ///
     open func updateEmail(
         messageId: String,
@@ -180,27 +183,28 @@ open class Messaging: Service {
     ///
     /// Create a new push notification.
     ///
-    /// @param String messageId
-    /// @param String title
-    /// @param String body
-    /// @param [String] topics
-    /// @param [String] users
-    /// @param [String] targets
-    /// @param Any data
-    /// @param String action
-    /// @param String image
-    /// @param String icon
-    /// @param String sound
-    /// @param String color
-    /// @param String tag
-    /// @param Int badge
-    /// @param Bool draft
-    /// @param String scheduledAt
-    /// @param Bool contentAvailable
-    /// @param Bool critical
-    /// @param AppwriteEnums.MessagePriority priority
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - messageId: String
+    ///   - title: String (optional)
+    ///   - body: String (optional)
+    ///   - topics: [String] (optional)
+    ///   - users: [String] (optional)
+    ///   - targets: [String] (optional)
+    ///   - data: Any (optional)
+    ///   - action: String (optional)
+    ///   - image: String (optional)
+    ///   - icon: String (optional)
+    ///   - sound: String (optional)
+    ///   - color: String (optional)
+    ///   - tag: String (optional)
+    ///   - badge: Int (optional)
+    ///   - draft: Bool (optional)
+    ///   - scheduledAt: String (optional)
+    ///   - contentAvailable: Bool (optional)
+    ///   - critical: Bool (optional)
+    ///   - priority: AppwriteEnums.MessagePriority (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Message
     ///
     open func createPush(
         messageId: String,
@@ -270,27 +274,28 @@ open class Messaging: Service {
     /// sent, or failed cannot be updated.
     /// 
     ///
-    /// @param String messageId
-    /// @param [String] topics
-    /// @param [String] users
-    /// @param [String] targets
-    /// @param String title
-    /// @param String body
-    /// @param Any data
-    /// @param String action
-    /// @param String image
-    /// @param String icon
-    /// @param String sound
-    /// @param String color
-    /// @param String tag
-    /// @param Int badge
-    /// @param Bool draft
-    /// @param String scheduledAt
-    /// @param Bool contentAvailable
-    /// @param Bool critical
-    /// @param AppwriteEnums.MessagePriority priority
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - messageId: String
+    ///   - topics: [String] (optional)
+    ///   - users: [String] (optional)
+    ///   - targets: [String] (optional)
+    ///   - title: String (optional)
+    ///   - body: String (optional)
+    ///   - data: Any (optional)
+    ///   - action: String (optional)
+    ///   - image: String (optional)
+    ///   - icon: String (optional)
+    ///   - sound: String (optional)
+    ///   - color: String (optional)
+    ///   - tag: String (optional)
+    ///   - badge: Int (optional)
+    ///   - draft: Bool (optional)
+    ///   - scheduledAt: String (optional)
+    ///   - contentAvailable: Bool (optional)
+    ///   - critical: Bool (optional)
+    ///   - priority: AppwriteEnums.MessagePriority (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Message
     ///
     open func updatePush(
         messageId: String,
@@ -357,15 +362,16 @@ open class Messaging: Service {
     ///
     /// Create a new SMS message.
     ///
-    /// @param String messageId
-    /// @param String content
-    /// @param [String] topics
-    /// @param [String] users
-    /// @param [String] targets
-    /// @param Bool draft
-    /// @param String scheduledAt
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - messageId: String
+    ///   - content: String
+    ///   - topics: [String] (optional)
+    ///   - users: [String] (optional)
+    ///   - targets: [String] (optional)
+    ///   - draft: Bool (optional)
+    ///   - scheduledAt: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Message
     ///
     open func createSms(
         messageId: String,
@@ -411,15 +417,16 @@ open class Messaging: Service {
     /// sent, or failed cannot be updated.
     /// 
     ///
-    /// @param String messageId
-    /// @param [String] topics
-    /// @param [String] users
-    /// @param [String] targets
-    /// @param String content
-    /// @param Bool draft
-    /// @param String scheduledAt
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - messageId: String
+    ///   - topics: [String] (optional)
+    ///   - users: [String] (optional)
+    ///   - targets: [String] (optional)
+    ///   - content: String (optional)
+    ///   - draft: Bool (optional)
+    ///   - scheduledAt: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Message
     ///
     open func updateSms(
         messageId: String,
@@ -463,9 +470,10 @@ open class Messaging: Service {
     /// Get a message by its unique ID.
     /// 
     ///
-    /// @param String messageId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - messageId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Message
     ///
     open func getMessage(
         messageId: String
@@ -494,9 +502,10 @@ open class Messaging: Service {
     /// Delete a message. If the message is not a draft or scheduled, but has been
     /// sent, this will not recall the message.
     ///
-    /// @param String messageId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - messageId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func delete(
         messageId: String
@@ -520,10 +529,11 @@ open class Messaging: Service {
     ///
     /// Get the message activity logs listed by its unique ID.
     ///
-    /// @param String messageId
-    /// @param [String] queries
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - messageId: String
+    ///   - queries: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.LogList
     ///
     open func listMessageLogs(
         messageId: String,
@@ -554,10 +564,11 @@ open class Messaging: Service {
     ///
     /// Get a list of the targets associated with a message.
     ///
-    /// @param String messageId
-    /// @param [String] queries
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - messageId: String
+    ///   - queries: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.TargetList
     ///
     open func listTargets(
         messageId: String,
@@ -588,10 +599,11 @@ open class Messaging: Service {
     ///
     /// Get a list of all providers from the current Appwrite project.
     ///
-    /// @param [String] queries
-    /// @param String search
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - queries: [String] (optional)
+    ///   - search: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ProviderList
     ///
     open func listProviders(
         queries: [String]? = nil,
@@ -622,16 +634,17 @@ open class Messaging: Service {
     ///
     /// Create a new Apple Push Notification service provider.
     ///
-    /// @param String providerId
-    /// @param String name
-    /// @param String authKey
-    /// @param String authKeyId
-    /// @param String teamId
-    /// @param String bundleId
-    /// @param Bool sandbox
-    /// @param Bool enabled
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String
+    ///   - authKey: String (optional)
+    ///   - authKeyId: String (optional)
+    ///   - teamId: String (optional)
+    ///   - bundleId: String (optional)
+    ///   - sandbox: Bool (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
     ///
     open func createApnsProvider(
         providerId: String,
@@ -676,16 +689,17 @@ open class Messaging: Service {
     ///
     /// Update a Apple Push Notification service provider by its unique ID.
     ///
-    /// @param String providerId
-    /// @param String name
-    /// @param Bool enabled
-    /// @param String authKey
-    /// @param String authKeyId
-    /// @param String teamId
-    /// @param String bundleId
-    /// @param Bool sandbox
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String (optional)
+    ///   - enabled: Bool (optional)
+    ///   - authKey: String (optional)
+    ///   - authKeyId: String (optional)
+    ///   - teamId: String (optional)
+    ///   - bundleId: String (optional)
+    ///   - sandbox: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
     ///
     open func updateApnsProvider(
         providerId: String,
@@ -730,12 +744,13 @@ open class Messaging: Service {
     ///
     /// Create a new Firebase Cloud Messaging provider.
     ///
-    /// @param String providerId
-    /// @param String name
-    /// @param Any serviceAccountJSON
-    /// @param Bool enabled
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String
+    ///   - serviceAccountJSON: Any (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
     ///
     open func createFcmProvider(
         providerId: String,
@@ -772,12 +787,13 @@ open class Messaging: Service {
     ///
     /// Update a Firebase Cloud Messaging provider by its unique ID.
     ///
-    /// @param String providerId
-    /// @param String name
-    /// @param Bool enabled
-    /// @param Any serviceAccountJSON
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String (optional)
+    ///   - enabled: Bool (optional)
+    ///   - serviceAccountJSON: Any (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
     ///
     open func updateFcmProvider(
         providerId: String,
@@ -814,18 +830,19 @@ open class Messaging: Service {
     ///
     /// Create a new Mailgun provider.
     ///
-    /// @param String providerId
-    /// @param String name
-    /// @param String apiKey
-    /// @param String domain
-    /// @param Bool isEuRegion
-    /// @param String fromName
-    /// @param String fromEmail
-    /// @param String replyToName
-    /// @param String replyToEmail
-    /// @param Bool enabled
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String
+    ///   - apiKey: String (optional)
+    ///   - domain: String (optional)
+    ///   - isEuRegion: Bool (optional)
+    ///   - fromName: String (optional)
+    ///   - fromEmail: String (optional)
+    ///   - replyToName: String (optional)
+    ///   - replyToEmail: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
     ///
     open func createMailgunProvider(
         providerId: String,
@@ -874,18 +891,19 @@ open class Messaging: Service {
     ///
     /// Update a Mailgun provider by its unique ID.
     ///
-    /// @param String providerId
-    /// @param String name
-    /// @param String apiKey
-    /// @param String domain
-    /// @param Bool isEuRegion
-    /// @param Bool enabled
-    /// @param String fromName
-    /// @param String fromEmail
-    /// @param String replyToName
-    /// @param String replyToEmail
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String (optional)
+    ///   - apiKey: String (optional)
+    ///   - domain: String (optional)
+    ///   - isEuRegion: Bool (optional)
+    ///   - enabled: Bool (optional)
+    ///   - fromName: String (optional)
+    ///   - fromEmail: String (optional)
+    ///   - replyToName: String (optional)
+    ///   - replyToEmail: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
     ///
     open func updateMailgunProvider(
         providerId: String,
@@ -934,14 +952,15 @@ open class Messaging: Service {
     ///
     /// Create a new MSG91 provider.
     ///
-    /// @param String providerId
-    /// @param String name
-    /// @param String templateId
-    /// @param String senderId
-    /// @param String authKey
-    /// @param Bool enabled
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String
+    ///   - templateId: String (optional)
+    ///   - senderId: String (optional)
+    ///   - authKey: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
     ///
     open func createMsg91Provider(
         providerId: String,
@@ -982,14 +1001,15 @@ open class Messaging: Service {
     ///
     /// Update a MSG91 provider by its unique ID.
     ///
-    /// @param String providerId
-    /// @param String name
-    /// @param Bool enabled
-    /// @param String templateId
-    /// @param String senderId
-    /// @param String authKey
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String (optional)
+    ///   - enabled: Bool (optional)
+    ///   - templateId: String (optional)
+    ///   - senderId: String (optional)
+    ///   - authKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
     ///
     open func updateMsg91Provider(
         providerId: String,
@@ -1030,16 +1050,17 @@ open class Messaging: Service {
     ///
     /// Create a new Sendgrid provider.
     ///
-    /// @param String providerId
-    /// @param String name
-    /// @param String apiKey
-    /// @param String fromName
-    /// @param String fromEmail
-    /// @param String replyToName
-    /// @param String replyToEmail
-    /// @param Bool enabled
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String
+    ///   - apiKey: String (optional)
+    ///   - fromName: String (optional)
+    ///   - fromEmail: String (optional)
+    ///   - replyToName: String (optional)
+    ///   - replyToEmail: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
     ///
     open func createSendgridProvider(
         providerId: String,
@@ -1084,16 +1105,17 @@ open class Messaging: Service {
     ///
     /// Update a Sendgrid provider by its unique ID.
     ///
-    /// @param String providerId
-    /// @param String name
-    /// @param Bool enabled
-    /// @param String apiKey
-    /// @param String fromName
-    /// @param String fromEmail
-    /// @param String replyToName
-    /// @param String replyToEmail
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String (optional)
+    ///   - enabled: Bool (optional)
+    ///   - apiKey: String (optional)
+    ///   - fromName: String (optional)
+    ///   - fromEmail: String (optional)
+    ///   - replyToName: String (optional)
+    ///   - replyToEmail: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
     ///
     open func updateSendgridProvider(
         providerId: String,
@@ -1138,22 +1160,23 @@ open class Messaging: Service {
     ///
     /// Create a new SMTP provider.
     ///
-    /// @param String providerId
-    /// @param String name
-    /// @param String host
-    /// @param Int port
-    /// @param String username
-    /// @param String password
-    /// @param AppwriteEnums.SmtpEncryption encryption
-    /// @param Bool autoTLS
-    /// @param String mailer
-    /// @param String fromName
-    /// @param String fromEmail
-    /// @param String replyToName
-    /// @param String replyToEmail
-    /// @param Bool enabled
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String
+    ///   - host: String
+    ///   - port: Int (optional)
+    ///   - username: String (optional)
+    ///   - password: String (optional)
+    ///   - encryption: AppwriteEnums.SmtpEncryption (optional)
+    ///   - autoTLS: Bool (optional)
+    ///   - mailer: String (optional)
+    ///   - fromName: String (optional)
+    ///   - fromEmail: String (optional)
+    ///   - replyToName: String (optional)
+    ///   - replyToEmail: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
     ///
     open func createSmtpProvider(
         providerId: String,
@@ -1210,22 +1233,23 @@ open class Messaging: Service {
     ///
     /// Update a SMTP provider by its unique ID.
     ///
-    /// @param String providerId
-    /// @param String name
-    /// @param String host
-    /// @param Int port
-    /// @param String username
-    /// @param String password
-    /// @param AppwriteEnums.SmtpEncryption encryption
-    /// @param Bool autoTLS
-    /// @param String mailer
-    /// @param String fromName
-    /// @param String fromEmail
-    /// @param String replyToName
-    /// @param String replyToEmail
-    /// @param Bool enabled
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String (optional)
+    ///   - host: String (optional)
+    ///   - port: Int (optional)
+    ///   - username: String (optional)
+    ///   - password: String (optional)
+    ///   - encryption: AppwriteEnums.SmtpEncryption (optional)
+    ///   - autoTLS: Bool (optional)
+    ///   - mailer: String (optional)
+    ///   - fromName: String (optional)
+    ///   - fromEmail: String (optional)
+    ///   - replyToName: String (optional)
+    ///   - replyToEmail: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
     ///
     open func updateSmtpProvider(
         providerId: String,
@@ -1282,14 +1306,15 @@ open class Messaging: Service {
     ///
     /// Create a new Telesign provider.
     ///
-    /// @param String providerId
-    /// @param String name
-    /// @param String from
-    /// @param String customerId
-    /// @param String apiKey
-    /// @param Bool enabled
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String
+    ///   - from: String (optional)
+    ///   - customerId: String (optional)
+    ///   - apiKey: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
     ///
     open func createTelesignProvider(
         providerId: String,
@@ -1330,14 +1355,15 @@ open class Messaging: Service {
     ///
     /// Update a Telesign provider by its unique ID.
     ///
-    /// @param String providerId
-    /// @param String name
-    /// @param Bool enabled
-    /// @param String customerId
-    /// @param String apiKey
-    /// @param String from
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String (optional)
+    ///   - enabled: Bool (optional)
+    ///   - customerId: String (optional)
+    ///   - apiKey: String (optional)
+    ///   - from: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
     ///
     open func updateTelesignProvider(
         providerId: String,
@@ -1378,14 +1404,15 @@ open class Messaging: Service {
     ///
     /// Create a new Textmagic provider.
     ///
-    /// @param String providerId
-    /// @param String name
-    /// @param String from
-    /// @param String username
-    /// @param String apiKey
-    /// @param Bool enabled
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String
+    ///   - from: String (optional)
+    ///   - username: String (optional)
+    ///   - apiKey: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
     ///
     open func createTextmagicProvider(
         providerId: String,
@@ -1426,14 +1453,15 @@ open class Messaging: Service {
     ///
     /// Update a Textmagic provider by its unique ID.
     ///
-    /// @param String providerId
-    /// @param String name
-    /// @param Bool enabled
-    /// @param String username
-    /// @param String apiKey
-    /// @param String from
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String (optional)
+    ///   - enabled: Bool (optional)
+    ///   - username: String (optional)
+    ///   - apiKey: String (optional)
+    ///   - from: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
     ///
     open func updateTextmagicProvider(
         providerId: String,
@@ -1474,14 +1502,15 @@ open class Messaging: Service {
     ///
     /// Create a new Twilio provider.
     ///
-    /// @param String providerId
-    /// @param String name
-    /// @param String from
-    /// @param String accountSid
-    /// @param String authToken
-    /// @param Bool enabled
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String
+    ///   - from: String (optional)
+    ///   - accountSid: String (optional)
+    ///   - authToken: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
     ///
     open func createTwilioProvider(
         providerId: String,
@@ -1522,14 +1551,15 @@ open class Messaging: Service {
     ///
     /// Update a Twilio provider by its unique ID.
     ///
-    /// @param String providerId
-    /// @param String name
-    /// @param Bool enabled
-    /// @param String accountSid
-    /// @param String authToken
-    /// @param String from
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String (optional)
+    ///   - enabled: Bool (optional)
+    ///   - accountSid: String (optional)
+    ///   - authToken: String (optional)
+    ///   - from: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
     ///
     open func updateTwilioProvider(
         providerId: String,
@@ -1570,14 +1600,15 @@ open class Messaging: Service {
     ///
     /// Create a new Vonage provider.
     ///
-    /// @param String providerId
-    /// @param String name
-    /// @param String from
-    /// @param String apiKey
-    /// @param String apiSecret
-    /// @param Bool enabled
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String
+    ///   - from: String (optional)
+    ///   - apiKey: String (optional)
+    ///   - apiSecret: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
     ///
     open func createVonageProvider(
         providerId: String,
@@ -1618,14 +1649,15 @@ open class Messaging: Service {
     ///
     /// Update a Vonage provider by its unique ID.
     ///
-    /// @param String providerId
-    /// @param String name
-    /// @param Bool enabled
-    /// @param String apiKey
-    /// @param String apiSecret
-    /// @param String from
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String (optional)
+    ///   - enabled: Bool (optional)
+    ///   - apiKey: String (optional)
+    ///   - apiSecret: String (optional)
+    ///   - from: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
     ///
     open func updateVonageProvider(
         providerId: String,
@@ -1667,9 +1699,10 @@ open class Messaging: Service {
     /// Get a provider by its unique ID.
     /// 
     ///
-    /// @param String providerId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
     ///
     open func getProvider(
         providerId: String
@@ -1697,9 +1730,10 @@ open class Messaging: Service {
     ///
     /// Delete a provider by its unique ID.
     ///
-    /// @param String providerId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func deleteProvider(
         providerId: String
@@ -1723,10 +1757,11 @@ open class Messaging: Service {
     ///
     /// Get the provider activity logs listed by its unique ID.
     ///
-    /// @param String providerId
-    /// @param [String] queries
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - queries: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.LogList
     ///
     open func listProviderLogs(
         providerId: String,
@@ -1757,10 +1792,11 @@ open class Messaging: Service {
     ///
     /// Get the subscriber activity logs listed by its unique ID.
     ///
-    /// @param String subscriberId
-    /// @param [String] queries
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - subscriberId: String
+    ///   - queries: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.LogList
     ///
     open func listSubscriberLogs(
         subscriberId: String,
@@ -1791,10 +1827,11 @@ open class Messaging: Service {
     ///
     /// Get a list of all topics from the current Appwrite project.
     ///
-    /// @param [String] queries
-    /// @param String search
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - queries: [String] (optional)
+    ///   - search: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.TopicList
     ///
     open func listTopics(
         queries: [String]? = nil,
@@ -1825,11 +1862,12 @@ open class Messaging: Service {
     ///
     /// Create a new topic.
     ///
-    /// @param String topicId
-    /// @param String name
-    /// @param [String] subscribe
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - topicId: String
+    ///   - name: String
+    ///   - subscribe: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Topic
     ///
     open func createTopic(
         topicId: String,
@@ -1865,9 +1903,10 @@ open class Messaging: Service {
     /// Get a topic by its unique ID.
     /// 
     ///
-    /// @param String topicId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - topicId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Topic
     ///
     open func getTopic(
         topicId: String
@@ -1896,11 +1935,12 @@ open class Messaging: Service {
     /// Update a topic by its unique ID.
     /// 
     ///
-    /// @param String topicId
-    /// @param String name
-    /// @param [String] subscribe
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - topicId: String
+    ///   - name: String (optional)
+    ///   - subscribe: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Topic
     ///
     open func updateTopic(
         topicId: String,
@@ -1935,9 +1975,10 @@ open class Messaging: Service {
     ///
     /// Delete a topic by its unique ID.
     ///
-    /// @param String topicId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - topicId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func deleteTopic(
         topicId: String
@@ -1961,10 +2002,11 @@ open class Messaging: Service {
     ///
     /// Get the topic activity logs listed by its unique ID.
     ///
-    /// @param String topicId
-    /// @param [String] queries
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - topicId: String
+    ///   - queries: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.LogList
     ///
     open func listTopicLogs(
         topicId: String,
@@ -1995,11 +2037,12 @@ open class Messaging: Service {
     ///
     /// Get a list of all subscribers from the current Appwrite project.
     ///
-    /// @param String topicId
-    /// @param [String] queries
-    /// @param String search
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - topicId: String
+    ///   - queries: [String] (optional)
+    ///   - search: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.SubscriberList
     ///
     open func listSubscribers(
         topicId: String,
@@ -2032,11 +2075,12 @@ open class Messaging: Service {
     ///
     /// Create a new subscriber.
     ///
-    /// @param String topicId
-    /// @param String subscriberId
-    /// @param String targetId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - topicId: String
+    ///   - subscriberId: String
+    ///   - targetId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Subscriber
     ///
     open func createSubscriber(
         topicId: String,
@@ -2072,10 +2116,11 @@ open class Messaging: Service {
     /// Get a subscriber by its unique ID.
     /// 
     ///
-    /// @param String topicId
-    /// @param String subscriberId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - topicId: String
+    ///   - subscriberId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Subscriber
     ///
     open func getSubscriber(
         topicId: String,
@@ -2105,10 +2150,11 @@ open class Messaging: Service {
     ///
     /// Delete a subscriber by its unique ID.
     ///
-    /// @param String topicId
-    /// @param String subscriberId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - topicId: String
+    ///   - subscriberId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func deleteSubscriber(
         topicId: String,

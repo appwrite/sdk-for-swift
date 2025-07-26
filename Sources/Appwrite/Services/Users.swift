@@ -12,10 +12,11 @@ open class Users: Service {
     /// Get a list of all the project's users. You can use the query params to
     /// filter your results.
     ///
-    /// @param [String] queries
-    /// @param String search
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - queries: [String] (optional)
+    ///   - search: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.UserList<T>
     ///
     open func list<T>(
         queries: [String]? = nil,
@@ -48,10 +49,11 @@ open class Users: Service {
     /// Get a list of all the project's users. You can use the query params to
     /// filter your results.
     ///
-    /// @param [String] queries
-    /// @param String search
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - queries: [String] (optional)
+    ///   - search: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.UserList<T>
     ///
     open func list(
         queries: [String]? = nil,
@@ -67,13 +69,14 @@ open class Users: Service {
     ///
     /// Create a new user.
     ///
-    /// @param String userId
-    /// @param String email
-    /// @param String phone
-    /// @param String password
-    /// @param String name
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - email: String (optional)
+    ///   - phone: String (optional)
+    ///   - password: String (optional)
+    ///   - name: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func create<T>(
         userId: String,
@@ -113,13 +116,14 @@ open class Users: Service {
     ///
     /// Create a new user.
     ///
-    /// @param String userId
-    /// @param String email
-    /// @param String phone
-    /// @param String password
-    /// @param String name
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - email: String (optional)
+    ///   - phone: String (optional)
+    ///   - password: String (optional)
+    ///   - name: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func create(
         userId: String,
@@ -144,12 +148,13 @@ open class Users: Service {
     /// /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
     /// create users with a plain text password.
     ///
-    /// @param String userId
-    /// @param String email
-    /// @param String password
-    /// @param String name
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - email: String
+    ///   - password: String
+    ///   - name: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func createArgon2User<T>(
         userId: String,
@@ -190,12 +195,13 @@ open class Users: Service {
     /// /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
     /// create users with a plain text password.
     ///
-    /// @param String userId
-    /// @param String email
-    /// @param String password
-    /// @param String name
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - email: String
+    ///   - password: String
+    ///   - name: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func createArgon2User(
         userId: String,
@@ -218,12 +224,13 @@ open class Users: Service {
     /// /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
     /// create users with a plain text password.
     ///
-    /// @param String userId
-    /// @param String email
-    /// @param String password
-    /// @param String name
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - email: String
+    ///   - password: String
+    ///   - name: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func createBcryptUser<T>(
         userId: String,
@@ -264,12 +271,13 @@ open class Users: Service {
     /// /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
     /// create users with a plain text password.
     ///
-    /// @param String userId
-    /// @param String email
-    /// @param String password
-    /// @param String name
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - email: String
+    ///   - password: String
+    ///   - name: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func createBcryptUser(
         userId: String,
@@ -289,10 +297,11 @@ open class Users: Service {
     ///
     /// Get identities for all users.
     ///
-    /// @param [String] queries
-    /// @param String search
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - queries: [String] (optional)
+    ///   - search: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.IdentityList
     ///
     open func listIdentities(
         queries: [String]? = nil,
@@ -323,9 +332,10 @@ open class Users: Service {
     ///
     /// Delete an identity by its unique ID.
     ///
-    /// @param String identityId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - identityId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func deleteIdentity(
         identityId: String
@@ -352,12 +362,13 @@ open class Users: Service {
     /// /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
     /// create users with a plain text password.
     ///
-    /// @param String userId
-    /// @param String email
-    /// @param String password
-    /// @param String name
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - email: String
+    ///   - password: String
+    ///   - name: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func createMD5User<T>(
         userId: String,
@@ -398,12 +409,13 @@ open class Users: Service {
     /// /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
     /// create users with a plain text password.
     ///
-    /// @param String userId
-    /// @param String email
-    /// @param String password
-    /// @param String name
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - email: String
+    ///   - password: String
+    ///   - name: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func createMD5User(
         userId: String,
@@ -426,12 +438,13 @@ open class Users: Service {
     /// /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
     /// create users with a plain text password.
     ///
-    /// @param String userId
-    /// @param String email
-    /// @param String password
-    /// @param String name
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - email: String
+    ///   - password: String
+    ///   - name: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func createPHPassUser<T>(
         userId: String,
@@ -472,12 +485,13 @@ open class Users: Service {
     /// /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
     /// create users with a plain text password.
     ///
-    /// @param String userId
-    /// @param String email
-    /// @param String password
-    /// @param String name
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - email: String
+    ///   - password: String
+    ///   - name: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func createPHPassUser(
         userId: String,
@@ -500,17 +514,18 @@ open class Users: Service {
     /// /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
     /// create users with a plain text password.
     ///
-    /// @param String userId
-    /// @param String email
-    /// @param String password
-    /// @param String passwordSalt
-    /// @param Int passwordCpu
-    /// @param Int passwordMemory
-    /// @param Int passwordParallel
-    /// @param Int passwordLength
-    /// @param String name
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - email: String
+    ///   - password: String
+    ///   - passwordSalt: String
+    ///   - passwordCpu: Int
+    ///   - passwordMemory: Int
+    ///   - passwordParallel: Int
+    ///   - passwordLength: Int
+    ///   - name: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func createScryptUser<T>(
         userId: String,
@@ -561,17 +576,18 @@ open class Users: Service {
     /// /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
     /// create users with a plain text password.
     ///
-    /// @param String userId
-    /// @param String email
-    /// @param String password
-    /// @param String passwordSalt
-    /// @param Int passwordCpu
-    /// @param Int passwordMemory
-    /// @param Int passwordParallel
-    /// @param Int passwordLength
-    /// @param String name
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - email: String
+    ///   - password: String
+    ///   - passwordSalt: String
+    ///   - passwordCpu: Int
+    ///   - passwordMemory: Int
+    ///   - passwordParallel: Int
+    ///   - passwordLength: Int
+    ///   - name: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func createScryptUser(
         userId: String,
@@ -605,15 +621,16 @@ open class Users: Service {
     /// /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
     /// create users with a plain text password.
     ///
-    /// @param String userId
-    /// @param String email
-    /// @param String password
-    /// @param String passwordSalt
-    /// @param String passwordSaltSeparator
-    /// @param String passwordSignerKey
-    /// @param String name
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - email: String
+    ///   - password: String
+    ///   - passwordSalt: String
+    ///   - passwordSaltSeparator: String
+    ///   - passwordSignerKey: String
+    ///   - name: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func createScryptModifiedUser<T>(
         userId: String,
@@ -661,15 +678,16 @@ open class Users: Service {
     /// /users](https://appwrite.io/docs/server/users#usersCreate) endpoint to
     /// create users with a plain text password.
     ///
-    /// @param String userId
-    /// @param String email
-    /// @param String password
-    /// @param String passwordSalt
-    /// @param String passwordSaltSeparator
-    /// @param String passwordSignerKey
-    /// @param String name
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - email: String
+    ///   - password: String
+    ///   - passwordSalt: String
+    ///   - passwordSaltSeparator: String
+    ///   - passwordSignerKey: String
+    ///   - name: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func createScryptModifiedUser(
         userId: String,
@@ -698,13 +716,14 @@ open class Users: Service {
     /// the [POST /users](https://appwrite.io/docs/server/users#usersCreate)
     /// endpoint to create users with a plain text password.
     ///
-    /// @param String userId
-    /// @param String email
-    /// @param String password
-    /// @param AppwriteEnums.PasswordHash passwordVersion
-    /// @param String name
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - email: String
+    ///   - password: String
+    ///   - passwordVersion: AppwriteEnums.PasswordHash (optional)
+    ///   - name: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func createSHAUser<T>(
         userId: String,
@@ -747,13 +766,14 @@ open class Users: Service {
     /// the [POST /users](https://appwrite.io/docs/server/users#usersCreate)
     /// endpoint to create users with a plain text password.
     ///
-    /// @param String userId
-    /// @param String email
-    /// @param String password
-    /// @param AppwriteEnums.PasswordHash passwordVersion
-    /// @param String name
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - email: String
+    ///   - password: String
+    ///   - passwordVersion: AppwriteEnums.PasswordHash (optional)
+    ///   - name: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func createSHAUser(
         userId: String,
@@ -775,9 +795,10 @@ open class Users: Service {
     ///
     /// Get a user by its unique ID.
     ///
-    /// @param String userId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func get<T>(
         userId: String,
@@ -806,9 +827,10 @@ open class Users: Service {
     ///
     /// Get a user by its unique ID.
     ///
-    /// @param String userId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func get(
         userId: String
@@ -827,9 +849,10 @@ open class Users: Service {
     /// [updateStatus](https://appwrite.io/docs/server/users#usersUpdateStatus)
     /// endpoint instead.
     ///
-    /// @param String userId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func delete(
         userId: String
@@ -853,10 +876,11 @@ open class Users: Service {
     ///
     /// Update the user email by its unique ID.
     ///
-    /// @param String userId
-    /// @param String email
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - email: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func updateEmail<T>(
         userId: String,
@@ -890,10 +914,11 @@ open class Users: Service {
     ///
     /// Update the user email by its unique ID.
     ///
-    /// @param String userId
-    /// @param String email
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - email: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func updateEmail(
         userId: String,
@@ -911,11 +936,12 @@ open class Users: Service {
     /// can use the resulting JWT to authenticate on behalf of the user. The JWT
     /// secret will become invalid if the session it uses gets deleted.
     ///
-    /// @param String userId
-    /// @param String sessionId
-    /// @param Int duration
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - sessionId: String (optional)
+    ///   - duration: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Jwt
     ///
     open func createJWT(
         userId: String,
@@ -955,10 +981,11 @@ open class Users: Service {
     /// developer to grant access without an invitation. See the [Permissions
     /// docs](https://appwrite.io/docs/permissions) for more info.
     ///
-    /// @param String userId
-    /// @param [String] labels
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - labels: [String]
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func updateLabels<T>(
         userId: String,
@@ -997,10 +1024,11 @@ open class Users: Service {
     /// developer to grant access without an invitation. See the [Permissions
     /// docs](https://appwrite.io/docs/permissions) for more info.
     ///
-    /// @param String userId
-    /// @param [String] labels
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - labels: [String]
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func updateLabels(
         userId: String,
@@ -1016,10 +1044,11 @@ open class Users: Service {
     ///
     /// Get the user activity logs list by its unique ID.
     ///
-    /// @param String userId
-    /// @param [String] queries
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - queries: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.LogList
     ///
     open func listLogs(
         userId: String,
@@ -1050,11 +1079,12 @@ open class Users: Service {
     ///
     /// Get the user membership list by its unique ID.
     ///
-    /// @param String userId
-    /// @param [String] queries
-    /// @param String search
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - queries: [String] (optional)
+    ///   - search: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.MembershipList
     ///
     open func listMemberships(
         userId: String,
@@ -1087,10 +1117,11 @@ open class Users: Service {
     ///
     /// Enable or disable MFA on a user account.
     ///
-    /// @param String userId
-    /// @param Bool mfa
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - mfa: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func updateMfa<T>(
         userId: String,
@@ -1124,10 +1155,11 @@ open class Users: Service {
     ///
     /// Enable or disable MFA on a user account.
     ///
-    /// @param String userId
-    /// @param Bool mfa
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - mfa: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func updateMfa(
         userId: String,
@@ -1143,10 +1175,11 @@ open class Users: Service {
     ///
     /// Delete an authenticator app.
     ///
-    /// @param String userId
-    /// @param AppwriteEnums.AuthenticatorType type
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - type: AppwriteEnums.AuthenticatorType
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func deleteMfaAuthenticator(
         userId: String,
@@ -1172,9 +1205,10 @@ open class Users: Service {
     ///
     /// List the factors available on the account to be used as a MFA challange.
     ///
-    /// @param String userId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.MfaFactors
     ///
     open func listMfaFactors(
         userId: String
@@ -1205,9 +1239,10 @@ open class Users: Service {
     /// [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes)
     /// method.
     ///
-    /// @param String userId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.MfaRecoveryCodes
     ///
     open func getMfaRecoveryCodes(
         userId: String
@@ -1238,9 +1273,10 @@ open class Users: Service {
     /// [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes)
     /// method.
     ///
-    /// @param String userId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.MfaRecoveryCodes
     ///
     open func updateMfaRecoveryCodes(
         userId: String
@@ -1273,9 +1309,10 @@ open class Users: Service {
     /// [createMfaChallenge](/docs/references/cloud/client-web/account#createMfaChallenge)
     /// method by client SDK.
     ///
-    /// @param String userId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.MfaRecoveryCodes
     ///
     open func createMfaRecoveryCodes(
         userId: String
@@ -1305,10 +1342,11 @@ open class Users: Service {
     ///
     /// Update the user name by its unique ID.
     ///
-    /// @param String userId
-    /// @param String name
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - name: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func updateName<T>(
         userId: String,
@@ -1342,10 +1380,11 @@ open class Users: Service {
     ///
     /// Update the user name by its unique ID.
     ///
-    /// @param String userId
-    /// @param String name
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - name: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func updateName(
         userId: String,
@@ -1361,10 +1400,11 @@ open class Users: Service {
     ///
     /// Update the user password by its unique ID.
     ///
-    /// @param String userId
-    /// @param String password
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - password: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func updatePassword<T>(
         userId: String,
@@ -1398,10 +1438,11 @@ open class Users: Service {
     ///
     /// Update the user password by its unique ID.
     ///
-    /// @param String userId
-    /// @param String password
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - password: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func updatePassword(
         userId: String,
@@ -1417,10 +1458,11 @@ open class Users: Service {
     ///
     /// Update the user phone by its unique ID.
     ///
-    /// @param String userId
-    /// @param String number
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - number: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func updatePhone<T>(
         userId: String,
@@ -1454,10 +1496,11 @@ open class Users: Service {
     ///
     /// Update the user phone by its unique ID.
     ///
-    /// @param String userId
-    /// @param String number
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - number: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func updatePhone(
         userId: String,
@@ -1473,9 +1516,10 @@ open class Users: Service {
     ///
     /// Get the user preferences by its unique ID.
     ///
-    /// @param String userId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Preferences<T>
     ///
     open func getPrefs<T>(
         userId: String,
@@ -1504,9 +1548,10 @@ open class Users: Service {
     ///
     /// Get the user preferences by its unique ID.
     ///
-    /// @param String userId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Preferences<T>
     ///
     open func getPrefs(
         userId: String
@@ -1522,10 +1567,11 @@ open class Users: Service {
     /// as is, and replaces any previous value. The maximum allowed prefs size is
     /// 64kB and throws error if exceeded.
     ///
-    /// @param String userId
-    /// @param Any prefs
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - prefs: Any
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Preferences<T>
     ///
     open func updatePrefs<T>(
         userId: String,
@@ -1561,10 +1607,11 @@ open class Users: Service {
     /// as is, and replaces any previous value. The maximum allowed prefs size is
     /// 64kB and throws error if exceeded.
     ///
-    /// @param String userId
-    /// @param Any prefs
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - prefs: Any
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Preferences<T>
     ///
     open func updatePrefs(
         userId: String,
@@ -1580,9 +1627,10 @@ open class Users: Service {
     ///
     /// Get the user sessions list by its unique ID.
     ///
-    /// @param String userId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.SessionList
     ///
     open func listSessions(
         userId: String
@@ -1615,9 +1663,10 @@ open class Users: Service {
     /// /users/{userId}/tokens](https://appwrite.io/docs/server/users#createToken)
     /// endpoint.
     ///
-    /// @param String userId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Session
     ///
     open func createSession(
         userId: String
@@ -1647,9 +1696,10 @@ open class Users: Service {
     ///
     /// Delete all user's sessions by using the user's unique ID.
     ///
-    /// @param String userId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func deleteSessions(
         userId: String
@@ -1673,10 +1723,11 @@ open class Users: Service {
     ///
     /// Delete a user sessions by its unique ID.
     ///
-    /// @param String userId
-    /// @param String sessionId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - sessionId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func deleteSession(
         userId: String,
@@ -1703,10 +1754,11 @@ open class Users: Service {
     /// Update the user status by its unique ID. Use this endpoint as an
     /// alternative to deleting a user if you want to keep user's ID reserved.
     ///
-    /// @param String userId
-    /// @param Bool status
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - status: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func updateStatus<T>(
         userId: String,
@@ -1741,10 +1793,11 @@ open class Users: Service {
     /// Update the user status by its unique ID. Use this endpoint as an
     /// alternative to deleting a user if you want to keep user's ID reserved.
     ///
-    /// @param String userId
-    /// @param Bool status
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - status: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func updateStatus(
         userId: String,
@@ -1760,10 +1813,11 @@ open class Users: Service {
     ///
     /// List the messaging targets that are associated with a user.
     ///
-    /// @param String userId
-    /// @param [String] queries
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - queries: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.TargetList
     ///
     open func listTargets(
         userId: String,
@@ -1794,14 +1848,15 @@ open class Users: Service {
     ///
     /// Create a messaging target.
     ///
-    /// @param String userId
-    /// @param String targetId
-    /// @param AppwriteEnums.MessagingProviderType providerType
-    /// @param String identifier
-    /// @param String providerId
-    /// @param String name
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - targetId: String
+    ///   - providerType: AppwriteEnums.MessagingProviderType
+    ///   - identifier: String
+    ///   - providerId: String (optional)
+    ///   - name: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Target
     ///
     open func createTarget(
         userId: String,
@@ -1842,10 +1897,11 @@ open class Users: Service {
     ///
     /// Get a user's push notification target by ID.
     ///
-    /// @param String userId
-    /// @param String targetId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - targetId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Target
     ///
     open func getTarget(
         userId: String,
@@ -1875,13 +1931,14 @@ open class Users: Service {
     ///
     /// Update a messaging target.
     ///
-    /// @param String userId
-    /// @param String targetId
-    /// @param String identifier
-    /// @param String providerId
-    /// @param String name
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - targetId: String
+    ///   - identifier: String (optional)
+    ///   - providerId: String (optional)
+    ///   - name: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Target
     ///
     open func updateTarget(
         userId: String,
@@ -1920,10 +1977,11 @@ open class Users: Service {
     ///
     /// Delete a messaging target.
     ///
-    /// @param String userId
-    /// @param String targetId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - targetId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func deleteTarget(
         userId: String,
@@ -1953,11 +2011,12 @@ open class Users: Service {
     /// endpoint to complete the login process.
     /// 
     ///
-    /// @param String userId
-    /// @param Int length
-    /// @param Int expire
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - length: Int (optional)
+    ///   - expire: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Token
     ///
     open func createToken(
         userId: String,
@@ -1992,10 +2051,11 @@ open class Users: Service {
     ///
     /// Update the user email verification status by its unique ID.
     ///
-    /// @param String userId
-    /// @param Bool emailVerification
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - emailVerification: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func updateEmailVerification<T>(
         userId: String,
@@ -2029,10 +2089,11 @@ open class Users: Service {
     ///
     /// Update the user email verification status by its unique ID.
     ///
-    /// @param String userId
-    /// @param Bool emailVerification
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - emailVerification: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func updateEmailVerification(
         userId: String,
@@ -2048,10 +2109,11 @@ open class Users: Service {
     ///
     /// Update the user phone verification status by its unique ID.
     ///
-    /// @param String userId
-    /// @param Bool phoneVerification
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - phoneVerification: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func updatePhoneVerification<T>(
         userId: String,
@@ -2085,10 +2147,11 @@ open class Users: Service {
     ///
     /// Update the user phone verification status by its unique ID.
     ///
-    /// @param String userId
-    /// @param Bool phoneVerification
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - userId: String
+    ///   - phoneVerification: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
     ///
     open func updatePhoneVerification(
         userId: String,

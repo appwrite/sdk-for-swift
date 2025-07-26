@@ -12,11 +12,12 @@ open class Tokens: Service {
     /// List all the tokens created for a specific file or bucket. You can use the
     /// query params to filter your results.
     ///
-    /// @param String bucketId
-    /// @param String fileId
-    /// @param [String] queries
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - bucketId: String
+    ///   - fileId: String
+    ///   - queries: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ResourceTokenList
     ///
     open func list(
         bucketId: String,
@@ -50,11 +51,12 @@ open class Tokens: Service {
     /// Create a new token. A token is linked to a file. Token can be passed as a
     /// request URL search parameter.
     ///
-    /// @param String bucketId
-    /// @param String fileId
-    /// @param String expire
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - bucketId: String
+    ///   - fileId: String
+    ///   - expire: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ResourceToken
     ///
     open func createFileToken(
         bucketId: String,
@@ -89,9 +91,10 @@ open class Tokens: Service {
     ///
     /// Get a token by its unique ID.
     ///
-    /// @param String tokenId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - tokenId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ResourceToken
     ///
     open func get(
         tokenId: String
@@ -120,10 +123,11 @@ open class Tokens: Service {
     /// Update a token by its unique ID. Use this endpoint to update a token's
     /// expiry date.
     ///
-    /// @param String tokenId
-    /// @param String expire
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - tokenId: String
+    ///   - expire: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ResourceToken
     ///
     open func update(
         tokenId: String,
@@ -156,9 +160,10 @@ open class Tokens: Service {
     ///
     /// Delete a token by its unique ID.
     ///
-    /// @param String tokenId
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - tokenId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
     ///
     open func delete(
         tokenId: String

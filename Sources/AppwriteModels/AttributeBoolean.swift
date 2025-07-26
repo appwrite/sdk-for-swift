@@ -114,11 +114,11 @@ open class AttributeBoolean: Codable {
             type: map["type"] as! String,
             status: map["status"] as! String,
             error: map["error"] as! String,
-            `required`: map["required"] as! Bool,
+            required: map["required"] as! Bool,
             array: map["array"] as? Bool,
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
-            `default`: map["default"] as? Bool
+            default: map["default"] as? Bool
         )
     }
 }

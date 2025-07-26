@@ -11,8 +11,8 @@ open class Health: Service {
     ///
     /// Check the Appwrite HTTP server is up and responsive.
     ///
-    /// @throws Exception
-    /// @return array
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthStatus
     ///
     open func get(
     ) async throws -> AppwriteModels.HealthStatus {
@@ -38,8 +38,8 @@ open class Health: Service {
     ///
     /// Check the Appwrite Antivirus server is up and connection is successful.
     ///
-    /// @throws Exception
-    /// @return array
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthAntivirus
     ///
     open func getAntivirus(
     ) async throws -> AppwriteModels.HealthAntivirus {
@@ -66,8 +66,8 @@ open class Health: Service {
     /// Check the Appwrite in-memory cache servers are up and connection is
     /// successful.
     ///
-    /// @throws Exception
-    /// @return array
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthStatus
     ///
     open func getCache(
     ) async throws -> AppwriteModels.HealthStatus {
@@ -93,9 +93,10 @@ open class Health: Service {
     ///
     /// Get the SSL certificate for a domain
     ///
-    /// @param String domain
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - domain: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthCertificate
     ///
     open func getCertificate(
         domain: String? = nil
@@ -124,8 +125,8 @@ open class Health: Service {
     ///
     /// Check the Appwrite database servers are up and connection is successful.
     ///
-    /// @throws Exception
-    /// @return array
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthStatus
     ///
     open func getDB(
     ) async throws -> AppwriteModels.HealthStatus {
@@ -151,8 +152,8 @@ open class Health: Service {
     ///
     /// Check the Appwrite pub-sub servers are up and connection is successful.
     ///
-    /// @throws Exception
-    /// @return array
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthStatus
     ///
     open func getPubSub(
     ) async throws -> AppwriteModels.HealthStatus {
@@ -179,9 +180,10 @@ open class Health: Service {
     /// Get the number of builds that are waiting to be processed in the Appwrite
     /// internal queue server.
     ///
-    /// @param Int threshold
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - threshold: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthQueue
     ///
     open func getQueueBuilds(
         threshold: Int? = nil
@@ -212,9 +214,10 @@ open class Health: Service {
     /// [Letsencrypt](https://letsencrypt.org/) in the Appwrite internal queue
     /// server.
     ///
-    /// @param Int threshold
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - threshold: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthQueue
     ///
     open func getQueueCertificates(
         threshold: Int? = nil
@@ -244,10 +247,11 @@ open class Health: Service {
     /// Get the number of database changes that are waiting to be processed in the
     /// Appwrite internal queue server.
     ///
-    /// @param String name
-    /// @param Int threshold
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - name: String (optional)
+    ///   - threshold: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthQueue
     ///
     open func getQueueDatabases(
         name: String? = nil,
@@ -279,9 +283,10 @@ open class Health: Service {
     /// Get the number of background destructive changes that are waiting to be
     /// processed in the Appwrite internal queue server.
     ///
-    /// @param Int threshold
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - threshold: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthQueue
     ///
     open func getQueueDeletes(
         threshold: Int? = nil
@@ -311,10 +316,11 @@ open class Health: Service {
     /// Returns the amount of failed jobs in a given queue.
     /// 
     ///
-    /// @param AppwriteEnums.Name name
-    /// @param Int threshold
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - name: AppwriteEnums.Name
+    ///   - threshold: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthQueue
     ///
     open func getFailedJobs(
         name: AppwriteEnums.Name,
@@ -346,9 +352,10 @@ open class Health: Service {
     /// Get the number of function executions that are waiting to be processed in
     /// the Appwrite internal queue server.
     ///
-    /// @param Int threshold
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - threshold: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthQueue
     ///
     open func getQueueFunctions(
         threshold: Int? = nil
@@ -378,9 +385,10 @@ open class Health: Service {
     /// Get the number of logs that are waiting to be processed in the Appwrite
     /// internal queue server.
     ///
-    /// @param Int threshold
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - threshold: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthQueue
     ///
     open func getQueueLogs(
         threshold: Int? = nil
@@ -410,9 +418,10 @@ open class Health: Service {
     /// Get the number of mails that are waiting to be processed in the Appwrite
     /// internal queue server.
     ///
-    /// @param Int threshold
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - threshold: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthQueue
     ///
     open func getQueueMails(
         threshold: Int? = nil
@@ -442,9 +451,10 @@ open class Health: Service {
     /// Get the number of messages that are waiting to be processed in the Appwrite
     /// internal queue server.
     ///
-    /// @param Int threshold
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - threshold: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthQueue
     ///
     open func getQueueMessaging(
         threshold: Int? = nil
@@ -474,9 +484,10 @@ open class Health: Service {
     /// Get the number of migrations that are waiting to be processed in the
     /// Appwrite internal queue server.
     ///
-    /// @param Int threshold
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - threshold: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthQueue
     ///
     open func getQueueMigrations(
         threshold: Int? = nil
@@ -506,9 +517,10 @@ open class Health: Service {
     /// Get the number of metrics that are waiting to be processed in the Appwrite
     /// stats resources queue.
     ///
-    /// @param Int threshold
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - threshold: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthQueue
     ///
     open func getQueueStatsResources(
         threshold: Int? = nil
@@ -538,9 +550,10 @@ open class Health: Service {
     /// Get the number of metrics that are waiting to be processed in the Appwrite
     /// internal queue server.
     ///
-    /// @param Int threshold
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - threshold: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthQueue
     ///
     open func getQueueUsage(
         threshold: Int? = nil
@@ -570,9 +583,10 @@ open class Health: Service {
     /// Get the number of webhooks that are waiting to be processed in the Appwrite
     /// internal queue server.
     ///
-    /// @param Int threshold
-    /// @throws Exception
-    /// @return array
+    /// - Parameters:
+    ///   - threshold: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthQueue
     ///
     open func getQueueWebhooks(
         threshold: Int? = nil
@@ -601,8 +615,8 @@ open class Health: Service {
     ///
     /// Check the Appwrite storage device is up and connection is successful.
     ///
-    /// @throws Exception
-    /// @return array
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthStatus
     ///
     open func getStorage(
     ) async throws -> AppwriteModels.HealthStatus {
@@ -628,8 +642,8 @@ open class Health: Service {
     ///
     /// Check the Appwrite local storage device is up and connection is successful.
     ///
-    /// @throws Exception
-    /// @return array
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthStatus
     ///
     open func getStorageLocal(
     ) async throws -> AppwriteModels.HealthStatus {
@@ -661,8 +675,8 @@ open class Health: Service {
     /// clocks over the Internet. If your computer sets its own clock, it likely
     /// uses NTP.
     ///
-    /// @throws Exception
-    /// @return array
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthTime
     ///
     open func getTime(
     ) async throws -> AppwriteModels.HealthTime {
