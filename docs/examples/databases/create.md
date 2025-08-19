@@ -1,4 +1,5 @@
 import Appwrite
+import AppwriteEnums
 
 let client = Client()
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
@@ -10,6 +11,7 @@ let databases = Databases(client)
 let database = try await databases.create(
     databaseId: "<DATABASE_ID>",
     name: "<NAME>",
-    enabled: false // optional
+    enabled: false, // optional
+    type: .tablesdb // optional
 )
 

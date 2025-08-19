@@ -9,7 +9,7 @@ open class ResourceTokenList: Codable {
         case tokens = "tokens"
     }
 
-    /// Total number of tokens documents that matched your query.
+    /// Total number of tokens rows that matched your query.
     public let total: Int
 
     /// List of tokens.
