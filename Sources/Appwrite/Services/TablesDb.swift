@@ -52,23 +52,20 @@ open class TablesDb: Service {
     ///   - databaseId: String
     ///   - name: String
     ///   - enabled: Bool (optional)
-    ///   - type: AppwriteEnums.Type (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Database
     ///
     open func create(
         databaseId: String,
         name: String,
-        enabled: Bool? = nil,
-        type: AppwriteEnums.Type? = nil
+        enabled: Bool? = nil
     ) async throws -> AppwriteModels.Database {
         let apiPath: String = "/tablesdb"
 
         let apiParams: [String: Any?] = [
             "databaseId": databaseId,
             "name": name,
-            "enabled": enabled,
-            "type": type
+            "enabled": enabled
         ]
 
         let apiHeaders: [String: String] = [
@@ -1549,7 +1546,7 @@ open class TablesDb: Service {
     }
 
     ///
-    /// List indexes in the collection.
+    /// List indexes on the table.
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1589,7 +1586,7 @@ open class TablesDb: Service {
     ///
     /// Creates an index on the columns listed. Your index should include all the
     /// columns you will query in a single request.
-    /// Attributes can be `key`, `fulltext`, and `unique`.
+    /// Type can be `key`, `fulltext`, or `unique`.
     ///
     /// - Parameters:
     ///   - databaseId: String

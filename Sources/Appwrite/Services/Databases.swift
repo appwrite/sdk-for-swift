@@ -53,7 +53,6 @@ open class Databases: Service {
     ///   - databaseId: String
     ///   - name: String
     ///   - enabled: Bool (optional)
-    ///   - type: AppwriteEnums.Type (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Database
     ///
@@ -61,16 +60,14 @@ open class Databases: Service {
     open func create(
         databaseId: String,
         name: String,
-        enabled: Bool? = nil,
-        type: AppwriteEnums.Type? = nil
+        enabled: Bool? = nil
     ) async throws -> AppwriteModels.Database {
         let apiPath: String = "/databases"
 
         let apiParams: [String: Any?] = [
             "databaseId": databaseId,
             "name": name,
-            "enabled": enabled,
-            "type": type
+            "enabled": enabled
         ]
 
         let apiHeaders: [String: String] = [
