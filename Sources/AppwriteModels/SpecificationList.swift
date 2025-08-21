@@ -9,7 +9,7 @@ open class SpecificationList: Codable {
         case specifications = "specifications"
     }
 
-    /// Total number of specifications rows that matched your query.
+    /// Total number of specifications that matched your query.
     public let total: Int
 
     /// List of specifications.

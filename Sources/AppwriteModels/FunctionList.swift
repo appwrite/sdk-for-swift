@@ -9,7 +9,7 @@ open class FunctionList: Codable {
         case functions = "functions"
     }
 
-    /// Total number of functions rows that matched your query.
+    /// Total number of functions that matched your query.
     public let total: Int
 
     /// List of functions.

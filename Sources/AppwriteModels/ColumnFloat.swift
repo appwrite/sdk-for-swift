@@ -116,13 +116,13 @@ open class ColumnFloat: Codable {
             "type": type as Any,
             "status": status as Any,
             "error": error as Any,
-            "`required`": `required` as Any,
+            "required": `required` as Any,
             "array": array as Any,
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
             "min": min as Any,
             "max": max as Any,
-            "`default`": `default` as Any
+            "default": `default` as Any
         ]
     }
 

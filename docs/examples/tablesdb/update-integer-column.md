@@ -5,9 +5,9 @@ let client = Client()
     .setProject("<YOUR_PROJECT_ID>") // Your project ID
     .setKey("<YOUR_API_KEY>") // Your secret API key
 
-let tablesDb = TablesDb(client)
+let tablesDB = TablesDB(client)
 
-let columnInteger = try await tablesDb.updateIntegerColumn(
+let columnInteger = try await tablesDB.updateIntegerColumn(
     databaseId: "<DATABASE_ID>",
     tableId: "<TABLE_ID>",
     key: "",

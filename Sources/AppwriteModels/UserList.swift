@@ -9,7 +9,7 @@ open class UserList<T : Codable>: Codable {
         case users = "users"
     }
 
-    /// Total number of users rows that matched your query.
+    /// Total number of users that matched your query.
     public let total: Int
 
     /// List of users.

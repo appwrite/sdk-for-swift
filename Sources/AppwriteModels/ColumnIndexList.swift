@@ -9,7 +9,7 @@ open class ColumnIndexList: Codable {
         case indexes = "indexes"
     }
 
-    /// Total number of indexes rows that matched your query.
+    /// Total number of indexes that matched your query.
     public let total: Int
 
     /// List of indexes.

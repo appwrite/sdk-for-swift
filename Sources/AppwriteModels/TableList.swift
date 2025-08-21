@@ -9,7 +9,7 @@ open class TableList: Codable {
         case tables = "tables"
     }
 
-    /// Total number of tables rows that matched your query.
+    /// Total number of tables that matched your query.
     public let total: Int
 
     /// List of tables.
