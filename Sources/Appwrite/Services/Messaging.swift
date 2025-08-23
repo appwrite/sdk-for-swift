@@ -373,7 +373,7 @@ open class Messaging: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Message
     ///
-    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `CreateSMS` instead.")
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Messaging.createSMS` instead.")
     open func createSms(
         messageId: String,
         content: String,
@@ -481,7 +481,7 @@ open class Messaging: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Message
     ///
-    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `UpdateSMS` instead.")
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Messaging.updateSMS` instead.")
     open func updateSms(
         messageId: String,
         topics: [String]? = nil,
@@ -755,7 +755,7 @@ open class Messaging: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Provider
     ///
-    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `CreateAPNSProvider` instead.")
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Messaging.createAPNSProvider` instead.")
     open func createApnsProvider(
         providerId: String,
         name: String,
@@ -866,7 +866,7 @@ open class Messaging: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Provider
     ///
-    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `UpdateAPNSProvider` instead.")
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Messaging.updateAPNSProvider` instead.")
     open func updateApnsProvider(
         providerId: String,
         name: String? = nil,
@@ -973,7 +973,7 @@ open class Messaging: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Provider
     ///
-    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `CreateFCMProvider` instead.")
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Messaging.createFCMProvider` instead.")
     open func createFcmProvider(
         providerId: String,
         name: String,
@@ -1060,7 +1060,7 @@ open class Messaging: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Provider
     ///
-    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `UpdateFCMProvider` instead.")
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Messaging.updateFCMProvider` instead.")
     open func updateFcmProvider(
         providerId: String,
         name: String? = nil,
@@ -1487,7 +1487,7 @@ open class Messaging: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Provider
     ///
-    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `CreateSMTPProvider` instead.")
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Messaging.createSMTPProvider` instead.")
     open func createSmtpProvider(
         providerId: String,
         name: String,
@@ -1634,7 +1634,7 @@ open class Messaging: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Provider
     ///
-    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `UpdateSMTPProvider` instead.")
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Messaging.updateSMTPProvider` instead.")
     open func updateSmtpProvider(
         providerId: String,
         name: String? = nil,

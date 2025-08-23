@@ -1123,7 +1123,7 @@ open class Users: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.User<T>
     ///
-    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `UpdateMFA` instead.")
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Users.updateMFA` instead.")
     open func updateMfa<T>(
         userId: String,
         mfa: Bool,
@@ -1162,7 +1162,7 @@ open class Users: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.User<T>
     ///
-    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `UpdateMFA` instead.")
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Users.updateMFA` instead.")
     open func updateMfa(
         userId: String,
         mfa: Bool
@@ -1241,7 +1241,7 @@ open class Users: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: Any
     ///
-    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `DeleteMFAAuthenticator` instead.")
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Users.deleteMFAAuthenticator` instead.")
     open func deleteMfaAuthenticator(
         userId: String,
         type: AppwriteEnums.AuthenticatorType
@@ -1301,7 +1301,7 @@ open class Users: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.MfaFactors
     ///
-    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `ListMFAFactors` instead.")
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Users.listMFAFactors` instead.")
     open func listMfaFactors(
         userId: String
     ) async throws -> AppwriteModels.MfaFactors {
@@ -1367,7 +1367,7 @@ open class Users: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.MfaRecoveryCodes
     ///
-    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `GetMFARecoveryCodes` instead.")
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Users.getMFARecoveryCodes` instead.")
     open func getMfaRecoveryCodes(
         userId: String
     ) async throws -> AppwriteModels.MfaRecoveryCodes {
@@ -1436,7 +1436,7 @@ open class Users: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.MfaRecoveryCodes
     ///
-    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `UpdateMFARecoveryCodes` instead.")
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Users.updateMFARecoveryCodes` instead.")
     open func updateMfaRecoveryCodes(
         userId: String
     ) async throws -> AppwriteModels.MfaRecoveryCodes {
@@ -1509,7 +1509,7 @@ open class Users: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.MfaRecoveryCodes
     ///
-    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `CreateMFARecoveryCodes` instead.")
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Users.createMFARecoveryCodes` instead.")
     open func createMfaRecoveryCodes(
         userId: String
     ) async throws -> AppwriteModels.MfaRecoveryCodes {

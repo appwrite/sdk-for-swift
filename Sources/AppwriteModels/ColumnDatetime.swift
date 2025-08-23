@@ -44,7 +44,7 @@ open class ColumnDatetime: Codable {
     /// ISO 8601 format.
     public let format: String
 
-    /// Default value for attribute when not provided. Only null is optional
+    /// Default value for column when not provided. Only null is optional
     public let `default`: String?
 
 
