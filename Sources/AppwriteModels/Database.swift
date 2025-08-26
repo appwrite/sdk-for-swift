@@ -10,6 +10,7 @@ open class Database: Codable {
         case createdAt = "$createdAt"
         case updatedAt = "$updatedAt"
         case enabled = "enabled"
+        case type = "type"
     }
 
     /// Database ID.
@@ -27,19 +28,24 @@ open class Database: Codable {
     /// If database is enabled. Can be &#039;enabled&#039; or &#039;disabled&#039;. When disabled, the database is inaccessible to users, but remains accessible to Server SDKs using API keys.
     public let enabled: Bool
 
+    /// Database type.
+    public let type: String
+
 
     init(
         id: String,
         name: String,
         createdAt: String,
         updatedAt: String,
-        enabled: Bool
+        enabled: Bool,
+        type: String
     ) {
         self.id = id
         self.name = name
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.enabled = enabled
+        self.type = type
     }
 
     public required init(from decoder: Decoder) throws {
@@ -50,6 +56,7 @@ open class Database: Codable {
         self.createdAt = try container.decode(String.self, forKey: .createdAt)
         self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
         self.enabled = try container.decode(Bool.self, forKey: .enabled)
+        self.type = try container.decode(String.self, forKey: .type)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -60,6 +67,7 @@ open class Database: Codable {
         try container.encode(createdAt, forKey: .createdAt)
         try container.encode(updatedAt, forKey: .updatedAt)
         try container.encode(enabled, forKey: .enabled)
+        try container.encode(type, forKey: .type)
     }
 
     public func toMap() -> [String: Any] {
@@ -68,7 +76,8 @@ open class Database: Codable {
             "name": name as Any,
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
-            "enabled": enabled as Any
+            "enabled": enabled as Any,
+            "type": type as Any
         ]
     }
 
@@ -78,7 +87,8 @@ open class Database: Codable {
             name: map["name"] as! String,
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
-            enabled: map["enabled"] as! Bool
+            enabled: map["enabled"] as! Bool,
+            type: map["type"] as! String
         )
     }
 }

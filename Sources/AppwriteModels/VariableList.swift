@@ -9,7 +9,7 @@ open class VariableList: Codable {
         case variables = "variables"
     }
 
-    /// Total number of variables documents that matched your query.
+    /// Total number of variables that matched your query.
     public let total: Int
 
     /// List of variables.

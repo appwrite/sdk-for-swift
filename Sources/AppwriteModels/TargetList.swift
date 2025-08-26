@@ -9,7 +9,7 @@ open class TargetList: Codable {
         case targets = "targets"
     }
 
-    /// Total number of targets documents that matched your query.
+    /// Total number of targets that matched your query.
     public let total: Int
 
     /// List of targets.

@@ -9,7 +9,7 @@ open class FrameworkList: Codable {
         case frameworks = "frameworks"
     }
 
-    /// Total number of frameworks documents that matched your query.
+    /// Total number of frameworks that matched your query.
     public let total: Int
 
     /// List of frameworks.

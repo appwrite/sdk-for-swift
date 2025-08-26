@@ -9,7 +9,7 @@ open class TopicList: Codable {
         case topics = "topics"
     }
 
-    /// Total number of topics documents that matched your query.
+    /// Total number of topics that matched your query.
     public let total: Int
 
     /// List of topics.

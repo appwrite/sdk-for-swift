@@ -108,12 +108,12 @@ open class AttributeUrl: Codable {
             "type": type as Any,
             "status": status as Any,
             "error": error as Any,
-            "`required`": `required` as Any,
+            "required": `required` as Any,
             "array": array as Any,
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
             "format": format as Any,
-            "`default`": `default` as Any
+            "default": `default` as Any
         ]
     }
 

@@ -373,7 +373,60 @@ open class Messaging: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Message
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Messaging.createSMS` instead.")
     open func createSms(
+        messageId: String,
+        content: String,
+        topics: [String]? = nil,
+        users: [String]? = nil,
+        targets: [String]? = nil,
+        draft: Bool? = nil,
+        scheduledAt: String? = nil
+    ) async throws -> AppwriteModels.Message {
+        let apiPath: String = "/messaging/messages/sms"
+
+        let apiParams: [String: Any?] = [
+            "messageId": messageId,
+            "content": content,
+            "topics": topics,
+            "users": users,
+            "targets": targets,
+            "draft": draft,
+            "scheduledAt": scheduledAt
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Message = { response in
+            return AppwriteModels.Message.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create a new SMS message.
+    ///
+    /// - Parameters:
+    ///   - messageId: String
+    ///   - content: String
+    ///   - topics: [String] (optional)
+    ///   - users: [String] (optional)
+    ///   - targets: [String] (optional)
+    ///   - draft: Bool (optional)
+    ///   - scheduledAt: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Message
+    ///
+    open func createSMS(
         messageId: String,
         content: String,
         topics: [String]? = nil,
@@ -428,7 +481,63 @@ open class Messaging: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Message
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Messaging.updateSMS` instead.")
     open func updateSms(
+        messageId: String,
+        topics: [String]? = nil,
+        users: [String]? = nil,
+        targets: [String]? = nil,
+        content: String? = nil,
+        draft: Bool? = nil,
+        scheduledAt: String? = nil
+    ) async throws -> AppwriteModels.Message {
+        let apiPath: String = "/messaging/messages/sms/{messageId}"
+            .replacingOccurrences(of: "{messageId}", with: messageId)
+
+        let apiParams: [String: Any?] = [
+            "topics": topics,
+            "users": users,
+            "targets": targets,
+            "content": content,
+            "draft": draft,
+            "scheduledAt": scheduledAt
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Message = { response in
+            return AppwriteModels.Message.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update an SMS message by its unique ID. This endpoint only works on
+    /// messages that are in draft status. Messages that are already processing,
+    /// sent, or failed cannot be updated.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - messageId: String
+    ///   - topics: [String] (optional)
+    ///   - users: [String] (optional)
+    ///   - targets: [String] (optional)
+    ///   - content: String (optional)
+    ///   - draft: Bool (optional)
+    ///   - scheduledAt: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Message
+    ///
+    open func updateSMS(
         messageId: String,
         topics: [String]? = nil,
         users: [String]? = nil,
@@ -646,7 +755,63 @@ open class Messaging: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Provider
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Messaging.createAPNSProvider` instead.")
     open func createApnsProvider(
+        providerId: String,
+        name: String,
+        authKey: String? = nil,
+        authKeyId: String? = nil,
+        teamId: String? = nil,
+        bundleId: String? = nil,
+        sandbox: Bool? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.Provider {
+        let apiPath: String = "/messaging/providers/apns"
+
+        let apiParams: [String: Any?] = [
+            "providerId": providerId,
+            "name": name,
+            "authKey": authKey,
+            "authKeyId": authKeyId,
+            "teamId": teamId,
+            "bundleId": bundleId,
+            "sandbox": sandbox,
+            "enabled": enabled
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Provider = { response in
+            return AppwriteModels.Provider.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create a new Apple Push Notification service provider.
+    ///
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String
+    ///   - authKey: String (optional)
+    ///   - authKeyId: String (optional)
+    ///   - teamId: String (optional)
+    ///   - bundleId: String (optional)
+    ///   - sandbox: Bool (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
+    ///
+    open func createAPNSProvider(
         providerId: String,
         name: String,
         authKey: String? = nil,
@@ -701,7 +866,63 @@ open class Messaging: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Provider
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Messaging.updateAPNSProvider` instead.")
     open func updateApnsProvider(
+        providerId: String,
+        name: String? = nil,
+        enabled: Bool? = nil,
+        authKey: String? = nil,
+        authKeyId: String? = nil,
+        teamId: String? = nil,
+        bundleId: String? = nil,
+        sandbox: Bool? = nil
+    ) async throws -> AppwriteModels.Provider {
+        let apiPath: String = "/messaging/providers/apns/{providerId}"
+            .replacingOccurrences(of: "{providerId}", with: providerId)
+
+        let apiParams: [String: Any?] = [
+            "name": name,
+            "enabled": enabled,
+            "authKey": authKey,
+            "authKeyId": authKeyId,
+            "teamId": teamId,
+            "bundleId": bundleId,
+            "sandbox": sandbox
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Provider = { response in
+            return AppwriteModels.Provider.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update a Apple Push Notification service provider by its unique ID.
+    ///
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String (optional)
+    ///   - enabled: Bool (optional)
+    ///   - authKey: String (optional)
+    ///   - authKeyId: String (optional)
+    ///   - teamId: String (optional)
+    ///   - bundleId: String (optional)
+    ///   - sandbox: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
+    ///
+    open func updateAPNSProvider(
         providerId: String,
         name: String? = nil,
         enabled: Bool? = nil,
@@ -752,7 +973,51 @@ open class Messaging: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Provider
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Messaging.createFCMProvider` instead.")
     open func createFcmProvider(
+        providerId: String,
+        name: String,
+        serviceAccountJSON: Any? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.Provider {
+        let apiPath: String = "/messaging/providers/fcm"
+
+        let apiParams: [String: Any?] = [
+            "providerId": providerId,
+            "name": name,
+            "serviceAccountJSON": serviceAccountJSON,
+            "enabled": enabled
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Provider = { response in
+            return AppwriteModels.Provider.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create a new Firebase Cloud Messaging provider.
+    ///
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String
+    ///   - serviceAccountJSON: Any (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
+    ///
+    open func createFCMProvider(
         providerId: String,
         name: String,
         serviceAccountJSON: Any? = nil,
@@ -795,7 +1060,51 @@ open class Messaging: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Provider
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Messaging.updateFCMProvider` instead.")
     open func updateFcmProvider(
+        providerId: String,
+        name: String? = nil,
+        enabled: Bool? = nil,
+        serviceAccountJSON: Any? = nil
+    ) async throws -> AppwriteModels.Provider {
+        let apiPath: String = "/messaging/providers/fcm/{providerId}"
+            .replacingOccurrences(of: "{providerId}", with: providerId)
+
+        let apiParams: [String: Any?] = [
+            "name": name,
+            "enabled": enabled,
+            "serviceAccountJSON": serviceAccountJSON
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Provider = { response in
+            return AppwriteModels.Provider.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update a Firebase Cloud Messaging provider by its unique ID.
+    ///
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String (optional)
+    ///   - enabled: Bool (optional)
+    ///   - serviceAccountJSON: Any (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
+    ///
+    open func updateFCMProvider(
         providerId: String,
         name: String? = nil,
         enabled: Bool? = nil,
@@ -1178,7 +1487,81 @@ open class Messaging: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Provider
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Messaging.createSMTPProvider` instead.")
     open func createSmtpProvider(
+        providerId: String,
+        name: String,
+        host: String,
+        port: Int? = nil,
+        username: String? = nil,
+        password: String? = nil,
+        encryption: AppwriteEnums.SmtpEncryption? = nil,
+        autoTLS: Bool? = nil,
+        mailer: String? = nil,
+        fromName: String? = nil,
+        fromEmail: String? = nil,
+        replyToName: String? = nil,
+        replyToEmail: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.Provider {
+        let apiPath: String = "/messaging/providers/smtp"
+
+        let apiParams: [String: Any?] = [
+            "providerId": providerId,
+            "name": name,
+            "host": host,
+            "port": port,
+            "username": username,
+            "password": password,
+            "encryption": encryption,
+            "autoTLS": autoTLS,
+            "mailer": mailer,
+            "fromName": fromName,
+            "fromEmail": fromEmail,
+            "replyToName": replyToName,
+            "replyToEmail": replyToEmail,
+            "enabled": enabled
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Provider = { response in
+            return AppwriteModels.Provider.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create a new SMTP provider.
+    ///
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String
+    ///   - host: String
+    ///   - port: Int (optional)
+    ///   - username: String (optional)
+    ///   - password: String (optional)
+    ///   - encryption: AppwriteEnums.SmtpEncryption (optional)
+    ///   - autoTLS: Bool (optional)
+    ///   - mailer: String (optional)
+    ///   - fromName: String (optional)
+    ///   - fromEmail: String (optional)
+    ///   - replyToName: String (optional)
+    ///   - replyToEmail: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
+    ///
+    open func createSMTPProvider(
         providerId: String,
         name: String,
         host: String,
@@ -1251,7 +1634,81 @@ open class Messaging: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Provider
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Messaging.updateSMTPProvider` instead.")
     open func updateSmtpProvider(
+        providerId: String,
+        name: String? = nil,
+        host: String? = nil,
+        port: Int? = nil,
+        username: String? = nil,
+        password: String? = nil,
+        encryption: AppwriteEnums.SmtpEncryption? = nil,
+        autoTLS: Bool? = nil,
+        mailer: String? = nil,
+        fromName: String? = nil,
+        fromEmail: String? = nil,
+        replyToName: String? = nil,
+        replyToEmail: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.Provider {
+        let apiPath: String = "/messaging/providers/smtp/{providerId}"
+            .replacingOccurrences(of: "{providerId}", with: providerId)
+
+        let apiParams: [String: Any?] = [
+            "name": name,
+            "host": host,
+            "port": port,
+            "username": username,
+            "password": password,
+            "encryption": encryption,
+            "autoTLS": autoTLS,
+            "mailer": mailer,
+            "fromName": fromName,
+            "fromEmail": fromEmail,
+            "replyToName": replyToName,
+            "replyToEmail": replyToEmail,
+            "enabled": enabled
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Provider = { response in
+            return AppwriteModels.Provider.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update a SMTP provider by its unique ID.
+    ///
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String (optional)
+    ///   - host: String (optional)
+    ///   - port: Int (optional)
+    ///   - username: String (optional)
+    ///   - password: String (optional)
+    ///   - encryption: AppwriteEnums.SmtpEncryption (optional)
+    ///   - autoTLS: Bool (optional)
+    ///   - mailer: String (optional)
+    ///   - fromName: String (optional)
+    ///   - fromEmail: String (optional)
+    ///   - replyToName: String (optional)
+    ///   - replyToEmail: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
+    ///
+    open func updateSMTPProvider(
         providerId: String,
         name: String? = nil,
         host: String? = nil,

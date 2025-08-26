@@ -9,7 +9,7 @@ open class DatabaseList: Codable {
         case databases = "databases"
     }
 
-    /// Total number of databases documents that matched your query.
+    /// Total number of databases that matched your query.
     public let total: Int
 
     /// List of databases.

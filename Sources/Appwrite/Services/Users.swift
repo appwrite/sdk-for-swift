@@ -1123,6 +1123,7 @@ open class Users: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.User<T>
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Users.updateMFA` instead.")
     open func updateMfa<T>(
         userId: String,
         mfa: Bool,
@@ -1161,11 +1162,70 @@ open class Users: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.User<T>
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Users.updateMFA` instead.")
     open func updateMfa(
         userId: String,
         mfa: Bool
     ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
         return try await updateMfa(
+            userId: userId,
+            mfa: mfa,
+            nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
+    /// Enable or disable MFA on a user account.
+    ///
+    /// - Parameters:
+    ///   - userId: String
+    ///   - mfa: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
+    ///
+    open func updateMFA<T>(
+        userId: String,
+        mfa: Bool,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.User<T> {
+        let apiPath: String = "/users/{userId}/mfa"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let apiParams: [String: Any?] = [
+            "mfa": mfa
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.User<T> = { response in
+            return AppwriteModels.User.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Enable or disable MFA on a user account.
+    ///
+    /// - Parameters:
+    ///   - userId: String
+    ///   - mfa: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
+    ///
+    open func updateMFA(
+        userId: String,
+        mfa: Bool
+    ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
+        return try await updateMFA(
             userId: userId,
             mfa: mfa,
             nestedType: [String: AnyCodable].self
@@ -1181,7 +1241,38 @@ open class Users: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: Any
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Users.deleteMFAAuthenticator` instead.")
     open func deleteMfaAuthenticator(
+        userId: String,
+        type: AppwriteEnums.AuthenticatorType
+    ) async throws -> Any {
+        let apiPath: String = "/users/{userId}/mfa/authenticators/{type}"
+            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{type}", with: type.rawValue)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        return try await client.call(
+            method: "DELETE",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams        )
+    }
+
+    ///
+    /// Delete an authenticator app.
+    ///
+    /// - Parameters:
+    ///   - userId: String
+    ///   - type: AppwriteEnums.AuthenticatorType
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
+    ///
+    open func deleteMFAAuthenticator(
         userId: String,
         type: AppwriteEnums.AuthenticatorType
     ) async throws -> Any {
@@ -1210,7 +1301,39 @@ open class Users: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.MfaFactors
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Users.listMFAFactors` instead.")
     open func listMfaFactors(
+        userId: String
+    ) async throws -> AppwriteModels.MfaFactors {
+        let apiPath: String = "/users/{userId}/mfa/factors"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [:]
+
+        let converter: (Any) -> AppwriteModels.MfaFactors = { response in
+            return AppwriteModels.MfaFactors.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// List the factors available on the account to be used as a MFA challange.
+    ///
+    /// - Parameters:
+    ///   - userId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.MfaFactors
+    ///
+    open func listMFAFactors(
         userId: String
     ) async throws -> AppwriteModels.MfaFactors {
         let apiPath: String = "/users/{userId}/mfa/factors"
@@ -1244,7 +1367,42 @@ open class Users: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.MfaRecoveryCodes
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Users.getMFARecoveryCodes` instead.")
     open func getMfaRecoveryCodes(
+        userId: String
+    ) async throws -> AppwriteModels.MfaRecoveryCodes {
+        let apiPath: String = "/users/{userId}/mfa/recovery-codes"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [:]
+
+        let converter: (Any) -> AppwriteModels.MfaRecoveryCodes = { response in
+            return AppwriteModels.MfaRecoveryCodes.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get recovery codes that can be used as backup for MFA flow by User ID.
+    /// Before getting codes, they must be generated using
+    /// [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes)
+    /// method.
+    ///
+    /// - Parameters:
+    ///   - userId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.MfaRecoveryCodes
+    ///
+    open func getMFARecoveryCodes(
         userId: String
     ) async throws -> AppwriteModels.MfaRecoveryCodes {
         let apiPath: String = "/users/{userId}/mfa/recovery-codes"
@@ -1278,7 +1436,44 @@ open class Users: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.MfaRecoveryCodes
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Users.updateMFARecoveryCodes` instead.")
     open func updateMfaRecoveryCodes(
+        userId: String
+    ) async throws -> AppwriteModels.MfaRecoveryCodes {
+        let apiPath: String = "/users/{userId}/mfa/recovery-codes"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.MfaRecoveryCodes = { response in
+            return AppwriteModels.MfaRecoveryCodes.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PUT",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Regenerate recovery codes that can be used as backup for MFA flow by User
+    /// ID. Before regenerating codes, they must be first generated using
+    /// [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes)
+    /// method.
+    ///
+    /// - Parameters:
+    ///   - userId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.MfaRecoveryCodes
+    ///
+    open func updateMFARecoveryCodes(
         userId: String
     ) async throws -> AppwriteModels.MfaRecoveryCodes {
         let apiPath: String = "/users/{userId}/mfa/recovery-codes"
@@ -1314,7 +1509,44 @@ open class Users: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.MfaRecoveryCodes
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Users.createMFARecoveryCodes` instead.")
     open func createMfaRecoveryCodes(
+        userId: String
+    ) async throws -> AppwriteModels.MfaRecoveryCodes {
+        let apiPath: String = "/users/{userId}/mfa/recovery-codes"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.MfaRecoveryCodes = { response in
+            return AppwriteModels.MfaRecoveryCodes.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Generate recovery codes used as backup for MFA flow for User ID. Recovery
+    /// codes can be used as a MFA verification type in
+    /// [createMfaChallenge](/docs/references/cloud/client-web/account#createMfaChallenge)
+    /// method by client SDK.
+    ///
+    /// - Parameters:
+    ///   - userId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.MfaRecoveryCodes
+    ///
+    open func createMFARecoveryCodes(
         userId: String
     ) async throws -> AppwriteModels.MfaRecoveryCodes {
         let apiPath: String = "/users/{userId}/mfa/recovery-codes"

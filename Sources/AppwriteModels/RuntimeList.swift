@@ -9,7 +9,7 @@ open class RuntimeList: Codable {
         case runtimes = "runtimes"
     }
 
-    /// Total number of runtimes documents that matched your query.
+    /// Total number of runtimes that matched your query.
     public let total: Int
 
     /// List of runtimes.
