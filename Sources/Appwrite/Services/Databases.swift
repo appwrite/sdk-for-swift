@@ -56,7 +56,7 @@ open class Databases: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Database
     ///
-    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.createDatabase` instead.")
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.create` instead.")
     open func create(
         databaseId: String,
         name: String,
@@ -1180,6 +1180,300 @@ open class Databases: Service {
 
         let converter: (Any) -> AppwriteModels.AttributeIp = { response in
             return AppwriteModels.AttributeIp.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create a geometric line attribute.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeLine
+    ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.createLineColumn` instead.")
+    open func createLineAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil
+    ) async throws -> AppwriteModels.AttributeLine {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/line"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
+        let apiParams: [String: Any?] = [
+            "key": key,
+            "required": `required`,
+            "default": `default`
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributeLine = { response in
+            return AppwriteModels.AttributeLine.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update a line attribute. Changing the `default` value will not update
+    /// already existing documents.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeLine
+    ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.updateLineColumn` instead.")
+    open func updateLineAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil,
+        newKey: String? = nil
+    ) async throws -> AppwriteModels.AttributeLine {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/line/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let apiParams: [String: Any?] = [
+            "required": `required`,
+            "default": `default`,
+            "newKey": newKey
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributeLine = { response in
+            return AppwriteModels.AttributeLine.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create a geometric 2d point attribute.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributePoint
+    ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.createPointColumn` instead.")
+    open func createPointAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil
+    ) async throws -> AppwriteModels.AttributePoint {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/point"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
+        let apiParams: [String: Any?] = [
+            "key": key,
+            "required": `required`,
+            "default": `default`
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributePoint = { response in
+            return AppwriteModels.AttributePoint.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update a point attribute. Changing the `default` value will not update
+    /// already existing documents.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributePoint
+    ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.updatePointColumn` instead.")
+    open func updatePointAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil,
+        newKey: String? = nil
+    ) async throws -> AppwriteModels.AttributePoint {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/point/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let apiParams: [String: Any?] = [
+            "required": `required`,
+            "default": `default`,
+            "newKey": newKey
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributePoint = { response in
+            return AppwriteModels.AttributePoint.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create a geometric polygon attribute.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributePolygon
+    ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.createPolygonColumn` instead.")
+    open func createPolygonAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil
+    ) async throws -> AppwriteModels.AttributePolygon {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/polygon"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
+        let apiParams: [String: Any?] = [
+            "key": key,
+            "required": `required`,
+            "default": `default`
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributePolygon = { response in
+            return AppwriteModels.AttributePolygon.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update a polygon attribute. Changing the `default` value will not update
+    /// already existing documents.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributePolygon
+    ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.updatePolygonColumn` instead.")
+    open func updatePolygonAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil,
+        newKey: String? = nil
+    ) async throws -> AppwriteModels.AttributePolygon {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/polygon/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let apiParams: [String: Any?] = [
+            "required": `required`,
+            "default": `default`,
+            "newKey": newKey
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributePolygon = { response in
+            return AppwriteModels.AttributePolygon.from(map: response as! [String: Any])
         }
 
         return try await client.call(

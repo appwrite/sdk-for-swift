@@ -1166,6 +1166,294 @@ open class TablesDB: Service {
     }
 
     ///
+    /// Create a geometric line attribute.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - tableId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ColumnLine
+    ///
+    open func createLineColumn(
+        databaseId: String,
+        tableId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil
+    ) async throws -> AppwriteModels.ColumnLine {
+        let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/line"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{tableId}", with: tableId)
+
+        let apiParams: [String: Any?] = [
+            "key": key,
+            "required": `required`,
+            "default": `default`
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.ColumnLine = { response in
+            return AppwriteModels.ColumnLine.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update a line column. Changing the `default` value will not update already
+    /// existing documents.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - tableId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ColumnLine
+    ///
+    open func updateLineColumn(
+        databaseId: String,
+        tableId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil,
+        newKey: String? = nil
+    ) async throws -> AppwriteModels.ColumnLine {
+        let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/line/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let apiParams: [String: Any?] = [
+            "required": `required`,
+            "default": `default`,
+            "newKey": newKey
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.ColumnLine = { response in
+            return AppwriteModels.ColumnLine.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create a geometric point attribute.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - tableId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ColumnPoint
+    ///
+    open func createPointColumn(
+        databaseId: String,
+        tableId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil
+    ) async throws -> AppwriteModels.ColumnPoint {
+        let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/point"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{tableId}", with: tableId)
+
+        let apiParams: [String: Any?] = [
+            "key": key,
+            "required": `required`,
+            "default": `default`
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.ColumnPoint = { response in
+            return AppwriteModels.ColumnPoint.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update a point column. Changing the `default` value will not update already
+    /// existing documents.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - tableId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ColumnPoint
+    ///
+    open func updatePointColumn(
+        databaseId: String,
+        tableId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil,
+        newKey: String? = nil
+    ) async throws -> AppwriteModels.ColumnPoint {
+        let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/point/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let apiParams: [String: Any?] = [
+            "required": `required`,
+            "default": `default`,
+            "newKey": newKey
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.ColumnPoint = { response in
+            return AppwriteModels.ColumnPoint.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create a geometric polygon attribute.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - tableId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ColumnPolygon
+    ///
+    open func createPolygonColumn(
+        databaseId: String,
+        tableId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil
+    ) async throws -> AppwriteModels.ColumnPolygon {
+        let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/polygon"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{tableId}", with: tableId)
+
+        let apiParams: [String: Any?] = [
+            "key": key,
+            "required": `required`,
+            "default": `default`
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.ColumnPolygon = { response in
+            return AppwriteModels.ColumnPolygon.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update a polygon column. Changing the `default` value will not update
+    /// already existing documents.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - tableId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ColumnPolygon
+    ///
+    open func updatePolygonColumn(
+        databaseId: String,
+        tableId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil,
+        newKey: String? = nil
+    ) async throws -> AppwriteModels.ColumnPolygon {
+        let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/polygon/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let apiParams: [String: Any?] = [
+            "required": `required`,
+            "default": `default`,
+            "newKey": newKey
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.ColumnPolygon = { response in
+            return AppwriteModels.ColumnPolygon.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
     /// Create relationship column. [Learn more about relationship
     /// columns](https://appwrite.io/docs/databases-relationships#relationship-columns).
     /// 
