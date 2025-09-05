@@ -41,7 +41,7 @@ open class AttributePoint: Codable {
     public let updatedAt: String
 
     /// Default value for attribute when not provided. Cannot be set when attribute is required.
-    public let `default`: [String: AnyCodable]?
+    public let `default`: [AnyCodable]?
 
 
     init(
@@ -53,7 +53,7 @@ open class AttributePoint: Codable {
         array: Bool?,
         createdAt: String,
         updatedAt: String,
-        `default`: [String: AnyCodable]?
+        `default`: [AnyCodable]?
     ) {
         self.key = key
         self.type = type
@@ -77,7 +77,7 @@ open class AttributePoint: Codable {
         self.array = try container.decodeIfPresent(Bool.self, forKey: .array)
         self.createdAt = try container.decode(String.self, forKey: .createdAt)
         self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.`default` = try container.decodeIfPresent([String: AnyCodable].self, forKey: .`default`)
+        self.`default` = try container.decodeIfPresent([AnyCodable].self, forKey: .`default`)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -118,7 +118,7 @@ open class AttributePoint: Codable {
             array: map["array"] as? Bool,
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
-            default: map["default"] as? [String: AnyCodable]
+            default: (map["default"] as? [Any] ?? []).map { AnyCodable($0) }
         )
     }
 }

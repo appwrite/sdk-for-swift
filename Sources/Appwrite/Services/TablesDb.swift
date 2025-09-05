@@ -1173,7 +1173,7 @@ open class TablesDB: Service {
     ///   - tableId: String
     ///   - key: String
     ///   - required: Bool
-    ///   - default: String (optional)
+    ///   - default: [AnyCodable] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.ColumnLine
     ///
@@ -1182,7 +1182,7 @@ open class TablesDB: Service {
         tableId: String,
         key: String,
         `required`: Bool,
-        `default`: String? = nil
+        `default`: [AnyCodable]? = nil
     ) async throws -> AppwriteModels.ColumnLine {
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/line"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -1220,7 +1220,7 @@ open class TablesDB: Service {
     ///   - tableId: String
     ///   - key: String
     ///   - required: Bool
-    ///   - default: String (optional)
+    ///   - default: [AnyCodable] (optional)
     ///   - newKey: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.ColumnLine
@@ -1230,7 +1230,7 @@ open class TablesDB: Service {
         tableId: String,
         key: String,
         `required`: Bool,
-        `default`: String? = nil,
+        `default`: [AnyCodable]? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.ColumnLine {
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/line/{key}"
@@ -1269,7 +1269,7 @@ open class TablesDB: Service {
     ///   - tableId: String
     ///   - key: String
     ///   - required: Bool
-    ///   - default: String (optional)
+    ///   - default: [AnyCodable] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.ColumnPoint
     ///
@@ -1278,7 +1278,7 @@ open class TablesDB: Service {
         tableId: String,
         key: String,
         `required`: Bool,
-        `default`: String? = nil
+        `default`: [AnyCodable]? = nil
     ) async throws -> AppwriteModels.ColumnPoint {
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/point"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -1316,7 +1316,7 @@ open class TablesDB: Service {
     ///   - tableId: String
     ///   - key: String
     ///   - required: Bool
-    ///   - default: String (optional)
+    ///   - default: [AnyCodable] (optional)
     ///   - newKey: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.ColumnPoint
@@ -1326,7 +1326,7 @@ open class TablesDB: Service {
         tableId: String,
         key: String,
         `required`: Bool,
-        `default`: String? = nil,
+        `default`: [AnyCodable]? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.ColumnPoint {
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/point/{key}"
@@ -1365,7 +1365,7 @@ open class TablesDB: Service {
     ///   - tableId: String
     ///   - key: String
     ///   - required: Bool
-    ///   - default: String (optional)
+    ///   - default: [AnyCodable] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.ColumnPolygon
     ///
@@ -1374,7 +1374,7 @@ open class TablesDB: Service {
         tableId: String,
         key: String,
         `required`: Bool,
-        `default`: String? = nil
+        `default`: [AnyCodable]? = nil
     ) async throws -> AppwriteModels.ColumnPolygon {
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/polygon"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -1412,7 +1412,7 @@ open class TablesDB: Service {
     ///   - tableId: String
     ///   - key: String
     ///   - required: Bool
-    ///   - default: String (optional)
+    ///   - default: [AnyCodable] (optional)
     ///   - newKey: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.ColumnPolygon
@@ -1422,7 +1422,7 @@ open class TablesDB: Service {
         tableId: String,
         key: String,
         `required`: Bool,
-        `default`: String? = nil,
+        `default`: [AnyCodable]? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.ColumnPolygon {
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/polygon/{key}"

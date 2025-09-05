@@ -1199,7 +1199,7 @@ open class Databases: Service {
     ///   - collectionId: String
     ///   - key: String
     ///   - required: Bool
-    ///   - default: String (optional)
+    ///   - default: [AnyCodable] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeLine
     ///
@@ -1209,7 +1209,7 @@ open class Databases: Service {
         collectionId: String,
         key: String,
         `required`: Bool,
-        `default`: String? = nil
+        `default`: [AnyCodable]? = nil
     ) async throws -> AppwriteModels.AttributeLine {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/line"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -1247,7 +1247,7 @@ open class Databases: Service {
     ///   - collectionId: String
     ///   - key: String
     ///   - required: Bool
-    ///   - default: String (optional)
+    ///   - default: [AnyCodable] (optional)
     ///   - newKey: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeLine
@@ -1258,7 +1258,7 @@ open class Databases: Service {
         collectionId: String,
         key: String,
         `required`: Bool,
-        `default`: String? = nil,
+        `default`: [AnyCodable]? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributeLine {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/line/{key}"
@@ -1297,7 +1297,7 @@ open class Databases: Service {
     ///   - collectionId: String
     ///   - key: String
     ///   - required: Bool
-    ///   - default: String (optional)
+    ///   - default: [AnyCodable] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributePoint
     ///
@@ -1307,7 +1307,7 @@ open class Databases: Service {
         collectionId: String,
         key: String,
         `required`: Bool,
-        `default`: String? = nil
+        `default`: [AnyCodable]? = nil
     ) async throws -> AppwriteModels.AttributePoint {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/point"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -1345,7 +1345,7 @@ open class Databases: Service {
     ///   - collectionId: String
     ///   - key: String
     ///   - required: Bool
-    ///   - default: String (optional)
+    ///   - default: [AnyCodable] (optional)
     ///   - newKey: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributePoint
@@ -1356,7 +1356,7 @@ open class Databases: Service {
         collectionId: String,
         key: String,
         `required`: Bool,
-        `default`: String? = nil,
+        `default`: [AnyCodable]? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributePoint {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/point/{key}"
@@ -1395,7 +1395,7 @@ open class Databases: Service {
     ///   - collectionId: String
     ///   - key: String
     ///   - required: Bool
-    ///   - default: String (optional)
+    ///   - default: [AnyCodable] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributePolygon
     ///
@@ -1405,7 +1405,7 @@ open class Databases: Service {
         collectionId: String,
         key: String,
         `required`: Bool,
-        `default`: String? = nil
+        `default`: [AnyCodable]? = nil
     ) async throws -> AppwriteModels.AttributePolygon {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/polygon"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -1443,7 +1443,7 @@ open class Databases: Service {
     ///   - collectionId: String
     ///   - key: String
     ///   - required: Bool
-    ///   - default: String (optional)
+    ///   - default: [AnyCodable] (optional)
     ///   - newKey: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributePolygon
@@ -1454,7 +1454,7 @@ open class Databases: Service {
         collectionId: String,
         key: String,
         `required`: Bool,
-        `default`: String? = nil,
+        `default`: [AnyCodable]? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributePolygon {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/polygon/{key}"
