@@ -1290,7 +1290,7 @@ open class Databases: Service {
     }
 
     ///
-    /// Create a geometric 2d point attribute.
+    /// Create a geometric point attribute.
     ///
     /// - Parameters:
     ///   - databaseId: String

@@ -1166,7 +1166,7 @@ open class TablesDB: Service {
     }
 
     ///
-    /// Create a geometric line attribute.
+    /// Create a geometric line column.
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1213,7 +1213,7 @@ open class TablesDB: Service {
 
     ///
     /// Update a line column. Changing the `default` value will not update already
-    /// existing documents.
+    /// existing rows.
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1262,7 +1262,7 @@ open class TablesDB: Service {
     }
 
     ///
-    /// Create a geometric point attribute.
+    /// Create a geometric point column.
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1309,7 +1309,7 @@ open class TablesDB: Service {
 
     ///
     /// Update a point column. Changing the `default` value will not update already
-    /// existing documents.
+    /// existing rows.
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1358,7 +1358,7 @@ open class TablesDB: Service {
     }
 
     ///
-    /// Create a geometric polygon attribute.
+    /// Create a geometric polygon column.
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1405,7 +1405,7 @@ open class TablesDB: Service {
 
     ///
     /// Update a polygon column. Changing the `default` value will not update
-    /// already existing documents.
+    /// already existing rows.
     ///
     /// - Parameters:
     ///   - databaseId: String
