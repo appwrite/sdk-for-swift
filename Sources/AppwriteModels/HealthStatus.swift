@@ -16,7 +16,7 @@ open class HealthStatus: Codable {
     /// Duration in milliseconds how long the health check took.
     public let ping: Int
 
-    /// Service status. Possible values can are: `pass`, `fail`
+    /// Service status. Possible values are: `pass`, `fail`
     public let status: String
 
 

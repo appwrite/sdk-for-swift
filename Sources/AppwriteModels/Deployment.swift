@@ -25,12 +25,12 @@ open class Deployment: Codable {
         case providerRepositoryName = "providerRepositoryName"
         case providerRepositoryOwner = "providerRepositoryOwner"
         case providerRepositoryUrl = "providerRepositoryUrl"
-        case providerBranch = "providerBranch"
         case providerCommitHash = "providerCommitHash"
         case providerCommitAuthorUrl = "providerCommitAuthorUrl"
         case providerCommitAuthor = "providerCommitAuthor"
         case providerCommitMessage = "providerCommitMessage"
         case providerCommitUrl = "providerCommitUrl"
+        case providerBranch = "providerBranch"
         case providerBranchUrl = "providerBranchUrl"
     }
 
@@ -94,9 +94,6 @@ open class Deployment: Codable {
     /// The url of the vcs provider repository
     public let providerRepositoryUrl: String
 
-    /// The branch of the vcs repository
-    public let providerBranch: String
-
     /// The commit hash of the vcs commit
     public let providerCommitHash: String
 
@@ -111,6 +108,9 @@ open class Deployment: Codable {
 
     /// The url of the vcs commit
     public let providerCommitUrl: String
+
+    /// The branch of the vcs repository
+    public let providerBranch: String
 
     /// The branch of the vcs repository
     public let providerBranchUrl: String
@@ -137,12 +137,12 @@ open class Deployment: Codable {
         providerRepositoryName: String,
         providerRepositoryOwner: String,
         providerRepositoryUrl: String,
-        providerBranch: String,
         providerCommitHash: String,
         providerCommitAuthorUrl: String,
         providerCommitAuthor: String,
         providerCommitMessage: String,
         providerCommitUrl: String,
+        providerBranch: String,
         providerBranchUrl: String
     ) {
         self.id = id
@@ -165,12 +165,12 @@ open class Deployment: Codable {
         self.providerRepositoryName = providerRepositoryName
         self.providerRepositoryOwner = providerRepositoryOwner
         self.providerRepositoryUrl = providerRepositoryUrl
-        self.providerBranch = providerBranch
         self.providerCommitHash = providerCommitHash
         self.providerCommitAuthorUrl = providerCommitAuthorUrl
         self.providerCommitAuthor = providerCommitAuthor
         self.providerCommitMessage = providerCommitMessage
         self.providerCommitUrl = providerCommitUrl
+        self.providerBranch = providerBranch
         self.providerBranchUrl = providerBranchUrl
     }
 
@@ -197,12 +197,12 @@ open class Deployment: Codable {
         self.providerRepositoryName = try container.decode(String.self, forKey: .providerRepositoryName)
         self.providerRepositoryOwner = try container.decode(String.self, forKey: .providerRepositoryOwner)
         self.providerRepositoryUrl = try container.decode(String.self, forKey: .providerRepositoryUrl)
-        self.providerBranch = try container.decode(String.self, forKey: .providerBranch)
         self.providerCommitHash = try container.decode(String.self, forKey: .providerCommitHash)
         self.providerCommitAuthorUrl = try container.decode(String.self, forKey: .providerCommitAuthorUrl)
         self.providerCommitAuthor = try container.decode(String.self, forKey: .providerCommitAuthor)
         self.providerCommitMessage = try container.decode(String.self, forKey: .providerCommitMessage)
         self.providerCommitUrl = try container.decode(String.self, forKey: .providerCommitUrl)
+        self.providerBranch = try container.decode(String.self, forKey: .providerBranch)
         self.providerBranchUrl = try container.decode(String.self, forKey: .providerBranchUrl)
     }
 
@@ -229,12 +229,12 @@ open class Deployment: Codable {
         try container.encode(providerRepositoryName, forKey: .providerRepositoryName)
         try container.encode(providerRepositoryOwner, forKey: .providerRepositoryOwner)
         try container.encode(providerRepositoryUrl, forKey: .providerRepositoryUrl)
-        try container.encode(providerBranch, forKey: .providerBranch)
         try container.encode(providerCommitHash, forKey: .providerCommitHash)
         try container.encode(providerCommitAuthorUrl, forKey: .providerCommitAuthorUrl)
         try container.encode(providerCommitAuthor, forKey: .providerCommitAuthor)
         try container.encode(providerCommitMessage, forKey: .providerCommitMessage)
         try container.encode(providerCommitUrl, forKey: .providerCommitUrl)
+        try container.encode(providerBranch, forKey: .providerBranch)
         try container.encode(providerBranchUrl, forKey: .providerBranchUrl)
     }
 
@@ -260,12 +260,12 @@ open class Deployment: Codable {
             "providerRepositoryName": providerRepositoryName as Any,
             "providerRepositoryOwner": providerRepositoryOwner as Any,
             "providerRepositoryUrl": providerRepositoryUrl as Any,
-            "providerBranch": providerBranch as Any,
             "providerCommitHash": providerCommitHash as Any,
             "providerCommitAuthorUrl": providerCommitAuthorUrl as Any,
             "providerCommitAuthor": providerCommitAuthor as Any,
             "providerCommitMessage": providerCommitMessage as Any,
             "providerCommitUrl": providerCommitUrl as Any,
+            "providerBranch": providerBranch as Any,
             "providerBranchUrl": providerBranchUrl as Any
         ]
     }
@@ -292,12 +292,12 @@ open class Deployment: Codable {
             providerRepositoryName: map["providerRepositoryName"] as! String,
             providerRepositoryOwner: map["providerRepositoryOwner"] as! String,
             providerRepositoryUrl: map["providerRepositoryUrl"] as! String,
-            providerBranch: map["providerBranch"] as! String,
             providerCommitHash: map["providerCommitHash"] as! String,
             providerCommitAuthorUrl: map["providerCommitAuthorUrl"] as! String,
             providerCommitAuthor: map["providerCommitAuthor"] as! String,
             providerCommitMessage: map["providerCommitMessage"] as! String,
             providerCommitUrl: map["providerCommitUrl"] as! String,
+            providerBranch: map["providerBranch"] as! String,
             providerBranchUrl: map["providerBranchUrl"] as! String
         )
     }

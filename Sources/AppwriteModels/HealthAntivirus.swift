@@ -12,7 +12,7 @@ open class HealthAntivirus: Codable {
     /// Antivirus version.
     public let version: String
 
-    /// Antivirus status. Possible values can are: `disabled`, `offline`, `online`
+    /// Antivirus status. Possible values are: `disabled`, `offline`, `online`
     public let status: String
 
 
