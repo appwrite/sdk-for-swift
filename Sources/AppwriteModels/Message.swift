@@ -1,5 +1,6 @@
 import Foundation
 import JSONCodable
+import AppwriteEnums
 
 /// Message
 open class Message: Codable {
@@ -57,7 +58,7 @@ open class Message: Codable {
     public let data: [String: AnyCodable]
 
     /// Status of delivery.
-    public let status: String
+    public let status: MessageStatus
 
 
     init(
@@ -73,7 +74,7 @@ open class Message: Codable {
         deliveryErrors: [String]?,
         deliveredTotal: Int,
         data: [String: AnyCodable],
-        status: String
+        status: MessageStatus
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -105,7 +106,7 @@ open class Message: Codable {
         self.deliveryErrors = try container.decodeIfPresent([String].self, forKey: .deliveryErrors)
         self.deliveredTotal = try container.decode(Int.self, forKey: .deliveredTotal)
         self.data = try container.decode([String: AnyCodable].self, forKey: .data)
-        self.status = try container.decode(String.self, forKey: .status)
+        self.status = MessageStatus(rawValue: try container.decode(String.self, forKey: .status))!
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -123,7 +124,7 @@ open class Message: Codable {
         try container.encodeIfPresent(deliveryErrors, forKey: .deliveryErrors)
         try container.encode(deliveredTotal, forKey: .deliveredTotal)
         try container.encode(data, forKey: .data)
-        try container.encode(status, forKey: .status)
+        try container.encode(status.rawValue, forKey: .status)
     }
 
     public func toMap() -> [String: Any] {
@@ -140,7 +141,7 @@ open class Message: Codable {
             "deliveryErrors": deliveryErrors as Any,
             "deliveredTotal": deliveredTotal as Any,
             "data": data as Any,
-            "status": status as Any
+            "status": status.rawValue as Any
         ]
     }
 
@@ -158,7 +159,7 @@ open class Message: Codable {
             deliveryErrors: map["deliveryErrors"] as? [String],
             deliveredTotal: map["deliveredTotal"] as! Int,
             data: map["data"] as! [String: AnyCodable],
-            status: map["status"] as! String
+            status: MessageStatus(rawValue: map["status"] as! String)!
         )
     }
 }

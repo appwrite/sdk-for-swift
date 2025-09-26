@@ -1494,11 +1494,11 @@ open class Databases: Service {
     ///   - databaseId: String
     ///   - collectionId: String
     ///   - relatedCollectionId: String
-    ///   - type: AppwriteEnums.RelationshipType
+    ///   - type: RelationshipType
     ///   - twoWay: Bool (optional)
     ///   - key: String (optional)
     ///   - twoWayKey: String (optional)
-    ///   - onDelete: AppwriteEnums.RelationMutate (optional)
+    ///   - onDelete: RelationMutate (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeRelationship
     ///
@@ -1507,11 +1507,11 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         relatedCollectionId: String,
-        type: AppwriteEnums.RelationshipType,
+        type: RelationshipType,
         twoWay: Bool? = nil,
         key: String? = nil,
         twoWayKey: String? = nil,
-        onDelete: AppwriteEnums.RelationMutate? = nil
+        onDelete: RelationMutate? = nil
     ) async throws -> AppwriteModels.AttributeRelationship {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/relationship"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -1833,7 +1833,7 @@ open class Databases: Service {
     ///   - databaseId: String
     ///   - collectionId: String
     ///   - key: String
-    ///   - onDelete: AppwriteEnums.RelationMutate (optional)
+    ///   - onDelete: RelationMutate (optional)
     ///   - newKey: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeRelationship
@@ -1843,7 +1843,7 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         key: String,
-        onDelete: AppwriteEnums.RelationMutate? = nil,
+        onDelete: RelationMutate? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributeRelationship {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/{key}/relationship"
@@ -2799,7 +2799,7 @@ open class Databases: Service {
     ///   - databaseId: String
     ///   - collectionId: String
     ///   - key: String
-    ///   - type: AppwriteEnums.IndexType
+    ///   - type: IndexType
     ///   - attributes: [String]
     ///   - orders: [String] (optional)
     ///   - lengths: [Int] (optional)
@@ -2811,7 +2811,7 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         key: String,
-        type: AppwriteEnums.IndexType,
+        type: IndexType,
         attributes: [String],
         orders: [String]? = nil,
         lengths: [Int]? = nil

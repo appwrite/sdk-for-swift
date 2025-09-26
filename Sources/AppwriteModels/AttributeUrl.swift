@@ -1,5 +1,6 @@
 import Foundation
 import JSONCodable
+import AppwriteEnums
 
 /// AttributeURL
 open class AttributeUrl: Codable {
@@ -24,7 +25,7 @@ open class AttributeUrl: Codable {
     public let type: String
 
     /// Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
-    public let status: String
+    public let status: AttributeStatus
 
     /// Error message. Displays error generated on failure of creating or deleting an attribute.
     public let error: String
@@ -51,7 +52,7 @@ open class AttributeUrl: Codable {
     init(
         key: String,
         type: String,
-        status: String,
+        status: AttributeStatus,
         error: String,
         `required`: Bool,
         array: Bool?,
@@ -77,7 +78,7 @@ open class AttributeUrl: Codable {
 
         self.key = try container.decode(String.self, forKey: .key)
         self.type = try container.decode(String.self, forKey: .type)
-        self.status = try container.decode(String.self, forKey: .status)
+        self.status = AttributeStatus(rawValue: try container.decode(String.self, forKey: .status))!
         self.error = try container.decode(String.self, forKey: .error)
         self.`required` = try container.decode(Bool.self, forKey: .`required`)
         self.array = try container.decodeIfPresent(Bool.self, forKey: .array)
@@ -92,7 +93,7 @@ open class AttributeUrl: Codable {
 
         try container.encode(key, forKey: .key)
         try container.encode(type, forKey: .type)
-        try container.encode(status, forKey: .status)
+        try container.encode(status.rawValue, forKey: .status)
         try container.encode(error, forKey: .error)
         try container.encode(`required`, forKey: .`required`)
         try container.encodeIfPresent(array, forKey: .array)
@@ -106,7 +107,7 @@ open class AttributeUrl: Codable {
         return [
             "key": key as Any,
             "type": type as Any,
-            "status": status as Any,
+            "status": status.rawValue as Any,
             "error": error as Any,
             "required": `required` as Any,
             "array": array as Any,
@@ -121,7 +122,7 @@ open class AttributeUrl: Codable {
         return AttributeUrl(
             key: map["key"] as! String,
             type: map["type"] as! String,
-            status: map["status"] as! String,
+            status: AttributeStatus(rawValue: map["status"] as! String)!,
             error: map["error"] as! String,
             required: map["required"] as! Bool,
             array: map["array"] as? Bool,

@@ -1,5 +1,6 @@
 import Foundation
 import JSONCodable
+import AppwriteEnums
 
 /// Deployment
 open class Deployment: Codable {
@@ -77,7 +78,7 @@ open class Deployment: Codable {
     public let screenshotDark: String
 
     /// The deployment status. Possible values are &quot;waiting&quot;, &quot;processing&quot;, &quot;building&quot;, &quot;ready&quot;, and &quot;failed&quot;.
-    public let status: String
+    public let status: DeploymentStatus
 
     /// The build logs.
     public let buildLogs: String
@@ -131,7 +132,7 @@ open class Deployment: Codable {
         activate: Bool,
         screenshotLight: String,
         screenshotDark: String,
-        status: String,
+        status: DeploymentStatus,
         buildLogs: String,
         buildDuration: Int,
         providerRepositoryName: String,
@@ -191,7 +192,7 @@ open class Deployment: Codable {
         self.activate = try container.decode(Bool.self, forKey: .activate)
         self.screenshotLight = try container.decode(String.self, forKey: .screenshotLight)
         self.screenshotDark = try container.decode(String.self, forKey: .screenshotDark)
-        self.status = try container.decode(String.self, forKey: .status)
+        self.status = DeploymentStatus(rawValue: try container.decode(String.self, forKey: .status))!
         self.buildLogs = try container.decode(String.self, forKey: .buildLogs)
         self.buildDuration = try container.decode(Int.self, forKey: .buildDuration)
         self.providerRepositoryName = try container.decode(String.self, forKey: .providerRepositoryName)
@@ -223,7 +224,7 @@ open class Deployment: Codable {
         try container.encode(activate, forKey: .activate)
         try container.encode(screenshotLight, forKey: .screenshotLight)
         try container.encode(screenshotDark, forKey: .screenshotDark)
-        try container.encode(status, forKey: .status)
+        try container.encode(status.rawValue, forKey: .status)
         try container.encode(buildLogs, forKey: .buildLogs)
         try container.encode(buildDuration, forKey: .buildDuration)
         try container.encode(providerRepositoryName, forKey: .providerRepositoryName)
@@ -254,7 +255,7 @@ open class Deployment: Codable {
             "activate": activate as Any,
             "screenshotLight": screenshotLight as Any,
             "screenshotDark": screenshotDark as Any,
-            "status": status as Any,
+            "status": status.rawValue as Any,
             "buildLogs": buildLogs as Any,
             "buildDuration": buildDuration as Any,
             "providerRepositoryName": providerRepositoryName as Any,
@@ -286,7 +287,7 @@ open class Deployment: Codable {
             activate: map["activate"] as! Bool,
             screenshotLight: map["screenshotLight"] as! String,
             screenshotDark: map["screenshotDark"] as! String,
-            status: map["status"] as! String,
+            status: DeploymentStatus(rawValue: map["status"] as! String)!,
             buildLogs: map["buildLogs"] as! String,
             buildDuration: map["buildDuration"] as! Int,
             providerRepositoryName: map["providerRepositoryName"] as! String,

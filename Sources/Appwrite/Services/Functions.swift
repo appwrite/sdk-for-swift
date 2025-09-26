@@ -53,7 +53,7 @@ open class Functions: Service {
     /// - Parameters:
     ///   - functionId: String
     ///   - name: String
-    ///   - runtime: AppwriteEnums.Runtime
+    ///   - runtime: Runtime
     ///   - execute: [String] (optional)
     ///   - events: [String] (optional)
     ///   - schedule: String (optional)
@@ -75,7 +75,7 @@ open class Functions: Service {
     open func create(
         functionId: String,
         name: String,
-        runtime: AppwriteEnums.Runtime,
+        runtime: Runtime,
         execute: [String]? = nil,
         events: [String]? = nil,
         schedule: String? = nil,
@@ -223,7 +223,7 @@ open class Functions: Service {
     /// - Parameters:
     ///   - functionId: String
     ///   - name: String
-    ///   - runtime: AppwriteEnums.Runtime (optional)
+    ///   - runtime: Runtime (optional)
     ///   - execute: [String] (optional)
     ///   - events: [String] (optional)
     ///   - schedule: String (optional)
@@ -245,7 +245,7 @@ open class Functions: Service {
     open func update(
         functionId: String,
         name: String,
-        runtime: AppwriteEnums.Runtime? = nil,
+        runtime: Runtime? = nil,
         execute: [String]? = nil,
         events: [String]? = nil,
         schedule: String? = nil,
@@ -570,7 +570,7 @@ open class Functions: Service {
     ///
     /// - Parameters:
     ///   - functionId: String
-    ///   - type: AppwriteEnums.VCSDeploymentType
+    ///   - type: VCSDeploymentType
     ///   - reference: String
     ///   - activate: Bool (optional)
     /// - Throws: Exception if the request fails
@@ -578,7 +578,7 @@ open class Functions: Service {
     ///
     open func createVcsDeployment(
         functionId: String,
-        type: AppwriteEnums.VCSDeploymentType,
+        type: VCSDeploymentType,
         reference: String,
         activate: Bool? = nil
     ) async throws -> AppwriteModels.Deployment {
@@ -680,14 +680,14 @@ open class Functions: Service {
     /// - Parameters:
     ///   - functionId: String
     ///   - deploymentId: String
-    ///   - type: AppwriteEnums.DeploymentDownloadType (optional)
+    ///   - type: DeploymentDownloadType (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: ByteBuffer
     ///
     open func getDeploymentDownload(
         functionId: String,
         deploymentId: String,
-        type: AppwriteEnums.DeploymentDownloadType? = nil
+        type: DeploymentDownloadType? = nil
     ) async throws -> ByteBuffer {
         let apiPath: String = "/functions/{functionId}/deployments/{deploymentId}/download"
             .replacingOccurrences(of: "{functionId}", with: functionId)
@@ -795,7 +795,7 @@ open class Functions: Service {
     ///   - body: String (optional)
     ///   - async: Bool (optional)
     ///   - path: String (optional)
-    ///   - method: AppwriteEnums.ExecutionMethod (optional)
+    ///   - method: ExecutionMethod (optional)
     ///   - headers: Any (optional)
     ///   - scheduledAt: String (optional)
     /// - Throws: Exception if the request fails
@@ -806,7 +806,7 @@ open class Functions: Service {
         body: String? = nil,
         async: Bool? = nil,
         path: String? = nil,
-        method: AppwriteEnums.ExecutionMethod? = nil,
+        method: ExecutionMethod? = nil,
         headers: Any? = nil,
         scheduledAt: String? = nil
     ) async throws -> AppwriteModels.Execution {

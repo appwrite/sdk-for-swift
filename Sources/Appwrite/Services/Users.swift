@@ -720,7 +720,7 @@ open class Users: Service {
     ///   - userId: String
     ///   - email: String
     ///   - password: String
-    ///   - passwordVersion: AppwriteEnums.PasswordHash (optional)
+    ///   - passwordVersion: PasswordHash (optional)
     ///   - name: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.User<T>
@@ -729,7 +729,7 @@ open class Users: Service {
         userId: String,
         email: String,
         password: String,
-        passwordVersion: AppwriteEnums.PasswordHash? = nil,
+        passwordVersion: PasswordHash? = nil,
         name: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
@@ -770,7 +770,7 @@ open class Users: Service {
     ///   - userId: String
     ///   - email: String
     ///   - password: String
-    ///   - passwordVersion: AppwriteEnums.PasswordHash (optional)
+    ///   - passwordVersion: PasswordHash (optional)
     ///   - name: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.User<T>
@@ -779,7 +779,7 @@ open class Users: Service {
         userId: String,
         email: String,
         password: String,
-        passwordVersion: AppwriteEnums.PasswordHash? = nil,
+        passwordVersion: PasswordHash? = nil,
         name: String? = nil
     ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
         return try await createSHAUser(
@@ -1237,14 +1237,14 @@ open class Users: Service {
     ///
     /// - Parameters:
     ///   - userId: String
-    ///   - type: AppwriteEnums.AuthenticatorType
+    ///   - type: AuthenticatorType
     /// - Throws: Exception if the request fails
     /// - Returns: Any
     ///
     @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `Users.deleteMFAAuthenticator` instead.")
     open func deleteMfaAuthenticator(
         userId: String,
-        type: AppwriteEnums.AuthenticatorType
+        type: AuthenticatorType
     ) async throws -> Any {
         let apiPath: String = "/users/{userId}/mfa/authenticators/{type}"
             .replacingOccurrences(of: "{userId}", with: userId)
@@ -1268,13 +1268,13 @@ open class Users: Service {
     ///
     /// - Parameters:
     ///   - userId: String
-    ///   - type: AppwriteEnums.AuthenticatorType
+    ///   - type: AuthenticatorType
     /// - Throws: Exception if the request fails
     /// - Returns: Any
     ///
     open func deleteMFAAuthenticator(
         userId: String,
-        type: AppwriteEnums.AuthenticatorType
+        type: AuthenticatorType
     ) async throws -> Any {
         let apiPath: String = "/users/{userId}/mfa/authenticators/{type}"
             .replacingOccurrences(of: "{userId}", with: userId)
@@ -2083,7 +2083,7 @@ open class Users: Service {
     /// - Parameters:
     ///   - userId: String
     ///   - targetId: String
-    ///   - providerType: AppwriteEnums.MessagingProviderType
+    ///   - providerType: MessagingProviderType
     ///   - identifier: String
     ///   - providerId: String (optional)
     ///   - name: String (optional)
@@ -2093,7 +2093,7 @@ open class Users: Service {
     open func createTarget(
         userId: String,
         targetId: String,
-        providerType: AppwriteEnums.MessagingProviderType,
+        providerType: MessagingProviderType,
         identifier: String,
         providerId: String? = nil,
         name: String? = nil

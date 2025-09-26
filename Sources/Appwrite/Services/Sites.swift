@@ -50,15 +50,15 @@ open class Sites: Service {
     /// - Parameters:
     ///   - siteId: String
     ///   - name: String
-    ///   - framework: AppwriteEnums.Framework
-    ///   - buildRuntime: AppwriteEnums.BuildRuntime
+    ///   - framework: Framework
+    ///   - buildRuntime: BuildRuntime
     ///   - enabled: Bool (optional)
     ///   - logging: Bool (optional)
     ///   - timeout: Int (optional)
     ///   - installCommand: String (optional)
     ///   - buildCommand: String (optional)
     ///   - outputDirectory: String (optional)
-    ///   - adapter: AppwriteEnums.Adapter (optional)
+    ///   - adapter: Adapter (optional)
     ///   - installationId: String (optional)
     ///   - fallbackFile: String (optional)
     ///   - providerRepositoryId: String (optional)
@@ -72,15 +72,15 @@ open class Sites: Service {
     open func create(
         siteId: String,
         name: String,
-        framework: AppwriteEnums.Framework,
-        buildRuntime: AppwriteEnums.BuildRuntime,
+        framework: Framework,
+        buildRuntime: BuildRuntime,
         enabled: Bool? = nil,
         logging: Bool? = nil,
         timeout: Int? = nil,
         installCommand: String? = nil,
         buildCommand: String? = nil,
         outputDirectory: String? = nil,
-        adapter: AppwriteEnums.Adapter? = nil,
+        adapter: Adapter? = nil,
         installationId: String? = nil,
         fallbackFile: String? = nil,
         providerRepositoryId: String? = nil,
@@ -221,15 +221,15 @@ open class Sites: Service {
     /// - Parameters:
     ///   - siteId: String
     ///   - name: String
-    ///   - framework: AppwriteEnums.Framework
+    ///   - framework: Framework
     ///   - enabled: Bool (optional)
     ///   - logging: Bool (optional)
     ///   - timeout: Int (optional)
     ///   - installCommand: String (optional)
     ///   - buildCommand: String (optional)
     ///   - outputDirectory: String (optional)
-    ///   - buildRuntime: AppwriteEnums.BuildRuntime (optional)
-    ///   - adapter: AppwriteEnums.Adapter (optional)
+    ///   - buildRuntime: BuildRuntime (optional)
+    ///   - adapter: Adapter (optional)
     ///   - fallbackFile: String (optional)
     ///   - installationId: String (optional)
     ///   - providerRepositoryId: String (optional)
@@ -243,15 +243,15 @@ open class Sites: Service {
     open func update(
         siteId: String,
         name: String,
-        framework: AppwriteEnums.Framework,
+        framework: Framework,
         enabled: Bool? = nil,
         logging: Bool? = nil,
         timeout: Int? = nil,
         installCommand: String? = nil,
         buildCommand: String? = nil,
         outputDirectory: String? = nil,
-        buildRuntime: AppwriteEnums.BuildRuntime? = nil,
-        adapter: AppwriteEnums.Adapter? = nil,
+        buildRuntime: BuildRuntime? = nil,
+        adapter: Adapter? = nil,
         fallbackFile: String? = nil,
         installationId: String? = nil,
         providerRepositoryId: String? = nil,
@@ -561,7 +561,7 @@ open class Sites: Service {
     ///
     /// - Parameters:
     ///   - siteId: String
-    ///   - type: AppwriteEnums.VCSDeploymentType
+    ///   - type: VCSDeploymentType
     ///   - reference: String
     ///   - activate: Bool (optional)
     /// - Throws: Exception if the request fails
@@ -569,7 +569,7 @@ open class Sites: Service {
     ///
     open func createVcsDeployment(
         siteId: String,
-        type: AppwriteEnums.VCSDeploymentType,
+        type: VCSDeploymentType,
         reference: String,
         activate: Bool? = nil
     ) async throws -> AppwriteModels.Deployment {
@@ -671,14 +671,14 @@ open class Sites: Service {
     /// - Parameters:
     ///   - siteId: String
     ///   - deploymentId: String
-    ///   - type: AppwriteEnums.DeploymentDownloadType (optional)
+    ///   - type: DeploymentDownloadType (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: ByteBuffer
     ///
     open func getDeploymentDownload(
         siteId: String,
         deploymentId: String,
-        type: AppwriteEnums.DeploymentDownloadType? = nil
+        type: DeploymentDownloadType? = nil
     ) async throws -> ByteBuffer {
         let apiPath: String = "/sites/{siteId}/deployments/{deploymentId}/download"
             .replacingOccurrences(of: "{siteId}", with: siteId)
