@@ -202,7 +202,7 @@ open class Messaging: Service {
     ///   - scheduledAt: String (optional)
     ///   - contentAvailable: Bool (optional)
     ///   - critical: Bool (optional)
-    ///   - priority: MessagePriority (optional)
+    ///   - priority: AppwriteEnums.MessagePriority (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Message
     ///
@@ -225,7 +225,7 @@ open class Messaging: Service {
         scheduledAt: String? = nil,
         contentAvailable: Bool? = nil,
         critical: Bool? = nil,
-        priority: MessagePriority? = nil
+        priority: AppwriteEnums.MessagePriority? = nil
     ) async throws -> AppwriteModels.Message {
         let apiPath: String = "/messaging/messages/push"
 
@@ -293,7 +293,7 @@ open class Messaging: Service {
     ///   - scheduledAt: String (optional)
     ///   - contentAvailable: Bool (optional)
     ///   - critical: Bool (optional)
-    ///   - priority: MessagePriority (optional)
+    ///   - priority: AppwriteEnums.MessagePriority (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Message
     ///
@@ -316,7 +316,7 @@ open class Messaging: Service {
         scheduledAt: String? = nil,
         contentAvailable: Bool? = nil,
         critical: Bool? = nil,
-        priority: MessagePriority? = nil
+        priority: AppwriteEnums.MessagePriority? = nil
     ) async throws -> AppwriteModels.Message {
         let apiPath: String = "/messaging/messages/push/{messageId}"
             .replacingOccurrences(of: "{messageId}", with: messageId)
@@ -1476,7 +1476,7 @@ open class Messaging: Service {
     ///   - port: Int (optional)
     ///   - username: String (optional)
     ///   - password: String (optional)
-    ///   - encryption: SmtpEncryption (optional)
+    ///   - encryption: AppwriteEnums.SmtpEncryption (optional)
     ///   - autoTLS: Bool (optional)
     ///   - mailer: String (optional)
     ///   - fromName: String (optional)
@@ -1495,7 +1495,7 @@ open class Messaging: Service {
         port: Int? = nil,
         username: String? = nil,
         password: String? = nil,
-        encryption: SmtpEncryption? = nil,
+        encryption: AppwriteEnums.SmtpEncryption? = nil,
         autoTLS: Bool? = nil,
         mailer: String? = nil,
         fromName: String? = nil,
@@ -1550,7 +1550,7 @@ open class Messaging: Service {
     ///   - port: Int (optional)
     ///   - username: String (optional)
     ///   - password: String (optional)
-    ///   - encryption: SmtpEncryption (optional)
+    ///   - encryption: AppwriteEnums.SmtpEncryption (optional)
     ///   - autoTLS: Bool (optional)
     ///   - mailer: String (optional)
     ///   - fromName: String (optional)
@@ -1568,7 +1568,7 @@ open class Messaging: Service {
         port: Int? = nil,
         username: String? = nil,
         password: String? = nil,
-        encryption: SmtpEncryption? = nil,
+        encryption: AppwriteEnums.SmtpEncryption? = nil,
         autoTLS: Bool? = nil,
         mailer: String? = nil,
         fromName: String? = nil,
@@ -1623,7 +1623,7 @@ open class Messaging: Service {
     ///   - port: Int (optional)
     ///   - username: String (optional)
     ///   - password: String (optional)
-    ///   - encryption: SmtpEncryption (optional)
+    ///   - encryption: AppwriteEnums.SmtpEncryption (optional)
     ///   - autoTLS: Bool (optional)
     ///   - mailer: String (optional)
     ///   - fromName: String (optional)
@@ -1642,7 +1642,7 @@ open class Messaging: Service {
         port: Int? = nil,
         username: String? = nil,
         password: String? = nil,
-        encryption: SmtpEncryption? = nil,
+        encryption: AppwriteEnums.SmtpEncryption? = nil,
         autoTLS: Bool? = nil,
         mailer: String? = nil,
         fromName: String? = nil,
@@ -1697,7 +1697,7 @@ open class Messaging: Service {
     ///   - port: Int (optional)
     ///   - username: String (optional)
     ///   - password: String (optional)
-    ///   - encryption: SmtpEncryption (optional)
+    ///   - encryption: AppwriteEnums.SmtpEncryption (optional)
     ///   - autoTLS: Bool (optional)
     ///   - mailer: String (optional)
     ///   - fromName: String (optional)
@@ -1715,7 +1715,7 @@ open class Messaging: Service {
         port: Int? = nil,
         username: String? = nil,
         password: String? = nil,
-        encryption: SmtpEncryption? = nil,
+        encryption: AppwriteEnums.SmtpEncryption? = nil,
         autoTLS: Bool? = nil,
         mailer: String? = nil,
         fromName: String? = nil,

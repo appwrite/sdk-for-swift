@@ -1462,11 +1462,11 @@ open class TablesDB: Service {
     ///   - databaseId: String
     ///   - tableId: String
     ///   - relatedTableId: String
-    ///   - type: RelationshipType
+    ///   - type: AppwriteEnums.RelationshipType
     ///   - twoWay: Bool (optional)
     ///   - key: String (optional)
     ///   - twoWayKey: String (optional)
-    ///   - onDelete: RelationMutate (optional)
+    ///   - onDelete: AppwriteEnums.RelationMutate (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.ColumnRelationship
     ///
@@ -1474,11 +1474,11 @@ open class TablesDB: Service {
         databaseId: String,
         tableId: String,
         relatedTableId: String,
-        type: RelationshipType,
+        type: AppwriteEnums.RelationshipType,
         twoWay: Bool? = nil,
         key: String? = nil,
         twoWayKey: String? = nil,
-        onDelete: RelationMutate? = nil
+        onDelete: AppwriteEnums.RelationMutate? = nil
     ) async throws -> AppwriteModels.ColumnRelationship {
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/relationship"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -1794,7 +1794,7 @@ open class TablesDB: Service {
     ///   - databaseId: String
     ///   - tableId: String
     ///   - key: String
-    ///   - onDelete: RelationMutate (optional)
+    ///   - onDelete: AppwriteEnums.RelationMutate (optional)
     ///   - newKey: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.ColumnRelationship
@@ -1803,7 +1803,7 @@ open class TablesDB: Service {
         databaseId: String,
         tableId: String,
         key: String,
-        onDelete: RelationMutate? = nil,
+        onDelete: AppwriteEnums.RelationMutate? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.ColumnRelationship {
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/{key}/relationship"
@@ -1880,7 +1880,7 @@ open class TablesDB: Service {
     ///   - databaseId: String
     ///   - tableId: String
     ///   - key: String
-    ///   - type: IndexType
+    ///   - type: AppwriteEnums.IndexType
     ///   - columns: [String]
     ///   - orders: [String] (optional)
     ///   - lengths: [Int] (optional)
@@ -1891,7 +1891,7 @@ open class TablesDB: Service {
         databaseId: String,
         tableId: String,
         key: String,
-        type: IndexType,
+        type: AppwriteEnums.IndexType,
         columns: [String],
         orders: [String]? = nil,
         lengths: [Int]? = nil

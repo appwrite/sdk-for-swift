@@ -58,7 +58,7 @@ open class Message: Codable {
     public let data: [String: AnyCodable]
 
     /// Status of delivery.
-    public let status: MessageStatus
+    public let status: AppwriteEnums.MessageStatus
 
 
     init(
@@ -74,7 +74,7 @@ open class Message: Codable {
         deliveryErrors: [String]?,
         deliveredTotal: Int,
         data: [String: AnyCodable],
-        status: MessageStatus
+        status: AppwriteEnums.MessageStatus
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -106,7 +106,7 @@ open class Message: Codable {
         self.deliveryErrors = try container.decodeIfPresent([String].self, forKey: .deliveryErrors)
         self.deliveredTotal = try container.decode(Int.self, forKey: .deliveredTotal)
         self.data = try container.decode([String: AnyCodable].self, forKey: .data)
-        self.status = MessageStatus(rawValue: try container.decode(String.self, forKey: .status))!
+        self.status = AppwriteEnums.MessageStatus(rawValue: try container.decode(String.self, forKey: .status))!
     }
 
     public func encode(to encoder: Encoder) throws {

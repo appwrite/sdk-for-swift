@@ -34,7 +34,7 @@ open class Index: Codable {
     public let type: String
 
     /// Index status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
-    public let status: IndexStatus
+    public let status: AppwriteEnums.IndexStatus
 
     /// Error message. Displays error generated on failure of creating or deleting an index.
     public let error: String
@@ -55,7 +55,7 @@ open class Index: Codable {
         updatedAt: String,
         key: String,
         type: String,
-        status: IndexStatus,
+        status: AppwriteEnums.IndexStatus,
         error: String,
         attributes: [String],
         lengths: [Int],
@@ -81,7 +81,7 @@ open class Index: Codable {
         self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
         self.key = try container.decode(String.self, forKey: .key)
         self.type = try container.decode(String.self, forKey: .type)
-        self.status = IndexStatus(rawValue: try container.decode(String.self, forKey: .status))!
+        self.status = AppwriteEnums.IndexStatus(rawValue: try container.decode(String.self, forKey: .status))!
         self.error = try container.decode(String.self, forKey: .error)
         self.attributes = try container.decode([String].self, forKey: .attributes)
         self.lengths = try container.decode([Int].self, forKey: .lengths)

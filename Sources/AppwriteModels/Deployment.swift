@@ -78,7 +78,7 @@ open class Deployment: Codable {
     public let screenshotDark: String
 
     /// The deployment status. Possible values are &quot;waiting&quot;, &quot;processing&quot;, &quot;building&quot;, &quot;ready&quot;, and &quot;failed&quot;.
-    public let status: DeploymentStatus
+    public let status: AppwriteEnums.DeploymentStatus
 
     /// The build logs.
     public let buildLogs: String
@@ -132,7 +132,7 @@ open class Deployment: Codable {
         activate: Bool,
         screenshotLight: String,
         screenshotDark: String,
-        status: DeploymentStatus,
+        status: AppwriteEnums.DeploymentStatus,
         buildLogs: String,
         buildDuration: Int,
         providerRepositoryName: String,
@@ -192,7 +192,7 @@ open class Deployment: Codable {
         self.activate = try container.decode(Bool.self, forKey: .activate)
         self.screenshotLight = try container.decode(String.self, forKey: .screenshotLight)
         self.screenshotDark = try container.decode(String.self, forKey: .screenshotDark)
-        self.status = DeploymentStatus(rawValue: try container.decode(String.self, forKey: .status))!
+        self.status = AppwriteEnums.DeploymentStatus(rawValue: try container.decode(String.self, forKey: .status))!
         self.buildLogs = try container.decode(String.self, forKey: .buildLogs)
         self.buildDuration = try container.decode(Int.self, forKey: .buildDuration)
         self.providerRepositoryName = try container.decode(String.self, forKey: .providerRepositoryName)

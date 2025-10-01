@@ -14,12 +14,12 @@ open class HealthAntivirus: Codable {
     public let version: String
 
     /// Antivirus status. Possible values are: `disabled`, `offline`, `online`
-    public let status: HealthAntivirusStatus
+    public let status: AppwriteEnums.HealthAntivirusStatus
 
 
     init(
         version: String,
-        status: HealthAntivirusStatus
+        status: AppwriteEnums.HealthAntivirusStatus
     ) {
         self.version = version
         self.status = status
@@ -29,7 +29,7 @@ open class HealthAntivirus: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         self.version = try container.decode(String.self, forKey: .version)
-        self.status = HealthAntivirusStatus(rawValue: try container.decode(String.self, forKey: .status))!
+        self.status = AppwriteEnums.HealthAntivirusStatus(rawValue: try container.decode(String.self, forKey: .status))!
     }
 
     public func encode(to encoder: Encoder) throws {

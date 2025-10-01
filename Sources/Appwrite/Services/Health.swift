@@ -317,13 +317,13 @@ open class Health: Service {
     /// 
     ///
     /// - Parameters:
-    ///   - name: Name
+    ///   - name: AppwriteEnums.Name
     ///   - threshold: Int (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.HealthQueue
     ///
     open func getFailedJobs(
-        name: Name,
+        name: AppwriteEnums.Name,
         threshold: Int? = nil
     ) async throws -> AppwriteModels.HealthQueue {
         let apiPath: String = "/health/queue/failed/{name}"

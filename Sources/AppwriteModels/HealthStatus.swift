@@ -18,13 +18,13 @@ open class HealthStatus: Codable {
     public let ping: Int
 
     /// Service status. Possible values are: `pass`, `fail`
-    public let status: HealthCheckStatus
+    public let status: AppwriteEnums.HealthCheckStatus
 
 
     init(
         name: String,
         ping: Int,
-        status: HealthCheckStatus
+        status: AppwriteEnums.HealthCheckStatus
     ) {
         self.name = name
         self.ping = ping
@@ -36,7 +36,7 @@ open class HealthStatus: Codable {
 
         self.name = try container.decode(String.self, forKey: .name)
         self.ping = try container.decode(Int.self, forKey: .ping)
-        self.status = HealthCheckStatus(rawValue: try container.decode(String.self, forKey: .status))!
+        self.status = AppwriteEnums.HealthCheckStatus(rawValue: try container.decode(String.self, forKey: .status))!
     }
 
     public func encode(to encoder: Encoder) throws {

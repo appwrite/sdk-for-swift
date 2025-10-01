@@ -26,7 +26,7 @@ open class AttributeFloat: Codable {
     public let type: String
 
     /// Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
-    public let status: AttributeStatus
+    public let status: AppwriteEnums.AttributeStatus
 
     /// Error message. Displays error generated on failure of creating or deleting an attribute.
     public let error: String
@@ -56,7 +56,7 @@ open class AttributeFloat: Codable {
     init(
         key: String,
         type: String,
-        status: AttributeStatus,
+        status: AppwriteEnums.AttributeStatus,
         error: String,
         `required`: Bool,
         array: Bool?,
@@ -84,7 +84,7 @@ open class AttributeFloat: Codable {
 
         self.key = try container.decode(String.self, forKey: .key)
         self.type = try container.decode(String.self, forKey: .type)
-        self.status = AttributeStatus(rawValue: try container.decode(String.self, forKey: .status))!
+        self.status = AppwriteEnums.AttributeStatus(rawValue: try container.decode(String.self, forKey: .status))!
         self.error = try container.decode(String.self, forKey: .error)
         self.`required` = try container.decode(Bool.self, forKey: .`required`)
         self.array = try container.decodeIfPresent(Bool.self, forKey: .array)
