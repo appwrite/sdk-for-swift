@@ -1,5 +1,6 @@
 import Foundation
 import JSONCodable
+import AppwriteEnums
 
 /// Index
 open class Index: Codable {
@@ -33,7 +34,7 @@ open class Index: Codable {
     public let type: String
 
     /// Index status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
-    public let status: String
+    public let status: AppwriteEnums.IndexStatus
 
     /// Error message. Displays error generated on failure of creating or deleting an index.
     public let error: String
@@ -54,7 +55,7 @@ open class Index: Codable {
         updatedAt: String,
         key: String,
         type: String,
-        status: String,
+        status: AppwriteEnums.IndexStatus,
         error: String,
         attributes: [String],
         lengths: [Int],
@@ -80,7 +81,7 @@ open class Index: Codable {
         self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
         self.key = try container.decode(String.self, forKey: .key)
         self.type = try container.decode(String.self, forKey: .type)
-        self.status = try container.decode(String.self, forKey: .status)
+        self.status = AppwriteEnums.IndexStatus(rawValue: try container.decode(String.self, forKey: .status))!
         self.error = try container.decode(String.self, forKey: .error)
         self.attributes = try container.decode([String].self, forKey: .attributes)
         self.lengths = try container.decode([Int].self, forKey: .lengths)
@@ -95,7 +96,7 @@ open class Index: Codable {
         try container.encode(updatedAt, forKey: .updatedAt)
         try container.encode(key, forKey: .key)
         try container.encode(type, forKey: .type)
-        try container.encode(status, forKey: .status)
+        try container.encode(status.rawValue, forKey: .status)
         try container.encode(error, forKey: .error)
         try container.encode(attributes, forKey: .attributes)
         try container.encode(lengths, forKey: .lengths)
@@ -109,7 +110,7 @@ open class Index: Codable {
             "$updatedAt": updatedAt as Any,
             "key": key as Any,
             "type": type as Any,
-            "status": status as Any,
+            "status": status.rawValue as Any,
             "error": error as Any,
             "attributes": attributes as Any,
             "lengths": lengths as Any,
@@ -124,7 +125,7 @@ open class Index: Codable {
             updatedAt: map["$updatedAt"] as! String,
             key: map["key"] as! String,
             type: map["type"] as! String,
-            status: map["status"] as! String,
+            status: IndexStatus(rawValue: map["status"] as! String)!,
             error: map["error"] as! String,
             attributes: map["attributes"] as! [String],
             lengths: map["lengths"] as! [Int],

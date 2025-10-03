@@ -1,5 +1,6 @@
 import Foundation
 import JSONCodable
+import AppwriteEnums
 
 /// AttributeLine
 open class AttributeLine: Codable {
@@ -23,7 +24,7 @@ open class AttributeLine: Codable {
     public let type: String
 
     /// Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
-    public let status: String
+    public let status: AppwriteEnums.AttributeStatus
 
     /// Error message. Displays error generated on failure of creating or deleting an attribute.
     public let error: String
@@ -47,7 +48,7 @@ open class AttributeLine: Codable {
     init(
         key: String,
         type: String,
-        status: String,
+        status: AppwriteEnums.AttributeStatus,
         error: String,
         `required`: Bool,
         array: Bool?,
@@ -71,7 +72,7 @@ open class AttributeLine: Codable {
 
         self.key = try container.decode(String.self, forKey: .key)
         self.type = try container.decode(String.self, forKey: .type)
-        self.status = try container.decode(String.self, forKey: .status)
+        self.status = AppwriteEnums.AttributeStatus(rawValue: try container.decode(String.self, forKey: .status))!
         self.error = try container.decode(String.self, forKey: .error)
         self.`required` = try container.decode(Bool.self, forKey: .`required`)
         self.array = try container.decodeIfPresent(Bool.self, forKey: .array)
@@ -85,7 +86,7 @@ open class AttributeLine: Codable {
 
         try container.encode(key, forKey: .key)
         try container.encode(type, forKey: .type)
-        try container.encode(status, forKey: .status)
+        try container.encode(status.rawValue, forKey: .status)
         try container.encode(error, forKey: .error)
         try container.encode(`required`, forKey: .`required`)
         try container.encodeIfPresent(array, forKey: .array)
@@ -98,7 +99,7 @@ open class AttributeLine: Codable {
         return [
             "key": key as Any,
             "type": type as Any,
-            "status": status as Any,
+            "status": status.rawValue as Any,
             "error": error as Any,
             "required": `required` as Any,
             "array": array as Any,
@@ -112,7 +113,7 @@ open class AttributeLine: Codable {
         return AttributeLine(
             key: map["key"] as! String,
             type: map["type"] as! String,
-            status: map["status"] as! String,
+            status: AttributeStatus(rawValue: map["status"] as! String)!,
             error: map["error"] as! String,
             required: map["required"] as! Bool,
             array: map["array"] as? Bool,

@@ -1,5 +1,6 @@
 import Foundation
 import JSONCodable
+import AppwriteEnums
 
 /// Database
 open class Database: Codable {
@@ -29,7 +30,7 @@ open class Database: Codable {
     public let enabled: Bool
 
     /// Database type.
-    public let type: String
+    public let type: AppwriteEnums.DatabaseType
 
 
     init(
@@ -38,7 +39,7 @@ open class Database: Codable {
         createdAt: String,
         updatedAt: String,
         enabled: Bool,
-        type: String
+        type: AppwriteEnums.DatabaseType
     ) {
         self.id = id
         self.name = name
@@ -56,7 +57,7 @@ open class Database: Codable {
         self.createdAt = try container.decode(String.self, forKey: .createdAt)
         self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
         self.enabled = try container.decode(Bool.self, forKey: .enabled)
-        self.type = try container.decode(String.self, forKey: .type)
+        self.type = AppwriteEnums.DatabaseType(rawValue: try container.decode(String.self, forKey: .type))!
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -67,7 +68,7 @@ open class Database: Codable {
         try container.encode(createdAt, forKey: .createdAt)
         try container.encode(updatedAt, forKey: .updatedAt)
         try container.encode(enabled, forKey: .enabled)
-        try container.encode(type, forKey: .type)
+        try container.encode(type.rawValue, forKey: .type)
     }
 
     public func toMap() -> [String: Any] {
@@ -77,7 +78,7 @@ open class Database: Codable {
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
             "enabled": enabled as Any,
-            "type": type as Any
+            "type": type.rawValue as Any
         ]
     }
 
@@ -88,7 +89,7 @@ open class Database: Codable {
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
             enabled: map["enabled"] as! Bool,
-            type: map["type"] as! String
+            type: DatabaseType(rawValue: map["type"] as! String)!
         )
     }
 }
