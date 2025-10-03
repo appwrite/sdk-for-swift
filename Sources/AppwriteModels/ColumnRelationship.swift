@@ -1,5 +1,6 @@
 import Foundation
 import JSONCodable
+import AppwriteEnums
 
 /// ColumnRelationship
 open class ColumnRelationship: Codable {
@@ -28,7 +29,7 @@ open class ColumnRelationship: Codable {
     public let type: String
 
     /// Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
-    public let status: String
+    public let status: AppwriteEnums.ColumnStatus
 
     /// Error message. Displays error generated on failure of creating or deleting an column.
     public let error: String
@@ -67,7 +68,7 @@ open class ColumnRelationship: Codable {
     init(
         key: String,
         type: String,
-        status: String,
+        status: AppwriteEnums.ColumnStatus,
         error: String,
         `required`: Bool,
         array: Bool?,
@@ -101,7 +102,7 @@ open class ColumnRelationship: Codable {
 
         self.key = try container.decode(String.self, forKey: .key)
         self.type = try container.decode(String.self, forKey: .type)
-        self.status = try container.decode(String.self, forKey: .status)
+        self.status = AppwriteEnums.ColumnStatus(rawValue: try container.decode(String.self, forKey: .status))!
         self.error = try container.decode(String.self, forKey: .error)
         self.`required` = try container.decode(Bool.self, forKey: .`required`)
         self.array = try container.decodeIfPresent(Bool.self, forKey: .array)
@@ -120,7 +121,7 @@ open class ColumnRelationship: Codable {
 
         try container.encode(key, forKey: .key)
         try container.encode(type, forKey: .type)
-        try container.encode(status, forKey: .status)
+        try container.encode(status.rawValue, forKey: .status)
         try container.encode(error, forKey: .error)
         try container.encode(`required`, forKey: .`required`)
         try container.encodeIfPresent(array, forKey: .array)
@@ -138,7 +139,7 @@ open class ColumnRelationship: Codable {
         return [
             "key": key as Any,
             "type": type as Any,
-            "status": status as Any,
+            "status": status.rawValue as Any,
             "error": error as Any,
             "required": `required` as Any,
             "array": array as Any,
@@ -157,7 +158,7 @@ open class ColumnRelationship: Codable {
         return ColumnRelationship(
             key: map["key"] as! String,
             type: map["type"] as! String,
-            status: map["status"] as! String,
+            status: ColumnStatus(rawValue: map["status"] as! String)!,
             error: map["error"] as! String,
             required: map["required"] as! Bool,
             array: map["array"] as? Bool,
