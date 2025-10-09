@@ -7,10 +7,7 @@ let client = Client()
 
 let tablesDB = TablesDB(client)
 
-let rowList = try await tablesDB.upsertRows(
-    databaseId: "<DATABASE_ID>",
-    tableId: "<TABLE_ID>",
-    rows: [],
-    transactionId: "<TRANSACTION_ID>" // optional
+let transaction = try await tablesDB.createTransaction(
+    ttl: 60 // optional
 )
 
