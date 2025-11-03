@@ -15,18 +15,21 @@ open class TablesDB: Service {
     /// - Parameters:
     ///   - queries: [String] (optional)
     ///   - search: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DatabaseList
     ///
     open func list(
         queries: [String]? = nil,
-        search: String? = nil
+        search: String? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.DatabaseList {
         let apiPath: String = "/tablesdb"
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "search": search
+            "search": search,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -394,20 +397,23 @@ open class TablesDB: Service {
     ///   - databaseId: String
     ///   - queries: [String] (optional)
     ///   - search: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.TableList
     ///
     open func listTables(
         databaseId: String,
         queries: [String]? = nil,
-        search: String? = nil
+        search: String? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.TableList {
         let apiPath: String = "/tablesdb/{databaseId}/tables"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "search": search
+            "search": search,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -599,20 +605,23 @@ open class TablesDB: Service {
     ///   - databaseId: String
     ///   - tableId: String
     ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.ColumnList
     ///
     open func listColumns(
         databaseId: String,
         tableId: String,
-        queries: [String]? = nil
+        queries: [String]? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.ColumnList {
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
 
         let apiParams: [String: Any?] = [
-            "queries": queries
+            "queries": queries,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -2041,20 +2050,23 @@ open class TablesDB: Service {
     ///   - databaseId: String
     ///   - tableId: String
     ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.ColumnIndexList
     ///
     open func listIndexes(
         databaseId: String,
         tableId: String,
-        queries: [String]? = nil
+        queries: [String]? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.ColumnIndexList {
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/indexes"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
 
         let apiParams: [String: Any?] = [
-            "queries": queries
+            "queries": queries,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -2205,6 +2217,7 @@ open class TablesDB: Service {
     ///   - tableId: String
     ///   - queries: [String] (optional)
     ///   - transactionId: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.RowList<T>
     ///
@@ -2213,6 +2226,7 @@ open class TablesDB: Service {
         tableId: String,
         queries: [String]? = nil,
         transactionId: String? = nil,
+        total: Bool? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.RowList<T> {
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows"
@@ -2221,7 +2235,8 @@ open class TablesDB: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "transactionId": transactionId
+            "transactionId": transactionId,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -2248,6 +2263,7 @@ open class TablesDB: Service {
     ///   - tableId: String
     ///   - queries: [String] (optional)
     ///   - transactionId: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.RowList<T>
     ///
@@ -2255,13 +2271,15 @@ open class TablesDB: Service {
         databaseId: String,
         tableId: String,
         queries: [String]? = nil,
-        transactionId: String? = nil
+        transactionId: String? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.RowList<[String: AnyCodable]> {
         return try await listRows(
             databaseId: databaseId,
             tableId: tableId,
             queries: queries,
             transactionId: transactionId,
+            total: total,
             nestedType: [String: AnyCodable].self
         )
     }

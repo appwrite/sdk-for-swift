@@ -15,19 +15,22 @@ open class Users: Service {
     /// - Parameters:
     ///   - queries: [String] (optional)
     ///   - search: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.UserList<T>
     ///
     open func list<T>(
         queries: [String]? = nil,
         search: String? = nil,
+        total: Bool? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.UserList<T> {
         let apiPath: String = "/users"
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "search": search
+            "search": search,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -52,16 +55,19 @@ open class Users: Service {
     /// - Parameters:
     ///   - queries: [String] (optional)
     ///   - search: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.UserList<T>
     ///
     open func list(
         queries: [String]? = nil,
-        search: String? = nil
+        search: String? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.UserList<[String: AnyCodable]> {
         return try await list(
             queries: queries,
             search: search,
+            total: total,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -300,18 +306,21 @@ open class Users: Service {
     /// - Parameters:
     ///   - queries: [String] (optional)
     ///   - search: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.IdentityList
     ///
     open func listIdentities(
         queries: [String]? = nil,
-        search: String? = nil
+        search: String? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.IdentityList {
         let apiPath: String = "/users/identities"
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "search": search
+            "search": search,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -1047,18 +1056,21 @@ open class Users: Service {
     /// - Parameters:
     ///   - userId: String
     ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.LogList
     ///
     open func listLogs(
         userId: String,
-        queries: [String]? = nil
+        queries: [String]? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.LogList {
         let apiPath: String = "/users/{userId}/logs"
             .replacingOccurrences(of: "{userId}", with: userId)
 
         let apiParams: [String: Any?] = [
-            "queries": queries
+            "queries": queries,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -1083,20 +1095,23 @@ open class Users: Service {
     ///   - userId: String
     ///   - queries: [String] (optional)
     ///   - search: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.MembershipList
     ///
     open func listMemberships(
         userId: String,
         queries: [String]? = nil,
-        search: String? = nil
+        search: String? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.MembershipList {
         let apiPath: String = "/users/{userId}/memberships"
             .replacingOccurrences(of: "{userId}", with: userId)
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "search": search
+            "search": search,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -1861,16 +1876,20 @@ open class Users: Service {
     ///
     /// - Parameters:
     ///   - userId: String
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.SessionList
     ///
     open func listSessions(
-        userId: String
+        userId: String,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.SessionList {
         let apiPath: String = "/users/{userId}/sessions"
             .replacingOccurrences(of: "{userId}", with: userId)
 
-        let apiParams: [String: Any] = [:]
+        let apiParams: [String: Any?] = [
+            "total": total
+        ]
 
         let apiHeaders: [String: String] = [:]
 
@@ -2048,18 +2067,21 @@ open class Users: Service {
     /// - Parameters:
     ///   - userId: String
     ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.TargetList
     ///
     open func listTargets(
         userId: String,
-        queries: [String]? = nil
+        queries: [String]? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.TargetList {
         let apiPath: String = "/users/{userId}/targets"
             .replacingOccurrences(of: "{userId}", with: userId)
 
         let apiParams: [String: Any?] = [
-            "queries": queries
+            "queries": queries,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]

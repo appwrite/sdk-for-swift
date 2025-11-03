@@ -16,20 +16,23 @@ open class Tokens: Service {
     ///   - bucketId: String
     ///   - fileId: String
     ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.ResourceTokenList
     ///
     open func list(
         bucketId: String,
         fileId: String,
-        queries: [String]? = nil
+        queries: [String]? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.ResourceTokenList {
         let apiPath: String = "/tokens/buckets/{bucketId}/files/{fileId}"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
             .replacingOccurrences(of: "{fileId}", with: fileId)
 
         let apiParams: [String: Any?] = [
-            "queries": queries
+            "queries": queries,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]

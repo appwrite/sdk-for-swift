@@ -9,6 +9,7 @@ public enum Framework: String, CustomStringConvertible {
     case vue = "vue"
     case sveltekit = "sveltekit"
     case astro = "astro"
+    case tanstackStart = "tanstack-start"
     case remix = "remix"
     case lynx = "lynx"
     case flutter = "flutter"
