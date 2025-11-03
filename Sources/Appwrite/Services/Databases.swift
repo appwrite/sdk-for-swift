@@ -15,19 +15,22 @@ open class Databases: Service {
     /// - Parameters:
     ///   - queries: [String] (optional)
     ///   - search: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DatabaseList
     ///
     @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.list` instead.")
     open func list(
         queries: [String]? = nil,
-        search: String? = nil
+        search: String? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.DatabaseList {
         let apiPath: String = "/databases"
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "search": search
+            "search": search,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -399,6 +402,7 @@ open class Databases: Service {
     ///   - databaseId: String
     ///   - queries: [String] (optional)
     ///   - search: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.CollectionList
     ///
@@ -406,14 +410,16 @@ open class Databases: Service {
     open func listCollections(
         databaseId: String,
         queries: [String]? = nil,
-        search: String? = nil
+        search: String? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.CollectionList {
         let apiPath: String = "/databases/{databaseId}/collections"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "search": search
+            "search": search,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -609,6 +615,7 @@ open class Databases: Service {
     ///   - databaseId: String
     ///   - collectionId: String
     ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeList
     ///
@@ -616,14 +623,16 @@ open class Databases: Service {
     open func listAttributes(
         databaseId: String,
         collectionId: String,
-        queries: [String]? = nil
+        queries: [String]? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.AttributeList {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
 
         let apiParams: [String: Any?] = [
-            "queries": queries
+            "queries": queries,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -2083,6 +2092,7 @@ open class Databases: Service {
     ///   - collectionId: String
     ///   - queries: [String] (optional)
     ///   - transactionId: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DocumentList<T>
     ///
@@ -2092,6 +2102,7 @@ open class Databases: Service {
         collectionId: String,
         queries: [String]? = nil,
         transactionId: String? = nil,
+        total: Bool? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.DocumentList<T> {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/documents"
@@ -2100,7 +2111,8 @@ open class Databases: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "transactionId": transactionId
+            "transactionId": transactionId,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -2127,6 +2139,7 @@ open class Databases: Service {
     ///   - collectionId: String
     ///   - queries: [String] (optional)
     ///   - transactionId: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DocumentList<T>
     ///
@@ -2135,13 +2148,15 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         queries: [String]? = nil,
-        transactionId: String? = nil
+        transactionId: String? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.DocumentList<[String: AnyCodable]> {
         return try await listDocuments(
             databaseId: databaseId,
             collectionId: collectionId,
             queries: queries,
             transactionId: transactionId,
+            total: total,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -3029,6 +3044,7 @@ open class Databases: Service {
     ///   - databaseId: String
     ///   - collectionId: String
     ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.IndexList
     ///
@@ -3036,14 +3052,16 @@ open class Databases: Service {
     open func listIndexes(
         databaseId: String,
         collectionId: String,
-        queries: [String]? = nil
+        queries: [String]? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.IndexList {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/indexes"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
 
         let apiParams: [String: Any?] = [
-            "queries": queries
+            "queries": queries,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]

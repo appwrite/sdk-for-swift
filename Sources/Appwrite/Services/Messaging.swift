@@ -14,18 +14,21 @@ open class Messaging: Service {
     /// - Parameters:
     ///   - queries: [String] (optional)
     ///   - search: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.MessageList
     ///
     open func listMessages(
         queries: [String]? = nil,
-        search: String? = nil
+        search: String? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.MessageList {
         let apiPath: String = "/messaging/messages"
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "search": search
+            "search": search,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -641,18 +644,21 @@ open class Messaging: Service {
     /// - Parameters:
     ///   - messageId: String
     ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.LogList
     ///
     open func listMessageLogs(
         messageId: String,
-        queries: [String]? = nil
+        queries: [String]? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.LogList {
         let apiPath: String = "/messaging/messages/{messageId}/logs"
             .replacingOccurrences(of: "{messageId}", with: messageId)
 
         let apiParams: [String: Any?] = [
-            "queries": queries
+            "queries": queries,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -676,18 +682,21 @@ open class Messaging: Service {
     /// - Parameters:
     ///   - messageId: String
     ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.TargetList
     ///
     open func listTargets(
         messageId: String,
-        queries: [String]? = nil
+        queries: [String]? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.TargetList {
         let apiPath: String = "/messaging/messages/{messageId}/targets"
             .replacingOccurrences(of: "{messageId}", with: messageId)
 
         let apiParams: [String: Any?] = [
-            "queries": queries
+            "queries": queries,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -711,18 +720,21 @@ open class Messaging: Service {
     /// - Parameters:
     ///   - queries: [String] (optional)
     ///   - search: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.ProviderList
     ///
     open func listProviders(
         queries: [String]? = nil,
-        search: String? = nil
+        search: String? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.ProviderList {
         let apiPath: String = "/messaging/providers"
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "search": search
+            "search": search,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -1337,6 +1349,116 @@ open class Messaging: Service {
             "templateId": templateId,
             "senderId": senderId,
             "authKey": authKey
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Provider = { response in
+            return AppwriteModels.Provider.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create a new Resend provider.
+    ///
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String
+    ///   - apiKey: String (optional)
+    ///   - fromName: String (optional)
+    ///   - fromEmail: String (optional)
+    ///   - replyToName: String (optional)
+    ///   - replyToEmail: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
+    ///
+    open func createResendProvider(
+        providerId: String,
+        name: String,
+        apiKey: String? = nil,
+        fromName: String? = nil,
+        fromEmail: String? = nil,
+        replyToName: String? = nil,
+        replyToEmail: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.Provider {
+        let apiPath: String = "/messaging/providers/resend"
+
+        let apiParams: [String: Any?] = [
+            "providerId": providerId,
+            "name": name,
+            "apiKey": apiKey,
+            "fromName": fromName,
+            "fromEmail": fromEmail,
+            "replyToName": replyToName,
+            "replyToEmail": replyToEmail,
+            "enabled": enabled
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.Provider = { response in
+            return AppwriteModels.Provider.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update a Resend provider by its unique ID.
+    ///
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String (optional)
+    ///   - enabled: Bool (optional)
+    ///   - apiKey: String (optional)
+    ///   - fromName: String (optional)
+    ///   - fromEmail: String (optional)
+    ///   - replyToName: String (optional)
+    ///   - replyToEmail: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
+    ///
+    open func updateResendProvider(
+        providerId: String,
+        name: String? = nil,
+        enabled: Bool? = nil,
+        apiKey: String? = nil,
+        fromName: String? = nil,
+        fromEmail: String? = nil,
+        replyToName: String? = nil,
+        replyToEmail: String? = nil
+    ) async throws -> AppwriteModels.Provider {
+        let apiPath: String = "/messaging/providers/resend/{providerId}"
+            .replacingOccurrences(of: "{providerId}", with: providerId)
+
+        let apiParams: [String: Any?] = [
+            "name": name,
+            "enabled": enabled,
+            "apiKey": apiKey,
+            "fromName": fromName,
+            "fromEmail": fromEmail,
+            "replyToName": replyToName,
+            "replyToEmail": replyToEmail
         ]
 
         let apiHeaders: [String: String] = [
@@ -2217,18 +2339,21 @@ open class Messaging: Service {
     /// - Parameters:
     ///   - providerId: String
     ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.LogList
     ///
     open func listProviderLogs(
         providerId: String,
-        queries: [String]? = nil
+        queries: [String]? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.LogList {
         let apiPath: String = "/messaging/providers/{providerId}/logs"
             .replacingOccurrences(of: "{providerId}", with: providerId)
 
         let apiParams: [String: Any?] = [
-            "queries": queries
+            "queries": queries,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -2252,18 +2377,21 @@ open class Messaging: Service {
     /// - Parameters:
     ///   - subscriberId: String
     ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.LogList
     ///
     open func listSubscriberLogs(
         subscriberId: String,
-        queries: [String]? = nil
+        queries: [String]? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.LogList {
         let apiPath: String = "/messaging/subscribers/{subscriberId}/logs"
             .replacingOccurrences(of: "{subscriberId}", with: subscriberId)
 
         let apiParams: [String: Any?] = [
-            "queries": queries
+            "queries": queries,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -2287,18 +2415,21 @@ open class Messaging: Service {
     /// - Parameters:
     ///   - queries: [String] (optional)
     ///   - search: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.TopicList
     ///
     open func listTopics(
         queries: [String]? = nil,
-        search: String? = nil
+        search: String? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.TopicList {
         let apiPath: String = "/messaging/topics"
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "search": search
+            "search": search,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -2462,18 +2593,21 @@ open class Messaging: Service {
     /// - Parameters:
     ///   - topicId: String
     ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.LogList
     ///
     open func listTopicLogs(
         topicId: String,
-        queries: [String]? = nil
+        queries: [String]? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.LogList {
         let apiPath: String = "/messaging/topics/{topicId}/logs"
             .replacingOccurrences(of: "{topicId}", with: topicId)
 
         let apiParams: [String: Any?] = [
-            "queries": queries
+            "queries": queries,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -2498,20 +2632,23 @@ open class Messaging: Service {
     ///   - topicId: String
     ///   - queries: [String] (optional)
     ///   - search: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.SubscriberList
     ///
     open func listSubscribers(
         topicId: String,
         queries: [String]? = nil,
-        search: String? = nil
+        search: String? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.SubscriberList {
         let apiPath: String = "/messaging/topics/{topicId}/subscribers"
             .replacingOccurrences(of: "{topicId}", with: topicId)
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "search": search
+            "search": search,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]

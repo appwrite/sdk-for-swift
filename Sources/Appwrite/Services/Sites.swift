@@ -15,18 +15,21 @@ open class Sites: Service {
     /// - Parameters:
     ///   - queries: [String] (optional)
     ///   - search: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.SiteList
     ///
     open func list(
         queries: [String]? = nil,
-        search: String? = nil
+        search: String? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.SiteList {
         let apiPath: String = "/sites"
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "search": search
+            "search": search,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -373,20 +376,23 @@ open class Sites: Service {
     ///   - siteId: String
     ///   - queries: [String] (optional)
     ///   - search: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DeploymentList
     ///
     open func listDeployments(
         siteId: String,
         queries: [String]? = nil,
-        search: String? = nil
+        search: String? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.DeploymentList {
         let apiPath: String = "/sites/{siteId}/deployments"
             .replacingOccurrences(of: "{siteId}", with: siteId)
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "search": search
+            "search": search,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -746,18 +752,21 @@ open class Sites: Service {
     /// - Parameters:
     ///   - siteId: String
     ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.ExecutionList
     ///
     open func listLogs(
         siteId: String,
-        queries: [String]? = nil
+        queries: [String]? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.ExecutionList {
         let apiPath: String = "/sites/{siteId}/logs"
             .replacingOccurrences(of: "{siteId}", with: siteId)
 
         let apiParams: [String: Any?] = [
-            "queries": queries
+            "queries": queries,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]

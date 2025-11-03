@@ -15,18 +15,21 @@ open class Functions: Service {
     /// - Parameters:
     ///   - queries: [String] (optional)
     ///   - search: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.FunctionList
     ///
     open func list(
         queries: [String]? = nil,
-        search: String? = nil
+        search: String? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.FunctionList {
         let apiPath: String = "/functions"
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "search": search
+            "search": search,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -375,20 +378,23 @@ open class Functions: Service {
     ///   - functionId: String
     ///   - queries: [String] (optional)
     ///   - search: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DeploymentList
     ///
     open func listDeployments(
         functionId: String,
         queries: [String]? = nil,
-        search: String? = nil
+        search: String? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.DeploymentList {
         let apiPath: String = "/functions/{functionId}/deployments"
             .replacingOccurrences(of: "{functionId}", with: functionId)
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "search": search
+            "search": search,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -755,18 +761,21 @@ open class Functions: Service {
     /// - Parameters:
     ///   - functionId: String
     ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.ExecutionList
     ///
     open func listExecutions(
         functionId: String,
-        queries: [String]? = nil
+        queries: [String]? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.ExecutionList {
         let apiPath: String = "/functions/{functionId}/executions"
             .replacingOccurrences(of: "{functionId}", with: functionId)
 
         let apiParams: [String: Any?] = [
-            "queries": queries
+            "queries": queries,
+            "total": total
         ]
 
         let apiHeaders: [String: String] = [:]
