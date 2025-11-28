@@ -17,6 +17,7 @@ open class Bucket: Codable {
         case compression = "compression"
         case encryption = "encryption"
         case antivirus = "antivirus"
+        case transformations = "transformations"
     }
 
     /// Bucket ID.
@@ -55,6 +56,9 @@ open class Bucket: Codable {
     /// Virus scanning is enabled.
     public let antivirus: Bool
 
+    /// Image transformations are enabled.
+    public let transformations: Bool
+
 
     init(
         id: String,
@@ -68,7 +72,8 @@ open class Bucket: Codable {
         allowedFileExtensions: [String],
         compression: String,
         encryption: Bool,
-        antivirus: Bool
+        antivirus: Bool,
+        transformations: Bool
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -82,6 +87,7 @@ open class Bucket: Codable {
         self.compression = compression
         self.encryption = encryption
         self.antivirus = antivirus
+        self.transformations = transformations
     }
 
     public required init(from decoder: Decoder) throws {
@@ -99,6 +105,7 @@ open class Bucket: Codable {
         self.compression = try container.decode(String.self, forKey: .compression)
         self.encryption = try container.decode(Bool.self, forKey: .encryption)
         self.antivirus = try container.decode(Bool.self, forKey: .antivirus)
+        self.transformations = try container.decode(Bool.self, forKey: .transformations)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -116,6 +123,7 @@ open class Bucket: Codable {
         try container.encode(compression, forKey: .compression)
         try container.encode(encryption, forKey: .encryption)
         try container.encode(antivirus, forKey: .antivirus)
+        try container.encode(transformations, forKey: .transformations)
     }
 
     public func toMap() -> [String: Any] {
@@ -131,7 +139,8 @@ open class Bucket: Codable {
             "allowedFileExtensions": allowedFileExtensions as Any,
             "compression": compression as Any,
             "encryption": encryption as Any,
-            "antivirus": antivirus as Any
+            "antivirus": antivirus as Any,
+            "transformations": transformations as Any
         ]
     }
 
@@ -148,7 +157,8 @@ open class Bucket: Codable {
             allowedFileExtensions: map["allowedFileExtensions"] as! [String],
             compression: map["compression"] as! String,
             encryption: map["encryption"] as! Bool,
-            antivirus: map["antivirus"] as! Bool
+            antivirus: map["antivirus"] as! Bool,
+            transformations: map["transformations"] as! Bool
         )
     }
 }

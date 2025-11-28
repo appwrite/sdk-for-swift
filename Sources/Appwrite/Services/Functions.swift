@@ -528,7 +528,8 @@ open class Functions: Service {
     ///   - repository: String
     ///   - owner: String
     ///   - rootDirectory: String
-    ///   - version: String
+    ///   - type: AppwriteEnums.TemplateReferenceType
+    ///   - reference: String
     ///   - activate: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Deployment
@@ -538,7 +539,8 @@ open class Functions: Service {
         repository: String,
         owner: String,
         rootDirectory: String,
-        version: String,
+        type: AppwriteEnums.TemplateReferenceType,
+        reference: String,
         activate: Bool? = nil
     ) async throws -> AppwriteModels.Deployment {
         let apiPath: String = "/functions/{functionId}/deployments/template"
@@ -548,7 +550,8 @@ open class Functions: Service {
             "repository": repository,
             "owner": owner,
             "rootDirectory": rootDirectory,
-            "version": version,
+            "type": type,
+            "reference": reference,
             "activate": activate
         ]
 
@@ -576,7 +579,7 @@ open class Functions: Service {
     ///
     /// - Parameters:
     ///   - functionId: String
-    ///   - type: AppwriteEnums.VCSDeploymentType
+    ///   - type: AppwriteEnums.VCSReferenceType
     ///   - reference: String
     ///   - activate: Bool (optional)
     /// - Throws: Exception if the request fails
@@ -584,7 +587,7 @@ open class Functions: Service {
     ///
     open func createVcsDeployment(
         functionId: String,
-        type: AppwriteEnums.VCSDeploymentType,
+        type: AppwriteEnums.VCSReferenceType,
         reference: String,
         activate: Bool? = nil
     ) async throws -> AppwriteModels.Deployment {
