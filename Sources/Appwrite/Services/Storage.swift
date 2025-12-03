@@ -61,6 +61,7 @@ open class Storage: Service {
     ///   - compression: AppwriteEnums.Compression (optional)
     ///   - encryption: Bool (optional)
     ///   - antivirus: Bool (optional)
+    ///   - transformations: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Bucket
     ///
@@ -74,7 +75,8 @@ open class Storage: Service {
         allowedFileExtensions: [String]? = nil,
         compression: AppwriteEnums.Compression? = nil,
         encryption: Bool? = nil,
-        antivirus: Bool? = nil
+        antivirus: Bool? = nil,
+        transformations: Bool? = nil
     ) async throws -> AppwriteModels.Bucket {
         let apiPath: String = "/storage/buckets"
 
@@ -88,7 +90,8 @@ open class Storage: Service {
             "allowedFileExtensions": allowedFileExtensions,
             "compression": compression,
             "encryption": encryption,
-            "antivirus": antivirus
+            "antivirus": antivirus,
+            "transformations": transformations
         ]
 
         let apiHeaders: [String: String] = [
@@ -154,6 +157,7 @@ open class Storage: Service {
     ///   - compression: AppwriteEnums.Compression (optional)
     ///   - encryption: Bool (optional)
     ///   - antivirus: Bool (optional)
+    ///   - transformations: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Bucket
     ///
@@ -167,7 +171,8 @@ open class Storage: Service {
         allowedFileExtensions: [String]? = nil,
         compression: AppwriteEnums.Compression? = nil,
         encryption: Bool? = nil,
-        antivirus: Bool? = nil
+        antivirus: Bool? = nil,
+        transformations: Bool? = nil
     ) async throws -> AppwriteModels.Bucket {
         let apiPath: String = "/storage/buckets/{bucketId}"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
@@ -181,7 +186,8 @@ open class Storage: Service {
             "allowedFileExtensions": allowedFileExtensions,
             "compression": compression,
             "encryption": encryption,
-            "antivirus": antivirus
+            "antivirus": antivirus,
+            "transformations": transformations
         ]
 
         let apiHeaders: [String: String] = [

@@ -413,7 +413,7 @@ open class Sites: Service {
     ///
     /// Create a new site code deployment. Use this endpoint to upload a new
     /// version of your site code. To activate your newly uploaded code, you'll
-    /// need to update the function's deployment to use your new deployment ID.
+    /// need to update the site's deployment to use your new deployment ID.
     ///
     /// - Parameters:
     ///   - siteId: String
@@ -519,7 +519,8 @@ open class Sites: Service {
     ///   - repository: String
     ///   - owner: String
     ///   - rootDirectory: String
-    ///   - version: String
+    ///   - type: AppwriteEnums.TemplateReferenceType
+    ///   - reference: String
     ///   - activate: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Deployment
@@ -529,7 +530,8 @@ open class Sites: Service {
         repository: String,
         owner: String,
         rootDirectory: String,
-        version: String,
+        type: AppwriteEnums.TemplateReferenceType,
+        reference: String,
         activate: Bool? = nil
     ) async throws -> AppwriteModels.Deployment {
         let apiPath: String = "/sites/{siteId}/deployments/template"
@@ -539,7 +541,8 @@ open class Sites: Service {
             "repository": repository,
             "owner": owner,
             "rootDirectory": rootDirectory,
-            "version": version,
+            "type": type,
+            "reference": reference,
             "activate": activate
         ]
 
@@ -567,7 +570,7 @@ open class Sites: Service {
     ///
     /// - Parameters:
     ///   - siteId: String
-    ///   - type: AppwriteEnums.VCSDeploymentType
+    ///   - type: AppwriteEnums.VCSReferenceType
     ///   - reference: String
     ///   - activate: Bool (optional)
     /// - Throws: Exception if the request fails
@@ -575,7 +578,7 @@ open class Sites: Service {
     ///
     open func createVcsDeployment(
         siteId: String,
-        type: AppwriteEnums.VCSDeploymentType,
+        type: AppwriteEnums.VCSReferenceType,
         reference: String,
         activate: Bool? = nil
     ) async throws -> AppwriteModels.Deployment {
