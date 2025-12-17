@@ -444,6 +444,8 @@ open class TablesDB: Service {
     ///   - permissions: [String] (optional)
     ///   - rowSecurity: Bool (optional)
     ///   - enabled: Bool (optional)
+    ///   - columns: [Any] (optional)
+    ///   - indexes: [Any] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Table
     ///
@@ -453,7 +455,9 @@ open class TablesDB: Service {
         name: String,
         permissions: [String]? = nil,
         rowSecurity: Bool? = nil,
-        enabled: Bool? = nil
+        enabled: Bool? = nil,
+        columns: [Any]? = nil,
+        indexes: [Any]? = nil
     ) async throws -> AppwriteModels.Table {
         let apiPath: String = "/tablesdb/{databaseId}/tables"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -463,7 +467,9 @@ open class TablesDB: Service {
             "name": name,
             "permissions": permissions,
             "rowSecurity": rowSecurity,
-            "enabled": enabled
+            "enabled": enabled,
+            "columns": columns,
+            "indexes": indexes
         ]
 
         let apiHeaders: [String: String] = [

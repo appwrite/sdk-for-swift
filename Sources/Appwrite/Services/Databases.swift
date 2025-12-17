@@ -450,6 +450,8 @@ open class Databases: Service {
     ///   - permissions: [String] (optional)
     ///   - documentSecurity: Bool (optional)
     ///   - enabled: Bool (optional)
+    ///   - attributes: [Any] (optional)
+    ///   - indexes: [Any] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Collection
     ///
@@ -460,7 +462,9 @@ open class Databases: Service {
         name: String,
         permissions: [String]? = nil,
         documentSecurity: Bool? = nil,
-        enabled: Bool? = nil
+        enabled: Bool? = nil,
+        attributes: [Any]? = nil,
+        indexes: [Any]? = nil
     ) async throws -> AppwriteModels.Collection {
         let apiPath: String = "/databases/{databaseId}/collections"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -470,7 +474,9 @@ open class Databases: Service {
             "name": name,
             "permissions": permissions,
             "documentSecurity": documentSecurity,
-            "enabled": enabled
+            "enabled": enabled,
+            "attributes": attributes,
+            "indexes": indexes
         ]
 
         let apiHeaders: [String: String] = [

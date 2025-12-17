@@ -1953,7 +1953,8 @@ open class Account: Service {
             "success": success,
             "failure": failure,
             "scopes": scopes,
-            "project": client.config["project"]
+            "project": client.config["project"],
+            "session": client.config["session"]
         ]
 
         let apiHeaders: [String: String] = [:]
