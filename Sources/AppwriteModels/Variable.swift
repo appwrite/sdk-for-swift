@@ -17,28 +17,20 @@ open class Variable: Codable {
 
     /// Variable ID.
     public let id: String
-
     /// Variable creation date in ISO 8601 format.
     public let createdAt: String
-
     /// Variable creation date in ISO 8601 format.
     public let updatedAt: String
-
     /// Variable key.
     public let key: String
-
     /// Variable value.
     public let value: String
-
     /// Variable secret flag. Secret variables can only be updated or deleted, but never read.
     public let secret: Bool
-
     /// Service to which the variable belongs. Possible values are &quot;project&quot;, &quot;function&quot;
     public let resourceType: String
-
     /// ID of resource to which the variable belongs. If resourceType is &quot;project&quot;, it is empty. If resourceType is &quot;function&quot;, it is ID of the function.
     public let resourceId: String
-
 
     init(
         id: String,

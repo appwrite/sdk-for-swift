@@ -11,10 +11,8 @@ open class MessageList: Codable {
 
     /// Total number of messages that matched your query.
     public let total: Int
-
     /// List of messages.
     public let messages: [Message]
-
 
     init(
         total: Int,

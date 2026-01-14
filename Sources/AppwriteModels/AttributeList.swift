@@ -11,10 +11,8 @@ open class AttributeList: Codable {
 
     /// Total number of attributes in the given collection.
     public let total: Int
-
     /// List of attributes.
     public let attributes: [AnyCodable]
-
 
     init(
         total: Int,

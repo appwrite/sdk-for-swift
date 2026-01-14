@@ -41,6 +41,9 @@ public enum OAuthProvider: String, CustomStringConvertible {
     case zoho = "zoho"
     case zoom = "zoom"
     case mock = "mock"
+    case mockUnverified = "mock-unverified"
+    case githubImagine = "githubImagine"
+    case googleImagine = "googleImagine"
 
     public var description: String {
         return rawValue

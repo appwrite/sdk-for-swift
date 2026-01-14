@@ -11,10 +11,8 @@ open class ColumnIndexList: Codable {
 
     /// Total number of indexes that matched your query.
     public let total: Int
-
     /// List of indexes.
     public let indexes: [ColumnIndex]
-
 
     init(
         total: Int,

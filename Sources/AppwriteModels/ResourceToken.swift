@@ -16,25 +16,18 @@ open class ResourceToken: Codable {
 
     /// Token ID.
     public let id: String
-
     /// Token creation date in ISO 8601 format.
     public let createdAt: String
-
     /// Resource ID.
     public let resourceId: String
-
     /// Resource type.
     public let resourceType: String
-
     /// Token expiration date in ISO 8601 format.
     public let expire: String
-
     /// JWT encoded string.
     public let secret: String
-
     /// Most recent access date in ISO 8601 format. This attribute is only updated again after 24 hours.
     public let accessedAt: String
-
 
     init(
         id: String,

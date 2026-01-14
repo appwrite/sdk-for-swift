@@ -1982,14 +1982,14 @@ open class Databases: Service {
     ///   - collectionId: String
     ///   - key: String
     /// - Throws: Exception if the request fails
-    /// - Returns: Any
+    /// - Returns: AppwriteModels.AttributeBoolean
     ///
     @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.getColumn` instead.")
     open func getAttribute(
         databaseId: String,
         collectionId: String,
         key: String
-    ) async throws -> Any {
+    ) async throws -> AppwriteModels.AttributeBoolean {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -1999,11 +1999,17 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [:]
 
+        let converter: (Any) -> AppwriteModels.AttributeBoolean = { response in
+            return AppwriteModels.AttributeBoolean.from(map: response as! [String: Any])
+        }
+
         return try await client.call(
             method: "GET",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams,
+            converter: converter
+        )
     }
 
     ///
@@ -2659,7 +2665,7 @@ open class Databases: Service {
     ///   - databaseId: String
     ///   - collectionId: String
     ///   - documentId: String
-    ///   - data: Any
+    ///   - data: Any (optional)
     ///   - permissions: [String] (optional)
     ///   - transactionId: String (optional)
     /// - Throws: Exception if the request fails
@@ -2670,7 +2676,7 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         documentId: String,
-        data: Any,
+        data: Any? = nil,
         permissions: [String]? = nil,
         transactionId: String? = nil,
         nestedType: T.Type
@@ -2713,7 +2719,7 @@ open class Databases: Service {
     ///   - databaseId: String
     ///   - collectionId: String
     ///   - documentId: String
-    ///   - data: Any
+    ///   - data: Any (optional)
     ///   - permissions: [String] (optional)
     ///   - transactionId: String (optional)
     /// - Throws: Exception if the request fails
@@ -2724,7 +2730,7 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         documentId: String,
-        data: Any,
+        data: Any? = nil,
         permissions: [String]? = nil,
         transactionId: String? = nil
     ) async throws -> AppwriteModels.Document<[String: AnyCodable]> {

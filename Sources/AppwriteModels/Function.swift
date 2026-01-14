@@ -37,88 +37,60 @@ open class Function: Codable {
 
     /// Function ID.
     public let id: String
-
     /// Function creation date in ISO 8601 format.
     public let createdAt: String
-
     /// Function update date in ISO 8601 format.
     public let updatedAt: String
-
     /// Execution permissions.
     public let execute: [String]
-
     /// Function name.
     public let name: String
-
     /// Function enabled.
     public let enabled: Bool
-
     /// Is the function deployed with the latest configuration? This is set to false if you&#039;ve changed an environment variables, entrypoint, commands, or other settings that needs redeploy to be applied. When the value is false, redeploy the function to update it with the latest configuration.
     public let live: Bool
-
     /// When disabled, executions will exclude logs and errors, and will be slightly faster.
     public let logging: Bool
-
     /// Function execution and build runtime.
     public let runtime: String
-
     /// Function&#039;s active deployment ID.
     public let deploymentId: String
-
     /// Active deployment creation date in ISO 8601 format.
     public let deploymentCreatedAt: String
-
     /// Function&#039;s latest deployment ID.
     public let latestDeploymentId: String
-
     /// Latest deployment creation date in ISO 8601 format.
     public let latestDeploymentCreatedAt: String
-
     /// Status of latest deployment. Possible values are &quot;waiting&quot;, &quot;processing&quot;, &quot;building&quot;, &quot;ready&quot;, and &quot;failed&quot;.
     public let latestDeploymentStatus: String
-
     /// Allowed permission scopes.
     public let scopes: [String]
-
     /// Function variables.
     public let vars: [Variable]
-
     /// Function trigger events.
     public let events: [String]
-
     /// Function execution schedule in CRON format.
     public let schedule: String
-
     /// Function execution timeout in seconds.
     public let timeout: Int
-
     /// The entrypoint file used to execute the deployment.
     public let entrypoint: String
-
     /// The build command used to build the deployment.
     public let commands: String
-
     /// Version of Open Runtimes used for the function.
     public let version: String
-
     /// Function VCS (Version Control System) installation id.
     public let installationId: String
-
     /// VCS (Version Control System) Repository ID
     public let providerRepositoryId: String
-
     /// VCS (Version Control System) branch name
     public let providerBranch: String
-
     /// Path to function in VCS (Version Control System) repository
     public let providerRootDirectory: String
-
     /// Is VCS (Version Control System) connection is in silent mode? When in silence mode, no comments will be posted on the repository pull or merge requests
     public let providerSilentMode: Bool
-
     /// Machine specification for builds and executions.
     public let specification: String
-
 
     init(
         id: String,

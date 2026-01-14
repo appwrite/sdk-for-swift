@@ -11,7 +11,6 @@ open class HealthQueue: Codable {
     /// Amount of actions in the queue.
     public let size: Int
 
-
     init(
         size: Int
     ) {

@@ -343,7 +343,7 @@ open class Avatars: Service {
     ///   - width: Int (optional)
     ///   - height: Int (optional)
     ///   - quality: Int (optional)
-    ///   - output: AppwriteEnums.Output (optional)
+    ///   - output: AppwriteEnums.ImageFormat (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: ByteBuffer
     ///
@@ -367,7 +367,7 @@ open class Avatars: Service {
         width: Int? = nil,
         height: Int? = nil,
         quality: Int? = nil,
-        output: AppwriteEnums.Output? = nil
+        output: AppwriteEnums.ImageFormat? = nil
     ) async throws -> ByteBuffer {
         let apiPath: String = "/avatars/screenshots"
 

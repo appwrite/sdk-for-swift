@@ -20,34 +20,24 @@ open class AttributeUrl: Codable {
 
     /// Attribute Key.
     public let key: String
-
     /// Attribute type.
     public let type: String
-
     /// Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
     public let status: AppwriteEnums.AttributeStatus
-
     /// Error message. Displays error generated on failure of creating or deleting an attribute.
     public let error: String
-
     /// Is attribute required?
     public let `required`: Bool
-
     /// Is attribute an array?
     public let array: Bool?
-
     /// Attribute creation date in ISO 8601 format.
     public let createdAt: String
-
     /// Attribute update date in ISO 8601 format.
     public let updatedAt: String
-
     /// String format.
     public let format: String
-
     /// Default value for attribute when not provided. Cannot be set when attribute is required.
     public let `default`: String?
-
 
     init(
         key: String,

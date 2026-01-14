@@ -14,19 +14,14 @@ open class Framework: Codable {
 
     /// Framework key.
     public let key: String
-
     /// Framework Name.
     public let name: String
-
     /// Default runtime version.
     public let buildRuntime: String
-
     /// List of supported runtime versions.
     public let runtimes: [String]
-
     /// List of supported adapters.
     public let adapters: [FrameworkAdapter]
-
 
     init(
         key: String,

@@ -11,10 +11,8 @@ open class DeploymentList: Codable {
 
     /// Total number of deployments that matched your query.
     public let total: Int
-
     /// List of deployments.
     public let deployments: [Deployment]
-
 
     init(
         total: Int,

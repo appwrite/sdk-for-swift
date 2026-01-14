@@ -13,13 +13,10 @@ open class HealthStatus: Codable {
 
     /// Name of the service.
     public let name: String
-
     /// Duration in milliseconds how long the health check took.
     public let ping: Int
-
     /// Service status. Possible values are: `pass`, `fail`
     public let status: AppwriteEnums.HealthCheckStatus
-
 
     init(
         name: String,

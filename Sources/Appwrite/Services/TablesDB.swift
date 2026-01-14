@@ -1945,13 +1945,13 @@ open class TablesDB: Service {
     ///   - tableId: String
     ///   - key: String
     /// - Throws: Exception if the request fails
-    /// - Returns: Any
+    /// - Returns: AppwriteModels.ColumnBoolean
     ///
     open func getColumn(
         databaseId: String,
         tableId: String,
         key: String
-    ) async throws -> Any {
+    ) async throws -> AppwriteModels.ColumnBoolean {
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -1961,11 +1961,17 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [:]
 
+        let converter: (Any) -> AppwriteModels.ColumnBoolean = { response in
+            return AppwriteModels.ColumnBoolean.from(map: response as! [String: Any])
+        }
+
         return try await client.call(
             method: "GET",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams,
+            converter: converter
+        )
     }
 
     ///

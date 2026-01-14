@@ -11,10 +11,8 @@ open class ProviderList: Codable {
 
     /// Total number of providers that matched your query.
     public let total: Int
-
     /// List of providers.
     public let providers: [Provider]
-
 
     init(
         total: Int,
