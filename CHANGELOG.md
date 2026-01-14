@@ -4,6 +4,18 @@
 
 * Update SDK as per latest server specs
 
+## 14.1.0
+
+* Added ability to create columns and indexes synchronously while creating a table
+
+## 14.0.0
+
+* Rename `VCSDeploymentType` enum to `VCSReferenceType`
+* Change `createTemplateDeployment` method signature: replace `version` parameter with `type` (TemplateReferenceType)
+  and `reference` parameters
+* Add `getScreenshot` method to `Avatars` service
+* Add `Theme`, `Timezone` and `Output` enums
+
 ## 13.3.0
 
 * Add `total` parameter to list queries allowing skipping counting rows in a table for improved performance
@@ -25,7 +37,8 @@
 
 ## 10.2.0
 
-* Update sdk to use swift-native doc comments instead of jsdoc styled comments as per [Swift Documentation Comments](https://github.com/swiftlang/swift/blob/main/docs/DocumentationComments.md)
+* Update sdk to use swift-native doc comments instead of jsdoc styled comments as
+  per [Swift Documentation Comments](https://github.com/swiftlang/swift/blob/main/docs/DocumentationComments.md)
 * Add `incrementDocumentAttribute` and `decrementDocumentAttribute` support to `Databases` service
 * Add `gif` support to `ImageFormat` enum
 * Add `sequence` support to `Document` model
@@ -37,7 +50,8 @@
 * Adds warnings to bulk operation methods
 * Adds the new `encrypt` attribute
 * Adds runtimes: `flutter332` and `dart38`
-* Fix `select` Queries by updating internal attributes like `id`, `createdAt`, `updatedAt` etc. to be optional in `Document` model.
+* Fix `select` Queries by updating internal attributes like `id`, `createdAt`, `updatedAt` etc. to be optional in
+  `Document` model.
 * Fix `listCollection` errors by updating `attributes` typing
 * Fix querying datetime values by properly encoding URLs
 
