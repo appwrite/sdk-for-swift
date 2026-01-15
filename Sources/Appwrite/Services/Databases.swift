@@ -1982,14 +1982,14 @@ open class Databases: Service {
     ///   - collectionId: String
     ///   - key: String
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.AttributeBoolean
+    /// - Returns: Any
     ///
     @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.getColumn` instead.")
     open func getAttribute(
         databaseId: String,
         collectionId: String,
         key: String
-    ) async throws -> AppwriteModels.AttributeBoolean {
+    ) async throws -> Any {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -1999,7 +1999,7 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.AttributeBoolean = { response in
+        let converter: (Any) -> Any = { response in
             return AppwriteModels.AttributeBoolean.from(map: response as! [String: Any])
         }
 
