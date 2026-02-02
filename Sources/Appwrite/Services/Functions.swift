@@ -65,7 +65,7 @@ open class Functions: Service {
     ///   - logging: Bool (optional)
     ///   - entrypoint: String (optional)
     ///   - commands: String (optional)
-    ///   - scopes: [String] (optional)
+    ///   - scopes: [AppwriteEnums.Scopes] (optional)
     ///   - installationId: String (optional)
     ///   - providerRepositoryId: String (optional)
     ///   - providerBranch: String (optional)
@@ -87,7 +87,7 @@ open class Functions: Service {
         logging: Bool? = nil,
         entrypoint: String? = nil,
         commands: String? = nil,
-        scopes: [String]? = nil,
+        scopes: [AppwriteEnums.Scopes]? = nil,
         installationId: String? = nil,
         providerRepositoryId: String? = nil,
         providerBranch: String? = nil,
@@ -235,7 +235,7 @@ open class Functions: Service {
     ///   - logging: Bool (optional)
     ///   - entrypoint: String (optional)
     ///   - commands: String (optional)
-    ///   - scopes: [String] (optional)
+    ///   - scopes: [AppwriteEnums.Scopes] (optional)
     ///   - installationId: String (optional)
     ///   - providerRepositoryId: String (optional)
     ///   - providerBranch: String (optional)
@@ -257,7 +257,7 @@ open class Functions: Service {
         logging: Bool? = nil,
         entrypoint: String? = nil,
         commands: String? = nil,
-        scopes: [String]? = nil,
+        scopes: [AppwriteEnums.Scopes]? = nil,
         installationId: String? = nil,
         providerRepositoryId: String? = nil,
         providerBranch: String? = nil,

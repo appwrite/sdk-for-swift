@@ -11,10 +11,8 @@ open class TopicList: Codable {
 
     /// Total number of topics that matched your query.
     public let total: Int
-
     /// List of topics.
     public let topics: [Topic]
-
 
     init(
         total: Int,

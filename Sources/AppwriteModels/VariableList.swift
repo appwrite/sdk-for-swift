@@ -11,10 +11,8 @@ open class VariableList: Codable {
 
     /// Total number of variables that matched your query.
     public let total: Int
-
     /// List of variables.
     public let variables: [Variable]
-
 
     init(
         total: Int,

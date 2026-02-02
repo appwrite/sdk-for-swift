@@ -5,11 +5,9 @@ let client = Client()
     .setProject("<YOUR_PROJECT_ID>") // Your project ID
     .setKey("<YOUR_API_KEY>") // Your secret API key
 
-let databases = Databases(client)
+let health = Health(client)
 
-let attributeBoolean = try await databases.getAttribute(
-    databaseId: "<DATABASE_ID>",
-    collectionId: "<COLLECTION_ID>",
-    key: ""
+let healthQueue = try await health.getQueueAudits(
+    threshold: 0 // optional
 )
 

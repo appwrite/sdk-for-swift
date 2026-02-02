@@ -11,10 +11,8 @@ open class BucketList: Codable {
 
     /// Total number of buckets that matched your query.
     public let total: Int
-
     /// List of buckets.
     public let buckets: [Bucket]
-
 
     init(
         total: Int,

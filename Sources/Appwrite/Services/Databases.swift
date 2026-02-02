@@ -329,7 +329,7 @@ open class Databases: Service {
     ///
     /// - Parameters:
     ///   - databaseId: String
-    ///   - name: String
+    ///   - name: String (optional)
     ///   - enabled: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Database
@@ -337,7 +337,7 @@ open class Databases: Service {
     @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.update` instead.")
     open func update(
         databaseId: String,
-        name: String,
+        name: String? = nil,
         enabled: Bool? = nil
     ) async throws -> AppwriteModels.Database {
         let apiPath: String = "/databases/{databaseId}"
@@ -538,7 +538,7 @@ open class Databases: Service {
     /// - Parameters:
     ///   - databaseId: String
     ///   - collectionId: String
-    ///   - name: String
+    ///   - name: String (optional)
     ///   - permissions: [String] (optional)
     ///   - documentSecurity: Bool (optional)
     ///   - enabled: Bool (optional)
@@ -549,7 +549,7 @@ open class Databases: Service {
     open func updateCollection(
         databaseId: String,
         collectionId: String,
-        name: String,
+        name: String? = nil,
         permissions: [String]? = nil,
         documentSecurity: Bool? = nil,
         enabled: Bool? = nil
@@ -1999,11 +1999,17 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [:]
 
+        let converter: (Any) -> Any = { response in
+            return AppwriteModels.AttributeBoolean.from(map: response as! [String: Any])
+        }
+
         return try await client.call(
             method: "GET",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams,
+            converter: converter
+        )
     }
 
     ///
@@ -2659,7 +2665,7 @@ open class Databases: Service {
     ///   - databaseId: String
     ///   - collectionId: String
     ///   - documentId: String
-    ///   - data: Any
+    ///   - data: Any (optional)
     ///   - permissions: [String] (optional)
     ///   - transactionId: String (optional)
     /// - Throws: Exception if the request fails
@@ -2670,7 +2676,7 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         documentId: String,
-        data: Any,
+        data: Any? = nil,
         permissions: [String]? = nil,
         transactionId: String? = nil,
         nestedType: T.Type
@@ -2713,7 +2719,7 @@ open class Databases: Service {
     ///   - databaseId: String
     ///   - collectionId: String
     ///   - documentId: String
-    ///   - data: Any
+    ///   - data: Any (optional)
     ///   - permissions: [String] (optional)
     ///   - transactionId: String (optional)
     /// - Throws: Exception if the request fails
@@ -2724,7 +2730,7 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         documentId: String,
-        data: Any,
+        data: Any? = nil,
         permissions: [String]? = nil,
         transactionId: String? = nil
     ) async throws -> AppwriteModels.Document<[String: AnyCodable]> {
@@ -3096,7 +3102,7 @@ open class Databases: Service {
     ///   - key: String
     ///   - type: AppwriteEnums.IndexType
     ///   - attributes: [String]
-    ///   - orders: [String] (optional)
+    ///   - orders: [AppwriteEnums.OrderBy] (optional)
     ///   - lengths: [Int] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Index
@@ -3108,7 +3114,7 @@ open class Databases: Service {
         key: String,
         type: AppwriteEnums.IndexType,
         attributes: [String],
-        orders: [String]? = nil,
+        orders: [AppwriteEnums.OrderBy]? = nil,
         lengths: [Int]? = nil
     ) async throws -> AppwriteModels.Index {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/indexes"

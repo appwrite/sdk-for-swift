@@ -11,10 +11,8 @@ open class TableList: Codable {
 
     /// Total number of tables that matched your query.
     public let total: Int
-
     /// List of tables.
     public let tables: [Table]
-
 
     init(
         total: Int,

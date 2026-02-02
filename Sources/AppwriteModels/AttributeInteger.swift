@@ -21,37 +21,26 @@ open class AttributeInteger: Codable {
 
     /// Attribute Key.
     public let key: String
-
     /// Attribute type.
     public let type: String
-
     /// Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
     public let status: AppwriteEnums.AttributeStatus
-
     /// Error message. Displays error generated on failure of creating or deleting an attribute.
     public let error: String
-
     /// Is attribute required?
     public let `required`: Bool
-
     /// Is attribute an array?
     public let array: Bool?
-
     /// Attribute creation date in ISO 8601 format.
     public let createdAt: String
-
     /// Attribute update date in ISO 8601 format.
     public let updatedAt: String
-
     /// Minimum value to enforce for new documents.
     public let min: Int?
-
     /// Maximum value to enforce for new documents.
     public let max: Int?
-
     /// Default value for attribute when not provided. Cannot be set when attribute is required.
     public let `default`: Int?
-
 
     init(
         key: String,

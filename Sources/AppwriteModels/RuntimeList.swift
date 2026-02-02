@@ -11,10 +11,8 @@ open class RuntimeList: Codable {
 
     /// Total number of runtimes that matched your query.
     public let total: Int
-
     /// List of runtimes.
     public let runtimes: [Runtime]
-
 
     init(
         total: Int,

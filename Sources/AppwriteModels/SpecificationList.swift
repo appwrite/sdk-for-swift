@@ -11,10 +11,8 @@ open class SpecificationList: Codable {
 
     /// Total number of specifications that matched your query.
     public let total: Int
-
     /// List of specifications.
     public let specifications: [Specification]
-
 
     init(
         total: Int,

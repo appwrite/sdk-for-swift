@@ -11,10 +11,8 @@ open class SiteList: Codable {
 
     /// Total number of sites that matched your query.
     public let total: Int
-
     /// List of sites.
     public let sites: [Site]
-
 
     init(
         total: Int,

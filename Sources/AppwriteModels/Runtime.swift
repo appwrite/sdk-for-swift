@@ -17,28 +17,20 @@ open class Runtime: Codable {
 
     /// Runtime ID.
     public let id: String
-
     /// Parent runtime key.
     public let key: String
-
     /// Runtime Name.
     public let name: String
-
     /// Runtime version.
     public let version: String
-
     /// Base Docker image used to build the runtime.
     public let base: String
-
     /// Image name of Docker Hub.
     public let image: String
-
     /// Name of the logo image.
     public let logo: String
-
     /// List of supported architectures.
     public let supports: [String]
-
 
     init(
         id: String,

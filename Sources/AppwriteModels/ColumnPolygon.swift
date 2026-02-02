@@ -19,31 +19,22 @@ open class ColumnPolygon: Codable {
 
     /// Column Key.
     public let key: String
-
     /// Column type.
     public let type: String
-
     /// Column status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
     public let status: AppwriteEnums.ColumnStatus
-
     /// Error message. Displays error generated on failure of creating or deleting an column.
     public let error: String
-
     /// Is column required?
     public let `required`: Bool
-
     /// Is column an array?
     public let array: Bool?
-
     /// Column creation date in ISO 8601 format.
     public let createdAt: String
-
     /// Column update date in ISO 8601 format.
     public let updatedAt: String
-
     /// Default value for column when not provided. Cannot be set when column is required.
     public let `default`: [AnyCodable]?
-
 
     init(
         key: String,
