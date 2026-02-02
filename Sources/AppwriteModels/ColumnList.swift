@@ -11,10 +11,8 @@ open class ColumnList: Codable {
 
     /// Total number of columns in the given table.
     public let total: Int
-
     /// List of columns.
     public let columns: [AnyCodable]
-
 
     init(
         total: Int,

@@ -11,10 +11,8 @@ open class TargetList: Codable {
 
     /// Total number of targets that matched your query.
     public let total: Int
-
     /// List of targets.
     public let targets: [Target]
-
 
     init(
         total: Int,

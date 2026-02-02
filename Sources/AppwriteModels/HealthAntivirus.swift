@@ -12,10 +12,8 @@ open class HealthAntivirus: Codable {
 
     /// Antivirus version.
     public let version: String
-
     /// Antivirus status. Possible values are: `disabled`, `offline`, `online`
     public let status: AppwriteEnums.HealthAntivirusStatus
-
 
     init(
         version: String,

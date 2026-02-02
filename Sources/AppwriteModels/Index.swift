@@ -20,34 +20,24 @@ open class Index: Codable {
 
     /// Index ID.
     public let id: String
-
     /// Index creation date in ISO 8601 format.
     public let createdAt: String
-
     /// Index update date in ISO 8601 format.
     public let updatedAt: String
-
     /// Index key.
     public let key: String
-
     /// Index type.
     public let type: String
-
     /// Index status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
     public let status: AppwriteEnums.IndexStatus
-
     /// Error message. Displays error generated on failure of creating or deleting an index.
     public let error: String
-
     /// Index attributes.
     public let attributes: [String]
-
     /// Index attributes length.
     public let lengths: [Int]
-
     /// Index orders.
     public let orders: [String]?
-
 
     init(
         id: String,

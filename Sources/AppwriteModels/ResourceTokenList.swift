@@ -11,10 +11,8 @@ open class ResourceTokenList: Codable {
 
     /// Total number of tokens that matched your query.
     public let total: Int
-
     /// List of tokens.
     public let tokens: [ResourceToken]
-
 
     init(
         total: Int,

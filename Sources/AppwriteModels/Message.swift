@@ -23,43 +23,30 @@ open class Message: Codable {
 
     /// Message ID.
     public let id: String
-
     /// Message creation time in ISO 8601 format.
     public let createdAt: String
-
     /// Message update date in ISO 8601 format.
     public let updatedAt: String
-
     /// Message provider type.
     public let providerType: String
-
     /// Topic IDs set as recipients.
     public let topics: [String]
-
     /// User IDs set as recipients.
     public let users: [String]
-
     /// Target IDs set as recipients.
     public let targets: [String]
-
     /// The scheduled time for message.
     public let scheduledAt: String?
-
     /// The time when the message was delivered.
     public let deliveredAt: String?
-
     /// Delivery errors if any.
     public let deliveryErrors: [String]?
-
     /// Number of recipients the message was delivered to.
     public let deliveredTotal: Int
-
     /// Data of the message.
     public let data: [String: AnyCodable]
-
     /// Status of delivery.
     public let status: AppwriteEnums.MessageStatus
-
 
     init(
         id: String,

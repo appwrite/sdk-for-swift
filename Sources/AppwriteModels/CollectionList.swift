@@ -11,10 +11,8 @@ open class CollectionList: Codable {
 
     /// Total number of collections that matched your query.
     public let total: Int
-
     /// List of collections.
     public let collections: [Collection]
-
 
     init(
         total: Int,

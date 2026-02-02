@@ -19,34 +19,24 @@ open class Table: Codable {
 
     /// Table ID.
     public let id: String
-
     /// Table creation date in ISO 8601 format.
     public let createdAt: String
-
     /// Table update date in ISO 8601 format.
     public let updatedAt: String
-
     /// Table permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
     public let permissions: [String]
-
     /// Database ID.
     public let databaseId: String
-
     /// Table name.
     public let name: String
-
     /// Table enabled. Can be &#039;enabled&#039; or &#039;disabled&#039;. When disabled, the table is inaccessible to users, but remains accessible to Server SDKs using API keys.
     public let enabled: Bool
-
     /// Whether row-level permissions are enabled. [Learn more about permissions](https://appwrite.io/docs/permissions).
     public let rowSecurity: Bool
-
     /// Table columns.
     public let columns: [AnyCodable]
-
     /// Table indexes.
     public let indexes: [ColumnIndex]
-
 
     init(
         id: String,

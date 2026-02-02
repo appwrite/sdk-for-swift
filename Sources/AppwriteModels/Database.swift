@@ -16,22 +16,16 @@ open class Database: Codable {
 
     /// Database ID.
     public let id: String
-
     /// Database name.
     public let name: String
-
     /// Database creation date in ISO 8601 format.
     public let createdAt: String
-
     /// Database update date in ISO 8601 format.
     public let updatedAt: String
-
     /// If database is enabled. Can be &#039;enabled&#039; or &#039;disabled&#039;. When disabled, the database is inaccessible to users, but remains accessible to Server SDKs using API keys.
     public let enabled: Bool
-
     /// Database type.
     public let type: AppwriteEnums.DatabaseType
-
 
     init(
         id: String,

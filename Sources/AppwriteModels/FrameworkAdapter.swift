@@ -14,19 +14,14 @@ open class FrameworkAdapter: Codable {
 
     /// Adapter key.
     public let key: String
-
     /// Default command to download dependencies.
     public let installCommand: String
-
     /// Default command to build site into output directory.
     public let buildCommand: String
-
     /// Default output directory of build.
     public let outputDirectory: String
-
     /// Name of fallback file to use instead of 404 page. If null, Appwrite 404 page will be displayed.
     public let fallbackFile: String
-
 
     init(
         key: String,

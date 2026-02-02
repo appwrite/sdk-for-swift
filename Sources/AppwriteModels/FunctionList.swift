@@ -11,10 +11,8 @@ open class FunctionList: Codable {
 
     /// Total number of functions that matched your query.
     public let total: Int
-
     /// List of functions.
     public let functions: [Function]
-
 
     init(
         total: Int,

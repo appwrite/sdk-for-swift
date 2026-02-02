@@ -11,10 +11,8 @@ open class FrameworkList: Codable {
 
     /// Total number of frameworks that matched your query.
     public let total: Int
-
     /// List of frameworks.
     public let frameworks: [Framework]
-
 
     init(
         total: Int,

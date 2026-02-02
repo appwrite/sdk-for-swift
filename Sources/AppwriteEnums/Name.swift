@@ -11,6 +11,7 @@ public enum Name: String, CustomStringConvertible {
     case v1Webhooks = "v1-webhooks"
     case v1Certificates = "v1-certificates"
     case v1Builds = "v1-builds"
+    case v1Screenshots = "v1-screenshots"
     case v1Messaging = "v1-messaging"
     case v1Migrations = "v1-migrations"
 

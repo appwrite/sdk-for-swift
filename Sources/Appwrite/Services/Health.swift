@@ -67,18 +67,18 @@ open class Health: Service {
     /// successful.
     ///
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.HealthStatus
+    /// - Returns: AppwriteModels.HealthStatusList
     ///
     open func getCache(
-    ) async throws -> AppwriteModels.HealthStatus {
+    ) async throws -> AppwriteModels.HealthStatusList {
         let apiPath: String = "/health/cache"
 
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthStatus = { response in
-            return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
+        let converter: (Any) -> AppwriteModels.HealthStatusList = { response in
+            return AppwriteModels.HealthStatusList.from(map: response as! [String: Any])
         }
 
         return try await client.call(
@@ -126,18 +126,18 @@ open class Health: Service {
     /// Check the Appwrite database servers are up and connection is successful.
     ///
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.HealthStatus
+    /// - Returns: AppwriteModels.HealthStatusList
     ///
     open func getDB(
-    ) async throws -> AppwriteModels.HealthStatus {
+    ) async throws -> AppwriteModels.HealthStatusList {
         let apiPath: String = "/health/db"
 
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthStatus = { response in
-            return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
+        let converter: (Any) -> AppwriteModels.HealthStatusList = { response in
+            return AppwriteModels.HealthStatusList.from(map: response as! [String: Any])
         }
 
         return try await client.call(
@@ -153,18 +153,51 @@ open class Health: Service {
     /// Check the Appwrite pub-sub servers are up and connection is successful.
     ///
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.HealthStatus
+    /// - Returns: AppwriteModels.HealthStatusList
     ///
     open func getPubSub(
-    ) async throws -> AppwriteModels.HealthStatus {
+    ) async throws -> AppwriteModels.HealthStatusList {
         let apiPath: String = "/health/pubsub"
 
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthStatus = { response in
-            return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
+        let converter: (Any) -> AppwriteModels.HealthStatusList = { response in
+            return AppwriteModels.HealthStatusList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get the number of audit logs that are waiting to be processed in the
+    /// Appwrite internal queue server.
+    ///
+    /// - Parameters:
+    ///   - threshold: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthQueue
+    ///
+    open func getQueueAudits(
+        threshold: Int? = nil
+    ) async throws -> AppwriteModels.HealthQueue {
+        let apiPath: String = "/health/queue/audits"
+
+        let apiParams: [String: Any?] = [
+            "threshold": threshold
+        ]
+
+        let apiHeaders: [String: String] = [:]
+
+        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+            return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
         }
 
         return try await client.call(

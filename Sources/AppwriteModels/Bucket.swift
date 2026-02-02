@@ -18,47 +18,37 @@ open class Bucket: Codable {
         case encryption = "encryption"
         case antivirus = "antivirus"
         case transformations = "transformations"
+        case totalSize = "totalSize"
     }
 
     /// Bucket ID.
     public let id: String
-
     /// Bucket creation time in ISO 8601 format.
     public let createdAt: String
-
     /// Bucket update date in ISO 8601 format.
     public let updatedAt: String
-
     /// Bucket permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
     public let permissions: [String]
-
     /// Whether file-level security is enabled. [Learn more about permissions](https://appwrite.io/docs/permissions).
     public let fileSecurity: Bool
-
     /// Bucket name.
     public let name: String
-
     /// Bucket enabled.
     public let enabled: Bool
-
     /// Maximum file size supported.
     public let maximumFileSize: Int
-
     /// Allowed file extensions.
     public let allowedFileExtensions: [String]
-
-    /// Compression algorithm choosen for compression. Will be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd).
+    /// Compression algorithm chosen for compression. Will be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd).
     public let compression: String
-
     /// Bucket is encrypted.
     public let encryption: Bool
-
     /// Virus scanning is enabled.
     public let antivirus: Bool
-
     /// Image transformations are enabled.
     public let transformations: Bool
-
+    /// Total size of this bucket in bytes.
+    public let totalSize: Int
 
     init(
         id: String,
@@ -73,7 +63,8 @@ open class Bucket: Codable {
         compression: String,
         encryption: Bool,
         antivirus: Bool,
-        transformations: Bool
+        transformations: Bool,
+        totalSize: Int
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -88,6 +79,7 @@ open class Bucket: Codable {
         self.encryption = encryption
         self.antivirus = antivirus
         self.transformations = transformations
+        self.totalSize = totalSize
     }
 
     public required init(from decoder: Decoder) throws {
@@ -106,6 +98,7 @@ open class Bucket: Codable {
         self.encryption = try container.decode(Bool.self, forKey: .encryption)
         self.antivirus = try container.decode(Bool.self, forKey: .antivirus)
         self.transformations = try container.decode(Bool.self, forKey: .transformations)
+        self.totalSize = try container.decode(Int.self, forKey: .totalSize)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -124,6 +117,7 @@ open class Bucket: Codable {
         try container.encode(encryption, forKey: .encryption)
         try container.encode(antivirus, forKey: .antivirus)
         try container.encode(transformations, forKey: .transformations)
+        try container.encode(totalSize, forKey: .totalSize)
     }
 
     public func toMap() -> [String: Any] {
@@ -140,7 +134,8 @@ open class Bucket: Codable {
             "compression": compression as Any,
             "encryption": encryption as Any,
             "antivirus": antivirus as Any,
-            "transformations": transformations as Any
+            "transformations": transformations as Any,
+            "totalSize": totalSize as Any
         ]
     }
 
@@ -158,7 +153,8 @@ open class Bucket: Codable {
             compression: map["compression"] as! String,
             encryption: map["encryption"] as! Bool,
             antivirus: map["antivirus"] as! Bool,
-            transformations: map["transformations"] as! Bool
+            transformations: map["transformations"] as! Bool,
+            totalSize: map["totalSize"] as! Int
         )
     }
 }

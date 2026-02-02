@@ -38,91 +38,62 @@ open class Site: Codable {
 
     /// Site ID.
     public let id: String
-
     /// Site creation date in ISO 8601 format.
     public let createdAt: String
-
     /// Site update date in ISO 8601 format.
     public let updatedAt: String
-
     /// Site name.
     public let name: String
-
     /// Site enabled.
     public let enabled: Bool
-
     /// Is the site deployed with the latest configuration? This is set to false if you&#039;ve changed an environment variables, entrypoint, commands, or other settings that needs redeploy to be applied. When the value is false, redeploy the site to update it with the latest configuration.
     public let live: Bool
-
     /// When disabled, request logs will exclude logs and errors, and site responses will be slightly faster.
     public let logging: Bool
-
     /// Site framework.
     public let framework: String
-
     /// Site&#039;s active deployment ID.
     public let deploymentId: String
-
     /// Active deployment creation date in ISO 8601 format.
     public let deploymentCreatedAt: String
-
     /// Screenshot of active deployment with light theme preference file ID.
     public let deploymentScreenshotLight: String
-
     /// Screenshot of active deployment with dark theme preference file ID.
     public let deploymentScreenshotDark: String
-
     /// Site&#039;s latest deployment ID.
     public let latestDeploymentId: String
-
     /// Latest deployment creation date in ISO 8601 format.
     public let latestDeploymentCreatedAt: String
-
     /// Status of latest deployment. Possible values are &quot;waiting&quot;, &quot;processing&quot;, &quot;building&quot;, &quot;ready&quot;, and &quot;failed&quot;.
     public let latestDeploymentStatus: String
-
     /// Site variables.
     public let vars: [Variable]
-
     /// Site request timeout in seconds.
     public let timeout: Int
-
     /// The install command used to install the site dependencies.
     public let installCommand: String
-
     /// The build command used to build the site.
     public let buildCommand: String
-
     /// The directory where the site build output is located.
     public let outputDirectory: String
-
     /// Site VCS (Version Control System) installation id.
     public let installationId: String
-
     /// VCS (Version Control System) Repository ID
     public let providerRepositoryId: String
-
     /// VCS (Version Control System) branch name
     public let providerBranch: String
-
     /// Path to site in VCS (Version Control System) repository
     public let providerRootDirectory: String
-
     /// Is VCS (Version Control System) connection is in silent mode? When in silence mode, no comments will be posted on the repository pull or merge requests
     public let providerSilentMode: Bool
-
     /// Machine specification for builds and executions.
     public let specification: String
-
     /// Site build runtime.
     public let buildRuntime: String
-
     /// Site framework adapter.
     public let adapter: String
-
     /// Name of fallback file to use instead of 404 page. If null, Appwrite 404 page will be displayed.
     public let fallbackFile: String
-
 
     init(
         id: String,

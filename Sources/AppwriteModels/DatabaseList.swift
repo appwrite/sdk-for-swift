@@ -11,10 +11,8 @@ open class DatabaseList: Codable {
 
     /// Total number of databases that matched your query.
     public let total: Int
-
     /// List of databases.
     public let databases: [Database]
-
 
     init(
         total: Int,
