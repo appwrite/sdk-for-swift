@@ -1506,6 +1506,208 @@ open class Databases: Service {
     }
 
     ///
+    /// Create a longtext attribute.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - array: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeLongtext
+    ///
+    open func createLongtextAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil,
+        array: Bool? = nil
+    ) async throws -> AppwriteModels.AttributeLongtext {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/longtext"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
+        let apiParams: [String: Any?] = [
+            "key": key,
+            "required": `required`,
+            "default": `default`,
+            "array": array
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributeLongtext = { response in
+            return AppwriteModels.AttributeLongtext.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update a longtext attribute. Changing the `default` value will not update
+    /// already existing documents.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeLongtext
+    ///
+    open func updateLongtextAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil,
+        newKey: String? = nil
+    ) async throws -> AppwriteModels.AttributeLongtext {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/longtext/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let apiParams: [String: Any?] = [
+            "required": `required`,
+            "default": `default`,
+            "newKey": newKey
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributeLongtext = { response in
+            return AppwriteModels.AttributeLongtext.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create a mediumtext attribute.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - array: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeMediumtext
+    ///
+    open func createMediumtextAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil,
+        array: Bool? = nil
+    ) async throws -> AppwriteModels.AttributeMediumtext {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/mediumtext"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
+        let apiParams: [String: Any?] = [
+            "key": key,
+            "required": `required`,
+            "default": `default`,
+            "array": array
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributeMediumtext = { response in
+            return AppwriteModels.AttributeMediumtext.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update a mediumtext attribute. Changing the `default` value will not update
+    /// already existing documents.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeMediumtext
+    ///
+    open func updateMediumtextAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil,
+        newKey: String? = nil
+    ) async throws -> AppwriteModels.AttributeMediumtext {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/mediumtext/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let apiParams: [String: Any?] = [
+            "required": `required`,
+            "default": `default`,
+            "newKey": newKey
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributeMediumtext = { response in
+            return AppwriteModels.AttributeMediumtext.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
     /// Create a geometric point attribute.
     ///
     /// - Parameters:
@@ -1872,6 +2074,107 @@ open class Databases: Service {
     }
 
     ///
+    /// Create a text attribute.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - array: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeText
+    ///
+    open func createTextAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil,
+        array: Bool? = nil
+    ) async throws -> AppwriteModels.AttributeText {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/text"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
+        let apiParams: [String: Any?] = [
+            "key": key,
+            "required": `required`,
+            "default": `default`,
+            "array": array
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributeText = { response in
+            return AppwriteModels.AttributeText.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update a text attribute. Changing the `default` value will not update
+    /// already existing documents.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeText
+    ///
+    open func updateTextAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil,
+        newKey: String? = nil
+    ) async throws -> AppwriteModels.AttributeText {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/text/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let apiParams: [String: Any?] = [
+            "required": `required`,
+            "default": `default`,
+            "newKey": newKey
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributeText = { response in
+            return AppwriteModels.AttributeText.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
     /// Create a URL attribute.
     /// 
     ///
@@ -1963,6 +2266,113 @@ open class Databases: Service {
 
         let converter: (Any) -> AppwriteModels.AttributeUrl = { response in
             return AppwriteModels.AttributeUrl.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create a varchar attribute.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - size: Int
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - array: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeVarchar
+    ///
+    open func createVarcharAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        size: Int,
+        `required`: Bool,
+        `default`: String? = nil,
+        array: Bool? = nil
+    ) async throws -> AppwriteModels.AttributeVarchar {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/varchar"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
+        let apiParams: [String: Any?] = [
+            "key": key,
+            "size": size,
+            "required": `required`,
+            "default": `default`,
+            "array": array
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributeVarchar = { response in
+            return AppwriteModels.AttributeVarchar.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update a varchar attribute. Changing the `default` value will not update
+    /// already existing documents.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - size: Int (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeVarchar
+    ///
+    open func updateVarcharAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil,
+        size: Int? = nil,
+        newKey: String? = nil
+    ) async throws -> AppwriteModels.AttributeVarchar {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/varchar/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let apiParams: [String: Any?] = [
+            "required": `required`,
+            "default": `default`,
+            "size": size,
+            "newKey": newKey
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributeVarchar = { response in
+            return AppwriteModels.AttributeVarchar.from(map: response as! [String: Any])
         }
 
         return try await client.call(

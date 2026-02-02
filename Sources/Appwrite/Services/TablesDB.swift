@@ -1478,6 +1478,208 @@ open class TablesDB: Service {
     }
 
     ///
+    /// Create a longtext column.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - tableId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - array: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ColumnLongtext
+    ///
+    open func createLongtextColumn(
+        databaseId: String,
+        tableId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil,
+        array: Bool? = nil
+    ) async throws -> AppwriteModels.ColumnLongtext {
+        let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/longtext"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{tableId}", with: tableId)
+
+        let apiParams: [String: Any?] = [
+            "key": key,
+            "required": `required`,
+            "default": `default`,
+            "array": array
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.ColumnLongtext = { response in
+            return AppwriteModels.ColumnLongtext.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update a longtext column. Changing the `default` value will not update
+    /// already existing rows.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - tableId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ColumnLongtext
+    ///
+    open func updateLongtextColumn(
+        databaseId: String,
+        tableId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil,
+        newKey: String? = nil
+    ) async throws -> AppwriteModels.ColumnLongtext {
+        let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/longtext/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let apiParams: [String: Any?] = [
+            "required": `required`,
+            "default": `default`,
+            "newKey": newKey
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.ColumnLongtext = { response in
+            return AppwriteModels.ColumnLongtext.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create a mediumtext column.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - tableId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - array: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ColumnMediumtext
+    ///
+    open func createMediumtextColumn(
+        databaseId: String,
+        tableId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil,
+        array: Bool? = nil
+    ) async throws -> AppwriteModels.ColumnMediumtext {
+        let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/mediumtext"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{tableId}", with: tableId)
+
+        let apiParams: [String: Any?] = [
+            "key": key,
+            "required": `required`,
+            "default": `default`,
+            "array": array
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.ColumnMediumtext = { response in
+            return AppwriteModels.ColumnMediumtext.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update a mediumtext column. Changing the `default` value will not update
+    /// already existing rows.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - tableId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ColumnMediumtext
+    ///
+    open func updateMediumtextColumn(
+        databaseId: String,
+        tableId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil,
+        newKey: String? = nil
+    ) async throws -> AppwriteModels.ColumnMediumtext {
+        let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/mediumtext/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let apiParams: [String: Any?] = [
+            "required": `required`,
+            "default": `default`,
+            "newKey": newKey
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.ColumnMediumtext = { response in
+            return AppwriteModels.ColumnMediumtext.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
     /// Create a geometric point column.
     ///
     /// - Parameters:
@@ -1742,6 +1944,7 @@ open class TablesDB: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.ColumnString
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.9.0. Please use `TablesDB.createTextColumn` instead.")
     open func createStringColumn(
         databaseId: String,
         tableId: String,
@@ -1798,6 +2001,7 @@ open class TablesDB: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.ColumnString
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.updateTextColumn` instead.")
     open func updateStringColumn(
         databaseId: String,
         tableId: String,
@@ -1825,6 +2029,107 @@ open class TablesDB: Service {
 
         let converter: (Any) -> AppwriteModels.ColumnString = { response in
             return AppwriteModels.ColumnString.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create a text column.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - tableId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - array: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ColumnText
+    ///
+    open func createTextColumn(
+        databaseId: String,
+        tableId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil,
+        array: Bool? = nil
+    ) async throws -> AppwriteModels.ColumnText {
+        let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/text"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{tableId}", with: tableId)
+
+        let apiParams: [String: Any?] = [
+            "key": key,
+            "required": `required`,
+            "default": `default`,
+            "array": array
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.ColumnText = { response in
+            return AppwriteModels.ColumnText.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update a text column. Changing the `default` value will not update already
+    /// existing rows.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - tableId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ColumnText
+    ///
+    open func updateTextColumn(
+        databaseId: String,
+        tableId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil,
+        newKey: String? = nil
+    ) async throws -> AppwriteModels.ColumnText {
+        let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/text/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let apiParams: [String: Any?] = [
+            "required": `required`,
+            "default": `default`,
+            "newKey": newKey
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.ColumnText = { response in
+            return AppwriteModels.ColumnText.from(map: response as! [String: Any])
         }
 
         return try await client.call(
@@ -1926,6 +2231,113 @@ open class TablesDB: Service {
 
         let converter: (Any) -> AppwriteModels.ColumnUrl = { response in
             return AppwriteModels.ColumnUrl.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Create a varchar column.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - tableId: String
+    ///   - key: String
+    ///   - size: Int
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - array: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ColumnVarchar
+    ///
+    open func createVarcharColumn(
+        databaseId: String,
+        tableId: String,
+        key: String,
+        size: Int,
+        `required`: Bool,
+        `default`: String? = nil,
+        array: Bool? = nil
+    ) async throws -> AppwriteModels.ColumnVarchar {
+        let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/varchar"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{tableId}", with: tableId)
+
+        let apiParams: [String: Any?] = [
+            "key": key,
+            "size": size,
+            "required": `required`,
+            "default": `default`,
+            "array": array
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.ColumnVarchar = { response in
+            return AppwriteModels.ColumnVarchar.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update a varchar column. Changing the `default` value will not update
+    /// already existing rows.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - tableId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: String (optional)
+    ///   - size: Int (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ColumnVarchar
+    ///
+    open func updateVarcharColumn(
+        databaseId: String,
+        tableId: String,
+        key: String,
+        `required`: Bool,
+        `default`: String? = nil,
+        size: Int? = nil,
+        newKey: String? = nil
+    ) async throws -> AppwriteModels.ColumnVarchar {
+        let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/varchar/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let apiParams: [String: Any?] = [
+            "required": `required`,
+            "default": `default`,
+            "size": size,
+            "newKey": newKey
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.ColumnVarchar = { response in
+            return AppwriteModels.ColumnVarchar.from(map: response as! [String: Any])
         }
 
         return try await client.call(
