@@ -56,6 +56,14 @@ public enum Scopes: String, CustomStringConvertible {
     case assistantRead = "assistant.read"
     case tokensRead = "tokens.read"
     case tokensWrite = "tokens.write"
+    case policiesWrite = "policies.write"
+    case policiesRead = "policies.read"
+    case archivesRead = "archives.read"
+    case archivesWrite = "archives.write"
+    case restorationsRead = "restorations.read"
+    case restorationsWrite = "restorations.write"
+    case domainsRead = "domains.read"
+    case domainsWrite = "domains.write"
 
     public var description: String {
         return rawValue

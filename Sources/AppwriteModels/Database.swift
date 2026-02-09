@@ -12,6 +12,8 @@ open class Database: Codable {
         case updatedAt = "$updatedAt"
         case enabled = "enabled"
         case type = "type"
+        case policies = "policies"
+        case archives = "archives"
     }
 
     /// Database ID.
@@ -26,6 +28,10 @@ open class Database: Codable {
     public let enabled: Bool
     /// Database type.
     public let type: AppwriteEnums.DatabaseType
+    /// Database backup policies.
+    public let policies: [Index]
+    /// Database backup archives.
+    public let archives: [Collection]
 
     init(
         id: String,
@@ -33,7 +39,9 @@ open class Database: Codable {
         createdAt: String,
         updatedAt: String,
         enabled: Bool,
-        type: AppwriteEnums.DatabaseType
+        type: AppwriteEnums.DatabaseType,
+        policies: [Index],
+        archives: [Collection]
     ) {
         self.id = id
         self.name = name
@@ -41,6 +49,8 @@ open class Database: Codable {
         self.updatedAt = updatedAt
         self.enabled = enabled
         self.type = type
+        self.policies = policies
+        self.archives = archives
     }
 
     public required init(from decoder: Decoder) throws {
@@ -52,6 +62,8 @@ open class Database: Codable {
         self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
         self.enabled = try container.decode(Bool.self, forKey: .enabled)
         self.type = AppwriteEnums.DatabaseType(rawValue: try container.decode(String.self, forKey: .type))!
+        self.policies = try container.decode([Index].self, forKey: .policies)
+        self.archives = try container.decode([Collection].self, forKey: .archives)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -63,6 +75,8 @@ open class Database: Codable {
         try container.encode(updatedAt, forKey: .updatedAt)
         try container.encode(enabled, forKey: .enabled)
         try container.encode(type.rawValue, forKey: .type)
+        try container.encode(policies, forKey: .policies)
+        try container.encode(archives, forKey: .archives)
     }
 
     public func toMap() -> [String: Any] {
@@ -72,7 +86,9 @@ open class Database: Codable {
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
             "enabled": enabled as Any,
-            "type": type.rawValue as Any
+            "type": type.rawValue as Any,
+            "policies": policies.map { $0.toMap() } as Any,
+            "archives": archives.map { $0.toMap() } as Any
         ]
     }
 
@@ -83,7 +99,9 @@ open class Database: Codable {
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
             enabled: map["enabled"] as! Bool,
-            type: DatabaseType(rawValue: map["type"] as! String)!
+            type: DatabaseType(rawValue: map["type"] as! String)!,
+            policies: (map["policies"] as! [[String: Any]]).map { Index.from(map: $0) },
+            archives: (map["archives"] as! [[String: Any]]).map { Collection.from(map: $0) }
         )
     }
 }
