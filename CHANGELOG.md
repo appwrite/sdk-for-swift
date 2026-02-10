@@ -1,22 +1,11 @@
 # Change Log
 
-## 15.0.0
+## 15.0.1
 
-* Add array-based enum parameters (e.g., `permissions: [BrowserPermission]`).
-* Breaking change: `Output` enum has been removed; use `ImageFormat` instead.
-* Add `getQueueAudits` support to `Health` service.
-* Add longtext/mediumtext/text/varchar attribute and column helpers to `Databases` and `TablesDB` services.
-
-## 14.1.0
-
-* Added ability to create columns and indexes synchronously while creating a table
-
-## 14.0.0
-
-* Rename `VCSDeploymentType` enum to `VCSReferenceType`
-* Change `createTemplateDeployment` method signature: replace `version` parameter with `type` (TemplateReferenceType) and `reference` parameters
-* Add `getScreenshot` method to `Avatars` service
-* Add `Theme`, `Timezone` and `Output` enums
+* Update SDK as per latest server specs, these include -
+    * Introduces Backups module for managing Database backups
+    * Introduces Organization module
+    * Introduce Account level keys, Backup Service & Models
 
 ## 13.3.0
 
@@ -39,7 +28,8 @@
 
 ## 10.2.0
 
-* Update sdk to use swift-native doc comments instead of jsdoc styled comments as per [Swift Documentation Comments](https://github.com/swiftlang/swift/blob/main/docs/DocumentationComments.md)
+* Update sdk to use swift-native doc comments instead of jsdoc styled comments as
+  per [Swift Documentation Comments](https://github.com/swiftlang/swift/blob/main/docs/DocumentationComments.md)
 * Add `incrementDocumentAttribute` and `decrementDocumentAttribute` support to `Databases` service
 * Add `gif` support to `ImageFormat` enum
 * Add `sequence` support to `Document` model
@@ -51,7 +41,8 @@
 * Adds warnings to bulk operation methods
 * Adds the new `encrypt` attribute
 * Adds runtimes: `flutter332` and `dart38`
-* Fix `select` Queries by updating internal attributes like `id`, `createdAt`, `updatedAt` etc. to be optional in `Document` model.
+* Fix `select` Queries by updating internal attributes like `id`, `createdAt`, `updatedAt` etc. to be optional in
+  `Document` model.
 * Fix `listCollection` errors by updating `attributes` typing
 * Fix querying datetime values by properly encoding URLs
 
