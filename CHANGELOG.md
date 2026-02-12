@@ -1,5 +1,12 @@
 # Change Log
 
+## 15.1.0
+
+* Add `dart-3.10` and `flutter-3.38` to `BuildRuntime` and `Runtime` enums
+* Add `bytesMax` and `bytesUsed` properties to `Collection` and `Table` models
+* Fix `Roles` enum removed from Teams service; `roles` parameter now accepts `[String]`
+* Add support for the new `Backups` service
+
 ## 15.0.0
 
 * Add array-based enum parameters (e.g., `permissions: [BrowserPermission]`).
