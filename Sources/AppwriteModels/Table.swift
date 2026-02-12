@@ -15,6 +15,8 @@ open class Table: Codable {
         case rowSecurity = "rowSecurity"
         case columns = "columns"
         case indexes = "indexes"
+        case bytesMax = "bytesMax"
+        case bytesUsed = "bytesUsed"
     }
 
     /// Table ID.
@@ -37,6 +39,10 @@ open class Table: Codable {
     public let columns: [AnyCodable]
     /// Table indexes.
     public let indexes: [ColumnIndex]
+    /// Maximum row size in bytes. Returns 0 when no limit applies.
+    public let bytesMax: Int
+    /// Currently used row size in bytes based on defined columns.
+    public let bytesUsed: Int
 
     init(
         id: String,
@@ -48,7 +54,9 @@ open class Table: Codable {
         enabled: Bool,
         rowSecurity: Bool,
         columns: [AnyCodable],
-        indexes: [ColumnIndex]
+        indexes: [ColumnIndex],
+        bytesMax: Int,
+        bytesUsed: Int
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -60,6 +68,8 @@ open class Table: Codable {
         self.rowSecurity = rowSecurity
         self.columns = columns
         self.indexes = indexes
+        self.bytesMax = bytesMax
+        self.bytesUsed = bytesUsed
     }
 
     public required init(from decoder: Decoder) throws {
@@ -75,6 +85,8 @@ open class Table: Codable {
         self.rowSecurity = try container.decode(Bool.self, forKey: .rowSecurity)
         self.columns = try container.decode([AnyCodable].self, forKey: .columns)
         self.indexes = try container.decode([ColumnIndex].self, forKey: .indexes)
+        self.bytesMax = try container.decode(Int.self, forKey: .bytesMax)
+        self.bytesUsed = try container.decode(Int.self, forKey: .bytesUsed)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -90,6 +102,8 @@ open class Table: Codable {
         try container.encode(rowSecurity, forKey: .rowSecurity)
         try container.encode(columns, forKey: .columns)
         try container.encode(indexes, forKey: .indexes)
+        try container.encode(bytesMax, forKey: .bytesMax)
+        try container.encode(bytesUsed, forKey: .bytesUsed)
     }
 
     public func toMap() -> [String: Any] {
@@ -103,7 +117,9 @@ open class Table: Codable {
             "enabled": enabled as Any,
             "rowSecurity": rowSecurity as Any,
             "columns": columns as Any,
-            "indexes": indexes.map { $0.toMap() } as Any
+            "indexes": indexes.map { $0.toMap() } as Any,
+            "bytesMax": bytesMax as Any,
+            "bytesUsed": bytesUsed as Any
         ]
     }
 
@@ -118,7 +134,9 @@ open class Table: Codable {
             enabled: map["enabled"] as! Bool,
             rowSecurity: map["rowSecurity"] as! Bool,
             columns: (map["columns"] as! [Any]).map { AnyCodable($0) },
-            indexes: (map["indexes"] as! [[String: Any]]).map { ColumnIndex.from(map: $0) }
+            indexes: (map["indexes"] as! [[String: Any]]).map { ColumnIndex.from(map: $0) },
+            bytesMax: map["bytesMax"] as! Int,
+            bytesUsed: map["bytesUsed"] as! Int
         )
     }
 }
