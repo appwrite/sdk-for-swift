@@ -6,10 +6,10 @@ let client = Client()
     .setProject("<YOUR_PROJECT_ID>") // Your project ID
     .setKey("<YOUR_API_KEY>") // Your secret API key
 
-let health = Health(client)
+let activities = Activities(client)
 
-let healthQueue = try await health.getQueueBillingTeamAggregation(
-    threshold: 0 // optional
+let activityEvent = try await activities.getEvent(
+    eventId: "<EVENT_ID>"
 )
 
 ```

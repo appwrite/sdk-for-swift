@@ -2,9 +2,11 @@
 
 ## 15.1.0
 
-* Add `dart-3.10` and `flutter-3.38` to `BuildRuntime` and `Runtime` enums
-* Add `bytesMax` and `bytesUsed` properties to `Collection` and `Table` models
-* Fix `Roles` enum removed from Teams service; `roles` parameter now accepts `[String]`
+* Added new query filtering helpers: Query.contains(_:, value:), Query.containsAny(_:, value: [Any]), and Query.containsAll(_:, value: [Any]) for string and array attributes.
+* Extended Databases and TablesDB attribute creation APIs with an optional encrypt: Bool flag to support encrypted attributes (Longtext, Mediumtext, Text, Varchar) across multiple attribute types.
+* Updated README and package manifest references to reflect versioning and compatibility: server compatibility noted as Appwrite server version 1.8.x; package dependency snippet updated from 15.1.0 to 15.0.0.
+* Updated Client header x-sdk-version to 15.0.0 to align with the release.
+* Removed deprecated/auxiliary CI templates and an autoclose workflow (internal maintenance).
 * Add support for the new `Backups` service
 
 ## 15.0.0
