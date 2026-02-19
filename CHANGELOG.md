@@ -1,5 +1,13 @@
 # Change Log
 
+## 15.1.0
+
+* Added new query filtering helpers: Query.contains(_:, value:), Query.containsAny(_:, value: [Any]), and Query.containsAll(_:, value: [Any]) for string and array attributes.
+* Extended Databases and TablesDB attribute creation APIs with an optional encrypt: Bool flag to support encrypted attributes (Longtext, Mediumtext, Text, Varchar) across multiple attribute types.
+* Updated README and package manifest references to reflect versioning and compatibility: server compatibility noted as Appwrite server version 1.8.x; package dependency snippet updated from 15.1.0 to 15.0.0.
+* Updated Client header x-sdk-version to 15.0.0 to align with the release.
+* Removed deprecated/auxiliary CI templates and an autoclose workflow (internal maintenance).
+
 ## 13.3.0
 
 * Add `total` parameter to list queries allowing skipping counting rows in a table for improved performance
