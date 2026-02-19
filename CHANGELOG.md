@@ -7,6 +7,7 @@
 * Updated README and package manifest references to reflect versioning and compatibility: server compatibility noted as Appwrite server version 1.8.x; package dependency snippet updated from 15.1.0 to 15.0.0.
 * Updated Client header x-sdk-version to 15.0.0 to align with the release.
 * Removed deprecated/auxiliary CI templates and an autoclose workflow (internal maintenance).
+* Add support for the new `Backups` service
 
 ## 15.0.0
 
