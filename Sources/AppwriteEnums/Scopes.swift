@@ -49,6 +49,8 @@ public enum Scopes: String, CustomStringConvertible {
     case targetsWrite = "targets.write"
     case rulesRead = "rules.read"
     case rulesWrite = "rules.write"
+    case schedulesRead = "schedules.read"
+    case schedulesWrite = "schedules.write"
     case migrationsRead = "migrations.read"
     case migrationsWrite = "migrations.write"
     case vcsRead = "vcs.read"
@@ -64,6 +66,7 @@ public enum Scopes: String, CustomStringConvertible {
     case restorationsWrite = "restorations.write"
     case domainsRead = "domains.read"
     case domainsWrite = "domains.write"
+    case eventsRead = "events.read"
 
     public var description: String {
         return rawValue

@@ -15,6 +15,7 @@ open class ColumnText: Codable {
         case createdAt = "$createdAt"
         case updatedAt = "$updatedAt"
         case `default` = "default"
+        case encrypt = "encrypt"
     }
 
     /// Column Key.
@@ -35,6 +36,8 @@ open class ColumnText: Codable {
     public let updatedAt: String
     /// Default value for column when not provided. Cannot be set when column is required.
     public let `default`: String?
+    /// Defines whether this column is encrypted or not.
+    public let encrypt: Bool?
 
     init(
         key: String,
@@ -45,7 +48,8 @@ open class ColumnText: Codable {
         array: Bool?,
         createdAt: String,
         updatedAt: String,
-        `default`: String?
+        `default`: String?,
+        encrypt: Bool?
     ) {
         self.key = key
         self.type = type
@@ -56,6 +60,7 @@ open class ColumnText: Codable {
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.`default` = `default`
+        self.encrypt = encrypt
     }
 
     public required init(from decoder: Decoder) throws {
@@ -70,6 +75,7 @@ open class ColumnText: Codable {
         self.createdAt = try container.decode(String.self, forKey: .createdAt)
         self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
         self.`default` = try container.decodeIfPresent(String.self, forKey: .`default`)
+        self.encrypt = try container.decodeIfPresent(Bool.self, forKey: .encrypt)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -84,6 +90,7 @@ open class ColumnText: Codable {
         try container.encode(createdAt, forKey: .createdAt)
         try container.encode(updatedAt, forKey: .updatedAt)
         try container.encodeIfPresent(`default`, forKey: .`default`)
+        try container.encodeIfPresent(encrypt, forKey: .encrypt)
     }
 
     public func toMap() -> [String: Any] {
@@ -96,7 +103,8 @@ open class ColumnText: Codable {
             "array": array as Any,
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
-            "default": `default` as Any
+            "default": `default` as Any,
+            "encrypt": encrypt as Any
         ]
     }
 
@@ -110,7 +118,8 @@ open class ColumnText: Codable {
             array: map["array"] as? Bool,
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
-            default: map["default"] as? String
+            default: map["default"] as? String,
+            encrypt: map["encrypt"] as? Bool
         )
     }
 }

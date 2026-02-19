@@ -1516,6 +1516,7 @@ open class Databases: Service {
     ///   - required: Bool
     ///   - default: String (optional)
     ///   - array: Bool (optional)
+    ///   - encrypt: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeLongtext
     ///
@@ -1525,7 +1526,8 @@ open class Databases: Service {
         key: String,
         `required`: Bool,
         `default`: String? = nil,
-        array: Bool? = nil
+        array: Bool? = nil,
+        encrypt: Bool? = nil
     ) async throws -> AppwriteModels.AttributeLongtext {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/longtext"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -1535,7 +1537,8 @@ open class Databases: Service {
             "key": key,
             "required": `required`,
             "default": `default`,
-            "array": array
+            "array": array,
+            "encrypt": encrypt
         ]
 
         let apiHeaders: [String: String] = [
@@ -1617,6 +1620,7 @@ open class Databases: Service {
     ///   - required: Bool
     ///   - default: String (optional)
     ///   - array: Bool (optional)
+    ///   - encrypt: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeMediumtext
     ///
@@ -1626,7 +1630,8 @@ open class Databases: Service {
         key: String,
         `required`: Bool,
         `default`: String? = nil,
-        array: Bool? = nil
+        array: Bool? = nil,
+        encrypt: Bool? = nil
     ) async throws -> AppwriteModels.AttributeMediumtext {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/mediumtext"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -1636,7 +1641,8 @@ open class Databases: Service {
             "key": key,
             "required": `required`,
             "default": `default`,
-            "array": array
+            "array": array,
+            "encrypt": encrypt
         ]
 
         let apiHeaders: [String: String] = [
@@ -2084,6 +2090,7 @@ open class Databases: Service {
     ///   - required: Bool
     ///   - default: String (optional)
     ///   - array: Bool (optional)
+    ///   - encrypt: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeText
     ///
@@ -2093,7 +2100,8 @@ open class Databases: Service {
         key: String,
         `required`: Bool,
         `default`: String? = nil,
-        array: Bool? = nil
+        array: Bool? = nil,
+        encrypt: Bool? = nil
     ) async throws -> AppwriteModels.AttributeText {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/text"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -2103,7 +2111,8 @@ open class Databases: Service {
             "key": key,
             "required": `required`,
             "default": `default`,
-            "array": array
+            "array": array,
+            "encrypt": encrypt
         ]
 
         let apiHeaders: [String: String] = [
@@ -2289,6 +2298,7 @@ open class Databases: Service {
     ///   - required: Bool
     ///   - default: String (optional)
     ///   - array: Bool (optional)
+    ///   - encrypt: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeVarchar
     ///
@@ -2299,7 +2309,8 @@ open class Databases: Service {
         size: Int,
         `required`: Bool,
         `default`: String? = nil,
-        array: Bool? = nil
+        array: Bool? = nil,
+        encrypt: Bool? = nil
     ) async throws -> AppwriteModels.AttributeVarchar {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/varchar"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -2310,7 +2321,8 @@ open class Databases: Service {
             "size": size,
             "required": `required`,
             "default": `default`,
-            "array": array
+            "array": array,
+            "encrypt": encrypt
         ]
 
         let apiHeaders: [String: String] = [
