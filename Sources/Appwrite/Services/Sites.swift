@@ -418,20 +418,20 @@ open class Sites: Service {
     /// - Parameters:
     ///   - siteId: String
     ///   - code: InputFile
-    ///   - activate: Bool
     ///   - installCommand: String (optional)
     ///   - buildCommand: String (optional)
     ///   - outputDirectory: String (optional)
+    ///   - activate: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Deployment
     ///
     open func createDeployment(
         siteId: String,
         code: InputFile,
-        activate: Bool,
         installCommand: String? = nil,
         buildCommand: String? = nil,
         outputDirectory: String? = nil,
+        activate: Bool? = nil,
         onProgress: ((UploadProgress) -> Void)? = nil
     ) async throws -> AppwriteModels.Deployment {
         let apiPath: String = "/sites/{siteId}/deployments"

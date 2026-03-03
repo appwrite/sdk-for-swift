@@ -123,6 +123,43 @@ open class Health: Service {
     }
 
     ///
+    /// Get console pausing health status. Monitors projects approaching the pause
+    /// threshold to detect potential issues with console access tracking.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - threshold: Int (optional)
+    ///   - inactivityDays: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthStatus
+    ///
+    open func getConsolePausing(
+        threshold: Int? = nil,
+        inactivityDays: Int? = nil
+    ) async throws -> AppwriteModels.HealthStatus {
+        let apiPath: String = "/health/console-pausing"
+
+        let apiParams: [String: Any?] = [
+            "threshold": threshold,
+            "inactivityDays": inactivityDays
+        ]
+
+        let apiHeaders: [String: String] = [:]
+
+        let converter: (Any) -> AppwriteModels.HealthStatus = { response in
+            return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
     /// Check the Appwrite database servers are up and connection is successful.
     ///
     /// - Throws: Exception if the request fails
