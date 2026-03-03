@@ -123,6 +123,43 @@ open class Health: Service {
     }
 
     ///
+    /// Get console pausing health status. Monitors projects approaching the pause
+    /// threshold to detect potential issues with console access tracking.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - threshold: Int (optional)
+    ///   - inactivityDays: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthStatus
+    ///
+    open func getConsolePausing(
+        threshold: Int? = nil,
+        inactivityDays: Int? = nil
+    ) async throws -> AppwriteModels.HealthStatus {
+        let apiPath: String = "/health/console-pausing"
+
+        let apiParams: [String: Any?] = [
+            "threshold": threshold,
+            "inactivityDays": inactivityDays
+        ]
+
+        let apiHeaders: [String: String] = [:]
+
+        let converter: (Any) -> AppwriteModels.HealthStatus = { response in
+            return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
     /// Check the Appwrite database servers are up and connection is successful.
     ///
     /// - Throws: Exception if the request fails
@@ -210,6 +247,70 @@ open class Health: Service {
     }
 
     ///
+    /// Get billing project aggregation queue.
+    ///
+    /// - Parameters:
+    ///   - threshold: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthQueue
+    ///
+    open func getQueueBillingProjectAggregation(
+        threshold: Int? = nil
+    ) async throws -> AppwriteModels.HealthQueue {
+        let apiPath: String = "/health/queue/billing-project-aggregation"
+
+        let apiParams: [String: Any?] = [
+            "threshold": threshold
+        ]
+
+        let apiHeaders: [String: String] = [:]
+
+        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+            return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get billing team aggregation queue.
+    ///
+    /// - Parameters:
+    ///   - threshold: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthQueue
+    ///
+    open func getQueueBillingTeamAggregation(
+        threshold: Int? = nil
+    ) async throws -> AppwriteModels.HealthQueue {
+        let apiPath: String = "/health/queue/billing-team-aggregation"
+
+        let apiParams: [String: Any?] = [
+            "threshold": threshold
+        ]
+
+        let apiHeaders: [String: String] = [:]
+
+        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+            return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
     /// Get the number of builds that are waiting to be processed in the Appwrite
     /// internal queue server.
     ///
@@ -222,6 +323,38 @@ open class Health: Service {
         threshold: Int? = nil
     ) async throws -> AppwriteModels.HealthQueue {
         let apiPath: String = "/health/queue/builds"
+
+        let apiParams: [String: Any?] = [
+            "threshold": threshold
+        ]
+
+        let apiHeaders: [String: String] = [:]
+
+        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+            return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get the priority builds queue size.
+    ///
+    /// - Parameters:
+    ///   - threshold: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthQueue
+    ///
+    open func getQueuePriorityBuilds(
+        threshold: Int? = nil
+    ) async throws -> AppwriteModels.HealthQueue {
+        let apiPath: String = "/health/queue/builds-priority"
 
         let apiParams: [String: Any?] = [
             "threshold": threshold
@@ -547,6 +680,38 @@ open class Health: Service {
     }
 
     ///
+    /// Get region manager queue.
+    ///
+    /// - Parameters:
+    ///   - threshold: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthQueue
+    ///
+    open func getQueueRegionManager(
+        threshold: Int? = nil
+    ) async throws -> AppwriteModels.HealthQueue {
+        let apiPath: String = "/health/queue/region-manager"
+
+        let apiParams: [String: Any?] = [
+            "threshold": threshold
+        ]
+
+        let apiHeaders: [String: String] = [:]
+
+        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+            return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
     /// Get the number of metrics that are waiting to be processed in the Appwrite
     /// stats resources queue.
     ///
@@ -592,6 +757,38 @@ open class Health: Service {
         threshold: Int? = nil
     ) async throws -> AppwriteModels.HealthQueue {
         let apiPath: String = "/health/queue/stats-usage"
+
+        let apiParams: [String: Any?] = [
+            "threshold": threshold
+        ]
+
+        let apiHeaders: [String: String] = [:]
+
+        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+            return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get threats queue.
+    ///
+    /// - Parameters:
+    ///   - threshold: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthQueue
+    ///
+    open func getQueueThreats(
+        threshold: Int? = nil
+    ) async throws -> AppwriteModels.HealthQueue {
+        let apiPath: String = "/health/queue/threats"
 
         let apiParams: [String: Any?] = [
             "threshold": threshold
