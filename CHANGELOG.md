@@ -1,5 +1,13 @@
 # Change Log
 
+## 15.2.0
+
+* Added `getConsolePausing` health endpoint
+* Added `ttl` parameter to listDocuments and listRows and updated examples
+* Added `activate` optional parameter to Sites.createDeployment and updated docs example
+* Updated Document and Row sequence IDs documentation
+* Added usage example for Health.getConsolePausing
+
 ## 15.1.0
 
 * Added new query filtering helpers: Query.contains(_:, value:), Query.containsAny(_:, value: [Any]), and Query.containsAll(_:, value: [Any]) for string and array attributes.
