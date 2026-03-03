@@ -1968,6 +1968,55 @@ open class Databases: Service {
     }
 
     ///
+    /// Update relationship attribute. [Learn more about relationship
+    /// attributes](https://appwrite.io/docs/databases-relationships#relationship-attributes).
+    /// 
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - onDelete: AppwriteEnums.RelationMutate (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeRelationship
+    ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.updateRelationshipColumn` instead.")
+    open func updateRelationshipAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        onDelete: AppwriteEnums.RelationMutate? = nil,
+        newKey: String? = nil
+    ) async throws -> AppwriteModels.AttributeRelationship {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/relationship/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let apiParams: [String: Any?] = [
+            "onDelete": onDelete,
+            "newKey": newKey
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.AttributeRelationship = { response in
+            return AppwriteModels.AttributeRelationship.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
     /// Create a string attribute.
     /// 
     ///
@@ -2469,55 +2518,6 @@ open class Databases: Service {
     }
 
     ///
-    /// Update relationship attribute. [Learn more about relationship
-    /// attributes](https://appwrite.io/docs/databases-relationships#relationship-attributes).
-    /// 
-    ///
-    /// - Parameters:
-    ///   - databaseId: String
-    ///   - collectionId: String
-    ///   - key: String
-    ///   - onDelete: AppwriteEnums.RelationMutate (optional)
-    ///   - newKey: String (optional)
-    /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.AttributeRelationship
-    ///
-    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.updateRelationshipColumn` instead.")
-    open func updateRelationshipAttribute(
-        databaseId: String,
-        collectionId: String,
-        key: String,
-        onDelete: AppwriteEnums.RelationMutate? = nil,
-        newKey: String? = nil
-    ) async throws -> AppwriteModels.AttributeRelationship {
-        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/{key}/relationship"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
-            .replacingOccurrences(of: "{key}", with: key)
-
-        let apiParams: [String: Any?] = [
-            "onDelete": onDelete,
-            "newKey": newKey
-        ]
-
-        let apiHeaders: [String: String] = [
-            "content-type": "application/json"
-        ]
-
-        let converter: (Any) -> AppwriteModels.AttributeRelationship = { response in
-            return AppwriteModels.AttributeRelationship.from(map: response as! [String: Any])
-        }
-
-        return try await client.call(
-            method: "PATCH",
-            path: apiPath,
-            headers: apiHeaders,
-            params: apiParams,
-            converter: converter
-        )
-    }
-
-    ///
     /// Get a list of all the user's documents in a given collection. You can use
     /// the query params to filter your results.
     ///
@@ -2527,6 +2527,7 @@ open class Databases: Service {
     ///   - queries: [String] (optional)
     ///   - transactionId: String (optional)
     ///   - total: Bool (optional)
+    ///   - ttl: Int (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DocumentList<T>
     ///
@@ -2537,6 +2538,7 @@ open class Databases: Service {
         queries: [String]? = nil,
         transactionId: String? = nil,
         total: Bool? = nil,
+        ttl: Int? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.DocumentList<T> {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/documents"
@@ -2546,7 +2548,8 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "queries": queries,
             "transactionId": transactionId,
-            "total": total
+            "total": total,
+            "ttl": ttl
         ]
 
         let apiHeaders: [String: String] = [:]
@@ -2574,6 +2577,7 @@ open class Databases: Service {
     ///   - queries: [String] (optional)
     ///   - transactionId: String (optional)
     ///   - total: Bool (optional)
+    ///   - ttl: Int (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DocumentList<T>
     ///
@@ -2583,7 +2587,8 @@ open class Databases: Service {
         collectionId: String,
         queries: [String]? = nil,
         transactionId: String? = nil,
-        total: Bool? = nil
+        total: Bool? = nil,
+        ttl: Int? = nil
     ) async throws -> AppwriteModels.DocumentList<[String: AnyCodable]> {
         return try await listDocuments(
             databaseId: databaseId,
@@ -2591,6 +2596,7 @@ open class Databases: Service {
             queries: queries,
             transactionId: transactionId,
             total: total,
+            ttl: ttl,
             nestedType: [String: AnyCodable].self
         )
     }
