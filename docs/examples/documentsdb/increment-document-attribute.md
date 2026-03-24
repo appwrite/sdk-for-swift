@@ -1,0 +1,21 @@
+```swift
+import Appwrite
+
+let client = Client()
+    .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
+    .setProject("<YOUR_PROJECT_ID>") // Your project ID
+    .setSession("") // The user session to authenticate with
+
+let documentsDB = DocumentsDB(client)
+
+let document = try await documentsDB.incrementDocumentAttribute(
+    databaseId: "<DATABASE_ID>",
+    collectionId: "<COLLECTION_ID>",
+    documentId: "<DOCUMENT_ID>",
+    attribute: "",
+    value: 0, // optional
+    max: 0, // optional
+    transactionId: "<TRANSACTION_ID>" // optional
+)
+
+```

@@ -3528,7 +3528,7 @@ open class Databases: Service {
     ///   - databaseId: String
     ///   - collectionId: String
     ///   - key: String
-    ///   - type: AppwriteEnums.IndexType
+    ///   - type: AppwriteEnums.DatabasesIndexType
     ///   - attributes: [String]
     ///   - orders: [AppwriteEnums.OrderBy] (optional)
     ///   - lengths: [Int] (optional)
@@ -3540,7 +3540,7 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String,
         key: String,
-        type: AppwriteEnums.IndexType,
+        type: AppwriteEnums.DatabasesIndexType,
         attributes: [String],
         orders: [AppwriteEnums.OrderBy]? = nil,
         lengths: [Int]? = nil

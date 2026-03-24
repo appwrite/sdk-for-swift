@@ -941,6 +941,74 @@ open class Users: Service {
     }
 
     ///
+    /// Enable or disable whether a user can impersonate other users. When
+    /// impersonation headers are used, the request runs as the target user for API
+    /// behavior, while internal audit logs still attribute the action to the
+    /// original impersonator and store the impersonated target details only in
+    /// internal audit payload data.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - userId: String
+    ///   - impersonator: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
+    ///
+    open func updateImpersonator<T>(
+        userId: String,
+        impersonator: Bool,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.User<T> {
+        let apiPath: String = "/users/{userId}/impersonator"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let apiParams: [String: Any?] = [
+            "impersonator": impersonator
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) -> AppwriteModels.User<T> = { response in
+            return AppwriteModels.User.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Enable or disable whether a user can impersonate other users. When
+    /// impersonation headers are used, the request runs as the target user for API
+    /// behavior, while internal audit logs still attribute the action to the
+    /// original impersonator and store the impersonated target details only in
+    /// internal audit payload data.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - userId: String
+    ///   - impersonator: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.User<T>
+    ///
+    open func updateImpersonator(
+        userId: String,
+        impersonator: Bool
+    ) async throws -> AppwriteModels.User<[String: AnyCodable]> {
+        return try await updateImpersonator(
+            userId: userId,
+            impersonator: impersonator,
+            nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
     /// Use this endpoint to create a JSON Web Token for user by its unique ID. You
     /// can use the resulting JWT to authenticate on behalf of the user. The JWT
     /// secret will become invalid if the session it uses gets deleted.

@@ -1,12 +1,8 @@
 # Change Log
 
-## 15.2.0
+## 16.0.0
 
-* Added `getConsolePausing` health endpoint
-* Added `ttl` parameter to listDocuments and listRows and updated examples
-* Added `activate` optional parameter to Sites.createDeployment and updated docs example
-* Updated Document and Row sequence IDs documentation
-* Added usage example for Health.getConsolePausing
+* Breaking: Renamed `AppwriteEnums.IndexType` to `AppwriteEnums.DatabasesIndexType` in `Databases`\n* Added `DocumentsDB` service with list/create/get/update/delete and transaction endpoints\n* Added impersonation support: `setImpersonateUserId`, `setImpersonateUserEmail`, `setImpersonateUserPhone`\n* Updated `x-sdk-version` to `15.1.0` and `x-appwrite-response-format` to `1.9.0`\n* Updated README badge to display API version `1.9.0`
 
 ## 15.1.0
 

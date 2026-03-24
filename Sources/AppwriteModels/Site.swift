@@ -13,6 +13,7 @@ open class Site: Codable {
         case live = "live"
         case logging = "logging"
         case framework = "framework"
+        case deploymentRetention = "deploymentRetention"
         case deploymentId = "deploymentId"
         case deploymentCreatedAt = "deploymentCreatedAt"
         case deploymentScreenshotLight = "deploymentScreenshotLight"
@@ -24,13 +25,15 @@ open class Site: Codable {
         case timeout = "timeout"
         case installCommand = "installCommand"
         case buildCommand = "buildCommand"
+        case startCommand = "startCommand"
         case outputDirectory = "outputDirectory"
         case installationId = "installationId"
         case providerRepositoryId = "providerRepositoryId"
         case providerBranch = "providerBranch"
         case providerRootDirectory = "providerRootDirectory"
         case providerSilentMode = "providerSilentMode"
-        case specification = "specification"
+        case buildSpecification = "buildSpecification"
+        case runtimeSpecification = "runtimeSpecification"
         case buildRuntime = "buildRuntime"
         case adapter = "adapter"
         case fallbackFile = "fallbackFile"
@@ -52,6 +55,8 @@ open class Site: Codable {
     public let logging: Bool
     /// Site framework.
     public let framework: String
+    /// How many days to keep the non-active deployments before they will be automatically deleted.
+    public let deploymentRetention: Int
     /// Site&#039;s active deployment ID.
     public let deploymentId: String
     /// Active deployment creation date in ISO 8601 format.
@@ -74,6 +79,8 @@ open class Site: Codable {
     public let installCommand: String
     /// The build command used to build the site.
     public let buildCommand: String
+    /// Custom command to use when starting site runtime.
+    public let startCommand: String
     /// The directory where the site build output is located.
     public let outputDirectory: String
     /// Site VCS (Version Control System) installation id.
@@ -86,8 +93,10 @@ open class Site: Codable {
     public let providerRootDirectory: String
     /// Is VCS (Version Control System) connection is in silent mode? When in silence mode, no comments will be posted on the repository pull or merge requests
     public let providerSilentMode: Bool
-    /// Machine specification for builds and executions.
-    public let specification: String
+    /// Machine specification for deployment builds.
+    public let buildSpecification: String
+    /// Machine specification for SSR executions.
+    public let runtimeSpecification: String
     /// Site build runtime.
     public let buildRuntime: String
     /// Site framework adapter.
@@ -104,6 +113,7 @@ open class Site: Codable {
         live: Bool,
         logging: Bool,
         framework: String,
+        deploymentRetention: Int,
         deploymentId: String,
         deploymentCreatedAt: String,
         deploymentScreenshotLight: String,
@@ -115,13 +125,15 @@ open class Site: Codable {
         timeout: Int,
         installCommand: String,
         buildCommand: String,
+        startCommand: String,
         outputDirectory: String,
         installationId: String,
         providerRepositoryId: String,
         providerBranch: String,
         providerRootDirectory: String,
         providerSilentMode: Bool,
-        specification: String,
+        buildSpecification: String,
+        runtimeSpecification: String,
         buildRuntime: String,
         adapter: String,
         fallbackFile: String
@@ -134,6 +146,7 @@ open class Site: Codable {
         self.live = live
         self.logging = logging
         self.framework = framework
+        self.deploymentRetention = deploymentRetention
         self.deploymentId = deploymentId
         self.deploymentCreatedAt = deploymentCreatedAt
         self.deploymentScreenshotLight = deploymentScreenshotLight
@@ -145,13 +158,15 @@ open class Site: Codable {
         self.timeout = timeout
         self.installCommand = installCommand
         self.buildCommand = buildCommand
+        self.startCommand = startCommand
         self.outputDirectory = outputDirectory
         self.installationId = installationId
         self.providerRepositoryId = providerRepositoryId
         self.providerBranch = providerBranch
         self.providerRootDirectory = providerRootDirectory
         self.providerSilentMode = providerSilentMode
-        self.specification = specification
+        self.buildSpecification = buildSpecification
+        self.runtimeSpecification = runtimeSpecification
         self.buildRuntime = buildRuntime
         self.adapter = adapter
         self.fallbackFile = fallbackFile
@@ -168,6 +183,7 @@ open class Site: Codable {
         self.live = try container.decode(Bool.self, forKey: .live)
         self.logging = try container.decode(Bool.self, forKey: .logging)
         self.framework = try container.decode(String.self, forKey: .framework)
+        self.deploymentRetention = try container.decode(Int.self, forKey: .deploymentRetention)
         self.deploymentId = try container.decode(String.self, forKey: .deploymentId)
         self.deploymentCreatedAt = try container.decode(String.self, forKey: .deploymentCreatedAt)
         self.deploymentScreenshotLight = try container.decode(String.self, forKey: .deploymentScreenshotLight)
@@ -179,13 +195,15 @@ open class Site: Codable {
         self.timeout = try container.decode(Int.self, forKey: .timeout)
         self.installCommand = try container.decode(String.self, forKey: .installCommand)
         self.buildCommand = try container.decode(String.self, forKey: .buildCommand)
+        self.startCommand = try container.decode(String.self, forKey: .startCommand)
         self.outputDirectory = try container.decode(String.self, forKey: .outputDirectory)
         self.installationId = try container.decode(String.self, forKey: .installationId)
         self.providerRepositoryId = try container.decode(String.self, forKey: .providerRepositoryId)
         self.providerBranch = try container.decode(String.self, forKey: .providerBranch)
         self.providerRootDirectory = try container.decode(String.self, forKey: .providerRootDirectory)
         self.providerSilentMode = try container.decode(Bool.self, forKey: .providerSilentMode)
-        self.specification = try container.decode(String.self, forKey: .specification)
+        self.buildSpecification = try container.decode(String.self, forKey: .buildSpecification)
+        self.runtimeSpecification = try container.decode(String.self, forKey: .runtimeSpecification)
         self.buildRuntime = try container.decode(String.self, forKey: .buildRuntime)
         self.adapter = try container.decode(String.self, forKey: .adapter)
         self.fallbackFile = try container.decode(String.self, forKey: .fallbackFile)
@@ -202,6 +220,7 @@ open class Site: Codable {
         try container.encode(live, forKey: .live)
         try container.encode(logging, forKey: .logging)
         try container.encode(framework, forKey: .framework)
+        try container.encode(deploymentRetention, forKey: .deploymentRetention)
         try container.encode(deploymentId, forKey: .deploymentId)
         try container.encode(deploymentCreatedAt, forKey: .deploymentCreatedAt)
         try container.encode(deploymentScreenshotLight, forKey: .deploymentScreenshotLight)
@@ -213,13 +232,15 @@ open class Site: Codable {
         try container.encode(timeout, forKey: .timeout)
         try container.encode(installCommand, forKey: .installCommand)
         try container.encode(buildCommand, forKey: .buildCommand)
+        try container.encode(startCommand, forKey: .startCommand)
         try container.encode(outputDirectory, forKey: .outputDirectory)
         try container.encode(installationId, forKey: .installationId)
         try container.encode(providerRepositoryId, forKey: .providerRepositoryId)
         try container.encode(providerBranch, forKey: .providerBranch)
         try container.encode(providerRootDirectory, forKey: .providerRootDirectory)
         try container.encode(providerSilentMode, forKey: .providerSilentMode)
-        try container.encode(specification, forKey: .specification)
+        try container.encode(buildSpecification, forKey: .buildSpecification)
+        try container.encode(runtimeSpecification, forKey: .runtimeSpecification)
         try container.encode(buildRuntime, forKey: .buildRuntime)
         try container.encode(adapter, forKey: .adapter)
         try container.encode(fallbackFile, forKey: .fallbackFile)
@@ -235,6 +256,7 @@ open class Site: Codable {
             "live": live as Any,
             "logging": logging as Any,
             "framework": framework as Any,
+            "deploymentRetention": deploymentRetention as Any,
             "deploymentId": deploymentId as Any,
             "deploymentCreatedAt": deploymentCreatedAt as Any,
             "deploymentScreenshotLight": deploymentScreenshotLight as Any,
@@ -246,13 +268,15 @@ open class Site: Codable {
             "timeout": timeout as Any,
             "installCommand": installCommand as Any,
             "buildCommand": buildCommand as Any,
+            "startCommand": startCommand as Any,
             "outputDirectory": outputDirectory as Any,
             "installationId": installationId as Any,
             "providerRepositoryId": providerRepositoryId as Any,
             "providerBranch": providerBranch as Any,
             "providerRootDirectory": providerRootDirectory as Any,
             "providerSilentMode": providerSilentMode as Any,
-            "specification": specification as Any,
+            "buildSpecification": buildSpecification as Any,
+            "runtimeSpecification": runtimeSpecification as Any,
             "buildRuntime": buildRuntime as Any,
             "adapter": adapter as Any,
             "fallbackFile": fallbackFile as Any
@@ -269,6 +293,7 @@ open class Site: Codable {
             live: map["live"] as! Bool,
             logging: map["logging"] as! Bool,
             framework: map["framework"] as! String,
+            deploymentRetention: map["deploymentRetention"] as! Int,
             deploymentId: map["deploymentId"] as! String,
             deploymentCreatedAt: map["deploymentCreatedAt"] as! String,
             deploymentScreenshotLight: map["deploymentScreenshotLight"] as! String,
@@ -280,13 +305,15 @@ open class Site: Codable {
             timeout: map["timeout"] as! Int,
             installCommand: map["installCommand"] as! String,
             buildCommand: map["buildCommand"] as! String,
+            startCommand: map["startCommand"] as! String,
             outputDirectory: map["outputDirectory"] as! String,
             installationId: map["installationId"] as! String,
             providerRepositoryId: map["providerRepositoryId"] as! String,
             providerBranch: map["providerBranch"] as! String,
             providerRootDirectory: map["providerRootDirectory"] as! String,
             providerSilentMode: map["providerSilentMode"] as! Bool,
-            specification: map["specification"] as! String,
+            buildSpecification: map["buildSpecification"] as! String,
+            runtimeSpecification: map["runtimeSpecification"] as! String,
             buildRuntime: map["buildRuntime"] as! String,
             adapter: map["adapter"] as! String,
             fallbackFile: map["fallbackFile"] as! String

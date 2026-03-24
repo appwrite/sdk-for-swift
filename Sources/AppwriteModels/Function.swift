@@ -14,6 +14,7 @@ open class Function: Codable {
         case live = "live"
         case logging = "logging"
         case runtime = "runtime"
+        case deploymentRetention = "deploymentRetention"
         case deploymentId = "deploymentId"
         case deploymentCreatedAt = "deploymentCreatedAt"
         case latestDeploymentId = "latestDeploymentId"
@@ -32,7 +33,8 @@ open class Function: Codable {
         case providerBranch = "providerBranch"
         case providerRootDirectory = "providerRootDirectory"
         case providerSilentMode = "providerSilentMode"
-        case specification = "specification"
+        case buildSpecification = "buildSpecification"
+        case runtimeSpecification = "runtimeSpecification"
     }
 
     /// Function ID.
@@ -53,6 +55,8 @@ open class Function: Codable {
     public let logging: Bool
     /// Function execution and build runtime.
     public let runtime: String
+    /// How many days to keep the non-active deployments before they will be automatically deleted.
+    public let deploymentRetention: Int
     /// Function&#039;s active deployment ID.
     public let deploymentId: String
     /// Active deployment creation date in ISO 8601 format.
@@ -89,8 +93,10 @@ open class Function: Codable {
     public let providerRootDirectory: String
     /// Is VCS (Version Control System) connection is in silent mode? When in silence mode, no comments will be posted on the repository pull or merge requests
     public let providerSilentMode: Bool
-    /// Machine specification for builds and executions.
-    public let specification: String
+    /// Machine specification for deployment builds.
+    public let buildSpecification: String
+    /// Machine specification for executions.
+    public let runtimeSpecification: String
 
     init(
         id: String,
@@ -102,6 +108,7 @@ open class Function: Codable {
         live: Bool,
         logging: Bool,
         runtime: String,
+        deploymentRetention: Int,
         deploymentId: String,
         deploymentCreatedAt: String,
         latestDeploymentId: String,
@@ -120,7 +127,8 @@ open class Function: Codable {
         providerBranch: String,
         providerRootDirectory: String,
         providerSilentMode: Bool,
-        specification: String
+        buildSpecification: String,
+        runtimeSpecification: String
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -131,6 +139,7 @@ open class Function: Codable {
         self.live = live
         self.logging = logging
         self.runtime = runtime
+        self.deploymentRetention = deploymentRetention
         self.deploymentId = deploymentId
         self.deploymentCreatedAt = deploymentCreatedAt
         self.latestDeploymentId = latestDeploymentId
@@ -149,7 +158,8 @@ open class Function: Codable {
         self.providerBranch = providerBranch
         self.providerRootDirectory = providerRootDirectory
         self.providerSilentMode = providerSilentMode
-        self.specification = specification
+        self.buildSpecification = buildSpecification
+        self.runtimeSpecification = runtimeSpecification
     }
 
     public required init(from decoder: Decoder) throws {
@@ -164,6 +174,7 @@ open class Function: Codable {
         self.live = try container.decode(Bool.self, forKey: .live)
         self.logging = try container.decode(Bool.self, forKey: .logging)
         self.runtime = try container.decode(String.self, forKey: .runtime)
+        self.deploymentRetention = try container.decode(Int.self, forKey: .deploymentRetention)
         self.deploymentId = try container.decode(String.self, forKey: .deploymentId)
         self.deploymentCreatedAt = try container.decode(String.self, forKey: .deploymentCreatedAt)
         self.latestDeploymentId = try container.decode(String.self, forKey: .latestDeploymentId)
@@ -182,7 +193,8 @@ open class Function: Codable {
         self.providerBranch = try container.decode(String.self, forKey: .providerBranch)
         self.providerRootDirectory = try container.decode(String.self, forKey: .providerRootDirectory)
         self.providerSilentMode = try container.decode(Bool.self, forKey: .providerSilentMode)
-        self.specification = try container.decode(String.self, forKey: .specification)
+        self.buildSpecification = try container.decode(String.self, forKey: .buildSpecification)
+        self.runtimeSpecification = try container.decode(String.self, forKey: .runtimeSpecification)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -197,6 +209,7 @@ open class Function: Codable {
         try container.encode(live, forKey: .live)
         try container.encode(logging, forKey: .logging)
         try container.encode(runtime, forKey: .runtime)
+        try container.encode(deploymentRetention, forKey: .deploymentRetention)
         try container.encode(deploymentId, forKey: .deploymentId)
         try container.encode(deploymentCreatedAt, forKey: .deploymentCreatedAt)
         try container.encode(latestDeploymentId, forKey: .latestDeploymentId)
@@ -215,7 +228,8 @@ open class Function: Codable {
         try container.encode(providerBranch, forKey: .providerBranch)
         try container.encode(providerRootDirectory, forKey: .providerRootDirectory)
         try container.encode(providerSilentMode, forKey: .providerSilentMode)
-        try container.encode(specification, forKey: .specification)
+        try container.encode(buildSpecification, forKey: .buildSpecification)
+        try container.encode(runtimeSpecification, forKey: .runtimeSpecification)
     }
 
     public func toMap() -> [String: Any] {
@@ -229,6 +243,7 @@ open class Function: Codable {
             "live": live as Any,
             "logging": logging as Any,
             "runtime": runtime as Any,
+            "deploymentRetention": deploymentRetention as Any,
             "deploymentId": deploymentId as Any,
             "deploymentCreatedAt": deploymentCreatedAt as Any,
             "latestDeploymentId": latestDeploymentId as Any,
@@ -247,7 +262,8 @@ open class Function: Codable {
             "providerBranch": providerBranch as Any,
             "providerRootDirectory": providerRootDirectory as Any,
             "providerSilentMode": providerSilentMode as Any,
-            "specification": specification as Any
+            "buildSpecification": buildSpecification as Any,
+            "runtimeSpecification": runtimeSpecification as Any
         ]
     }
 
@@ -262,6 +278,7 @@ open class Function: Codable {
             live: map["live"] as! Bool,
             logging: map["logging"] as! Bool,
             runtime: map["runtime"] as! String,
+            deploymentRetention: map["deploymentRetention"] as! Int,
             deploymentId: map["deploymentId"] as! String,
             deploymentCreatedAt: map["deploymentCreatedAt"] as! String,
             latestDeploymentId: map["latestDeploymentId"] as! String,
@@ -280,7 +297,8 @@ open class Function: Codable {
             providerBranch: map["providerBranch"] as! String,
             providerRootDirectory: map["providerRootDirectory"] as! String,
             providerSilentMode: map["providerSilentMode"] as! Bool,
-            specification: map["specification"] as! String
+            buildSpecification: map["buildSpecification"] as! String,
+            runtimeSpecification: map["runtimeSpecification"] as! String
         )
     }
 }
