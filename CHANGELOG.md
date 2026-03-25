@@ -2,7 +2,9 @@
 
 ## 16.0.0
 
-* Breaking: Renamed `AppwriteEnums.IndexType` to `AppwriteEnums.DatabasesIndexType` in `Databases`\n* Added `DocumentsDB` service with list/create/get/update/delete and transaction endpoints\n* Added impersonation support: `setImpersonateUserId`, `setImpersonateUserEmail`, `setImpersonateUserPhone`\n* Updated `x-sdk-version` to `15.1.0` and `x-appwrite-response-format` to `1.9.0`\n* Updated README badge to display API version `1.9.0`
+* [BREAKING] Changed `$sequence` type from `int` to `string` for rows and documents
+* Breaking: Renamed `AppwriteEnums.IndexType` to `AppwriteEnums.DatabasesIndexType` in `Databases`
+* Added impersonation support: `setImpersonateUserId`, `setImpersonateUserEmail`, `setImpersonateUserPhone`
 
 ## 15.1.0
 
