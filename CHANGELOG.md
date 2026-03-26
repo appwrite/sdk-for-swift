@@ -2,9 +2,24 @@
 
 ## 16.0.0
 
-* [BREAKING] Changed `$sequence` type from `int` to `string` for rows and documents
-* Breaking: Renamed `AppwriteEnums.IndexType` to `AppwriteEnums.DatabasesIndexType` in `Databases`
-* Added impersonation support: `setImpersonateUserId`, `setImpersonateUserEmail`, `setImpersonateUserPhone`
+* [BREAKING] Changed `$sequence` type from `Int` to `String` for `Row` and `Document` models
+* [BREAKING] Renamed `IndexType` enum: split into `DatabasesIndexType` (for Databases) and `TablesDBIndexType` (for TablesDB)
+* [BREAKING] Replaced `specification` parameter with `buildSpecification` and `runtimeSpecification` in `Functions.create()`, `Functions.update()`, `Sites.create()`, `Sites.update()`
+* Added new `Project` service with full CRUD for project-level environment variables
+* Added new `Webhooks` service with full CRUD for project webhooks (including `updateSignature`)
+* Added `Webhook` and `WebhookList` models
+* Added `Users.updateImpersonator()` method for enabling/disabling user impersonation
+* Added impersonation support: `setImpersonateUserId()`, `setImpersonateUserEmail()`, `setImpersonateUserPhone()` on `Client`
+* Added `impersonator` and `impersonatorUserId` optional fields to `User` model
+* Added `deploymentRetention` parameter to Functions and Sites create/update
+* Added `startCommand` parameter to Sites create/update
+* Added `Documentsdb`, `Vectorsdb` values to `BackupServices` and `DatabaseType` enums
+* Added `WebhooksRead`, `WebhooksWrite`, `ProjectRead`, `ProjectWrite` scopes
+* Fixed `NIOFoundationCompat` import to be conditional with `#if canImport` for platform compatibility
+* Fixed `ByteBuffer` to `Data` conversion to use `readableBytesView` throughout
+* Removed `getQueueBillingProjectAggregation`, `getQueueBillingTeamAggregation`, `getQueuePriorityBuilds`, `getQueueRegionManager`, `getQueueThreats` from `Health` service
+* Updated `Log` model field descriptions to clarify impersonation behavior
+* Updated `X-Appwrite-Response-Format` header to `1.9.0`
 
 ## 15.1.0
 
