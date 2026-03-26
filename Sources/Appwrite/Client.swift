@@ -1,6 +1,8 @@
 import NIO
 import NIOCore
+#if canImport(NIOFoundationCompat)
 import NIOFoundationCompat
+#endif
 import NIOSSL
 import Foundation
 import AsyncHTTPClient
@@ -22,8 +24,8 @@ open class Client {
         "x-sdk-name": "Swift",
         "x-sdk-platform": "server",
         "x-sdk-language": "swift",
-        "x-sdk-version": "15.2.0",
-        "x-appwrite-response-format": "1.8.0"
+        "x-sdk-version": "16.0.0",
+        "x-appwrite-response-format": "1.9.0"
     ]
 
     internal var config: [String: String] = [:]
@@ -172,6 +174,51 @@ open class Client {
     open func setForwardedUserAgent(_ value: String) -> Client {
         config["forwardeduseragent"] = value
         _ = addHeader(key: "X-Forwarded-User-Agent", value: value)
+        return self
+    }
+
+    ///
+    /// Set ImpersonateUserId
+    ///
+    /// Impersonate a user by ID on an already user-authenticated request. Requires the current request to be authenticated as a user with impersonator capability; X-Appwrite-Key alone is not sufficient. Impersonator users are intentionally granted users.read so they can discover a target before impersonation begins. Internal audit logs still attribute actions to the original impersonator and record the impersonated target only in internal audit payload data.
+    ///
+    /// @param String value
+    ///
+    /// @return Client
+    ///
+    open func setImpersonateUserId(_ value: String) -> Client {
+        config["impersonateuserid"] = value
+        _ = addHeader(key: "X-Appwrite-Impersonate-User-Id", value: value)
+        return self
+    }
+
+    ///
+    /// Set ImpersonateUserEmail
+    ///
+    /// Impersonate a user by email on an already user-authenticated request. Requires the current request to be authenticated as a user with impersonator capability; X-Appwrite-Key alone is not sufficient. Impersonator users are intentionally granted users.read so they can discover a target before impersonation begins. Internal audit logs still attribute actions to the original impersonator and record the impersonated target only in internal audit payload data.
+    ///
+    /// @param String value
+    ///
+    /// @return Client
+    ///
+    open func setImpersonateUserEmail(_ value: String) -> Client {
+        config["impersonateuseremail"] = value
+        _ = addHeader(key: "X-Appwrite-Impersonate-User-Email", value: value)
+        return self
+    }
+
+    ///
+    /// Set ImpersonateUserPhone
+    ///
+    /// Impersonate a user by phone on an already user-authenticated request. Requires the current request to be authenticated as a user with impersonator capability; X-Appwrite-Key alone is not sufficient. Impersonator users are intentionally granted users.read so they can discover a target before impersonation begins. Internal audit logs still attribute actions to the original impersonator and record the impersonated target only in internal audit payload data.
+    ///
+    /// @param String value
+    ///
+    /// @return Client
+    ///
+    open func setImpersonateUserPhone(_ value: String) -> Client {
+        config["impersonateuserphone"] = value
+        _ = addHeader(key: "X-Appwrite-Impersonate-User-Phone", value: value)
         return self
     }
 
@@ -344,7 +391,7 @@ open class Client {
             var responseString = ""
 
             do {
-                let dict = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+                let dict = try JSONSerialization.jsonObject(with: Data(data.readableBytesView)) as? [String: Any]
 
                 message = dict?["message"] as? String ?? response.status.reasonPhrase
                 type = dict?["type"] as? String ?? ""
@@ -434,7 +481,7 @@ open class Client {
                 if data.readableBytes == 0 {
                     return true as! T
                 }
-                let dict = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+                let dict = try JSONSerialization.jsonObject(with: Data(data.readableBytesView)) as? [String: Any]
 
                 return converter?(dict!) ?? dict! as! T
             }
@@ -444,7 +491,7 @@ open class Client {
             var responseString = ""
 
             do {
-                let dict = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+                let dict = try JSONSerialization.jsonObject(with: Data(data.readableBytesView)) as? [String: Any]
 
                 message = dict?["message"] as? String ?? response.status.reasonPhrase
                 type = dict?["type"] as? String ?? ""
@@ -476,9 +523,9 @@ open class Client {
 
         switch(input.sourceType) {
         case "path":
-            input.data = ByteBuffer(data: try! Data(contentsOf: URL(fileURLWithPath: input.path)))
+            input.data = ByteBuffer(bytes: try! Data(contentsOf: URL(fileURLWithPath: input.path)))
         case "data":
-            input.data = ByteBuffer(data: input.data as! Data)
+            input.data = ByteBuffer(bytes: input.data as! Data)
         default:
             break
         }

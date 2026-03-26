@@ -18,6 +18,7 @@ let site = try await sites.update(
     timeout: 1, // optional
     installCommand: "<INSTALL_COMMAND>", // optional
     buildCommand: "<BUILD_COMMAND>", // optional
+    startCommand: "<START_COMMAND>", // optional
     outputDirectory: "<OUTPUT_DIRECTORY>", // optional
     buildRuntime: .node145, // optional
     adapter: .static, // optional
@@ -27,7 +28,9 @@ let site = try await sites.update(
     providerBranch: "<PROVIDER_BRANCH>", // optional
     providerSilentMode: false, // optional
     providerRootDirectory: "<PROVIDER_ROOT_DIRECTORY>", // optional
-    specification: "" // optional
+    buildSpecification: "", // optional
+    runtimeSpecification: "", // optional
+    deploymentRetention: 0 // optional
 )
 
 ```

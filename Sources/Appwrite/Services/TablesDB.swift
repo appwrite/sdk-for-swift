@@ -2529,7 +2529,7 @@ open class TablesDB: Service {
     ///   - databaseId: String
     ///   - tableId: String
     ///   - key: String
-    ///   - type: AppwriteEnums.IndexType
+    ///   - type: AppwriteEnums.TablesDBIndexType
     ///   - columns: [String]
     ///   - orders: [AppwriteEnums.OrderBy] (optional)
     ///   - lengths: [Int] (optional)
@@ -2540,7 +2540,7 @@ open class TablesDB: Service {
         databaseId: String,
         tableId: String,
         key: String,
-        type: AppwriteEnums.IndexType,
+        type: AppwriteEnums.TablesDBIndexType,
         columns: [String],
         orders: [AppwriteEnums.OrderBy]? = nil,
         lengths: [Int]? = nil

@@ -1,8 +1,8 @@
 import Foundation
 
 public enum TemplateReferenceType: String, CustomStringConvertible {
-    case branch = "branch"
     case commit = "commit"
+    case branch = "branch"
     case tag = "tag"
 
     public var description: String {

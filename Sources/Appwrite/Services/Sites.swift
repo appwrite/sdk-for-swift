@@ -60,6 +60,7 @@ open class Sites: Service {
     ///   - timeout: Int (optional)
     ///   - installCommand: String (optional)
     ///   - buildCommand: String (optional)
+    ///   - startCommand: String (optional)
     ///   - outputDirectory: String (optional)
     ///   - adapter: AppwriteEnums.Adapter (optional)
     ///   - installationId: String (optional)
@@ -68,7 +69,9 @@ open class Sites: Service {
     ///   - providerBranch: String (optional)
     ///   - providerSilentMode: Bool (optional)
     ///   - providerRootDirectory: String (optional)
-    ///   - specification: String (optional)
+    ///   - buildSpecification: String (optional)
+    ///   - runtimeSpecification: String (optional)
+    ///   - deploymentRetention: Int (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Site
     ///
@@ -82,6 +85,7 @@ open class Sites: Service {
         timeout: Int? = nil,
         installCommand: String? = nil,
         buildCommand: String? = nil,
+        startCommand: String? = nil,
         outputDirectory: String? = nil,
         adapter: AppwriteEnums.Adapter? = nil,
         installationId: String? = nil,
@@ -90,7 +94,9 @@ open class Sites: Service {
         providerBranch: String? = nil,
         providerSilentMode: Bool? = nil,
         providerRootDirectory: String? = nil,
-        specification: String? = nil
+        buildSpecification: String? = nil,
+        runtimeSpecification: String? = nil,
+        deploymentRetention: Int? = nil
     ) async throws -> AppwriteModels.Site {
         let apiPath: String = "/sites"
 
@@ -103,6 +109,7 @@ open class Sites: Service {
             "timeout": timeout,
             "installCommand": installCommand,
             "buildCommand": buildCommand,
+            "startCommand": startCommand,
             "outputDirectory": outputDirectory,
             "buildRuntime": buildRuntime,
             "adapter": adapter,
@@ -112,7 +119,9 @@ open class Sites: Service {
             "providerBranch": providerBranch,
             "providerSilentMode": providerSilentMode,
             "providerRootDirectory": providerRootDirectory,
-            "specification": specification
+            "buildSpecification": buildSpecification,
+            "runtimeSpecification": runtimeSpecification,
+            "deploymentRetention": deploymentRetention
         ]
 
         let apiHeaders: [String: String] = [
@@ -230,6 +239,7 @@ open class Sites: Service {
     ///   - timeout: Int (optional)
     ///   - installCommand: String (optional)
     ///   - buildCommand: String (optional)
+    ///   - startCommand: String (optional)
     ///   - outputDirectory: String (optional)
     ///   - buildRuntime: AppwriteEnums.BuildRuntime (optional)
     ///   - adapter: AppwriteEnums.Adapter (optional)
@@ -239,7 +249,9 @@ open class Sites: Service {
     ///   - providerBranch: String (optional)
     ///   - providerSilentMode: Bool (optional)
     ///   - providerRootDirectory: String (optional)
-    ///   - specification: String (optional)
+    ///   - buildSpecification: String (optional)
+    ///   - runtimeSpecification: String (optional)
+    ///   - deploymentRetention: Int (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Site
     ///
@@ -252,6 +264,7 @@ open class Sites: Service {
         timeout: Int? = nil,
         installCommand: String? = nil,
         buildCommand: String? = nil,
+        startCommand: String? = nil,
         outputDirectory: String? = nil,
         buildRuntime: AppwriteEnums.BuildRuntime? = nil,
         adapter: AppwriteEnums.Adapter? = nil,
@@ -261,7 +274,9 @@ open class Sites: Service {
         providerBranch: String? = nil,
         providerSilentMode: Bool? = nil,
         providerRootDirectory: String? = nil,
-        specification: String? = nil
+        buildSpecification: String? = nil,
+        runtimeSpecification: String? = nil,
+        deploymentRetention: Int? = nil
     ) async throws -> AppwriteModels.Site {
         let apiPath: String = "/sites/{siteId}"
             .replacingOccurrences(of: "{siteId}", with: siteId)
@@ -274,6 +289,7 @@ open class Sites: Service {
             "timeout": timeout,
             "installCommand": installCommand,
             "buildCommand": buildCommand,
+            "startCommand": startCommand,
             "outputDirectory": outputDirectory,
             "buildRuntime": buildRuntime,
             "adapter": adapter,
@@ -283,7 +299,9 @@ open class Sites: Service {
             "providerBranch": providerBranch,
             "providerSilentMode": providerSilentMode,
             "providerRootDirectory": providerRootDirectory,
-            "specification": specification
+            "buildSpecification": buildSpecification,
+            "runtimeSpecification": runtimeSpecification,
+            "deploymentRetention": deploymentRetention
         ]
 
         let apiHeaders: [String: String] = [
