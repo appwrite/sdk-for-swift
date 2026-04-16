@@ -23,7 +23,7 @@ open class Account: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.User<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.User<T> = { response in
             return AppwriteModels.User.from(map: response as! [String: Any])
         }
 
@@ -86,7 +86,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.User<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.User<T> = { response in
             return AppwriteModels.User.from(map: response as! [String: Any])
         }
 
@@ -163,7 +163,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.User<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.User<T> = { response in
             return AppwriteModels.User.from(map: response as! [String: Any])
         }
 
@@ -225,7 +225,7 @@ open class Account: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.IdentityList = { response in
+        let converter: (Any) throws -> AppwriteModels.IdentityList = { response in
             return AppwriteModels.IdentityList.from(map: response as! [String: Any])
         }
 
@@ -290,7 +290,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Jwt = { response in
+        let converter: (Any) throws -> AppwriteModels.Jwt = { response in
             return AppwriteModels.Jwt.from(map: response as! [String: Any])
         }
 
@@ -326,7 +326,7 @@ open class Account: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.LogList = { response in
+        let converter: (Any) throws -> AppwriteModels.LogList = { response in
             return AppwriteModels.LogList.from(map: response as! [String: Any])
         }
 
@@ -361,7 +361,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.User<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.User<T> = { response in
             return AppwriteModels.User.from(map: response as! [String: Any])
         }
 
@@ -415,7 +415,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.MfaType = { response in
+        let converter: (Any) throws -> AppwriteModels.MfaType = { response in
             return AppwriteModels.MfaType.from(map: response as! [String: Any])
         }
 
@@ -451,7 +451,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.MfaType = { response in
+        let converter: (Any) throws -> AppwriteModels.MfaType = { response in
             return AppwriteModels.MfaType.from(map: response as! [String: Any])
         }
 
@@ -492,7 +492,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.User<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.User<T> = { response in
             return AppwriteModels.User.from(map: response as! [String: Any])
         }
 
@@ -555,7 +555,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.User<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.User<T> = { response in
             return AppwriteModels.User.from(map: response as! [String: Any])
         }
 
@@ -669,7 +669,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.MfaChallenge = { response in
+        let converter: (Any) throws -> AppwriteModels.MfaChallenge = { response in
             return AppwriteModels.MfaChallenge.from(map: response as! [String: Any])
         }
 
@@ -705,7 +705,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.MfaChallenge = { response in
+        let converter: (Any) throws -> AppwriteModels.MfaChallenge = { response in
             return AppwriteModels.MfaChallenge.from(map: response as! [String: Any])
         }
 
@@ -747,7 +747,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Session = { response in
+        let converter: (Any) throws -> AppwriteModels.Session = { response in
             return AppwriteModels.Session.from(map: response as! [String: Any])
         }
 
@@ -788,7 +788,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Session = { response in
+        let converter: (Any) throws -> AppwriteModels.Session = { response in
             return AppwriteModels.Session.from(map: response as! [String: Any])
         }
 
@@ -816,7 +816,7 @@ open class Account: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.MfaFactors = { response in
+        let converter: (Any) throws -> AppwriteModels.MfaFactors = { response in
             return AppwriteModels.MfaFactors.from(map: response as! [String: Any])
         }
 
@@ -843,7 +843,7 @@ open class Account: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.MfaFactors = { response in
+        let converter: (Any) throws -> AppwriteModels.MfaFactors = { response in
             return AppwriteModels.MfaFactors.from(map: response as! [String: Any])
         }
 
@@ -874,7 +874,7 @@ open class Account: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.MfaRecoveryCodes = { response in
+        let converter: (Any) throws -> AppwriteModels.MfaRecoveryCodes = { response in
             return AppwriteModels.MfaRecoveryCodes.from(map: response as! [String: Any])
         }
 
@@ -904,7 +904,7 @@ open class Account: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.MfaRecoveryCodes = { response in
+        let converter: (Any) throws -> AppwriteModels.MfaRecoveryCodes = { response in
             return AppwriteModels.MfaRecoveryCodes.from(map: response as! [String: Any])
         }
 
@@ -938,7 +938,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.MfaRecoveryCodes = { response in
+        let converter: (Any) throws -> AppwriteModels.MfaRecoveryCodes = { response in
             return AppwriteModels.MfaRecoveryCodes.from(map: response as! [String: Any])
         }
 
@@ -971,7 +971,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.MfaRecoveryCodes = { response in
+        let converter: (Any) throws -> AppwriteModels.MfaRecoveryCodes = { response in
             return AppwriteModels.MfaRecoveryCodes.from(map: response as! [String: Any])
         }
 
@@ -1004,7 +1004,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.MfaRecoveryCodes = { response in
+        let converter: (Any) throws -> AppwriteModels.MfaRecoveryCodes = { response in
             return AppwriteModels.MfaRecoveryCodes.from(map: response as! [String: Any])
         }
 
@@ -1036,7 +1036,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.MfaRecoveryCodes = { response in
+        let converter: (Any) throws -> AppwriteModels.MfaRecoveryCodes = { response in
             return AppwriteModels.MfaRecoveryCodes.from(map: response as! [String: Any])
         }
 
@@ -1071,7 +1071,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.User<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.User<T> = { response in
             return AppwriteModels.User.from(map: response as! [String: Any])
         }
 
@@ -1128,7 +1128,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.User<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.User<T> = { response in
             return AppwriteModels.User.from(map: response as! [String: Any])
         }
 
@@ -1192,7 +1192,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.User<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.User<T> = { response in
             return AppwriteModels.User.from(map: response as! [String: Any])
         }
 
@@ -1244,7 +1244,7 @@ open class Account: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.Preferences<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.Preferences<T> = { response in
             return AppwriteModels.Preferences.from(map: response as! [String: Any])
         }
 
@@ -1294,7 +1294,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.User<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.User<T> = { response in
             return AppwriteModels.User.from(map: response as! [String: Any])
         }
 
@@ -1357,7 +1357,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Token = { response in
+        let converter: (Any) throws -> AppwriteModels.Token = { response in
             return AppwriteModels.Token.from(map: response as! [String: Any])
         }
 
@@ -1406,7 +1406,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Token = { response in
+        let converter: (Any) throws -> AppwriteModels.Token = { response in
             return AppwriteModels.Token.from(map: response as! [String: Any])
         }
 
@@ -1434,7 +1434,7 @@ open class Account: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.SessionList = { response in
+        let converter: (Any) throws -> AppwriteModels.SessionList = { response in
             return AppwriteModels.SessionList.from(map: response as! [String: Any])
         }
 
@@ -1493,7 +1493,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Session = { response in
+        let converter: (Any) throws -> AppwriteModels.Session = { response in
             return AppwriteModels.Session.from(map: response as! [String: Any])
         }
 
@@ -1535,7 +1535,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Session = { response in
+        let converter: (Any) throws -> AppwriteModels.Session = { response in
             return AppwriteModels.Session.from(map: response as! [String: Any])
         }
 
@@ -1575,7 +1575,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Session = { response in
+        let converter: (Any) throws -> AppwriteModels.Session = { response in
             return AppwriteModels.Session.from(map: response as! [String: Any])
         }
 
@@ -1615,7 +1615,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Session = { response in
+        let converter: (Any) throws -> AppwriteModels.Session = { response in
             return AppwriteModels.Session.from(map: response as! [String: Any])
         }
 
@@ -1654,7 +1654,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Session = { response in
+        let converter: (Any) throws -> AppwriteModels.Session = { response in
             return AppwriteModels.Session.from(map: response as! [String: Any])
         }
 
@@ -1686,7 +1686,7 @@ open class Account: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.Session = { response in
+        let converter: (Any) throws -> AppwriteModels.Session = { response in
             return AppwriteModels.Session.from(map: response as! [String: Any])
         }
 
@@ -1721,7 +1721,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Session = { response in
+        let converter: (Any) throws -> AppwriteModels.Session = { response in
             return AppwriteModels.Session.from(map: response as! [String: Any])
         }
 
@@ -1784,7 +1784,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.User<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.User<T> = { response in
             return AppwriteModels.User.from(map: response as! [String: Any])
         }
 
@@ -1852,7 +1852,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Token = { response in
+        let converter: (Any) throws -> AppwriteModels.Token = { response in
             return AppwriteModels.Token.from(map: response as! [String: Any])
         }
 
@@ -1908,7 +1908,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Token = { response in
+        let converter: (Any) throws -> AppwriteModels.Token = { response in
             return AppwriteModels.Token.from(map: response as! [String: Any])
         }
 
@@ -2005,7 +2005,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Token = { response in
+        let converter: (Any) throws -> AppwriteModels.Token = { response in
             return AppwriteModels.Token.from(map: response as! [String: Any])
         }
 
@@ -2053,7 +2053,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Token = { response in
+        let converter: (Any) throws -> AppwriteModels.Token = { response in
             return AppwriteModels.Token.from(map: response as! [String: Any])
         }
 
@@ -2102,7 +2102,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Token = { response in
+        let converter: (Any) throws -> AppwriteModels.Token = { response in
             return AppwriteModels.Token.from(map: response as! [String: Any])
         }
 
@@ -2142,7 +2142,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Token = { response in
+        let converter: (Any) throws -> AppwriteModels.Token = { response in
             return AppwriteModels.Token.from(map: response as! [String: Any])
         }
 
@@ -2183,7 +2183,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Token = { response in
+        let converter: (Any) throws -> AppwriteModels.Token = { response in
             return AppwriteModels.Token.from(map: response as! [String: Any])
         }
 
@@ -2219,7 +2219,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Token = { response in
+        let converter: (Any) throws -> AppwriteModels.Token = { response in
             return AppwriteModels.Token.from(map: response as! [String: Any])
         }
 
@@ -2259,7 +2259,7 @@ open class Account: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Token = { response in
+        let converter: (Any) throws -> AppwriteModels.Token = { response in
             return AppwriteModels.Token.from(map: response as! [String: Any])
         }
 

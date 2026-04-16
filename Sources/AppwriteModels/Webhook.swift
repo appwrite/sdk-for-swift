@@ -11,10 +11,10 @@ open class Webhook: Codable {
         case name = "name"
         case url = "url"
         case events = "events"
-        case security = "security"
-        case httpUser = "httpUser"
-        case httpPass = "httpPass"
-        case signatureKey = "signatureKey"
+        case tls = "tls"
+        case authUsername = "authUsername"
+        case authPassword = "authPassword"
+        case secret = "secret"
         case enabled = "enabled"
         case logs = "logs"
         case attempts = "attempts"
@@ -32,14 +32,14 @@ open class Webhook: Codable {
     public let url: String
     /// Webhook trigger events.
     public let events: [String]
-    /// Indicated if SSL / TLS Certificate verification is enabled.
-    public let security: Bool
+    /// Indicates if SSL / TLS certificate verification is enabled.
+    public let tls: Bool
     /// HTTP basic authentication username.
-    public let httpUser: String
+    public let authUsername: String
     /// HTTP basic authentication password.
-    public let httpPass: String
-    /// Signature key which can be used to validated incoming
-    public let signatureKey: String
+    public let authPassword: String
+    /// Signature key which can be used to validate incoming webhook payloads. Only returned on creation and secret rotation.
+    public let secret: String
     /// Indicates if this webhook is enabled.
     public let enabled: Bool
     /// Webhook error logs from the most recent failure.
@@ -54,10 +54,10 @@ open class Webhook: Codable {
         name: String,
         url: String,
         events: [String],
-        security: Bool,
-        httpUser: String,
-        httpPass: String,
-        signatureKey: String,
+        tls: Bool,
+        authUsername: String,
+        authPassword: String,
+        secret: String,
         enabled: Bool,
         logs: String,
         attempts: Int
@@ -68,10 +68,10 @@ open class Webhook: Codable {
         self.name = name
         self.url = url
         self.events = events
-        self.security = security
-        self.httpUser = httpUser
-        self.httpPass = httpPass
-        self.signatureKey = signatureKey
+        self.tls = tls
+        self.authUsername = authUsername
+        self.authPassword = authPassword
+        self.secret = secret
         self.enabled = enabled
         self.logs = logs
         self.attempts = attempts
@@ -86,10 +86,10 @@ open class Webhook: Codable {
         self.name = try container.decode(String.self, forKey: .name)
         self.url = try container.decode(String.self, forKey: .url)
         self.events = try container.decode([String].self, forKey: .events)
-        self.security = try container.decode(Bool.self, forKey: .security)
-        self.httpUser = try container.decode(String.self, forKey: .httpUser)
-        self.httpPass = try container.decode(String.self, forKey: .httpPass)
-        self.signatureKey = try container.decode(String.self, forKey: .signatureKey)
+        self.tls = try container.decode(Bool.self, forKey: .tls)
+        self.authUsername = try container.decode(String.self, forKey: .authUsername)
+        self.authPassword = try container.decode(String.self, forKey: .authPassword)
+        self.secret = try container.decode(String.self, forKey: .secret)
         self.enabled = try container.decode(Bool.self, forKey: .enabled)
         self.logs = try container.decode(String.self, forKey: .logs)
         self.attempts = try container.decode(Int.self, forKey: .attempts)
@@ -104,10 +104,10 @@ open class Webhook: Codable {
         try container.encode(name, forKey: .name)
         try container.encode(url, forKey: .url)
         try container.encode(events, forKey: .events)
-        try container.encode(security, forKey: .security)
-        try container.encode(httpUser, forKey: .httpUser)
-        try container.encode(httpPass, forKey: .httpPass)
-        try container.encode(signatureKey, forKey: .signatureKey)
+        try container.encode(tls, forKey: .tls)
+        try container.encode(authUsername, forKey: .authUsername)
+        try container.encode(authPassword, forKey: .authPassword)
+        try container.encode(secret, forKey: .secret)
         try container.encode(enabled, forKey: .enabled)
         try container.encode(logs, forKey: .logs)
         try container.encode(attempts, forKey: .attempts)
@@ -121,10 +121,10 @@ open class Webhook: Codable {
             "name": name as Any,
             "url": url as Any,
             "events": events as Any,
-            "security": security as Any,
-            "httpUser": httpUser as Any,
-            "httpPass": httpPass as Any,
-            "signatureKey": signatureKey as Any,
+            "tls": tls as Any,
+            "authUsername": authUsername as Any,
+            "authPassword": authPassword as Any,
+            "secret": secret as Any,
             "enabled": enabled as Any,
             "logs": logs as Any,
             "attempts": attempts as Any
@@ -139,10 +139,10 @@ open class Webhook: Codable {
             name: map["name"] as! String,
             url: map["url"] as! String,
             events: map["events"] as! [String],
-            security: map["security"] as! Bool,
-            httpUser: map["httpUser"] as! String,
-            httpPass: map["httpPass"] as! String,
-            signatureKey: map["signatureKey"] as! String,
+            tls: map["tls"] as! Bool,
+            authUsername: map["authUsername"] as! String,
+            authPassword: map["authPassword"] as! String,
+            secret: map["secret"] as! String,
             enabled: map["enabled"] as! Bool,
             logs: map["logs"] as! String,
             attempts: map["attempts"] as! Int

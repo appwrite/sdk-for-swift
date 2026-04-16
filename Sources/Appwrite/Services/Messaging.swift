@@ -33,7 +33,7 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.MessageList = { response in
+        let converter: (Any) throws -> AppwriteModels.MessageList = { response in
             return AppwriteModels.MessageList.from(map: response as! [String: Any])
         }
 
@@ -100,7 +100,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Message = { response in
+        let converter: (Any) throws -> AppwriteModels.Message = { response in
             return AppwriteModels.Message.from(map: response as! [String: Any])
         }
 
@@ -170,7 +170,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Message = { response in
+        let converter: (Any) throws -> AppwriteModels.Message = { response in
             return AppwriteModels.Message.from(map: response as! [String: Any])
         }
 
@@ -258,7 +258,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Message = { response in
+        let converter: (Any) throws -> AppwriteModels.Message = { response in
             return AppwriteModels.Message.from(map: response as! [String: Any])
         }
 
@@ -349,7 +349,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Message = { response in
+        let converter: (Any) throws -> AppwriteModels.Message = { response in
             return AppwriteModels.Message.from(map: response as! [String: Any])
         }
 
@@ -402,7 +402,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Message = { response in
+        let converter: (Any) throws -> AppwriteModels.Message = { response in
             return AppwriteModels.Message.from(map: response as! [String: Any])
         }
 
@@ -454,7 +454,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Message = { response in
+        let converter: (Any) throws -> AppwriteModels.Message = { response in
             return AppwriteModels.Message.from(map: response as! [String: Any])
         }
 
@@ -510,7 +510,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Message = { response in
+        let converter: (Any) throws -> AppwriteModels.Message = { response in
             return AppwriteModels.Message.from(map: response as! [String: Any])
         }
 
@@ -565,7 +565,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Message = { response in
+        let converter: (Any) throws -> AppwriteModels.Message = { response in
             return AppwriteModels.Message.from(map: response as! [String: Any])
         }
 
@@ -597,7 +597,7 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.Message = { response in
+        let converter: (Any) throws -> AppwriteModels.Message = { response in
             return AppwriteModels.Message.from(map: response as! [String: Any])
         }
 
@@ -663,7 +663,7 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.LogList = { response in
+        let converter: (Any) throws -> AppwriteModels.LogList = { response in
             return AppwriteModels.LogList.from(map: response as! [String: Any])
         }
 
@@ -701,7 +701,7 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.TargetList = { response in
+        let converter: (Any) throws -> AppwriteModels.TargetList = { response in
             return AppwriteModels.TargetList.from(map: response as! [String: Any])
         }
 
@@ -739,7 +739,7 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.ProviderList = { response in
+        let converter: (Any) throws -> AppwriteModels.ProviderList = { response in
             return AppwriteModels.ProviderList.from(map: response as! [String: Any])
         }
 
@@ -795,7 +795,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -850,7 +850,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -906,7 +906,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -961,7 +961,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -1005,7 +1005,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -1048,7 +1048,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -1092,7 +1092,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -1135,7 +1135,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -1196,7 +1196,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -1257,7 +1257,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -1306,7 +1306,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -1355,7 +1355,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -1410,7 +1410,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -1465,7 +1465,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -1520,7 +1520,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -1575,7 +1575,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -1649,7 +1649,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -1722,7 +1722,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -1796,7 +1796,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -1869,7 +1869,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -1918,7 +1918,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -1967,7 +1967,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -2016,7 +2016,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -2065,7 +2065,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -2114,7 +2114,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -2163,7 +2163,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -2212,7 +2212,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -2261,7 +2261,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -2293,7 +2293,7 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.Provider = { response in
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
             return AppwriteModels.Provider.from(map: response as! [String: Any])
         }
 
@@ -2358,7 +2358,7 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.LogList = { response in
+        let converter: (Any) throws -> AppwriteModels.LogList = { response in
             return AppwriteModels.LogList.from(map: response as! [String: Any])
         }
 
@@ -2396,7 +2396,7 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.LogList = { response in
+        let converter: (Any) throws -> AppwriteModels.LogList = { response in
             return AppwriteModels.LogList.from(map: response as! [String: Any])
         }
 
@@ -2434,7 +2434,7 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.TopicList = { response in
+        let converter: (Any) throws -> AppwriteModels.TopicList = { response in
             return AppwriteModels.TopicList.from(map: response as! [String: Any])
         }
 
@@ -2474,7 +2474,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Topic = { response in
+        let converter: (Any) throws -> AppwriteModels.Topic = { response in
             return AppwriteModels.Topic.from(map: response as! [String: Any])
         }
 
@@ -2506,7 +2506,7 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.Topic = { response in
+        let converter: (Any) throws -> AppwriteModels.Topic = { response in
             return AppwriteModels.Topic.from(map: response as! [String: Any])
         }
 
@@ -2547,7 +2547,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Topic = { response in
+        let converter: (Any) throws -> AppwriteModels.Topic = { response in
             return AppwriteModels.Topic.from(map: response as! [String: Any])
         }
 
@@ -2612,7 +2612,7 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.LogList = { response in
+        let converter: (Any) throws -> AppwriteModels.LogList = { response in
             return AppwriteModels.LogList.from(map: response as! [String: Any])
         }
 
@@ -2653,7 +2653,7 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.SubscriberList = { response in
+        let converter: (Any) throws -> AppwriteModels.SubscriberList = { response in
             return AppwriteModels.SubscriberList.from(map: response as! [String: Any])
         }
 
@@ -2693,7 +2693,7 @@ open class Messaging: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Subscriber = { response in
+        let converter: (Any) throws -> AppwriteModels.Subscriber = { response in
             return AppwriteModels.Subscriber.from(map: response as! [String: Any])
         }
 
@@ -2728,7 +2728,7 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.Subscriber = { response in
+        let converter: (Any) throws -> AppwriteModels.Subscriber = { response in
             return AppwriteModels.Subscriber.from(map: response as! [String: Any])
         }
 

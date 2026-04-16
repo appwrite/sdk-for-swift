@@ -22,7 +22,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthStatus = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthStatus = { response in
             return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
         }
 
@@ -49,7 +49,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthAntivirus = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthAntivirus = { response in
             return AppwriteModels.HealthAntivirus.from(map: response as! [String: Any])
         }
 
@@ -77,7 +77,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthStatusList = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthStatusList = { response in
             return AppwriteModels.HealthStatusList.from(map: response as! [String: Any])
         }
 
@@ -109,7 +109,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthCertificate = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthCertificate = { response in
             return AppwriteModels.HealthCertificate.from(map: response as! [String: Any])
         }
 
@@ -146,7 +146,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthStatus = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthStatus = { response in
             return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
         }
 
@@ -173,7 +173,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthStatusList = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthStatusList = { response in
             return AppwriteModels.HealthStatusList.from(map: response as! [String: Any])
         }
 
@@ -200,7 +200,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthStatusList = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthStatusList = { response in
             return AppwriteModels.HealthStatusList.from(map: response as! [String: Any])
         }
 
@@ -216,6 +216,7 @@ open class Health: Service {
     ///
     /// Get the number of audit logs that are waiting to be processed in the
     /// Appwrite internal queue server.
+    /// 
     ///
     /// - Parameters:
     ///   - threshold: Int (optional)
@@ -233,7 +234,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
         }
 
@@ -266,7 +267,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
         }
 
@@ -300,7 +301,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
         }
 
@@ -336,7 +337,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
         }
 
@@ -369,7 +370,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
         }
 
@@ -405,7 +406,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
         }
 
@@ -438,7 +439,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
         }
 
@@ -471,7 +472,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
         }
 
@@ -504,7 +505,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
         }
 
@@ -537,7 +538,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
         }
 
@@ -570,7 +571,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
         }
 
@@ -603,7 +604,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
         }
 
@@ -636,7 +637,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
         }
 
@@ -669,7 +670,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthQueue = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
         }
 
@@ -696,7 +697,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthStatus = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthStatus = { response in
             return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
         }
 
@@ -723,7 +724,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthStatus = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthStatus = { response in
             return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
         }
 
@@ -756,7 +757,7 @@ open class Health: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.HealthTime = { response in
+        let converter: (Any) throws -> AppwriteModels.HealthTime = { response in
             return AppwriteModels.HealthTime.from(map: response as! [String: Any])
         }
 

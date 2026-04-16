@@ -27,7 +27,7 @@ open class Activities: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.ActivityEventList = { response in
+        let converter: (Any) throws -> AppwriteModels.ActivityEventList = { response in
             return AppwriteModels.ActivityEventList.from(map: response as! [String: Any])
         }
 
@@ -59,7 +59,7 @@ open class Activities: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.ActivityEvent = { response in
+        let converter: (Any) throws -> AppwriteModels.ActivityEvent = { response in
             return AppwriteModels.ActivityEvent.from(map: response as! [String: Any])
         }
 

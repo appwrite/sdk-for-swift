@@ -31,7 +31,7 @@ open class Webhooks: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.WebhookList = { response in
+        let converter: (Any) throws -> AppwriteModels.WebhookList = { response in
             return AppwriteModels.WebhookList.from(map: response as! [String: Any])
         }
 
@@ -54,9 +54,10 @@ open class Webhooks: Service {
     ///   - name: String
     ///   - events: [String]
     ///   - enabled: Bool (optional)
-    ///   - security: Bool (optional)
-    ///   - httpUser: String (optional)
-    ///   - httpPass: String (optional)
+    ///   - tls: Bool (optional)
+    ///   - authUsername: String (optional)
+    ///   - authPassword: String (optional)
+    ///   - secret: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Webhook
     ///
@@ -66,9 +67,10 @@ open class Webhooks: Service {
         name: String,
         events: [String],
         enabled: Bool? = nil,
-        security: Bool? = nil,
-        httpUser: String? = nil,
-        httpPass: String? = nil
+        tls: Bool? = nil,
+        authUsername: String? = nil,
+        authPassword: String? = nil,
+        secret: String? = nil
     ) async throws -> AppwriteModels.Webhook {
         let apiPath: String = "/webhooks"
 
@@ -78,16 +80,17 @@ open class Webhooks: Service {
             "name": name,
             "events": events,
             "enabled": enabled,
-            "security": security,
-            "httpUser": httpUser,
-            "httpPass": httpPass
+            "tls": tls,
+            "authUsername": authUsername,
+            "authPassword": authPassword,
+            "secret": secret
         ]
 
         let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Webhook = { response in
+        let converter: (Any) throws -> AppwriteModels.Webhook = { response in
             return AppwriteModels.Webhook.from(map: response as! [String: Any])
         }
 
@@ -119,7 +122,7 @@ open class Webhooks: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.Webhook = { response in
+        let converter: (Any) throws -> AppwriteModels.Webhook = { response in
             return AppwriteModels.Webhook.from(map: response as! [String: Any])
         }
 
@@ -142,9 +145,9 @@ open class Webhooks: Service {
     ///   - url: String
     ///   - events: [String]
     ///   - enabled: Bool (optional)
-    ///   - security: Bool (optional)
-    ///   - httpUser: String (optional)
-    ///   - httpPass: String (optional)
+    ///   - tls: Bool (optional)
+    ///   - authUsername: String (optional)
+    ///   - authPassword: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Webhook
     ///
@@ -154,9 +157,9 @@ open class Webhooks: Service {
         url: String,
         events: [String],
         enabled: Bool? = nil,
-        security: Bool? = nil,
-        httpUser: String? = nil,
-        httpPass: String? = nil
+        tls: Bool? = nil,
+        authUsername: String? = nil,
+        authPassword: String? = nil
     ) async throws -> AppwriteModels.Webhook {
         let apiPath: String = "/webhooks/{webhookId}"
             .replacingOccurrences(of: "{webhookId}", with: webhookId)
@@ -166,16 +169,16 @@ open class Webhooks: Service {
             "url": url,
             "events": events,
             "enabled": enabled,
-            "security": security,
-            "httpUser": httpUser,
-            "httpPass": httpPass
+            "tls": tls,
+            "authUsername": authUsername,
+            "authPassword": authPassword
         ]
 
         let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Webhook = { response in
+        let converter: (Any) throws -> AppwriteModels.Webhook = { response in
             return AppwriteModels.Webhook.from(map: response as! [String: Any])
         }
 
@@ -217,28 +220,32 @@ open class Webhooks: Service {
     }
 
     ///
-    /// Update the webhook signature key. This endpoint can be used to regenerate
-    /// the signature key used to sign and validate payload deliveries for a
-    /// specific webhook.
+    /// Update the webhook signing key. This endpoint can be used to regenerate the
+    /// signing key used to sign and validate payload deliveries for a specific
+    /// webhook.
     ///
     /// - Parameters:
     ///   - webhookId: String
+    ///   - secret: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Webhook
     ///
-    open func updateSignature(
-        webhookId: String
+    open func updateSecret(
+        webhookId: String,
+        secret: String? = nil
     ) async throws -> AppwriteModels.Webhook {
-        let apiPath: String = "/webhooks/{webhookId}/signature"
+        let apiPath: String = "/webhooks/{webhookId}/secret"
             .replacingOccurrences(of: "{webhookId}", with: webhookId)
 
-        let apiParams: [String: Any] = [:]
+        let apiParams: [String: Any?] = [
+            "secret": secret
+        ]
 
         let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Webhook = { response in
+        let converter: (Any) throws -> AppwriteModels.Webhook = { response in
             return AppwriteModels.Webhook.from(map: response as! [String: Any])
         }
 

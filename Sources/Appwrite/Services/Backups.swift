@@ -27,7 +27,7 @@ open class Backups: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.BackupArchiveList = { response in
+        let converter: (Any) throws -> AppwriteModels.BackupArchiveList = { response in
             return AppwriteModels.BackupArchiveList.from(map: response as! [String: Any])
         }
 
@@ -64,7 +64,7 @@ open class Backups: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.BackupArchive = { response in
+        let converter: (Any) throws -> AppwriteModels.BackupArchive = { response in
             return AppwriteModels.BackupArchive.from(map: response as! [String: Any])
         }
 
@@ -95,7 +95,7 @@ open class Backups: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.BackupArchive = { response in
+        let converter: (Any) throws -> AppwriteModels.BackupArchive = { response in
             return AppwriteModels.BackupArchive.from(map: response as! [String: Any])
         }
 
@@ -154,7 +154,7 @@ open class Backups: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.BackupPolicyList = { response in
+        let converter: (Any) throws -> AppwriteModels.BackupPolicyList = { response in
             return AppwriteModels.BackupPolicyList.from(map: response as! [String: Any])
         }
 
@@ -206,7 +206,7 @@ open class Backups: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.BackupPolicy = { response in
+        let converter: (Any) throws -> AppwriteModels.BackupPolicy = { response in
             return AppwriteModels.BackupPolicy.from(map: response as! [String: Any])
         }
 
@@ -237,7 +237,7 @@ open class Backups: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.BackupPolicy = { response in
+        let converter: (Any) throws -> AppwriteModels.BackupPolicy = { response in
             return AppwriteModels.BackupPolicy.from(map: response as! [String: Any])
         }
 
@@ -283,7 +283,7 @@ open class Backups: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.BackupPolicy = { response in
+        let converter: (Any) throws -> AppwriteModels.BackupPolicy = { response in
             return AppwriteModels.BackupPolicy.from(map: response as! [String: Any])
         }
 
@@ -353,7 +353,7 @@ open class Backups: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.BackupRestoration = { response in
+        let converter: (Any) throws -> AppwriteModels.BackupRestoration = { response in
             return AppwriteModels.BackupRestoration.from(map: response as! [String: Any])
         }
 
@@ -385,7 +385,7 @@ open class Backups: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.BackupRestorationList = { response in
+        let converter: (Any) throws -> AppwriteModels.BackupRestorationList = { response in
             return AppwriteModels.BackupRestorationList.from(map: response as! [String: Any])
         }
 
@@ -416,7 +416,7 @@ open class Backups: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.BackupRestoration = { response in
+        let converter: (Any) throws -> AppwriteModels.BackupRestoration = { response in
             return AppwriteModels.BackupRestoration.from(map: response as! [String: Any])
         }
 
