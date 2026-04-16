@@ -34,7 +34,7 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.DatabaseList = { response in
+        let converter: (Any) throws -> AppwriteModels.DatabaseList = { response in
             return AppwriteModels.DatabaseList.from(map: response as! [String: Any])
         }
 
@@ -75,7 +75,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Database = { response in
+        let converter: (Any) throws -> AppwriteModels.Database = { response in
             return AppwriteModels.Database.from(map: response as! [String: Any])
         }
 
@@ -107,7 +107,7 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.TransactionList = { response in
+        let converter: (Any) throws -> AppwriteModels.TransactionList = { response in
             return AppwriteModels.TransactionList.from(map: response as! [String: Any])
         }
 
@@ -141,7 +141,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Transaction = { response in
+        let converter: (Any) throws -> AppwriteModels.Transaction = { response in
             return AppwriteModels.Transaction.from(map: response as! [String: Any])
         }
 
@@ -172,7 +172,7 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.Transaction = { response in
+        let converter: (Any) throws -> AppwriteModels.Transaction = { response in
             return AppwriteModels.Transaction.from(map: response as! [String: Any])
         }
 
@@ -212,7 +212,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Transaction = { response in
+        let converter: (Any) throws -> AppwriteModels.Transaction = { response in
             return AppwriteModels.Transaction.from(map: response as! [String: Any])
         }
 
@@ -276,7 +276,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Transaction = { response in
+        let converter: (Any) throws -> AppwriteModels.Transaction = { response in
             return AppwriteModels.Transaction.from(map: response as! [String: Any])
         }
 
@@ -308,7 +308,7 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.Database = { response in
+        let converter: (Any) throws -> AppwriteModels.Database = { response in
             return AppwriteModels.Database.from(map: response as! [String: Any])
         }
 
@@ -348,7 +348,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Database = { response in
+        let converter: (Any) throws -> AppwriteModels.Database = { response in
             return AppwriteModels.Database.from(map: response as! [String: Any])
         }
 
@@ -418,7 +418,7 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.TableList = { response in
+        let converter: (Any) throws -> AppwriteModels.TableList = { response in
             return AppwriteModels.TableList.from(map: response as! [String: Any])
         }
 
@@ -476,7 +476,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Table = { response in
+        let converter: (Any) throws -> AppwriteModels.Table = { response in
             return AppwriteModels.Table.from(map: response as! [String: Any])
         }
 
@@ -511,7 +511,7 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.Table = { response in
+        let converter: (Any) throws -> AppwriteModels.Table = { response in
             return AppwriteModels.Table.from(map: response as! [String: Any])
         }
 
@@ -534,6 +534,7 @@ open class TablesDB: Service {
     ///   - permissions: [String] (optional)
     ///   - rowSecurity: Bool (optional)
     ///   - enabled: Bool (optional)
+    ///   - purge: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Table
     ///
@@ -543,7 +544,8 @@ open class TablesDB: Service {
         name: String? = nil,
         permissions: [String]? = nil,
         rowSecurity: Bool? = nil,
-        enabled: Bool? = nil
+        enabled: Bool? = nil,
+        purge: Bool? = nil
     ) async throws -> AppwriteModels.Table {
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -553,14 +555,15 @@ open class TablesDB: Service {
             "name": name,
             "permissions": permissions,
             "rowSecurity": rowSecurity,
-            "enabled": enabled
+            "enabled": enabled,
+            "purge": purge
         ]
 
         let apiHeaders: [String: String] = [
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Table = { response in
+        let converter: (Any) throws -> AppwriteModels.Table = { response in
             return AppwriteModels.Table.from(map: response as! [String: Any])
         }
 
@@ -632,7 +635,7 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.ColumnList = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnList = { response in
             return AppwriteModels.ColumnList.from(map: response as! [String: Any])
         }
 
@@ -682,7 +685,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnBoolean = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnBoolean = { response in
             return AppwriteModels.ColumnBoolean.from(map: response as! [String: Any])
         }
 
@@ -732,7 +735,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnBoolean = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnBoolean = { response in
             return AppwriteModels.ColumnBoolean.from(map: response as! [String: Any])
         }
 
@@ -781,7 +784,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnDatetime = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnDatetime = { response in
             return AppwriteModels.ColumnDatetime.from(map: response as! [String: Any])
         }
 
@@ -831,7 +834,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnDatetime = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnDatetime = { response in
             return AppwriteModels.ColumnDatetime.from(map: response as! [String: Any])
         }
 
@@ -881,7 +884,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnEmail = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnEmail = { response in
             return AppwriteModels.ColumnEmail.from(map: response as! [String: Any])
         }
 
@@ -932,7 +935,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnEmail = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnEmail = { response in
             return AppwriteModels.ColumnEmail.from(map: response as! [String: Any])
         }
 
@@ -985,7 +988,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnEnum = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnEnum = { response in
             return AppwriteModels.ColumnEnum.from(map: response as! [String: Any])
         }
 
@@ -1039,7 +1042,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnEnum = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnEnum = { response in
             return AppwriteModels.ColumnEnum.from(map: response as! [String: Any])
         }
 
@@ -1096,7 +1099,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnFloat = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnFloat = { response in
             return AppwriteModels.ColumnFloat.from(map: response as! [String: Any])
         }
 
@@ -1153,7 +1156,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnFloat = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnFloat = { response in
             return AppwriteModels.ColumnFloat.from(map: response as! [String: Any])
         }
 
@@ -1210,7 +1213,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnInteger = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnInteger = { response in
             return AppwriteModels.ColumnInteger.from(map: response as! [String: Any])
         }
 
@@ -1267,7 +1270,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnInteger = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnInteger = { response in
             return AppwriteModels.ColumnInteger.from(map: response as! [String: Any])
         }
 
@@ -1317,7 +1320,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnIp = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnIp = { response in
             return AppwriteModels.ColumnIp.from(map: response as! [String: Any])
         }
 
@@ -1368,7 +1371,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnIp = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnIp = { response in
             return AppwriteModels.ColumnIp.from(map: response as! [String: Any])
         }
 
@@ -1414,7 +1417,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnLine = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnLine = { response in
             return AppwriteModels.ColumnLine.from(map: response as! [String: Any])
         }
 
@@ -1464,7 +1467,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnLine = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnLine = { response in
             return AppwriteModels.ColumnLine.from(map: response as! [String: Any])
         }
 
@@ -1517,7 +1520,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnLongtext = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnLongtext = { response in
             return AppwriteModels.ColumnLongtext.from(map: response as! [String: Any])
         }
 
@@ -1568,7 +1571,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnLongtext = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnLongtext = { response in
             return AppwriteModels.ColumnLongtext.from(map: response as! [String: Any])
         }
 
@@ -1621,7 +1624,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnMediumtext = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnMediumtext = { response in
             return AppwriteModels.ColumnMediumtext.from(map: response as! [String: Any])
         }
 
@@ -1672,7 +1675,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnMediumtext = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnMediumtext = { response in
             return AppwriteModels.ColumnMediumtext.from(map: response as! [String: Any])
         }
 
@@ -1718,7 +1721,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnPoint = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnPoint = { response in
             return AppwriteModels.ColumnPoint.from(map: response as! [String: Any])
         }
 
@@ -1768,7 +1771,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnPoint = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnPoint = { response in
             return AppwriteModels.ColumnPoint.from(map: response as! [String: Any])
         }
 
@@ -1814,7 +1817,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnPolygon = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnPolygon = { response in
             return AppwriteModels.ColumnPolygon.from(map: response as! [String: Any])
         }
 
@@ -1864,7 +1867,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnPolygon = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnPolygon = { response in
             return AppwriteModels.ColumnPolygon.from(map: response as! [String: Any])
         }
 
@@ -1921,7 +1924,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnRelationship = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnRelationship = { response in
             return AppwriteModels.ColumnRelationship.from(map: response as! [String: Any])
         }
 
@@ -1978,7 +1981,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnString = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnString = { response in
             return AppwriteModels.ColumnString.from(map: response as! [String: Any])
         }
 
@@ -2033,7 +2036,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnString = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnString = { response in
             return AppwriteModels.ColumnString.from(map: response as! [String: Any])
         }
 
@@ -2086,7 +2089,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnText = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnText = { response in
             return AppwriteModels.ColumnText.from(map: response as! [String: Any])
         }
 
@@ -2137,7 +2140,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnText = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnText = { response in
             return AppwriteModels.ColumnText.from(map: response as! [String: Any])
         }
 
@@ -2187,7 +2190,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnUrl = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnUrl = { response in
             return AppwriteModels.ColumnUrl.from(map: response as! [String: Any])
         }
 
@@ -2238,7 +2241,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnUrl = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnUrl = { response in
             return AppwriteModels.ColumnUrl.from(map: response as! [String: Any])
         }
 
@@ -2294,7 +2297,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnVarchar = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnVarchar = { response in
             return AppwriteModels.ColumnVarchar.from(map: response as! [String: Any])
         }
 
@@ -2348,7 +2351,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnVarchar = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnVarchar = { response in
             return AppwriteModels.ColumnVarchar.from(map: response as! [String: Any])
         }
 
@@ -2385,8 +2388,41 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> Any = { response in
-            return AppwriteModels.ColumnBoolean.from(map: response as! [String: Any])
+        let converter: (Any) throws -> Any = { response in
+            guard let responseMap = response as? [String: Any] else {
+                throw AppwriteError(message: "Expected object response when hydrating a response model")
+            }
+            if String(describing: responseMap["type"] ?? "") == "string" && String(describing: responseMap["format"] ?? "") == "email" {
+                return AppwriteModels.ColumnEmail.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "string" && String(describing: responseMap["format"] ?? "") == "enum" {
+                return AppwriteModels.ColumnEnum.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "string" && String(describing: responseMap["format"] ?? "") == "url" {
+                return AppwriteModels.ColumnUrl.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "string" && String(describing: responseMap["format"] ?? "") == "ip" {
+                return AppwriteModels.ColumnIp.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "boolean" {
+                return AppwriteModels.ColumnBoolean.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "integer" {
+                return AppwriteModels.ColumnInteger.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "double" {
+                return AppwriteModels.ColumnFloat.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "datetime" {
+                return AppwriteModels.ColumnDatetime.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "relationship" {
+                return AppwriteModels.ColumnRelationship.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "string" {
+                return AppwriteModels.ColumnString.from(map: responseMap)
+            }
+            throw AppwriteError(message: "Unable to match response to any expected response model")
         }
 
         return try await client.call(
@@ -2466,7 +2502,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnRelationship = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnRelationship = { response in
             return AppwriteModels.ColumnRelationship.from(map: response as! [String: Any])
         }
 
@@ -2507,7 +2543,7 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.ColumnIndexList = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnIndexList = { response in
             return AppwriteModels.ColumnIndexList.from(map: response as! [String: Any])
         }
 
@@ -2561,7 +2597,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ColumnIndex = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnIndex = { response in
             return AppwriteModels.ColumnIndex.from(map: response as! [String: Any])
         }
 
@@ -2598,7 +2634,7 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.ColumnIndex = { response in
+        let converter: (Any) throws -> AppwriteModels.ColumnIndex = { response in
             return AppwriteModels.ColumnIndex.from(map: response as! [String: Any])
         }
 
@@ -2680,7 +2716,7 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.RowList<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.RowList<T> = { response in
             return AppwriteModels.RowList.from(map: response as! [String: Any])
         }
 
@@ -2766,7 +2802,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Row<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.Row<T> = { response in
             return AppwriteModels.Row.from(map: response as! [String: Any])
         }
 
@@ -2848,7 +2884,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.RowList<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.RowList<T> = { response in
             return AppwriteModels.RowList.from(map: response as! [String: Any])
         }
 
@@ -2925,7 +2961,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.RowList<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.RowList<T> = { response in
             return AppwriteModels.RowList.from(map: response as! [String: Any])
         }
 
@@ -3003,7 +3039,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.RowList<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.RowList<T> = { response in
             return AppwriteModels.RowList.from(map: response as! [String: Any])
         }
 
@@ -3078,7 +3114,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.RowList<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.RowList<T> = { response in
             return AppwriteModels.RowList.from(map: response as! [String: Any])
         }
 
@@ -3151,7 +3187,7 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.Row<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.Row<T> = { response in
             return AppwriteModels.Row.from(map: response as! [String: Any])
         }
 
@@ -3234,7 +3270,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Row<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.Row<T> = { response in
             return AppwriteModels.Row.from(map: response as! [String: Any])
         }
 
@@ -3320,7 +3356,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Row<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.Row<T> = { response in
             return AppwriteModels.Row.from(map: response as! [String: Any])
         }
 
@@ -3443,7 +3479,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Row<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.Row<T> = { response in
             return AppwriteModels.Row.from(map: response as! [String: Any])
         }
 
@@ -3531,7 +3567,7 @@ open class TablesDB: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.Row<T> = { response in
+        let converter: (Any) throws -> AppwriteModels.Row<T> = { response in
             return AppwriteModels.Row.from(map: response as! [String: Any])
         }
 

@@ -8,7 +8,7 @@ let client = Client()
 
 let tablesDB = TablesDB(client)
 
-let columnBoolean = try await tablesDB.getColumn(
+let result = try await tablesDB.getColumn(
     databaseId: "<DATABASE_ID>",
     tableId: "<TABLE_ID>",
     key: ""

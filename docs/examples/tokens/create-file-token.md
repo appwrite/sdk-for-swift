@@ -11,7 +11,7 @@ let tokens = Tokens(client)
 let resourceToken = try await tokens.createFileToken(
     bucketId: "<BUCKET_ID>",
     fileId: "<FILE_ID>",
-    expire: "" // optional
+    expire: "2020-10-15T06:38:00.000+00:00" // optional
 )
 
 ```

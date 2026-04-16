@@ -37,7 +37,7 @@ open class Tokens: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.ResourceTokenList = { response in
+        let converter: (Any) throws -> AppwriteModels.ResourceTokenList = { response in
             return AppwriteModels.ResourceTokenList.from(map: response as! [String: Any])
         }
 
@@ -78,7 +78,7 @@ open class Tokens: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ResourceToken = { response in
+        let converter: (Any) throws -> AppwriteModels.ResourceToken = { response in
             return AppwriteModels.ResourceToken.from(map: response as! [String: Any])
         }
 
@@ -109,7 +109,7 @@ open class Tokens: Service {
 
         let apiHeaders: [String: String] = [:]
 
-        let converter: (Any) -> AppwriteModels.ResourceToken = { response in
+        let converter: (Any) throws -> AppwriteModels.ResourceToken = { response in
             return AppwriteModels.ResourceToken.from(map: response as! [String: Any])
         }
 
@@ -147,7 +147,7 @@ open class Tokens: Service {
             "content-type": "application/json"
         ]
 
-        let converter: (Any) -> AppwriteModels.ResourceToken = { response in
+        let converter: (Any) throws -> AppwriteModels.ResourceToken = { response in
             return AppwriteModels.ResourceToken.from(map: response as! [String: Any])
         }
 

@@ -8,7 +8,7 @@ let client = Client()
 
 let databases = Databases(client)
 
-let attributeBoolean = try await databases.getAttribute(
+let result = try await databases.getAttribute(
     databaseId: "<DATABASE_ID>",
     collectionId: "<COLLECTION_ID>",
     key: ""

@@ -8,8 +8,9 @@ let client = Client()
 
 let webhooks = Webhooks(client)
 
-let webhook = try await webhooks.updateSignature(
-    webhookId: "<WEBHOOK_ID>"
+let webhook = try await webhooks.updateSecret(
+    webhookId: "<WEBHOOK_ID>",
+    secret: "<SECRET>" // optional
 )
 
 ```
