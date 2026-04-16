@@ -696,7 +696,25 @@ open class Project: Service {
         let apiHeaders: [String: String] = [:]
 
         let converter: (Any) throws -> Any = { response in
-            return AppwriteModels.PlatformWeb.from(map: response as! [String: Any])
+            guard let responseMap = response as? [String: Any] else {
+                throw AppwriteError(message: "Expected object response when hydrating a response model")
+            }
+            if String(describing: responseMap["type"] ?? "") == "web" {
+                return AppwriteModels.PlatformWeb.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "apple" {
+                return AppwriteModels.PlatformApple.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "android" {
+                return AppwriteModels.PlatformAndroid.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "windows" {
+                return AppwriteModels.PlatformWindows.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "linux" {
+                return AppwriteModels.PlatformLinux.from(map: responseMap)
+            }
+            throw AppwriteError(message: "Unable to match response to any expected response model")
         }
 
         return try await client.call(

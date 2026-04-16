@@ -2474,7 +2474,40 @@ open class Databases: Service {
         let apiHeaders: [String: String] = [:]
 
         let converter: (Any) throws -> Any = { response in
-            return AppwriteModels.AttributeBoolean.from(map: response as! [String: Any])
+            guard let responseMap = response as? [String: Any] else {
+                throw AppwriteError(message: "Expected object response when hydrating a response model")
+            }
+            if String(describing: responseMap["type"] ?? "") == "string" && String(describing: responseMap["format"] ?? "") == "email" {
+                return AppwriteModels.AttributeEmail.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "string" && String(describing: responseMap["format"] ?? "") == "enum" {
+                return AppwriteModels.AttributeEnum.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "string" && String(describing: responseMap["format"] ?? "") == "url" {
+                return AppwriteModels.AttributeUrl.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "string" && String(describing: responseMap["format"] ?? "") == "ip" {
+                return AppwriteModels.AttributeIp.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "boolean" {
+                return AppwriteModels.AttributeBoolean.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "integer" {
+                return AppwriteModels.AttributeInteger.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "double" {
+                return AppwriteModels.AttributeFloat.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "datetime" {
+                return AppwriteModels.AttributeDatetime.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "relationship" {
+                return AppwriteModels.AttributeRelationship.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "string" {
+                return AppwriteModels.AttributeString.from(map: responseMap)
+            }
+            throw AppwriteError(message: "Unable to match response to any expected response model")
         }
 
         return try await client.call(

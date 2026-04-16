@@ -2389,7 +2389,40 @@ open class TablesDB: Service {
         let apiHeaders: [String: String] = [:]
 
         let converter: (Any) throws -> Any = { response in
-            return AppwriteModels.ColumnBoolean.from(map: response as! [String: Any])
+            guard let responseMap = response as? [String: Any] else {
+                throw AppwriteError(message: "Expected object response when hydrating a response model")
+            }
+            if String(describing: responseMap["type"] ?? "") == "string" && String(describing: responseMap["format"] ?? "") == "email" {
+                return AppwriteModels.ColumnEmail.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "string" && String(describing: responseMap["format"] ?? "") == "enum" {
+                return AppwriteModels.ColumnEnum.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "string" && String(describing: responseMap["format"] ?? "") == "url" {
+                return AppwriteModels.ColumnUrl.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "string" && String(describing: responseMap["format"] ?? "") == "ip" {
+                return AppwriteModels.ColumnIp.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "boolean" {
+                return AppwriteModels.ColumnBoolean.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "integer" {
+                return AppwriteModels.ColumnInteger.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "double" {
+                return AppwriteModels.ColumnFloat.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "datetime" {
+                return AppwriteModels.ColumnDatetime.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "relationship" {
+                return AppwriteModels.ColumnRelationship.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "string" {
+                return AppwriteModels.ColumnString.from(map: responseMap)
+            }
+            throw AppwriteError(message: "Unable to match response to any expected response model")
         }
 
         return try await client.call(
