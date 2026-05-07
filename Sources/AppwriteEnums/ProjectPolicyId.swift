@@ -1,6 +1,6 @@
 import Foundation
 
-public enum PolicyId: String, CustomStringConvertible {
+public enum ProjectPolicyId: String, CustomStringConvertible {
     case passwordDictionary = "password-dictionary"
     case passwordHistory = "password-history"
     case passwordPersonalData = "password-personal-data"

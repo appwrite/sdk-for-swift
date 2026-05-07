@@ -36,13 +36,13 @@ open class Project: Service {
     /// disable a method in your project. 
     ///
     /// - Parameters:
-    ///   - methodId: AppwriteEnums.MethodId
+    ///   - methodId: AppwriteEnums.AuthMethod
     ///   - enabled: Bool
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Project
     ///
     open func updateAuthMethod(
-        methodId: AppwriteEnums.MethodId,
+        methodId: AppwriteEnums.AuthMethod,
         enabled: Bool
     ) async throws -> AppwriteModels.Project {
         let apiPath: String = "/project/auth-methods/{methodId}"
@@ -544,12 +544,12 @@ open class Project: Service {
     /// secret, p8 file, key/team IDs) are write-only and always returned empty.
     ///
     /// - Parameters:
-    ///   - providerId: AppwriteEnums.ProviderId
+    ///   - providerId: AppwriteEnums.OAuthProvider
     /// - Throws: Exception if the request fails
     /// - Returns: Any
     ///
     open func getOAuth2Provider(
-        providerId: AppwriteEnums.ProviderId
+        providerId: AppwriteEnums.OAuthProvider
     ) async throws -> Any {
         let apiPath: String = "/project/oauth2/:provider"
 
@@ -3332,12 +3332,12 @@ open class Project: Service {
     /// configuration for the requested project policy.
     ///
     /// - Parameters:
-    ///   - policyId: AppwriteEnums.PolicyId
+    ///   - policyId: AppwriteEnums.ProjectPolicyId
     /// - Throws: Exception if the request fails
     /// - Returns: Any
     ///
     open func getPolicy(
-        policyId: AppwriteEnums.PolicyId
+        policyId: AppwriteEnums.ProjectPolicyId
     ) async throws -> Any {
         let apiPath: String = "/project/policies/{policyId}"
             .replacingOccurrences(of: "{policyId}", with: policyId.rawValue)
