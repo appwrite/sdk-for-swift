@@ -3332,12 +3332,12 @@ open class Project: Service {
     /// configuration for the requested project policy.
     ///
     /// - Parameters:
-    ///   - policyId: AppwriteEnums.ProjectPolicyId
+    ///   - policyId: AppwriteEnums.ProjectPolicy
     /// - Throws: Exception if the request fails
     /// - Returns: Any
     ///
     open func getPolicy(
-        policyId: AppwriteEnums.ProjectPolicyId
+        policyId: AppwriteEnums.ProjectPolicy
     ) async throws -> Any {
         let apiPath: String = "/project/policies/{policyId}"
             .replacingOccurrences(of: "{policyId}", with: policyId.rawValue)
