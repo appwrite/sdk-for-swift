@@ -10,6 +10,7 @@ let sites = Sites(client)
 
 let variable = try await sites.createVariable(
     siteId: "<SITE_ID>",
+    variableId: "<VARIABLE_ID>",
     key: "<KEY>",
     value: "<VALUE>",
     secret: false // optional

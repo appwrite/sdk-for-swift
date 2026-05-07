@@ -33,6 +33,8 @@ open class Project: Codable {
         case authMembershipsUserName = "authMembershipsUserName"
         case authMembershipsUserEmail = "authMembershipsUserEmail"
         case authMembershipsMfa = "authMembershipsMfa"
+        case authMembershipsUserId = "authMembershipsUserId"
+        case authMembershipsUserPhone = "authMembershipsUserPhone"
         case authInvalidateSessions = "authInvalidateSessions"
         case oAuthProviders = "oAuthProviders"
         case platforms = "platforms"
@@ -42,7 +44,8 @@ open class Project: Codable {
         case smtpEnabled = "smtpEnabled"
         case smtpSenderName = "smtpSenderName"
         case smtpSenderEmail = "smtpSenderEmail"
-        case smtpReplyTo = "smtpReplyTo"
+        case smtpReplyToName = "smtpReplyToName"
+        case smtpReplyToEmail = "smtpReplyToEmail"
         case smtpHost = "smtpHost"
         case smtpPort = "smtpPort"
         case smtpUsername = "smtpUsername"
@@ -141,6 +144,10 @@ open class Project: Codable {
     public let authMembershipsUserEmail: Bool
     /// Whether or not to show user MFA status in the teams membership response.
     public let authMembershipsMfa: Bool
+    /// Whether or not to show user IDs in the teams membership response.
+    public let authMembershipsUserId: Bool
+    /// Whether or not to show user phone numbers in the teams membership response.
+    public let authMembershipsUserPhone: Bool
     /// Whether or not all existing sessions should be invalidated on password change
     public let authInvalidateSessions: Bool
     /// List of Auth Providers.
@@ -159,15 +166,17 @@ open class Project: Codable {
     public let smtpSenderName: String
     /// SMTP sender email
     public let smtpSenderEmail: String
+    /// SMTP reply to name
+    public let smtpReplyToName: String
     /// SMTP reply to email
-    public let smtpReplyTo: String
+    public let smtpReplyToEmail: String
     /// SMTP server host name
     public let smtpHost: String
     /// SMTP server port
     public let smtpPort: Int
     /// SMTP server username
     public let smtpUsername: String
-    /// SMTP server password
+    /// SMTP server password. This property is write-only and always returned empty.
     public let smtpPassword: String
     /// SMTP server secure protocol
     public let smtpSecure: String
@@ -271,6 +280,8 @@ open class Project: Codable {
         authMembershipsUserName: Bool,
         authMembershipsUserEmail: Bool,
         authMembershipsMfa: Bool,
+        authMembershipsUserId: Bool,
+        authMembershipsUserPhone: Bool,
         authInvalidateSessions: Bool,
         oAuthProviders: [AuthProvider],
         platforms: [AnyCodable],
@@ -280,7 +291,8 @@ open class Project: Codable {
         smtpEnabled: Bool,
         smtpSenderName: String,
         smtpSenderEmail: String,
-        smtpReplyTo: String,
+        smtpReplyToName: String,
+        smtpReplyToEmail: String,
         smtpHost: String,
         smtpPort: Int,
         smtpUsername: String,
@@ -350,6 +362,8 @@ open class Project: Codable {
         self.authMembershipsUserName = authMembershipsUserName
         self.authMembershipsUserEmail = authMembershipsUserEmail
         self.authMembershipsMfa = authMembershipsMfa
+        self.authMembershipsUserId = authMembershipsUserId
+        self.authMembershipsUserPhone = authMembershipsUserPhone
         self.authInvalidateSessions = authInvalidateSessions
         self.oAuthProviders = oAuthProviders
         self.platforms = platforms
@@ -359,7 +373,8 @@ open class Project: Codable {
         self.smtpEnabled = smtpEnabled
         self.smtpSenderName = smtpSenderName
         self.smtpSenderEmail = smtpSenderEmail
-        self.smtpReplyTo = smtpReplyTo
+        self.smtpReplyToName = smtpReplyToName
+        self.smtpReplyToEmail = smtpReplyToEmail
         self.smtpHost = smtpHost
         self.smtpPort = smtpPort
         self.smtpUsername = smtpUsername
@@ -433,6 +448,8 @@ open class Project: Codable {
         self.authMembershipsUserName = try container.decode(Bool.self, forKey: .authMembershipsUserName)
         self.authMembershipsUserEmail = try container.decode(Bool.self, forKey: .authMembershipsUserEmail)
         self.authMembershipsMfa = try container.decode(Bool.self, forKey: .authMembershipsMfa)
+        self.authMembershipsUserId = try container.decode(Bool.self, forKey: .authMembershipsUserId)
+        self.authMembershipsUserPhone = try container.decode(Bool.self, forKey: .authMembershipsUserPhone)
         self.authInvalidateSessions = try container.decode(Bool.self, forKey: .authInvalidateSessions)
         self.oAuthProviders = try container.decode([AuthProvider].self, forKey: .oAuthProviders)
         self.platforms = try container.decode([AnyCodable].self, forKey: .platforms)
@@ -442,7 +459,8 @@ open class Project: Codable {
         self.smtpEnabled = try container.decode(Bool.self, forKey: .smtpEnabled)
         self.smtpSenderName = try container.decode(String.self, forKey: .smtpSenderName)
         self.smtpSenderEmail = try container.decode(String.self, forKey: .smtpSenderEmail)
-        self.smtpReplyTo = try container.decode(String.self, forKey: .smtpReplyTo)
+        self.smtpReplyToName = try container.decode(String.self, forKey: .smtpReplyToName)
+        self.smtpReplyToEmail = try container.decode(String.self, forKey: .smtpReplyToEmail)
         self.smtpHost = try container.decode(String.self, forKey: .smtpHost)
         self.smtpPort = try container.decode(Int.self, forKey: .smtpPort)
         self.smtpUsername = try container.decode(String.self, forKey: .smtpUsername)
@@ -516,6 +534,8 @@ open class Project: Codable {
         try container.encode(authMembershipsUserName, forKey: .authMembershipsUserName)
         try container.encode(authMembershipsUserEmail, forKey: .authMembershipsUserEmail)
         try container.encode(authMembershipsMfa, forKey: .authMembershipsMfa)
+        try container.encode(authMembershipsUserId, forKey: .authMembershipsUserId)
+        try container.encode(authMembershipsUserPhone, forKey: .authMembershipsUserPhone)
         try container.encode(authInvalidateSessions, forKey: .authInvalidateSessions)
         try container.encode(oAuthProviders, forKey: .oAuthProviders)
         try container.encode(platforms, forKey: .platforms)
@@ -525,7 +545,8 @@ open class Project: Codable {
         try container.encode(smtpEnabled, forKey: .smtpEnabled)
         try container.encode(smtpSenderName, forKey: .smtpSenderName)
         try container.encode(smtpSenderEmail, forKey: .smtpSenderEmail)
-        try container.encode(smtpReplyTo, forKey: .smtpReplyTo)
+        try container.encode(smtpReplyToName, forKey: .smtpReplyToName)
+        try container.encode(smtpReplyToEmail, forKey: .smtpReplyToEmail)
         try container.encode(smtpHost, forKey: .smtpHost)
         try container.encode(smtpPort, forKey: .smtpPort)
         try container.encode(smtpUsername, forKey: .smtpUsername)
@@ -598,6 +619,8 @@ open class Project: Codable {
             "authMembershipsUserName": authMembershipsUserName as Any,
             "authMembershipsUserEmail": authMembershipsUserEmail as Any,
             "authMembershipsMfa": authMembershipsMfa as Any,
+            "authMembershipsUserId": authMembershipsUserId as Any,
+            "authMembershipsUserPhone": authMembershipsUserPhone as Any,
             "authInvalidateSessions": authInvalidateSessions as Any,
             "oAuthProviders": oAuthProviders.map { $0.toMap() } as Any,
             "platforms": platforms as Any,
@@ -607,7 +630,8 @@ open class Project: Codable {
             "smtpEnabled": smtpEnabled as Any,
             "smtpSenderName": smtpSenderName as Any,
             "smtpSenderEmail": smtpSenderEmail as Any,
-            "smtpReplyTo": smtpReplyTo as Any,
+            "smtpReplyToName": smtpReplyToName as Any,
+            "smtpReplyToEmail": smtpReplyToEmail as Any,
             "smtpHost": smtpHost as Any,
             "smtpPort": smtpPort as Any,
             "smtpUsername": smtpUsername as Any,
@@ -681,6 +705,8 @@ open class Project: Codable {
             authMembershipsUserName: map["authMembershipsUserName"] as! Bool,
             authMembershipsUserEmail: map["authMembershipsUserEmail"] as! Bool,
             authMembershipsMfa: map["authMembershipsMfa"] as! Bool,
+            authMembershipsUserId: map["authMembershipsUserId"] as! Bool,
+            authMembershipsUserPhone: map["authMembershipsUserPhone"] as! Bool,
             authInvalidateSessions: map["authInvalidateSessions"] as! Bool,
             oAuthProviders: (map["oAuthProviders"] as! [[String: Any]]).map { AuthProvider.from(map: $0) },
             platforms: (map["platforms"] as! [Any]).map { AnyCodable($0) },
@@ -690,7 +716,8 @@ open class Project: Codable {
             smtpEnabled: map["smtpEnabled"] as! Bool,
             smtpSenderName: map["smtpSenderName"] as! String,
             smtpSenderEmail: map["smtpSenderEmail"] as! String,
-            smtpReplyTo: map["smtpReplyTo"] as! String,
+            smtpReplyToName: map["smtpReplyToName"] as! String,
+            smtpReplyToEmail: map["smtpReplyToEmail"] as! String,
             smtpHost: map["smtpHost"] as! String,
             smtpPort: map["smtpPort"] as! Int,
             smtpUsername: map["smtpUsername"] as! String,

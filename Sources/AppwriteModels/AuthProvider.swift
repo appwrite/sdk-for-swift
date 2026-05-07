@@ -18,7 +18,7 @@ open class AuthProvider: Codable {
     public let name: String
     /// OAuth 2.0 application ID.
     public let appId: String
-    /// OAuth 2.0 application secret. Might be JSON string if provider requires extra configuration.
+    /// OAuth 2.0 application secret. Might be JSON string if provider requires extra configuration. This property is write-only and always returned empty.
     public let secret: String
     /// Auth Provider is active and can be used to create session.
     public let enabled: Bool
