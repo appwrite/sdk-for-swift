@@ -29,7 +29,7 @@ open class BackupArchive: Codable {
     public let policyId: String
     /// Archive size in bytes.
     public let size: Int
-    /// The status of the archive creation. Possible values: pending, processing, uploading, completed, failed.
+    /// The status of the archive creation. Possible values: pending, processing, uploading, completed, failed, skipped.
     public let status: String
     /// The backup start time.
     public let startedAt: String

@@ -9,7 +9,9 @@ let client = Client()
 let sites = Sites(client)
 
 let variableList = try await sites.listVariables(
-    siteId: "<SITE_ID>"
+    siteId: "<SITE_ID>",
+    queries: [], // optional
+    total: false // optional
 )
 
 ```

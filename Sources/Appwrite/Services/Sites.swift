@@ -874,16 +874,23 @@ open class Sites: Service {
     ///
     /// - Parameters:
     ///   - siteId: String
+    ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.VariableList
     ///
     open func listVariables(
-        siteId: String
+        siteId: String,
+        queries: [String]? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.VariableList {
         let apiPath: String = "/sites/{siteId}/variables"
             .replacingOccurrences(of: "{siteId}", with: siteId)
 
-        let apiParams: [String: Any] = [:]
+        let apiParams: [String: Any?] = [
+            "queries": queries,
+            "total": total
+        ]
 
         let apiHeaders: [String: String] = [:]
 
@@ -906,6 +913,7 @@ open class Sites: Service {
     ///
     /// - Parameters:
     ///   - siteId: String
+    ///   - variableId: String
     ///   - key: String
     ///   - value: String
     ///   - secret: Bool (optional)
@@ -914,6 +922,7 @@ open class Sites: Service {
     ///
     open func createVariable(
         siteId: String,
+        variableId: String,
         key: String,
         value: String,
         secret: Bool? = nil
@@ -922,6 +931,7 @@ open class Sites: Service {
             .replacingOccurrences(of: "{siteId}", with: siteId)
 
         let apiParams: [String: Any?] = [
+            "variableId": variableId,
             "key": key,
             "value": value,
             "secret": secret
@@ -984,7 +994,7 @@ open class Sites: Service {
     /// - Parameters:
     ///   - siteId: String
     ///   - variableId: String
-    ///   - key: String
+    ///   - key: String (optional)
     ///   - value: String (optional)
     ///   - secret: Bool (optional)
     /// - Throws: Exception if the request fails
@@ -993,7 +1003,7 @@ open class Sites: Service {
     open func updateVariable(
         siteId: String,
         variableId: String,
-        key: String,
+        key: String? = nil,
         value: String? = nil,
         secret: Bool? = nil
     ) async throws -> AppwriteModels.Variable {

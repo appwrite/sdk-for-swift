@@ -24,8 +24,8 @@ open class Client {
         "x-sdk-name": "Swift",
         "x-sdk-platform": "server",
         "x-sdk-language": "swift",
-        "x-sdk-version": "17.0.0",
-        "x-appwrite-response-format": "1.9.1"
+        "x-sdk-version": "17.1.0",
+        "x-appwrite-response-format": "1.9.4"
     ]
 
     internal var config: [String: String] = [:]
@@ -174,6 +174,36 @@ open class Client {
     open func setForwardedUserAgent(_ value: String) -> Client {
         config["forwardeduseragent"] = value
         _ = addHeader(key: "X-Forwarded-User-Agent", value: value)
+        return self
+    }
+
+    ///
+    /// Set DevKey
+    ///
+    /// Your secret dev API key
+    ///
+    /// @param String value
+    ///
+    /// @return Client
+    ///
+    open func setDevKey(_ value: String) -> Client {
+        config["devkey"] = value
+        _ = addHeader(key: "X-Appwrite-Dev-Key", value: value)
+        return self
+    }
+
+    ///
+    /// Set Cookie
+    ///
+    /// The user cookie to authenticate with. Used by SDKs that forward an incoming Cookie header in server-side runtimes.
+    ///
+    /// @param String value
+    ///
+    /// @return Client
+    ///
+    open func setCookie(_ value: String) -> Client {
+        config["cookie"] = value
+        _ = addHeader(key: "Cookie", value: value)
         return self
     }
 
