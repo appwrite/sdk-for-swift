@@ -649,6 +649,120 @@ open class TablesDB: Service {
     }
 
     ///
+    /// Create a bigint column. Optionally, minimum and maximum values can be
+    /// provided.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - tableId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - min: Int (optional)
+    ///   - max: Int (optional)
+    ///   - default: Int (optional)
+    ///   - array: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ColumnBigint
+    ///
+    open func createBigIntColumn(
+        databaseId: String,
+        tableId: String,
+        key: String,
+        `required`: Bool,
+        min: Int? = nil,
+        max: Int? = nil,
+        `default`: Int? = nil,
+        array: Bool? = nil
+    ) async throws -> AppwriteModels.ColumnBigint {
+        let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/bigint"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{tableId}", with: tableId)
+
+        let apiParams: [String: Any?] = [
+            "key": key,
+            "required": `required`,
+            "min": min,
+            "max": max,
+            "default": `default`,
+            "array": array
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.ColumnBigint = { response in
+            return AppwriteModels.ColumnBigint.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update a bigint column. Changing the `default` value will not update
+    /// already existing rows.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - tableId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: Int (optional)
+    ///   - min: Int (optional)
+    ///   - max: Int (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ColumnBigint
+    ///
+    open func updateBigIntColumn(
+        databaseId: String,
+        tableId: String,
+        key: String,
+        `required`: Bool,
+        `default`: Int? = nil,
+        min: Int? = nil,
+        max: Int? = nil,
+        newKey: String? = nil
+    ) async throws -> AppwriteModels.ColumnBigint {
+        let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/bigint/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let apiParams: [String: Any?] = [
+            "required": `required`,
+            "min": min,
+            "max": max,
+            "default": `default`,
+            "newKey": newKey
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.ColumnBigint = { response in
+            return AppwriteModels.ColumnBigint.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
     /// Create a boolean column.
     /// 
     ///

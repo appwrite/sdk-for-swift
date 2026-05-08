@@ -660,6 +660,122 @@ open class Databases: Service {
     }
 
     ///
+    /// Create a bigint attribute. Optionally, minimum and maximum values can be
+    /// provided.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - min: Int (optional)
+    ///   - max: Int (optional)
+    ///   - default: Int (optional)
+    ///   - array: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeBigint
+    ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.createBigIntColumn` instead.")
+    open func createBigIntAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        `required`: Bool,
+        min: Int? = nil,
+        max: Int? = nil,
+        `default`: Int? = nil,
+        array: Bool? = nil
+    ) async throws -> AppwriteModels.AttributeBigint {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/bigint"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
+        let apiParams: [String: Any?] = [
+            "key": key,
+            "required": `required`,
+            "min": min,
+            "max": max,
+            "default": `default`,
+            "array": array
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.AttributeBigint = { response in
+            return AppwriteModels.AttributeBigint.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update a bigint attribute. Changing the `default` value will not update
+    /// already existing documents.
+    /// 
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - key: String
+    ///   - required: Bool
+    ///   - default: Int (optional)
+    ///   - min: Int (optional)
+    ///   - max: Int (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AttributeBigint
+    ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.updateBigIntColumn` instead.")
+    open func updateBigIntAttribute(
+        databaseId: String,
+        collectionId: String,
+        key: String,
+        `required`: Bool,
+        `default`: Int? = nil,
+        min: Int? = nil,
+        max: Int? = nil,
+        newKey: String? = nil
+    ) async throws -> AppwriteModels.AttributeBigint {
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/bigint/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let apiParams: [String: Any?] = [
+            "required": `required`,
+            "min": min,
+            "max": max,
+            "default": `default`,
+            "newKey": newKey
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.AttributeBigint = { response in
+            return AppwriteModels.AttributeBigint.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
     /// Create a boolean attribute.
     /// 
     ///

@@ -12,7 +12,7 @@ let project = Project(client)
 let key = try await project.createKey(
     keyId: "<KEY_ID>",
     name: "<NAME>",
-    scopes: [.sessionsWrite],
+    scopes: [.projectRead],
     expire: "2020-10-15T06:38:00.000+00:00" // optional
 )
 
