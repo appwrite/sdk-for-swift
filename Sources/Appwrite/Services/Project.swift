@@ -36,13 +36,13 @@ open class Project: Service {
     /// disable a method in your project. 
     ///
     /// - Parameters:
-    ///   - methodId: AppwriteEnums.MethodId
+    ///   - methodId: AppwriteEnums.AuthMethod
     ///   - enabled: Bool
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Project
     ///
     open func updateAuthMethod(
-        methodId: AppwriteEnums.MethodId,
+        methodId: AppwriteEnums.AuthMethod,
         enabled: Bool
     ) async throws -> AppwriteModels.Project {
         let apiPath: String = "/project/auth-methods/{methodId}"
@@ -528,162 +528,6 @@ open class Project: Service {
 
         let converter: (Any) throws -> AppwriteModels.OAuth2ProviderList = { response in
             return AppwriteModels.OAuth2ProviderList.from(map: response as! [String: Any])
-        }
-
-        return try await client.call(
-            method: "GET",
-            path: apiPath,
-            headers: apiHeaders,
-            params: apiParams,
-            converter: converter
-        )
-    }
-
-    ///
-    /// Get a single OAuth2 provider configuration. Credential fields (client
-    /// secret, p8 file, key/team IDs) are write-only and always returned empty.
-    ///
-    /// - Parameters:
-    ///   - providerId: AppwriteEnums.ProviderId
-    /// - Throws: Exception if the request fails
-    /// - Returns: Any
-    ///
-    open func getOAuth2Provider(
-        providerId: AppwriteEnums.ProviderId
-    ) async throws -> Any {
-        let apiPath: String = "/project/oauth2/:provider"
-
-        let apiParams: [String: Any?] = [
-            "providerId": providerId
-        ]
-
-        let apiHeaders: [String: String] = [:]
-
-        let converter: (Any) throws -> Any = { response in
-            guard let responseMap = response as? [String: Any] else {
-                throw AppwriteError(message: "Expected object response when hydrating a response model")
-            }
-            if String(describing: responseMap["$id"] ?? "") == "github" {
-                return AppwriteModels.OAuth2Github.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "discord" {
-                return AppwriteModels.OAuth2Discord.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "figma" {
-                return AppwriteModels.OAuth2Figma.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "dropbox" {
-                return AppwriteModels.OAuth2Dropbox.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "dailymotion" {
-                return AppwriteModels.OAuth2Dailymotion.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "bitbucket" {
-                return AppwriteModels.OAuth2Bitbucket.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "bitly" {
-                return AppwriteModels.OAuth2Bitly.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "box" {
-                return AppwriteModels.OAuth2Box.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "autodesk" {
-                return AppwriteModels.OAuth2Autodesk.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "google" {
-                return AppwriteModels.OAuth2Google.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "zoom" {
-                return AppwriteModels.OAuth2Zoom.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "zoho" {
-                return AppwriteModels.OAuth2Zoho.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "yandex" {
-                return AppwriteModels.OAuth2Yandex.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "x" {
-                return AppwriteModels.OAuth2X.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "wordpress" {
-                return AppwriteModels.OAuth2WordPress.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "twitch" {
-                return AppwriteModels.OAuth2Twitch.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "stripe" {
-                return AppwriteModels.OAuth2Stripe.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "spotify" {
-                return AppwriteModels.OAuth2Spotify.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "slack" {
-                return AppwriteModels.OAuth2Slack.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "podio" {
-                return AppwriteModels.OAuth2Podio.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "notion" {
-                return AppwriteModels.OAuth2Notion.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "salesforce" {
-                return AppwriteModels.OAuth2Salesforce.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "yahoo" {
-                return AppwriteModels.OAuth2Yahoo.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "linkedin" {
-                return AppwriteModels.OAuth2Linkedin.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "disqus" {
-                return AppwriteModels.OAuth2Disqus.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "amazon" {
-                return AppwriteModels.OAuth2Amazon.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "etsy" {
-                return AppwriteModels.OAuth2Etsy.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "facebook" {
-                return AppwriteModels.OAuth2Facebook.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "tradeshiftBox" {
-                return AppwriteModels.OAuth2Tradeshift.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "paypalSandbox" {
-                return AppwriteModels.OAuth2Paypal.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "gitlab" {
-                return AppwriteModels.OAuth2Gitlab.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "authentik" {
-                return AppwriteModels.OAuth2Authentik.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "auth0" {
-                return AppwriteModels.OAuth2Auth0.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "fusionauth" {
-                return AppwriteModels.OAuth2FusionAuth.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "keycloak" {
-                return AppwriteModels.OAuth2Keycloak.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "oidc" {
-                return AppwriteModels.OAuth2Oidc.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "apple" {
-                return AppwriteModels.OAuth2Apple.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "okta" {
-                return AppwriteModels.OAuth2Okta.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "kick" {
-                return AppwriteModels.OAuth2Kick.from(map: responseMap)
-            }
-            if String(describing: responseMap["$id"] ?? "") == "microsoft" {
-                return AppwriteModels.OAuth2Microsoft.from(map: responseMap)
-            }
-            throw AppwriteError(message: "Unable to match response to any expected response model")
         }
 
         return try await client.call(
@@ -2421,6 +2265,161 @@ open class Project: Service {
     }
 
     ///
+    /// Get a single OAuth2 provider configuration. Credential fields (client
+    /// secret, p8 file, key/team IDs) are write-only and always returned empty.
+    ///
+    /// - Parameters:
+    ///   - providerId: AppwriteEnums.OAuthProvider
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
+    ///
+    open func getOAuth2Provider(
+        providerId: AppwriteEnums.OAuthProvider
+    ) async throws -> Any {
+        let apiPath: String = "/project/oauth2/{providerId}"
+            .replacingOccurrences(of: "{providerId}", with: providerId.rawValue)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [:]
+
+        let converter: (Any) throws -> Any = { response in
+            guard let responseMap = response as? [String: Any] else {
+                throw AppwriteError(message: "Expected object response when hydrating a response model")
+            }
+            if String(describing: responseMap["$id"] ?? "") == "github" {
+                return AppwriteModels.OAuth2Github.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "discord" {
+                return AppwriteModels.OAuth2Discord.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "figma" {
+                return AppwriteModels.OAuth2Figma.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "dropbox" {
+                return AppwriteModels.OAuth2Dropbox.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "dailymotion" {
+                return AppwriteModels.OAuth2Dailymotion.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "bitbucket" {
+                return AppwriteModels.OAuth2Bitbucket.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "bitly" {
+                return AppwriteModels.OAuth2Bitly.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "box" {
+                return AppwriteModels.OAuth2Box.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "autodesk" {
+                return AppwriteModels.OAuth2Autodesk.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "google" {
+                return AppwriteModels.OAuth2Google.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "zoom" {
+                return AppwriteModels.OAuth2Zoom.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "zoho" {
+                return AppwriteModels.OAuth2Zoho.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "yandex" {
+                return AppwriteModels.OAuth2Yandex.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "x" {
+                return AppwriteModels.OAuth2X.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "wordpress" {
+                return AppwriteModels.OAuth2WordPress.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "twitch" {
+                return AppwriteModels.OAuth2Twitch.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "stripe" {
+                return AppwriteModels.OAuth2Stripe.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "spotify" {
+                return AppwriteModels.OAuth2Spotify.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "slack" {
+                return AppwriteModels.OAuth2Slack.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "podio" {
+                return AppwriteModels.OAuth2Podio.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "notion" {
+                return AppwriteModels.OAuth2Notion.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "salesforce" {
+                return AppwriteModels.OAuth2Salesforce.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "yahoo" {
+                return AppwriteModels.OAuth2Yahoo.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "linkedin" {
+                return AppwriteModels.OAuth2Linkedin.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "disqus" {
+                return AppwriteModels.OAuth2Disqus.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "amazon" {
+                return AppwriteModels.OAuth2Amazon.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "etsy" {
+                return AppwriteModels.OAuth2Etsy.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "facebook" {
+                return AppwriteModels.OAuth2Facebook.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "tradeshiftBox" {
+                return AppwriteModels.OAuth2Tradeshift.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "paypalSandbox" {
+                return AppwriteModels.OAuth2Paypal.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "gitlab" {
+                return AppwriteModels.OAuth2Gitlab.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "authentik" {
+                return AppwriteModels.OAuth2Authentik.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "auth0" {
+                return AppwriteModels.OAuth2Auth0.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "fusionauth" {
+                return AppwriteModels.OAuth2FusionAuth.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "keycloak" {
+                return AppwriteModels.OAuth2Keycloak.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "oidc" {
+                return AppwriteModels.OAuth2Oidc.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "apple" {
+                return AppwriteModels.OAuth2Apple.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "okta" {
+                return AppwriteModels.OAuth2Okta.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "kick" {
+                return AppwriteModels.OAuth2Kick.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "microsoft" {
+                return AppwriteModels.OAuth2Microsoft.from(map: responseMap)
+            }
+            throw AppwriteError(message: "Unable to match response to any expected response model")
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
     /// Get a list of all platforms in the project. This endpoint returns an array
     /// of all platforms and their configurations.
     ///
@@ -3332,12 +3331,12 @@ open class Project: Service {
     /// configuration for the requested project policy.
     ///
     /// - Parameters:
-    ///   - policyId: AppwriteEnums.PolicyId
+    ///   - policyId: AppwriteEnums.ProjectPolicy
     /// - Throws: Exception if the request fails
     /// - Returns: Any
     ///
     open func getPolicy(
-        policyId: AppwriteEnums.PolicyId
+        policyId: AppwriteEnums.ProjectPolicy
     ) async throws -> Any {
         let apiPath: String = "/project/policies/{policyId}"
             .replacingOccurrences(of: "{policyId}", with: policyId.rawValue)

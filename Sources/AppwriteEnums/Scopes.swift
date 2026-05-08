@@ -79,8 +79,6 @@ public enum Scopes: String, CustomStringConvertible {
     case schedulesWrite = "schedules.write"
     case vcsRead = "vcs.read"
     case vcsWrite = "vcs.write"
-    case presencesRead = "presences.read"
-    case presencesWrite = "presences.write"
     case backupsPoliciesRead = "backups.policies.read"
     case backupsPoliciesWrite = "backups.policies.write"
     case archivesRead = "archives.read"
