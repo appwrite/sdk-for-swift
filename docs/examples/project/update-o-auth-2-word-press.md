@@ -1,6 +1,5 @@
 ```swift
 import Appwrite
-import AppwriteEnums
 
 let client = Client()
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
@@ -9,9 +8,10 @@ let client = Client()
 
 let project = Project(client)
 
-let project = try await project.updateProtocolStatus(
-    protocolId: .rest,
-    enabled: false
+let oAuth2WordPress = try await project.updateOAuth2WordPress(
+    clientId: "<CLIENT_ID>", // optional
+    clientSecret: "<CLIENT_SECRET>", // optional
+    enabled: false // optional
 )
 
 ```

@@ -81,6 +81,7 @@ public enum BuildRuntime: String, CustomStringConvertible {
     case go124 = "go-1.24"
     case go125 = "go-1.25"
     case go126 = "go-1.26"
+    case rust183 = "rust-1.83"
     case static1 = "static-1"
     case flutter324 = "flutter-3.24"
     case flutter327 = "flutter-3.27"

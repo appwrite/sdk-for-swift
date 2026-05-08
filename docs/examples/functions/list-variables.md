@@ -9,7 +9,9 @@ let client = Client()
 let functions = Functions(client)
 
 let variableList = try await functions.listVariables(
-    functionId: "<FUNCTION_ID>"
+    functionId: "<FUNCTION_ID>",
+    queries: [], // optional
+    total: false // optional
 )
 
 ```

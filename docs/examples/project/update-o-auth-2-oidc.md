@@ -1,0 +1,21 @@
+```swift
+import Appwrite
+
+let client = Client()
+    .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
+    .setProject("<YOUR_PROJECT_ID>") // Your project ID
+    .setKey("<YOUR_API_KEY>") // Your secret API key
+
+let project = Project(client)
+
+let oAuth2Oidc = try await project.updateOAuth2Oidc(
+    clientId: "<CLIENT_ID>", // optional
+    clientSecret: "<CLIENT_SECRET>", // optional
+    wellKnownURL: "https://example.com", // optional
+    authorizationURL: "https://example.com", // optional
+    tokenURL: "https://example.com", // optional
+    userInfoURL: "https://example.com", // optional
+    enabled: false // optional
+)
+
+```

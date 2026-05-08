@@ -1,17 +1,15 @@
 ```swift
 import Appwrite
-import AppwriteEnums
 
 let client = Client()
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
     .setProject("<YOUR_PROJECT_ID>") // Your project ID
     .setKey("<YOUR_API_KEY>") // Your secret API key
 
-let project = Project(client)
+let proxy = Proxy(client)
 
-let project = try await project.updateServiceStatus(
-    serviceId: .account,
-    enabled: false
+let result = try await proxy.deleteRule(
+    ruleId: "<RULE_ID>"
 )
 
 ```
