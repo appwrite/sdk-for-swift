@@ -108,8 +108,8 @@ open class Provider: Codable {
             provider: map["provider"] as! String,
             enabled: map["enabled"] as! Bool,
             type: map["type"] as! String,
-            credentials: map["credentials"] as! [String: AnyCodable],
-            options: map["options"] as? [String: AnyCodable]
+            credentials: (map["credentials"] as! [String: Any]).mapValues { AnyCodable($0) },
+            options: (map["options"] as? [String: Any] ?? [:]).mapValues { AnyCodable($0) }
         )
     }
 }
