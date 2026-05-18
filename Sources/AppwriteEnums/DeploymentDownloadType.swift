@@ -1,6 +1,6 @@
 import Foundation
 
-public enum DeploymentDownloadType: String, CustomStringConvertible {
+public enum DeploymentDownloadType: String, Codable, CustomStringConvertible {
     case source = "source"
     case output = "output"
 

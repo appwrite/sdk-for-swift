@@ -1,6 +1,6 @@
 import Foundation
 
-public enum Secure: String, CustomStringConvertible {
+public enum ProjectSMTPSecure: String, Codable, CustomStringConvertible {
     case tls = "tls"
     case ssl = "ssl"
 

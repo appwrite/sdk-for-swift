@@ -1,6 +1,6 @@
 import Foundation
 
-public enum StatusCode: String, CustomStringConvertible {
+public enum StatusCode: String, Codable, CustomStringConvertible {
     case movedPermanently301 = "301"
     case found302 = "302"
     case temporaryRedirect307 = "307"

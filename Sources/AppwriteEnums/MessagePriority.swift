@@ -1,6 +1,6 @@
 import Foundation
 
-public enum MessagePriority: String, CustomStringConvertible {
+public enum MessagePriority: String, Codable, CustomStringConvertible {
     case normal = "normal"
     case high = "high"
 

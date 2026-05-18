@@ -56,7 +56,7 @@ open class Backups: Service {
         let apiPath: String = "/backups/archives"
 
         let apiParams: [String: Any?] = [
-            "services": services,
+            "services": services.map { $0.rawValue },
             "resourceId": resourceId
         ]
 
@@ -195,7 +195,7 @@ open class Backups: Service {
         let apiParams: [String: Any?] = [
             "policyId": policyId,
             "name": name,
-            "services": services,
+            "services": services.map { $0.rawValue },
             "resourceId": resourceId,
             "enabled": enabled,
             "retention": retention,
@@ -344,7 +344,7 @@ open class Backups: Service {
 
         let apiParams: [String: Any?] = [
             "archiveId": archiveId,
-            "services": services,
+            "services": services.map { $0.rawValue },
             "newResourceId": newResourceId,
             "newResourceName": newResourceName
         ]

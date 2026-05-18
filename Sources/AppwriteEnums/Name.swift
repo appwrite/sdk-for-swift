@@ -1,6 +1,6 @@
 import Foundation
 
-public enum Name: String, CustomStringConvertible {
+public enum Name: String, Codable, CustomStringConvertible {
     case v1Database = "v1-database"
     case v1Deletes = "v1-deletes"
     case v1Audits = "v1-audits"

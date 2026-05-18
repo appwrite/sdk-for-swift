@@ -1,6 +1,6 @@
 import Foundation
 
-public enum ServiceId: String, CustomStringConvertible {
+public enum ProjectServiceId: String, Codable, CustomStringConvertible {
     case account = "account"
     case avatars = "avatars"
     case databases = "databases"
@@ -18,6 +18,7 @@ public enum ServiceId: String, CustomStringConvertible {
     case graphql = "graphql"
     case migrations = "migrations"
     case messaging = "messaging"
+    case advisor = "advisor"
 
     public var description: String {
         return rawValue

@@ -251,7 +251,7 @@ open class Messaging: Service {
             "scheduledAt": scheduledAt,
             "contentAvailable": contentAvailable,
             "critical": critical,
-            "priority": priority
+            "priority": priority?.rawValue
         ]
 
         let apiHeaders: [String: String] = [
@@ -342,7 +342,7 @@ open class Messaging: Service {
             "scheduledAt": scheduledAt,
             "contentAvailable": contentAvailable,
             "critical": critical,
-            "priority": priority
+            "priority": priority?.rawValue
         ]
 
         let apiHeaders: [String: String] = [
@@ -1635,7 +1635,7 @@ open class Messaging: Service {
             "port": port,
             "username": username,
             "password": password,
-            "encryption": encryption,
+            "encryption": encryption?.rawValue,
             "autoTLS": autoTLS,
             "mailer": mailer,
             "fromName": fromName,
@@ -1708,7 +1708,7 @@ open class Messaging: Service {
             "port": port,
             "username": username,
             "password": password,
-            "encryption": encryption,
+            "encryption": encryption?.rawValue,
             "autoTLS": autoTLS,
             "mailer": mailer,
             "fromName": fromName,
@@ -1782,7 +1782,7 @@ open class Messaging: Service {
             "port": port,
             "username": username,
             "password": password,
-            "encryption": encryption,
+            "encryption": encryption?.rawValue,
             "autoTLS": autoTLS,
             "mailer": mailer,
             "fromName": fromName,
@@ -1855,7 +1855,7 @@ open class Messaging: Service {
             "port": port,
             "username": username,
             "password": password,
-            "encryption": encryption,
+            "encryption": encryption?.rawValue,
             "autoTLS": autoTLS,
             "mailer": mailer,
             "fromName": fromName,

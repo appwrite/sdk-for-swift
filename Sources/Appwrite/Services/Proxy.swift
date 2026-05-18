@@ -152,9 +152,9 @@ open class Proxy: Service {
         let apiParams: [String: Any?] = [
             "domain": domain,
             "url": url,
-            "statusCode": statusCode,
+            "statusCode": statusCode.rawValue,
             "resourceId": resourceId,
-            "resourceType": resourceType
+            "resourceType": resourceType.rawValue
         ]
 
         let apiHeaders: [String: String] = [

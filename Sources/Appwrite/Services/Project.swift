@@ -9,6 +9,33 @@ import AppwriteModels
 open class Project: Service {
 
     ///
+    /// Get a project.
+    ///
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project
+    ///
+    open func get(
+    ) async throws -> AppwriteModels.Project {
+        let apiPath: String = "/project"
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [:]
+
+        let converter: (Any) throws -> AppwriteModels.Project = { response in
+            return AppwriteModels.Project.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
     /// Delete a project.
     ///
     /// - Throws: Exception if the request fails
@@ -36,13 +63,13 @@ open class Project: Service {
     /// disable a method in your project. 
     ///
     /// - Parameters:
-    ///   - methodId: AppwriteEnums.AuthMethod
+    ///   - methodId: AppwriteEnums.ProjectAuthMethodId
     ///   - enabled: Bool
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Project
     ///
     open func updateAuthMethod(
-        methodId: AppwriteEnums.AuthMethod,
+        methodId: AppwriteEnums.ProjectAuthMethodId,
         enabled: Bool
     ) async throws -> AppwriteModels.Project {
         let apiPath: String = "/project/auth-methods/{methodId}"
@@ -114,7 +141,7 @@ open class Project: Service {
     /// - Parameters:
     ///   - keyId: String
     ///   - name: String
-    ///   - scopes: [AppwriteEnums.Scopes]
+    ///   - scopes: [AppwriteEnums.ProjectKeyScopes]
     ///   - expire: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Key
@@ -122,7 +149,7 @@ open class Project: Service {
     open func createKey(
         keyId: String,
         name: String,
-        scopes: [AppwriteEnums.Scopes],
+        scopes: [AppwriteEnums.ProjectKeyScopes],
         expire: String? = nil
     ) async throws -> AppwriteModels.Key {
         let apiPath: String = "/project/keys"
@@ -130,7 +157,7 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "keyId": keyId,
             "name": name,
-            "scopes": scopes,
+            "scopes": scopes.map { $0.rawValue },
             "expire": expire
         ]
 
@@ -159,19 +186,19 @@ open class Project: Service {
     /// instead.
     ///
     /// - Parameters:
-    ///   - scopes: [AppwriteEnums.Scopes]
+    ///   - scopes: [AppwriteEnums.ProjectKeyScopes]
     ///   - duration: Int
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.EphemeralKey
     ///
     open func createEphemeralKey(
-        scopes: [AppwriteEnums.Scopes],
+        scopes: [AppwriteEnums.ProjectKeyScopes],
         duration: Int
     ) async throws -> AppwriteModels.EphemeralKey {
         let apiPath: String = "/project/keys/ephemeral"
 
         let apiParams: [String: Any?] = [
-            "scopes": scopes,
+            "scopes": scopes.map { $0.rawValue },
             "duration": duration
         ]
 
@@ -230,7 +257,7 @@ open class Project: Service {
     /// - Parameters:
     ///   - keyId: String
     ///   - name: String
-    ///   - scopes: [AppwriteEnums.Scopes]
+    ///   - scopes: [AppwriteEnums.ProjectKeyScopes]
     ///   - expire: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Key
@@ -238,7 +265,7 @@ open class Project: Service {
     open func updateKey(
         keyId: String,
         name: String,
-        scopes: [AppwriteEnums.Scopes],
+        scopes: [AppwriteEnums.ProjectKeyScopes],
         expire: String? = nil
     ) async throws -> AppwriteModels.Key {
         let apiPath: String = "/project/keys/{keyId}"
@@ -246,7 +273,7 @@ open class Project: Service {
 
         let apiParams: [String: Any?] = [
             "name": name,
-            "scopes": scopes,
+            "scopes": scopes.map { $0.rawValue },
             "expire": expire
         ]
 
@@ -1283,6 +1310,7 @@ open class Project: Service {
     /// - Parameters:
     ///   - clientId: String (optional)
     ///   - clientSecret: String (optional)
+    ///   - prompt: [AppwriteEnums.ProjectOAuth2GooglePrompt] (optional)
     ///   - enabled: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.OAuth2Google
@@ -1290,6 +1318,7 @@ open class Project: Service {
     open func updateOAuth2Google(
         clientId: String? = nil,
         clientSecret: String? = nil,
+        prompt: [AppwriteEnums.ProjectOAuth2GooglePrompt]? = nil,
         enabled: Bool? = nil
     ) async throws -> AppwriteModels.OAuth2Google {
         let apiPath: String = "/project/oauth2/google"
@@ -1297,6 +1326,7 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
+            "prompt": prompt?.map { $0.rawValue },
             "enabled": enabled
         ]
 
@@ -2269,12 +2299,12 @@ open class Project: Service {
     /// secret, p8 file, key/team IDs) are write-only and always returned empty.
     ///
     /// - Parameters:
-    ///   - providerId: AppwriteEnums.OAuthProvider
+    ///   - providerId: AppwriteEnums.ProjectOAuthProviderId
     /// - Throws: Exception if the request fails
     /// - Returns: Any
     ///
     open func getOAuth2Provider(
-        providerId: AppwriteEnums.OAuthProvider
+        providerId: AppwriteEnums.ProjectOAuthProviderId
     ) async throws -> Any {
         let apiPath: String = "/project/oauth2/{providerId}"
             .replacingOccurrences(of: "{providerId}", with: providerId.rawValue)
@@ -2984,6 +3014,111 @@ open class Project: Service {
     }
 
     ///
+    /// Configures if aliased emails such as subaddresses and emails with suffixes
+    /// are denied during new users sign-ups and email updates.
+    ///
+    /// - Parameters:
+    ///   - enabled: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project
+    ///
+    open func updateDenyAliasedEmailPolicy(
+        enabled: Bool
+    ) async throws -> AppwriteModels.Project {
+        let apiPath: String = "/project/policies/deny-aliased-email"
+
+        let apiParams: [String: Any?] = [
+            "enabled": enabled
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Project = { response in
+            return AppwriteModels.Project.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Configures if disposable emails from known temporary domains are denied
+    /// during new users sign-ups and email updates.
+    ///
+    /// - Parameters:
+    ///   - enabled: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project
+    ///
+    open func updateDenyDisposableEmailPolicy(
+        enabled: Bool
+    ) async throws -> AppwriteModels.Project {
+        let apiPath: String = "/project/policies/deny-disposable-email"
+
+        let apiParams: [String: Any?] = [
+            "enabled": enabled
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Project = { response in
+            return AppwriteModels.Project.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Configures if emails from free providers such as Gmail or Yahoo are denied
+    /// during new users sign-ups and email updates.
+    ///
+    /// - Parameters:
+    ///   - enabled: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project
+    ///
+    open func updateDenyFreeEmailPolicy(
+        enabled: Bool
+    ) async throws -> AppwriteModels.Project {
+        let apiPath: String = "/project/policies/deny-free-email"
+
+        let apiParams: [String: Any?] = [
+            "enabled": enabled
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Project = { response in
+            return AppwriteModels.Project.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
     /// Updating this policy allows you to control if team members can see other
     /// members information. When enabled, all team members can see ID, name,
     /// email, phone number, and MFA status of other members..
@@ -3331,12 +3466,12 @@ open class Project: Service {
     /// configuration for the requested project policy.
     ///
     /// - Parameters:
-    ///   - policyId: AppwriteEnums.ProjectPolicy
+    ///   - policyId: AppwriteEnums.ProjectPolicyId
     /// - Throws: Exception if the request fails
     /// - Returns: Any
     ///
     open func getPolicy(
-        policyId: AppwriteEnums.ProjectPolicy
+        policyId: AppwriteEnums.ProjectPolicyId
     ) async throws -> Any {
         let apiPath: String = "/project/policies/{policyId}"
             .replacingOccurrences(of: "{policyId}", with: policyId.rawValue)
@@ -3393,13 +3528,13 @@ open class Project: Service {
     /// disable a protocol in your project. 
     ///
     /// - Parameters:
-    ///   - protocolId: AppwriteEnums.ProtocolId
+    ///   - protocolId: AppwriteEnums.ProjectProtocolId
     ///   - enabled: Bool
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Project
     ///
     open func updateProtocol(
-        protocolId: AppwriteEnums.ProtocolId,
+        protocolId: AppwriteEnums.ProjectProtocolId,
         enabled: Bool
     ) async throws -> AppwriteModels.Project {
         let apiPath: String = "/project/protocols/{protocolId}"
@@ -3431,13 +3566,13 @@ open class Project: Service {
     /// disable a service in your project. 
     ///
     /// - Parameters:
-    ///   - serviceId: AppwriteEnums.ServiceId
+    ///   - serviceId: AppwriteEnums.ProjectServiceId
     ///   - enabled: Bool
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Project
     ///
     open func updateService(
-        serviceId: AppwriteEnums.ServiceId,
+        serviceId: AppwriteEnums.ProjectServiceId,
         enabled: Bool
     ) async throws -> AppwriteModels.Project {
         let apiPath: String = "/project/services/{serviceId}"
@@ -3478,7 +3613,7 @@ open class Project: Service {
     ///   - senderName: String (optional)
     ///   - replyToEmail: String (optional)
     ///   - replyToName: String (optional)
-    ///   - secure: AppwriteEnums.Secure (optional)
+    ///   - secure: AppwriteEnums.ProjectSMTPSecure (optional)
     ///   - enabled: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Project
@@ -3492,7 +3627,7 @@ open class Project: Service {
         senderName: String? = nil,
         replyToEmail: String? = nil,
         replyToName: String? = nil,
-        secure: AppwriteEnums.Secure? = nil,
+        secure: AppwriteEnums.ProjectSMTPSecure? = nil,
         enabled: Bool? = nil
     ) async throws -> AppwriteModels.Project {
         let apiPath: String = "/project/smtp"
@@ -3506,7 +3641,7 @@ open class Project: Service {
             "senderName": senderName,
             "replyToEmail": replyToEmail,
             "replyToName": replyToName,
-            "secure": secure,
+            "secure": secure?.rawValue,
             "enabled": enabled
         ]
 
@@ -3597,8 +3732,8 @@ open class Project: Service {
     /// endpoint to modify the content of your email templates.
     ///
     /// - Parameters:
-    ///   - templateId: AppwriteEnums.EmailTemplateType
-    ///   - locale: AppwriteEnums.EmailTemplateLocale (optional)
+    ///   - templateId: AppwriteEnums.ProjectEmailTemplateId
+    ///   - locale: AppwriteEnums.ProjectEmailTemplateLocale (optional)
     ///   - subject: String (optional)
     ///   - message: String (optional)
     ///   - senderName: String (optional)
@@ -3609,8 +3744,8 @@ open class Project: Service {
     /// - Returns: AppwriteModels.EmailTemplate
     ///
     open func updateEmailTemplate(
-        templateId: AppwriteEnums.EmailTemplateType,
-        locale: AppwriteEnums.EmailTemplateLocale? = nil,
+        templateId: AppwriteEnums.ProjectEmailTemplateId,
+        locale: AppwriteEnums.ProjectEmailTemplateLocale? = nil,
         subject: String? = nil,
         message: String? = nil,
         senderName: String? = nil,
@@ -3621,8 +3756,8 @@ open class Project: Service {
         let apiPath: String = "/project/templates/email"
 
         let apiParams: [String: Any?] = [
-            "templateId": templateId,
-            "locale": locale,
+            "templateId": templateId.rawValue,
+            "locale": locale?.rawValue,
             "subject": subject,
             "message": message,
             "senderName": senderName,
@@ -3654,20 +3789,20 @@ open class Project: Service {
     /// details.
     ///
     /// - Parameters:
-    ///   - templateId: AppwriteEnums.EmailTemplateType
-    ///   - locale: AppwriteEnums.EmailTemplateLocale (optional)
+    ///   - templateId: AppwriteEnums.ProjectEmailTemplateId
+    ///   - locale: AppwriteEnums.ProjectEmailTemplateLocale (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.EmailTemplate
     ///
     open func getEmailTemplate(
-        templateId: AppwriteEnums.EmailTemplateType,
-        locale: AppwriteEnums.EmailTemplateLocale? = nil
+        templateId: AppwriteEnums.ProjectEmailTemplateId,
+        locale: AppwriteEnums.ProjectEmailTemplateLocale? = nil
     ) async throws -> AppwriteModels.EmailTemplate {
         let apiPath: String = "/project/templates/email/{templateId}"
             .replacingOccurrences(of: "{templateId}", with: templateId.rawValue)
 
         let apiParams: [String: Any?] = [
-            "locale": locale
+            "locale": locale?.rawValue
         ]
 
         let apiHeaders: [String: String] = [:]

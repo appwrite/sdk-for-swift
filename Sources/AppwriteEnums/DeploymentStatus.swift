@@ -1,6 +1,6 @@
 import Foundation
 
-public enum DeploymentStatus: String, CustomStringConvertible {
+public enum DeploymentStatus: String, Codable, CustomStringConvertible {
     case waiting = "waiting"
     case processing = "processing"
     case building = "building"

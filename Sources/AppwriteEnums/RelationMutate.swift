@@ -1,6 +1,6 @@
 import Foundation
 
-public enum RelationMutate: String, CustomStringConvertible {
+public enum RelationMutate: String, Codable, CustomStringConvertible {
     case cascade = "cascade"
     case restrict = "restrict"
     case setNull = "setNull"

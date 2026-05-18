@@ -1,6 +1,6 @@
 import Foundation
 
-public enum PlatformType: String, CustomStringConvertible {
+public enum PlatformType: String, Codable, CustomStringConvertible {
     case windows = "windows"
     case apple = "apple"
     case android = "android"

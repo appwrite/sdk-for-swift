@@ -1,6 +1,6 @@
 import Foundation
 
-public enum ProtocolId: String, CustomStringConvertible {
+public enum ProjectProtocolId: String, Codable, CustomStringConvertible {
     case rest = "rest"
     case graphql = "graphql"
     case websocket = "websocket"

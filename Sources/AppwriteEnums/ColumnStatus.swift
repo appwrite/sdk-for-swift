@@ -1,6 +1,6 @@
 import Foundation
 
-public enum ColumnStatus: String, CustomStringConvertible {
+public enum ColumnStatus: String, Codable, CustomStringConvertible {
     case available = "available"
     case processing = "processing"
     case deleting = "deleting"

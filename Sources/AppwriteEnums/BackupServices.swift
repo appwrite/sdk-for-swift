@@ -1,6 +1,6 @@
 import Foundation
 
-public enum BackupServices: String, CustomStringConvertible {
+public enum BackupServices: String, Codable, CustomStringConvertible {
     case databases = "databases"
     case tablesdb = "tablesdb"
     case documentsdb = "documentsdb"

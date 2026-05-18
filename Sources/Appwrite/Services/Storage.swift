@@ -88,7 +88,7 @@ open class Storage: Service {
             "enabled": enabled,
             "maximumFileSize": maximumFileSize,
             "allowedFileExtensions": allowedFileExtensions,
-            "compression": compression,
+            "compression": compression?.rawValue,
             "encryption": encryption,
             "antivirus": antivirus,
             "transformations": transformations
@@ -184,7 +184,7 @@ open class Storage: Service {
             "enabled": enabled,
             "maximumFileSize": maximumFileSize,
             "allowedFileExtensions": allowedFileExtensions,
-            "compression": compression,
+            "compression": compression?.rawValue,
             "encryption": encryption,
             "antivirus": antivirus,
             "transformations": transformations
@@ -535,7 +535,7 @@ open class Storage: Service {
         let apiParams: [String: Any?] = [
             "width": width,
             "height": height,
-            "gravity": gravity,
+            "gravity": gravity?.rawValue,
             "quality": quality,
             "borderWidth": borderWidth,
             "borderColor": borderColor,
@@ -543,7 +543,7 @@ open class Storage: Service {
             "opacity": opacity,
             "rotation": rotation,
             "background": background,
-            "output": output,
+            "output": output?.rawValue,
             "token": token,
             "project": client.config["project"],
             "session": client.config["session"]

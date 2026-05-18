@@ -1,6 +1,6 @@
 import Foundation
 
-public enum TemplateReferenceType: String, CustomStringConvertible {
+public enum TemplateReferenceType: String, Codable, CustomStringConvertible {
     case commit = "commit"
     case branch = "branch"
     case tag = "tag"

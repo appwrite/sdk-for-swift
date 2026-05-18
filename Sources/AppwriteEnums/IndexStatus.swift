@@ -1,6 +1,6 @@
 import Foundation
 
-public enum IndexStatus: String, CustomStringConvertible {
+public enum IndexStatus: String, Codable, CustomStringConvertible {
     case available = "available"
     case processing = "processing"
     case deleting = "deleting"

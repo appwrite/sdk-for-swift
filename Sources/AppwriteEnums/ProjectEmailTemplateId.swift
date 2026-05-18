@@ -1,6 +1,6 @@
 import Foundation
 
-public enum EmailTemplateType: String, CustomStringConvertible {
+public enum ProjectEmailTemplateId: String, Codable, CustomStringConvertible {
     case verification = "verification"
     case magicSession = "magicSession"
     case recovery = "recovery"

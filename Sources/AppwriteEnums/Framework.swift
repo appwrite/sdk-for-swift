@@ -1,6 +1,6 @@
 import Foundation
 
-public enum Framework: String, CustomStringConvertible {
+public enum Framework: String, Codable, CustomStringConvertible {
     case analog = "analog"
     case angular = "angular"
     case nextjs = "nextjs"

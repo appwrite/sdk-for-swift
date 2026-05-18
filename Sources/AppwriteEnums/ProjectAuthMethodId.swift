@@ -1,6 +1,6 @@
 import Foundation
 
-public enum AuthMethod: String, CustomStringConvertible {
+public enum ProjectAuthMethodId: String, Codable, CustomStringConvertible {
     case emailPassword = "email-password"
     case magicUrl = "magic-url"
     case emailOtp = "email-otp"

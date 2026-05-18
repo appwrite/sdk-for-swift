@@ -1,6 +1,6 @@
 import Foundation
 
-public enum OAuthProvider: String, CustomStringConvertible {
+public enum OAuthProvider: String, Codable, CustomStringConvertible {
     case amazon = "amazon"
     case apple = "apple"
     case auth0 = "auth0"
@@ -44,8 +44,6 @@ public enum OAuthProvider: String, CustomStringConvertible {
     case yandex = "yandex"
     case zoho = "zoho"
     case zoom = "zoom"
-    case githubImagine = "githubImagine"
-    case googleImagine = "googleImagine"
 
     public var description: String {
         return rawValue

@@ -1,6 +1,6 @@
 import Foundation
 
-public enum SmtpEncryption: String, CustomStringConvertible {
+public enum SmtpEncryption: String, Codable, CustomStringConvertible {
     case `none` = "none"
     case ssl = "ssl"
     case tls = "tls"

@@ -1,6 +1,6 @@
 import Foundation
 
-public enum DatabasesIndexType: String, CustomStringConvertible {
+public enum DatabasesIndexType: String, Codable, CustomStringConvertible {
     case key = "key"
     case fulltext = "fulltext"
     case unique = "unique"

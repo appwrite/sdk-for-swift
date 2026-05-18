@@ -1,6 +1,6 @@
 import Foundation
 
-public enum RelationshipType: String, CustomStringConvertible {
+public enum RelationshipType: String, Codable, CustomStringConvertible {
     case oneToOne = "oneToOne"
     case manyToOne = "manyToOne"
     case manyToMany = "manyToMany"

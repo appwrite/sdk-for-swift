@@ -1,6 +1,6 @@
 import Foundation
 
-public enum Scopes: String, CustomStringConvertible {
+public enum Scopes: String, Codable, CustomStringConvertible {
     case projectRead = "project.read"
     case projectWrite = "project.write"
     case keysRead = "keys.read"
@@ -79,6 +79,12 @@ public enum Scopes: String, CustomStringConvertible {
     case schedulesWrite = "schedules.write"
     case vcsRead = "vcs.read"
     case vcsWrite = "vcs.write"
+    case insightsRead = "insights.read"
+    case insightsWrite = "insights.write"
+    case reportsRead = "reports.read"
+    case reportsWrite = "reports.write"
+    case presencesRead = "presences.read"
+    case presencesWrite = "presences.write"
     case backupsPoliciesRead = "backups.policies.read"
     case backupsPoliciesWrite = "backups.policies.write"
     case archivesRead = "archives.read"
@@ -88,6 +94,7 @@ public enum Scopes: String, CustomStringConvertible {
     case domainsRead = "domains.read"
     case domainsWrite = "domains.write"
     case eventsRead = "events.read"
+    case usageRead = "usage.read"
 
     public var description: String {
         return rawValue
