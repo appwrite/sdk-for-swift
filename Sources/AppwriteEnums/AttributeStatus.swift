@@ -1,6 +1,6 @@
 import Foundation
 
-public enum AttributeStatus: String, CustomStringConvertible {
+public enum AttributeStatus: String, Codable, CustomStringConvertible {
     case available = "available"
     case processing = "processing"
     case deleting = "deleting"

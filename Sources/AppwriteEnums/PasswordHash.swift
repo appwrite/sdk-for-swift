@@ -1,6 +1,6 @@
 import Foundation
 
-public enum PasswordHash: String, CustomStringConvertible {
+public enum PasswordHash: String, Codable, CustomStringConvertible {
     case sha1 = "sha1"
     case sha224 = "sha224"
     case sha256 = "sha256"

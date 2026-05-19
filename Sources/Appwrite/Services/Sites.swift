@@ -103,7 +103,7 @@ open class Sites: Service {
         let apiParams: [String: Any?] = [
             "siteId": siteId,
             "name": name,
-            "framework": framework,
+            "framework": framework.rawValue,
             "enabled": enabled,
             "logging": logging,
             "timeout": timeout,
@@ -111,8 +111,8 @@ open class Sites: Service {
             "buildCommand": buildCommand,
             "startCommand": startCommand,
             "outputDirectory": outputDirectory,
-            "buildRuntime": buildRuntime,
-            "adapter": adapter,
+            "buildRuntime": buildRuntime.rawValue,
+            "adapter": adapter?.rawValue,
             "installationId": installationId,
             "fallbackFile": fallbackFile,
             "providerRepositoryId": providerRepositoryId,
@@ -283,7 +283,7 @@ open class Sites: Service {
 
         let apiParams: [String: Any?] = [
             "name": name,
-            "framework": framework,
+            "framework": framework.rawValue,
             "enabled": enabled,
             "logging": logging,
             "timeout": timeout,
@@ -291,8 +291,8 @@ open class Sites: Service {
             "buildCommand": buildCommand,
             "startCommand": startCommand,
             "outputDirectory": outputDirectory,
-            "buildRuntime": buildRuntime,
-            "adapter": adapter,
+            "buildRuntime": buildRuntime?.rawValue,
+            "adapter": adapter?.rawValue,
             "fallbackFile": fallbackFile,
             "installationId": installationId,
             "providerRepositoryId": providerRepositoryId,
@@ -559,7 +559,7 @@ open class Sites: Service {
             "repository": repository,
             "owner": owner,
             "rootDirectory": rootDirectory,
-            "type": type,
+            "type": type.rawValue,
             "reference": reference,
             "activate": activate
         ]
@@ -604,7 +604,7 @@ open class Sites: Service {
             .replacingOccurrences(of: "{siteId}", with: siteId)
 
         let apiParams: [String: Any?] = [
-            "type": type,
+            "type": type.rawValue,
             "reference": reference,
             "activate": activate
         ]
@@ -712,7 +712,7 @@ open class Sites: Service {
             .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
 
         let apiParams: [String: Any?] = [
-            "type": type,
+            "type": type?.rawValue,
             "project": client.config["project"],
             "key": client.config["key"]
         ]

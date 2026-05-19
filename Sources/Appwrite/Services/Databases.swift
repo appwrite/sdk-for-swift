@@ -2062,11 +2062,11 @@ open class Databases: Service {
 
         let apiParams: [String: Any?] = [
             "relatedCollectionId": relatedCollectionId,
-            "type": type,
+            "type": type.rawValue,
             "twoWay": twoWay,
             "key": key,
             "twoWayKey": twoWayKey,
-            "onDelete": onDelete
+            "onDelete": onDelete?.rawValue
         ]
 
         let apiHeaders: [String: String] = [
@@ -2114,7 +2114,7 @@ open class Databases: Service {
             .replacingOccurrences(of: "{key}", with: key)
 
         let apiParams: [String: Any?] = [
-            "onDelete": onDelete,
+            "onDelete": onDelete?.rawValue,
             "newKey": newKey
         ]
 
@@ -3703,9 +3703,9 @@ open class Databases: Service {
 
         let apiParams: [String: Any?] = [
             "key": key,
-            "type": type,
+            "type": type.rawValue,
             "attributes": attributes,
-            "orders": orders,
+            "orders": orders?.map { $0.rawValue },
             "lengths": lengths
         ]
 

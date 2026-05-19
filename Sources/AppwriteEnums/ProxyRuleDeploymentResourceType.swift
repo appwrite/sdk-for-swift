@@ -1,6 +1,6 @@
 import Foundation
 
-public enum ProxyRuleDeploymentResourceType: String, CustomStringConvertible {
+public enum ProxyRuleDeploymentResourceType: String, Codable, CustomStringConvertible {
     case function = "function"
     case site = "site"
 

@@ -145,7 +145,7 @@ open class Message: Codable {
             deliveredAt: map["deliveredAt"] as? String,
             deliveryErrors: map["deliveryErrors"] as? [String],
             deliveredTotal: map["deliveredTotal"] as! Int,
-            data: map["data"] as! [String: AnyCodable],
+            data: (map["data"] as! [String: Any]).mapValues { AnyCodable($0) },
             status: MessageStatus(rawValue: map["status"] as! String)!
         )
     }

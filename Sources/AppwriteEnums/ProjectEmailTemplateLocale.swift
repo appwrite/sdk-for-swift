@@ -1,6 +1,6 @@
 import Foundation
 
-public enum EmailTemplateLocale: String, CustomStringConvertible {
+public enum ProjectEmailTemplateLocale: String, Codable, CustomStringConvertible {
     case af = "af"
     case arAe = "ar-ae"
     case arBh = "ar-bh"

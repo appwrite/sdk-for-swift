@@ -1,6 +1,6 @@
 import Foundation
 
-public enum OrderBy: String, CustomStringConvertible {
+public enum OrderBy: String, Codable, CustomStringConvertible {
     case asc = "asc"
     case desc = "desc"
 

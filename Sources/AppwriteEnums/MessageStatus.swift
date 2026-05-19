@@ -1,6 +1,6 @@
 import Foundation
 
-public enum MessageStatus: String, CustomStringConvertible {
+public enum MessageStatus: String, Codable, CustomStringConvertible {
     case draft = "draft"
     case processing = "processing"
     case scheduled = "scheduled"

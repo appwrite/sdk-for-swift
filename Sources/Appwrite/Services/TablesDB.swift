@@ -2027,11 +2027,11 @@ open class TablesDB: Service {
 
         let apiParams: [String: Any?] = [
             "relatedTableId": relatedTableId,
-            "type": type,
+            "type": type.rawValue,
             "twoWay": twoWay,
             "key": key,
             "twoWayKey": twoWayKey,
-            "onDelete": onDelete
+            "onDelete": onDelete?.rawValue
         ]
 
         let apiHeaders: [String: String] = [
@@ -2608,7 +2608,7 @@ open class TablesDB: Service {
             .replacingOccurrences(of: "{key}", with: key)
 
         let apiParams: [String: Any?] = [
-            "onDelete": onDelete,
+            "onDelete": onDelete?.rawValue,
             "newKey": newKey
         ]
 
@@ -2701,9 +2701,9 @@ open class TablesDB: Service {
 
         let apiParams: [String: Any?] = [
             "key": key,
-            "type": type,
+            "type": type.rawValue,
             "columns": columns,
-            "orders": orders,
+            "orders": orders?.map { $0.rawValue },
             "lengths": lengths
         ]
 

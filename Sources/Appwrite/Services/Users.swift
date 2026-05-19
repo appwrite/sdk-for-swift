@@ -748,7 +748,7 @@ open class Users: Service {
             "userId": userId,
             "email": email,
             "password": password,
-            "passwordVersion": passwordVersion,
+            "passwordVersion": passwordVersion?.rawValue,
             "name": name
         ]
 
@@ -2193,7 +2193,7 @@ open class Users: Service {
 
         let apiParams: [String: Any?] = [
             "targetId": targetId,
-            "providerType": providerType,
+            "providerType": providerType.rawValue,
             "identifier": identifier,
             "providerId": providerId,
             "name": name

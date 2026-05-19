@@ -1,6 +1,6 @@
 import Foundation
 
-public enum Runtime: String, CustomStringConvertible {
+public enum Runtime: String, Codable, CustomStringConvertible {
     case node145 = "node-14.5"
     case node160 = "node-16.0"
     case node180 = "node-18.0"

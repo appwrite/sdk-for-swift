@@ -1,6 +1,6 @@
 import Foundation
 
-public enum DatabaseType: String, CustomStringConvertible {
+public enum DatabaseType: String, Codable, CustomStringConvertible {
     case legacy = "legacy"
     case tablesdb = "tablesdb"
     case documentsdb = "documentsdb"

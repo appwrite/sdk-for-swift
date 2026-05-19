@@ -1,5 +1,6 @@
 import Foundation
 import JSONCodable
+import AppwriteEnums
 
 /// OAuth2Google
 open class OAuth2Google: Codable {
@@ -9,6 +10,7 @@ open class OAuth2Google: Codable {
         case enabled = "enabled"
         case clientId = "clientId"
         case clientSecret = "clientSecret"
+        case prompt = "prompt"
     }
 
     /// OAuth2 provider ID.
@@ -19,17 +21,21 @@ open class OAuth2Google: Codable {
     public let clientId: String
     /// Google OAuth2 client secret.
     public let clientSecret: String
+    /// Google OAuth2 prompt values.
+    public let prompt: [AppwriteEnums.OAuth2GooglePrompt]
 
     init(
         id: String,
         enabled: Bool,
         clientId: String,
-        clientSecret: String
+        clientSecret: String,
+        prompt: [AppwriteEnums.OAuth2GooglePrompt]
     ) {
         self.id = id
         self.enabled = enabled
         self.clientId = clientId
         self.clientSecret = clientSecret
+        self.prompt = prompt
     }
 
     public required init(from decoder: Decoder) throws {
@@ -39,6 +45,7 @@ open class OAuth2Google: Codable {
         self.enabled = try container.decode(Bool.self, forKey: .enabled)
         self.clientId = try container.decode(String.self, forKey: .clientId)
         self.clientSecret = try container.decode(String.self, forKey: .clientSecret)
+        self.prompt = try container.decode([String].self, forKey: .prompt).map { OAuth2GooglePrompt(rawValue: $0)! }
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -48,6 +55,7 @@ open class OAuth2Google: Codable {
         try container.encode(enabled, forKey: .enabled)
         try container.encode(clientId, forKey: .clientId)
         try container.encode(clientSecret, forKey: .clientSecret)
+        try container.encode(prompt.map { $0.rawValue }, forKey: .prompt)
     }
 
     public func toMap() -> [String: Any] {
@@ -55,7 +63,8 @@ open class OAuth2Google: Codable {
             "$id": id as Any,
             "enabled": enabled as Any,
             "clientId": clientId as Any,
-            "clientSecret": clientSecret as Any
+            "clientSecret": clientSecret as Any,
+            "prompt": prompt.map { $0.rawValue } as Any
         ]
     }
 
@@ -64,7 +73,8 @@ open class OAuth2Google: Codable {
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,
             clientId: map["clientId"] as! String,
-            clientSecret: map["clientSecret"] as! String
+            clientSecret: map["clientSecret"] as! String,
+            prompt: (map["prompt"] as! [String]).map { OAuth2GooglePrompt(rawValue: $0)! }
         )
     }
 }

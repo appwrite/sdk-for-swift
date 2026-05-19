@@ -104,7 +104,7 @@ open class Functions: Service {
         let apiParams: [String: Any?] = [
             "functionId": functionId,
             "name": name,
-            "runtime": runtime,
+            "runtime": runtime.rawValue,
             "execute": execute,
             "events": events,
             "schedule": schedule,
@@ -113,7 +113,7 @@ open class Functions: Service {
             "logging": logging,
             "entrypoint": entrypoint,
             "commands": commands,
-            "scopes": scopes,
+            "scopes": scopes?.map { $0.rawValue },
             "installationId": installationId,
             "providerRepositoryId": providerRepositoryId,
             "providerBranch": providerBranch,
@@ -280,7 +280,7 @@ open class Functions: Service {
 
         let apiParams: [String: Any?] = [
             "name": name,
-            "runtime": runtime,
+            "runtime": runtime?.rawValue,
             "execute": execute,
             "events": events,
             "schedule": schedule,
@@ -289,7 +289,7 @@ open class Functions: Service {
             "logging": logging,
             "entrypoint": entrypoint,
             "commands": commands,
-            "scopes": scopes,
+            "scopes": scopes?.map { $0.rawValue },
             "installationId": installationId,
             "providerRepositoryId": providerRepositoryId,
             "providerBranch": providerBranch,
@@ -562,7 +562,7 @@ open class Functions: Service {
             "repository": repository,
             "owner": owner,
             "rootDirectory": rootDirectory,
-            "type": type,
+            "type": type.rawValue,
             "reference": reference,
             "activate": activate
         ]
@@ -607,7 +607,7 @@ open class Functions: Service {
             .replacingOccurrences(of: "{functionId}", with: functionId)
 
         let apiParams: [String: Any?] = [
-            "type": type,
+            "type": type.rawValue,
             "reference": reference,
             "activate": activate
         ]
@@ -715,7 +715,7 @@ open class Functions: Service {
             .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
 
         let apiParams: [String: Any?] = [
-            "type": type,
+            "type": type?.rawValue,
             "project": client.config["project"],
             "key": client.config["key"]
         ]
@@ -841,7 +841,7 @@ open class Functions: Service {
             "body": body,
             "async": async,
             "path": path,
-            "method": method,
+            "method": method?.rawValue,
             "headers": headers,
             "scheduledAt": scheduledAt
         ]
