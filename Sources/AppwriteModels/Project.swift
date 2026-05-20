@@ -83,7 +83,7 @@ open class Project: Codable {
     /// Project region
     public let region: String
     /// Billing limits reached
-    public let billingLimits: BillingLimits
+    public let billingLimits: BillingLimits?
     /// Project blocks information
     public let blocks: [Block]
     /// Last time the project was accessed via console. Used with plan&#039;s projectInactivityDays to determine if project is paused.
@@ -114,7 +114,7 @@ open class Project: Codable {
         services: [ProjectService],
         protocols: [ProjectProtocol],
         region: String,
-        billingLimits: BillingLimits,
+        billingLimits: BillingLimits?,
         blocks: [Block],
         consoleAccessedAt: String
     ) {
@@ -174,7 +174,7 @@ open class Project: Codable {
         self.services = try container.decode([ProjectService].self, forKey: .services)
         self.protocols = try container.decode([ProjectProtocol].self, forKey: .protocols)
         self.region = try container.decode(String.self, forKey: .region)
-        self.billingLimits = try container.decode(BillingLimits.self, forKey: .billingLimits)
+        self.billingLimits = try container.decodeIfPresent(BillingLimits.self, forKey: .billingLimits)
         self.blocks = try container.decode([Block].self, forKey: .blocks)
         self.consoleAccessedAt = try container.decode(String.self, forKey: .consoleAccessedAt)
     }
@@ -206,7 +206,7 @@ open class Project: Codable {
         try container.encode(services, forKey: .services)
         try container.encode(protocols, forKey: .protocols)
         try container.encode(region, forKey: .region)
-        try container.encode(billingLimits, forKey: .billingLimits)
+        try container.encodeIfPresent(billingLimits, forKey: .billingLimits)
         try container.encode(blocks, forKey: .blocks)
         try container.encode(consoleAccessedAt, forKey: .consoleAccessedAt)
     }

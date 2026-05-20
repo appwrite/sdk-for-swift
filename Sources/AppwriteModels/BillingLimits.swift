@@ -16,31 +16,31 @@ open class BillingLimits: Codable {
     }
 
     /// Bandwidth limit
-    public let bandwidth: Int
+    public let bandwidth: Int?
     /// Storage limit
-    public let storage: Int
+    public let storage: Int?
     /// Users limit
-    public let users: Int
+    public let users: Int?
     /// Executions limit
-    public let executions: Int
+    public let executions: Int?
     /// GBHours limit
-    public let GBHours: Int
+    public let GBHours: Int?
     /// Image transformations limit
-    public let imageTransformations: Int
+    public let imageTransformations: Int?
     /// Auth phone limit
-    public let authPhone: Int
+    public let authPhone: Int?
     /// Budget limit percentage
-    public let budgetLimit: Int
+    public let budgetLimit: Int?
 
     init(
-        bandwidth: Int,
-        storage: Int,
-        users: Int,
-        executions: Int,
-        GBHours: Int,
-        imageTransformations: Int,
-        authPhone: Int,
-        budgetLimit: Int
+        bandwidth: Int?,
+        storage: Int?,
+        users: Int?,
+        executions: Int?,
+        GBHours: Int?,
+        imageTransformations: Int?,
+        authPhone: Int?,
+        budgetLimit: Int?
     ) {
         self.bandwidth = bandwidth
         self.storage = storage
@@ -55,27 +55,27 @@ open class BillingLimits: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.bandwidth = try container.decode(Int.self, forKey: .bandwidth)
-        self.storage = try container.decode(Int.self, forKey: .storage)
-        self.users = try container.decode(Int.self, forKey: .users)
-        self.executions = try container.decode(Int.self, forKey: .executions)
-        self.GBHours = try container.decode(Int.self, forKey: .GBHours)
-        self.imageTransformations = try container.decode(Int.self, forKey: .imageTransformations)
-        self.authPhone = try container.decode(Int.self, forKey: .authPhone)
-        self.budgetLimit = try container.decode(Int.self, forKey: .budgetLimit)
+        self.bandwidth = try container.decodeIfPresent(Int.self, forKey: .bandwidth)
+        self.storage = try container.decodeIfPresent(Int.self, forKey: .storage)
+        self.users = try container.decodeIfPresent(Int.self, forKey: .users)
+        self.executions = try container.decodeIfPresent(Int.self, forKey: .executions)
+        self.GBHours = try container.decodeIfPresent(Int.self, forKey: .GBHours)
+        self.imageTransformations = try container.decodeIfPresent(Int.self, forKey: .imageTransformations)
+        self.authPhone = try container.decodeIfPresent(Int.self, forKey: .authPhone)
+        self.budgetLimit = try container.decodeIfPresent(Int.self, forKey: .budgetLimit)
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
-        try container.encode(bandwidth, forKey: .bandwidth)
-        try container.encode(storage, forKey: .storage)
-        try container.encode(users, forKey: .users)
-        try container.encode(executions, forKey: .executions)
-        try container.encode(GBHours, forKey: .GBHours)
-        try container.encode(imageTransformations, forKey: .imageTransformations)
-        try container.encode(authPhone, forKey: .authPhone)
-        try container.encode(budgetLimit, forKey: .budgetLimit)
+        try container.encodeIfPresent(bandwidth, forKey: .bandwidth)
+        try container.encodeIfPresent(storage, forKey: .storage)
+        try container.encodeIfPresent(users, forKey: .users)
+        try container.encodeIfPresent(executions, forKey: .executions)
+        try container.encodeIfPresent(GBHours, forKey: .GBHours)
+        try container.encodeIfPresent(imageTransformations, forKey: .imageTransformations)
+        try container.encodeIfPresent(authPhone, forKey: .authPhone)
+        try container.encodeIfPresent(budgetLimit, forKey: .budgetLimit)
     }
 
     public func toMap() -> [String: Any] {
@@ -93,14 +93,14 @@ open class BillingLimits: Codable {
 
     public static func from(map: [String: Any] ) -> BillingLimits {
         return BillingLimits(
-            bandwidth: map["bandwidth"] as! Int,
-            storage: map["storage"] as! Int,
-            users: map["users"] as! Int,
-            executions: map["executions"] as! Int,
-            GBHours: map["GBHours"] as! Int,
-            imageTransformations: map["imageTransformations"] as! Int,
-            authPhone: map["authPhone"] as! Int,
-            budgetLimit: map["budgetLimit"] as! Int
+            bandwidth: map["bandwidth"] as? Int,
+            storage: map["storage"] as? Int,
+            users: map["users"] as? Int,
+            executions: map["executions"] as? Int,
+            GBHours: map["GBHours"] as? Int,
+            imageTransformations: map["imageTransformations"] as? Int,
+            authPhone: map["authPhone"] as? Int,
+            budgetLimit: map["budgetLimit"] as? Int
         )
     }
 }
