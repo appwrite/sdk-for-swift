@@ -1589,6 +1589,59 @@ open class Account: Service {
     }
 
     ///
+    /// Allow the user to login to their account using the OAuth2 provider of their
+    /// choice. Each OAuth2 provider should be enabled from the Appwrite console
+    /// first. Use the success and failure arguments to provide a redirect URL's
+    /// back to your app when login is completed.
+    /// 
+    /// If there is already an active session, the new session will be attached to
+    /// the logged-in account. If there are no active sessions, the server will
+    /// attempt to look for a user with the same email address as the email
+    /// received from the OAuth2 provider and attach the new session to the
+    /// existing user. If no matching user is found - the server will create a new
+    /// user.
+    /// 
+    /// A user is limited to 10 active sessions at a time by default. [Learn more
+    /// about session
+    /// limits](https://appwrite.io/docs/authentication-security#limits).
+    /// 
+    ///
+    /// - Parameters:
+    ///   - provider: AppwriteEnums.OAuthProvider
+    ///   - success: String (optional)
+    ///   - failure: String (optional)
+    ///   - scopes: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: String?
+    ///
+    open func createOAuth2Session(
+        provider: AppwriteEnums.OAuthProvider,
+        success: String? = nil,
+        failure: String? = nil,
+        scopes: [String]? = nil
+    ) async throws -> String? {
+        let apiPath: String = "/account/sessions/oauth2/{provider}"
+            .replacingOccurrences(of: "{provider}", with: provider.rawValue)
+
+        let apiParams: [String: Any?] = [
+            "success": success,
+            "failure": failure,
+            "scopes": scopes,
+            "project": client.config["project"],
+            "session": client.config["session"]
+        ]
+
+        let apiHeaders: [String: String] = [:]
+
+        return try await client.redirect(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams
+        )
+    }
+
+    ///
     /// Use this endpoint to create a session from token. Provide the **userId**
     /// and **secret** parameters from the successful response of authentication
     /// flows initiated by token creation. For example, magic URL and phone login.
@@ -1810,6 +1863,120 @@ open class Account: Service {
         return try await updateStatus(
             nestedType: [String: AnyCodable].self
         )
+    }
+
+    ///
+    /// Use this endpoint to register a device for push notifications. Provide a
+    /// target ID (custom or generated using ID.unique()), a device identifier
+    /// (usually a device token), and optionally specify which provider should send
+    /// notifications to this target. The target is automatically linked to the
+    /// current session and includes device information like brand and model.
+    ///
+    /// - Parameters:
+    ///   - targetId: String
+    ///   - identifier: String
+    ///   - providerId: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Target
+    ///
+    open func createPushTarget(
+        targetId: String,
+        identifier: String,
+        providerId: String? = nil
+    ) async throws -> AppwriteModels.Target {
+        let apiPath: String = "/account/targets/push"
+
+        let apiParams: [String: Any?] = [
+            "targetId": targetId,
+            "identifier": identifier,
+            "providerId": providerId
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Target = { response in
+            return AppwriteModels.Target.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update the currently logged in user's push notification target. You can
+    /// modify the target's identifier (device token) and provider ID (token,
+    /// email, phone etc.). The target must exist and belong to the current user.
+    /// If you change the provider ID, notifications will be sent through the new
+    /// messaging provider instead.
+    ///
+    /// - Parameters:
+    ///   - targetId: String
+    ///   - identifier: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Target
+    ///
+    open func updatePushTarget(
+        targetId: String,
+        identifier: String
+    ) async throws -> AppwriteModels.Target {
+        let apiPath: String = "/account/targets/{targetId}/push"
+            .replacingOccurrences(of: "{targetId}", with: targetId)
+
+        let apiParams: [String: Any?] = [
+            "identifier": identifier
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Target = { response in
+            return AppwriteModels.Target.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PUT",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Delete a push notification target for the currently logged in user. After
+    /// deletion, the device will no longer receive push notifications. The target
+    /// must exist and belong to the current user.
+    ///
+    /// - Parameters:
+    ///   - targetId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
+    ///
+    open func deletePushTarget(
+        targetId: String
+    ) async throws -> Any {
+        let apiPath: String = "/account/targets/{targetId}/push"
+            .replacingOccurrences(of: "{targetId}", with: targetId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json"
+        ]
+
+        return try await client.call(
+            method: "DELETE",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams        )
     }
 
     ///
