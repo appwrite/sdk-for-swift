@@ -44,8 +44,6 @@ public enum ProjectOAuthProviderId: String, Codable, CustomStringConvertible {
     case yandex = "yandex"
     case zoho = "zoho"
     case zoom = "zoom"
-    case githubImagine = "githubImagine"
-    case googleImagine = "googleImagine"
 
     public var description: String {
         return rawValue

@@ -28,6 +28,8 @@ let site = try await sites.update(
     providerBranch: "<PROVIDER_BRANCH>", // optional
     providerSilentMode: false, // optional
     providerRootDirectory: "<PROVIDER_ROOT_DIRECTORY>", // optional
+    providerBranches: [], // optional
+    providerPaths: [], // optional
     buildSpecification: "", // optional
     runtimeSpecification: "", // optional
     deploymentRetention: 0 // optional

@@ -237,7 +237,7 @@ open class Project: Codable {
             "services": services.map { $0.toMap() } as Any,
             "protocols": protocols.map { $0.toMap() } as Any,
             "region": region as Any,
-            "billingLimits": billingLimits.toMap() as Any,
+            "billingLimits": billingLimits?.toMap() as Any,
             "blocks": blocks.map { $0.toMap() } as Any,
             "consoleAccessedAt": consoleAccessedAt as Any
         ]

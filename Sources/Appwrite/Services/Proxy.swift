@@ -134,7 +134,7 @@ open class Proxy: Service {
     /// - Parameters:
     ///   - domain: String
     ///   - url: String
-    ///   - statusCode: AppwriteEnums.StatusCode
+    ///   - statusCode: AppwriteEnums.RedirectStatusCode
     ///   - resourceId: String
     ///   - resourceType: AppwriteEnums.ProxyResourceType
     /// - Throws: Exception if the request fails
@@ -143,7 +143,7 @@ open class Proxy: Service {
     open func createRedirectRule(
         domain: String,
         url: String,
-        statusCode: AppwriteEnums.StatusCode,
+        statusCode: AppwriteEnums.RedirectStatusCode,
         resourceId: String,
         resourceType: AppwriteEnums.ProxyResourceType
     ) async throws -> AppwriteModels.ProxyRule {

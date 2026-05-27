@@ -1,13 +1,5 @@
 # Change Log
 
-## 18.1.0
-
-* Added `deno121`, `deno124`, and `deno135` runtime options
-* Added `sizeActual` property to `File` model for compressed file sizes
-* Updated `BillingLimits` properties to be optional nullable values
-* Updated `Project` model `billingLimits` property to be optional
-* Updated advisor examples to use API key authentication
-
 ## 18.0.0
 
 * Breaking: Renamed `AuthMethod` enum to `ProjectAuthMethodId`

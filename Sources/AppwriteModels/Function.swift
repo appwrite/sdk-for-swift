@@ -33,6 +33,8 @@ open class Function: Codable {
         case providerBranch = "providerBranch"
         case providerRootDirectory = "providerRootDirectory"
         case providerSilentMode = "providerSilentMode"
+        case providerBranches = "providerBranches"
+        case providerPaths = "providerPaths"
         case buildSpecification = "buildSpecification"
         case runtimeSpecification = "runtimeSpecification"
     }
@@ -93,6 +95,10 @@ open class Function: Codable {
     public let providerRootDirectory: String
     /// Is VCS (Version Control System) connection is in silent mode? When in silence mode, no comments will be posted on the repository pull or merge requests
     public let providerSilentMode: Bool
+    /// List of branch name patterns that trigger automatic deployments. Supports glob wildcards. Empty list deploys on all branches.
+    public let providerBranches: [String]
+    /// List of file path patterns that trigger automatic deployments. Supports glob wildcards. Empty list deploys on all file changes.
+    public let providerPaths: [String]
     /// Machine specification for deployment builds.
     public let buildSpecification: String
     /// Machine specification for executions.
@@ -127,6 +133,8 @@ open class Function: Codable {
         providerBranch: String,
         providerRootDirectory: String,
         providerSilentMode: Bool,
+        providerBranches: [String],
+        providerPaths: [String],
         buildSpecification: String,
         runtimeSpecification: String
     ) {
@@ -158,6 +166,8 @@ open class Function: Codable {
         self.providerBranch = providerBranch
         self.providerRootDirectory = providerRootDirectory
         self.providerSilentMode = providerSilentMode
+        self.providerBranches = providerBranches
+        self.providerPaths = providerPaths
         self.buildSpecification = buildSpecification
         self.runtimeSpecification = runtimeSpecification
     }
@@ -193,6 +203,8 @@ open class Function: Codable {
         self.providerBranch = try container.decode(String.self, forKey: .providerBranch)
         self.providerRootDirectory = try container.decode(String.self, forKey: .providerRootDirectory)
         self.providerSilentMode = try container.decode(Bool.self, forKey: .providerSilentMode)
+        self.providerBranches = try container.decode([String].self, forKey: .providerBranches)
+        self.providerPaths = try container.decode([String].self, forKey: .providerPaths)
         self.buildSpecification = try container.decode(String.self, forKey: .buildSpecification)
         self.runtimeSpecification = try container.decode(String.self, forKey: .runtimeSpecification)
     }
@@ -228,6 +240,8 @@ open class Function: Codable {
         try container.encode(providerBranch, forKey: .providerBranch)
         try container.encode(providerRootDirectory, forKey: .providerRootDirectory)
         try container.encode(providerSilentMode, forKey: .providerSilentMode)
+        try container.encode(providerBranches, forKey: .providerBranches)
+        try container.encode(providerPaths, forKey: .providerPaths)
         try container.encode(buildSpecification, forKey: .buildSpecification)
         try container.encode(runtimeSpecification, forKey: .runtimeSpecification)
     }
@@ -262,6 +276,8 @@ open class Function: Codable {
             "providerBranch": providerBranch as Any,
             "providerRootDirectory": providerRootDirectory as Any,
             "providerSilentMode": providerSilentMode as Any,
+            "providerBranches": providerBranches as Any,
+            "providerPaths": providerPaths as Any,
             "buildSpecification": buildSpecification as Any,
             "runtimeSpecification": runtimeSpecification as Any
         ]
@@ -297,6 +313,8 @@ open class Function: Codable {
             providerBranch: map["providerBranch"] as! String,
             providerRootDirectory: map["providerRootDirectory"] as! String,
             providerSilentMode: map["providerSilentMode"] as! Bool,
+            providerBranches: map["providerBranches"] as! [String],
+            providerPaths: map["providerPaths"] as! [String],
             buildSpecification: map["buildSpecification"] as! String,
             runtimeSpecification: map["runtimeSpecification"] as! String
         )

@@ -1,6 +1,6 @@
 import Foundation
 
-public enum BuildRuntime: String, Codable, CustomStringConvertible {
+public enum FunctionRuntime: String, Codable, CustomStringConvertible {
     case node145 = "node-14.5"
     case node160 = "node-16.0"
     case node180 = "node-18.0"
@@ -53,6 +53,7 @@ public enum BuildRuntime: String, Codable, CustomStringConvertible {
     case dart39 = "dart-3.9"
     case dart310 = "dart-3.10"
     case dart311 = "dart-3.11"
+    case dart312 = "dart-3.12"
     case dotnet60 = "dotnet-6.0"
     case dotnet70 = "dotnet-7.0"
     case dotnet80 = "dotnet-8.0"
@@ -93,6 +94,7 @@ public enum BuildRuntime: String, Codable, CustomStringConvertible {
     case flutter335 = "flutter-3.35"
     case flutter338 = "flutter-3.38"
     case flutter341 = "flutter-3.41"
+    case flutter344 = "flutter-3.44"
 
     public var description: String {
         return rawValue

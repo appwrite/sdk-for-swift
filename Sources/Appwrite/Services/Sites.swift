@@ -53,8 +53,8 @@ open class Sites: Service {
     /// - Parameters:
     ///   - siteId: String
     ///   - name: String
-    ///   - framework: AppwriteEnums.Framework
-    ///   - buildRuntime: AppwriteEnums.BuildRuntime
+    ///   - framework: AppwriteEnums.SiteFramework
+    ///   - buildRuntime: AppwriteEnums.SiteBuildRuntime
     ///   - enabled: Bool (optional)
     ///   - logging: Bool (optional)
     ///   - timeout: Int (optional)
@@ -62,13 +62,15 @@ open class Sites: Service {
     ///   - buildCommand: String (optional)
     ///   - startCommand: String (optional)
     ///   - outputDirectory: String (optional)
-    ///   - adapter: AppwriteEnums.Adapter (optional)
+    ///   - adapter: AppwriteEnums.SiteAdapter (optional)
     ///   - installationId: String (optional)
     ///   - fallbackFile: String (optional)
     ///   - providerRepositoryId: String (optional)
     ///   - providerBranch: String (optional)
     ///   - providerSilentMode: Bool (optional)
     ///   - providerRootDirectory: String (optional)
+    ///   - providerBranches: [String] (optional)
+    ///   - providerPaths: [String] (optional)
     ///   - buildSpecification: String (optional)
     ///   - runtimeSpecification: String (optional)
     ///   - deploymentRetention: Int (optional)
@@ -78,8 +80,8 @@ open class Sites: Service {
     open func create(
         siteId: String,
         name: String,
-        framework: AppwriteEnums.Framework,
-        buildRuntime: AppwriteEnums.BuildRuntime,
+        framework: AppwriteEnums.SiteFramework,
+        buildRuntime: AppwriteEnums.SiteBuildRuntime,
         enabled: Bool? = nil,
         logging: Bool? = nil,
         timeout: Int? = nil,
@@ -87,13 +89,15 @@ open class Sites: Service {
         buildCommand: String? = nil,
         startCommand: String? = nil,
         outputDirectory: String? = nil,
-        adapter: AppwriteEnums.Adapter? = nil,
+        adapter: AppwriteEnums.SiteAdapter? = nil,
         installationId: String? = nil,
         fallbackFile: String? = nil,
         providerRepositoryId: String? = nil,
         providerBranch: String? = nil,
         providerSilentMode: Bool? = nil,
         providerRootDirectory: String? = nil,
+        providerBranches: [String]? = nil,
+        providerPaths: [String]? = nil,
         buildSpecification: String? = nil,
         runtimeSpecification: String? = nil,
         deploymentRetention: Int? = nil
@@ -119,6 +123,8 @@ open class Sites: Service {
             "providerBranch": providerBranch,
             "providerSilentMode": providerSilentMode,
             "providerRootDirectory": providerRootDirectory,
+            "providerBranches": providerBranches,
+            "providerPaths": providerPaths,
             "buildSpecification": buildSpecification,
             "runtimeSpecification": runtimeSpecification,
             "deploymentRetention": deploymentRetention
@@ -233,7 +239,7 @@ open class Sites: Service {
     /// - Parameters:
     ///   - siteId: String
     ///   - name: String
-    ///   - framework: AppwriteEnums.Framework
+    ///   - framework: AppwriteEnums.SiteFramework
     ///   - enabled: Bool (optional)
     ///   - logging: Bool (optional)
     ///   - timeout: Int (optional)
@@ -241,14 +247,16 @@ open class Sites: Service {
     ///   - buildCommand: String (optional)
     ///   - startCommand: String (optional)
     ///   - outputDirectory: String (optional)
-    ///   - buildRuntime: AppwriteEnums.BuildRuntime (optional)
-    ///   - adapter: AppwriteEnums.Adapter (optional)
+    ///   - buildRuntime: AppwriteEnums.SiteBuildRuntime (optional)
+    ///   - adapter: AppwriteEnums.SiteAdapter (optional)
     ///   - fallbackFile: String (optional)
     ///   - installationId: String (optional)
     ///   - providerRepositoryId: String (optional)
     ///   - providerBranch: String (optional)
     ///   - providerSilentMode: Bool (optional)
     ///   - providerRootDirectory: String (optional)
+    ///   - providerBranches: [String] (optional)
+    ///   - providerPaths: [String] (optional)
     ///   - buildSpecification: String (optional)
     ///   - runtimeSpecification: String (optional)
     ///   - deploymentRetention: Int (optional)
@@ -258,7 +266,7 @@ open class Sites: Service {
     open func update(
         siteId: String,
         name: String,
-        framework: AppwriteEnums.Framework,
+        framework: AppwriteEnums.SiteFramework,
         enabled: Bool? = nil,
         logging: Bool? = nil,
         timeout: Int? = nil,
@@ -266,14 +274,16 @@ open class Sites: Service {
         buildCommand: String? = nil,
         startCommand: String? = nil,
         outputDirectory: String? = nil,
-        buildRuntime: AppwriteEnums.BuildRuntime? = nil,
-        adapter: AppwriteEnums.Adapter? = nil,
+        buildRuntime: AppwriteEnums.SiteBuildRuntime? = nil,
+        adapter: AppwriteEnums.SiteAdapter? = nil,
         fallbackFile: String? = nil,
         installationId: String? = nil,
         providerRepositoryId: String? = nil,
         providerBranch: String? = nil,
         providerSilentMode: Bool? = nil,
         providerRootDirectory: String? = nil,
+        providerBranches: [String]? = nil,
+        providerPaths: [String]? = nil,
         buildSpecification: String? = nil,
         runtimeSpecification: String? = nil,
         deploymentRetention: Int? = nil
@@ -299,6 +309,8 @@ open class Sites: Service {
             "providerBranch": providerBranch,
             "providerSilentMode": providerSilentMode,
             "providerRootDirectory": providerRootDirectory,
+            "providerBranches": providerBranches,
+            "providerPaths": providerPaths,
             "buildSpecification": buildSpecification,
             "runtimeSpecification": runtimeSpecification,
             "deploymentRetention": deploymentRetention

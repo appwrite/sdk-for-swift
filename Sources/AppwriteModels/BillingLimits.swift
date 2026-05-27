@@ -1,7 +1,7 @@
 import Foundation
 import JSONCodable
 
-/// BillingLimits
+/// Limits
 open class BillingLimits: Codable {
 
     enum CodingKeys: String, CodingKey {
