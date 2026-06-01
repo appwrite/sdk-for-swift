@@ -69,6 +69,8 @@ open class Sites: Service {
     ///   - providerBranch: String (optional)
     ///   - providerSilentMode: Bool (optional)
     ///   - providerRootDirectory: String (optional)
+    ///   - providerBranches: [String] (optional)
+    ///   - providerPaths: [String] (optional)
     ///   - buildSpecification: String (optional)
     ///   - runtimeSpecification: String (optional)
     ///   - deploymentRetention: Int (optional)
@@ -94,6 +96,8 @@ open class Sites: Service {
         providerBranch: String? = nil,
         providerSilentMode: Bool? = nil,
         providerRootDirectory: String? = nil,
+        providerBranches: [String]? = nil,
+        providerPaths: [String]? = nil,
         buildSpecification: String? = nil,
         runtimeSpecification: String? = nil,
         deploymentRetention: Int? = nil
@@ -119,6 +123,8 @@ open class Sites: Service {
             "providerBranch": providerBranch,
             "providerSilentMode": providerSilentMode,
             "providerRootDirectory": providerRootDirectory,
+            "providerBranches": providerBranches,
+            "providerPaths": providerPaths,
             "buildSpecification": buildSpecification,
             "runtimeSpecification": runtimeSpecification,
             "deploymentRetention": deploymentRetention
@@ -249,6 +255,8 @@ open class Sites: Service {
     ///   - providerBranch: String (optional)
     ///   - providerSilentMode: Bool (optional)
     ///   - providerRootDirectory: String (optional)
+    ///   - providerBranches: [String] (optional)
+    ///   - providerPaths: [String] (optional)
     ///   - buildSpecification: String (optional)
     ///   - runtimeSpecification: String (optional)
     ///   - deploymentRetention: Int (optional)
@@ -274,6 +282,8 @@ open class Sites: Service {
         providerBranch: String? = nil,
         providerSilentMode: Bool? = nil,
         providerRootDirectory: String? = nil,
+        providerBranches: [String]? = nil,
+        providerPaths: [String]? = nil,
         buildSpecification: String? = nil,
         runtimeSpecification: String? = nil,
         deploymentRetention: Int? = nil
@@ -299,6 +309,8 @@ open class Sites: Service {
             "providerBranch": providerBranch,
             "providerSilentMode": providerSilentMode,
             "providerRootDirectory": providerRootDirectory,
+            "providerBranches": providerBranches,
+            "providerPaths": providerPaths,
             "buildSpecification": buildSpecification,
             "runtimeSpecification": runtimeSpecification,
             "deploymentRetention": deploymentRetention

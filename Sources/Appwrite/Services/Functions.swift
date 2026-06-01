@@ -65,12 +65,14 @@ open class Functions: Service {
     ///   - logging: Bool (optional)
     ///   - entrypoint: String (optional)
     ///   - commands: String (optional)
-    ///   - scopes: [AppwriteEnums.Scopes] (optional)
+    ///   - scopes: [AppwriteEnums.ProjectKeyScopes] (optional)
     ///   - installationId: String (optional)
     ///   - providerRepositoryId: String (optional)
     ///   - providerBranch: String (optional)
     ///   - providerSilentMode: Bool (optional)
     ///   - providerRootDirectory: String (optional)
+    ///   - providerBranches: [String] (optional)
+    ///   - providerPaths: [String] (optional)
     ///   - buildSpecification: String (optional)
     ///   - runtimeSpecification: String (optional)
     ///   - deploymentRetention: Int (optional)
@@ -89,12 +91,14 @@ open class Functions: Service {
         logging: Bool? = nil,
         entrypoint: String? = nil,
         commands: String? = nil,
-        scopes: [AppwriteEnums.Scopes]? = nil,
+        scopes: [AppwriteEnums.ProjectKeyScopes]? = nil,
         installationId: String? = nil,
         providerRepositoryId: String? = nil,
         providerBranch: String? = nil,
         providerSilentMode: Bool? = nil,
         providerRootDirectory: String? = nil,
+        providerBranches: [String]? = nil,
+        providerPaths: [String]? = nil,
         buildSpecification: String? = nil,
         runtimeSpecification: String? = nil,
         deploymentRetention: Int? = nil
@@ -119,6 +123,8 @@ open class Functions: Service {
             "providerBranch": providerBranch,
             "providerSilentMode": providerSilentMode,
             "providerRootDirectory": providerRootDirectory,
+            "providerBranches": providerBranches,
+            "providerPaths": providerPaths,
             "buildSpecification": buildSpecification,
             "runtimeSpecification": runtimeSpecification,
             "deploymentRetention": deploymentRetention
@@ -241,12 +247,14 @@ open class Functions: Service {
     ///   - logging: Bool (optional)
     ///   - entrypoint: String (optional)
     ///   - commands: String (optional)
-    ///   - scopes: [AppwriteEnums.Scopes] (optional)
+    ///   - scopes: [AppwriteEnums.ProjectKeyScopes] (optional)
     ///   - installationId: String (optional)
     ///   - providerRepositoryId: String (optional)
     ///   - providerBranch: String (optional)
     ///   - providerSilentMode: Bool (optional)
     ///   - providerRootDirectory: String (optional)
+    ///   - providerBranches: [String] (optional)
+    ///   - providerPaths: [String] (optional)
     ///   - buildSpecification: String (optional)
     ///   - runtimeSpecification: String (optional)
     ///   - deploymentRetention: Int (optional)
@@ -265,12 +273,14 @@ open class Functions: Service {
         logging: Bool? = nil,
         entrypoint: String? = nil,
         commands: String? = nil,
-        scopes: [AppwriteEnums.Scopes]? = nil,
+        scopes: [AppwriteEnums.ProjectKeyScopes]? = nil,
         installationId: String? = nil,
         providerRepositoryId: String? = nil,
         providerBranch: String? = nil,
         providerSilentMode: Bool? = nil,
         providerRootDirectory: String? = nil,
+        providerBranches: [String]? = nil,
+        providerPaths: [String]? = nil,
         buildSpecification: String? = nil,
         runtimeSpecification: String? = nil,
         deploymentRetention: Int? = nil
@@ -295,6 +305,8 @@ open class Functions: Service {
             "providerBranch": providerBranch,
             "providerSilentMode": providerSilentMode,
             "providerRootDirectory": providerRootDirectory,
+            "providerBranches": providerBranches,
+            "providerPaths": providerPaths,
             "buildSpecification": buildSpecification,
             "runtimeSpecification": runtimeSpecification,
             "deploymentRetention": deploymentRetention

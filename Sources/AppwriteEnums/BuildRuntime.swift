@@ -32,9 +32,6 @@ public enum BuildRuntime: String, Codable, CustomStringConvertible {
     case pythonMl311 = "python-ml-3.11"
     case pythonMl312 = "python-ml-3.12"
     case pythonMl313 = "python-ml-3.13"
-    case deno121 = "deno-1.21"
-    case deno124 = "deno-1.24"
-    case deno135 = "deno-1.35"
     case deno140 = "deno-1.40"
     case deno146 = "deno-1.46"
     case deno20 = "deno-2.0"
@@ -53,6 +50,7 @@ public enum BuildRuntime: String, Codable, CustomStringConvertible {
     case dart39 = "dart-3.9"
     case dart310 = "dart-3.10"
     case dart311 = "dart-3.11"
+    case dart312 = "dart-3.12"
     case dotnet60 = "dotnet-6.0"
     case dotnet70 = "dotnet-7.0"
     case dotnet80 = "dotnet-8.0"
@@ -93,6 +91,7 @@ public enum BuildRuntime: String, Codable, CustomStringConvertible {
     case flutter335 = "flutter-3.35"
     case flutter338 = "flutter-3.38"
     case flutter341 = "flutter-3.41"
+    case flutter344 = "flutter-3.44"
 
     public var description: String {
         return rawValue

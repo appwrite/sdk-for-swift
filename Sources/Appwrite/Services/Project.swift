@@ -3511,6 +3511,15 @@ open class Project: Service {
             if String(describing: responseMap["$id"] ?? "") == "membership-privacy" {
                 return AppwriteModels.PolicyMembershipPrivacy.from(map: responseMap)
             }
+            if String(describing: responseMap["$id"] ?? "") == "deny-aliased-email" {
+                return AppwriteModels.PolicyDenyAliasedEmail.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "deny-disposable-email" {
+                return AppwriteModels.PolicyDenyDisposableEmail.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "deny-free-email" {
+                return AppwriteModels.PolicyDenyFreeEmail.from(map: responseMap)
+            }
             throw AppwriteError(message: "Unable to match response to any expected response model")
         }
 

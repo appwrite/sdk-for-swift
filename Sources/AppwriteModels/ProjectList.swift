@@ -1,52 +1,52 @@
 import Foundation
 import JSONCodable
 
-/// Presences List
-open class PresenceList: Codable {
+/// Projects List
+open class ProjectList: Codable {
 
     enum CodingKeys: String, CodingKey {
         case total = "total"
-        case presences = "presences"
+        case projects = "projects"
     }
 
-    /// Total number of presences that matched your query.
+    /// Total number of projects that matched your query.
     public let total: Int
-    /// List of presences.
-    public let presences: [Presence]
+    /// List of projects.
+    public let projects: [Project]
 
     init(
         total: Int,
-        presences: [Presence]
+        projects: [Project]
     ) {
         self.total = total
-        self.presences = presences
+        self.projects = projects
     }
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         self.total = try container.decode(Int.self, forKey: .total)
-        self.presences = try container.decode([Presence].self, forKey: .presences)
+        self.projects = try container.decode([Project].self, forKey: .projects)
     }
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
         try container.encode(total, forKey: .total)
-        try container.encode(presences, forKey: .presences)
+        try container.encode(projects, forKey: .projects)
     }
 
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
-            "presences": presences.map { $0.toMap() } as Any
+            "projects": projects.map { $0.toMap() } as Any
         ]
     }
 
-    public static func from(map: [String: Any] ) -> PresenceList {
-        return PresenceList(
+    public static func from(map: [String: Any] ) -> ProjectList {
+        return ProjectList(
             total: map["total"] as! Int,
-            presences: (map["presences"] as! [[String: Any]]).map { Presence.from(map: $0) }
+            projects: (map["projects"] as! [[String: Any]]).map { Project.from(map: $0) }
         )
     }
 }

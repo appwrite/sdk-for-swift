@@ -1,10 +1,10 @@
 import Foundation
 
 public enum StatusCode: String, Codable, CustomStringConvertible {
-    case movedPermanently301 = "301"
-    case found302 = "302"
-    case temporaryRedirect307 = "307"
-    case permanentRedirect308 = "308"
+    case movedPermanently = "301"
+    case found = "302"
+    case temporaryRedirect = "307"
+    case permanentRedirect = "308"
 
     public var description: String {
         return rawValue

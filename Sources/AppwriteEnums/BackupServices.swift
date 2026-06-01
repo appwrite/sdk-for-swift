@@ -5,6 +5,7 @@ public enum BackupServices: String, Codable, CustomStringConvertible {
     case tablesdb = "tablesdb"
     case documentsdb = "documentsdb"
     case vectorsdb = "vectorsdb"
+    case dedicatedDatabases = "dedicatedDatabases"
     case functions = "functions"
     case storage = "storage"
 

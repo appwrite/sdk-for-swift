@@ -8,7 +8,7 @@ let client = Client()
 
 let presences = Presences(client)
 
-let presence = try await presences.updatePresence(
+let presence = try await presences.update(
     presenceId: "<PRESENCE_ID>",
     userId: "<USER_ID>",
     status: "<STATUS>", // optional

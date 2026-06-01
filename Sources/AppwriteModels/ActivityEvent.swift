@@ -6,10 +6,10 @@ open class ActivityEvent: Codable {
 
     enum CodingKeys: String, CodingKey {
         case id = "$id"
-        case userType = "userType"
-        case userId = "userId"
-        case userEmail = "userEmail"
-        case userName = "userName"
+        case actorType = "actorType"
+        case actorId = "actorId"
+        case actorEmail = "actorEmail"
+        case actorName = "actorName"
         case resourceParent = "resourceParent"
         case resourceType = "resourceType"
         case resourceId = "resourceId"
@@ -41,14 +41,14 @@ open class ActivityEvent: Codable {
 
     /// Event ID.
     public let id: String
-    /// User type.
-    public let userType: String
-    /// User ID.
-    public let userId: String
-    /// User Email.
-    public let userEmail: String
-    /// User Name.
-    public let userName: String
+    /// Actor type.
+    public let actorType: String
+    /// Actor ID.
+    public let actorId: String
+    /// Actor Email.
+    public let actorEmail: String
+    /// Actor Name.
+    public let actorName: String
     /// Resource parent.
     public let resourceParent: String
     /// Resource type.
@@ -106,10 +106,10 @@ open class ActivityEvent: Codable {
 
     init(
         id: String,
-        userType: String,
-        userId: String,
-        userEmail: String,
-        userName: String,
+        actorType: String,
+        actorId: String,
+        actorEmail: String,
+        actorName: String,
         resourceParent: String,
         resourceType: String,
         resourceId: String,
@@ -139,10 +139,10 @@ open class ActivityEvent: Codable {
         countryName: String
     ) {
         self.id = id
-        self.userType = userType
-        self.userId = userId
-        self.userEmail = userEmail
-        self.userName = userName
+        self.actorType = actorType
+        self.actorId = actorId
+        self.actorEmail = actorEmail
+        self.actorName = actorName
         self.resourceParent = resourceParent
         self.resourceType = resourceType
         self.resourceId = resourceId
@@ -176,10 +176,10 @@ open class ActivityEvent: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         self.id = try container.decode(String.self, forKey: .id)
-        self.userType = try container.decode(String.self, forKey: .userType)
-        self.userId = try container.decode(String.self, forKey: .userId)
-        self.userEmail = try container.decode(String.self, forKey: .userEmail)
-        self.userName = try container.decode(String.self, forKey: .userName)
+        self.actorType = try container.decode(String.self, forKey: .actorType)
+        self.actorId = try container.decode(String.self, forKey: .actorId)
+        self.actorEmail = try container.decode(String.self, forKey: .actorEmail)
+        self.actorName = try container.decode(String.self, forKey: .actorName)
         self.resourceParent = try container.decode(String.self, forKey: .resourceParent)
         self.resourceType = try container.decode(String.self, forKey: .resourceType)
         self.resourceId = try container.decode(String.self, forKey: .resourceId)
@@ -213,10 +213,10 @@ open class ActivityEvent: Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
         try container.encode(id, forKey: .id)
-        try container.encode(userType, forKey: .userType)
-        try container.encode(userId, forKey: .userId)
-        try container.encode(userEmail, forKey: .userEmail)
-        try container.encode(userName, forKey: .userName)
+        try container.encode(actorType, forKey: .actorType)
+        try container.encode(actorId, forKey: .actorId)
+        try container.encode(actorEmail, forKey: .actorEmail)
+        try container.encode(actorName, forKey: .actorName)
         try container.encode(resourceParent, forKey: .resourceParent)
         try container.encode(resourceType, forKey: .resourceType)
         try container.encode(resourceId, forKey: .resourceId)
@@ -249,10 +249,10 @@ open class ActivityEvent: Codable {
     public func toMap() -> [String: Any] {
         return [
             "$id": id as Any,
-            "userType": userType as Any,
-            "userId": userId as Any,
-            "userEmail": userEmail as Any,
-            "userName": userName as Any,
+            "actorType": actorType as Any,
+            "actorId": actorId as Any,
+            "actorEmail": actorEmail as Any,
+            "actorName": actorName as Any,
             "resourceParent": resourceParent as Any,
             "resourceType": resourceType as Any,
             "resourceId": resourceId as Any,
@@ -286,10 +286,10 @@ open class ActivityEvent: Codable {
     public static func from(map: [String: Any] ) -> ActivityEvent {
         return ActivityEvent(
             id: map["$id"] as! String,
-            userType: map["userType"] as! String,
-            userId: map["userId"] as! String,
-            userEmail: map["userEmail"] as! String,
-            userName: map["userName"] as! String,
+            actorType: map["actorType"] as! String,
+            actorId: map["actorId"] as! String,
+            actorEmail: map["actorEmail"] as! String,
+            actorName: map["actorName"] as! String,
             resourceParent: map["resourceParent"] as! String,
             resourceType: map["resourceType"] as! String,
             resourceId: map["resourceId"] as! String,

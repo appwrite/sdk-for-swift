@@ -7,14 +7,13 @@ let client = Client()
     .setProject("<YOUR_PROJECT_ID>") // Your project ID
     .setKey("<YOUR_API_KEY>") // Your secret API key
 
-let proxy = Proxy(client)
+let organization = Organization(client)
 
-let proxyRule = try await proxy.createRedirectRule(
-    domain: "",
-    url: "https://example.com",
-    statusCode: .movedPermanently,
-    resourceId: "<RESOURCE_ID>",
-    resourceType: .site
+let key = try await organization.createKey(
+    keyId: "<KEY_ID>",
+    name: "<NAME>",
+    scopes: [.projectsRead],
+    expire: "2020-10-15T06:38:00.000+00:00" // optional
 )
 
 ```
