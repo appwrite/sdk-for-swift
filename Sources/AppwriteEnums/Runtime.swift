@@ -1,6 +1,6 @@
 import Foundation
 
-public enum SiteBuildRuntime: String, Codable, CustomStringConvertible {
+public enum Runtime: String, Codable, CustomStringConvertible {
     case node145 = "node-14.5"
     case node160 = "node-16.0"
     case node180 = "node-18.0"
@@ -32,9 +32,6 @@ public enum SiteBuildRuntime: String, Codable, CustomStringConvertible {
     case pythonMl311 = "python-ml-3.11"
     case pythonMl312 = "python-ml-3.12"
     case pythonMl313 = "python-ml-3.13"
-    case deno121 = "deno-1.21"
-    case deno124 = "deno-1.24"
-    case deno135 = "deno-1.35"
     case deno140 = "deno-1.40"
     case deno146 = "deno-1.46"
     case deno20 = "deno-2.0"

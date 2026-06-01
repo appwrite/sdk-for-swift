@@ -56,7 +56,7 @@ open class Functions: Service {
     /// - Parameters:
     ///   - functionId: String
     ///   - name: String
-    ///   - runtime: AppwriteEnums.FunctionRuntime
+    ///   - runtime: AppwriteEnums.Runtime
     ///   - execute: [String] (optional)
     ///   - events: [String] (optional)
     ///   - schedule: String (optional)
@@ -82,7 +82,7 @@ open class Functions: Service {
     open func create(
         functionId: String,
         name: String,
-        runtime: AppwriteEnums.FunctionRuntime,
+        runtime: AppwriteEnums.Runtime,
         execute: [String]? = nil,
         events: [String]? = nil,
         schedule: String? = nil,
@@ -238,7 +238,7 @@ open class Functions: Service {
     /// - Parameters:
     ///   - functionId: String
     ///   - name: String
-    ///   - runtime: AppwriteEnums.FunctionRuntime (optional)
+    ///   - runtime: AppwriteEnums.Runtime (optional)
     ///   - execute: [String] (optional)
     ///   - events: [String] (optional)
     ///   - schedule: String (optional)
@@ -264,7 +264,7 @@ open class Functions: Service {
     open func update(
         functionId: String,
         name: String,
-        runtime: AppwriteEnums.FunctionRuntime? = nil,
+        runtime: AppwriteEnums.Runtime? = nil,
         execute: [String]? = nil,
         events: [String]? = nil,
         schedule: String? = nil,

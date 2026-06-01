@@ -1,6 +1,6 @@
 import Foundation
 
-public enum SiteAdapter: String, Codable, CustomStringConvertible {
+public enum Adapter: String, Codable, CustomStringConvertible {
     case `static` = "static"
     case ssr = "ssr"
 
