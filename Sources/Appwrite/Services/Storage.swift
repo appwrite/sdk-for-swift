@@ -32,7 +32,9 @@ open class Storage: Service {
             "total": total
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.BucketList = { response in
             return AppwriteModels.BucketList.from(map: response as! [String: Any])
@@ -95,6 +97,7 @@ open class Storage: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -128,7 +131,9 @@ open class Storage: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.Bucket = { response in
             return AppwriteModels.Bucket.from(map: response as! [String: Any])
@@ -191,6 +196,7 @@ open class Storage: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -224,6 +230,7 @@ open class Storage: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -261,7 +268,9 @@ open class Storage: Service {
             "total": total
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.FileList = { response in
             return AppwriteModels.FileList.from(map: response as! [String: Any])
@@ -321,6 +330,7 @@ open class Storage: Service {
         ]
 
         var apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "multipart/form-data"
         ]
 
@@ -361,7 +371,9 @@ open class Storage: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.File = { response in
             return AppwriteModels.File.from(map: response as! [String: Any])
@@ -404,6 +416,7 @@ open class Storage: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -441,6 +454,7 @@ open class Storage: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -478,7 +492,9 @@ open class Storage: Service {
             "session": client.config["session"]
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         return try await client.call(
             method: "GET",
@@ -549,7 +565,9 @@ open class Storage: Service {
             "session": client.config["session"]
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         return try await client.call(
             method: "GET",
@@ -585,7 +603,9 @@ open class Storage: Service {
             "session": client.config["session"]
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         return try await client.call(
             method: "GET",

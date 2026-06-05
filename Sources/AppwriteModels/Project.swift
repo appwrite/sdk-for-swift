@@ -10,6 +10,7 @@ open class Project: Codable {
         case updatedAt = "$updatedAt"
         case name = "name"
         case teamId = "teamId"
+        case region = "region"
         case devKeys = "devKeys"
         case smtpEnabled = "smtpEnabled"
         case smtpSenderName = "smtpSenderName"
@@ -28,10 +29,18 @@ open class Project: Codable {
         case authMethods = "authMethods"
         case services = "services"
         case protocols = "protocols"
-        case region = "region"
-        case billingLimits = "billingLimits"
         case blocks = "blocks"
         case consoleAccessedAt = "consoleAccessedAt"
+        case billingLimits = "billingLimits"
+        case oAuth2ServerEnabled = "oAuth2ServerEnabled"
+        case oAuth2ServerAuthorizationUrl = "oAuth2ServerAuthorizationUrl"
+        case oAuth2ServerScopes = "oAuth2ServerScopes"
+        case oAuth2ServerAccessTokenDuration = "oAuth2ServerAccessTokenDuration"
+        case oAuth2ServerRefreshTokenDuration = "oAuth2ServerRefreshTokenDuration"
+        case oAuth2ServerPublicAccessTokenDuration = "oAuth2ServerPublicAccessTokenDuration"
+        case oAuth2ServerPublicRefreshTokenDuration = "oAuth2ServerPublicRefreshTokenDuration"
+        case oAuth2ServerConfidentialPkce = "oAuth2ServerConfidentialPkce"
+        case oAuth2ServerDiscoveryUrl = "oAuth2ServerDiscoveryUrl"
     }
 
     /// Project ID.
@@ -44,6 +53,8 @@ open class Project: Codable {
     public let name: String
     /// Project team ID.
     public let teamId: String
+    /// Project region
+    public let region: String
     /// Deprecated since 1.9.5: List of dev keys.
     public let devKeys: [DevKey]
     /// Status for custom SMTP
@@ -80,14 +91,30 @@ open class Project: Codable {
     public let services: [ProjectService]
     /// List of protocols.
     public let protocols: [ProjectProtocol]
-    /// Project region
-    public let region: String
-    /// Billing limits reached
-    public let billingLimits: BillingLimits?
     /// Project blocks information
     public let blocks: [Block]
     /// Last time the project was accessed via console. Used with plan&#039;s projectInactivityDays to determine if project is paused.
     public let consoleAccessedAt: String
+    /// Billing limits reached
+    public let billingLimits: BillingLimits?
+    /// OAuth2 server status
+    public let oAuth2ServerEnabled: Bool
+    /// OAuth2 server authorization URL
+    public let oAuth2ServerAuthorizationUrl: String
+    /// OAuth2 server allowed scopes
+    public let oAuth2ServerScopes: [String]
+    /// OAuth2 server access token duration in seconds for confidential clients
+    public let oAuth2ServerAccessTokenDuration: Int
+    /// OAuth2 server refresh token duration in seconds for confidential clients
+    public let oAuth2ServerRefreshTokenDuration: Int
+    /// OAuth2 server access token duration in seconds for public clients (SPAs, mobile, native)
+    public let oAuth2ServerPublicAccessTokenDuration: Int
+    /// OAuth2 server refresh token duration in seconds for public clients (SPAs, mobile, native)
+    public let oAuth2ServerPublicRefreshTokenDuration: Int
+    /// When enabled, PKCE is required for confidential clients (server-side flows using client_secret). PKCE is always required for public clients regardless of this setting.
+    public let oAuth2ServerConfidentialPkce: Bool
+    /// OAuth2 server discovery URL
+    public let oAuth2ServerDiscoveryUrl: String
 
     init(
         id: String,
@@ -95,6 +122,7 @@ open class Project: Codable {
         updatedAt: String,
         name: String,
         teamId: String,
+        region: String,
         devKeys: [DevKey],
         smtpEnabled: Bool,
         smtpSenderName: String,
@@ -113,16 +141,25 @@ open class Project: Codable {
         authMethods: [ProjectAuthMethod],
         services: [ProjectService],
         protocols: [ProjectProtocol],
-        region: String,
-        billingLimits: BillingLimits?,
         blocks: [Block],
-        consoleAccessedAt: String
+        consoleAccessedAt: String,
+        billingLimits: BillingLimits?,
+        oAuth2ServerEnabled: Bool,
+        oAuth2ServerAuthorizationUrl: String,
+        oAuth2ServerScopes: [String],
+        oAuth2ServerAccessTokenDuration: Int,
+        oAuth2ServerRefreshTokenDuration: Int,
+        oAuth2ServerPublicAccessTokenDuration: Int,
+        oAuth2ServerPublicRefreshTokenDuration: Int,
+        oAuth2ServerConfidentialPkce: Bool,
+        oAuth2ServerDiscoveryUrl: String
     ) {
         self.id = id
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.name = name
         self.teamId = teamId
+        self.region = region
         self.devKeys = devKeys
         self.smtpEnabled = smtpEnabled
         self.smtpSenderName = smtpSenderName
@@ -141,10 +178,18 @@ open class Project: Codable {
         self.authMethods = authMethods
         self.services = services
         self.protocols = protocols
-        self.region = region
-        self.billingLimits = billingLimits
         self.blocks = blocks
         self.consoleAccessedAt = consoleAccessedAt
+        self.billingLimits = billingLimits
+        self.oAuth2ServerEnabled = oAuth2ServerEnabled
+        self.oAuth2ServerAuthorizationUrl = oAuth2ServerAuthorizationUrl
+        self.oAuth2ServerScopes = oAuth2ServerScopes
+        self.oAuth2ServerAccessTokenDuration = oAuth2ServerAccessTokenDuration
+        self.oAuth2ServerRefreshTokenDuration = oAuth2ServerRefreshTokenDuration
+        self.oAuth2ServerPublicAccessTokenDuration = oAuth2ServerPublicAccessTokenDuration
+        self.oAuth2ServerPublicRefreshTokenDuration = oAuth2ServerPublicRefreshTokenDuration
+        self.oAuth2ServerConfidentialPkce = oAuth2ServerConfidentialPkce
+        self.oAuth2ServerDiscoveryUrl = oAuth2ServerDiscoveryUrl
     }
 
     public required init(from decoder: Decoder) throws {
@@ -155,6 +200,7 @@ open class Project: Codable {
         self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
         self.name = try container.decode(String.self, forKey: .name)
         self.teamId = try container.decode(String.self, forKey: .teamId)
+        self.region = try container.decode(String.self, forKey: .region)
         self.devKeys = try container.decode([DevKey].self, forKey: .devKeys)
         self.smtpEnabled = try container.decode(Bool.self, forKey: .smtpEnabled)
         self.smtpSenderName = try container.decode(String.self, forKey: .smtpSenderName)
@@ -173,10 +219,18 @@ open class Project: Codable {
         self.authMethods = try container.decode([ProjectAuthMethod].self, forKey: .authMethods)
         self.services = try container.decode([ProjectService].self, forKey: .services)
         self.protocols = try container.decode([ProjectProtocol].self, forKey: .protocols)
-        self.region = try container.decode(String.self, forKey: .region)
-        self.billingLimits = try container.decodeIfPresent(BillingLimits.self, forKey: .billingLimits)
         self.blocks = try container.decode([Block].self, forKey: .blocks)
         self.consoleAccessedAt = try container.decode(String.self, forKey: .consoleAccessedAt)
+        self.billingLimits = try container.decodeIfPresent(BillingLimits.self, forKey: .billingLimits)
+        self.oAuth2ServerEnabled = try container.decode(Bool.self, forKey: .oAuth2ServerEnabled)
+        self.oAuth2ServerAuthorizationUrl = try container.decode(String.self, forKey: .oAuth2ServerAuthorizationUrl)
+        self.oAuth2ServerScopes = try container.decode([String].self, forKey: .oAuth2ServerScopes)
+        self.oAuth2ServerAccessTokenDuration = try container.decode(Int.self, forKey: .oAuth2ServerAccessTokenDuration)
+        self.oAuth2ServerRefreshTokenDuration = try container.decode(Int.self, forKey: .oAuth2ServerRefreshTokenDuration)
+        self.oAuth2ServerPublicAccessTokenDuration = try container.decode(Int.self, forKey: .oAuth2ServerPublicAccessTokenDuration)
+        self.oAuth2ServerPublicRefreshTokenDuration = try container.decode(Int.self, forKey: .oAuth2ServerPublicRefreshTokenDuration)
+        self.oAuth2ServerConfidentialPkce = try container.decode(Bool.self, forKey: .oAuth2ServerConfidentialPkce)
+        self.oAuth2ServerDiscoveryUrl = try container.decode(String.self, forKey: .oAuth2ServerDiscoveryUrl)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -187,6 +241,7 @@ open class Project: Codable {
         try container.encode(updatedAt, forKey: .updatedAt)
         try container.encode(name, forKey: .name)
         try container.encode(teamId, forKey: .teamId)
+        try container.encode(region, forKey: .region)
         try container.encode(devKeys, forKey: .devKeys)
         try container.encode(smtpEnabled, forKey: .smtpEnabled)
         try container.encode(smtpSenderName, forKey: .smtpSenderName)
@@ -205,10 +260,18 @@ open class Project: Codable {
         try container.encode(authMethods, forKey: .authMethods)
         try container.encode(services, forKey: .services)
         try container.encode(protocols, forKey: .protocols)
-        try container.encode(region, forKey: .region)
-        try container.encodeIfPresent(billingLimits, forKey: .billingLimits)
         try container.encode(blocks, forKey: .blocks)
         try container.encode(consoleAccessedAt, forKey: .consoleAccessedAt)
+        try container.encodeIfPresent(billingLimits, forKey: .billingLimits)
+        try container.encode(oAuth2ServerEnabled, forKey: .oAuth2ServerEnabled)
+        try container.encode(oAuth2ServerAuthorizationUrl, forKey: .oAuth2ServerAuthorizationUrl)
+        try container.encode(oAuth2ServerScopes, forKey: .oAuth2ServerScopes)
+        try container.encode(oAuth2ServerAccessTokenDuration, forKey: .oAuth2ServerAccessTokenDuration)
+        try container.encode(oAuth2ServerRefreshTokenDuration, forKey: .oAuth2ServerRefreshTokenDuration)
+        try container.encode(oAuth2ServerPublicAccessTokenDuration, forKey: .oAuth2ServerPublicAccessTokenDuration)
+        try container.encode(oAuth2ServerPublicRefreshTokenDuration, forKey: .oAuth2ServerPublicRefreshTokenDuration)
+        try container.encode(oAuth2ServerConfidentialPkce, forKey: .oAuth2ServerConfidentialPkce)
+        try container.encode(oAuth2ServerDiscoveryUrl, forKey: .oAuth2ServerDiscoveryUrl)
     }
 
     public func toMap() -> [String: Any] {
@@ -218,6 +281,7 @@ open class Project: Codable {
             "$updatedAt": updatedAt as Any,
             "name": name as Any,
             "teamId": teamId as Any,
+            "region": region as Any,
             "devKeys": devKeys.map { $0.toMap() } as Any,
             "smtpEnabled": smtpEnabled as Any,
             "smtpSenderName": smtpSenderName as Any,
@@ -236,10 +300,18 @@ open class Project: Codable {
             "authMethods": authMethods.map { $0.toMap() } as Any,
             "services": services.map { $0.toMap() } as Any,
             "protocols": protocols.map { $0.toMap() } as Any,
-            "region": region as Any,
-            "billingLimits": billingLimits?.toMap() as Any,
             "blocks": blocks.map { $0.toMap() } as Any,
-            "consoleAccessedAt": consoleAccessedAt as Any
+            "consoleAccessedAt": consoleAccessedAt as Any,
+            "billingLimits": billingLimits?.toMap() as Any,
+            "oAuth2ServerEnabled": oAuth2ServerEnabled as Any,
+            "oAuth2ServerAuthorizationUrl": oAuth2ServerAuthorizationUrl as Any,
+            "oAuth2ServerScopes": oAuth2ServerScopes as Any,
+            "oAuth2ServerAccessTokenDuration": oAuth2ServerAccessTokenDuration as Any,
+            "oAuth2ServerRefreshTokenDuration": oAuth2ServerRefreshTokenDuration as Any,
+            "oAuth2ServerPublicAccessTokenDuration": oAuth2ServerPublicAccessTokenDuration as Any,
+            "oAuth2ServerPublicRefreshTokenDuration": oAuth2ServerPublicRefreshTokenDuration as Any,
+            "oAuth2ServerConfidentialPkce": oAuth2ServerConfidentialPkce as Any,
+            "oAuth2ServerDiscoveryUrl": oAuth2ServerDiscoveryUrl as Any
         ]
     }
 
@@ -250,6 +322,7 @@ open class Project: Codable {
             updatedAt: map["$updatedAt"] as! String,
             name: map["name"] as! String,
             teamId: map["teamId"] as! String,
+            region: map["region"] as! String,
             devKeys: (map["devKeys"] as! [[String: Any]]).map { DevKey.from(map: $0) },
             smtpEnabled: map["smtpEnabled"] as! Bool,
             smtpSenderName: map["smtpSenderName"] as! String,
@@ -268,10 +341,18 @@ open class Project: Codable {
             authMethods: (map["authMethods"] as! [[String: Any]]).map { ProjectAuthMethod.from(map: $0) },
             services: (map["services"] as! [[String: Any]]).map { ProjectService.from(map: $0) },
             protocols: (map["protocols"] as! [[String: Any]]).map { ProjectProtocol.from(map: $0) },
-            region: map["region"] as! String,
-            billingLimits: BillingLimits.from(map: map["billingLimits"] as! [String: Any]),
             blocks: (map["blocks"] as! [[String: Any]]).map { Block.from(map: $0) },
-            consoleAccessedAt: map["consoleAccessedAt"] as! String
+            consoleAccessedAt: map["consoleAccessedAt"] as! String,
+            billingLimits: BillingLimits.from(map: map["billingLimits"] as! [String: Any]),
+            oAuth2ServerEnabled: map["oAuth2ServerEnabled"] as! Bool,
+            oAuth2ServerAuthorizationUrl: map["oAuth2ServerAuthorizationUrl"] as! String,
+            oAuth2ServerScopes: map["oAuth2ServerScopes"] as! [String],
+            oAuth2ServerAccessTokenDuration: map["oAuth2ServerAccessTokenDuration"] as! Int,
+            oAuth2ServerRefreshTokenDuration: map["oAuth2ServerRefreshTokenDuration"] as! Int,
+            oAuth2ServerPublicAccessTokenDuration: map["oAuth2ServerPublicAccessTokenDuration"] as! Int,
+            oAuth2ServerPublicRefreshTokenDuration: map["oAuth2ServerPublicRefreshTokenDuration"] as! Int,
+            oAuth2ServerConfidentialPkce: map["oAuth2ServerConfidentialPkce"] as! Bool,
+            oAuth2ServerDiscoveryUrl: map["oAuth2ServerDiscoveryUrl"] as! String
         )
     }
 }
