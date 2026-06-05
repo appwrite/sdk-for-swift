@@ -32,7 +32,9 @@ open class Sites: Service {
             "total": total
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.SiteList = { response in
             return AppwriteModels.SiteList.from(map: response as! [String: Any])
@@ -131,6 +133,7 @@ open class Sites: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -160,7 +163,9 @@ open class Sites: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.FrameworkList = { response in
             return AppwriteModels.FrameworkList.from(map: response as! [String: Any])
@@ -187,7 +192,9 @@ open class Sites: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.SpecificationList = { response in
             return AppwriteModels.SpecificationList.from(map: response as! [String: Any])
@@ -218,7 +225,9 @@ open class Sites: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.Site = { response in
             return AppwriteModels.Site.from(map: response as! [String: Any])
@@ -317,6 +326,7 @@ open class Sites: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -350,6 +360,7 @@ open class Sites: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -382,6 +393,7 @@ open class Sites: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -425,7 +437,9 @@ open class Sites: Service {
             "total": total
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.DeploymentList = { response in
             return AppwriteModels.DeploymentList.from(map: response as! [String: Any])
@@ -476,6 +490,7 @@ open class Sites: Service {
         ]
 
         var apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "multipart/form-data"
         ]
 
@@ -521,6 +536,7 @@ open class Sites: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -577,6 +593,7 @@ open class Sites: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -622,6 +639,7 @@ open class Sites: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -657,7 +675,9 @@ open class Sites: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.Deployment = { response in
             return AppwriteModels.Deployment.from(map: response as! [String: Any])
@@ -692,6 +712,7 @@ open class Sites: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -729,7 +750,9 @@ open class Sites: Service {
             "key": client.config["key"]
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         return try await client.call(
             method: "GET",
@@ -762,6 +785,7 @@ open class Sites: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -802,7 +826,9 @@ open class Sites: Service {
             "total": total
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.ExecutionList = { response in
             return AppwriteModels.ExecutionList.from(map: response as! [String: Any])
@@ -836,7 +862,9 @@ open class Sites: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.Execution = { response in
             return AppwriteModels.Execution.from(map: response as! [String: Any])
@@ -871,6 +899,7 @@ open class Sites: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -904,7 +933,9 @@ open class Sites: Service {
             "total": total
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.VariableList = { response in
             return AppwriteModels.VariableList.from(map: response as! [String: Any])
@@ -950,6 +981,7 @@ open class Sites: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -985,7 +1017,9 @@ open class Sites: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.Variable = { response in
             return AppwriteModels.Variable.from(map: response as! [String: Any])
@@ -1030,6 +1064,7 @@ open class Sites: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -1066,6 +1101,7 @@ open class Sites: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 

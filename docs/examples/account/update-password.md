@@ -10,7 +10,7 @@ let account = Account(client)
 
 let user = try await account.updatePassword(
     password: "",
-    oldPassword: "password" // optional
+    oldPassword: "<OLD_PASSWORD>" // optional
 )
 
 ```

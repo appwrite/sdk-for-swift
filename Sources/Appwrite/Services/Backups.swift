@@ -25,7 +25,9 @@ open class Backups: Service {
             "queries": queries
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.BackupArchiveList = { response in
             return AppwriteModels.BackupArchiveList.from(map: response as! [String: Any])
@@ -61,6 +63,7 @@ open class Backups: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -93,7 +96,9 @@ open class Backups: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.BackupArchive = { response in
             return AppwriteModels.BackupArchive.from(map: response as! [String: Any])
@@ -125,6 +130,7 @@ open class Backups: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -152,7 +158,9 @@ open class Backups: Service {
             "queries": queries
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.BackupPolicyList = { response in
             return AppwriteModels.BackupPolicyList.from(map: response as! [String: Any])
@@ -203,6 +211,7 @@ open class Backups: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -235,7 +244,9 @@ open class Backups: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.BackupPolicy = { response in
             return AppwriteModels.BackupPolicy.from(map: response as! [String: Any])
@@ -280,6 +291,7 @@ open class Backups: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -313,6 +325,7 @@ open class Backups: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -350,6 +363,7 @@ open class Backups: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -383,7 +397,9 @@ open class Backups: Service {
             "queries": queries
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.BackupRestorationList = { response in
             return AppwriteModels.BackupRestorationList.from(map: response as! [String: Any])
@@ -414,7 +430,9 @@ open class Backups: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.BackupRestoration = { response in
             return AppwriteModels.BackupRestoration.from(map: response as! [String: Any])

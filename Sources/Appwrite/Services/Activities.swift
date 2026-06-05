@@ -25,7 +25,9 @@ open class Activities: Service {
             "queries": queries
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.ActivityEventList = { response in
             return AppwriteModels.ActivityEventList.from(map: response as! [String: Any])
@@ -57,7 +59,9 @@ open class Activities: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.ActivityEvent = { response in
             return AppwriteModels.ActivityEvent.from(map: response as! [String: Any])

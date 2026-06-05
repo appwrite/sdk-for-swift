@@ -39,7 +39,9 @@ open class Usage: Service {
             "total": total
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.UsageEventList = { response in
             return AppwriteModels.UsageEventList.from(map: response as! [String: Any])
@@ -84,7 +86,9 @@ open class Usage: Service {
             "total": total
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.UsageGaugeList = { response in
             return AppwriteModels.UsageGaugeList.from(map: response as! [String: Any])

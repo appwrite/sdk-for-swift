@@ -30,7 +30,9 @@ open class Advisor: Service {
             "total": total
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.ReportList = { response in
             return AppwriteModels.ReportList.from(map: response as! [String: Any])
@@ -63,7 +65,9 @@ open class Advisor: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.Report = { response in
             return AppwriteModels.Report.from(map: response as! [String: Any])
@@ -97,6 +101,7 @@ open class Advisor: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -132,7 +137,9 @@ open class Advisor: Service {
             "total": total
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.InsightList = { response in
             return AppwriteModels.InsightList.from(map: response as! [String: Any])
@@ -167,7 +174,9 @@ open class Advisor: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.Insight = { response in
             return AppwriteModels.Insight.from(map: response as! [String: Any])

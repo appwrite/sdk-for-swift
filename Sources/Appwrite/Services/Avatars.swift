@@ -45,7 +45,9 @@ open class Avatars: Service {
             "session": client.config["session"]
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         return try await client.call(
             method: "GET",
@@ -90,7 +92,9 @@ open class Avatars: Service {
             "session": client.config["session"]
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         return try await client.call(
             method: "GET",
@@ -121,7 +125,9 @@ open class Avatars: Service {
             "session": client.config["session"]
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         return try await client.call(
             method: "GET",
@@ -167,7 +173,9 @@ open class Avatars: Service {
             "session": client.config["session"]
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         return try await client.call(
             method: "GET",
@@ -211,7 +219,9 @@ open class Avatars: Service {
             "session": client.config["session"]
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         return try await client.call(
             method: "GET",
@@ -263,7 +273,9 @@ open class Avatars: Service {
             "session": client.config["session"]
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         return try await client.call(
             method: "GET",
@@ -302,7 +314,9 @@ open class Avatars: Service {
             "session": client.config["session"]
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         return try await client.call(
             method: "GET",
@@ -396,7 +410,9 @@ open class Avatars: Service {
             "session": client.config["session"]
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         return try await client.call(
             method: "GET",

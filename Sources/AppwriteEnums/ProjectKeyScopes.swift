@@ -94,6 +94,8 @@ public enum ProjectKeyScopes: String, Codable, CustomStringConvertible {
     case domainsRead = "domains.read"
     case domainsWrite = "domains.write"
     case eventsRead = "events.read"
+    case appsRead = "apps.read"
+    case appsWrite = "apps.write"
     case usageRead = "usage.read"
 
     public var description: String {

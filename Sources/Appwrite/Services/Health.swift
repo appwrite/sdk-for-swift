@@ -20,7 +20,9 @@ open class Health: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthStatus = { response in
             return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
@@ -47,10 +49,44 @@ open class Health: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthAntivirus = { response in
             return AppwriteModels.HealthAntivirus.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Check the database that backs the audit and activity store. When the
+    /// connection is reachable the endpoint returns a passing status with its
+    /// response time.
+    /// 
+    ///
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.HealthStatusList
+    ///
+    open func getAuditsDB(
+    ) async throws -> AppwriteModels.HealthStatusList {
+        let apiPath: String = "/health/audits-db"
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.HealthStatusList = { response in
+            return AppwriteModels.HealthStatusList.from(map: response as! [String: Any])
         }
 
         return try await client.call(
@@ -75,7 +111,9 @@ open class Health: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthStatusList = { response in
             return AppwriteModels.HealthStatusList.from(map: response as! [String: Any])
@@ -107,7 +145,9 @@ open class Health: Service {
             "domain": domain
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthCertificate = { response in
             return AppwriteModels.HealthCertificate.from(map: response as! [String: Any])
@@ -144,7 +184,9 @@ open class Health: Service {
             "inactivityDays": inactivityDays
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthStatus = { response in
             return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
@@ -171,7 +213,9 @@ open class Health: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthStatusList = { response in
             return AppwriteModels.HealthStatusList.from(map: response as! [String: Any])
@@ -198,7 +242,9 @@ open class Health: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthStatusList = { response in
             return AppwriteModels.HealthStatusList.from(map: response as! [String: Any])
@@ -232,7 +278,9 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -265,7 +313,9 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -299,7 +349,9 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -335,7 +387,9 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -368,7 +422,9 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -404,7 +460,9 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -437,7 +495,9 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -470,7 +530,9 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -503,7 +565,9 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -536,7 +600,9 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -569,7 +635,9 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -602,7 +670,9 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -635,7 +705,9 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -668,7 +740,9 @@ open class Health: Service {
             "threshold": threshold
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthQueue = { response in
             return AppwriteModels.HealthQueue.from(map: response as! [String: Any])
@@ -695,7 +769,9 @@ open class Health: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthStatus = { response in
             return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
@@ -722,7 +798,9 @@ open class Health: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthStatus = { response in
             return AppwriteModels.HealthStatus.from(map: response as! [String: Any])
@@ -755,7 +833,9 @@ open class Health: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.HealthTime = { response in
             return AppwriteModels.HealthTime.from(map: response as! [String: Any])

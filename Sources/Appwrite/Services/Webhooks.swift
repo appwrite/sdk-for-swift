@@ -29,7 +29,9 @@ open class Webhooks: Service {
             "total": total
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.WebhookList = { response in
             return AppwriteModels.WebhookList.from(map: response as! [String: Any])
@@ -87,6 +89,7 @@ open class Webhooks: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -120,7 +123,9 @@ open class Webhooks: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.Webhook = { response in
             return AppwriteModels.Webhook.from(map: response as! [String: Any])
@@ -175,6 +180,7 @@ open class Webhooks: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -209,6 +215,7 @@ open class Webhooks: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -242,6 +249,7 @@ open class Webhooks: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 

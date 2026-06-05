@@ -21,7 +21,9 @@ open class Account: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.User<T> = { response in
             return AppwriteModels.User.from(map: response as! [String: Any])
@@ -83,6 +85,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -160,6 +163,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -223,7 +227,9 @@ open class Account: Service {
             "total": total
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.IdentityList = { response in
             return AppwriteModels.IdentityList.from(map: response as! [String: Any])
@@ -255,6 +261,7 @@ open class Account: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -287,6 +294,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -324,7 +332,9 @@ open class Account: Service {
             "total": total
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.LogList = { response in
             return AppwriteModels.LogList.from(map: response as! [String: Any])
@@ -358,6 +368,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -412,6 +423,7 @@ open class Account: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -448,6 +460,7 @@ open class Account: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -489,6 +502,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -552,6 +566,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -608,6 +623,7 @@ open class Account: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -635,6 +651,7 @@ open class Account: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -666,6 +683,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -702,6 +720,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -744,6 +763,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -785,6 +805,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -814,7 +835,9 @@ open class Account: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.MfaFactors = { response in
             return AppwriteModels.MfaFactors.from(map: response as! [String: Any])
@@ -841,7 +864,9 @@ open class Account: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.MfaFactors = { response in
             return AppwriteModels.MfaFactors.from(map: response as! [String: Any])
@@ -872,7 +897,9 @@ open class Account: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.MfaRecoveryCodes = { response in
             return AppwriteModels.MfaRecoveryCodes.from(map: response as! [String: Any])
@@ -902,7 +929,9 @@ open class Account: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.MfaRecoveryCodes = { response in
             return AppwriteModels.MfaRecoveryCodes.from(map: response as! [String: Any])
@@ -935,6 +964,7 @@ open class Account: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -968,6 +998,7 @@ open class Account: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -1001,6 +1032,7 @@ open class Account: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -1033,6 +1065,7 @@ open class Account: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -1068,6 +1101,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -1125,6 +1159,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -1189,6 +1224,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -1242,7 +1278,9 @@ open class Account: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.Preferences<T> = { response in
             return AppwriteModels.Preferences.from(map: response as! [String: Any])
@@ -1291,6 +1329,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -1354,6 +1393,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -1403,6 +1443,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -1432,7 +1473,9 @@ open class Account: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.SessionList = { response in
             return AppwriteModels.SessionList.from(map: response as! [String: Any])
@@ -1461,6 +1504,7 @@ open class Account: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -1490,6 +1534,7 @@ open class Account: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -1532,6 +1577,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -1572,6 +1618,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -1612,6 +1659,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -1651,6 +1699,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -1684,7 +1733,9 @@ open class Account: Service {
 
         let apiParams: [String: Any] = [:]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         let converter: (Any) throws -> AppwriteModels.Session = { response in
             return AppwriteModels.Session.from(map: response as! [String: Any])
@@ -1718,6 +1769,7 @@ open class Account: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -1755,6 +1807,7 @@ open class Account: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -1781,6 +1834,7 @@ open class Account: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -1849,6 +1903,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -1905,6 +1960,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -1962,7 +2018,9 @@ open class Account: Service {
             "session": client.config["session"]
         ]
 
-        let apiHeaders: [String: String] = [:]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? ""
+        ]
 
         return try await client.redirect(
             method: "GET",
@@ -2002,6 +2060,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -2050,6 +2109,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -2099,6 +2159,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -2139,6 +2200,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -2180,6 +2242,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -2216,6 +2279,7 @@ open class Account: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
@@ -2256,6 +2320,7 @@ open class Account: Service {
         ]
 
         let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json"
         ]
 
