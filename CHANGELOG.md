@@ -5,7 +5,7 @@
 * Breaking: Removed `Health` service with all health models and enums
 * Breaking: Removed `Usage` service and `UsageEvent`, `UsageGauge` models
 * Breaking: Removed `Messaging.listMessageLogs`, `listProviderLogs`, `listSubscriberLogs`, `listTopicLogs` methods
-* Breaking: Removed OS, client, device, and country fields from `ActivityEvent` model
+* Breaking: Removed OS, client, and device fields plus `countryCode`/`countryName` from `ActivityEvent` (`country` remains)
 * Breaking: Made `Project` OAuth2 server fields optional; geometry attribute `default` types now typed doubles
 * Added: `Organization` service `get`, `update`, `delete`, and membership management methods
 * Added: `Client.setBearer` for OAuth access token authentication
