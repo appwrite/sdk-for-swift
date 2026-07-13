@@ -33,7 +33,8 @@ open class Storage: Service {
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.BucketList = { response in
@@ -98,7 +99,8 @@ open class Storage: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Bucket = { response in
@@ -132,7 +134,8 @@ open class Storage: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Bucket = { response in
@@ -197,7 +200,8 @@ open class Storage: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Bucket = { response in
@@ -269,7 +273,8 @@ open class Storage: Service {
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.FileList = { response in
@@ -331,7 +336,8 @@ open class Storage: Service {
 
         var apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "multipart/form-data"
+            "content-type": "multipart/form-data",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.File = { response in
@@ -372,7 +378,8 @@ open class Storage: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.File = { response in
@@ -417,7 +424,8 @@ open class Storage: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.File = { response in
@@ -489,11 +497,13 @@ open class Storage: Service {
         let apiParams: [String: Any?] = [
             "token": token,
             "project": client.config["project"],
-            "session": client.config["session"]
+            "session": client.config["session"],
+            "impersonateuserid": client.config["impersonateuserid"]
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "*/*"
         ]
 
         return try await client.call(
@@ -562,11 +572,13 @@ open class Storage: Service {
             "output": output?.rawValue,
             "token": token,
             "project": client.config["project"],
-            "session": client.config["session"]
+            "session": client.config["session"],
+            "impersonateuserid": client.config["impersonateuserid"]
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "image/*"
         ]
 
         return try await client.call(
@@ -600,11 +612,13 @@ open class Storage: Service {
         let apiParams: [String: Any?] = [
             "token": token,
             "project": client.config["project"],
-            "session": client.config["session"]
+            "session": client.config["session"],
+            "impersonateuserid": client.config["impersonateuserid"]
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "*/*"
         ]
 
         return try await client.call(

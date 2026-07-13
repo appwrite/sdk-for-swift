@@ -8,6 +8,7 @@ open class Block: Codable {
         case createdAt = "$createdAt"
         case resourceType = "resourceType"
         case resourceId = "resourceId"
+        case mode = "mode"
         case reason = "reason"
         case expiredAt = "expiredAt"
         case projectName = "projectName"
@@ -23,6 +24,8 @@ open class Block: Codable {
     public let resourceType: String
     /// Resource identifier that is blocked
     public let resourceId: String
+    /// Block mode. full blocks reads and writes; readOnly blocks writes only.
+    public let mode: String
     /// Reason for the block. Can be null if no reason was provided.
     public let reason: String?
     /// Block expiration date in ISO 8601 format. Can be null if the block does not expire.
@@ -42,6 +45,7 @@ open class Block: Codable {
         createdAt: String,
         resourceType: String,
         resourceId: String,
+        mode: String,
         reason: String?,
         expiredAt: String?,
         projectName: String,
@@ -53,6 +57,7 @@ open class Block: Codable {
         self.createdAt = createdAt
         self.resourceType = resourceType
         self.resourceId = resourceId
+        self.mode = mode
         self.reason = reason
         self.expiredAt = expiredAt
         self.projectName = projectName
@@ -68,6 +73,7 @@ open class Block: Codable {
         self.createdAt = try container.decode(String.self, forKey: .createdAt)
         self.resourceType = try container.decode(String.self, forKey: .resourceType)
         self.resourceId = try container.decode(String.self, forKey: .resourceId)
+        self.mode = try container.decode(String.self, forKey: .mode)
         self.reason = try container.decodeIfPresent(String.self, forKey: .reason)
         self.expiredAt = try container.decodeIfPresent(String.self, forKey: .expiredAt)
         self.projectName = try container.decode(String.self, forKey: .projectName)
@@ -83,6 +89,7 @@ open class Block: Codable {
         try container.encode(createdAt, forKey: .createdAt)
         try container.encode(resourceType, forKey: .resourceType)
         try container.encode(resourceId, forKey: .resourceId)
+        try container.encode(mode, forKey: .mode)
         try container.encodeIfPresent(reason, forKey: .reason)
         try container.encodeIfPresent(expiredAt, forKey: .expiredAt)
         try container.encode(projectName, forKey: .projectName)
@@ -97,6 +104,7 @@ open class Block: Codable {
             "$createdAt": createdAt as Any,
             "resourceType": resourceType as Any,
             "resourceId": resourceId as Any,
+            "mode": mode as Any,
             "reason": reason as Any,
             "expiredAt": expiredAt as Any,
             "projectName": projectName as Any,
@@ -112,6 +120,7 @@ open class Block: Codable {
             createdAt: map["$createdAt"] as! String,
             resourceType: map["resourceType"] as! String,
             resourceId: map["resourceId"] as! String,
+            mode: map["mode"] as! String,
             reason: map["reason"] as? String,
             expiredAt: map["expiredAt"] as? String,
             projectName: map["projectName"] as! String,

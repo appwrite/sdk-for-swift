@@ -34,7 +34,8 @@ open class Databases: Service {
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.DatabaseList = { response in
@@ -77,7 +78,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Database = { response in
@@ -101,6 +103,7 @@ open class Databases: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.TransactionList
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.listTransactions` instead.")
     open func listTransactions(
         queries: [String]? = nil
     ) async throws -> AppwriteModels.TransactionList {
@@ -111,7 +114,8 @@ open class Databases: Service {
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.TransactionList = { response in
@@ -135,6 +139,7 @@ open class Databases: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Transaction
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.createTransaction` instead.")
     open func createTransaction(
         ttl: Int? = nil
     ) async throws -> AppwriteModels.Transaction {
@@ -146,7 +151,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Transaction = { response in
@@ -170,6 +176,7 @@ open class Databases: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Transaction
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.getTransaction` instead.")
     open func getTransaction(
         transactionId: String
     ) async throws -> AppwriteModels.Transaction {
@@ -179,7 +186,8 @@ open class Databases: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Transaction = { response in
@@ -205,6 +213,7 @@ open class Databases: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Transaction
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.updateTransaction` instead.")
     open func updateTransaction(
         transactionId: String,
         commit: Bool? = nil,
@@ -220,7 +229,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Transaction = { response in
@@ -244,6 +254,7 @@ open class Databases: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: Any
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.deleteTransaction` instead.")
     open func deleteTransaction(
         transactionId: String
     ) async throws -> Any {
@@ -273,6 +284,7 @@ open class Databases: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Transaction
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.createOperations` instead.")
     open func createOperations(
         transactionId: String,
         operations: [Any]? = nil
@@ -286,7 +298,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Transaction = { response in
@@ -321,7 +334,8 @@ open class Databases: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Database = { response in
@@ -363,7 +377,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Database = { response in
@@ -438,7 +453,8 @@ open class Databases: Service {
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.CollectionList = { response in
@@ -498,7 +514,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Collection = { response in
@@ -536,7 +553,8 @@ open class Databases: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Collection = { response in
@@ -590,7 +608,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Collection = { response in
@@ -667,7 +686,8 @@ open class Databases: Service {
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeList = { response in
@@ -726,7 +746,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeBigint = { response in
@@ -785,7 +806,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeBigint = { response in
@@ -837,7 +859,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeBoolean = { response in
@@ -889,7 +912,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeBoolean = { response in
@@ -940,7 +964,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeDatetime = { response in
@@ -992,7 +1017,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeDatetime = { response in
@@ -1044,7 +1070,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeEmail = { response in
@@ -1097,7 +1124,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeEmail = { response in
@@ -1153,7 +1181,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeEnum = { response in
@@ -1209,7 +1238,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeEnum = { response in
@@ -1268,7 +1298,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeFloat = { response in
@@ -1327,7 +1358,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeFloat = { response in
@@ -1386,7 +1418,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeInteger = { response in
@@ -1445,7 +1478,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeInteger = { response in
@@ -1497,7 +1531,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeIp = { response in
@@ -1550,7 +1585,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeIp = { response in
@@ -1574,7 +1610,7 @@ open class Databases: Service {
     ///   - collectionId: String
     ///   - key: String
     ///   - required: Bool
-    ///   - default: [AnyCodable] (optional)
+    ///   - default: [[AnyCodable]] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeLine
     ///
@@ -1584,7 +1620,7 @@ open class Databases: Service {
         collectionId: String,
         key: String,
         `required`: Bool,
-        `default`: [AnyCodable]? = nil
+        `default`: [[AnyCodable]]? = nil
     ) async throws -> AppwriteModels.AttributeLine {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/line"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -1598,7 +1634,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeLine = { response in
@@ -1623,7 +1660,7 @@ open class Databases: Service {
     ///   - collectionId: String
     ///   - key: String
     ///   - required: Bool
-    ///   - default: [AnyCodable] (optional)
+    ///   - default: [[AnyCodable]] (optional)
     ///   - newKey: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeLine
@@ -1634,7 +1671,7 @@ open class Databases: Service {
         collectionId: String,
         key: String,
         `required`: Bool,
-        `default`: [AnyCodable]? = nil,
+        `default`: [[AnyCodable]]? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributeLine {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/line/{key}"
@@ -1650,7 +1687,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeLine = { response in
@@ -1681,6 +1719,7 @@ open class Databases: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeLongtext
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.createLongtextColumn` instead.")
     open func createLongtextAttribute(
         databaseId: String,
         collectionId: String,
@@ -1704,7 +1743,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeLongtext = { response in
@@ -1735,6 +1775,7 @@ open class Databases: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeLongtext
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.updateLongtextColumn` instead.")
     open func updateLongtextAttribute(
         databaseId: String,
         collectionId: String,
@@ -1756,7 +1797,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeLongtext = { response in
@@ -1787,6 +1829,7 @@ open class Databases: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeMediumtext
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.createMediumtextColumn` instead.")
     open func createMediumtextAttribute(
         databaseId: String,
         collectionId: String,
@@ -1810,7 +1853,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeMediumtext = { response in
@@ -1841,6 +1885,7 @@ open class Databases: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeMediumtext
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.updateMediumtextColumn` instead.")
     open func updateMediumtextAttribute(
         databaseId: String,
         collectionId: String,
@@ -1862,7 +1907,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeMediumtext = { response in
@@ -1886,7 +1932,7 @@ open class Databases: Service {
     ///   - collectionId: String
     ///   - key: String
     ///   - required: Bool
-    ///   - default: [AnyCodable] (optional)
+    ///   - default: [Double] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributePoint
     ///
@@ -1896,7 +1942,7 @@ open class Databases: Service {
         collectionId: String,
         key: String,
         `required`: Bool,
-        `default`: [AnyCodable]? = nil
+        `default`: [Double]? = nil
     ) async throws -> AppwriteModels.AttributePoint {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/point"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -1910,7 +1956,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributePoint = { response in
@@ -1935,7 +1982,7 @@ open class Databases: Service {
     ///   - collectionId: String
     ///   - key: String
     ///   - required: Bool
-    ///   - default: [AnyCodable] (optional)
+    ///   - default: [Double] (optional)
     ///   - newKey: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributePoint
@@ -1946,7 +1993,7 @@ open class Databases: Service {
         collectionId: String,
         key: String,
         `required`: Bool,
-        `default`: [AnyCodable]? = nil,
+        `default`: [Double]? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributePoint {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/point/{key}"
@@ -1962,7 +2009,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributePoint = { response in
@@ -1986,7 +2034,7 @@ open class Databases: Service {
     ///   - collectionId: String
     ///   - key: String
     ///   - required: Bool
-    ///   - default: [AnyCodable] (optional)
+    ///   - default: [[AnyCodable]] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributePolygon
     ///
@@ -1996,7 +2044,7 @@ open class Databases: Service {
         collectionId: String,
         key: String,
         `required`: Bool,
-        `default`: [AnyCodable]? = nil
+        `default`: [[AnyCodable]]? = nil
     ) async throws -> AppwriteModels.AttributePolygon {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/polygon"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -2010,7 +2058,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributePolygon = { response in
@@ -2035,7 +2084,7 @@ open class Databases: Service {
     ///   - collectionId: String
     ///   - key: String
     ///   - required: Bool
-    ///   - default: [AnyCodable] (optional)
+    ///   - default: [[AnyCodable]] (optional)
     ///   - newKey: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributePolygon
@@ -2046,7 +2095,7 @@ open class Databases: Service {
         collectionId: String,
         key: String,
         `required`: Bool,
-        `default`: [AnyCodable]? = nil,
+        `default`: [[AnyCodable]]? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributePolygon {
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/polygon/{key}"
@@ -2062,7 +2111,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributePolygon = { response in
@@ -2121,7 +2171,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeRelationship = { response in
@@ -2171,7 +2222,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeRelationship = { response in
@@ -2229,7 +2281,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeString = { response in
@@ -2285,7 +2338,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeString = { response in
@@ -2316,6 +2370,7 @@ open class Databases: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeText
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.createTextColumn` instead.")
     open func createTextAttribute(
         databaseId: String,
         collectionId: String,
@@ -2339,7 +2394,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeText = { response in
@@ -2370,6 +2426,7 @@ open class Databases: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeText
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.updateTextColumn` instead.")
     open func updateTextAttribute(
         databaseId: String,
         collectionId: String,
@@ -2391,7 +2448,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeText = { response in
@@ -2443,7 +2501,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeUrl = { response in
@@ -2496,7 +2555,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeUrl = { response in
@@ -2528,6 +2588,7 @@ open class Databases: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeVarchar
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.createVarcharColumn` instead.")
     open func createVarcharAttribute(
         databaseId: String,
         collectionId: String,
@@ -2553,7 +2614,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeVarchar = { response in
@@ -2585,6 +2647,7 @@ open class Databases: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeVarchar
     ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.updateVarcharColumn` instead.")
     open func updateVarcharAttribute(
         databaseId: String,
         collectionId: String,
@@ -2608,7 +2671,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeVarchar = { response in
@@ -2648,7 +2712,8 @@ open class Databases: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> Any = { response in
@@ -2768,7 +2833,8 @@ open class Databases: Service {
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.DocumentList<T> = { response in
@@ -2857,7 +2923,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Document<T> = { response in
@@ -2942,7 +3009,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.DocumentList<T> = { response in
@@ -3022,7 +3090,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.DocumentList<T> = { response in
@@ -3104,7 +3173,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.DocumentList<T> = { response in
@@ -3183,7 +3253,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.DocumentList<T> = { response in
@@ -3260,7 +3331,8 @@ open class Databases: Service {
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Document<T> = { response in
@@ -3346,7 +3418,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Document<T> = { response in
@@ -3435,7 +3508,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Document<T> = { response in
@@ -3563,7 +3637,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Document<T> = { response in
@@ -3654,7 +3729,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Document<T> = { response in
@@ -3734,7 +3810,8 @@ open class Databases: Service {
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.IndexList = { response in
@@ -3790,7 +3867,8 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Index = { response in
@@ -3830,7 +3908,8 @@ open class Databases: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Index = { response in

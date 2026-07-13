@@ -5,8 +5,131 @@ import JSONCodable
 import AppwriteEnums
 import AppwriteModels
 
-/// 
+/// The Organization service allows you to manage organization-level projects.
 open class Organization: Service {
+
+    ///
+    /// Get the current organization.
+    ///
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Organization<T>
+    ///
+    open func get<T>(
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Organization<T> {
+        let apiPath: String = "/organization"
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Organization<T> = { response in
+            return AppwriteModels.Organization.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get the current organization.
+    ///
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Organization<T>
+    ///
+    open func get(
+    ) async throws -> AppwriteModels.Organization<[String: AnyCodable]> {
+        return try await get(
+            nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
+    /// Update the current organization's name.
+    ///
+    /// - Parameters:
+    ///   - name: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Organization<T>
+    ///
+    open func update<T>(
+        name: String,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Organization<T> {
+        let apiPath: String = "/organization"
+
+        let apiParams: [String: Any?] = [
+            "name": name
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Organization<T> = { response in
+            return AppwriteModels.Organization.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PUT",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update the current organization's name.
+    ///
+    /// - Parameters:
+    ///   - name: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Organization<T>
+    ///
+    open func update(
+        name: String
+    ) async throws -> AppwriteModels.Organization<[String: AnyCodable]> {
+        return try await update(
+            name: name,
+            nestedType: [String: AnyCodable].self
+        )
+    }
+
+    ///
+    /// Delete the current organization. All projects that belong to the
+    /// organization are deleted as well.
+    ///
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
+    ///
+    open func delete(
+    ) async throws -> Any {
+        let apiPath: String = "/organization"
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json"
+        ]
+
+        return try await client.call(
+            method: "DELETE",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams        )
+    }
 
     ///
     /// Get a list of all API keys from the current organization.
@@ -29,7 +152,8 @@ open class Organization: Service {
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.KeyList = { response in
@@ -73,7 +197,8 @@ open class Organization: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Key = { response in
@@ -107,7 +232,8 @@ open class Organization: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Key = { response in
@@ -152,7 +278,8 @@ open class Organization: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Key = { response in
@@ -198,6 +325,203 @@ open class Organization: Service {
     }
 
     ///
+    /// Get a list of all memberships from the current organization.
+    ///
+    /// - Parameters:
+    ///   - queries: [String] (optional)
+    ///   - search: String (optional)
+    ///   - total: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.MembershipList
+    ///
+    open func listMemberships(
+        queries: [String]? = nil,
+        search: String? = nil,
+        total: Bool? = nil
+    ) async throws -> AppwriteModels.MembershipList {
+        let apiPath: String = "/organization/memberships"
+
+        let apiParams: [String: Any?] = [
+            "queries": queries,
+            "search": search,
+            "total": total
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.MembershipList = { response in
+            return AppwriteModels.MembershipList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Invite a new member to join the current organization. An email with a link
+    /// to join the organization will be sent to the new member's email address. If
+    /// member doesn't exist in the project it will be automatically created.
+    ///
+    /// - Parameters:
+    ///   - roles: [String]
+    ///   - email: String (optional)
+    ///   - userId: String (optional)
+    ///   - phone: String (optional)
+    ///   - url: String (optional)
+    ///   - name: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Membership
+    ///
+    open func createMembership(
+        roles: [String],
+        email: String? = nil,
+        userId: String? = nil,
+        phone: String? = nil,
+        url: String? = nil,
+        name: String? = nil
+    ) async throws -> AppwriteModels.Membership {
+        let apiPath: String = "/organization/memberships"
+
+        let apiParams: [String: Any?] = [
+            "email": email,
+            "userId": userId,
+            "phone": phone,
+            "roles": roles,
+            "url": url,
+            "name": name
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Membership = { response in
+            return AppwriteModels.Membership.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get a membership from the current organization by its unique ID.
+    ///
+    /// - Parameters:
+    ///   - membershipId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Membership
+    ///
+    open func getMembership(
+        membershipId: String
+    ) async throws -> AppwriteModels.Membership {
+        let apiPath: String = "/organization/memberships/{membershipId}"
+            .replacingOccurrences(of: "{membershipId}", with: membershipId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Membership = { response in
+            return AppwriteModels.Membership.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Modify the roles of a member in the current organization.
+    ///
+    /// - Parameters:
+    ///   - membershipId: String
+    ///   - roles: [String]
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Membership
+    ///
+    open func updateMembership(
+        membershipId: String,
+        roles: [String]
+    ) async throws -> AppwriteModels.Membership {
+        let apiPath: String = "/organization/memberships/{membershipId}"
+            .replacingOccurrences(of: "{membershipId}", with: membershipId)
+
+        let apiParams: [String: Any?] = [
+            "roles": roles
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Membership = { response in
+            return AppwriteModels.Membership.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Remove a member from the current organization. The member is removed
+    /// whether they accepted the invitation or not; a pending invitation is
+    /// revoked.
+    ///
+    /// - Parameters:
+    ///   - membershipId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
+    ///
+    open func deleteMembership(
+        membershipId: String
+    ) async throws -> Any {
+        let apiPath: String = "/organization/memberships/{membershipId}"
+            .replacingOccurrences(of: "{membershipId}", with: membershipId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json"
+        ]
+
+        return try await client.call(
+            method: "DELETE",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams        )
+    }
+
+    ///
     /// Get a list of all projects. You can use the query params to filter your
     /// results.
     ///
@@ -222,7 +546,8 @@ open class Organization: Service {
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.ProjectList = { response in
@@ -263,7 +588,8 @@ open class Organization: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -334,7 +660,8 @@ open class Organization: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in

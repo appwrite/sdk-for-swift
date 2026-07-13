@@ -32,7 +32,8 @@ open class Messaging: Service {
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.MessageList = { response in
@@ -100,7 +101,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Message = { response in
@@ -171,7 +173,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Message = { response in
@@ -260,7 +263,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Message = { response in
@@ -352,7 +356,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Message = { response in
@@ -406,7 +411,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Message = { response in
@@ -459,7 +465,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Message = { response in
@@ -516,7 +523,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Message = { response in
@@ -572,7 +580,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Message = { response in
@@ -606,7 +615,8 @@ open class Messaging: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Message = { response in
@@ -652,46 +662,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Get the message activity logs listed by its unique ID.
-    ///
-    /// - Parameters:
-    ///   - messageId: String
-    ///   - queries: [String] (optional)
-    ///   - total: Bool (optional)
-    /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.LogList
-    ///
-    open func listMessageLogs(
-        messageId: String,
-        queries: [String]? = nil,
-        total: Bool? = nil
-    ) async throws -> AppwriteModels.LogList {
-        let apiPath: String = "/messaging/messages/{messageId}/logs"
-            .replacingOccurrences(of: "{messageId}", with: messageId)
-
-        let apiParams: [String: Any?] = [
-            "queries": queries,
-            "total": total
-        ]
-
-        let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
-        ]
-
-        let converter: (Any) throws -> AppwriteModels.LogList = { response in
-            return AppwriteModels.LogList.from(map: response as! [String: Any])
-        }
-
-        return try await client.call(
-            method: "GET",
-            path: apiPath,
-            headers: apiHeaders,
-            params: apiParams,
-            converter: converter
-        )
-    }
-
-    ///
     /// Get a list of the targets associated with a message.
     ///
     /// - Parameters:
@@ -715,7 +685,8 @@ open class Messaging: Service {
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.TargetList = { response in
@@ -755,7 +726,8 @@ open class Messaging: Service {
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.ProviderList = { response in
@@ -812,7 +784,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -868,7 +841,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -925,7 +899,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -981,7 +956,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1026,7 +1002,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1070,7 +1047,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1115,7 +1093,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1159,7 +1138,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1221,7 +1201,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1283,7 +1264,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1333,7 +1315,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1383,7 +1366,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1439,7 +1423,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1495,7 +1480,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1551,7 +1537,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1607,7 +1594,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1669,7 +1657,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1731,7 +1720,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1806,7 +1796,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1880,7 +1871,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1955,7 +1947,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -2029,7 +2022,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -2079,7 +2073,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -2129,7 +2124,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -2179,7 +2175,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -2229,7 +2226,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -2279,7 +2277,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -2329,7 +2328,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -2379,7 +2379,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -2429,7 +2430,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -2463,7 +2465,8 @@ open class Messaging: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -2508,86 +2511,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Get the provider activity logs listed by its unique ID.
-    ///
-    /// - Parameters:
-    ///   - providerId: String
-    ///   - queries: [String] (optional)
-    ///   - total: Bool (optional)
-    /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.LogList
-    ///
-    open func listProviderLogs(
-        providerId: String,
-        queries: [String]? = nil,
-        total: Bool? = nil
-    ) async throws -> AppwriteModels.LogList {
-        let apiPath: String = "/messaging/providers/{providerId}/logs"
-            .replacingOccurrences(of: "{providerId}", with: providerId)
-
-        let apiParams: [String: Any?] = [
-            "queries": queries,
-            "total": total
-        ]
-
-        let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
-        ]
-
-        let converter: (Any) throws -> AppwriteModels.LogList = { response in
-            return AppwriteModels.LogList.from(map: response as! [String: Any])
-        }
-
-        return try await client.call(
-            method: "GET",
-            path: apiPath,
-            headers: apiHeaders,
-            params: apiParams,
-            converter: converter
-        )
-    }
-
-    ///
-    /// Get the subscriber activity logs listed by its unique ID.
-    ///
-    /// - Parameters:
-    ///   - subscriberId: String
-    ///   - queries: [String] (optional)
-    ///   - total: Bool (optional)
-    /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.LogList
-    ///
-    open func listSubscriberLogs(
-        subscriberId: String,
-        queries: [String]? = nil,
-        total: Bool? = nil
-    ) async throws -> AppwriteModels.LogList {
-        let apiPath: String = "/messaging/subscribers/{subscriberId}/logs"
-            .replacingOccurrences(of: "{subscriberId}", with: subscriberId)
-
-        let apiParams: [String: Any?] = [
-            "queries": queries,
-            "total": total
-        ]
-
-        let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
-        ]
-
-        let converter: (Any) throws -> AppwriteModels.LogList = { response in
-            return AppwriteModels.LogList.from(map: response as! [String: Any])
-        }
-
-        return try await client.call(
-            method: "GET",
-            path: apiPath,
-            headers: apiHeaders,
-            params: apiParams,
-            converter: converter
-        )
-    }
-
-    ///
     /// Get a list of all topics from the current Appwrite project.
     ///
     /// - Parameters:
@@ -2611,7 +2534,8 @@ open class Messaging: Service {
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.TopicList = { response in
@@ -2652,7 +2576,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Topic = { response in
@@ -2686,7 +2611,8 @@ open class Messaging: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Topic = { response in
@@ -2728,7 +2654,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Topic = { response in
@@ -2773,46 +2700,6 @@ open class Messaging: Service {
     }
 
     ///
-    /// Get the topic activity logs listed by its unique ID.
-    ///
-    /// - Parameters:
-    ///   - topicId: String
-    ///   - queries: [String] (optional)
-    ///   - total: Bool (optional)
-    /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.LogList
-    ///
-    open func listTopicLogs(
-        topicId: String,
-        queries: [String]? = nil,
-        total: Bool? = nil
-    ) async throws -> AppwriteModels.LogList {
-        let apiPath: String = "/messaging/topics/{topicId}/logs"
-            .replacingOccurrences(of: "{topicId}", with: topicId)
-
-        let apiParams: [String: Any?] = [
-            "queries": queries,
-            "total": total
-        ]
-
-        let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
-        ]
-
-        let converter: (Any) throws -> AppwriteModels.LogList = { response in
-            return AppwriteModels.LogList.from(map: response as! [String: Any])
-        }
-
-        return try await client.call(
-            method: "GET",
-            path: apiPath,
-            headers: apiHeaders,
-            params: apiParams,
-            converter: converter
-        )
-    }
-
-    ///
     /// Get a list of all subscribers from the current Appwrite project.
     ///
     /// - Parameters:
@@ -2839,7 +2726,8 @@ open class Messaging: Service {
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.SubscriberList = { response in
@@ -2880,7 +2768,8 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Subscriber = { response in
@@ -2917,7 +2806,8 @@ open class Messaging: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Subscriber = { response in

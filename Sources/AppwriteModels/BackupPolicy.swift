@@ -15,6 +15,7 @@ open class BackupPolicy: Codable {
         case resourceType = "resourceType"
         case retention = "retention"
         case schedule = "schedule"
+        case type = "type"
         case enabled = "enabled"
     }
 
@@ -38,6 +39,8 @@ open class BackupPolicy: Codable {
     public let retention: Int
     /// Policy backup schedule in CRON format.
     public let schedule: String
+    /// Backup type. Possible values: full (complete database snapshot), incremental (changes since last backup).
+    public let type: String
     /// Is this policy enabled.
     public let enabled: Bool
 
@@ -52,6 +55,7 @@ open class BackupPolicy: Codable {
         resourceType: String?,
         retention: Int,
         schedule: String,
+        type: String,
         enabled: Bool
     ) {
         self.id = id
@@ -64,6 +68,7 @@ open class BackupPolicy: Codable {
         self.resourceType = resourceType
         self.retention = retention
         self.schedule = schedule
+        self.type = type
         self.enabled = enabled
     }
 
@@ -80,6 +85,7 @@ open class BackupPolicy: Codable {
         self.resourceType = try container.decodeIfPresent(String.self, forKey: .resourceType)
         self.retention = try container.decode(Int.self, forKey: .retention)
         self.schedule = try container.decode(String.self, forKey: .schedule)
+        self.type = try container.decode(String.self, forKey: .type)
         self.enabled = try container.decode(Bool.self, forKey: .enabled)
     }
 
@@ -96,6 +102,7 @@ open class BackupPolicy: Codable {
         try container.encodeIfPresent(resourceType, forKey: .resourceType)
         try container.encode(retention, forKey: .retention)
         try container.encode(schedule, forKey: .schedule)
+        try container.encode(type, forKey: .type)
         try container.encode(enabled, forKey: .enabled)
     }
 
@@ -111,6 +118,7 @@ open class BackupPolicy: Codable {
             "resourceType": resourceType as Any,
             "retention": retention as Any,
             "schedule": schedule as Any,
+            "type": type as Any,
             "enabled": enabled as Any
         ]
     }
@@ -127,6 +135,7 @@ open class BackupPolicy: Codable {
             resourceType: map["resourceType"] as? String,
             retention: map["retention"] as! Int,
             schedule: map["schedule"] as! String,
+            type: map["type"] as! String,
             enabled: map["enabled"] as! Bool
         )
     }

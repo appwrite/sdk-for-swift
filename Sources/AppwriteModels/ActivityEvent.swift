@@ -23,20 +23,6 @@ open class ActivityEvent: Codable {
         case projectId = "projectId"
         case teamId = "teamId"
         case hostname = "hostname"
-        case osCode = "osCode"
-        case osName = "osName"
-        case osVersion = "osVersion"
-        case clientType = "clientType"
-        case clientCode = "clientCode"
-        case clientName = "clientName"
-        case clientVersion = "clientVersion"
-        case clientEngine = "clientEngine"
-        case clientEngineVersion = "clientEngineVersion"
-        case deviceName = "deviceName"
-        case deviceBrand = "deviceBrand"
-        case deviceModel = "deviceModel"
-        case countryCode = "countryCode"
-        case countryName = "countryName"
     }
 
     /// Event ID.
@@ -75,34 +61,6 @@ open class ActivityEvent: Codable {
     public let teamId: String
     /// Hostname.
     public let hostname: String
-    /// Operating system code name. View list of [available options](https://github.com/appwrite/appwrite/blob/master/docs/lists/os.json).
-    public let osCode: String
-    /// Operating system name.
-    public let osName: String
-    /// Operating system version.
-    public let osVersion: String
-    /// Client type.
-    public let clientType: String
-    /// Client code name. View list of [available options](https://github.com/appwrite/appwrite/blob/master/docs/lists/clients.json).
-    public let clientCode: String
-    /// Client name.
-    public let clientName: String
-    /// Client version.
-    public let clientVersion: String
-    /// Client engine name.
-    public let clientEngine: String
-    /// Client engine name.
-    public let clientEngineVersion: String
-    /// Device name.
-    public let deviceName: String
-    /// Device brand name.
-    public let deviceBrand: String
-    /// Device model name.
-    public let deviceModel: String
-    /// Country two-character ISO 3166-1 alpha code.
-    public let countryCode: String
-    /// Country name.
-    public let countryName: String
 
     init(
         id: String,
@@ -122,21 +80,7 @@ open class ActivityEvent: Codable {
         time: String,
         projectId: String,
         teamId: String,
-        hostname: String,
-        osCode: String,
-        osName: String,
-        osVersion: String,
-        clientType: String,
-        clientCode: String,
-        clientName: String,
-        clientVersion: String,
-        clientEngine: String,
-        clientEngineVersion: String,
-        deviceName: String,
-        deviceBrand: String,
-        deviceModel: String,
-        countryCode: String,
-        countryName: String
+        hostname: String
     ) {
         self.id = id
         self.actorType = actorType
@@ -156,20 +100,6 @@ open class ActivityEvent: Codable {
         self.projectId = projectId
         self.teamId = teamId
         self.hostname = hostname
-        self.osCode = osCode
-        self.osName = osName
-        self.osVersion = osVersion
-        self.clientType = clientType
-        self.clientCode = clientCode
-        self.clientName = clientName
-        self.clientVersion = clientVersion
-        self.clientEngine = clientEngine
-        self.clientEngineVersion = clientEngineVersion
-        self.deviceName = deviceName
-        self.deviceBrand = deviceBrand
-        self.deviceModel = deviceModel
-        self.countryCode = countryCode
-        self.countryName = countryName
     }
 
     public required init(from decoder: Decoder) throws {
@@ -193,20 +123,6 @@ open class ActivityEvent: Codable {
         self.projectId = try container.decode(String.self, forKey: .projectId)
         self.teamId = try container.decode(String.self, forKey: .teamId)
         self.hostname = try container.decode(String.self, forKey: .hostname)
-        self.osCode = try container.decode(String.self, forKey: .osCode)
-        self.osName = try container.decode(String.self, forKey: .osName)
-        self.osVersion = try container.decode(String.self, forKey: .osVersion)
-        self.clientType = try container.decode(String.self, forKey: .clientType)
-        self.clientCode = try container.decode(String.self, forKey: .clientCode)
-        self.clientName = try container.decode(String.self, forKey: .clientName)
-        self.clientVersion = try container.decode(String.self, forKey: .clientVersion)
-        self.clientEngine = try container.decode(String.self, forKey: .clientEngine)
-        self.clientEngineVersion = try container.decode(String.self, forKey: .clientEngineVersion)
-        self.deviceName = try container.decode(String.self, forKey: .deviceName)
-        self.deviceBrand = try container.decode(String.self, forKey: .deviceBrand)
-        self.deviceModel = try container.decode(String.self, forKey: .deviceModel)
-        self.countryCode = try container.decode(String.self, forKey: .countryCode)
-        self.countryName = try container.decode(String.self, forKey: .countryName)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -230,20 +146,6 @@ open class ActivityEvent: Codable {
         try container.encode(projectId, forKey: .projectId)
         try container.encode(teamId, forKey: .teamId)
         try container.encode(hostname, forKey: .hostname)
-        try container.encode(osCode, forKey: .osCode)
-        try container.encode(osName, forKey: .osName)
-        try container.encode(osVersion, forKey: .osVersion)
-        try container.encode(clientType, forKey: .clientType)
-        try container.encode(clientCode, forKey: .clientCode)
-        try container.encode(clientName, forKey: .clientName)
-        try container.encode(clientVersion, forKey: .clientVersion)
-        try container.encode(clientEngine, forKey: .clientEngine)
-        try container.encode(clientEngineVersion, forKey: .clientEngineVersion)
-        try container.encode(deviceName, forKey: .deviceName)
-        try container.encode(deviceBrand, forKey: .deviceBrand)
-        try container.encode(deviceModel, forKey: .deviceModel)
-        try container.encode(countryCode, forKey: .countryCode)
-        try container.encode(countryName, forKey: .countryName)
     }
 
     public func toMap() -> [String: Any] {
@@ -265,21 +167,7 @@ open class ActivityEvent: Codable {
             "time": time as Any,
             "projectId": projectId as Any,
             "teamId": teamId as Any,
-            "hostname": hostname as Any,
-            "osCode": osCode as Any,
-            "osName": osName as Any,
-            "osVersion": osVersion as Any,
-            "clientType": clientType as Any,
-            "clientCode": clientCode as Any,
-            "clientName": clientName as Any,
-            "clientVersion": clientVersion as Any,
-            "clientEngine": clientEngine as Any,
-            "clientEngineVersion": clientEngineVersion as Any,
-            "deviceName": deviceName as Any,
-            "deviceBrand": deviceBrand as Any,
-            "deviceModel": deviceModel as Any,
-            "countryCode": countryCode as Any,
-            "countryName": countryName as Any
+            "hostname": hostname as Any
         ]
     }
 
@@ -302,21 +190,7 @@ open class ActivityEvent: Codable {
             time: map["time"] as! String,
             projectId: map["projectId"] as! String,
             teamId: map["teamId"] as! String,
-            hostname: map["hostname"] as! String,
-            osCode: map["osCode"] as! String,
-            osName: map["osName"] as! String,
-            osVersion: map["osVersion"] as! String,
-            clientType: map["clientType"] as! String,
-            clientCode: map["clientCode"] as! String,
-            clientName: map["clientName"] as! String,
-            clientVersion: map["clientVersion"] as! String,
-            clientEngine: map["clientEngine"] as! String,
-            clientEngineVersion: map["clientEngineVersion"] as! String,
-            deviceName: map["deviceName"] as! String,
-            deviceBrand: map["deviceBrand"] as! String,
-            deviceModel: map["deviceModel"] as! String,
-            countryCode: map["countryCode"] as! String,
-            countryName: map["countryName"] as! String
+            hostname: map["hostname"] as! String
         )
     }
 }

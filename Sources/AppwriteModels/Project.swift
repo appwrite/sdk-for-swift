@@ -26,6 +26,7 @@ open class Project: Codable {
         case pingedAt = "pingedAt"
         case labels = "labels"
         case status = "status"
+        case onboarding = "onboarding"
         case authMethods = "authMethods"
         case services = "services"
         case protocols = "protocols"
@@ -35,11 +36,17 @@ open class Project: Codable {
         case oAuth2ServerEnabled = "oAuth2ServerEnabled"
         case oAuth2ServerAuthorizationUrl = "oAuth2ServerAuthorizationUrl"
         case oAuth2ServerScopes = "oAuth2ServerScopes"
+        case oAuth2ServerDefaultScopes = "oAuth2ServerDefaultScopes"
+        case oAuth2ServerAuthorizationDetailsTypes = "oAuth2ServerAuthorizationDetailsTypes"
         case oAuth2ServerAccessTokenDuration = "oAuth2ServerAccessTokenDuration"
         case oAuth2ServerRefreshTokenDuration = "oAuth2ServerRefreshTokenDuration"
         case oAuth2ServerPublicAccessTokenDuration = "oAuth2ServerPublicAccessTokenDuration"
         case oAuth2ServerPublicRefreshTokenDuration = "oAuth2ServerPublicRefreshTokenDuration"
         case oAuth2ServerConfidentialPkce = "oAuth2ServerConfidentialPkce"
+        case oAuth2ServerVerificationUrl = "oAuth2ServerVerificationUrl"
+        case oAuth2ServerUserCodeLength = "oAuth2ServerUserCodeLength"
+        case oAuth2ServerUserCodeFormat = "oAuth2ServerUserCodeFormat"
+        case oAuth2ServerDeviceCodeDuration = "oAuth2ServerDeviceCodeDuration"
         case oAuth2ServerDiscoveryUrl = "oAuth2ServerDiscoveryUrl"
     }
 
@@ -85,6 +92,8 @@ open class Project: Codable {
     public let labels: [String]
     /// Project status
     public let status: String
+    /// Stage progress (completed or skipped) with timestamps and actor types, keyed by stage id.
+    public let onboarding: [String: AnyCodable]
     /// List of auth methods.
     public let authMethods: [ProjectAuthMethod]
     /// List of services.
@@ -98,23 +107,35 @@ open class Project: Codable {
     /// Billing limits reached
     public let billingLimits: BillingLimits?
     /// OAuth2 server status
-    public let oAuth2ServerEnabled: Bool
+    public let oAuth2ServerEnabled: Bool?
     /// OAuth2 server authorization URL
-    public let oAuth2ServerAuthorizationUrl: String
+    public let oAuth2ServerAuthorizationUrl: String?
     /// OAuth2 server allowed scopes
-    public let oAuth2ServerScopes: [String]
+    public let oAuth2ServerScopes: [String]?
+    /// OAuth2 server scopes used when an authorization request omits the scope parameter
+    public let oAuth2ServerDefaultScopes: [String]?
+    /// OAuth2 server accepted RFC 9396 authorization_details types
+    public let oAuth2ServerAuthorizationDetailsTypes: [String]?
     /// OAuth2 server access token duration in seconds for confidential clients
-    public let oAuth2ServerAccessTokenDuration: Int
+    public let oAuth2ServerAccessTokenDuration: Int?
     /// OAuth2 server refresh token duration in seconds for confidential clients
-    public let oAuth2ServerRefreshTokenDuration: Int
+    public let oAuth2ServerRefreshTokenDuration: Int?
     /// OAuth2 server access token duration in seconds for public clients (SPAs, mobile, native)
-    public let oAuth2ServerPublicAccessTokenDuration: Int
+    public let oAuth2ServerPublicAccessTokenDuration: Int?
     /// OAuth2 server refresh token duration in seconds for public clients (SPAs, mobile, native)
-    public let oAuth2ServerPublicRefreshTokenDuration: Int
+    public let oAuth2ServerPublicRefreshTokenDuration: Int?
     /// When enabled, PKCE is required for confidential clients (server-side flows using client_secret). PKCE is always required for public clients regardless of this setting.
-    public let oAuth2ServerConfidentialPkce: Bool
+    public let oAuth2ServerConfidentialPkce: Bool?
+    /// URL to your application page where users enter the device flow user code. Empty when the Device Authorization Grant is not configured.
+    public let oAuth2ServerVerificationUrl: String?
+    /// Number of characters in the device flow user code, excluding the formatting separator.
+    public let oAuth2ServerUserCodeLength: Int?
+    /// Character set for device flow user codes: `numeric`, `alphabetic`, or `alphanumeric`.
+    public let oAuth2ServerUserCodeFormat: String?
+    /// Lifetime in seconds of device flow device codes and user codes.
+    public let oAuth2ServerDeviceCodeDuration: Int?
     /// OAuth2 server discovery URL
-    public let oAuth2ServerDiscoveryUrl: String
+    public let oAuth2ServerDiscoveryUrl: String?
 
     init(
         id: String,
@@ -138,21 +159,28 @@ open class Project: Codable {
         pingedAt: String,
         labels: [String],
         status: String,
+        onboarding: [String: AnyCodable],
         authMethods: [ProjectAuthMethod],
         services: [ProjectService],
         protocols: [ProjectProtocol],
         blocks: [Block],
         consoleAccessedAt: String,
         billingLimits: BillingLimits?,
-        oAuth2ServerEnabled: Bool,
-        oAuth2ServerAuthorizationUrl: String,
-        oAuth2ServerScopes: [String],
-        oAuth2ServerAccessTokenDuration: Int,
-        oAuth2ServerRefreshTokenDuration: Int,
-        oAuth2ServerPublicAccessTokenDuration: Int,
-        oAuth2ServerPublicRefreshTokenDuration: Int,
-        oAuth2ServerConfidentialPkce: Bool,
-        oAuth2ServerDiscoveryUrl: String
+        oAuth2ServerEnabled: Bool?,
+        oAuth2ServerAuthorizationUrl: String?,
+        oAuth2ServerScopes: [String]?,
+        oAuth2ServerDefaultScopes: [String]?,
+        oAuth2ServerAuthorizationDetailsTypes: [String]?,
+        oAuth2ServerAccessTokenDuration: Int?,
+        oAuth2ServerRefreshTokenDuration: Int?,
+        oAuth2ServerPublicAccessTokenDuration: Int?,
+        oAuth2ServerPublicRefreshTokenDuration: Int?,
+        oAuth2ServerConfidentialPkce: Bool?,
+        oAuth2ServerVerificationUrl: String?,
+        oAuth2ServerUserCodeLength: Int?,
+        oAuth2ServerUserCodeFormat: String?,
+        oAuth2ServerDeviceCodeDuration: Int?,
+        oAuth2ServerDiscoveryUrl: String?
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -175,6 +203,7 @@ open class Project: Codable {
         self.pingedAt = pingedAt
         self.labels = labels
         self.status = status
+        self.onboarding = onboarding
         self.authMethods = authMethods
         self.services = services
         self.protocols = protocols
@@ -184,11 +213,17 @@ open class Project: Codable {
         self.oAuth2ServerEnabled = oAuth2ServerEnabled
         self.oAuth2ServerAuthorizationUrl = oAuth2ServerAuthorizationUrl
         self.oAuth2ServerScopes = oAuth2ServerScopes
+        self.oAuth2ServerDefaultScopes = oAuth2ServerDefaultScopes
+        self.oAuth2ServerAuthorizationDetailsTypes = oAuth2ServerAuthorizationDetailsTypes
         self.oAuth2ServerAccessTokenDuration = oAuth2ServerAccessTokenDuration
         self.oAuth2ServerRefreshTokenDuration = oAuth2ServerRefreshTokenDuration
         self.oAuth2ServerPublicAccessTokenDuration = oAuth2ServerPublicAccessTokenDuration
         self.oAuth2ServerPublicRefreshTokenDuration = oAuth2ServerPublicRefreshTokenDuration
         self.oAuth2ServerConfidentialPkce = oAuth2ServerConfidentialPkce
+        self.oAuth2ServerVerificationUrl = oAuth2ServerVerificationUrl
+        self.oAuth2ServerUserCodeLength = oAuth2ServerUserCodeLength
+        self.oAuth2ServerUserCodeFormat = oAuth2ServerUserCodeFormat
+        self.oAuth2ServerDeviceCodeDuration = oAuth2ServerDeviceCodeDuration
         self.oAuth2ServerDiscoveryUrl = oAuth2ServerDiscoveryUrl
     }
 
@@ -216,21 +251,28 @@ open class Project: Codable {
         self.pingedAt = try container.decode(String.self, forKey: .pingedAt)
         self.labels = try container.decode([String].self, forKey: .labels)
         self.status = try container.decode(String.self, forKey: .status)
+        self.onboarding = try container.decode([String: AnyCodable].self, forKey: .onboarding)
         self.authMethods = try container.decode([ProjectAuthMethod].self, forKey: .authMethods)
         self.services = try container.decode([ProjectService].self, forKey: .services)
         self.protocols = try container.decode([ProjectProtocol].self, forKey: .protocols)
         self.blocks = try container.decode([Block].self, forKey: .blocks)
         self.consoleAccessedAt = try container.decode(String.self, forKey: .consoleAccessedAt)
         self.billingLimits = try container.decodeIfPresent(BillingLimits.self, forKey: .billingLimits)
-        self.oAuth2ServerEnabled = try container.decode(Bool.self, forKey: .oAuth2ServerEnabled)
-        self.oAuth2ServerAuthorizationUrl = try container.decode(String.self, forKey: .oAuth2ServerAuthorizationUrl)
-        self.oAuth2ServerScopes = try container.decode([String].self, forKey: .oAuth2ServerScopes)
-        self.oAuth2ServerAccessTokenDuration = try container.decode(Int.self, forKey: .oAuth2ServerAccessTokenDuration)
-        self.oAuth2ServerRefreshTokenDuration = try container.decode(Int.self, forKey: .oAuth2ServerRefreshTokenDuration)
-        self.oAuth2ServerPublicAccessTokenDuration = try container.decode(Int.self, forKey: .oAuth2ServerPublicAccessTokenDuration)
-        self.oAuth2ServerPublicRefreshTokenDuration = try container.decode(Int.self, forKey: .oAuth2ServerPublicRefreshTokenDuration)
-        self.oAuth2ServerConfidentialPkce = try container.decode(Bool.self, forKey: .oAuth2ServerConfidentialPkce)
-        self.oAuth2ServerDiscoveryUrl = try container.decode(String.self, forKey: .oAuth2ServerDiscoveryUrl)
+        self.oAuth2ServerEnabled = try container.decodeIfPresent(Bool.self, forKey: .oAuth2ServerEnabled)
+        self.oAuth2ServerAuthorizationUrl = try container.decodeIfPresent(String.self, forKey: .oAuth2ServerAuthorizationUrl)
+        self.oAuth2ServerScopes = try container.decodeIfPresent([String].self, forKey: .oAuth2ServerScopes)
+        self.oAuth2ServerDefaultScopes = try container.decodeIfPresent([String].self, forKey: .oAuth2ServerDefaultScopes)
+        self.oAuth2ServerAuthorizationDetailsTypes = try container.decodeIfPresent([String].self, forKey: .oAuth2ServerAuthorizationDetailsTypes)
+        self.oAuth2ServerAccessTokenDuration = try container.decodeIfPresent(Int.self, forKey: .oAuth2ServerAccessTokenDuration)
+        self.oAuth2ServerRefreshTokenDuration = try container.decodeIfPresent(Int.self, forKey: .oAuth2ServerRefreshTokenDuration)
+        self.oAuth2ServerPublicAccessTokenDuration = try container.decodeIfPresent(Int.self, forKey: .oAuth2ServerPublicAccessTokenDuration)
+        self.oAuth2ServerPublicRefreshTokenDuration = try container.decodeIfPresent(Int.self, forKey: .oAuth2ServerPublicRefreshTokenDuration)
+        self.oAuth2ServerConfidentialPkce = try container.decodeIfPresent(Bool.self, forKey: .oAuth2ServerConfidentialPkce)
+        self.oAuth2ServerVerificationUrl = try container.decodeIfPresent(String.self, forKey: .oAuth2ServerVerificationUrl)
+        self.oAuth2ServerUserCodeLength = try container.decodeIfPresent(Int.self, forKey: .oAuth2ServerUserCodeLength)
+        self.oAuth2ServerUserCodeFormat = try container.decodeIfPresent(String.self, forKey: .oAuth2ServerUserCodeFormat)
+        self.oAuth2ServerDeviceCodeDuration = try container.decodeIfPresent(Int.self, forKey: .oAuth2ServerDeviceCodeDuration)
+        self.oAuth2ServerDiscoveryUrl = try container.decodeIfPresent(String.self, forKey: .oAuth2ServerDiscoveryUrl)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -257,21 +299,28 @@ open class Project: Codable {
         try container.encode(pingedAt, forKey: .pingedAt)
         try container.encode(labels, forKey: .labels)
         try container.encode(status, forKey: .status)
+        try container.encode(onboarding, forKey: .onboarding)
         try container.encode(authMethods, forKey: .authMethods)
         try container.encode(services, forKey: .services)
         try container.encode(protocols, forKey: .protocols)
         try container.encode(blocks, forKey: .blocks)
         try container.encode(consoleAccessedAt, forKey: .consoleAccessedAt)
         try container.encodeIfPresent(billingLimits, forKey: .billingLimits)
-        try container.encode(oAuth2ServerEnabled, forKey: .oAuth2ServerEnabled)
-        try container.encode(oAuth2ServerAuthorizationUrl, forKey: .oAuth2ServerAuthorizationUrl)
-        try container.encode(oAuth2ServerScopes, forKey: .oAuth2ServerScopes)
-        try container.encode(oAuth2ServerAccessTokenDuration, forKey: .oAuth2ServerAccessTokenDuration)
-        try container.encode(oAuth2ServerRefreshTokenDuration, forKey: .oAuth2ServerRefreshTokenDuration)
-        try container.encode(oAuth2ServerPublicAccessTokenDuration, forKey: .oAuth2ServerPublicAccessTokenDuration)
-        try container.encode(oAuth2ServerPublicRefreshTokenDuration, forKey: .oAuth2ServerPublicRefreshTokenDuration)
-        try container.encode(oAuth2ServerConfidentialPkce, forKey: .oAuth2ServerConfidentialPkce)
-        try container.encode(oAuth2ServerDiscoveryUrl, forKey: .oAuth2ServerDiscoveryUrl)
+        try container.encodeIfPresent(oAuth2ServerEnabled, forKey: .oAuth2ServerEnabled)
+        try container.encodeIfPresent(oAuth2ServerAuthorizationUrl, forKey: .oAuth2ServerAuthorizationUrl)
+        try container.encodeIfPresent(oAuth2ServerScopes, forKey: .oAuth2ServerScopes)
+        try container.encodeIfPresent(oAuth2ServerDefaultScopes, forKey: .oAuth2ServerDefaultScopes)
+        try container.encodeIfPresent(oAuth2ServerAuthorizationDetailsTypes, forKey: .oAuth2ServerAuthorizationDetailsTypes)
+        try container.encodeIfPresent(oAuth2ServerAccessTokenDuration, forKey: .oAuth2ServerAccessTokenDuration)
+        try container.encodeIfPresent(oAuth2ServerRefreshTokenDuration, forKey: .oAuth2ServerRefreshTokenDuration)
+        try container.encodeIfPresent(oAuth2ServerPublicAccessTokenDuration, forKey: .oAuth2ServerPublicAccessTokenDuration)
+        try container.encodeIfPresent(oAuth2ServerPublicRefreshTokenDuration, forKey: .oAuth2ServerPublicRefreshTokenDuration)
+        try container.encodeIfPresent(oAuth2ServerConfidentialPkce, forKey: .oAuth2ServerConfidentialPkce)
+        try container.encodeIfPresent(oAuth2ServerVerificationUrl, forKey: .oAuth2ServerVerificationUrl)
+        try container.encodeIfPresent(oAuth2ServerUserCodeLength, forKey: .oAuth2ServerUserCodeLength)
+        try container.encodeIfPresent(oAuth2ServerUserCodeFormat, forKey: .oAuth2ServerUserCodeFormat)
+        try container.encodeIfPresent(oAuth2ServerDeviceCodeDuration, forKey: .oAuth2ServerDeviceCodeDuration)
+        try container.encodeIfPresent(oAuth2ServerDiscoveryUrl, forKey: .oAuth2ServerDiscoveryUrl)
     }
 
     public func toMap() -> [String: Any] {
@@ -297,6 +346,7 @@ open class Project: Codable {
             "pingedAt": pingedAt as Any,
             "labels": labels as Any,
             "status": status as Any,
+            "onboarding": onboarding as Any,
             "authMethods": authMethods.map { $0.toMap() } as Any,
             "services": services.map { $0.toMap() } as Any,
             "protocols": protocols.map { $0.toMap() } as Any,
@@ -306,11 +356,17 @@ open class Project: Codable {
             "oAuth2ServerEnabled": oAuth2ServerEnabled as Any,
             "oAuth2ServerAuthorizationUrl": oAuth2ServerAuthorizationUrl as Any,
             "oAuth2ServerScopes": oAuth2ServerScopes as Any,
+            "oAuth2ServerDefaultScopes": oAuth2ServerDefaultScopes as Any,
+            "oAuth2ServerAuthorizationDetailsTypes": oAuth2ServerAuthorizationDetailsTypes as Any,
             "oAuth2ServerAccessTokenDuration": oAuth2ServerAccessTokenDuration as Any,
             "oAuth2ServerRefreshTokenDuration": oAuth2ServerRefreshTokenDuration as Any,
             "oAuth2ServerPublicAccessTokenDuration": oAuth2ServerPublicAccessTokenDuration as Any,
             "oAuth2ServerPublicRefreshTokenDuration": oAuth2ServerPublicRefreshTokenDuration as Any,
             "oAuth2ServerConfidentialPkce": oAuth2ServerConfidentialPkce as Any,
+            "oAuth2ServerVerificationUrl": oAuth2ServerVerificationUrl as Any,
+            "oAuth2ServerUserCodeLength": oAuth2ServerUserCodeLength as Any,
+            "oAuth2ServerUserCodeFormat": oAuth2ServerUserCodeFormat as Any,
+            "oAuth2ServerDeviceCodeDuration": oAuth2ServerDeviceCodeDuration as Any,
             "oAuth2ServerDiscoveryUrl": oAuth2ServerDiscoveryUrl as Any
         ]
     }
@@ -338,21 +394,28 @@ open class Project: Codable {
             pingedAt: map["pingedAt"] as! String,
             labels: map["labels"] as! [String],
             status: map["status"] as! String,
+            onboarding: (map["onboarding"] as! [String: Any]).mapValues { AnyCodable($0) },
             authMethods: (map["authMethods"] as! [[String: Any]]).map { ProjectAuthMethod.from(map: $0) },
             services: (map["services"] as! [[String: Any]]).map { ProjectService.from(map: $0) },
             protocols: (map["protocols"] as! [[String: Any]]).map { ProjectProtocol.from(map: $0) },
             blocks: (map["blocks"] as! [[String: Any]]).map { Block.from(map: $0) },
             consoleAccessedAt: map["consoleAccessedAt"] as! String,
             billingLimits: BillingLimits.from(map: map["billingLimits"] as! [String: Any]),
-            oAuth2ServerEnabled: map["oAuth2ServerEnabled"] as! Bool,
-            oAuth2ServerAuthorizationUrl: map["oAuth2ServerAuthorizationUrl"] as! String,
-            oAuth2ServerScopes: map["oAuth2ServerScopes"] as! [String],
-            oAuth2ServerAccessTokenDuration: map["oAuth2ServerAccessTokenDuration"] as! Int,
-            oAuth2ServerRefreshTokenDuration: map["oAuth2ServerRefreshTokenDuration"] as! Int,
-            oAuth2ServerPublicAccessTokenDuration: map["oAuth2ServerPublicAccessTokenDuration"] as! Int,
-            oAuth2ServerPublicRefreshTokenDuration: map["oAuth2ServerPublicRefreshTokenDuration"] as! Int,
-            oAuth2ServerConfidentialPkce: map["oAuth2ServerConfidentialPkce"] as! Bool,
-            oAuth2ServerDiscoveryUrl: map["oAuth2ServerDiscoveryUrl"] as! String
+            oAuth2ServerEnabled: map["oAuth2ServerEnabled"] as? Bool,
+            oAuth2ServerAuthorizationUrl: map["oAuth2ServerAuthorizationUrl"] as? String,
+            oAuth2ServerScopes: map["oAuth2ServerScopes"] as? [String],
+            oAuth2ServerDefaultScopes: map["oAuth2ServerDefaultScopes"] as? [String],
+            oAuth2ServerAuthorizationDetailsTypes: map["oAuth2ServerAuthorizationDetailsTypes"] as? [String],
+            oAuth2ServerAccessTokenDuration: map["oAuth2ServerAccessTokenDuration"] as? Int,
+            oAuth2ServerRefreshTokenDuration: map["oAuth2ServerRefreshTokenDuration"] as? Int,
+            oAuth2ServerPublicAccessTokenDuration: map["oAuth2ServerPublicAccessTokenDuration"] as? Int,
+            oAuth2ServerPublicRefreshTokenDuration: map["oAuth2ServerPublicRefreshTokenDuration"] as? Int,
+            oAuth2ServerConfidentialPkce: map["oAuth2ServerConfidentialPkce"] as? Bool,
+            oAuth2ServerVerificationUrl: map["oAuth2ServerVerificationUrl"] as? String,
+            oAuth2ServerUserCodeLength: map["oAuth2ServerUserCodeLength"] as? Int,
+            oAuth2ServerUserCodeFormat: map["oAuth2ServerUserCodeFormat"] as? String,
+            oAuth2ServerDeviceCodeDuration: map["oAuth2ServerDeviceCodeDuration"] as? Int,
+            oAuth2ServerDiscoveryUrl: map["oAuth2ServerDiscoveryUrl"] as? String
         )
     }
 }

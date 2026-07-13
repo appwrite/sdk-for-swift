@@ -12,7 +12,8 @@ let functions = Functions(client)
 let bytes = try await functions.getDeploymentDownload(
     functionId: "<FUNCTION_ID>",
     deploymentId: "<DEPLOYMENT_ID>",
-    type: .source // optional
+    type: .source, // optional
+    token: "<TOKEN>" // optional
 )
 
 ```

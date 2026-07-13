@@ -14,6 +14,7 @@ public enum ProjectPolicyId: String, Codable, CustomStringConvertible {
     case denyAliasedEmail = "deny-aliased-email"
     case denyDisposableEmail = "deny-disposable-email"
     case denyFreeEmail = "deny-free-email"
+    case denyCorporateEmail = "deny-corporate-email"
 
     public var description: String {
         return rawValue

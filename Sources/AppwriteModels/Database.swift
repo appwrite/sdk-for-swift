@@ -12,6 +12,7 @@ open class Database: Codable {
         case updatedAt = "$updatedAt"
         case enabled = "enabled"
         case type = "type"
+        case status = "status"
         case policies = "policies"
         case archives = "archives"
     }
@@ -28,6 +29,8 @@ open class Database: Codable {
     public let enabled: Bool
     /// Database type.
     public let type: AppwriteEnums.DatabaseType
+    /// Database status. Possible values: `provisioning`, `ready` or `failed`
+    public let status: AppwriteEnums.DatabaseStatus?
     /// Database backup policies.
     public let policies: [BackupPolicy]
     /// Database backup archives.
@@ -40,6 +43,7 @@ open class Database: Codable {
         updatedAt: String,
         enabled: Bool,
         type: AppwriteEnums.DatabaseType,
+        status: AppwriteEnums.DatabaseStatus?,
         policies: [BackupPolicy],
         archives: [BackupArchive]
     ) {
@@ -49,6 +53,7 @@ open class Database: Codable {
         self.updatedAt = updatedAt
         self.enabled = enabled
         self.type = type
+        self.status = status
         self.policies = policies
         self.archives = archives
     }
@@ -62,6 +67,11 @@ open class Database: Codable {
         self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
         self.enabled = try container.decode(Bool.self, forKey: .enabled)
         self.type = AppwriteEnums.DatabaseType(rawValue: try container.decode(String.self, forKey: .type))!
+        if let statusString = try container.decodeIfPresent(String.self, forKey: .status) {
+            self.status = AppwriteEnums.DatabaseStatus(rawValue: statusString)
+        } else {
+            self.status = nil
+        }
         self.policies = try container.decode([BackupPolicy].self, forKey: .policies)
         self.archives = try container.decode([BackupArchive].self, forKey: .archives)
     }
@@ -75,6 +85,7 @@ open class Database: Codable {
         try container.encode(updatedAt, forKey: .updatedAt)
         try container.encode(enabled, forKey: .enabled)
         try container.encode(type.rawValue, forKey: .type)
+        try container.encodeIfPresent(status?.rawValue, forKey: .status)
         try container.encode(policies, forKey: .policies)
         try container.encode(archives, forKey: .archives)
     }
@@ -87,6 +98,7 @@ open class Database: Codable {
             "$updatedAt": updatedAt as Any,
             "enabled": enabled as Any,
             "type": type.rawValue as Any,
+            "status": status?.rawValue as Any,
             "policies": policies.map { $0.toMap() } as Any,
             "archives": archives.map { $0.toMap() } as Any
         ]
@@ -100,6 +112,7 @@ open class Database: Codable {
             updatedAt: map["$updatedAt"] as! String,
             enabled: map["enabled"] as! Bool,
             type: DatabaseType(rawValue: map["type"] as! String)!,
+            status: map["status"] as? String != nil ? DatabaseStatus(rawValue: map["status"] as! String) : nil,
             policies: (map["policies"] as! [[String: Any]]).map { BackupPolicy.from(map: $0) },
             archives: (map["archives"] as! [[String: Any]]).map { BackupArchive.from(map: $0) }
         )

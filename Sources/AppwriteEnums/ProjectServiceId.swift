@@ -19,6 +19,7 @@ public enum ProjectServiceId: String, Codable, CustomStringConvertible {
     case migrations = "migrations"
     case messaging = "messaging"
     case advisor = "advisor"
+    case oauth2 = "oauth2"
 
     public var description: String {
         return rawValue

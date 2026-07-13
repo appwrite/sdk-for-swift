@@ -42,11 +42,13 @@ open class Avatars: Service {
             "height": height,
             "quality": quality,
             "project": client.config["project"],
-            "session": client.config["session"]
+            "session": client.config["session"],
+            "impersonateuserid": client.config["impersonateuserid"]
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "image/png"
         ]
 
         return try await client.call(
@@ -89,11 +91,13 @@ open class Avatars: Service {
             "height": height,
             "quality": quality,
             "project": client.config["project"],
-            "session": client.config["session"]
+            "session": client.config["session"],
+            "impersonateuserid": client.config["impersonateuserid"]
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "image/png"
         ]
 
         return try await client.call(
@@ -122,11 +126,13 @@ open class Avatars: Service {
         let apiParams: [String: Any?] = [
             "url": url,
             "project": client.config["project"],
-            "session": client.config["session"]
+            "session": client.config["session"],
+            "impersonateuserid": client.config["impersonateuserid"]
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "image/*"
         ]
 
         return try await client.call(
@@ -170,11 +176,13 @@ open class Avatars: Service {
             "height": height,
             "quality": quality,
             "project": client.config["project"],
-            "session": client.config["session"]
+            "session": client.config["session"],
+            "impersonateuserid": client.config["impersonateuserid"]
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "image/png"
         ]
 
         return try await client.call(
@@ -216,11 +224,13 @@ open class Avatars: Service {
             "width": width,
             "height": height,
             "project": client.config["project"],
-            "session": client.config["session"]
+            "session": client.config["session"],
+            "impersonateuserid": client.config["impersonateuserid"]
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "image/*"
         ]
 
         return try await client.call(
@@ -270,11 +280,13 @@ open class Avatars: Service {
             "height": height,
             "background": background,
             "project": client.config["project"],
-            "session": client.config["session"]
+            "session": client.config["session"],
+            "impersonateuserid": client.config["impersonateuserid"]
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "image/png"
         ]
 
         return try await client.call(
@@ -311,11 +323,13 @@ open class Avatars: Service {
             "margin": margin,
             "download": download,
             "project": client.config["project"],
-            "session": client.config["session"]
+            "session": client.config["session"],
+            "impersonateuserid": client.config["impersonateuserid"]
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "image/png"
         ]
 
         return try await client.call(
@@ -407,11 +421,13 @@ open class Avatars: Service {
             "quality": quality,
             "output": output?.rawValue,
             "project": client.config["project"],
-            "session": client.config["session"]
+            "session": client.config["session"],
+            "impersonateuserid": client.config["impersonateuserid"]
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "image/png"
         ]
 
         return try await client.call(
