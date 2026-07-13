@@ -11,7 +11,8 @@ let tablesDB = TablesDB(client)
 let database = try await tablesDB.create(
     databaseId: "<DATABASE_ID>",
     name: "<NAME>",
-    enabled: false // optional
+    enabled: false, // optional
+    specification: "serverless" // optional
 )
 
 ```

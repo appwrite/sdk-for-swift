@@ -1,5 +1,25 @@
 # Change Log
 
+## 20.0.0
+
+* Breaking: Removed `Health` service with all health models and enums
+* Breaking: Removed `Usage` service and `UsageEvent`, `UsageGauge` models
+* Breaking: Removed `Messaging.listMessageLogs`, `listProviderLogs`, `listSubscriberLogs`, `listTopicLogs` methods
+* Breaking: Removed OS, client, and device fields plus `countryCode`/`countryName` from `ActivityEvent` (`country` remains)
+* Breaking: Made `Project` OAuth2 server fields optional; geometry attribute `default` types now typed doubles
+* Added: `Organization` service `get`, `update`, `delete`, and membership management methods
+* Added: `Client.setBearer` for OAuth access token authentication
+* Added: `Query.vectorDot`, `Query.vectorCosine`, `Query.vectorEuclidean` vector search queries
+* Added: `Projects.updateOAuth2Appwrite` and `updateDenyCorporateEmailPolicy` methods
+* Added: `appwrite` OAuth provider; organization, stages, and `dedicatedDatabases.execute` key scopes
+* Added: `DatabaseStatus` enum and `status` field on `Database` model
+* Added: billing plan models (`BillingPlan`, `BillingPlanLimits`, addons) and `Organization`, `Program` models
+* Added: OIDC `prompt` and `maxAge` support with `OAuth2OidcPrompt` enum
+* Added: geolocation and ISP fields (`city`, `timeZone`, `latitude`, `isp`) on `Locale` model
+* Added: `userAccessedAt` on `Membership` and membership privacy policy
+* Added: `onboarding` stage progress and OAuth2 device-flow fields on `Project` model
+* Updated: deprecated `Databases` transaction and text-column methods in favor of `TablesDB`
+
 ## 19.1.0
 
 * Added: `createSesProvider` and `updateSesProvider` to `messaging`

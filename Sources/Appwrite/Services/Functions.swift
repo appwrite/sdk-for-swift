@@ -33,7 +33,8 @@ open class Functions: Service {
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.FunctionList = { response in
@@ -134,7 +135,8 @@ open class Functions: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Function = { response in
@@ -163,7 +165,8 @@ open class Functions: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.RuntimeList = { response in
@@ -182,17 +185,23 @@ open class Functions: Service {
     ///
     /// List allowed function specifications for this instance.
     ///
+    /// - Parameters:
+    ///   - type: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.SpecificationList
     ///
     open func listSpecifications(
+        type: String? = nil
     ) async throws -> AppwriteModels.SpecificationList {
         let apiPath: String = "/functions/specifications"
 
-        let apiParams: [String: Any] = [:]
+        let apiParams: [String: Any?] = [
+            "type": type
+        ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.SpecificationList = { response in
@@ -225,7 +234,8 @@ open class Functions: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Function = { response in
@@ -323,7 +333,8 @@ open class Functions: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Function = { response in
@@ -390,7 +401,8 @@ open class Functions: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Function = { response in
@@ -434,7 +446,8 @@ open class Functions: Service {
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.DeploymentList = { response in
@@ -491,7 +504,8 @@ open class Functions: Service {
 
         var apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "multipart/form-data"
+            "content-type": "multipart/form-data",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Deployment = { response in
@@ -540,7 +554,8 @@ open class Functions: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Deployment = { response in
@@ -597,7 +612,8 @@ open class Functions: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Deployment = { response in
@@ -643,7 +659,8 @@ open class Functions: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Deployment = { response in
@@ -679,7 +696,8 @@ open class Functions: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Deployment = { response in
@@ -735,13 +753,15 @@ open class Functions: Service {
     ///   - functionId: String
     ///   - deploymentId: String
     ///   - type: AppwriteEnums.DeploymentDownloadType (optional)
+    ///   - token: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: ByteBuffer
     ///
     open func getDeploymentDownload(
         functionId: String,
         deploymentId: String,
-        type: AppwriteEnums.DeploymentDownloadType? = nil
+        type: AppwriteEnums.DeploymentDownloadType? = nil,
+        token: String? = nil
     ) async throws -> ByteBuffer {
         let apiPath: String = "/functions/{functionId}/deployments/{deploymentId}/download"
             .replacingOccurrences(of: "{functionId}", with: functionId)
@@ -749,12 +769,15 @@ open class Functions: Service {
 
         let apiParams: [String: Any?] = [
             "type": type?.rawValue,
+            "token": token,
             "project": client.config["project"],
-            "key": client.config["key"]
+            "key": client.config["key"],
+            "impersonateuserid": client.config["impersonateuserid"]
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "*/*"
         ]
 
         return try await client.call(
@@ -789,7 +812,8 @@ open class Functions: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Deployment = { response in
@@ -830,7 +854,8 @@ open class Functions: Service {
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.ExecutionList = { response in
@@ -886,7 +911,8 @@ open class Functions: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Execution = { response in
@@ -922,7 +948,8 @@ open class Functions: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Execution = { response in
@@ -993,7 +1020,8 @@ open class Functions: Service {
         ]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.VariableList = { response in
@@ -1041,7 +1069,8 @@ open class Functions: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Variable = { response in
@@ -1077,7 +1106,8 @@ open class Functions: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Variable = { response in
@@ -1124,7 +1154,8 @@ open class Functions: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
+            "accept": "application/json"
         ]
 
         let converter: (Any) throws -> AppwriteModels.Variable = { response in

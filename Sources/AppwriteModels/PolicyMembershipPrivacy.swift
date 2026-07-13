@@ -11,6 +11,7 @@ open class PolicyMembershipPrivacy: Codable {
         case userPhone = "userPhone"
         case userName = "userName"
         case userMFA = "userMFA"
+        case userAccessedAt = "userAccessedAt"
     }
 
     /// Policy ID.
@@ -25,6 +26,8 @@ open class PolicyMembershipPrivacy: Codable {
     public let userName: Bool
     /// Whether user MFA status is visible in memberships.
     public let userMFA: Bool
+    /// Whether user last access time is visible in memberships.
+    public let userAccessedAt: Bool
 
     init(
         id: String,
@@ -32,7 +35,8 @@ open class PolicyMembershipPrivacy: Codable {
         userEmail: Bool,
         userPhone: Bool,
         userName: Bool,
-        userMFA: Bool
+        userMFA: Bool,
+        userAccessedAt: Bool
     ) {
         self.id = id
         self.userId = userId
@@ -40,6 +44,7 @@ open class PolicyMembershipPrivacy: Codable {
         self.userPhone = userPhone
         self.userName = userName
         self.userMFA = userMFA
+        self.userAccessedAt = userAccessedAt
     }
 
     public required init(from decoder: Decoder) throws {
@@ -51,6 +56,7 @@ open class PolicyMembershipPrivacy: Codable {
         self.userPhone = try container.decode(Bool.self, forKey: .userPhone)
         self.userName = try container.decode(Bool.self, forKey: .userName)
         self.userMFA = try container.decode(Bool.self, forKey: .userMFA)
+        self.userAccessedAt = try container.decode(Bool.self, forKey: .userAccessedAt)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -62,6 +68,7 @@ open class PolicyMembershipPrivacy: Codable {
         try container.encode(userPhone, forKey: .userPhone)
         try container.encode(userName, forKey: .userName)
         try container.encode(userMFA, forKey: .userMFA)
+        try container.encode(userAccessedAt, forKey: .userAccessedAt)
     }
 
     public func toMap() -> [String: Any] {
@@ -71,7 +78,8 @@ open class PolicyMembershipPrivacy: Codable {
             "userEmail": userEmail as Any,
             "userPhone": userPhone as Any,
             "userName": userName as Any,
-            "userMFA": userMFA as Any
+            "userMFA": userMFA as Any,
+            "userAccessedAt": userAccessedAt as Any
         ]
     }
 
@@ -82,7 +90,8 @@ open class PolicyMembershipPrivacy: Codable {
             userEmail: map["userEmail"] as! Bool,
             userPhone: map["userPhone"] as! Bool,
             userName: map["userName"] as! Bool,
-            userMFA: map["userMFA"] as! Bool
+            userMFA: map["userMFA"] as! Bool,
+            userAccessedAt: map["userAccessedAt"] as! Bool
         )
     }
 }

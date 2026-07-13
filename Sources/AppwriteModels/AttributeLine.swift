@@ -34,7 +34,7 @@ open class AttributeLine: Codable {
     /// Attribute update date in ISO 8601 format.
     public let updatedAt: String
     /// Default value for attribute when not provided. Cannot be set when attribute is required.
-    public let `default`: [AnyCodable]?
+    public let `default`: [[Double]]?
 
     init(
         key: String,
@@ -45,7 +45,7 @@ open class AttributeLine: Codable {
         array: Bool?,
         createdAt: String,
         updatedAt: String,
-        `default`: [AnyCodable]?
+        `default`: [[Double]]?
     ) {
         self.key = key
         self.type = type
@@ -69,7 +69,7 @@ open class AttributeLine: Codable {
         self.array = try container.decodeIfPresent(Bool.self, forKey: .array)
         self.createdAt = try container.decode(String.self, forKey: .createdAt)
         self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.`default` = try container.decodeIfPresent([AnyCodable].self, forKey: .`default`)
+        self.`default` = try container.decodeIfPresent([[Double]].self, forKey: .`default`)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -110,7 +110,7 @@ open class AttributeLine: Codable {
             array: map["array"] as? Bool,
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
-            default: (map["default"] as? [Any] ?? []).map { AnyCodable($0) }
+            default: map["default"] as? [[Double]]
         )
     }
 }

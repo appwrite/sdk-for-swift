@@ -15,7 +15,7 @@ let provider = try await messaging.updateSMTPProvider(
     host: "<HOST>", // optional
     port: 1, // optional
     username: "<USERNAME>", // optional
-    password: "<PASSWORD>", // optional
+    password: "password", // optional
     encryption: .none, // optional
     autoTLS: false, // optional
     mailer: "<MAILER>", // optional

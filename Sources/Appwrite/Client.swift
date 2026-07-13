@@ -25,7 +25,7 @@ open class Client {
         "x-sdk-name": "Swift",
         "x-sdk-platform": "server",
         "x-sdk-language": "swift",
-        "x-sdk-version": "19.1.0",
+        "x-sdk-version": "20.0.0",
         "x-appwrite-response-format": "1.9.5"
     ]
 
@@ -135,6 +135,21 @@ open class Client {
     }
 
     ///
+    /// Set Bearer
+    ///
+    /// The OAuth access token to authenticate with
+    ///
+    /// @param String value
+    ///
+    /// @return Client
+    ///
+    open func setBearer(_ value: String) -> Client {
+        config["bearer"] = value
+        _ = addHeader(key: "Authorization", value: "Bearer \(value)")
+        return self
+    }
+
+    ///
     /// Set Locale
     ///
     /// @param String value
@@ -210,7 +225,7 @@ open class Client {
     ///
     /// Set ImpersonateUserId
     ///
-    /// Impersonate a user by ID on an already user-authenticated request. Requires the current request to be authenticated as a user with impersonator capability; X-Appwrite-Key alone is not sufficient. Impersonator users are intentionally granted users.read so they can discover a target before impersonation begins. Internal audit logs still attribute actions to the original impersonator and record the impersonated target only in internal audit payload data.
+    /// Impersonate a user by ID
     ///
     /// @param String value
     ///
@@ -225,7 +240,7 @@ open class Client {
     ///
     /// Set ImpersonateUserEmail
     ///
-    /// Impersonate a user by email on an already user-authenticated request. Requires the current request to be authenticated as a user with impersonator capability; X-Appwrite-Key alone is not sufficient. Impersonator users are intentionally granted users.read so they can discover a target before impersonation begins. Internal audit logs still attribute actions to the original impersonator and record the impersonated target only in internal audit payload data.
+    /// Impersonate a user by email
     ///
     /// @param String value
     ///
@@ -240,7 +255,7 @@ open class Client {
     ///
     /// Set ImpersonateUserPhone
     ///
-    /// Impersonate a user by phone on an already user-authenticated request. Requires the current request to be authenticated as a user with impersonator capability; X-Appwrite-Key alone is not sufficient. Impersonator users are intentionally granted users.read so they can discover a target before impersonation begins. Internal audit logs still attribute actions to the original impersonator and record the impersonated target only in internal audit payload data.
+    /// Impersonate a user by phone
     ///
     /// @param String value
     ///
@@ -343,7 +358,7 @@ open class Client {
    }
 
     ///
-    /// Sends a "ping" request to Appwrite to verify connectivity.
+    /// Send a ping to project as part of onboarding.
     ///
     /// @return String
     /// @throws Exception
@@ -352,8 +367,8 @@ open class Client {
        let apiPath: String = "/ping"
 
        let apiHeaders: [String: String] = [
-           "content-type": "application/json",
-           "X-Appwrite-Project": config["project"] ?? ""
+           "X-Appwrite-Project": config["project"] ?? "",
+           "accept": "application/json",
        ]
 
        return try await call(

@@ -10,7 +10,7 @@ let users = Users(client)
 
 let user = try await users.updatePassword(
     userId: "<USER_ID>",
-    password: ""
+    password: "password"
 )
 
 ```

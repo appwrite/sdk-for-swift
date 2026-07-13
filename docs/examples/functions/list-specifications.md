@@ -8,6 +8,8 @@ let client = Client()
 
 let functions = Functions(client)
 
-let specificationList = try await functions.listSpecifications()
+let specificationList = try await functions.listSpecifications(
+    type: "runtimes" // optional
+)
 
 ```
