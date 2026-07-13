@@ -338,7 +338,7 @@ open class Organization<T : Codable>: Codable {
             programManagerCalendar: map["programManagerCalendar"] as! String,
             programDiscordChannelName: map["programDiscordChannelName"] as! String,
             programDiscordChannelUrl: map["programDiscordChannelUrl"] as! String,
-            billingLimits: BillingLimits.from(map: map["billingLimits"] as! [String: Any]),
+            billingLimits: map["billingLimits"] as? [String: Any] != nil ? BillingLimits.from(map: map["billingLimits"] as! [String: Any]) : nil,
             billingPlanDowngrade: map["billingPlanDowngrade"] as! String,
             billingTaxId: map["billingTaxId"] as! String,
             markedForDeletion: map["markedForDeletion"] as! Bool,

@@ -400,7 +400,7 @@ open class Project: Codable {
             protocols: (map["protocols"] as! [[String: Any]]).map { ProjectProtocol.from(map: $0) },
             blocks: (map["blocks"] as! [[String: Any]]).map { Block.from(map: $0) },
             consoleAccessedAt: map["consoleAccessedAt"] as! String,
-            billingLimits: BillingLimits.from(map: map["billingLimits"] as! [String: Any]),
+            billingLimits: map["billingLimits"] as? [String: Any] != nil ? BillingLimits.from(map: map["billingLimits"] as! [String: Any]) : nil,
             oAuth2ServerEnabled: map["oAuth2ServerEnabled"] as? Bool,
             oAuth2ServerAuthorizationUrl: map["oAuth2ServerAuthorizationUrl"] as? String,
             oAuth2ServerScopes: map["oAuth2ServerScopes"] as? [String],

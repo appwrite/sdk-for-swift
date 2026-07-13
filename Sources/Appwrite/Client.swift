@@ -145,7 +145,7 @@ open class Client {
     ///
     open func setBearer(_ value: String) -> Client {
         config["bearer"] = value
-        _ = addHeader(key: "Authorization", value: value)
+        _ = addHeader(key: "Authorization", value: "Bearer \(value)")
         return self
     }
 

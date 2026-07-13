@@ -638,10 +638,10 @@ open class BillingPlan: Codable {
             deploymentSize: map["deploymentSize"] as! Int,
             buildSize: map["buildSize"] as! Int,
             databasesAllowEncrypt: map["databasesAllowEncrypt"] as! Bool,
-            limits: BillingPlanLimits.from(map: map["limits"] as! [String: Any]),
+            limits: map["limits"] as? [String: Any] != nil ? BillingPlanLimits.from(map: map["limits"] as! [String: Any]) : nil,
             group: BillingPlanGroup(rawValue: map["group"] as! String)!,
-            program: Program.from(map: map["program"] as! [String: Any]),
-            dedicatedDatabases: BillingPlanDedicatedDatabaseLimits.from(map: map["dedicatedDatabases"] as! [String: Any])
+            program: map["program"] as? [String: Any] != nil ? Program.from(map: map["program"] as! [String: Any]) : nil,
+            dedicatedDatabases: map["dedicatedDatabases"] as? [String: Any] != nil ? BillingPlanDedicatedDatabaseLimits.from(map: map["dedicatedDatabases"] as! [String: Any]) : nil
         )
     }
 }
