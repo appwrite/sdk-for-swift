@@ -612,6 +612,7 @@ open class Project: Service {
     ///   - refreshTokenDuration: Int (optional)
     ///   - publicAccessTokenDuration: Int (optional)
     ///   - publicRefreshTokenDuration: Int (optional)
+    ///   - installationAccessTokenDuration: Int (optional)
     ///   - confidentialPkce: Bool (optional)
     ///   - verificationUrl: String (optional)
     ///   - userCodeLength: Int (optional)
@@ -630,6 +631,7 @@ open class Project: Service {
         refreshTokenDuration: Int? = nil,
         publicAccessTokenDuration: Int? = nil,
         publicRefreshTokenDuration: Int? = nil,
+        installationAccessTokenDuration: Int? = nil,
         confidentialPkce: Bool? = nil,
         verificationUrl: String? = nil,
         userCodeLength: Int? = nil,
@@ -648,6 +650,7 @@ open class Project: Service {
             "refreshTokenDuration": refreshTokenDuration,
             "publicAccessTokenDuration": publicAccessTokenDuration,
             "publicRefreshTokenDuration": publicRefreshTokenDuration,
+            "installationAccessTokenDuration": installationAccessTokenDuration,
             "confidentialPkce": confidentialPkce,
             "verificationUrl": verificationUrl,
             "userCodeLength": userCodeLength,

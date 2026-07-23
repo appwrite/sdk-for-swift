@@ -5,7 +5,7 @@ import JSONCodable
 import AppwriteEnums
 import AppwriteModels
 
-/// 
+/// The Webhooks service allows you to manage your project webhooks.
 open class Webhooks: Service {
 
     ///

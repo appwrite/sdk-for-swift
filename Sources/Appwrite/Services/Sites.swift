@@ -750,13 +750,15 @@ open class Sites: Service {
     ///   - siteId: String
     ///   - deploymentId: String
     ///   - type: AppwriteEnums.DeploymentDownloadType (optional)
+    ///   - token: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: ByteBuffer
     ///
     open func getDeploymentDownload(
         siteId: String,
         deploymentId: String,
-        type: AppwriteEnums.DeploymentDownloadType? = nil
+        type: AppwriteEnums.DeploymentDownloadType? = nil,
+        token: String? = nil
     ) async throws -> ByteBuffer {
         let apiPath: String = "/sites/{siteId}/deployments/{deploymentId}/download"
             .replacingOccurrences(of: "{siteId}", with: siteId)
@@ -764,6 +766,7 @@ open class Sites: Service {
 
         let apiParams: [String: Any?] = [
             "type": type?.rawValue,
+            "token": token,
             "project": client.config["project"],
             "key": client.config["key"],
             "impersonateuserid": client.config["impersonateuserid"]

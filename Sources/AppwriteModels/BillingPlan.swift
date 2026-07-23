@@ -18,6 +18,7 @@ open class BillingPlan: Codable {
         case screenshotsGenerated = "screenshotsGenerated"
         case members = "members"
         case webhooks = "webhooks"
+        case wafRules = "wafRules"
         case projects = "projects"
         case platforms = "platforms"
         case users = "users"
@@ -100,6 +101,8 @@ open class BillingPlan: Codable {
     public let members: Int
     /// Webhooks
     public let webhooks: Int
+    /// Maximum WAF rules per project
+    public let wafRules: Int
     /// Projects
     public let projects: Int
     /// Platforms
@@ -226,6 +229,7 @@ open class BillingPlan: Codable {
         screenshotsGenerated: Int,
         members: Int,
         webhooks: Int,
+        wafRules: Int,
         projects: Int,
         platforms: Int,
         users: Int,
@@ -295,6 +299,7 @@ open class BillingPlan: Codable {
         self.screenshotsGenerated = screenshotsGenerated
         self.members = members
         self.webhooks = webhooks
+        self.wafRules = wafRules
         self.projects = projects
         self.platforms = platforms
         self.users = users
@@ -368,6 +373,7 @@ open class BillingPlan: Codable {
         self.screenshotsGenerated = try container.decode(Int.self, forKey: .screenshotsGenerated)
         self.members = try container.decode(Int.self, forKey: .members)
         self.webhooks = try container.decode(Int.self, forKey: .webhooks)
+        self.wafRules = try container.decode(Int.self, forKey: .wafRules)
         self.projects = try container.decode(Int.self, forKey: .projects)
         self.platforms = try container.decode(Int.self, forKey: .platforms)
         self.users = try container.decode(Int.self, forKey: .users)
@@ -441,6 +447,7 @@ open class BillingPlan: Codable {
         try container.encode(screenshotsGenerated, forKey: .screenshotsGenerated)
         try container.encode(members, forKey: .members)
         try container.encode(webhooks, forKey: .webhooks)
+        try container.encode(wafRules, forKey: .wafRules)
         try container.encode(projects, forKey: .projects)
         try container.encode(platforms, forKey: .platforms)
         try container.encode(users, forKey: .users)
@@ -513,6 +520,7 @@ open class BillingPlan: Codable {
             "screenshotsGenerated": screenshotsGenerated as Any,
             "members": members as Any,
             "webhooks": webhooks as Any,
+            "wafRules": wafRules as Any,
             "projects": projects as Any,
             "platforms": platforms as Any,
             "users": users as Any,
@@ -586,6 +594,7 @@ open class BillingPlan: Codable {
             screenshotsGenerated: map["screenshotsGenerated"] as! Int,
             members: map["members"] as! Int,
             webhooks: map["webhooks"] as! Int,
+            wafRules: map["wafRules"] as! Int,
             projects: map["projects"] as! Int,
             platforms: map["platforms"] as! Int,
             users: map["users"] as! Int,

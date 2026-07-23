@@ -287,6 +287,209 @@ open class Teams: Service {
     }
 
     ///
+    /// List app installations on a team. Any team member can read installations.
+    ///
+    /// - Parameters:
+    ///   - teamId: String
+    ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AppInstallationList
+    ///
+    open func listInstallations(
+        teamId: String,
+        queries: [String]? = nil,
+        total: Bool? = nil
+    ) async throws -> AppwriteModels.AppInstallationList {
+        let apiPath: String = "/teams/{teamId}/installations"
+            .replacingOccurrences(of: "{teamId}", with: teamId)
+
+        let apiParams: [String: Any?] = [
+            "queries": queries,
+            "total": total
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.AppInstallationList = { response in
+            return AppwriteModels.AppInstallationList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Install an app on a team. When authenticated as a user, only team members
+    /// with the owner role can install apps. Requests using an API key or in admin
+    /// mode can install apps on any team. The installation is granted the scopes
+    /// the app currently requests.
+    ///
+    /// - Parameters:
+    ///   - teamId: String
+    ///   - appId: String
+    ///   - authorizationDetails: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AppInstallation
+    ///
+    open func createInstallation(
+        teamId: String,
+        appId: String,
+        authorizationDetails: String? = nil
+    ) async throws -> AppwriteModels.AppInstallation {
+        let apiPath: String = "/teams/{teamId}/installations"
+            .replacingOccurrences(of: "{teamId}", with: teamId)
+
+        let apiParams: [String: Any?] = [
+            "appId": appId,
+            "authorizationDetails": authorizationDetails
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.AppInstallation = { response in
+            return AppwriteModels.AppInstallation.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get an app installation on a team by its unique ID. Any team member can
+    /// read installations.
+    ///
+    /// - Parameters:
+    ///   - teamId: String
+    ///   - installationId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AppInstallation
+    ///
+    open func getInstallation(
+        teamId: String,
+        installationId: String
+    ) async throws -> AppwriteModels.AppInstallation {
+        let apiPath: String = "/teams/{teamId}/installations/{installationId}"
+            .replacingOccurrences(of: "{teamId}", with: teamId)
+            .replacingOccurrences(of: "{installationId}", with: installationId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.AppInstallation = { response in
+            return AppwriteModels.AppInstallation.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update an app installation on a team. Only team members with the owner role
+    /// can update installations. The installation's granted scopes are refreshed
+    /// to the scopes the app currently requests; previously issued installation
+    /// access tokens are revoked.
+    ///
+    /// - Parameters:
+    ///   - teamId: String
+    ///   - installationId: String
+    ///   - authorizationDetails: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.AppInstallation
+    ///
+    open func updateInstallation(
+        teamId: String,
+        installationId: String,
+        authorizationDetails: String? = nil
+    ) async throws -> AppwriteModels.AppInstallation {
+        let apiPath: String = "/teams/{teamId}/installations/{installationId}"
+            .replacingOccurrences(of: "{teamId}", with: teamId)
+            .replacingOccurrences(of: "{installationId}", with: installationId)
+
+        let apiParams: [String: Any?] = [
+            "authorizationDetails": authorizationDetails
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.AppInstallation = { response in
+            return AppwriteModels.AppInstallation.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PUT",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Uninstall an app from a team by its installation ID. Only team members with
+    /// the owner role can remove installations. Previously issued installation
+    /// access tokens are revoked.
+    ///
+    /// - Parameters:
+    ///   - teamId: String
+    ///   - installationId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
+    ///
+    open func deleteInstallation(
+        teamId: String,
+        installationId: String
+    ) async throws -> Any {
+        let apiPath: String = "/teams/{teamId}/installations/{installationId}"
+            .replacingOccurrences(of: "{teamId}", with: teamId)
+            .replacingOccurrences(of: "{installationId}", with: installationId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json"
+        ]
+
+        return try await client.call(
+            method: "DELETE",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams        )
+    }
+
+    ///
     /// Use this endpoint to list a team's members using the team's ID. All team
     /// members have read access to this endpoint. Hide sensitive attributes from
     /// the response by toggling membership privacy in the Console.

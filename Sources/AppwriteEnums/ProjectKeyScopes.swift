@@ -96,11 +96,14 @@ public enum ProjectKeyScopes: String, Codable, CustomStringConvertible {
     case dedicatedDatabasesExecute = "dedicatedDatabases.execute"
     case domainsRead = "domains.read"
     case domainsWrite = "domains.write"
+    case wafRulesRead = "wafRules.read"
+    case wafRulesWrite = "wafRules.write"
     case eventsRead = "events.read"
     case appsRead = "apps.read"
     case appsWrite = "apps.write"
     case oauth2Read = "oauth2.read"
     case oauth2Write = "oauth2.write"
+    case oauth2Introspect = "oauth2.introspect"
     case usageRead = "usage.read"
 
     public var description: String {
