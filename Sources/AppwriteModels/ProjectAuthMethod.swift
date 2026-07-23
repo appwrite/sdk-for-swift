@@ -46,7 +46,7 @@ open class ProjectAuthMethod: Codable {
 
     public static func from(map: [String: Any] ) -> ProjectAuthMethod {
         return ProjectAuthMethod(
-            id: ProjectAuthMethodId(rawValue: map["$id"] as! String)!,
+            id: AppwriteEnums.ProjectAuthMethodId(rawValue: map["$id"] as! String)!,
             enabled: map["enabled"] as! Bool
         )
     }

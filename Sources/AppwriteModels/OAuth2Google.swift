@@ -45,7 +45,7 @@ open class OAuth2Google: Codable {
         self.enabled = try container.decode(Bool.self, forKey: .enabled)
         self.clientId = try container.decode(String.self, forKey: .clientId)
         self.clientSecret = try container.decode(String.self, forKey: .clientSecret)
-        self.prompt = try container.decode([String].self, forKey: .prompt).map { OAuth2GooglePrompt(rawValue: $0)! }
+        self.prompt = try container.decode([String].self, forKey: .prompt).map { AppwriteEnums.OAuth2GooglePrompt(rawValue: $0)! }
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -74,7 +74,7 @@ open class OAuth2Google: Codable {
             enabled: map["enabled"] as! Bool,
             clientId: map["clientId"] as! String,
             clientSecret: map["clientSecret"] as! String,
-            prompt: (map["prompt"] as! [String]).map { OAuth2GooglePrompt(rawValue: $0)! }
+            prompt: (map["prompt"] as! [String]).map { AppwriteEnums.OAuth2GooglePrompt(rawValue: $0)! }
         )
     }
 }

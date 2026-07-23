@@ -120,7 +120,7 @@ open class ColumnVarchar: Codable {
         return ColumnVarchar(
             key: map["key"] as! String,
             type: map["type"] as! String,
-            status: ColumnStatus(rawValue: map["status"] as! String)!,
+            status: AppwriteEnums.ColumnStatus(rawValue: map["status"] as! String)!,
             error: map["error"] as! String,
             required: map["required"] as! Bool,
             array: map["array"] as? Bool,

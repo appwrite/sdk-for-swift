@@ -163,10 +163,10 @@ open class ProxyRule: Codable {
             redirectUrl: map["redirectUrl"] as! String,
             redirectStatusCode: map["redirectStatusCode"] as! Int,
             deploymentId: map["deploymentId"] as! String,
-            deploymentResourceType: map["deploymentResourceType"] as? String != nil ? ProxyRuleDeploymentResourceType(rawValue: map["deploymentResourceType"] as! String) : nil,
+            deploymentResourceType: map["deploymentResourceType"] as? String != nil ? AppwriteEnums.ProxyRuleDeploymentResourceType(rawValue: map["deploymentResourceType"] as! String) : nil,
             deploymentResourceId: map["deploymentResourceId"] as! String,
             deploymentVcsProviderBranch: map["deploymentVcsProviderBranch"] as! String,
-            status: ProxyRuleStatus(rawValue: map["status"] as! String)!,
+            status: AppwriteEnums.ProxyRuleStatus(rawValue: map["status"] as! String)!,
             logs: map["logs"] as! String,
             renewAt: map["renewAt"] as! String
         )

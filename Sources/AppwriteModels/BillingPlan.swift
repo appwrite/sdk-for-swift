@@ -648,7 +648,7 @@ open class BillingPlan: Codable {
             buildSize: map["buildSize"] as! Int,
             databasesAllowEncrypt: map["databasesAllowEncrypt"] as! Bool,
             limits: map["limits"] as? [String: Any] != nil ? BillingPlanLimits.from(map: map["limits"] as! [String: Any]) : nil,
-            group: BillingPlanGroup(rawValue: map["group"] as! String)!,
+            group: AppwriteEnums.BillingPlanGroup(rawValue: map["group"] as! String)!,
             program: map["program"] as? [String: Any] != nil ? Program.from(map: map["program"] as! [String: Any]) : nil,
             dedicatedDatabases: map["dedicatedDatabases"] as? [String: Any] != nil ? BillingPlanDedicatedDatabaseLimits.from(map: map["dedicatedDatabases"] as! [String: Any]) : nil
         )

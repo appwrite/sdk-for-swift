@@ -144,7 +144,7 @@ open class AttributeRelationship: Codable {
         return AttributeRelationship(
             key: map["key"] as! String,
             type: map["type"] as! String,
-            status: AttributeStatus(rawValue: map["status"] as! String)!,
+            status: AppwriteEnums.AttributeStatus(rawValue: map["status"] as! String)!,
             error: map["error"] as! String,
             required: map["required"] as! Bool,
             array: map["array"] as? Bool,
