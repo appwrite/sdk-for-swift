@@ -260,7 +260,7 @@ open class Deployment: Codable {
             activate: map["activate"] as! Bool,
             screenshotLight: map["screenshotLight"] as! String,
             screenshotDark: map["screenshotDark"] as! String,
-            status: DeploymentStatus(rawValue: map["status"] as! String)!,
+            status: AppwriteEnums.DeploymentStatus(rawValue: map["status"] as! String)!,
             buildLogs: map["buildLogs"] as! String,
             buildDuration: map["buildDuration"] as! Int,
             providerRepositoryName: map["providerRepositoryName"] as! String,

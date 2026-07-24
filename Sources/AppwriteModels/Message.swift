@@ -146,7 +146,7 @@ open class Message: Codable {
             deliveryErrors: map["deliveryErrors"] as? [String],
             deliveredTotal: map["deliveredTotal"] as! Int,
             data: (map["data"] as! [String: Any]).mapValues { AnyCodable($0) },
-            status: MessageStatus(rawValue: map["status"] as! String)!
+            status: AppwriteEnums.MessageStatus(rawValue: map["status"] as! String)!
         )
     }
 }

@@ -82,7 +82,7 @@ open class PlatformAndroid: Codable {
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
             name: map["name"] as! String,
-            type: PlatformType(rawValue: map["type"] as! String)!,
+            type: AppwriteEnums.PlatformType(rawValue: map["type"] as! String)!,
             applicationId: map["applicationId"] as! String
         )
     }

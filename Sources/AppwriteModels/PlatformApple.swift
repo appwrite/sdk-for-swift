@@ -82,7 +82,7 @@ open class PlatformApple: Codable {
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
             name: map["name"] as! String,
-            type: PlatformType(rawValue: map["type"] as! String)!,
+            type: AppwriteEnums.PlatformType(rawValue: map["type"] as! String)!,
             bundleIdentifier: map["bundleIdentifier"] as! String
         )
     }

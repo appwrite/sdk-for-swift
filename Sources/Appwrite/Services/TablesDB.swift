@@ -5,7 +5,7 @@ import JSONCodable
 import AppwriteEnums
 import AppwriteModels
 
-/// 
+/// The TablesDB service allows you to create structured tables of columns, query and filter lists of rows
 open class TablesDB: Service {
 
     ///
@@ -59,6 +59,7 @@ open class TablesDB: Service {
     ///   - name: String
     ///   - enabled: Bool (optional)
     ///   - specification: String (optional)
+    ///   - replicas: Int (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Database
     ///
@@ -66,7 +67,8 @@ open class TablesDB: Service {
         databaseId: String,
         name: String,
         enabled: Bool? = nil,
-        specification: String? = nil
+        specification: String? = nil,
+        replicas: Int? = nil
     ) async throws -> AppwriteModels.Database {
         let apiPath: String = "/tablesdb"
 
@@ -74,7 +76,8 @@ open class TablesDB: Service {
             "databaseId": databaseId,
             "name": name,
             "enabled": enabled,
-            "specification": specification
+            "specification": specification,
+            "replicas": replicas
         ]
 
         let apiHeaders: [String: String] = [
@@ -89,6 +92,38 @@ open class TablesDB: Service {
 
         return try await client.call(
             method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// List the dedicated database specifications available on the current plan.
+    /// Each specification reports its resource limits, pricing, and whether it is
+    /// enabled for the organization.
+    ///
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DedicatedDatabaseSpecificationList
+    ///
+    open func listSpecifications(
+    ) async throws -> AppwriteModels.DedicatedDatabaseSpecificationList {
+        let apiPath: String = "/tablesdb/specifications"
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.DedicatedDatabaseSpecificationList = { response in
+            return AppwriteModels.DedicatedDatabaseSpecificationList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
             path: apiPath,
             headers: apiHeaders,
             params: apiParams,
@@ -352,20 +387,23 @@ open class TablesDB: Service {
     ///   - databaseId: String
     ///   - name: String (optional)
     ///   - enabled: Bool (optional)
+    ///   - replicas: Int (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Database
     ///
     open func update(
         databaseId: String,
         name: String? = nil,
-        enabled: Bool? = nil
+        enabled: Bool? = nil,
+        replicas: Int? = nil
     ) async throws -> AppwriteModels.Database {
         let apiPath: String = "/tablesdb/{databaseId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
         let apiParams: [String: Any?] = [
             "name": name,
-            "enabled": enabled
+            "enabled": enabled,
+            "replicas": replicas
         ]
 
         let apiHeaders: [String: String] = [
@@ -414,6 +452,118 @@ open class TablesDB: Service {
             path: apiPath,
             headers: apiHeaders,
             params: apiParams        )
+    }
+
+    ///
+    /// Trigger a manual failover for a dedicated database with high availability
+    /// enabled. Promotes a replica to primary. The failover runs asynchronously;
+    /// poll the database document for status updates.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - targetReplicaId: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DedicatedDatabase
+    ///
+    open func createFailover(
+        databaseId: String,
+        targetReplicaId: String? = nil
+    ) async throws -> AppwriteModels.DedicatedDatabase {
+        let apiPath: String = "/tablesdb/{databaseId}/failovers"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+
+        let apiParams: [String: Any?] = [
+            "targetReplicaId": targetReplicaId
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.DedicatedDatabase = { response in
+            return AppwriteModels.DedicatedDatabase.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get high availability status for a dedicated database. Returns replica
+    /// statuses, replication lag, and sync mode.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DedicatedDatabaseReplicas
+    ///
+    open func getReplicas(
+        databaseId: String
+    ) async throws -> AppwriteModels.DedicatedDatabaseReplicas {
+        let apiPath: String = "/tablesdb/{databaseId}/replicas"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.DedicatedDatabaseReplicas = { response in
+            return AppwriteModels.DedicatedDatabaseReplicas.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get real-time health and status information for a dedicated database.
+    /// Returns health status, readiness, uptime, connection info, replica status,
+    /// and volume information.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DatabaseStatus
+    ///
+    open func getStatus(
+        databaseId: String
+    ) async throws -> AppwriteModels.DatabaseStatus {
+        let apiPath: String = "/tablesdb/{databaseId}/status"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.DatabaseStatus = { response in
+            return AppwriteModels.DatabaseStatus.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
     }
 
     ///

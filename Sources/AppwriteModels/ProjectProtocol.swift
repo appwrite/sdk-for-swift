@@ -46,7 +46,7 @@ open class ProjectProtocol: Codable {
 
     public static func from(map: [String: Any] ) -> ProjectProtocol {
         return ProjectProtocol(
-            id: ProjectProtocolId(rawValue: map["$id"] as! String)!,
+            id: AppwriteEnums.ProjectProtocolId(rawValue: map["$id"] as! String)!,
             enabled: map["enabled"] as! Bool
         )
     }

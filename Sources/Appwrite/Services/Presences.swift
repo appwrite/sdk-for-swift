@@ -5,7 +5,7 @@ import JSONCodable
 import AppwriteEnums
 import AppwriteModels
 
-/// 
+/// The Presences service allows you to track and manage real-time user presence in your project.
 open class Presences: Service {
 
     ///

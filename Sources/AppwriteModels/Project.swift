@@ -32,6 +32,7 @@ open class Project: Codable {
         case protocols = "protocols"
         case blocks = "blocks"
         case consoleAccessedAt = "consoleAccessedAt"
+        case wafEnabled = "wafEnabled"
         case billingLimits = "billingLimits"
         case oAuth2ServerEnabled = "oAuth2ServerEnabled"
         case oAuth2ServerAuthorizationUrl = "oAuth2ServerAuthorizationUrl"
@@ -42,6 +43,7 @@ open class Project: Codable {
         case oAuth2ServerRefreshTokenDuration = "oAuth2ServerRefreshTokenDuration"
         case oAuth2ServerPublicAccessTokenDuration = "oAuth2ServerPublicAccessTokenDuration"
         case oAuth2ServerPublicRefreshTokenDuration = "oAuth2ServerPublicRefreshTokenDuration"
+        case oAuth2ServerInstallationAccessTokenDuration = "oAuth2ServerInstallationAccessTokenDuration"
         case oAuth2ServerConfidentialPkce = "oAuth2ServerConfidentialPkce"
         case oAuth2ServerVerificationUrl = "oAuth2ServerVerificationUrl"
         case oAuth2ServerUserCodeLength = "oAuth2ServerUserCodeLength"
@@ -104,6 +106,8 @@ open class Project: Codable {
     public let blocks: [Block]
     /// Last time the project was accessed via console. Used with plan&#039;s projectInactivityDays to determine if project is paused.
     public let consoleAccessedAt: String
+    /// Whether WAF enforcement is enabled for the project.
+    public let wafEnabled: Bool
     /// Billing limits reached
     public let billingLimits: BillingLimits?
     /// OAuth2 server status
@@ -124,6 +128,8 @@ open class Project: Codable {
     public let oAuth2ServerPublicAccessTokenDuration: Int?
     /// OAuth2 server refresh token duration in seconds for public clients (SPAs, mobile, native)
     public let oAuth2ServerPublicRefreshTokenDuration: Int?
+    /// OAuth2 server access token duration in seconds for app installation access tokens
+    public let oAuth2ServerInstallationAccessTokenDuration: Int?
     /// When enabled, PKCE is required for confidential clients (server-side flows using client_secret). PKCE is always required for public clients regardless of this setting.
     public let oAuth2ServerConfidentialPkce: Bool?
     /// URL to your application page where users enter the device flow user code. Empty when the Device Authorization Grant is not configured.
@@ -165,6 +171,7 @@ open class Project: Codable {
         protocols: [ProjectProtocol],
         blocks: [Block],
         consoleAccessedAt: String,
+        wafEnabled: Bool,
         billingLimits: BillingLimits?,
         oAuth2ServerEnabled: Bool?,
         oAuth2ServerAuthorizationUrl: String?,
@@ -175,6 +182,7 @@ open class Project: Codable {
         oAuth2ServerRefreshTokenDuration: Int?,
         oAuth2ServerPublicAccessTokenDuration: Int?,
         oAuth2ServerPublicRefreshTokenDuration: Int?,
+        oAuth2ServerInstallationAccessTokenDuration: Int?,
         oAuth2ServerConfidentialPkce: Bool?,
         oAuth2ServerVerificationUrl: String?,
         oAuth2ServerUserCodeLength: Int?,
@@ -209,6 +217,7 @@ open class Project: Codable {
         self.protocols = protocols
         self.blocks = blocks
         self.consoleAccessedAt = consoleAccessedAt
+        self.wafEnabled = wafEnabled
         self.billingLimits = billingLimits
         self.oAuth2ServerEnabled = oAuth2ServerEnabled
         self.oAuth2ServerAuthorizationUrl = oAuth2ServerAuthorizationUrl
@@ -219,6 +228,7 @@ open class Project: Codable {
         self.oAuth2ServerRefreshTokenDuration = oAuth2ServerRefreshTokenDuration
         self.oAuth2ServerPublicAccessTokenDuration = oAuth2ServerPublicAccessTokenDuration
         self.oAuth2ServerPublicRefreshTokenDuration = oAuth2ServerPublicRefreshTokenDuration
+        self.oAuth2ServerInstallationAccessTokenDuration = oAuth2ServerInstallationAccessTokenDuration
         self.oAuth2ServerConfidentialPkce = oAuth2ServerConfidentialPkce
         self.oAuth2ServerVerificationUrl = oAuth2ServerVerificationUrl
         self.oAuth2ServerUserCodeLength = oAuth2ServerUserCodeLength
@@ -257,6 +267,7 @@ open class Project: Codable {
         self.protocols = try container.decode([ProjectProtocol].self, forKey: .protocols)
         self.blocks = try container.decode([Block].self, forKey: .blocks)
         self.consoleAccessedAt = try container.decode(String.self, forKey: .consoleAccessedAt)
+        self.wafEnabled = try container.decode(Bool.self, forKey: .wafEnabled)
         self.billingLimits = try container.decodeIfPresent(BillingLimits.self, forKey: .billingLimits)
         self.oAuth2ServerEnabled = try container.decodeIfPresent(Bool.self, forKey: .oAuth2ServerEnabled)
         self.oAuth2ServerAuthorizationUrl = try container.decodeIfPresent(String.self, forKey: .oAuth2ServerAuthorizationUrl)
@@ -267,6 +278,7 @@ open class Project: Codable {
         self.oAuth2ServerRefreshTokenDuration = try container.decodeIfPresent(Int.self, forKey: .oAuth2ServerRefreshTokenDuration)
         self.oAuth2ServerPublicAccessTokenDuration = try container.decodeIfPresent(Int.self, forKey: .oAuth2ServerPublicAccessTokenDuration)
         self.oAuth2ServerPublicRefreshTokenDuration = try container.decodeIfPresent(Int.self, forKey: .oAuth2ServerPublicRefreshTokenDuration)
+        self.oAuth2ServerInstallationAccessTokenDuration = try container.decodeIfPresent(Int.self, forKey: .oAuth2ServerInstallationAccessTokenDuration)
         self.oAuth2ServerConfidentialPkce = try container.decodeIfPresent(Bool.self, forKey: .oAuth2ServerConfidentialPkce)
         self.oAuth2ServerVerificationUrl = try container.decodeIfPresent(String.self, forKey: .oAuth2ServerVerificationUrl)
         self.oAuth2ServerUserCodeLength = try container.decodeIfPresent(Int.self, forKey: .oAuth2ServerUserCodeLength)
@@ -305,6 +317,7 @@ open class Project: Codable {
         try container.encode(protocols, forKey: .protocols)
         try container.encode(blocks, forKey: .blocks)
         try container.encode(consoleAccessedAt, forKey: .consoleAccessedAt)
+        try container.encode(wafEnabled, forKey: .wafEnabled)
         try container.encodeIfPresent(billingLimits, forKey: .billingLimits)
         try container.encodeIfPresent(oAuth2ServerEnabled, forKey: .oAuth2ServerEnabled)
         try container.encodeIfPresent(oAuth2ServerAuthorizationUrl, forKey: .oAuth2ServerAuthorizationUrl)
@@ -315,6 +328,7 @@ open class Project: Codable {
         try container.encodeIfPresent(oAuth2ServerRefreshTokenDuration, forKey: .oAuth2ServerRefreshTokenDuration)
         try container.encodeIfPresent(oAuth2ServerPublicAccessTokenDuration, forKey: .oAuth2ServerPublicAccessTokenDuration)
         try container.encodeIfPresent(oAuth2ServerPublicRefreshTokenDuration, forKey: .oAuth2ServerPublicRefreshTokenDuration)
+        try container.encodeIfPresent(oAuth2ServerInstallationAccessTokenDuration, forKey: .oAuth2ServerInstallationAccessTokenDuration)
         try container.encodeIfPresent(oAuth2ServerConfidentialPkce, forKey: .oAuth2ServerConfidentialPkce)
         try container.encodeIfPresent(oAuth2ServerVerificationUrl, forKey: .oAuth2ServerVerificationUrl)
         try container.encodeIfPresent(oAuth2ServerUserCodeLength, forKey: .oAuth2ServerUserCodeLength)
@@ -352,6 +366,7 @@ open class Project: Codable {
             "protocols": protocols.map { $0.toMap() } as Any,
             "blocks": blocks.map { $0.toMap() } as Any,
             "consoleAccessedAt": consoleAccessedAt as Any,
+            "wafEnabled": wafEnabled as Any,
             "billingLimits": billingLimits?.toMap() as Any,
             "oAuth2ServerEnabled": oAuth2ServerEnabled as Any,
             "oAuth2ServerAuthorizationUrl": oAuth2ServerAuthorizationUrl as Any,
@@ -362,6 +377,7 @@ open class Project: Codable {
             "oAuth2ServerRefreshTokenDuration": oAuth2ServerRefreshTokenDuration as Any,
             "oAuth2ServerPublicAccessTokenDuration": oAuth2ServerPublicAccessTokenDuration as Any,
             "oAuth2ServerPublicRefreshTokenDuration": oAuth2ServerPublicRefreshTokenDuration as Any,
+            "oAuth2ServerInstallationAccessTokenDuration": oAuth2ServerInstallationAccessTokenDuration as Any,
             "oAuth2ServerConfidentialPkce": oAuth2ServerConfidentialPkce as Any,
             "oAuth2ServerVerificationUrl": oAuth2ServerVerificationUrl as Any,
             "oAuth2ServerUserCodeLength": oAuth2ServerUserCodeLength as Any,
@@ -400,6 +416,7 @@ open class Project: Codable {
             protocols: (map["protocols"] as! [[String: Any]]).map { ProjectProtocol.from(map: $0) },
             blocks: (map["blocks"] as! [[String: Any]]).map { Block.from(map: $0) },
             consoleAccessedAt: map["consoleAccessedAt"] as! String,
+            wafEnabled: map["wafEnabled"] as! Bool,
             billingLimits: map["billingLimits"] as? [String: Any] != nil ? BillingLimits.from(map: map["billingLimits"] as! [String: Any]) : nil,
             oAuth2ServerEnabled: map["oAuth2ServerEnabled"] as? Bool,
             oAuth2ServerAuthorizationUrl: map["oAuth2ServerAuthorizationUrl"] as? String,
@@ -410,6 +427,7 @@ open class Project: Codable {
             oAuth2ServerRefreshTokenDuration: map["oAuth2ServerRefreshTokenDuration"] as? Int,
             oAuth2ServerPublicAccessTokenDuration: map["oAuth2ServerPublicAccessTokenDuration"] as? Int,
             oAuth2ServerPublicRefreshTokenDuration: map["oAuth2ServerPublicRefreshTokenDuration"] as? Int,
+            oAuth2ServerInstallationAccessTokenDuration: map["oAuth2ServerInstallationAccessTokenDuration"] as? Int,
             oAuth2ServerConfidentialPkce: map["oAuth2ServerConfidentialPkce"] as? Bool,
             oAuth2ServerVerificationUrl: map["oAuth2ServerVerificationUrl"] as? String,
             oAuth2ServerUserCodeLength: map["oAuth2ServerUserCodeLength"] as? Int,

@@ -137,6 +137,226 @@ open class Account: Service {
     }
 
     ///
+    /// Get a list of the OAuth2 consents the current user has given to third-party
+    /// apps.
+    ///
+    /// - Parameters:
+    ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Oauth2ConsentList
+    ///
+    open func listConsents(
+        queries: [String]? = nil,
+        total: Bool? = nil
+    ) async throws -> AppwriteModels.Oauth2ConsentList {
+        let apiPath: String = "/account/consents"
+
+        let apiParams: [String: Any?] = [
+            "queries": queries,
+            "total": total
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Oauth2ConsentList = { response in
+            return AppwriteModels.Oauth2ConsentList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get an OAuth2 consent the current user has given to a third-party app by
+    /// its unique ID.
+    ///
+    /// - Parameters:
+    ///   - consentId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Oauth2Consent
+    ///
+    open func getConsent(
+        consentId: String
+    ) async throws -> AppwriteModels.Oauth2Consent {
+        let apiPath: String = "/account/consents/{consentId}"
+            .replacingOccurrences(of: "{consentId}", with: consentId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Oauth2Consent = { response in
+            return AppwriteModels.Oauth2Consent.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Delete an OAuth2 consent by its unique ID. All token families issued under
+    /// the consent are revoked, and the app must ask for consent again to regain
+    /// access.
+    ///
+    /// - Parameters:
+    ///   - consentId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
+    ///
+    open func deleteConsent(
+        consentId: String
+    ) async throws -> Any {
+        let apiPath: String = "/account/consents/{consentId}"
+            .replacingOccurrences(of: "{consentId}", with: consentId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json"
+        ]
+
+        return try await client.call(
+            method: "DELETE",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams        )
+    }
+
+    ///
+    /// Get a list of the token families issued under an OAuth2 consent. Each entry
+    /// represents one authorized device or session; the token secrets themselves
+    /// are never returned.
+    ///
+    /// - Parameters:
+    ///   - consentId: String
+    ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Oauth2ConsentTokenList
+    ///
+    open func listConsentTokens(
+        consentId: String,
+        queries: [String]? = nil,
+        total: Bool? = nil
+    ) async throws -> AppwriteModels.Oauth2ConsentTokenList {
+        let apiPath: String = "/account/consents/{consentId}/tokens"
+            .replacingOccurrences(of: "{consentId}", with: consentId)
+
+        let apiParams: [String: Any?] = [
+            "queries": queries,
+            "total": total
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Oauth2ConsentTokenList = { response in
+            return AppwriteModels.Oauth2ConsentTokenList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get a token family issued under an OAuth2 consent by its unique ID. The
+    /// token secrets themselves are never returned.
+    ///
+    /// - Parameters:
+    ///   - consentId: String
+    ///   - tokenId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Oauth2ConsentToken
+    ///
+    open func getConsentToken(
+        consentId: String,
+        tokenId: String
+    ) async throws -> AppwriteModels.Oauth2ConsentToken {
+        let apiPath: String = "/account/consents/{consentId}/tokens/{tokenId}"
+            .replacingOccurrences(of: "{consentId}", with: consentId)
+            .replacingOccurrences(of: "{tokenId}", with: tokenId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Oauth2ConsentToken = { response in
+            return AppwriteModels.Oauth2ConsentToken.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Delete a token family issued under an OAuth2 consent by its unique ID. The
+    /// access and refresh tokens of the family stop working immediately; other
+    /// token families and the consent itself are unaffected.
+    ///
+    /// - Parameters:
+    ///   - consentId: String
+    ///   - tokenId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
+    ///
+    open func deleteConsentToken(
+        consentId: String,
+        tokenId: String
+    ) async throws -> Any {
+        let apiPath: String = "/account/consents/{consentId}/tokens/{tokenId}"
+            .replacingOccurrences(of: "{consentId}", with: consentId)
+            .replacingOccurrences(of: "{tokenId}", with: tokenId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json"
+        ]
+
+        return try await client.call(
+            method: "DELETE",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams        )
+    }
+
+    ///
     /// Update currently logged in user account email address. After changing user
     /// address, the user confirmation status will get reset. A new confirmation
     /// email is not sent automatically however you can use the send confirmation

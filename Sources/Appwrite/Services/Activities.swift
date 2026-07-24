@@ -5,7 +5,7 @@ import JSONCodable
 import AppwriteEnums
 import AppwriteModels
 
-/// 
+/// The Activities service allows you to list and inspect project activity events.
 open class Activities: Service {
 
     ///

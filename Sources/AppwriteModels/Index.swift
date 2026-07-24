@@ -115,7 +115,7 @@ open class Index: Codable {
             updatedAt: map["$updatedAt"] as! String,
             key: map["key"] as! String,
             type: map["type"] as! String,
-            status: IndexStatus(rawValue: map["status"] as! String)!,
+            status: AppwriteEnums.IndexStatus(rawValue: map["status"] as! String)!,
             error: map["error"] as! String,
             attributes: map["attributes"] as! [String],
             lengths: map["lengths"] as! [Int],

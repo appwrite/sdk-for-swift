@@ -7,6 +7,8 @@ public enum OrganizationKeyScopes: String, Codable, CustomStringConvertible {
     case devKeysWrite = "devKeys.write"
     case organizationKeysRead = "organization.keys.read"
     case organizationKeysWrite = "organization.keys.write"
+    case organizationInstallationsRead = "organization.installations.read"
+    case organizationInstallationsWrite = "organization.installations.write"
     case organizationMembershipsRead = "organization.memberships.read"
     case organizationMembershipsWrite = "organization.memberships.write"
     case organizationRead = "organization.read"

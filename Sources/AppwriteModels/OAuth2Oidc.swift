@@ -74,7 +74,7 @@ open class OAuth2Oidc: Codable {
         self.authorizationURL = try container.decode(String.self, forKey: .authorizationURL)
         self.tokenURL = try container.decode(String.self, forKey: .tokenURL)
         self.userInfoURL = try container.decode(String.self, forKey: .userInfoURL)
-        self.prompt = try container.decode([String].self, forKey: .prompt).map { OAuth2OidcPrompt(rawValue: $0)! }
+        self.prompt = try container.decode([String].self, forKey: .prompt).map { AppwriteEnums.OAuth2OidcPrompt(rawValue: $0)! }
         self.maxAge = try container.decodeIfPresent(Int.self, forKey: .maxAge)
     }
 
@@ -118,7 +118,7 @@ open class OAuth2Oidc: Codable {
             authorizationURL: map["authorizationURL"] as! String,
             tokenURL: map["tokenURL"] as! String,
             userInfoURL: map["userInfoURL"] as! String,
-            prompt: (map["prompt"] as! [String]).map { OAuth2OidcPrompt(rawValue: $0)! },
+            prompt: (map["prompt"] as! [String]).map { AppwriteEnums.OAuth2OidcPrompt(rawValue: $0)! },
             maxAge: map["maxAge"] as? Int
         )
     }

@@ -46,7 +46,7 @@ open class ProjectService: Codable {
 
     public static func from(map: [String: Any] ) -> ProjectService {
         return ProjectService(
-            id: ProjectServiceId(rawValue: map["$id"] as! String)!,
+            id: AppwriteEnums.ProjectServiceId(rawValue: map["$id"] as! String)!,
             enabled: map["enabled"] as! Bool
         )
     }

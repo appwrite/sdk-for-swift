@@ -5,7 +5,7 @@ import JSONCodable
 import AppwriteEnums
 import AppwriteModels
 
-/// 
+/// The Tokens service allows you to create and manage resource tokens for secure file access.
 open class Tokens: Service {
 
     ///
