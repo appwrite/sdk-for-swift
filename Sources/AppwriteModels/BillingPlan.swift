@@ -98,7 +98,7 @@ open class BillingPlan: Codable {
     /// Screenshots generated
     public let screenshotsGenerated: Int
     /// Members
-    public let members: Int
+    public let members: Int?
     /// Webhooks
     public let webhooks: Int
     /// Maximum WAF rules per project
@@ -146,7 +146,7 @@ open class BillingPlan: Codable {
     /// Custom domains
     public let domains: Int
     /// Activity log days
-    public let activityLogs: Int
+    public let activityLogs: Int?
     /// Usage history days
     public let usageLogs: Int
     /// Usage log time intervals allowed for this plan (e.g. 15m, 1h, 1d).
@@ -194,13 +194,13 @@ open class BillingPlan: Codable {
     /// Does plan support project-specific member roles.
     public let supportsProjectSpecificRoles: Bool
     /// Does plan support backup policies.
-    public let backupsEnabled: Bool
+    public let backupsEnabled: Bool?
     /// Whether usage addons are calculated per project.
     public let usagePerProject: Bool
     /// Supported addons for this plan
     public let supportedAddons: BillingPlanSupportedAddons
     /// How many policies does plan support
-    public let backupPolicies: Int
+    public let backupPolicies: Int?
     /// Maximum function and site deployment size in MB
     public let deploymentSize: Int
     /// Maximum function and site deployment size in MB
@@ -227,7 +227,7 @@ open class BillingPlan: Codable {
         storage: Int,
         imageTransformations: Int,
         screenshotsGenerated: Int,
-        members: Int,
+        members: Int?,
         webhooks: Int,
         wafRules: Int,
         projects: Int,
@@ -251,7 +251,7 @@ open class BillingPlan: Codable {
         topics: Int,
         authPhone: Int,
         domains: Int,
-        activityLogs: Int,
+        activityLogs: Int?,
         usageLogs: Int,
         usageLogsIntervals: [String]?,
         projectInactivityDays: Int,
@@ -275,10 +275,10 @@ open class BillingPlan: Codable {
         supportsFreeEmailValidation: Bool,
         supportsCorporateEmailValidation: Bool,
         supportsProjectSpecificRoles: Bool,
-        backupsEnabled: Bool,
+        backupsEnabled: Bool?,
         usagePerProject: Bool,
         supportedAddons: BillingPlanSupportedAddons,
-        backupPolicies: Int,
+        backupPolicies: Int?,
         deploymentSize: Int,
         buildSize: Int,
         databasesAllowEncrypt: Bool,
@@ -371,7 +371,7 @@ open class BillingPlan: Codable {
         self.storage = try container.decode(Int.self, forKey: .storage)
         self.imageTransformations = try container.decode(Int.self, forKey: .imageTransformations)
         self.screenshotsGenerated = try container.decode(Int.self, forKey: .screenshotsGenerated)
-        self.members = try container.decode(Int.self, forKey: .members)
+        self.members = try container.decodeIfPresent(Int.self, forKey: .members)
         self.webhooks = try container.decode(Int.self, forKey: .webhooks)
         self.wafRules = try container.decode(Int.self, forKey: .wafRules)
         self.projects = try container.decode(Int.self, forKey: .projects)
@@ -395,7 +395,7 @@ open class BillingPlan: Codable {
         self.topics = try container.decode(Int.self, forKey: .topics)
         self.authPhone = try container.decode(Int.self, forKey: .authPhone)
         self.domains = try container.decode(Int.self, forKey: .domains)
-        self.activityLogs = try container.decode(Int.self, forKey: .activityLogs)
+        self.activityLogs = try container.decodeIfPresent(Int.self, forKey: .activityLogs)
         self.usageLogs = try container.decode(Int.self, forKey: .usageLogs)
         self.usageLogsIntervals = try container.decodeIfPresent([String].self, forKey: .usageLogsIntervals)
         self.projectInactivityDays = try container.decode(Int.self, forKey: .projectInactivityDays)
@@ -419,10 +419,10 @@ open class BillingPlan: Codable {
         self.supportsFreeEmailValidation = try container.decode(Bool.self, forKey: .supportsFreeEmailValidation)
         self.supportsCorporateEmailValidation = try container.decode(Bool.self, forKey: .supportsCorporateEmailValidation)
         self.supportsProjectSpecificRoles = try container.decode(Bool.self, forKey: .supportsProjectSpecificRoles)
-        self.backupsEnabled = try container.decode(Bool.self, forKey: .backupsEnabled)
+        self.backupsEnabled = try container.decodeIfPresent(Bool.self, forKey: .backupsEnabled)
         self.usagePerProject = try container.decode(Bool.self, forKey: .usagePerProject)
         self.supportedAddons = try container.decode(BillingPlanSupportedAddons.self, forKey: .supportedAddons)
-        self.backupPolicies = try container.decode(Int.self, forKey: .backupPolicies)
+        self.backupPolicies = try container.decodeIfPresent(Int.self, forKey: .backupPolicies)
         self.deploymentSize = try container.decode(Int.self, forKey: .deploymentSize)
         self.buildSize = try container.decode(Int.self, forKey: .buildSize)
         self.databasesAllowEncrypt = try container.decode(Bool.self, forKey: .databasesAllowEncrypt)
@@ -445,7 +445,7 @@ open class BillingPlan: Codable {
         try container.encode(storage, forKey: .storage)
         try container.encode(imageTransformations, forKey: .imageTransformations)
         try container.encode(screenshotsGenerated, forKey: .screenshotsGenerated)
-        try container.encode(members, forKey: .members)
+        try container.encodeIfPresent(members, forKey: .members)
         try container.encode(webhooks, forKey: .webhooks)
         try container.encode(wafRules, forKey: .wafRules)
         try container.encode(projects, forKey: .projects)
@@ -469,7 +469,7 @@ open class BillingPlan: Codable {
         try container.encode(topics, forKey: .topics)
         try container.encode(authPhone, forKey: .authPhone)
         try container.encode(domains, forKey: .domains)
-        try container.encode(activityLogs, forKey: .activityLogs)
+        try container.encodeIfPresent(activityLogs, forKey: .activityLogs)
         try container.encode(usageLogs, forKey: .usageLogs)
         try container.encodeIfPresent(usageLogsIntervals, forKey: .usageLogsIntervals)
         try container.encode(projectInactivityDays, forKey: .projectInactivityDays)
@@ -493,10 +493,10 @@ open class BillingPlan: Codable {
         try container.encode(supportsFreeEmailValidation, forKey: .supportsFreeEmailValidation)
         try container.encode(supportsCorporateEmailValidation, forKey: .supportsCorporateEmailValidation)
         try container.encode(supportsProjectSpecificRoles, forKey: .supportsProjectSpecificRoles)
-        try container.encode(backupsEnabled, forKey: .backupsEnabled)
+        try container.encodeIfPresent(backupsEnabled, forKey: .backupsEnabled)
         try container.encode(usagePerProject, forKey: .usagePerProject)
         try container.encode(supportedAddons, forKey: .supportedAddons)
-        try container.encode(backupPolicies, forKey: .backupPolicies)
+        try container.encodeIfPresent(backupPolicies, forKey: .backupPolicies)
         try container.encode(deploymentSize, forKey: .deploymentSize)
         try container.encode(buildSize, forKey: .buildSize)
         try container.encode(databasesAllowEncrypt, forKey: .databasesAllowEncrypt)
@@ -592,7 +592,7 @@ open class BillingPlan: Codable {
             storage: map["storage"] as! Int,
             imageTransformations: map["imageTransformations"] as! Int,
             screenshotsGenerated: map["screenshotsGenerated"] as! Int,
-            members: map["members"] as! Int,
+            members: map["members"] as? Int,
             webhooks: map["webhooks"] as! Int,
             wafRules: map["wafRules"] as! Int,
             projects: map["projects"] as! Int,
@@ -616,7 +616,7 @@ open class BillingPlan: Codable {
             topics: map["topics"] as! Int,
             authPhone: map["authPhone"] as! Int,
             domains: map["domains"] as! Int,
-            activityLogs: map["activityLogs"] as! Int,
+            activityLogs: map["activityLogs"] as? Int,
             usageLogs: map["usageLogs"] as! Int,
             usageLogsIntervals: map["usageLogsIntervals"] as? [String],
             projectInactivityDays: map["projectInactivityDays"] as! Int,
@@ -640,10 +640,10 @@ open class BillingPlan: Codable {
             supportsFreeEmailValidation: map["supportsFreeEmailValidation"] as! Bool,
             supportsCorporateEmailValidation: map["supportsCorporateEmailValidation"] as! Bool,
             supportsProjectSpecificRoles: map["supportsProjectSpecificRoles"] as! Bool,
-            backupsEnabled: map["backupsEnabled"] as! Bool,
+            backupsEnabled: map["backupsEnabled"] as? Bool,
             usagePerProject: map["usagePerProject"] as! Bool,
             supportedAddons: BillingPlanSupportedAddons.from(map: map["supportedAddons"] as! [String: Any]),
-            backupPolicies: map["backupPolicies"] as! Int,
+            backupPolicies: map["backupPolicies"] as? Int,
             deploymentSize: map["deploymentSize"] as! Int,
             buildSize: map["buildSize"] as! Int,
             databasesAllowEncrypt: map["databasesAllowEncrypt"] as! Bool,

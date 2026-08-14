@@ -766,10 +766,7 @@ open class Sites: Service {
 
         let apiParams: [String: Any?] = [
             "type": type?.rawValue,
-            "token": token,
-            "project": client.config["project"],
-            "key": client.config["key"],
-            "impersonateuserid": client.config["impersonateuserid"]
+            "token": token
         ]
 
         let apiHeaders: [String: String] = [
@@ -780,6 +777,7 @@ open class Sites: Service {
         return try await client.call(
             method: "GET",
             path: apiPath,
+            headers: apiHeaders,
             params: apiParams
         )
     }

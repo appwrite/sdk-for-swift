@@ -9,7 +9,7 @@ let client = Client()
 let activities = Activities(client)
 
 let activityEventList = try await activities.listEvents(
-    queries: "" // optional
+    queries: [] // optional
 )
 
 ```

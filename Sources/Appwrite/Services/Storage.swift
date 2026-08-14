@@ -315,6 +315,7 @@ open class Storage: Service {
     ///   - fileId: String
     ///   - file: InputFile
     ///   - permissions: [String] (optional)
+    ///   - folder: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.File
     ///
@@ -323,6 +324,7 @@ open class Storage: Service {
         fileId: String,
         file: InputFile,
         permissions: [String]? = nil,
+        folder: String? = nil,
         onProgress: ((UploadProgress) -> Void)? = nil
     ) async throws -> AppwriteModels.File {
         let apiPath: String = "/storage/buckets/{bucketId}/files"
@@ -331,7 +333,8 @@ open class Storage: Service {
         var apiParams: [String: Any?] = [
             "fileId": fileId,
             "file": file,
-            "permissions": permissions
+            "permissions": permissions,
+            "folder": folder
         ]
 
         var apiHeaders: [String: String] = [
@@ -495,10 +498,7 @@ open class Storage: Service {
             .replacingOccurrences(of: "{fileId}", with: fileId)
 
         let apiParams: [String: Any?] = [
-            "token": token,
-            "project": client.config["project"],
-            "session": client.config["session"],
-            "impersonateuserid": client.config["impersonateuserid"]
+            "token": token
         ]
 
         let apiHeaders: [String: String] = [
@@ -509,6 +509,7 @@ open class Storage: Service {
         return try await client.call(
             method: "GET",
             path: apiPath,
+            headers: apiHeaders,
             params: apiParams
         )
     }
@@ -570,10 +571,7 @@ open class Storage: Service {
             "rotation": rotation,
             "background": background,
             "output": output?.rawValue,
-            "token": token,
-            "project": client.config["project"],
-            "session": client.config["session"],
-            "impersonateuserid": client.config["impersonateuserid"]
+            "token": token
         ]
 
         let apiHeaders: [String: String] = [
@@ -584,6 +582,7 @@ open class Storage: Service {
         return try await client.call(
             method: "GET",
             path: apiPath,
+            headers: apiHeaders,
             params: apiParams
         )
     }
@@ -610,10 +609,7 @@ open class Storage: Service {
             .replacingOccurrences(of: "{fileId}", with: fileId)
 
         let apiParams: [String: Any?] = [
-            "token": token,
-            "project": client.config["project"],
-            "session": client.config["session"],
-            "impersonateuserid": client.config["impersonateuserid"]
+            "token": token
         ]
 
         let apiHeaders: [String: String] = [
@@ -624,6 +620,7 @@ open class Storage: Service {
         return try await client.call(
             method: "GET",
             path: apiPath,
+            headers: apiHeaders,
             params: apiParams
         )
     }

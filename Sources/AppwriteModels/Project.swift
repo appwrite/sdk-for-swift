@@ -38,6 +38,7 @@ open class Project: Codable {
         case oAuth2ServerAuthorizationUrl = "oAuth2ServerAuthorizationUrl"
         case oAuth2ServerScopes = "oAuth2ServerScopes"
         case oAuth2ServerDefaultScopes = "oAuth2ServerDefaultScopes"
+        case oAuth2ServerInstallationScopes = "oAuth2ServerInstallationScopes"
         case oAuth2ServerAuthorizationDetailsTypes = "oAuth2ServerAuthorizationDetailsTypes"
         case oAuth2ServerAccessTokenDuration = "oAuth2ServerAccessTokenDuration"
         case oAuth2ServerRefreshTokenDuration = "oAuth2ServerRefreshTokenDuration"
@@ -118,6 +119,8 @@ open class Project: Codable {
     public let oAuth2ServerScopes: [String]?
     /// OAuth2 server scopes used when an authorization request omits the scope parameter
     public let oAuth2ServerDefaultScopes: [String]?
+    /// Scopes an application may request when installed on a team
+    public let oAuth2ServerInstallationScopes: [String]?
     /// OAuth2 server accepted RFC 9396 authorization_details types
     public let oAuth2ServerAuthorizationDetailsTypes: [String]?
     /// OAuth2 server access token duration in seconds for confidential clients
@@ -177,6 +180,7 @@ open class Project: Codable {
         oAuth2ServerAuthorizationUrl: String?,
         oAuth2ServerScopes: [String]?,
         oAuth2ServerDefaultScopes: [String]?,
+        oAuth2ServerInstallationScopes: [String]?,
         oAuth2ServerAuthorizationDetailsTypes: [String]?,
         oAuth2ServerAccessTokenDuration: Int?,
         oAuth2ServerRefreshTokenDuration: Int?,
@@ -223,6 +227,7 @@ open class Project: Codable {
         self.oAuth2ServerAuthorizationUrl = oAuth2ServerAuthorizationUrl
         self.oAuth2ServerScopes = oAuth2ServerScopes
         self.oAuth2ServerDefaultScopes = oAuth2ServerDefaultScopes
+        self.oAuth2ServerInstallationScopes = oAuth2ServerInstallationScopes
         self.oAuth2ServerAuthorizationDetailsTypes = oAuth2ServerAuthorizationDetailsTypes
         self.oAuth2ServerAccessTokenDuration = oAuth2ServerAccessTokenDuration
         self.oAuth2ServerRefreshTokenDuration = oAuth2ServerRefreshTokenDuration
@@ -273,6 +278,7 @@ open class Project: Codable {
         self.oAuth2ServerAuthorizationUrl = try container.decodeIfPresent(String.self, forKey: .oAuth2ServerAuthorizationUrl)
         self.oAuth2ServerScopes = try container.decodeIfPresent([String].self, forKey: .oAuth2ServerScopes)
         self.oAuth2ServerDefaultScopes = try container.decodeIfPresent([String].self, forKey: .oAuth2ServerDefaultScopes)
+        self.oAuth2ServerInstallationScopes = try container.decodeIfPresent([String].self, forKey: .oAuth2ServerInstallationScopes)
         self.oAuth2ServerAuthorizationDetailsTypes = try container.decodeIfPresent([String].self, forKey: .oAuth2ServerAuthorizationDetailsTypes)
         self.oAuth2ServerAccessTokenDuration = try container.decodeIfPresent(Int.self, forKey: .oAuth2ServerAccessTokenDuration)
         self.oAuth2ServerRefreshTokenDuration = try container.decodeIfPresent(Int.self, forKey: .oAuth2ServerRefreshTokenDuration)
@@ -323,6 +329,7 @@ open class Project: Codable {
         try container.encodeIfPresent(oAuth2ServerAuthorizationUrl, forKey: .oAuth2ServerAuthorizationUrl)
         try container.encodeIfPresent(oAuth2ServerScopes, forKey: .oAuth2ServerScopes)
         try container.encodeIfPresent(oAuth2ServerDefaultScopes, forKey: .oAuth2ServerDefaultScopes)
+        try container.encodeIfPresent(oAuth2ServerInstallationScopes, forKey: .oAuth2ServerInstallationScopes)
         try container.encodeIfPresent(oAuth2ServerAuthorizationDetailsTypes, forKey: .oAuth2ServerAuthorizationDetailsTypes)
         try container.encodeIfPresent(oAuth2ServerAccessTokenDuration, forKey: .oAuth2ServerAccessTokenDuration)
         try container.encodeIfPresent(oAuth2ServerRefreshTokenDuration, forKey: .oAuth2ServerRefreshTokenDuration)
@@ -372,6 +379,7 @@ open class Project: Codable {
             "oAuth2ServerAuthorizationUrl": oAuth2ServerAuthorizationUrl as Any,
             "oAuth2ServerScopes": oAuth2ServerScopes as Any,
             "oAuth2ServerDefaultScopes": oAuth2ServerDefaultScopes as Any,
+            "oAuth2ServerInstallationScopes": oAuth2ServerInstallationScopes as Any,
             "oAuth2ServerAuthorizationDetailsTypes": oAuth2ServerAuthorizationDetailsTypes as Any,
             "oAuth2ServerAccessTokenDuration": oAuth2ServerAccessTokenDuration as Any,
             "oAuth2ServerRefreshTokenDuration": oAuth2ServerRefreshTokenDuration as Any,
@@ -422,6 +430,7 @@ open class Project: Codable {
             oAuth2ServerAuthorizationUrl: map["oAuth2ServerAuthorizationUrl"] as? String,
             oAuth2ServerScopes: map["oAuth2ServerScopes"] as? [String],
             oAuth2ServerDefaultScopes: map["oAuth2ServerDefaultScopes"] as? [String],
+            oAuth2ServerInstallationScopes: map["oAuth2ServerInstallationScopes"] as? [String],
             oAuth2ServerAuthorizationDetailsTypes: map["oAuth2ServerAuthorizationDetailsTypes"] as? [String],
             oAuth2ServerAccessTokenDuration: map["oAuth2ServerAccessTokenDuration"] as? Int,
             oAuth2ServerRefreshTokenDuration: map["oAuth2ServerRefreshTokenDuration"] as? Int,

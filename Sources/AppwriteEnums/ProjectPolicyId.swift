@@ -11,6 +11,7 @@ public enum ProjectPolicyId: String, Codable, CustomStringConvertible {
     case sessionLimit = "session-limit"
     case userLimit = "user-limit"
     case membershipPrivacy = "membership-privacy"
+    case mfaFactors = "mfa-factors"
     case denyAliasedEmail = "deny-aliased-email"
     case denyDisposableEmail = "deny-disposable-email"
     case denyFreeEmail = "deny-free-email"

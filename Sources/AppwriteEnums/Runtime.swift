@@ -11,6 +11,7 @@ public enum Runtime: String, Codable, CustomStringConvertible {
     case node23 = "node-23"
     case node24 = "node-24"
     case node25 = "node-25"
+    case node26 = "node-26"
     case php80 = "php-8.0"
     case php81 = "php-8.1"
     case php82 = "php-8.2"

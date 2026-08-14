@@ -40,10 +40,7 @@ open class Avatars: Service {
         let apiParams: [String: Any?] = [
             "width": width,
             "height": height,
-            "quality": quality,
-            "project": client.config["project"],
-            "session": client.config["session"],
-            "impersonateuserid": client.config["impersonateuserid"]
+            "quality": quality
         ]
 
         let apiHeaders: [String: String] = [
@@ -54,6 +51,7 @@ open class Avatars: Service {
         return try await client.call(
             method: "GET",
             path: apiPath,
+            headers: apiHeaders,
             params: apiParams
         )
     }
@@ -89,10 +87,7 @@ open class Avatars: Service {
         let apiParams: [String: Any?] = [
             "width": width,
             "height": height,
-            "quality": quality,
-            "project": client.config["project"],
-            "session": client.config["session"],
-            "impersonateuserid": client.config["impersonateuserid"]
+            "quality": quality
         ]
 
         let apiHeaders: [String: String] = [
@@ -103,6 +98,7 @@ open class Avatars: Service {
         return try await client.call(
             method: "GET",
             path: apiPath,
+            headers: apiHeaders,
             params: apiParams
         )
     }
@@ -124,10 +120,7 @@ open class Avatars: Service {
         let apiPath: String = "/avatars/favicon"
 
         let apiParams: [String: Any?] = [
-            "url": url,
-            "project": client.config["project"],
-            "session": client.config["session"],
-            "impersonateuserid": client.config["impersonateuserid"]
+            "url": url
         ]
 
         let apiHeaders: [String: String] = [
@@ -138,6 +131,7 @@ open class Avatars: Service {
         return try await client.call(
             method: "GET",
             path: apiPath,
+            headers: apiHeaders,
             params: apiParams
         )
     }
@@ -174,10 +168,7 @@ open class Avatars: Service {
         let apiParams: [String: Any?] = [
             "width": width,
             "height": height,
-            "quality": quality,
-            "project": client.config["project"],
-            "session": client.config["session"],
-            "impersonateuserid": client.config["impersonateuserid"]
+            "quality": quality
         ]
 
         let apiHeaders: [String: String] = [
@@ -188,6 +179,7 @@ open class Avatars: Service {
         return try await client.call(
             method: "GET",
             path: apiPath,
+            headers: apiHeaders,
             params: apiParams
         )
     }
@@ -222,10 +214,7 @@ open class Avatars: Service {
         let apiParams: [String: Any?] = [
             "url": url,
             "width": width,
-            "height": height,
-            "project": client.config["project"],
-            "session": client.config["session"],
-            "impersonateuserid": client.config["impersonateuserid"]
+            "height": height
         ]
 
         let apiHeaders: [String: String] = [
@@ -236,6 +225,7 @@ open class Avatars: Service {
         return try await client.call(
             method: "GET",
             path: apiPath,
+            headers: apiHeaders,
             params: apiParams
         )
     }
@@ -278,10 +268,7 @@ open class Avatars: Service {
             "name": name,
             "width": width,
             "height": height,
-            "background": background,
-            "project": client.config["project"],
-            "session": client.config["session"],
-            "impersonateuserid": client.config["impersonateuserid"]
+            "background": background
         ]
 
         let apiHeaders: [String: String] = [
@@ -292,6 +279,7 @@ open class Avatars: Service {
         return try await client.call(
             method: "GET",
             path: apiPath,
+            headers: apiHeaders,
             params: apiParams
         )
     }
@@ -321,10 +309,7 @@ open class Avatars: Service {
             "text": text,
             "size": size,
             "margin": margin,
-            "download": download,
-            "project": client.config["project"],
-            "session": client.config["session"],
-            "impersonateuserid": client.config["impersonateuserid"]
+            "download": download
         ]
 
         let apiHeaders: [String: String] = [
@@ -335,6 +320,7 @@ open class Avatars: Service {
         return try await client.call(
             method: "GET",
             path: apiPath,
+            headers: apiHeaders,
             params: apiParams
         )
     }
@@ -419,10 +405,7 @@ open class Avatars: Service {
             "width": width,
             "height": height,
             "quality": quality,
-            "output": output?.rawValue,
-            "project": client.config["project"],
-            "session": client.config["session"],
-            "impersonateuserid": client.config["impersonateuserid"]
+            "output": output?.rawValue
         ]
 
         let apiHeaders: [String: String] = [
@@ -433,6 +416,7 @@ open class Avatars: Service {
         return try await client.call(
             method: "GET",
             path: apiPath,
+            headers: apiHeaders,
             params: apiParams
         )
     }

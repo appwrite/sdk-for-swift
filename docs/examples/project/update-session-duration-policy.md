@@ -9,7 +9,7 @@ let client = Client()
 let project = Project(client)
 
 let project = try await project.updateSessionDurationPolicy(
-    duration: 5
+    duration: 60
 )
 
 ```

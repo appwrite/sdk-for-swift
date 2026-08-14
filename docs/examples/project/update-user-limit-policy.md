@@ -9,7 +9,7 @@ let client = Client()
 let project = Project(client)
 
 let project = try await project.updateUserLimitPolicy(
-    total: 1
+    total: 0
 )
 
 ```

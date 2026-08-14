@@ -13,18 +13,18 @@ open class DedicatedDatabaseMember: Codable {
 
     /// Member identifier.
     public let id: String
-    /// Member role. Possible values: primary (accepts reads and writes), replica (read-only follower).
+    /// Member role. Possible values: primary (accepts reads and writes), replica (read-only follower), unknown (placement not established; reported while a transition is moving or restarting the topology and this member has not been probed, so no member can be named the write target).
     public let role: String
-    /// Member pod status. Possible values: provisioning (pod missing or Pending), starting (Running but not Ready), active (Running and Ready), failed (Failed phase or CrashLoopBackOff container), or the lowercased pod phase reported by the cluster.
+    /// Member pod status. Possible values: pending (configured but absent from the backend topology, so nothing is bringing it up), provisioning (pod missing or Pending), starting (Running but not Ready), active (Running and Ready), failed (Failed phase or CrashLoopBackOff container), or the lowercased pod phase reported by the cluster.
     public let status: String
-    /// Replication lag in seconds.
-    public let lagSeconds: Double
+    /// Replication lag in seconds. Null when the lag is not known: a primary has none to report, and a member the backend has not probed has none yet.
+    public let lagSeconds: Double?
 
     init(
         id: String,
         role: String,
         status: String,
-        lagSeconds: Double
+        lagSeconds: Double?
     ) {
         self.id = id
         self.role = role
@@ -38,7 +38,7 @@ open class DedicatedDatabaseMember: Codable {
         self.id = try container.decode(String.self, forKey: .id)
         self.role = try container.decode(String.self, forKey: .role)
         self.status = try container.decode(String.self, forKey: .status)
-        self.lagSeconds = try container.decode(Double.self, forKey: .lagSeconds)
+        self.lagSeconds = try container.decodeIfPresent(Double.self, forKey: .lagSeconds)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -47,7 +47,7 @@ open class DedicatedDatabaseMember: Codable {
         try container.encode(id, forKey: .id)
         try container.encode(role, forKey: .role)
         try container.encode(status, forKey: .status)
-        try container.encode(lagSeconds, forKey: .lagSeconds)
+        try container.encodeIfPresent(lagSeconds, forKey: .lagSeconds)
     }
 
     public func toMap() -> [String: Any] {
@@ -64,7 +64,7 @@ open class DedicatedDatabaseMember: Codable {
             id: map["$id"] as! String,
             role: map["role"] as! String,
             status: map["status"] as! String,
-            lagSeconds: map["lagSeconds"] as! Double
+            lagSeconds: map["lagSeconds"] as? Double
         )
     }
 }

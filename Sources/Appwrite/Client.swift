@@ -25,8 +25,8 @@ open class Client {
         "x-sdk-name": "Swift",
         "x-sdk-platform": "server",
         "x-sdk-language": "swift",
-        "x-sdk-version": "20.1.0",
-        "x-appwrite-response-format": "1.9.5"
+        "x-sdk-version": "21.0.0",
+        "x-appwrite-response-format": "1.9.6"
     ]
 
     internal var config: [String: String] = [:]
@@ -116,6 +116,21 @@ open class Client {
     open func setKey(_ value: String) -> Client {
         config["key"] = value
         _ = addHeader(key: "X-Appwrite-Key", value: value)
+        return self
+    }
+
+    ///
+    /// Set Organization
+    ///
+    /// Your organization ID
+    ///
+    /// @param String value
+    ///
+    /// @return Client
+    ///
+    open func setOrganization(_ value: String) -> Client {
+        config["organization"] = value
+        _ = addHeader(key: "X-Appwrite-Organization", value: value)
         return self
     }
 

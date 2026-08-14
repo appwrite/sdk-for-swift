@@ -5,7 +5,7 @@ import JSONCodable
 import AppwriteEnums
 import AppwriteModels
 
-/// 
+/// The Apps service allows you to manage OAuth2 applications, their keys, secrets, scopes, and installations.
 open class Apps: Service {
 
     ///
@@ -354,7 +354,8 @@ open class Apps: Service {
 
     ///
     /// List installations of an application. Requires an app key sent in the
-    /// `X-Appwrite-Key` header alongside the `X-Appwrite-App` header.
+    /// `X-Appwrite-Key` header alongside the `X-Appwrite-App` header, or a caller
+    /// with update access to the app.
     ///
     /// - Parameters:
     ///   - appId: String
@@ -396,7 +397,8 @@ open class Apps: Service {
 
     ///
     /// Get an installation of an application by its unique ID. Requires an app key
-    /// sent in the `X-Appwrite-Key` header alongside the `X-Appwrite-App` header.
+    /// sent in the `X-Appwrite-Key` header alongside the `X-Appwrite-App` header,
+    /// or a caller with update access to the app.
     ///
     /// - Parameters:
     ///   - appId: String
@@ -433,13 +435,48 @@ open class Apps: Service {
     }
 
     ///
+    /// Delete an installation of an application by its unique ID. Requires a
+    /// caller with update access to the app. Previously issued installation access
+    /// tokens are revoked.
+    ///
+    /// - Parameters:
+    ///   - appId: String
+    ///   - installationId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
+    ///
+    open func deleteInstallation(
+        appId: String,
+        installationId: String
+    ) async throws -> Any {
+        let apiPath: String = "/apps/{appId}/installations/{installationId}"
+            .replacingOccurrences(of: "{appId}", with: appId)
+            .replacingOccurrences(of: "{installationId}", with: installationId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json"
+        ]
+
+        return try await client.call(
+            method: "DELETE",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams        )
+    }
+
+    ///
     /// Create a token for an installation of an application. Requires an app key
-    /// sent in the `X-Appwrite-Key` header alongside the `X-Appwrite-App` header.
-    /// The returned token carries the scopes and authorization details granted to
-    /// the installation, and can be used as an `Authorization: Bearer` header
-    /// everywhere OAuth2 access tokens are accepted. Multiple tokens can be active
-    /// for the same installation at once; each token stays valid until it expires
-    /// or the installation is updated or deleted.
+    /// sent in the `X-Appwrite-Key` header alongside the `X-Appwrite-App` header,
+    /// or a caller with update access to the app. The returned token carries the
+    /// scopes and authorization details granted to the installation, and can be
+    /// used as an `Authorization: Bearer` header everywhere OAuth2 access tokens
+    /// are accepted. Multiple tokens can be active for the same installation at
+    /// once; each token stays valid until it expires or the installation is
+    /// updated or deleted.
     ///
     /// - Parameters:
     ///   - appId: String
