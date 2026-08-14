@@ -1424,6 +1424,44 @@ open class Users: Service {
     }
 
     ///
+    /// Get a custom MFA challenge for a user, including the code to be delivered
+    /// through your own channel.
+    ///
+    /// - Parameters:
+    ///   - userId: String
+    ///   - challengeId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.MfaChallengeSecret
+    ///
+    open func getMFAChallenge(
+        userId: String,
+        challengeId: String
+    ) async throws -> AppwriteModels.MfaChallengeSecret {
+        let apiPath: String = "/users/{userId}/mfa/challenges/{challengeId}"
+            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{challengeId}", with: challengeId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.MfaChallengeSecret = { response in
+            return AppwriteModels.MfaChallengeSecret.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
     /// List the factors available on the account to be used as a MFA challange.
     ///
     /// - Parameters:

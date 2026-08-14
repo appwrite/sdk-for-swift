@@ -23,7 +23,8 @@ let project = try await project.updateOAuth2Server(
     userCodeLength: 6, // optional
     userCodeFormat: "numeric", // optional
     deviceCodeDuration: 60, // optional
-    defaultScopes: [] // optional
+    defaultScopes: [], // optional
+    installationScopes: [] // optional
 )
 
 ```

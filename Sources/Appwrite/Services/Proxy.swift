@@ -9,6 +9,52 @@ import AppwriteModels
 open class Proxy: Service {
 
     ///
+    /// Create a new CDN cache invalidation for a domain. Executes a hard purge of
+    /// cached content.
+    /// 
+    /// Depending on type, the invalidation purges a single cache tag, a single URL
+    /// path, or all cached content for the domain.
+    ///
+    /// - Parameters:
+    ///   - domain: String
+    ///   - type: AppwriteEnums.InvalidationType
+    ///   - reference: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ProxyInvalidation
+    ///
+    open func createInvalidation(
+        domain: String,
+        type: AppwriteEnums.InvalidationType,
+        reference: String? = nil
+    ) async throws -> AppwriteModels.ProxyInvalidation {
+        let apiPath: String = "/proxy/invalidations"
+
+        let apiParams: [String: Any?] = [
+            "domain": domain,
+            "type": type.rawValue,
+            "reference": reference
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.ProxyInvalidation = { response in
+            return AppwriteModels.ProxyInvalidation.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
     /// Get a list of all the proxy rules. You can use the query params to filter
     /// your results.
     ///

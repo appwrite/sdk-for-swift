@@ -23,13 +23,13 @@ open class UsageBillingPlan: Codable {
     /// Executions additional resources
     public let executions: AdditionalResource
     /// Member additional resources
-    public let member: AdditionalResource
+    public let member: AdditionalResource?
     /// Realtime additional resources
     public let realtime: AdditionalResource
     /// Realtime messages additional resources
     public let realtimeMessages: AdditionalResource
     /// Realtime bandwidth additional resources
-    public let realtimeBandwidth: AdditionalResource
+    public let realtimeBandwidth: AdditionalResource?
     /// Storage additional resources
     public let storage: AdditionalResource
     /// User additional resources
@@ -39,20 +39,20 @@ open class UsageBillingPlan: Codable {
     /// Image transformation additional resources
     public let imageTransformations: AdditionalResource
     /// Credits additional resources
-    public let credits: AdditionalResource
+    public let credits: AdditionalResource?
 
     init(
         bandwidth: AdditionalResource,
         executions: AdditionalResource,
-        member: AdditionalResource,
+        member: AdditionalResource?,
         realtime: AdditionalResource,
         realtimeMessages: AdditionalResource,
-        realtimeBandwidth: AdditionalResource,
+        realtimeBandwidth: AdditionalResource?,
         storage: AdditionalResource,
         users: AdditionalResource,
         GBHours: AdditionalResource,
         imageTransformations: AdditionalResource,
-        credits: AdditionalResource
+        credits: AdditionalResource?
     ) {
         self.bandwidth = bandwidth
         self.executions = executions
@@ -72,15 +72,15 @@ open class UsageBillingPlan: Codable {
 
         self.bandwidth = try container.decode(AdditionalResource.self, forKey: .bandwidth)
         self.executions = try container.decode(AdditionalResource.self, forKey: .executions)
-        self.member = try container.decode(AdditionalResource.self, forKey: .member)
+        self.member = try container.decodeIfPresent(AdditionalResource.self, forKey: .member)
         self.realtime = try container.decode(AdditionalResource.self, forKey: .realtime)
         self.realtimeMessages = try container.decode(AdditionalResource.self, forKey: .realtimeMessages)
-        self.realtimeBandwidth = try container.decode(AdditionalResource.self, forKey: .realtimeBandwidth)
+        self.realtimeBandwidth = try container.decodeIfPresent(AdditionalResource.self, forKey: .realtimeBandwidth)
         self.storage = try container.decode(AdditionalResource.self, forKey: .storage)
         self.users = try container.decode(AdditionalResource.self, forKey: .users)
         self.GBHours = try container.decode(AdditionalResource.self, forKey: .GBHours)
         self.imageTransformations = try container.decode(AdditionalResource.self, forKey: .imageTransformations)
-        self.credits = try container.decode(AdditionalResource.self, forKey: .credits)
+        self.credits = try container.decodeIfPresent(AdditionalResource.self, forKey: .credits)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -88,30 +88,30 @@ open class UsageBillingPlan: Codable {
 
         try container.encode(bandwidth, forKey: .bandwidth)
         try container.encode(executions, forKey: .executions)
-        try container.encode(member, forKey: .member)
+        try container.encodeIfPresent(member, forKey: .member)
         try container.encode(realtime, forKey: .realtime)
         try container.encode(realtimeMessages, forKey: .realtimeMessages)
-        try container.encode(realtimeBandwidth, forKey: .realtimeBandwidth)
+        try container.encodeIfPresent(realtimeBandwidth, forKey: .realtimeBandwidth)
         try container.encode(storage, forKey: .storage)
         try container.encode(users, forKey: .users)
         try container.encode(GBHours, forKey: .GBHours)
         try container.encode(imageTransformations, forKey: .imageTransformations)
-        try container.encode(credits, forKey: .credits)
+        try container.encodeIfPresent(credits, forKey: .credits)
     }
 
     public func toMap() -> [String: Any] {
         return [
             "bandwidth": bandwidth.toMap() as Any,
             "executions": executions.toMap() as Any,
-            "member": member.toMap() as Any,
+            "member": member?.toMap() as Any,
             "realtime": realtime.toMap() as Any,
             "realtimeMessages": realtimeMessages.toMap() as Any,
-            "realtimeBandwidth": realtimeBandwidth.toMap() as Any,
+            "realtimeBandwidth": realtimeBandwidth?.toMap() as Any,
             "storage": storage.toMap() as Any,
             "users": users.toMap() as Any,
             "GBHours": GBHours.toMap() as Any,
             "imageTransformations": imageTransformations.toMap() as Any,
-            "credits": credits.toMap() as Any
+            "credits": credits?.toMap() as Any
         ]
     }
 
@@ -119,15 +119,15 @@ open class UsageBillingPlan: Codable {
         return UsageBillingPlan(
             bandwidth: AdditionalResource.from(map: map["bandwidth"] as! [String: Any]),
             executions: AdditionalResource.from(map: map["executions"] as! [String: Any]),
-            member: AdditionalResource.from(map: map["member"] as! [String: Any]),
+            member: map["member"] as? [String: Any] != nil ? AdditionalResource.from(map: map["member"] as! [String: Any]) : nil,
             realtime: AdditionalResource.from(map: map["realtime"] as! [String: Any]),
             realtimeMessages: AdditionalResource.from(map: map["realtimeMessages"] as! [String: Any]),
-            realtimeBandwidth: AdditionalResource.from(map: map["realtimeBandwidth"] as! [String: Any]),
+            realtimeBandwidth: map["realtimeBandwidth"] as? [String: Any] != nil ? AdditionalResource.from(map: map["realtimeBandwidth"] as! [String: Any]) : nil,
             storage: AdditionalResource.from(map: map["storage"] as! [String: Any]),
             users: AdditionalResource.from(map: map["users"] as! [String: Any]),
             GBHours: AdditionalResource.from(map: map["GBHours"] as! [String: Any]),
             imageTransformations: AdditionalResource.from(map: map["imageTransformations"] as! [String: Any]),
-            credits: AdditionalResource.from(map: map["credits"] as! [String: Any])
+            credits: map["credits"] as? [String: Any] != nil ? AdditionalResource.from(map: map["credits"] as! [String: Any]) : nil
         )
     }
 }

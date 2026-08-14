@@ -54,8 +54,8 @@ open class Organization<T : Codable>: Codable {
     public let total: Int
     /// Team preferences as a key-value object
     public let prefs: Preferences<T>
-    /// Project budget limit
-    public let billingBudget: Int
+    /// Project budget limit. Null when no budget is set.
+    public let billingBudget: Int?
     /// Project budget limit
     public let budgetAlerts: [Int]
     /// Organization&#039;s billing plan ID.
@@ -73,7 +73,7 @@ open class Organization<T : Codable>: Codable {
     /// Next invoice cycle start date.
     public let billingNextInvoiceDate: String
     /// Start date of trial.
-    public let billingTrialStartDate: String
+    public let billingTrialStartDate: String?
     /// Number of trial days.
     public let billingTrialDays: Int
     /// Current active aggregation id.
@@ -83,29 +83,29 @@ open class Organization<T : Codable>: Codable {
     /// Default payment method.
     public let paymentMethodId: String
     /// Default payment method.
-    public let billingAddressId: String
+    public let billingAddressId: String?
     /// Backup payment method.
-    public let backupPaymentMethodId: String
+    public let backupPaymentMethodId: String?
     /// Team status.
     public let status: String
     /// Remarks on team status.
-    public let remarks: String
+    public let remarks: String?
     /// Organization agreements
-    public let agreementBAA: String
+    public let agreementBAA: String?
     /// Program manager&#039;s name.
-    public let programManagerName: String
+    public let programManagerName: String?
     /// Program manager&#039;s calendar link.
-    public let programManagerCalendar: String
+    public let programManagerCalendar: String?
     /// Program&#039;s discord channel name.
-    public let programDiscordChannelName: String
+    public let programDiscordChannelName: String?
     /// Program&#039;s discord channel URL.
-    public let programDiscordChannelUrl: String
+    public let programDiscordChannelUrl: String?
     /// Billing limits reached
     public let billingLimits: BillingLimits?
     /// Billing plan selected for downgrade.
-    public let billingPlanDowngrade: String
+    public let billingPlanDowngrade: String?
     /// Tax Id
-    public let billingTaxId: String
+    public let billingTaxId: String?
     /// Marked for deletion
     public let markedForDeletion: Bool
     /// Product with which the organization is associated (appwrite or imagine)
@@ -120,7 +120,7 @@ open class Organization<T : Codable>: Codable {
         name: String,
         total: Int,
         prefs: Preferences<T>,
-        billingBudget: Int,
+        billingBudget: Int?,
         budgetAlerts: [Int],
         billingPlan: String,
         billingPlanId: String,
@@ -129,23 +129,23 @@ open class Organization<T : Codable>: Codable {
         billingStartDate: String,
         billingCurrentInvoiceDate: String,
         billingNextInvoiceDate: String,
-        billingTrialStartDate: String,
+        billingTrialStartDate: String?,
         billingTrialDays: Int,
         billingAggregationId: String,
         billingInvoiceId: String,
         paymentMethodId: String,
-        billingAddressId: String,
-        backupPaymentMethodId: String,
+        billingAddressId: String?,
+        backupPaymentMethodId: String?,
         status: String,
-        remarks: String,
-        agreementBAA: String,
-        programManagerName: String,
-        programManagerCalendar: String,
-        programDiscordChannelName: String,
-        programDiscordChannelUrl: String,
+        remarks: String?,
+        agreementBAA: String?,
+        programManagerName: String?,
+        programManagerCalendar: String?,
+        programDiscordChannelName: String?,
+        programDiscordChannelUrl: String?,
         billingLimits: BillingLimits?,
-        billingPlanDowngrade: String,
-        billingTaxId: String,
+        billingPlanDowngrade: String?,
+        billingTaxId: String?,
         markedForDeletion: Bool,
         platform: String,
         projects: [String]
@@ -196,7 +196,7 @@ open class Organization<T : Codable>: Codable {
         self.name = try container.decode(String.self, forKey: .name)
         self.total = try container.decode(Int.self, forKey: .total)
         self.prefs = try container.decode(Preferences<T>.self, forKey: .prefs)
-        self.billingBudget = try container.decode(Int.self, forKey: .billingBudget)
+        self.billingBudget = try container.decodeIfPresent(Int.self, forKey: .billingBudget)
         self.budgetAlerts = try container.decode([Int].self, forKey: .budgetAlerts)
         self.billingPlan = try container.decode(String.self, forKey: .billingPlan)
         self.billingPlanId = try container.decode(String.self, forKey: .billingPlanId)
@@ -205,23 +205,23 @@ open class Organization<T : Codable>: Codable {
         self.billingStartDate = try container.decode(String.self, forKey: .billingStartDate)
         self.billingCurrentInvoiceDate = try container.decode(String.self, forKey: .billingCurrentInvoiceDate)
         self.billingNextInvoiceDate = try container.decode(String.self, forKey: .billingNextInvoiceDate)
-        self.billingTrialStartDate = try container.decode(String.self, forKey: .billingTrialStartDate)
+        self.billingTrialStartDate = try container.decodeIfPresent(String.self, forKey: .billingTrialStartDate)
         self.billingTrialDays = try container.decode(Int.self, forKey: .billingTrialDays)
         self.billingAggregationId = try container.decode(String.self, forKey: .billingAggregationId)
         self.billingInvoiceId = try container.decode(String.self, forKey: .billingInvoiceId)
         self.paymentMethodId = try container.decode(String.self, forKey: .paymentMethodId)
-        self.billingAddressId = try container.decode(String.self, forKey: .billingAddressId)
-        self.backupPaymentMethodId = try container.decode(String.self, forKey: .backupPaymentMethodId)
+        self.billingAddressId = try container.decodeIfPresent(String.self, forKey: .billingAddressId)
+        self.backupPaymentMethodId = try container.decodeIfPresent(String.self, forKey: .backupPaymentMethodId)
         self.status = try container.decode(String.self, forKey: .status)
-        self.remarks = try container.decode(String.self, forKey: .remarks)
-        self.agreementBAA = try container.decode(String.self, forKey: .agreementBAA)
-        self.programManagerName = try container.decode(String.self, forKey: .programManagerName)
-        self.programManagerCalendar = try container.decode(String.self, forKey: .programManagerCalendar)
-        self.programDiscordChannelName = try container.decode(String.self, forKey: .programDiscordChannelName)
-        self.programDiscordChannelUrl = try container.decode(String.self, forKey: .programDiscordChannelUrl)
+        self.remarks = try container.decodeIfPresent(String.self, forKey: .remarks)
+        self.agreementBAA = try container.decodeIfPresent(String.self, forKey: .agreementBAA)
+        self.programManagerName = try container.decodeIfPresent(String.self, forKey: .programManagerName)
+        self.programManagerCalendar = try container.decodeIfPresent(String.self, forKey: .programManagerCalendar)
+        self.programDiscordChannelName = try container.decodeIfPresent(String.self, forKey: .programDiscordChannelName)
+        self.programDiscordChannelUrl = try container.decodeIfPresent(String.self, forKey: .programDiscordChannelUrl)
         self.billingLimits = try container.decodeIfPresent(BillingLimits.self, forKey: .billingLimits)
-        self.billingPlanDowngrade = try container.decode(String.self, forKey: .billingPlanDowngrade)
-        self.billingTaxId = try container.decode(String.self, forKey: .billingTaxId)
+        self.billingPlanDowngrade = try container.decodeIfPresent(String.self, forKey: .billingPlanDowngrade)
+        self.billingTaxId = try container.decodeIfPresent(String.self, forKey: .billingTaxId)
         self.markedForDeletion = try container.decode(Bool.self, forKey: .markedForDeletion)
         self.platform = try container.decode(String.self, forKey: .platform)
         self.projects = try container.decode([String].self, forKey: .projects)
@@ -236,7 +236,7 @@ open class Organization<T : Codable>: Codable {
         try container.encode(name, forKey: .name)
         try container.encode(total, forKey: .total)
         try container.encode(prefs, forKey: .prefs)
-        try container.encode(billingBudget, forKey: .billingBudget)
+        try container.encodeIfPresent(billingBudget, forKey: .billingBudget)
         try container.encode(budgetAlerts, forKey: .budgetAlerts)
         try container.encode(billingPlan, forKey: .billingPlan)
         try container.encode(billingPlanId, forKey: .billingPlanId)
@@ -245,23 +245,23 @@ open class Organization<T : Codable>: Codable {
         try container.encode(billingStartDate, forKey: .billingStartDate)
         try container.encode(billingCurrentInvoiceDate, forKey: .billingCurrentInvoiceDate)
         try container.encode(billingNextInvoiceDate, forKey: .billingNextInvoiceDate)
-        try container.encode(billingTrialStartDate, forKey: .billingTrialStartDate)
+        try container.encodeIfPresent(billingTrialStartDate, forKey: .billingTrialStartDate)
         try container.encode(billingTrialDays, forKey: .billingTrialDays)
         try container.encode(billingAggregationId, forKey: .billingAggregationId)
         try container.encode(billingInvoiceId, forKey: .billingInvoiceId)
         try container.encode(paymentMethodId, forKey: .paymentMethodId)
-        try container.encode(billingAddressId, forKey: .billingAddressId)
-        try container.encode(backupPaymentMethodId, forKey: .backupPaymentMethodId)
+        try container.encodeIfPresent(billingAddressId, forKey: .billingAddressId)
+        try container.encodeIfPresent(backupPaymentMethodId, forKey: .backupPaymentMethodId)
         try container.encode(status, forKey: .status)
-        try container.encode(remarks, forKey: .remarks)
-        try container.encode(agreementBAA, forKey: .agreementBAA)
-        try container.encode(programManagerName, forKey: .programManagerName)
-        try container.encode(programManagerCalendar, forKey: .programManagerCalendar)
-        try container.encode(programDiscordChannelName, forKey: .programDiscordChannelName)
-        try container.encode(programDiscordChannelUrl, forKey: .programDiscordChannelUrl)
+        try container.encodeIfPresent(remarks, forKey: .remarks)
+        try container.encodeIfPresent(agreementBAA, forKey: .agreementBAA)
+        try container.encodeIfPresent(programManagerName, forKey: .programManagerName)
+        try container.encodeIfPresent(programManagerCalendar, forKey: .programManagerCalendar)
+        try container.encodeIfPresent(programDiscordChannelName, forKey: .programDiscordChannelName)
+        try container.encodeIfPresent(programDiscordChannelUrl, forKey: .programDiscordChannelUrl)
         try container.encodeIfPresent(billingLimits, forKey: .billingLimits)
-        try container.encode(billingPlanDowngrade, forKey: .billingPlanDowngrade)
-        try container.encode(billingTaxId, forKey: .billingTaxId)
+        try container.encodeIfPresent(billingPlanDowngrade, forKey: .billingPlanDowngrade)
+        try container.encodeIfPresent(billingTaxId, forKey: .billingTaxId)
         try container.encode(markedForDeletion, forKey: .markedForDeletion)
         try container.encode(platform, forKey: .platform)
         try container.encode(projects, forKey: .projects)
@@ -315,7 +315,7 @@ open class Organization<T : Codable>: Codable {
             name: map["name"] as! String,
             total: map["total"] as! Int,
             prefs: Preferences.from(map: map["prefs"] as! [String: Any]),
-            billingBudget: map["billingBudget"] as! Int,
+            billingBudget: map["billingBudget"] as? Int,
             budgetAlerts: map["budgetAlerts"] as! [Int],
             billingPlan: map["billingPlan"] as! String,
             billingPlanId: map["billingPlanId"] as! String,
@@ -324,23 +324,23 @@ open class Organization<T : Codable>: Codable {
             billingStartDate: map["billingStartDate"] as! String,
             billingCurrentInvoiceDate: map["billingCurrentInvoiceDate"] as! String,
             billingNextInvoiceDate: map["billingNextInvoiceDate"] as! String,
-            billingTrialStartDate: map["billingTrialStartDate"] as! String,
+            billingTrialStartDate: map["billingTrialStartDate"] as? String,
             billingTrialDays: map["billingTrialDays"] as! Int,
             billingAggregationId: map["billingAggregationId"] as! String,
             billingInvoiceId: map["billingInvoiceId"] as! String,
             paymentMethodId: map["paymentMethodId"] as! String,
-            billingAddressId: map["billingAddressId"] as! String,
-            backupPaymentMethodId: map["backupPaymentMethodId"] as! String,
+            billingAddressId: map["billingAddressId"] as? String,
+            backupPaymentMethodId: map["backupPaymentMethodId"] as? String,
             status: map["status"] as! String,
-            remarks: map["remarks"] as! String,
-            agreementBAA: map["agreementBAA"] as! String,
-            programManagerName: map["programManagerName"] as! String,
-            programManagerCalendar: map["programManagerCalendar"] as! String,
-            programDiscordChannelName: map["programDiscordChannelName"] as! String,
-            programDiscordChannelUrl: map["programDiscordChannelUrl"] as! String,
+            remarks: map["remarks"] as? String,
+            agreementBAA: map["agreementBAA"] as? String,
+            programManagerName: map["programManagerName"] as? String,
+            programManagerCalendar: map["programManagerCalendar"] as? String,
+            programDiscordChannelName: map["programDiscordChannelName"] as? String,
+            programDiscordChannelUrl: map["programDiscordChannelUrl"] as? String,
             billingLimits: map["billingLimits"] as? [String: Any] != nil ? BillingLimits.from(map: map["billingLimits"] as! [String: Any]) : nil,
-            billingPlanDowngrade: map["billingPlanDowngrade"] as! String,
-            billingTaxId: map["billingTaxId"] as! String,
+            billingPlanDowngrade: map["billingPlanDowngrade"] as? String,
+            billingTaxId: map["billingTaxId"] as? String,
             markedForDeletion: map["markedForDeletion"] as! Bool,
             platform: map["platform"] as! String,
             projects: map["projects"] as! [String]

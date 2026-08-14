@@ -140,55 +140,6 @@ open class Project: Service {
     }
 
     ///
-    /// Create a new API key. It's recommended to have multiple API keys with
-    /// strict scopes for separate functions within your project.
-    /// 
-    /// You can also create an ephemeral API key if you need a short-lived key
-    /// instead.
-    ///
-    /// - Parameters:
-    ///   - keyId: String
-    ///   - name: String
-    ///   - scopes: [AppwriteEnums.ProjectKeyScopes]
-    ///   - expire: String (optional)
-    /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Key
-    ///
-    open func createKey(
-        keyId: String,
-        name: String,
-        scopes: [AppwriteEnums.ProjectKeyScopes],
-        expire: String? = nil
-    ) async throws -> AppwriteModels.Key {
-        let apiPath: String = "/project/keys"
-
-        let apiParams: [String: Any?] = [
-            "keyId": keyId,
-            "name": name,
-            "scopes": scopes.map { $0.rawValue },
-            "expire": expire
-        ]
-
-        let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json",
-            "accept": "application/json"
-        ]
-
-        let converter: (Any) throws -> AppwriteModels.Key = { response in
-            return AppwriteModels.Key.from(map: response as! [String: Any])
-        }
-
-        return try await client.call(
-            method: "POST",
-            path: apiPath,
-            headers: apiHeaders,
-            params: apiParams,
-            converter: converter
-        )
-    }
-
-    ///
     /// Create a new ephemeral API key. It's recommended to have multiple API keys
     /// with strict scopes for separate functions within your project.
     /// 
@@ -619,6 +570,7 @@ open class Project: Service {
     ///   - userCodeFormat: String (optional)
     ///   - deviceCodeDuration: Int (optional)
     ///   - defaultScopes: [String] (optional)
+    ///   - installationScopes: [String] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Project
     ///
@@ -637,7 +589,8 @@ open class Project: Service {
         userCodeLength: Int? = nil,
         userCodeFormat: String? = nil,
         deviceCodeDuration: Int? = nil,
-        defaultScopes: [String]? = nil
+        defaultScopes: [String]? = nil,
+        installationScopes: [String]? = nil
     ) async throws -> AppwriteModels.Project {
         let apiPath: String = "/project/oauth2-server"
 
@@ -656,7 +609,8 @@ open class Project: Service {
             "userCodeLength": userCodeLength,
             "userCodeFormat": userCodeFormat,
             "deviceCodeDuration": deviceCodeDuration,
-            "defaultScopes": defaultScopes
+            "defaultScopes": defaultScopes,
+            "installationScopes": installationScopes
         ]
 
         let apiHeaders: [String: String] = [
@@ -3492,6 +3446,55 @@ open class Project: Service {
     }
 
     ///
+    /// Updating this policy allows you to control which factors users can use to
+    /// complete an MFA challenge. Disabled factors cannot be used to create a
+    /// challenge and are reported as unavailable when listing factors. The custom
+    /// factor is disabled by default; enable it to deliver challenge codes through
+    /// your own channel. Recovery codes always remain available as a fallback.
+    ///
+    /// - Parameters:
+    ///   - totp: Bool (optional)
+    ///   - email: Bool (optional)
+    ///   - phone: Bool (optional)
+    ///   - custom: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project
+    ///
+    open func updateMFAFactorsPolicy(
+        totp: Bool? = nil,
+        email: Bool? = nil,
+        phone: Bool? = nil,
+        custom: Bool? = nil
+    ) async throws -> AppwriteModels.Project {
+        let apiPath: String = "/project/policies/mfa-factors"
+
+        let apiParams: [String: Any?] = [
+            "totp": totp,
+            "email": email,
+            "phone": phone,
+            "custom": custom
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Project = { response in
+            return AppwriteModels.Project.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
     /// Updating this policy allows you to control if new passwords are checked
     /// against most common passwords dictionary. When enabled, and user changes
     /// their password, password must not be contained in the dictionary.
@@ -3780,12 +3783,12 @@ open class Project: Service {
     /// hit, the oldest session will be deleted to make room for new one.
     ///
     /// - Parameters:
-    ///   - total: Int (optional)
+    ///   - total: Int
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Project
     ///
     open func updateSessionLimitPolicy(
-        total: Int? = nil
+        total: Int
     ) async throws -> AppwriteModels.Project {
         let apiPath: String = "/project/policies/session-limit"
 
@@ -3905,6 +3908,9 @@ open class Project: Service {
             }
             if String(describing: responseMap["$id"] ?? "") == "membership-privacy" {
                 return AppwriteModels.PolicyMembershipPrivacy.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "mfa-factors" {
+                return AppwriteModels.PolicyMfaFactors.from(map: responseMap)
             }
             if String(describing: responseMap["$id"] ?? "") == "deny-aliased-email" {
                 return AppwriteModels.PolicyDenyAliasedEmail.from(map: responseMap)

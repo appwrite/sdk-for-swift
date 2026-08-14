@@ -60,6 +60,7 @@ open class TablesDB: Service {
     ///   - enabled: Bool (optional)
     ///   - specification: String (optional)
     ///   - replicas: Int (optional)
+    ///   - syncMode: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Database
     ///
@@ -68,7 +69,8 @@ open class TablesDB: Service {
         name: String,
         enabled: Bool? = nil,
         specification: String? = nil,
-        replicas: Int? = nil
+        replicas: Int? = nil,
+        syncMode: String? = nil
     ) async throws -> AppwriteModels.Database {
         let apiPath: String = "/tablesdb"
 
@@ -77,7 +79,8 @@ open class TablesDB: Service {
             "name": name,
             "enabled": enabled,
             "specification": specification,
-            "replicas": replicas
+            "replicas": replicas,
+            "syncMode": syncMode
         ]
 
         let apiHeaders: [String: String] = [
@@ -387,7 +390,9 @@ open class TablesDB: Service {
     ///   - databaseId: String
     ///   - name: String (optional)
     ///   - enabled: Bool (optional)
+    ///   - specification: String (optional)
     ///   - replicas: Int (optional)
+    ///   - syncMode: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Database
     ///
@@ -395,7 +400,9 @@ open class TablesDB: Service {
         databaseId: String,
         name: String? = nil,
         enabled: Bool? = nil,
-        replicas: Int? = nil
+        specification: String? = nil,
+        replicas: Int? = nil,
+        syncMode: String? = nil
     ) async throws -> AppwriteModels.Database {
         let apiPath: String = "/tablesdb/{databaseId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -403,7 +410,9 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "name": name,
             "enabled": enabled,
-            "replicas": replicas
+            "specification": specification,
+            "replicas": replicas,
+            "syncMode": syncMode
         ]
 
         let apiHeaders: [String: String] = [
@@ -457,7 +466,9 @@ open class TablesDB: Service {
     ///
     /// Trigger a manual failover for a dedicated database with high availability
     /// enabled. Promotes a replica to primary. The failover runs asynchronously;
-    /// poll the database document for status updates.
+    /// poll the database document for status updates. A database left
+    /// mid-operation by a failover that did not finish also accepts this call as a
+    /// repair, provided `targetReplicaId` names the member to promote.
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -488,6 +499,245 @@ open class TablesDB: Service {
 
         return try await client.call(
             method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// List the dedicated migrations for a TablesDB database. A database has at
+    /// most one in-flight migration.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DatabaseMigrationList
+    ///
+    open func listMigrations(
+        databaseId: String
+    ) async throws -> AppwriteModels.DatabaseMigrationList {
+        let apiPath: String = "/tablesdb/{databaseId}/migrations"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.DatabaseMigrationList = { response in
+            return AppwriteModels.DatabaseMigrationList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Start migrating a serverless TablesDB database onto a dedicated MySQL
+    /// compute. Data is copied to the target while the source stays live, with a
+    /// brief read-only window during cutover.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - specification: String
+    ///   - autoCutover: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DatabaseMigration
+    ///
+    open func createMigration(
+        databaseId: String,
+        specification: String,
+        autoCutover: Bool? = nil
+    ) async throws -> AppwriteModels.DatabaseMigration {
+        let apiPath: String = "/tablesdb/{databaseId}/migrations"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+
+        let apiParams: [String: Any?] = [
+            "specification": specification,
+            "autoCutover": autoCutover
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.DatabaseMigration = { response in
+            return AppwriteModels.DatabaseMigration.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get a single dedicated migration for a TablesDB database by its ID.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - migrationId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DatabaseMigration
+    ///
+    open func getMigration(
+        databaseId: String,
+        migrationId: String
+    ) async throws -> AppwriteModels.DatabaseMigration {
+        let apiPath: String = "/tablesdb/{databaseId}/migrations/{migrationId}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{migrationId}", with: migrationId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.DatabaseMigration = { response in
+            return AppwriteModels.DatabaseMigration.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Abort an in-flight TablesDB dedicated migration. Only allowed before
+    /// cutover; once the migration has cut over it cannot be aborted.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - migrationId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
+    ///
+    open func deleteMigration(
+        databaseId: String,
+        migrationId: String
+    ) async throws -> Any {
+        let apiPath: String = "/tablesdb/{databaseId}/migrations/{migrationId}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{migrationId}", with: migrationId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json"
+        ]
+
+        return try await client.call(
+            method: "DELETE",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams        )
+    }
+
+    ///
+    /// Cut a verified TablesDB migration over to its dedicated compute. Only
+    /// applies to a migration created with `autoCutover` disabled, which waits at
+    /// `ready_to_cutover` until this is called. The routing flip happens shortly
+    /// after this returns, with a brief read-only window. One call buys one
+    /// attempt: a cutover that fails a check returns the migration to `verifying`
+    /// and parks it again, so call this once more to retry.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - migrationId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DatabaseMigration
+    ///
+    open func cutoverMigration(
+        databaseId: String,
+        migrationId: String
+    ) async throws -> AppwriteModels.DatabaseMigration {
+        let apiPath: String = "/tablesdb/{databaseId}/migrations/{migrationId}/cutover"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{migrationId}", with: migrationId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.DatabaseMigration = { response in
+            return AppwriteModels.DatabaseMigration.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// List the lifecycle operations recorded for a dedicated database, newest
+    /// first. Every provision, update, restore, backup and replication action is
+    /// recorded here with its outcome, including an attempt that was abandoned
+    /// because another worker took over the database.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - status: String (optional)
+    ///   - limit: Int (optional)
+    ///   - offset: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DedicatedDatabaseOperationList
+    ///
+    open func listOperations(
+        databaseId: String,
+        status: String? = nil,
+        limit: Int? = nil,
+        offset: Int? = nil
+    ) async throws -> AppwriteModels.DedicatedDatabaseOperationList {
+        let apiPath: String = "/tablesdb/{databaseId}/operations"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+
+        let apiParams: [String: Any?] = [
+            "status": status,
+            "limit": limit,
+            "offset": offset
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json"
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.DedicatedDatabaseOperationList = { response in
+            return AppwriteModels.DedicatedDatabaseOperationList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
             path: apiPath,
             headers: apiHeaders,
             params: apiParams,

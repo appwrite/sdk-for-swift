@@ -12,12 +12,12 @@ open class Activities: Service {
     /// List all events for selected filters.
     ///
     /// - Parameters:
-    ///   - queries: String (optional)
+    ///   - queries: [String] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.ActivityEventList
     ///
     open func listEvents(
-        queries: String? = nil
+        queries: [String]? = nil
     ) async throws -> AppwriteModels.ActivityEventList {
         let apiPath: String = "/activities/events"
 

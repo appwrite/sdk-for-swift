@@ -4,12 +4,12 @@ import Appwrite
 let client = Client()
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
     .setProject("<YOUR_PROJECT_ID>") // Your project ID
-    .setSession("") // The user session to authenticate with
+    .setKey("<YOUR_API_KEY>") // Your secret API key
 
-let account = Account(client)
+let tablesDB = TablesDB(client)
 
-let jwt = try await account.createJWT(
-    duration: 0 // optional
+let databaseMigrationList = try await tablesDB.listMigrations(
+    databaseId: "<DATABASE_ID>"
 )
 
 ```

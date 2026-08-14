@@ -497,46 +497,6 @@ open class Account: Service {
     }
 
     ///
-    /// Use this endpoint to create a JSON Web Token. You can use the resulting JWT
-    /// to authenticate on behalf of the current user when working with the
-    /// Appwrite server-side API and SDKs. The JWT secret is valid for 15 minutes
-    /// from its creation and will be invalid if the user will logout in that time
-    /// frame.
-    ///
-    /// - Parameters:
-    ///   - duration: Int (optional)
-    /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Jwt
-    ///
-    open func createJWT(
-        duration: Int? = nil
-    ) async throws -> AppwriteModels.Jwt {
-        let apiPath: String = "/account/jwts"
-
-        let apiParams: [String: Any?] = [
-            "duration": duration
-        ]
-
-        let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json",
-            "accept": "application/json"
-        ]
-
-        let converter: (Any) throws -> AppwriteModels.Jwt = { response in
-            return AppwriteModels.Jwt.from(map: response as! [String: Any])
-        }
-
-        return try await client.call(
-            method: "POST",
-            path: apiPath,
-            headers: apiHeaders,
-            params: apiParams,
-            converter: converter
-        )
-    }
-
-    ///
     /// Get the list of latest security activity logs for the currently logged in
     /// user. Each log returns user IP address, location and date and time of log.
     ///

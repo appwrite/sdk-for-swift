@@ -8,7 +8,6 @@ open class DedicatedDatabaseSpecificationPricing: Codable {
         case storageOverageRate = "storageOverageRate"
         case bandwidthOverageRate = "bandwidthOverageRate"
         case replicaRate = "replicaRate"
-        case crossRegionReplicaRate = "crossRegionReplicaRate"
         case pitrRate = "pitrRate"
     }
 
@@ -18,8 +17,6 @@ open class DedicatedDatabaseSpecificationPricing: Codable {
     public let bandwidthOverageRate: Double
     /// High availability replica price as a fraction of the specification cost.
     public let replicaRate: Double
-    /// Cross-region replica price as a fraction of the specification cost.
-    public let crossRegionReplicaRate: Double
     /// Point-in-time recovery price as a fraction of the specification cost.
     public let pitrRate: Double
 
@@ -27,13 +24,11 @@ open class DedicatedDatabaseSpecificationPricing: Codable {
         storageOverageRate: Double,
         bandwidthOverageRate: Double,
         replicaRate: Double,
-        crossRegionReplicaRate: Double,
         pitrRate: Double
     ) {
         self.storageOverageRate = storageOverageRate
         self.bandwidthOverageRate = bandwidthOverageRate
         self.replicaRate = replicaRate
-        self.crossRegionReplicaRate = crossRegionReplicaRate
         self.pitrRate = pitrRate
     }
 
@@ -43,7 +38,6 @@ open class DedicatedDatabaseSpecificationPricing: Codable {
         self.storageOverageRate = try container.decode(Double.self, forKey: .storageOverageRate)
         self.bandwidthOverageRate = try container.decode(Double.self, forKey: .bandwidthOverageRate)
         self.replicaRate = try container.decode(Double.self, forKey: .replicaRate)
-        self.crossRegionReplicaRate = try container.decode(Double.self, forKey: .crossRegionReplicaRate)
         self.pitrRate = try container.decode(Double.self, forKey: .pitrRate)
     }
 
@@ -53,7 +47,6 @@ open class DedicatedDatabaseSpecificationPricing: Codable {
         try container.encode(storageOverageRate, forKey: .storageOverageRate)
         try container.encode(bandwidthOverageRate, forKey: .bandwidthOverageRate)
         try container.encode(replicaRate, forKey: .replicaRate)
-        try container.encode(crossRegionReplicaRate, forKey: .crossRegionReplicaRate)
         try container.encode(pitrRate, forKey: .pitrRate)
     }
 
@@ -62,7 +55,6 @@ open class DedicatedDatabaseSpecificationPricing: Codable {
             "storageOverageRate": storageOverageRate as Any,
             "bandwidthOverageRate": bandwidthOverageRate as Any,
             "replicaRate": replicaRate as Any,
-            "crossRegionReplicaRate": crossRegionReplicaRate as Any,
             "pitrRate": pitrRate as Any
         ]
     }
@@ -72,7 +64,6 @@ open class DedicatedDatabaseSpecificationPricing: Codable {
             storageOverageRate: map["storageOverageRate"] as! Double,
             bandwidthOverageRate: map["bandwidthOverageRate"] as! Double,
             replicaRate: map["replicaRate"] as! Double,
-            crossRegionReplicaRate: map["crossRegionReplicaRate"] as! Double,
             pitrRate: map["pitrRate"] as! Double
         )
     }

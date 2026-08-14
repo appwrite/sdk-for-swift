@@ -35,7 +35,6 @@ open class DedicatedDatabase: Codable {
         case nodePool = "nodePool"
         case replicas = "replicas"
         case syncMode = "syncMode"
-        case crossRegionReplicas = "crossRegionReplicas"
         case networkMaxConnections = "networkMaxConnections"
         case networkIdleTimeoutSeconds = "networkIdleTimeoutSeconds"
         case networkIPAllowlist = "networkIPAllowlist"
@@ -68,7 +67,7 @@ open class DedicatedDatabase: Codable {
     public let name: String
     /// Product API that owns this database: tablesdb, documentsdb, vectorsdb, mysql, postgresql, or mongodb.
     public let api: String
-    /// Database engine: postgresql, mysql, mariadb, or mongodb.
+    /// Database engine: postgresql, mysql, or mongodb. Null until the backing reports one.
     public let engine: String
     /// Database engine version.
     public let version: String
@@ -78,7 +77,7 @@ open class DedicatedDatabase: Codable {
     public let backend: String
     /// Database hostname for connections.
     public let hostname: String
-    /// Database port for connections.
+    /// Database port for connections. Derived from the engine when the backing has not reported one yet.
     public let connectionPort: Int
     /// Database username for connections.
     public let connectionUser: String
@@ -116,9 +115,7 @@ open class DedicatedDatabase: Codable {
     public let replicas: Int
     /// Replication sync mode: async, sync, or quorum.
     public let syncMode: String
-    /// Number of cross-region replicas. Cross-region availability is enabled when greater than 0.
-    public let crossRegionReplicas: Int
-    /// Maximum concurrent connections.
+    /// Maximum concurrent client connections. This is the limit a client pool may reach; the engine&#039;s own max_connections reported by the status endpoint is a smaller backend limit the pooler multiplexes onto and does not constrain a client pool.
     public let networkMaxConnections: Int
     /// Connection idle timeout in seconds.
     public let networkIdleTimeoutSeconds: Int
@@ -186,7 +183,6 @@ open class DedicatedDatabase: Codable {
         nodePool: String,
         replicas: Int,
         syncMode: String,
-        crossRegionReplicas: Int,
         networkMaxConnections: Int,
         networkIdleTimeoutSeconds: Int,
         networkIPAllowlist: [String],
@@ -236,7 +232,6 @@ open class DedicatedDatabase: Codable {
         self.nodePool = nodePool
         self.replicas = replicas
         self.syncMode = syncMode
-        self.crossRegionReplicas = crossRegionReplicas
         self.networkMaxConnections = networkMaxConnections
         self.networkIdleTimeoutSeconds = networkIdleTimeoutSeconds
         self.networkIPAllowlist = networkIPAllowlist
@@ -290,7 +285,6 @@ open class DedicatedDatabase: Codable {
         self.nodePool = try container.decode(String.self, forKey: .nodePool)
         self.replicas = try container.decode(Int.self, forKey: .replicas)
         self.syncMode = try container.decode(String.self, forKey: .syncMode)
-        self.crossRegionReplicas = try container.decode(Int.self, forKey: .crossRegionReplicas)
         self.networkMaxConnections = try container.decode(Int.self, forKey: .networkMaxConnections)
         self.networkIdleTimeoutSeconds = try container.decode(Int.self, forKey: .networkIdleTimeoutSeconds)
         self.networkIPAllowlist = try container.decode([String].self, forKey: .networkIPAllowlist)
@@ -344,7 +338,6 @@ open class DedicatedDatabase: Codable {
         try container.encode(nodePool, forKey: .nodePool)
         try container.encode(replicas, forKey: .replicas)
         try container.encode(syncMode, forKey: .syncMode)
-        try container.encode(crossRegionReplicas, forKey: .crossRegionReplicas)
         try container.encode(networkMaxConnections, forKey: .networkMaxConnections)
         try container.encode(networkIdleTimeoutSeconds, forKey: .networkIdleTimeoutSeconds)
         try container.encode(networkIPAllowlist, forKey: .networkIPAllowlist)
@@ -397,7 +390,6 @@ open class DedicatedDatabase: Codable {
             "nodePool": nodePool as Any,
             "replicas": replicas as Any,
             "syncMode": syncMode as Any,
-            "crossRegionReplicas": crossRegionReplicas as Any,
             "networkMaxConnections": networkMaxConnections as Any,
             "networkIdleTimeoutSeconds": networkIdleTimeoutSeconds as Any,
             "networkIPAllowlist": networkIPAllowlist as Any,
@@ -451,7 +443,6 @@ open class DedicatedDatabase: Codable {
             nodePool: map["nodePool"] as! String,
             replicas: map["replicas"] as! Int,
             syncMode: map["syncMode"] as! String,
-            crossRegionReplicas: map["crossRegionReplicas"] as! Int,
             networkMaxConnections: map["networkMaxConnections"] as! Int,
             networkIdleTimeoutSeconds: map["networkIdleTimeoutSeconds"] as! Int,
             networkIPAllowlist: map["networkIPAllowlist"] as! [String],

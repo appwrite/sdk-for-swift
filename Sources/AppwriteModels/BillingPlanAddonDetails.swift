@@ -24,7 +24,7 @@ open class BillingPlanAddonDetails: Codable {
     /// Addon type
     public let type: String
     /// Price currency
-    public let currency: String
+    public let currency: String?
     /// Price
     public let price: Double
     /// Resource value
@@ -37,7 +37,7 @@ open class BillingPlanAddonDetails: Codable {
         planIncluded: Int,
         limit: Int,
         type: String,
-        currency: String,
+        currency: String?,
         price: Double,
         value: Int,
         invoiceDesc: String
@@ -59,7 +59,7 @@ open class BillingPlanAddonDetails: Codable {
         self.planIncluded = try container.decode(Int.self, forKey: .planIncluded)
         self.limit = try container.decode(Int.self, forKey: .limit)
         self.type = try container.decode(String.self, forKey: .type)
-        self.currency = try container.decode(String.self, forKey: .currency)
+        self.currency = try container.decodeIfPresent(String.self, forKey: .currency)
         self.price = try container.decode(Double.self, forKey: .price)
         self.value = try container.decode(Int.self, forKey: .value)
         self.invoiceDesc = try container.decode(String.self, forKey: .invoiceDesc)
@@ -72,7 +72,7 @@ open class BillingPlanAddonDetails: Codable {
         try container.encode(planIncluded, forKey: .planIncluded)
         try container.encode(limit, forKey: .limit)
         try container.encode(type, forKey: .type)
-        try container.encode(currency, forKey: .currency)
+        try container.encodeIfPresent(currency, forKey: .currency)
         try container.encode(price, forKey: .price)
         try container.encode(value, forKey: .value)
         try container.encode(invoiceDesc, forKey: .invoiceDesc)
@@ -97,7 +97,7 @@ open class BillingPlanAddonDetails: Codable {
             planIncluded: map["planIncluded"] as! Int,
             limit: map["limit"] as! Int,
             type: map["type"] as! String,
-            currency: map["currency"] as! String,
+            currency: map["currency"] as? String,
             price: map["price"] as! Double,
             value: map["value"] as! Int,
             invoiceDesc: map["invoiceDesc"] as! String
