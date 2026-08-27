@@ -55,11 +55,11 @@ open class OAuth2Zoho: Codable {
             "$id": id as Any,
             "enabled": enabled as Any,
             "clientId": clientId as Any,
-            "clientSecret": clientSecret as Any
+            "clientSecret": clientSecret as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Zoho {
+    public static func from(map: [String: Any]) -> OAuth2Zoho {
         return OAuth2Zoho(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

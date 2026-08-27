@@ -35,7 +35,7 @@ open class Oauth2Reject: Codable {
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Oauth2Reject {
+    public static func from(map: [String: Any]) -> Oauth2Reject {
         return Oauth2Reject(
             redirectUrl: map["redirectUrl"] as! String
         )

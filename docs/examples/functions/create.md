@@ -15,7 +15,7 @@ let function = try await functions.create(
     runtime: .node145,
     execute: ["any"], // optional
     events: [], // optional
-    schedule: "", // optional
+    schedule: "0 0 * * *", // optional
     timeout: 1, // optional
     enabled: false, // optional
     logging: false, // optional
@@ -29,8 +29,8 @@ let function = try await functions.create(
     providerRootDirectory: "<PROVIDER_ROOT_DIRECTORY>", // optional
     providerBranches: [], // optional
     providerPaths: [], // optional
-    buildSpecification: "", // optional
-    runtimeSpecification: "", // optional
+    buildSpecification: "s-1vcpu-512mb", // optional
+    runtimeSpecification: "s-1vcpu-512mb", // optional
     deploymentRetention: 0 // optional
 )
 

@@ -87,11 +87,11 @@ open class EmailTemplate: Codable {
             "senderEmail": senderEmail as Any,
             "replyToEmail": replyToEmail as Any,
             "replyToName": replyToName as Any,
-            "subject": subject as Any
+            "subject": subject as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> EmailTemplate {
+    public static func from(map: [String: Any]) -> EmailTemplate {
         return EmailTemplate(
             templateId: map["templateId"] as! String,
             locale: map["locale"] as! String,

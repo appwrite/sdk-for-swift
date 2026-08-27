@@ -55,11 +55,11 @@ open class OAuth2Notion: Codable {
             "$id": id as Any,
             "enabled": enabled as Any,
             "oauthClientId": oauthClientId as Any,
-            "oauthClientSecret": oauthClientSecret as Any
+            "oauthClientSecret": oauthClientSecret as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Notion {
+    public static func from(map: [String: Any]) -> OAuth2Notion {
         return OAuth2Notion(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

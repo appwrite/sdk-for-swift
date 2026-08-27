@@ -63,11 +63,11 @@ open class OAuth2Auth0: Codable {
             "enabled": enabled as Any,
             "clientId": clientId as Any,
             "clientSecret": clientSecret as Any,
-            "endpoint": endpoint as Any
+            "endpoint": endpoint as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Auth0 {
+    public static func from(map: [String: Any]) -> OAuth2Auth0 {
         return OAuth2Auth0(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

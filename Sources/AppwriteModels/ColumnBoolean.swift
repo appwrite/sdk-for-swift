@@ -1,6 +1,6 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
-import AppwriteEnums
 
 /// ColumnBoolean
 open class ColumnBoolean: Codable {
@@ -96,11 +96,11 @@ open class ColumnBoolean: Codable {
             "array": array as Any,
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
-            "default": `default` as Any
+            "default": `default` as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> ColumnBoolean {
+    public static func from(map: [String: Any]) -> ColumnBoolean {
         return ColumnBoolean(
             key: map["key"] as! String,
             type: map["type"] as! String,

@@ -39,11 +39,11 @@ open class FrameworkList: Codable {
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
-            "frameworks": frameworks.map { $0.toMap() } as Any
+            "frameworks": frameworks.map { $0.toMap() } as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> FrameworkList {
+    public static func from(map: [String: Any]) -> FrameworkList {
         return FrameworkList(
             total: map["total"] as! Int,
             frameworks: (map["frameworks"] as! [[String: Any]]).map { Framework.from(map: $0) }

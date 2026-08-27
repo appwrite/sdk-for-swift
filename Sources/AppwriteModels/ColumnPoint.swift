@@ -1,6 +1,6 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
-import AppwriteEnums
 
 /// ColumnPoint
 open class ColumnPoint: Codable {
@@ -96,11 +96,11 @@ open class ColumnPoint: Codable {
             "array": array as Any,
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
-            "default": `default` as Any
+            "default": `default` as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> ColumnPoint {
+    public static func from(map: [String: Any]) -> ColumnPoint {
         return ColumnPoint(
             key: map["key"] as! String,
             type: map["type"] as! String,

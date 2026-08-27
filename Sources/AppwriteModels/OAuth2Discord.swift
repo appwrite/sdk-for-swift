@@ -55,11 +55,11 @@ open class OAuth2Discord: Codable {
             "$id": id as Any,
             "enabled": enabled as Any,
             "clientId": clientId as Any,
-            "clientSecret": clientSecret as Any
+            "clientSecret": clientSecret as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Discord {
+    public static func from(map: [String: Any]) -> OAuth2Discord {
         return OAuth2Discord(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

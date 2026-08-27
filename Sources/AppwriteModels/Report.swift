@@ -119,11 +119,11 @@ open class Report: Codable {
             "target": target as Any,
             "categories": categories as Any,
             "insights": insights.map { $0.toMap() } as Any,
-            "analyzedAt": analyzedAt as Any
+            "analyzedAt": analyzedAt as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Report {
+    public static func from(map: [String: Any]) -> Report {
         return Report(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

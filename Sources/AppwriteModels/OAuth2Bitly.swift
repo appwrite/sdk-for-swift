@@ -55,11 +55,11 @@ open class OAuth2Bitly: Codable {
             "$id": id as Any,
             "enabled": enabled as Any,
             "clientId": clientId as Any,
-            "clientSecret": clientSecret as Any
+            "clientSecret": clientSecret as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Bitly {
+    public static func from(map: [String: Any]) -> OAuth2Bitly {
         return OAuth2Bitly(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

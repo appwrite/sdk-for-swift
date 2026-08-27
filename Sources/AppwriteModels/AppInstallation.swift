@@ -30,7 +30,7 @@ open class AppInstallation: Codable {
     /// Scopes granted to the application. Snapshot of the application&#039;s installation scopes taken when the installation was created or last updated.
     public let scopes: [String]
     /// Authorization details granted to the application. Rich authorization request (RFC 9396) style entries; the Appwrite Console stores authorized project IDs here.
-    public let authorizationDetails: [String: AnyCodable]
+    public let authorizationDetails: [AnyCodable]
     /// ID of the user who created the installation.
     public let createdById: String
     /// Name of the user who created the installation.
@@ -45,7 +45,7 @@ open class AppInstallation: Codable {
         appId: String,
         teamId: String,
         scopes: [String],
-        authorizationDetails: [String: AnyCodable],
+        authorizationDetails: [AnyCodable],
         createdById: String,
         createdByName: String,
         lastAccessedAt: String?
@@ -71,7 +71,7 @@ open class AppInstallation: Codable {
         self.appId = try container.decode(String.self, forKey: .appId)
         self.teamId = try container.decode(String.self, forKey: .teamId)
         self.scopes = try container.decode([String].self, forKey: .scopes)
-        self.authorizationDetails = try container.decode([String: AnyCodable].self, forKey: .authorizationDetails)
+        self.authorizationDetails = try container.decode([AnyCodable].self, forKey: .authorizationDetails)
         self.createdById = try container.decode(String.self, forKey: .createdById)
         self.createdByName = try container.decode(String.self, forKey: .createdByName)
         self.lastAccessedAt = try container.decodeIfPresent(String.self, forKey: .lastAccessedAt)
@@ -103,11 +103,11 @@ open class AppInstallation: Codable {
             "authorizationDetails": authorizationDetails as Any,
             "createdById": createdById as Any,
             "createdByName": createdByName as Any,
-            "lastAccessedAt": lastAccessedAt as Any
+            "lastAccessedAt": lastAccessedAt as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> AppInstallation {
+    public static func from(map: [String: Any]) -> AppInstallation {
         return AppInstallation(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,
@@ -115,7 +115,7 @@ open class AppInstallation: Codable {
             appId: map["appId"] as! String,
             teamId: map["teamId"] as! String,
             scopes: map["scopes"] as! [String],
-            authorizationDetails: (map["authorizationDetails"] as! [String: Any]).mapValues { AnyCodable($0) },
+            authorizationDetails: (map["authorizationDetails"] as! [Any]).map { AnyCodable($0) },
             createdById: map["createdById"] as! String,
             createdByName: map["createdByName"] as! String,
             lastAccessedAt: map["lastAccessedAt"] as? String

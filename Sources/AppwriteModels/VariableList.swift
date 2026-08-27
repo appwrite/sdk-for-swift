@@ -39,11 +39,11 @@ open class VariableList: Codable {
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
-            "variables": variables.map { $0.toMap() } as Any
+            "variables": variables.map { $0.toMap() } as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> VariableList {
+    public static func from(map: [String: Any]) -> VariableList {
         return VariableList(
             total: map["total"] as! Int,
             variables: (map["variables"] as! [[String: Any]]).map { Variable.from(map: $0) }

@@ -108,7 +108,7 @@ open class Project: Codable {
     /// Last time the project was accessed via console. Used with plan&#039;s projectInactivityDays to determine if project is paused.
     public let consoleAccessedAt: String
     /// Whether WAF enforcement is enabled for the project.
-    public let wafEnabled: Bool
+    public let wafEnabled: Bool?
     /// Billing limits reached
     public let billingLimits: BillingLimits?
     /// OAuth2 server status
@@ -174,7 +174,7 @@ open class Project: Codable {
         protocols: [ProjectProtocol],
         blocks: [Block],
         consoleAccessedAt: String,
-        wafEnabled: Bool,
+        wafEnabled: Bool?,
         billingLimits: BillingLimits?,
         oAuth2ServerEnabled: Bool?,
         oAuth2ServerAuthorizationUrl: String?,
@@ -272,7 +272,7 @@ open class Project: Codable {
         self.protocols = try container.decode([ProjectProtocol].self, forKey: .protocols)
         self.blocks = try container.decode([Block].self, forKey: .blocks)
         self.consoleAccessedAt = try container.decode(String.self, forKey: .consoleAccessedAt)
-        self.wafEnabled = try container.decode(Bool.self, forKey: .wafEnabled)
+        self.wafEnabled = try container.decodeIfPresent(Bool.self, forKey: .wafEnabled)
         self.billingLimits = try container.decodeIfPresent(BillingLimits.self, forKey: .billingLimits)
         self.oAuth2ServerEnabled = try container.decodeIfPresent(Bool.self, forKey: .oAuth2ServerEnabled)
         self.oAuth2ServerAuthorizationUrl = try container.decodeIfPresent(String.self, forKey: .oAuth2ServerAuthorizationUrl)
@@ -323,7 +323,7 @@ open class Project: Codable {
         try container.encode(protocols, forKey: .protocols)
         try container.encode(blocks, forKey: .blocks)
         try container.encode(consoleAccessedAt, forKey: .consoleAccessedAt)
-        try container.encode(wafEnabled, forKey: .wafEnabled)
+        try container.encodeIfPresent(wafEnabled, forKey: .wafEnabled)
         try container.encodeIfPresent(billingLimits, forKey: .billingLimits)
         try container.encodeIfPresent(oAuth2ServerEnabled, forKey: .oAuth2ServerEnabled)
         try container.encodeIfPresent(oAuth2ServerAuthorizationUrl, forKey: .oAuth2ServerAuthorizationUrl)
@@ -391,11 +391,11 @@ open class Project: Codable {
             "oAuth2ServerUserCodeLength": oAuth2ServerUserCodeLength as Any,
             "oAuth2ServerUserCodeFormat": oAuth2ServerUserCodeFormat as Any,
             "oAuth2ServerDeviceCodeDuration": oAuth2ServerDeviceCodeDuration as Any,
-            "oAuth2ServerDiscoveryUrl": oAuth2ServerDiscoveryUrl as Any
+            "oAuth2ServerDiscoveryUrl": oAuth2ServerDiscoveryUrl as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Project {
+    public static func from(map: [String: Any]) -> Project {
         return Project(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,
@@ -424,7 +424,7 @@ open class Project: Codable {
             protocols: (map["protocols"] as! [[String: Any]]).map { ProjectProtocol.from(map: $0) },
             blocks: (map["blocks"] as! [[String: Any]]).map { Block.from(map: $0) },
             consoleAccessedAt: map["consoleAccessedAt"] as! String,
-            wafEnabled: map["wafEnabled"] as! Bool,
+            wafEnabled: map["wafEnabled"] as? Bool,
             billingLimits: map["billingLimits"] as? [String: Any] != nil ? BillingLimits.from(map: map["billingLimits"] as! [String: Any]) : nil,
             oAuth2ServerEnabled: map["oAuth2ServerEnabled"] as? Bool,
             oAuth2ServerAuthorizationUrl: map["oAuth2ServerAuthorizationUrl"] as? String,

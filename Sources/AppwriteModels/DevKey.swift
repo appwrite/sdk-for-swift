@@ -87,11 +87,11 @@ open class DevKey: Codable {
             "expire": expire as Any,
             "secret": secret as Any,
             "accessedAt": accessedAt as Any,
-            "sdks": sdks as Any
+            "sdks": sdks as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> DevKey {
+    public static func from(map: [String: Any]) -> DevKey {
         return DevKey(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

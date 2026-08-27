@@ -1,9 +1,9 @@
-import AsyncHTTPClient
-import Foundation
-import NIO
-import JSONCodable
 import AppwriteEnums
 import AppwriteModels
+import AsyncHTTPClient
+import Foundation
+import JSONCodable
+import NIO
 
 /// The Users service allows you to manage your project users.
 open class Users: Service {
@@ -30,12 +30,12 @@ open class Users: Service {
         let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.UserList<T> = { response in
@@ -74,7 +74,6 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Create a new user.
     ///
@@ -102,13 +101,13 @@ open class Users: Service {
             "email": email,
             "phone": phone,
             "password": password,
-            "name": name
+            "name": name,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.User<T> = { response in
@@ -152,7 +151,6 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Create a new user. Password provided must be hashed with the
     /// [Argon2](https://en.wikipedia.org/wiki/Argon2) algorithm. Use the [POST
@@ -180,13 +178,13 @@ open class Users: Service {
             "userId": userId,
             "email": email,
             "password": password,
-            "name": name
+            "name": name,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.User<T> = { response in
@@ -230,7 +228,6 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Create a new user. Password provided must be hashed with the
     /// [Bcrypt](https://en.wikipedia.org/wiki/Bcrypt) algorithm. Use the [POST
@@ -258,13 +255,13 @@ open class Users: Service {
             "userId": userId,
             "email": email,
             "password": password,
-            "name": name
+            "name": name,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.User<T> = { response in
@@ -308,7 +305,6 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Get identities for all users.
     ///
@@ -329,12 +325,12 @@ open class Users: Service {
         let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.IdentityList = { response in
@@ -349,7 +345,6 @@ open class Users: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete an identity by its unique ID.
     ///
@@ -368,16 +363,16 @@ open class Users: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Create a new user. Password provided must be hashed with the
     /// [MD5](https://en.wikipedia.org/wiki/MD5) algorithm. Use the [POST
@@ -405,13 +400,13 @@ open class Users: Service {
             "userId": userId,
             "email": email,
             "password": password,
-            "name": name
+            "name": name,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.User<T> = { response in
@@ -455,7 +450,6 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Create a new user. Password provided must be hashed with the
     /// [PHPass](https://www.openwall.com/phpass/) algorithm. Use the [POST
@@ -483,13 +477,13 @@ open class Users: Service {
             "userId": userId,
             "email": email,
             "password": password,
-            "name": name
+            "name": name,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.User<T> = { response in
@@ -533,7 +527,6 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Create a new user. Password provided must be hashed with the
     /// [Scrypt](https://github.com/Tarsnap/scrypt) algorithm. Use the [POST
@@ -576,13 +569,13 @@ open class Users: Service {
             "passwordMemory": passwordMemory,
             "passwordParallel": passwordParallel,
             "passwordLength": passwordLength,
-            "name": name
+            "name": name,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.User<T> = { response in
@@ -641,7 +634,6 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Create a new user. Password provided must be hashed with the [Scrypt
     /// Modified](https://gist.github.com/Meldiron/eecf84a0225eccb5a378d45bb27462cc)
@@ -679,13 +671,13 @@ open class Users: Service {
             "passwordSalt": passwordSalt,
             "passwordSaltSeparator": passwordSaltSeparator,
             "passwordSignerKey": passwordSignerKey,
-            "name": name
+            "name": name,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.User<T> = { response in
@@ -739,7 +731,6 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Create a new user. Password provided must be hashed with the
     /// [SHA](https://en.wikipedia.org/wiki/Secure_Hash_Algorithm) algorithm. Use
@@ -770,13 +761,13 @@ open class Users: Service {
             "email": email,
             "password": password,
             "passwordVersion": passwordVersion?.rawValue,
-            "name": name
+            "name": name,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.User<T> = { response in
@@ -823,7 +814,6 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Get a user by its unique ID.
     ///
@@ -843,7 +833,7 @@ open class Users: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.User<T> = { response in
@@ -875,7 +865,6 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Delete a user by its unique ID, thereby releasing it's ID. Since ID is
     /// released and can be reused, all user-related resources like documents or
@@ -899,16 +888,16 @@ open class Users: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Update the user email by its unique ID.
     ///
@@ -933,7 +922,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.User<T> = { response in
@@ -968,14 +957,12 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Enable or disable whether a user can impersonate other users. When
     /// impersonation headers are used, the request runs as the target user for API
     /// behavior, while internal audit logs still attribute the action to the
     /// original impersonator and store the impersonated target details only in
     /// internal audit payload data.
-    /// 
     ///
     /// - Parameters:
     ///   - userId: String
@@ -998,7 +985,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.User<T> = { response in
@@ -1020,7 +1007,6 @@ open class Users: Service {
     /// behavior, while internal audit logs still attribute the action to the
     /// original impersonator and store the impersonated target details only in
     /// internal audit payload data.
-    /// 
     ///
     /// - Parameters:
     ///   - userId: String
@@ -1038,7 +1024,6 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Use this endpoint to create a JSON Web Token for user by its unique ID. You
     /// can use the resulting JWT to authenticate on behalf of the user. The JWT
@@ -1061,13 +1046,13 @@ open class Users: Service {
 
         let apiParams: [String: Any?] = [
             "sessionId": sessionId,
-            "duration": duration
+            "duration": duration,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Jwt = { response in
@@ -1082,10 +1067,9 @@ open class Users: Service {
             converter: converter
         )
     }
-
     ///
-    /// Update the user labels by its unique ID. 
-    /// 
+    /// Update the user labels by its unique ID.
+    ///
     /// Labels can be used to grant access to resources. While teams are a way for
     /// user's to share access to a resource, labels can be defined by the
     /// developer to grant access without an invitation. See the [Permissions
@@ -1112,7 +1096,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.User<T> = { response in
@@ -1129,8 +1113,8 @@ open class Users: Service {
     }
 
     ///
-    /// Update the user labels by its unique ID. 
-    /// 
+    /// Update the user labels by its unique ID.
+    ///
     /// Labels can be used to grant access to resources. While teams are a way for
     /// user's to share access to a resource, labels can be defined by the
     /// developer to grant access without an invitation. See the [Permissions
@@ -1152,7 +1136,6 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Get the user activity logs list by its unique ID.
     ///
@@ -1173,12 +1156,12 @@ open class Users: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.LogList = { response in
@@ -1193,7 +1176,6 @@ open class Users: Service {
             converter: converter
         )
     }
-
     ///
     /// Get the user membership list by its unique ID.
     ///
@@ -1217,12 +1199,12 @@ open class Users: Service {
         let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.MembershipList = { response in
@@ -1237,7 +1219,6 @@ open class Users: Service {
             converter: converter
         )
     }
-
     ///
     /// Enable or disable MFA on a user account.
     ///
@@ -1263,7 +1244,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.User<T> = { response in
@@ -1299,7 +1280,6 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Enable or disable MFA on a user account.
     ///
@@ -1324,7 +1304,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.User<T> = { response in
@@ -1359,7 +1339,6 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Delete an authenticator app.
     ///
@@ -1382,16 +1361,16 @@ open class Users: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Delete an authenticator app.
     ///
@@ -1413,16 +1392,16 @@ open class Users: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Get a custom MFA challenge for a user, including the code to be delivered
     /// through your own channel.
@@ -1445,7 +1424,7 @@ open class Users: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.MfaChallengeSecret = { response in
@@ -1460,7 +1439,6 @@ open class Users: Service {
             converter: converter
         )
     }
-
     ///
     /// List the factors available on the account to be used as a MFA challange.
     ///
@@ -1480,7 +1458,7 @@ open class Users: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.MfaFactors = { response in
@@ -1495,7 +1473,6 @@ open class Users: Service {
             converter: converter
         )
     }
-
     ///
     /// List the factors available on the account to be used as a MFA challange.
     ///
@@ -1514,7 +1491,7 @@ open class Users: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.MfaFactors = { response in
@@ -1529,7 +1506,6 @@ open class Users: Service {
             converter: converter
         )
     }
-
     ///
     /// Get recovery codes that can be used as backup for MFA flow by User ID.
     /// Before getting codes, they must be generated using
@@ -1552,7 +1528,7 @@ open class Users: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.MfaRecoveryCodes = { response in
@@ -1567,7 +1543,6 @@ open class Users: Service {
             converter: converter
         )
     }
-
     ///
     /// Get recovery codes that can be used as backup for MFA flow by User ID.
     /// Before getting codes, they must be generated using
@@ -1589,7 +1564,7 @@ open class Users: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.MfaRecoveryCodes = { response in
@@ -1604,7 +1579,6 @@ open class Users: Service {
             converter: converter
         )
     }
-
     ///
     /// Regenerate recovery codes that can be used as backup for MFA flow by User
     /// ID. Before regenerating codes, they must be first generated using
@@ -1628,7 +1602,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.MfaRecoveryCodes = { response in
@@ -1643,7 +1617,6 @@ open class Users: Service {
             converter: converter
         )
     }
-
     ///
     /// Regenerate recovery codes that can be used as backup for MFA flow by User
     /// ID. Before regenerating codes, they must be first generated using
@@ -1666,7 +1639,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.MfaRecoveryCodes = { response in
@@ -1681,7 +1654,6 @@ open class Users: Service {
             converter: converter
         )
     }
-
     ///
     /// Generate recovery codes used as backup for MFA flow for User ID. Recovery
     /// codes can be used as a MFA verification type in
@@ -1705,7 +1677,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.MfaRecoveryCodes = { response in
@@ -1720,7 +1692,6 @@ open class Users: Service {
             converter: converter
         )
     }
-
     ///
     /// Generate recovery codes used as backup for MFA flow for User ID. Recovery
     /// codes can be used as a MFA verification type in
@@ -1743,7 +1714,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.MfaRecoveryCodes = { response in
@@ -1758,7 +1729,6 @@ open class Users: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the user name by its unique ID.
     ///
@@ -1783,7 +1753,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.User<T> = { response in
@@ -1818,7 +1788,6 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Update the user password by its unique ID.
     ///
@@ -1843,7 +1812,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.User<T> = { response in
@@ -1878,7 +1847,6 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Update the user phone by its unique ID.
     ///
@@ -1903,7 +1871,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.User<T> = { response in
@@ -1938,7 +1906,6 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Get the user preferences by its unique ID.
     ///
@@ -1958,7 +1925,7 @@ open class Users: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Preferences<T> = { response in
@@ -1990,7 +1957,6 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Update the user preferences by its unique ID. The object you pass is stored
     /// as is, and replaces any previous value. The maximum allowed prefs size is
@@ -2017,7 +1983,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Preferences<T> = { response in
@@ -2054,7 +2020,6 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Get the user sessions list by its unique ID.
     ///
@@ -2077,7 +2042,7 @@ open class Users: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.SessionList = { response in
@@ -2092,10 +2057,9 @@ open class Users: Service {
             converter: converter
         )
     }
-
     ///
     /// Creates a session for a user. Returns an immediately usable session object.
-    /// 
+    ///
     /// If you want to generate a token for a custom authentication flow, use the
     /// [POST
     /// /users/{userId}/tokens](https://appwrite.io/docs/server/users#createToken)
@@ -2117,7 +2081,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Session = { response in
@@ -2132,7 +2096,6 @@ open class Users: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete all user's sessions by using the user's unique ID.
     ///
@@ -2151,16 +2114,16 @@ open class Users: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Delete a user sessions by its unique ID.
     ///
@@ -2182,16 +2145,16 @@ open class Users: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Update the user status by its unique ID. Use this endpoint as an
     /// alternative to deleting a user if you want to keep user's ID reserved.
@@ -2217,7 +2180,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.User<T> = { response in
@@ -2253,7 +2216,6 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// List the messaging targets that are associated with a user.
     ///
@@ -2274,12 +2236,12 @@ open class Users: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.TargetList = { response in
@@ -2294,7 +2256,6 @@ open class Users: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a messaging target.
     ///
@@ -2324,13 +2285,13 @@ open class Users: Service {
             "providerType": providerType.rawValue,
             "identifier": identifier,
             "providerId": providerId,
-            "name": name
+            "name": name,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Target = { response in
@@ -2345,7 +2306,6 @@ open class Users: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a user's push notification target by ID.
     ///
@@ -2367,7 +2327,7 @@ open class Users: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Target = { response in
@@ -2382,7 +2342,6 @@ open class Users: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a messaging target.
     ///
@@ -2409,13 +2368,13 @@ open class Users: Service {
         let apiParams: [String: Any?] = [
             "identifier": identifier,
             "providerId": providerId,
-            "name": name
+            "name": name,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Target = { response in
@@ -2430,7 +2389,6 @@ open class Users: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a messaging target.
     ///
@@ -2452,22 +2410,21 @@ open class Users: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Returns a token with a secret key for creating a session. Use the user ID
     /// and secret and submit a request to the [PUT
     /// /account/sessions/token](https://appwrite.io/docs/references/cloud/client-web/account#createSession)
     /// endpoint to complete the login process.
-    /// 
     ///
     /// - Parameters:
     ///   - userId: String
@@ -2486,13 +2443,13 @@ open class Users: Service {
 
         let apiParams: [String: Any?] = [
             "length": length,
-            "expire": expire
+            "expire": expire,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Token = { response in
@@ -2507,7 +2464,6 @@ open class Users: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the user email verification status by its unique ID.
     ///
@@ -2532,7 +2488,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.User<T> = { response in
@@ -2567,7 +2523,6 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Update the user phone verification status by its unique ID.
     ///
@@ -2592,7 +2547,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.User<T> = { response in
@@ -2627,6 +2582,4 @@ open class Users: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
-
 }

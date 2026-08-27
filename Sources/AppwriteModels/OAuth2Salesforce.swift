@@ -55,11 +55,11 @@ open class OAuth2Salesforce: Codable {
             "$id": id as Any,
             "enabled": enabled as Any,
             "customerKey": customerKey as Any,
-            "customerSecret": customerSecret as Any
+            "customerSecret": customerSecret as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Salesforce {
+    public static func from(map: [String: Any]) -> OAuth2Salesforce {
         return OAuth2Salesforce(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

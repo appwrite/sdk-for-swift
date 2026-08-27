@@ -151,11 +151,11 @@ open class File: Codable {
             "chunksTotal": chunksTotal as Any,
             "chunksUploaded": chunksUploaded as Any,
             "encryption": encryption as Any,
-            "compression": compression as Any
+            "compression": compression as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> File {
+    public static func from(map: [String: Any]) -> File {
         return File(
             id: map["$id"] as! String,
             bucketId: map["bucketId"] as! String,

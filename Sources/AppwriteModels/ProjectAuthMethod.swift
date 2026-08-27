@@ -1,6 +1,6 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
-import AppwriteEnums
 
 /// ProjectAuthMethod
 open class ProjectAuthMethod: Codable {
@@ -40,11 +40,11 @@ open class ProjectAuthMethod: Codable {
     public func toMap() -> [String: Any] {
         return [
             "$id": id.rawValue as Any,
-            "enabled": enabled as Any
+            "enabled": enabled as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> ProjectAuthMethod {
+    public static func from(map: [String: Any]) -> ProjectAuthMethod {
         return ProjectAuthMethod(
             id: AppwriteEnums.ProjectAuthMethodId(rawValue: map["$id"] as! String)!,
             enabled: map["enabled"] as! Bool

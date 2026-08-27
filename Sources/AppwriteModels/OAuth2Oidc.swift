@@ -1,6 +1,6 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
-import AppwriteEnums
 
 /// OAuth2Oidc
 open class OAuth2Oidc: Codable {
@@ -104,11 +104,11 @@ open class OAuth2Oidc: Codable {
             "tokenURL": tokenURL as Any,
             "userInfoURL": userInfoURL as Any,
             "prompt": prompt.map { $0.rawValue } as Any,
-            "maxAge": maxAge as Any
+            "maxAge": maxAge as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Oidc {
+    public static func from(map: [String: Any]) -> OAuth2Oidc {
         return OAuth2Oidc(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

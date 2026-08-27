@@ -63,11 +63,11 @@ open class OAuth2Microsoft: Codable {
             "enabled": enabled as Any,
             "applicationId": applicationId as Any,
             "applicationSecret": applicationSecret as Any,
-            "tenant": tenant as Any
+            "tenant": tenant as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Microsoft {
+    public static func from(map: [String: Any]) -> OAuth2Microsoft {
         return OAuth2Microsoft(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

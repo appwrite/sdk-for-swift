@@ -35,7 +35,7 @@ open class Oauth2Organization: Codable {
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Oauth2Organization {
+    public static func from(map: [String: Any]) -> Oauth2Organization {
         return Oauth2Organization(
             id: map["$id"] as! String
         )

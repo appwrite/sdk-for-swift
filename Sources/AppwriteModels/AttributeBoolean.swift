@@ -1,6 +1,6 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
-import AppwriteEnums
 
 /// AttributeBoolean
 open class AttributeBoolean: Codable {
@@ -96,11 +96,11 @@ open class AttributeBoolean: Codable {
             "array": array as Any,
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
-            "default": `default` as Any
+            "default": `default` as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> AttributeBoolean {
+    public static func from(map: [String: Any]) -> AttributeBoolean {
         return AttributeBoolean(
             key: map["key"] as! String,
             type: map["type"] as! String,

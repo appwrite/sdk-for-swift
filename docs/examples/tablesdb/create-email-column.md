@@ -11,7 +11,7 @@ let tablesDB = TablesDB(client)
 let columnEmail = try await tablesDB.createEmailColumn(
     databaseId: "<DATABASE_ID>",
     tableId: "<TABLE_ID>",
-    key: "",
+    key: "<KEY>",
     required: false,
     default: "email@example.com", // optional
     array: false // optional

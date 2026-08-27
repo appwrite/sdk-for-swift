@@ -55,11 +55,11 @@ open class OAuth2Autodesk: Codable {
             "$id": id as Any,
             "enabled": enabled as Any,
             "clientId": clientId as Any,
-            "clientSecret": clientSecret as Any
+            "clientSecret": clientSecret as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Autodesk {
+    public static func from(map: [String: Any]) -> OAuth2Autodesk {
         return OAuth2Autodesk(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

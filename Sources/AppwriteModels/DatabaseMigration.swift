@@ -15,6 +15,7 @@ open class DatabaseMigration: Codable {
         case attempt = "attempt"
         case lastError = "lastError"
         case lagDocuments = "lagDocuments"
+        case changelogWatermark = "changelogWatermark"
         case verifiedAt = "verifiedAt"
         case cutoverAt = "cutoverAt"
         case soakUntil = "soakUntil"
@@ -43,6 +44,8 @@ open class DatabaseMigration: Codable {
     public let lastError: String
     /// Number of documents still pending replication to the target.
     public let lagDocuments: Int
+    /// Highest source changelog sequence applied to the target so far.
+    public let changelogWatermark: Int
     /// Time the migrated data was verified against the source in ISO 8601 format.
     public let verifiedAt: String
     /// Time routing was flipped to the target in ISO 8601 format.
@@ -67,6 +70,7 @@ open class DatabaseMigration: Codable {
         attempt: Int,
         lastError: String,
         lagDocuments: Int,
+        changelogWatermark: Int,
         verifiedAt: String,
         cutoverAt: String,
         soakUntil: String,
@@ -84,6 +88,7 @@ open class DatabaseMigration: Codable {
         self.attempt = attempt
         self.lastError = lastError
         self.lagDocuments = lagDocuments
+        self.changelogWatermark = changelogWatermark
         self.verifiedAt = verifiedAt
         self.cutoverAt = cutoverAt
         self.soakUntil = soakUntil
@@ -105,6 +110,7 @@ open class DatabaseMigration: Codable {
         self.attempt = try container.decode(Int.self, forKey: .attempt)
         self.lastError = try container.decode(String.self, forKey: .lastError)
         self.lagDocuments = try container.decode(Int.self, forKey: .lagDocuments)
+        self.changelogWatermark = try container.decode(Int.self, forKey: .changelogWatermark)
         self.verifiedAt = try container.decode(String.self, forKey: .verifiedAt)
         self.cutoverAt = try container.decode(String.self, forKey: .cutoverAt)
         self.soakUntil = try container.decode(String.self, forKey: .soakUntil)
@@ -126,6 +132,7 @@ open class DatabaseMigration: Codable {
         try container.encode(attempt, forKey: .attempt)
         try container.encode(lastError, forKey: .lastError)
         try container.encode(lagDocuments, forKey: .lagDocuments)
+        try container.encode(changelogWatermark, forKey: .changelogWatermark)
         try container.encode(verifiedAt, forKey: .verifiedAt)
         try container.encode(cutoverAt, forKey: .cutoverAt)
         try container.encode(soakUntil, forKey: .soakUntil)
@@ -146,16 +153,17 @@ open class DatabaseMigration: Codable {
             "attempt": attempt as Any,
             "lastError": lastError as Any,
             "lagDocuments": lagDocuments as Any,
+            "changelogWatermark": changelogWatermark as Any,
             "verifiedAt": verifiedAt as Any,
             "cutoverAt": cutoverAt as Any,
             "soakUntil": soakUntil as Any,
             "autoCutover": autoCutover as Any,
             "cutoverRequested": cutoverRequested as Any,
-            "paused": paused as Any
+            "paused": paused as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> DatabaseMigration {
+    public static func from(map: [String: Any]) -> DatabaseMigration {
         return DatabaseMigration(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,
@@ -167,6 +175,7 @@ open class DatabaseMigration: Codable {
             attempt: map["attempt"] as! Int,
             lastError: map["lastError"] as! String,
             lagDocuments: map["lagDocuments"] as! Int,
+            changelogWatermark: map["changelogWatermark"] as! Int,
             verifiedAt: map["verifiedAt"] as! String,
             cutoverAt: map["cutoverAt"] as! String,
             soakUntil: map["soakUntil"] as! String,

@@ -39,11 +39,11 @@ open class Oauth2PAR: Codable {
     public func toMap() -> [String: Any] {
         return [
             "request_uri": request_uri as Any,
-            "expires_in": expires_in as Any
+            "expires_in": expires_in as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Oauth2PAR {
+    public static func from(map: [String: Any]) -> Oauth2PAR {
         return Oauth2PAR(
             request_uri: map["request_uri"] as! String,
             expires_in: map["expires_in"] as! Int

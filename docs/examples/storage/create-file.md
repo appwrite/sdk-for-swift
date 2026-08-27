@@ -13,7 +13,7 @@ let file = try await storage.createFile(
     fileId: "<FILE_ID>",
     file: InputFile.fromPath("file.png"),
     permissions: [Permission.read(Role.any())], // optional
-    folder: "" // optional
+    folder: "photos/2026" // optional
 )
 
 ```

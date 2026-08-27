@@ -1,9 +1,9 @@
-import AsyncHTTPClient
-import Foundation
-import NIO
-import JSONCodable
 import AppwriteEnums
 import AppwriteModels
+import AsyncHTTPClient
+import Foundation
+import JSONCodable
+import NIO
 
 /// The TablesDB service allows you to create structured tables of columns, query and filter lists of rows
 open class TablesDB: Service {
@@ -29,12 +29,12 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.DatabaseList = { response in
@@ -49,10 +49,8 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new Database.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -80,13 +78,13 @@ open class TablesDB: Service {
             "enabled": enabled,
             "specification": specification,
             "replicas": replicas,
-            "syncMode": syncMode
+            "syncMode": syncMode,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Database = { response in
@@ -101,7 +99,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// List the dedicated database specifications available on the current plan.
     /// Each specification reports its resource limits, pricing, and whether it is
@@ -110,15 +107,14 @@ open class TablesDB: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DedicatedDatabaseSpecificationList
     ///
-    open func listSpecifications(
-    ) async throws -> AppwriteModels.DedicatedDatabaseSpecificationList {
+    open func listSpecifications() async throws -> AppwriteModels.DedicatedDatabaseSpecificationList {
         let apiPath: String = "/tablesdb/specifications"
 
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.DedicatedDatabaseSpecificationList = { response in
@@ -133,7 +129,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// List transactions across all databases.
     ///
@@ -153,7 +148,7 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.TransactionList = { response in
@@ -168,7 +163,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new transaction.
     ///
@@ -189,7 +183,7 @@ open class TablesDB: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Transaction = { response in
@@ -204,7 +198,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a transaction by its unique ID.
     ///
@@ -223,7 +216,7 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Transaction = { response in
@@ -238,7 +231,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a transaction, to either commit or roll back its operations.
     ///
@@ -259,13 +251,13 @@ open class TablesDB: Service {
 
         let apiParams: [String: Any?] = [
             "commit": commit,
-            "rollback": rollback
+            "rollback": rollback,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Transaction = { response in
@@ -280,7 +272,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a transaction by its unique ID.
     ///
@@ -299,28 +290,28 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Create multiple operations in a single transaction.
     ///
     /// - Parameters:
     ///   - transactionId: String
-    ///   - operations: [Any] (optional)
+    ///   - operations: [AnyCodable] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Transaction
     ///
     open func createOperations(
         transactionId: String,
-        operations: [Any]? = nil
+        operations: [AnyCodable]? = nil
     ) async throws -> AppwriteModels.Transaction {
         let apiPath: String = "/tablesdb/transactions/{transactionId}/operations"
             .replacingOccurrences(of: "{transactionId}", with: transactionId)
@@ -332,7 +323,7 @@ open class TablesDB: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Transaction = { response in
@@ -347,7 +338,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a database by its unique ID. This endpoint response returns a JSON
     /// object with the database metadata.
@@ -367,7 +357,7 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Database = { response in
@@ -382,7 +372,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a database by its unique ID.
     ///
@@ -412,13 +401,13 @@ open class TablesDB: Service {
             "enabled": enabled,
             "specification": specification,
             "replicas": replicas,
-            "syncMode": syncMode
+            "syncMode": syncMode,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Database = { response in
@@ -433,7 +422,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a database by its unique ID. Only API keys with with databases.write
     /// scope can delete a database.
@@ -453,22 +441,26 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Trigger a manual failover for a dedicated database with high availability
     /// enabled. Promotes a replica to primary. The failover runs asynchronously;
     /// poll the database document for status updates. A database left
-    /// mid-operation by a failover that did not finish also accepts this call as a
-    /// repair, provided `targetReplicaId` names the member to promote.
+    /// mid-operation also accepts this call as a repair once nothing is driving
+    /// the operation it is stuck in. Repairing a failover that did not finish, a
+    /// `failed` database, a stranded upgrade or migrate, or a stranded compute
+    /// resize additionally requires `targetReplicaId` to name the member to
+    /// promote, because the default target may be the member that operation
+    /// already promoted.
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -490,7 +482,7 @@ open class TablesDB: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.DedicatedDatabase = { response in
@@ -505,7 +497,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// List the dedicated migrations for a TablesDB database. A database has at
     /// most one in-flight migration.
@@ -525,7 +516,7 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.DatabaseMigrationList = { response in
@@ -540,7 +531,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Start migrating a serverless TablesDB database onto a dedicated MySQL
     /// compute. Data is copied to the target while the source stays live, with a
@@ -563,13 +553,13 @@ open class TablesDB: Service {
 
         let apiParams: [String: Any?] = [
             "specification": specification,
-            "autoCutover": autoCutover
+            "autoCutover": autoCutover,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.DatabaseMigration = { response in
@@ -584,7 +574,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a single dedicated migration for a TablesDB database by its ID.
     ///
@@ -606,7 +595,7 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.DatabaseMigration = { response in
@@ -621,7 +610,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Abort an in-flight TablesDB dedicated migration. Only allowed before
     /// cutover; once the migration has cut over it cannot be aborted.
@@ -645,16 +633,16 @@ open class TablesDB: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Cut a verified TablesDB migration over to its dedicated compute. Only
     /// applies to a migration created with `autoCutover` disabled, which waits at
@@ -682,7 +670,7 @@ open class TablesDB: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.DatabaseMigration = { response in
@@ -697,7 +685,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// List the lifecycle operations recorded for a dedicated database, newest
     /// first. Every provision, update, restore, backup and replication action is
@@ -724,12 +711,12 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "status": status,
             "limit": limit,
-            "offset": offset
+            "offset": offset,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.DedicatedDatabaseOperationList = { response in
@@ -744,7 +731,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Get high availability status for a dedicated database. Returns replica
     /// statuses, replication lag, and sync mode.
@@ -764,7 +750,7 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.DedicatedDatabaseReplicas = { response in
@@ -779,7 +765,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Get real-time health and status information for a dedicated database.
     /// Returns health status, readiness, uptime, connection info, replica status,
@@ -800,7 +785,7 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.DatabaseStatus = { response in
@@ -815,7 +800,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a list of all tables that belong to the provided databaseId. You can
     /// use the search parameter to filter your results.
@@ -840,12 +824,12 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.TableList = { response in
@@ -860,7 +844,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new Table. Before using this route, you should create a new
     /// database resource using either a [server
@@ -874,8 +857,8 @@ open class TablesDB: Service {
     ///   - permissions: [String] (optional)
     ///   - rowSecurity: Bool (optional)
     ///   - enabled: Bool (optional)
-    ///   - columns: [Any] (optional)
-    ///   - indexes: [Any] (optional)
+    ///   - columns: [AnyCodable] (optional)
+    ///   - indexes: [AnyCodable] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Table
     ///
@@ -886,8 +869,8 @@ open class TablesDB: Service {
         permissions: [String]? = nil,
         rowSecurity: Bool? = nil,
         enabled: Bool? = nil,
-        columns: [Any]? = nil,
-        indexes: [Any]? = nil
+        columns: [AnyCodable]? = nil,
+        indexes: [AnyCodable]? = nil
     ) async throws -> AppwriteModels.Table {
         let apiPath: String = "/tablesdb/{databaseId}/tables"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -899,13 +882,13 @@ open class TablesDB: Service {
             "rowSecurity": rowSecurity,
             "enabled": enabled,
             "columns": columns,
-            "indexes": indexes
+            "indexes": indexes,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Table = { response in
@@ -920,7 +903,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a table by its unique ID. This endpoint response returns a JSON object
     /// with the table metadata.
@@ -943,7 +925,7 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Table = { response in
@@ -958,7 +940,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a table by its unique ID.
     ///
@@ -991,13 +972,13 @@ open class TablesDB: Service {
             "permissions": permissions,
             "rowSecurity": rowSecurity,
             "enabled": enabled,
-            "purge": purge
+            "purge": purge,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Table = { response in
@@ -1012,7 +993,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a table by its unique ID. Only users with write permissions have
     /// access to delete this resource.
@@ -1035,16 +1015,16 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// List columns in the table.
     ///
@@ -1068,12 +1048,12 @@ open class TablesDB: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnList = { response in
@@ -1088,11 +1068,9 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a bigint column. Optionally, minimum and maximum values can be
     /// provided.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1126,13 +1104,13 @@ open class TablesDB: Service {
             "min": min,
             "max": max,
             "default": `default`,
-            "array": array
+            "array": array,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnBigint = { response in
@@ -1147,11 +1125,9 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a bigint column. Changing the `default` value will not update
     /// already existing rows.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1185,13 +1161,13 @@ open class TablesDB: Service {
             "min": min,
             "max": max,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnBigint = { response in
@@ -1206,10 +1182,8 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a boolean column.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1237,13 +1211,13 @@ open class TablesDB: Service {
             "key": key,
             "required": `required`,
             "default": `default`,
-            "array": array
+            "array": array,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnBoolean = { response in
@@ -1258,7 +1232,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a boolean column. Changing the `default` value will not update
     /// already existing rows.
@@ -1289,13 +1262,13 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnBoolean = { response in
@@ -1310,7 +1283,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a date time column according to the ISO 8601 standard.
     ///
@@ -1340,13 +1312,13 @@ open class TablesDB: Service {
             "key": key,
             "required": `required`,
             "default": `default`,
-            "array": array
+            "array": array,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnDatetime = { response in
@@ -1361,7 +1333,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a date time column. Changing the `default` value will not update
     /// already existing rows.
@@ -1392,13 +1363,13 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnDatetime = { response in
@@ -1413,10 +1384,8 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Create an email column.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1444,13 +1413,13 @@ open class TablesDB: Service {
             "key": key,
             "required": `required`,
             "default": `default`,
-            "array": array
+            "array": array,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnEmail = { response in
@@ -1465,11 +1434,9 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Update an email column. Changing the `default` value will not update
     /// already existing rows.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1497,13 +1464,13 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnEmail = { response in
@@ -1518,7 +1485,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Create an enumeration column. The `elements` param acts as a white-list of
     /// accepted values for this column.
@@ -1552,13 +1518,13 @@ open class TablesDB: Service {
             "elements": elements,
             "required": `required`,
             "default": `default`,
-            "array": array
+            "array": array,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnEnum = { response in
@@ -1573,11 +1539,9 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Update an enum column. Changing the `default` value will not update already
     /// existing rows.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1608,13 +1572,13 @@ open class TablesDB: Service {
             "elements": elements,
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnEnum = { response in
@@ -1629,11 +1593,9 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a float column. Optionally, minimum and maximum values can be
     /// provided.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1667,13 +1629,13 @@ open class TablesDB: Service {
             "min": min,
             "max": max,
             "default": `default`,
-            "array": array
+            "array": array,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnFloat = { response in
@@ -1688,11 +1650,9 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a float column. Changing the `default` value will not update already
     /// existing rows.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1726,13 +1686,13 @@ open class TablesDB: Service {
             "min": min,
             "max": max,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnFloat = { response in
@@ -1747,11 +1707,9 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Create an integer column. Optionally, minimum and maximum values can be
     /// provided.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1785,13 +1743,13 @@ open class TablesDB: Service {
             "min": min,
             "max": max,
             "default": `default`,
-            "array": array
+            "array": array,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnInteger = { response in
@@ -1806,11 +1764,9 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Update an integer column. Changing the `default` value will not update
     /// already existing rows.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1844,13 +1800,13 @@ open class TablesDB: Service {
             "min": min,
             "max": max,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnInteger = { response in
@@ -1865,10 +1821,8 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Create IP address column.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1896,13 +1850,13 @@ open class TablesDB: Service {
             "key": key,
             "required": `required`,
             "default": `default`,
-            "array": array
+            "array": array,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnIp = { response in
@@ -1917,11 +1871,9 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Update an ip column. Changing the `default` value will not update already
     /// existing rows.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1949,13 +1901,13 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnIp = { response in
@@ -1970,7 +1922,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a geometric line column.
     ///
@@ -1997,13 +1948,13 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "key": key,
             "required": `required`,
-            "default": `default`
+            "default": `default`,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnLine = { response in
@@ -2018,7 +1969,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a line column. Changing the `default` value will not update already
     /// existing rows.
@@ -2049,13 +1999,13 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnLine = { response in
@@ -2070,10 +2020,8 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a longtext column.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2104,13 +2052,13 @@ open class TablesDB: Service {
             "required": `required`,
             "default": `default`,
             "array": array,
-            "encrypt": encrypt
+            "encrypt": encrypt,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnLongtext = { response in
@@ -2125,11 +2073,9 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a longtext column. Changing the `default` value will not update
     /// already existing rows.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2157,13 +2103,13 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnLongtext = { response in
@@ -2178,10 +2124,8 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a mediumtext column.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2212,13 +2156,13 @@ open class TablesDB: Service {
             "required": `required`,
             "default": `default`,
             "array": array,
-            "encrypt": encrypt
+            "encrypt": encrypt,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnMediumtext = { response in
@@ -2233,11 +2177,9 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a mediumtext column. Changing the `default` value will not update
     /// already existing rows.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2265,13 +2207,13 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnMediumtext = { response in
@@ -2286,7 +2228,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a geometric point column.
     ///
@@ -2313,13 +2254,13 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "key": key,
             "required": `required`,
-            "default": `default`
+            "default": `default`,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnPoint = { response in
@@ -2334,7 +2275,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a point column. Changing the `default` value will not update already
     /// existing rows.
@@ -2365,13 +2305,13 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnPoint = { response in
@@ -2386,7 +2326,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a geometric polygon column.
     ///
@@ -2413,13 +2352,13 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "key": key,
             "required": `required`,
-            "default": `default`
+            "default": `default`,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnPolygon = { response in
@@ -2434,7 +2373,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a polygon column. Changing the `default` value will not update
     /// already existing rows.
@@ -2465,13 +2403,13 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnPolygon = { response in
@@ -2486,11 +2424,9 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Create relationship column. [Learn more about relationship
     /// columns](https://appwrite.io/docs/databases-relationships#relationship-columns).
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2524,13 +2460,13 @@ open class TablesDB: Service {
             "twoWay": twoWay,
             "key": key,
             "twoWayKey": twoWayKey,
-            "onDelete": onDelete?.rawValue
+            "onDelete": onDelete?.rawValue,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnRelationship = { response in
@@ -2545,10 +2481,8 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a string column.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2583,13 +2517,13 @@ open class TablesDB: Service {
             "required": `required`,
             "default": `default`,
             "array": array,
-            "encrypt": encrypt
+            "encrypt": encrypt,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnString = { response in
@@ -2604,11 +2538,9 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a string column. Changing the `default` value will not update
     /// already existing rows.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2640,13 +2572,13 @@ open class TablesDB: Service {
             "required": `required`,
             "default": `default`,
             "size": size,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnString = { response in
@@ -2661,10 +2593,8 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a text column.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2695,13 +2625,13 @@ open class TablesDB: Service {
             "required": `required`,
             "default": `default`,
             "array": array,
-            "encrypt": encrypt
+            "encrypt": encrypt,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnText = { response in
@@ -2716,11 +2646,9 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a text column. Changing the `default` value will not update already
     /// existing rows.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2748,13 +2676,13 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnText = { response in
@@ -2769,10 +2697,8 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a URL column.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2800,13 +2726,13 @@ open class TablesDB: Service {
             "key": key,
             "required": `required`,
             "default": `default`,
-            "array": array
+            "array": array,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnUrl = { response in
@@ -2821,11 +2747,9 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Update an url column. Changing the `default` value will not update already
     /// existing rows.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2853,13 +2777,13 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnUrl = { response in
@@ -2874,10 +2798,8 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a varchar column.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2911,13 +2833,13 @@ open class TablesDB: Service {
             "required": `required`,
             "default": `default`,
             "array": array,
-            "encrypt": encrypt
+            "encrypt": encrypt,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnVarchar = { response in
@@ -2932,11 +2854,9 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a varchar column. Changing the `default` value will not update
     /// already existing rows.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2967,13 +2887,13 @@ open class TablesDB: Service {
             "required": `required`,
             "default": `default`,
             "size": size,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnVarchar = { response in
@@ -2988,7 +2908,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Get column by ID.
     ///
@@ -3013,7 +2932,7 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> Any = { response in
@@ -3061,7 +2980,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Deletes a column.
     ///
@@ -3086,20 +3004,19 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Update relationship column. [Learn more about relationship
     /// columns](https://appwrite.io/docs/databases-relationships#relationship-columns).
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -3124,13 +3041,13 @@ open class TablesDB: Service {
 
         let apiParams: [String: Any?] = [
             "onDelete": onDelete?.rawValue,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnRelationship = { response in
@@ -3145,7 +3062,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// List indexes on the table.
     ///
@@ -3169,12 +3085,12 @@ open class TablesDB: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnIndexList = { response in
@@ -3189,7 +3105,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Creates an index on the columns listed. Your index should include all the
     /// columns you will query in a single request.
@@ -3224,13 +3139,13 @@ open class TablesDB: Service {
             "type": type.rawValue,
             "columns": columns,
             "orders": orders?.map { $0.rawValue },
-            "lengths": lengths
+            "lengths": lengths,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnIndex = { response in
@@ -3245,7 +3160,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Get index by ID.
     ///
@@ -3270,7 +3184,7 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ColumnIndex = { response in
@@ -3285,7 +3199,6 @@ open class TablesDB: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete an index.
     ///
@@ -3310,16 +3223,16 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Get a list of all the user's rows in a given table. You can use the query
     /// params to filter your results.
@@ -3351,12 +3264,12 @@ open class TablesDB: Service {
             "queries": queries,
             "transactionId": transactionId,
             "total": total,
-            "ttl": ttl
+            "ttl": ttl,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.RowList<T> = { response in
@@ -3404,7 +3317,6 @@ open class TablesDB: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Create a new Row. Before using this route, you should create a new table
     /// resource using either a [server
@@ -3438,13 +3350,13 @@ open class TablesDB: Service {
             "rowId": rowId,
             "data": data,
             "permissions": permissions,
-            "transactionId": transactionId
+            "transactionId": transactionId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Row<T> = { response in
@@ -3494,7 +3406,6 @@ open class TablesDB: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Create new Rows. Before using this route, you should create a new table
     /// resource using either a [server
@@ -3504,7 +3415,7 @@ open class TablesDB: Service {
     /// - Parameters:
     ///   - databaseId: String
     ///   - tableId: String
-    ///   - rows: [Any]
+    ///   - rows: [AnyCodable]
     ///   - transactionId: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.RowList<T>
@@ -3512,7 +3423,7 @@ open class TablesDB: Service {
     open func createRows<T>(
         databaseId: String,
         tableId: String,
-        rows: [Any],
+        rows: [AnyCodable],
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.RowList<T> {
@@ -3522,13 +3433,13 @@ open class TablesDB: Service {
 
         let apiParams: [String: Any?] = [
             "rows": rows,
-            "transactionId": transactionId
+            "transactionId": transactionId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.RowList<T> = { response in
@@ -3553,7 +3464,7 @@ open class TablesDB: Service {
     /// - Parameters:
     ///   - databaseId: String
     ///   - tableId: String
-    ///   - rows: [Any]
+    ///   - rows: [AnyCodable]
     ///   - transactionId: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.RowList<T>
@@ -3561,7 +3472,7 @@ open class TablesDB: Service {
     open func createRows(
         databaseId: String,
         tableId: String,
-        rows: [Any],
+        rows: [AnyCodable],
         transactionId: String? = nil
     ) async throws -> AppwriteModels.RowList<[String: AnyCodable]> {
         return try await createRows(
@@ -3572,18 +3483,16 @@ open class TablesDB: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Create or update Rows. Before using this route, you should create a new
     /// table resource using either a [server
     /// integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable)
     /// API or directly from your database console.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
     ///   - tableId: String
-    ///   - rows: [Any]
+    ///   - rows: [AnyCodable]
     ///   - transactionId: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.RowList<T>
@@ -3591,7 +3500,7 @@ open class TablesDB: Service {
     open func upsertRows<T>(
         databaseId: String,
         tableId: String,
-        rows: [Any],
+        rows: [AnyCodable],
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.RowList<T> {
@@ -3601,13 +3510,13 @@ open class TablesDB: Service {
 
         let apiParams: [String: Any?] = [
             "rows": rows,
-            "transactionId": transactionId
+            "transactionId": transactionId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.RowList<T> = { response in
@@ -3628,12 +3537,11 @@ open class TablesDB: Service {
     /// table resource using either a [server
     /// integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable)
     /// API or directly from your database console.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
     ///   - tableId: String
-    ///   - rows: [Any]
+    ///   - rows: [AnyCodable]
     ///   - transactionId: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.RowList<T>
@@ -3641,7 +3549,7 @@ open class TablesDB: Service {
     open func upsertRows(
         databaseId: String,
         tableId: String,
-        rows: [Any],
+        rows: [AnyCodable],
         transactionId: String? = nil
     ) async throws -> AppwriteModels.RowList<[String: AnyCodable]> {
         return try await upsertRows(
@@ -3652,7 +3560,6 @@ open class TablesDB: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Update all rows that match your queries, if no queries are submitted then
     /// all rows are updated. You can pass only specific fields to be updated.
@@ -3681,13 +3588,13 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "data": data,
             "queries": queries,
-            "transactionId": transactionId
+            "transactionId": transactionId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.RowList<T> = { response in
@@ -3732,7 +3639,6 @@ open class TablesDB: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Bulk delete rows using queries, if no queries are passed then all rows are
     /// deleted.
@@ -3758,13 +3664,13 @@ open class TablesDB: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "transactionId": transactionId
+            "transactionId": transactionId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.RowList<T> = { response in
@@ -3806,7 +3712,6 @@ open class TablesDB: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Get a row by its unique ID. This endpoint response returns a JSON object
     /// with the row data.
@@ -3835,12 +3740,12 @@ open class TablesDB: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "transactionId": transactionId
+            "transactionId": transactionId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Row<T> = { response in
@@ -3885,7 +3790,6 @@ open class TablesDB: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Create or update a Row. Before using this route, you should create a new
     /// table resource using either a [server
@@ -3919,13 +3823,13 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "data": data,
             "permissions": permissions,
-            "transactionId": transactionId
+            "transactionId": transactionId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Row<T> = { response in
@@ -3975,7 +3879,6 @@ open class TablesDB: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Update a row by its unique ID. Using the patch method you can pass only
     /// specific fields that will get updated.
@@ -4007,13 +3910,13 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "data": data,
             "permissions": permissions,
-            "transactionId": transactionId
+            "transactionId": transactionId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Row<T> = { response in
@@ -4061,7 +3964,6 @@ open class TablesDB: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Delete a row by its unique ID.
     ///
@@ -4090,16 +3992,16 @@ open class TablesDB: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Decrement a specific column of a row by a given value.
     ///
@@ -4133,13 +4035,13 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "value": value,
             "min": min,
-            "transactionId": transactionId
+            "transactionId": transactionId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Row<T> = { response in
@@ -4189,7 +4091,6 @@ open class TablesDB: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Increment a specific column of a row by a given value.
     ///
@@ -4223,13 +4124,13 @@ open class TablesDB: Service {
         let apiParams: [String: Any?] = [
             "value": value,
             "max": max,
-            "transactionId": transactionId
+            "transactionId": transactionId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Row<T> = { response in
@@ -4279,6 +4180,4 @@ open class TablesDB: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
-
 }

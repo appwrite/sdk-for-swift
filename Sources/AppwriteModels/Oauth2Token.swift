@@ -79,11 +79,11 @@ open class Oauth2Token: Codable {
             "refresh_token": refresh_token as Any,
             "scope": scope as Any,
             "authorization_details": authorization_details as Any,
-            "id_token": id_token as Any
+            "id_token": id_token as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Oauth2Token {
+    public static func from(map: [String: Any]) -> Oauth2Token {
         return Oauth2Token(
             access_token: map["access_token"] as! String,
             token_type: map["token_type"] as! String,

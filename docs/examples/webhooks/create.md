@@ -10,7 +10,7 @@ let webhooks = Webhooks(client)
 
 let webhook = try await webhooks.create(
     webhookId: "<WEBHOOK_ID>",
-    url: "",
+    url: "https://example.com/webhook",
     name: "<NAME>",
     events: [],
     enabled: false, // optional

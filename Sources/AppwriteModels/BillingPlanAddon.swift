@@ -39,11 +39,11 @@ open class BillingPlanAddon: Codable {
     public func toMap() -> [String: Any] {
         return [
             "seats": seats?.toMap() as Any,
-            "projects": projects?.toMap() as Any
+            "projects": projects?.toMap() as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> BillingPlanAddon {
+    public static func from(map: [String: Any]) -> BillingPlanAddon {
         return BillingPlanAddon(
             seats: map["seats"] as? [String: Any] != nil ? BillingPlanAddonDetails.from(map: map["seats"] as! [String: Any]) : nil,
             projects: map["projects"] as? [String: Any] != nil ? BillingPlanAddonDetails.from(map: map["projects"] as! [String: Any]) : nil

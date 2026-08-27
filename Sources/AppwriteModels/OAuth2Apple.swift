@@ -71,11 +71,11 @@ open class OAuth2Apple: Codable {
             "serviceId": serviceId as Any,
             "keyId": keyId as Any,
             "teamId": teamId as Any,
-            "p8File": p8File as Any
+            "p8File": p8File as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Apple {
+    public static func from(map: [String: Any]) -> OAuth2Apple {
         return OAuth2Apple(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

@@ -21,6 +21,7 @@ public enum OAuthProvider: String, Codable, CustomStringConvertible {
     case github = "github"
     case gitlab = "gitlab"
     case google = "google"
+    case huggingface = "huggingface"
     case keycloak = "keycloak"
     case kick = "kick"
     case linkedin = "linkedin"

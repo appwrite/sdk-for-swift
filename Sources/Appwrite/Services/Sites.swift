@@ -1,9 +1,9 @@
-import AsyncHTTPClient
-import Foundation
-import NIO
-import JSONCodable
 import AppwriteEnums
 import AppwriteModels
+import AsyncHTTPClient
+import Foundation
+import JSONCodable
+import NIO
 
 /// The Sites Service allows you view, create and manage your web applications.
 open class Sites: Service {
@@ -29,12 +29,12 @@ open class Sites: Service {
         let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.SiteList = { response in
@@ -49,7 +49,6 @@ open class Sites: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new site.
     ///
@@ -77,6 +76,7 @@ open class Sites: Service {
     ///   - buildSpecification: String (optional)
     ///   - runtimeSpecification: String (optional)
     ///   - deploymentRetention: Int (optional)
+    ///   - scopes: [AppwriteEnums.ProjectKeyScopes] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Site
     ///
@@ -103,7 +103,8 @@ open class Sites: Service {
         providerPaths: [String]? = nil,
         buildSpecification: String? = nil,
         runtimeSpecification: String? = nil,
-        deploymentRetention: Int? = nil
+        deploymentRetention: Int? = nil,
+        scopes: [AppwriteEnums.ProjectKeyScopes]? = nil
     ) async throws -> AppwriteModels.Site {
         let apiPath: String = "/sites"
 
@@ -130,13 +131,14 @@ open class Sites: Service {
             "providerPaths": providerPaths,
             "buildSpecification": buildSpecification,
             "runtimeSpecification": runtimeSpecification,
-            "deploymentRetention": deploymentRetention
+            "deploymentRetention": deploymentRetention,
+            "scopes": scopes?.map { $0.rawValue },
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Site = { response in
@@ -151,7 +153,6 @@ open class Sites: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a list of all frameworks that are currently available on the server
     /// instance.
@@ -159,15 +160,14 @@ open class Sites: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.FrameworkList
     ///
-    open func listFrameworks(
-    ) async throws -> AppwriteModels.FrameworkList {
+    open func listFrameworks() async throws -> AppwriteModels.FrameworkList {
         let apiPath: String = "/sites/frameworks"
 
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.FrameworkList = { response in
@@ -182,7 +182,6 @@ open class Sites: Service {
             converter: converter
         )
     }
-
     ///
     /// List allowed site specifications for this instance.
     ///
@@ -202,7 +201,7 @@ open class Sites: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.SpecificationList = { response in
@@ -217,7 +216,6 @@ open class Sites: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a site by its unique ID.
     ///
@@ -236,7 +234,7 @@ open class Sites: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Site = { response in
@@ -251,7 +249,6 @@ open class Sites: Service {
             converter: converter
         )
     }
-
     ///
     /// Update site by its unique ID.
     ///
@@ -279,6 +276,7 @@ open class Sites: Service {
     ///   - buildSpecification: String (optional)
     ///   - runtimeSpecification: String (optional)
     ///   - deploymentRetention: Int (optional)
+    ///   - scopes: [AppwriteEnums.ProjectKeyScopes] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Site
     ///
@@ -305,7 +303,8 @@ open class Sites: Service {
         providerPaths: [String]? = nil,
         buildSpecification: String? = nil,
         runtimeSpecification: String? = nil,
-        deploymentRetention: Int? = nil
+        deploymentRetention: Int? = nil,
+        scopes: [AppwriteEnums.ProjectKeyScopes]? = nil
     ) async throws -> AppwriteModels.Site {
         let apiPath: String = "/sites/{siteId}"
             .replacingOccurrences(of: "{siteId}", with: siteId)
@@ -332,13 +331,14 @@ open class Sites: Service {
             "providerPaths": providerPaths,
             "buildSpecification": buildSpecification,
             "runtimeSpecification": runtimeSpecification,
-            "deploymentRetention": deploymentRetention
+            "deploymentRetention": deploymentRetention,
+            "scopes": scopes?.map { $0.rawValue },
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Site = { response in
@@ -353,7 +353,6 @@ open class Sites: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a site by its unique ID.
     ///
@@ -372,16 +371,16 @@ open class Sites: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Update the site active deployment. Use this endpoint to switch the code
     /// deployment that should be used when visitor opens your site.
@@ -406,7 +405,7 @@ open class Sites: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Site = { response in
@@ -421,7 +420,6 @@ open class Sites: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a list of all the site's code deployments. You can use the query params
     /// to filter your results.
@@ -446,12 +444,12 @@ open class Sites: Service {
         let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.DeploymentList = { response in
@@ -466,7 +464,6 @@ open class Sites: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new site code deployment. Use this endpoint to upload a new
     /// version of your site code. To activate your newly uploaded code, you'll
@@ -499,13 +496,13 @@ open class Sites: Service {
             "buildCommand": buildCommand,
             "outputDirectory": outputDirectory,
             "code": code,
-            "activate": activate
+            "activate": activate,
         ]
 
         var apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "multipart/form-data",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Deployment = { response in
@@ -524,7 +521,6 @@ open class Sites: Service {
             onProgress: onProgress
         )
     }
-
     ///
     /// Create a new build for an existing site deployment. This endpoint allows
     /// you to rebuild a deployment with the updated site configuration, including
@@ -552,7 +548,7 @@ open class Sites: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Deployment = { response in
@@ -567,10 +563,9 @@ open class Sites: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a deployment based on a template.
-    /// 
+    ///
     /// Use this endpoint with combination of
     /// [listTemplates](https://appwrite.io/docs/products/sites/templates) to find
     /// the template details.
@@ -604,13 +599,13 @@ open class Sites: Service {
             "rootDirectory": rootDirectory,
             "type": type.rawValue,
             "reference": reference,
-            "activate": activate
+            "activate": activate,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Deployment = { response in
@@ -625,10 +620,9 @@ open class Sites: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a deployment when a site is connected to VCS.
-    /// 
+    ///
     /// This endpoint lets you create deployment from a branch, commit, or a tag.
     ///
     /// - Parameters:
@@ -651,13 +645,13 @@ open class Sites: Service {
         let apiParams: [String: Any?] = [
             "type": type.rawValue,
             "reference": reference,
-            "activate": activate
+            "activate": activate,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Deployment = { response in
@@ -672,7 +666,6 @@ open class Sites: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a site deployment by its unique ID.
     ///
@@ -694,7 +687,7 @@ open class Sites: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Deployment = { response in
@@ -709,7 +702,6 @@ open class Sites: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a site deployment by its unique ID.
     ///
@@ -731,16 +723,16 @@ open class Sites: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Get a site deployment content by its unique ID. The endpoint response
     /// return with a 'Content-Disposition: attachment' header that tells the
@@ -766,12 +758,12 @@ open class Sites: Service {
 
         let apiParams: [String: Any?] = [
             "type": type?.rawValue,
-            "token": token
+            "token": token,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "*/*"
+            "accept": "*/*",
         ]
 
         return try await client.call(
@@ -781,7 +773,6 @@ open class Sites: Service {
             params: apiParams
         )
     }
-
     ///
     /// Cancel an ongoing site deployment build. If the build is already in
     /// progress, it will be stopped and marked as canceled. If the build hasn't
@@ -808,7 +799,7 @@ open class Sites: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Deployment = { response in
@@ -823,7 +814,6 @@ open class Sites: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a list of all site logs. You can use the query params to filter your
     /// results.
@@ -845,12 +835,12 @@ open class Sites: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ExecutionList = { response in
@@ -865,7 +855,6 @@ open class Sites: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a site request log by its unique ID.
     ///
@@ -887,7 +876,7 @@ open class Sites: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Execution = { response in
@@ -902,7 +891,6 @@ open class Sites: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a site log by its unique ID.
     ///
@@ -925,16 +913,16 @@ open class Sites: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Get a list of all variables of a specific site.
     ///
@@ -955,12 +943,12 @@ open class Sites: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.VariableList = { response in
@@ -975,7 +963,6 @@ open class Sites: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new site variable. These variables can be accessed during build
     /// and runtime (server-side rendering) as environment variables.
@@ -1003,13 +990,13 @@ open class Sites: Service {
             "variableId": variableId,
             "key": key,
             "value": value,
-            "secret": secret
+            "secret": secret,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Variable = { response in
@@ -1024,7 +1011,6 @@ open class Sites: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a variable by its unique ID.
     ///
@@ -1046,7 +1032,7 @@ open class Sites: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Variable = { response in
@@ -1061,7 +1047,6 @@ open class Sites: Service {
             converter: converter
         )
     }
-
     ///
     /// Update variable by its unique ID.
     ///
@@ -1088,13 +1073,13 @@ open class Sites: Service {
         let apiParams: [String: Any?] = [
             "key": key,
             "value": value,
-            "secret": secret
+            "secret": secret,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Variable = { response in
@@ -1109,7 +1094,6 @@ open class Sites: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a variable by its unique ID.
     ///
@@ -1131,15 +1115,14 @@ open class Sites: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
-
 }

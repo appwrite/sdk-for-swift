@@ -95,11 +95,11 @@ open class DedicatedDatabaseSpecification: Codable {
             "maxConnections": maxConnections as Any,
             "includedStorage": includedStorage as Any,
             "includedBandwidth": includedBandwidth as Any,
-            "enabled": enabled as Any
+            "enabled": enabled as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> DedicatedDatabaseSpecification {
+    public static func from(map: [String: Any]) -> DedicatedDatabaseSpecification {
         return DedicatedDatabaseSpecification(
             slug: map["slug"] as! String,
             name: map["name"] as! String,

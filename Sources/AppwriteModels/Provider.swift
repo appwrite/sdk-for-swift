@@ -95,11 +95,11 @@ open class Provider: Codable {
             "enabled": enabled as Any,
             "type": type as Any,
             "credentials": credentials as Any,
-            "options": options as Any
+            "options": options as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Provider {
+    public static func from(map: [String: Any]) -> Provider {
         return Provider(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

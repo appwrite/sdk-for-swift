@@ -1,9 +1,9 @@
-import AsyncHTTPClient
-import Foundation
-import NIO
-import JSONCodable
 import AppwriteEnums
 import AppwriteModels
+import AsyncHTTPClient
+import Foundation
+import JSONCodable
+import NIO
 
 /// The Organization service allows you to manage organization-level projects.
 open class Organization: Service {
@@ -23,7 +23,7 @@ open class Organization: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Organization<T> = { response in
@@ -45,13 +45,11 @@ open class Organization: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Organization<T>
     ///
-    open func get(
-    ) async throws -> AppwriteModels.Organization<[String: AnyCodable]> {
+    open func get() async throws -> AppwriteModels.Organization<[String: AnyCodable]> {
         return try await get(
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Update the current organization's name.
     ///
@@ -73,7 +71,7 @@ open class Organization: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Organization<T> = { response in
@@ -105,7 +103,6 @@ open class Organization: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Delete the current organization. All projects that belong to the
     /// organization are deleted as well.
@@ -113,24 +110,23 @@ open class Organization: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: Any
     ///
-    open func delete(
-    ) async throws -> Any {
+    open func delete() async throws -> Any {
         let apiPath: String = "/organization"
 
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// List app installations on the organization. Any organization member can
     /// read installations.
@@ -149,12 +145,12 @@ open class Organization: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AppInstallationList = { response in
@@ -169,7 +165,6 @@ open class Organization: Service {
             converter: converter
         )
     }
-
     ///
     /// Install an app on the organization. Only organization members with the
     /// owner role can install apps. The installation is granted the scopes the app
@@ -189,13 +184,13 @@ open class Organization: Service {
 
         let apiParams: [String: Any?] = [
             "appId": appId,
-            "authorizationDetails": authorizationDetails
+            "authorizationDetails": authorizationDetails,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AppInstallation = { response in
@@ -210,7 +205,6 @@ open class Organization: Service {
             converter: converter
         )
     }
-
     ///
     /// Get an app installation on the organization by its unique ID. Any
     /// organization member can read installations.
@@ -230,7 +224,7 @@ open class Organization: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AppInstallation = { response in
@@ -245,7 +239,6 @@ open class Organization: Service {
             converter: converter
         )
     }
-
     ///
     /// Update an app installation on the organization. Only organization members
     /// with the owner role can update installations. The installation's granted
@@ -272,7 +265,7 @@ open class Organization: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AppInstallation = { response in
@@ -287,7 +280,6 @@ open class Organization: Service {
             converter: converter
         )
     }
-
     ///
     /// Uninstall an app from the organization by its installation ID. Only
     /// organization members with the owner role can remove installations.
@@ -309,16 +301,16 @@ open class Organization: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Get a list of all API keys from the current organization.
     ///
@@ -336,12 +328,12 @@ open class Organization: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.KeyList = { response in
@@ -356,7 +348,6 @@ open class Organization: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new organization API key.
     ///
@@ -380,13 +371,13 @@ open class Organization: Service {
             "keyId": keyId,
             "name": name,
             "scopes": scopes.map { $0.rawValue },
-            "expire": expire
+            "expire": expire,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Key = { response in
@@ -401,7 +392,6 @@ open class Organization: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a key by its unique ID. This endpoint returns details about a specific
     /// API key in your organization including its scopes.
@@ -421,7 +411,7 @@ open class Organization: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Key = { response in
@@ -436,7 +426,6 @@ open class Organization: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a key by its unique ID. Use this endpoint to update the name,
     /// scopes, or expiration time of an API key.
@@ -461,13 +450,13 @@ open class Organization: Service {
         let apiParams: [String: Any?] = [
             "name": name,
             "scopes": scopes.map { $0.rawValue },
-            "expire": expire
+            "expire": expire,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Key = { response in
@@ -482,7 +471,6 @@ open class Organization: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a key by its unique ID. Once deleted, the key can no longer be used
     /// to authenticate API calls.
@@ -502,16 +490,16 @@ open class Organization: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Get a list of all memberships from the current organization.
     ///
@@ -532,12 +520,12 @@ open class Organization: Service {
         let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.MembershipList = { response in
@@ -552,7 +540,6 @@ open class Organization: Service {
             converter: converter
         )
     }
-
     ///
     /// Invite a new member to join the current organization. An email with a link
     /// to join the organization will be sent to the new member's email address. If
@@ -584,13 +571,13 @@ open class Organization: Service {
             "phone": phone,
             "roles": roles,
             "url": url,
-            "name": name
+            "name": name,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Membership = { response in
@@ -605,7 +592,6 @@ open class Organization: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a membership from the current organization by its unique ID.
     ///
@@ -624,7 +610,7 @@ open class Organization: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Membership = { response in
@@ -639,7 +625,6 @@ open class Organization: Service {
             converter: converter
         )
     }
-
     ///
     /// Modify the roles of a member in the current organization.
     ///
@@ -663,7 +648,7 @@ open class Organization: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Membership = { response in
@@ -678,7 +663,6 @@ open class Organization: Service {
             converter: converter
         )
     }
-
     ///
     /// Remove a member from the current organization. The member is removed
     /// whether they accepted the invitation or not; a pending invitation is
@@ -699,16 +683,16 @@ open class Organization: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Get a list of all projects. You can use the query params to filter your
     /// results.
@@ -730,12 +714,12 @@ open class Organization: Service {
         let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ProjectList = { response in
@@ -750,7 +734,6 @@ open class Organization: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new project.
     ///
@@ -771,13 +754,13 @@ open class Organization: Service {
         let apiParams: [String: Any?] = [
             "projectId": projectId,
             "name": name,
-            "region": region?.rawValue
+            "region": region?.rawValue,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -792,7 +775,6 @@ open class Organization: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a project.
     ///
@@ -825,7 +807,6 @@ open class Organization: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a project by its unique ID.
     ///
@@ -849,7 +830,7 @@ open class Organization: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -864,7 +845,6 @@ open class Organization: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a project by its unique ID.
     ///
@@ -883,15 +863,14 @@ open class Organization: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
-
 }

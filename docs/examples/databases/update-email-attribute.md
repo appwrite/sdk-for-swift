@@ -11,10 +11,10 @@ let databases = Databases(client)
 let attributeEmail = try await databases.updateEmailAttribute(
     databaseId: "<DATABASE_ID>",
     collectionId: "<COLLECTION_ID>",
-    key: "",
+    key: "<KEY>",
     required: false,
     default: "email@example.com",
-    newKey: "" // optional
+    newKey: "<NEW_KEY>" // optional
 )
 
 ```

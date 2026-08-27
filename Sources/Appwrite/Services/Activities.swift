@@ -1,9 +1,9 @@
-import AsyncHTTPClient
-import Foundation
-import NIO
-import JSONCodable
 import AppwriteEnums
 import AppwriteModels
+import AsyncHTTPClient
+import Foundation
+import JSONCodable
+import NIO
 
 /// The Activities service allows you to list and inspect project activity events.
 open class Activities: Service {
@@ -27,7 +27,7 @@ open class Activities: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ActivityEventList = { response in
@@ -42,10 +42,8 @@ open class Activities: Service {
             converter: converter
         )
     }
-
     ///
     /// Get event by ID.
-    /// 
     ///
     /// - Parameters:
     ///   - eventId: String
@@ -62,7 +60,7 @@ open class Activities: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ActivityEvent = { response in
@@ -77,6 +75,4 @@ open class Activities: Service {
             converter: converter
         )
     }
-
-
 }

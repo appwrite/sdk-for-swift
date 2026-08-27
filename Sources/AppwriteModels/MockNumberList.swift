@@ -39,11 +39,11 @@ open class MockNumberList: Codable {
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
-            "mockNumbers": mockNumbers.map { $0.toMap() } as Any
+            "mockNumbers": mockNumbers.map { $0.toMap() } as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> MockNumberList {
+    public static func from(map: [String: Any]) -> MockNumberList {
         return MockNumberList(
             total: map["total"] as! Int,
             mockNumbers: (map["mockNumbers"] as! [[String: Any]]).map { MockNumber.from(map: $0) }

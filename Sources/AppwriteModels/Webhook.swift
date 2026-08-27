@@ -127,11 +127,11 @@ open class Webhook: Codable {
             "secret": secret as Any,
             "enabled": enabled as Any,
             "logs": logs as Any,
-            "attempts": attempts as Any
+            "attempts": attempts as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Webhook {
+    public static func from(map: [String: Any]) -> Webhook {
         return Webhook(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

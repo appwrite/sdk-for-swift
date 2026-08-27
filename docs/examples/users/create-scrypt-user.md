@@ -13,10 +13,10 @@ let user = try await users.createScryptUser(
     email: "email@example.com",
     password: "password",
     passwordSalt: "<PASSWORD_SALT>",
-    passwordCpu: 0,
-    passwordMemory: 0,
-    passwordParallel: 0,
-    passwordLength: 0,
+    passwordCpu: 8,
+    passwordMemory: 65536,
+    passwordParallel: 1,
+    passwordLength: 64,
     name: "<NAME>" // optional
 )
 

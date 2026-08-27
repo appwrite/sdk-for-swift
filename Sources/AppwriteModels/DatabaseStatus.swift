@@ -135,11 +135,11 @@ open class DatabaseStatus: Codable {
             "syncStandbyCount": syncStandbyCount as Any,
             "syncStateConfirmed": syncStateConfirmed as Any,
             "replicas": replicas.map { $0.toMap() } as Any,
-            "volumes": volumes.map { $0.toMap() } as Any
+            "volumes": volumes.map { $0.toMap() } as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> DatabaseStatus {
+    public static func from(map: [String: Any]) -> DatabaseStatus {
         return DatabaseStatus(
             health: map["health"] as! String,
             ready: map["ready"] as! Bool,

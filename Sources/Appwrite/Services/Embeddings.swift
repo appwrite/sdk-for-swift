@@ -1,18 +1,17 @@
-import AsyncHTTPClient
-import Foundation
-import NIO
-import JSONCodable
 import AppwriteEnums
 import AppwriteModels
+import AsyncHTTPClient
+import Foundation
+import JSONCodable
+import NIO
 
-/// 
+///
 open class Embeddings: Service {
 
     ///
     /// Generate vector embeddings for an array of text using the selected
     /// embedding model. Use the returned vectors to power semantic search and
     /// similarity queries against your vector collections.
-    /// 
     ///
     /// - Parameters:
     ///   - texts: [String]
@@ -28,13 +27,13 @@ open class Embeddings: Service {
 
         let apiParams: [String: Any?] = [
             "texts": texts,
-            "model": model?.rawValue
+            "model": model?.rawValue,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.EmbeddingList = { response in
@@ -49,6 +48,4 @@ open class Embeddings: Service {
             converter: converter
         )
     }
-
-
 }

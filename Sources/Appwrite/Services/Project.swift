@@ -1,9 +1,9 @@
-import AsyncHTTPClient
-import Foundation
-import NIO
-import JSONCodable
 import AppwriteEnums
 import AppwriteModels
+import AsyncHTTPClient
+import Foundation
+import JSONCodable
+import NIO
 
 /// The Project service allows you to manage all the projects in your Appwrite server.
 open class Project: Service {
@@ -14,8 +14,7 @@ open class Project: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Project
     ///
-    open func get(
-    ) async throws -> AppwriteModels.Project {
+    open func get() async throws -> AppwriteModels.Project {
         let apiPath: String = "/project"
 
         let apiParams: [String: Any] = [:]
@@ -36,34 +35,32 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a project.
     ///
     /// - Throws: Exception if the request fails
     /// - Returns: Any
     ///
-    open func delete(
-    ) async throws -> Any {
+    open func delete() async throws -> Any {
         let apiPath: String = "/project"
 
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Update properties of a specific auth method. Use this endpoint to enable or
-    /// disable a method in your project. 
+    /// disable a method in your project.
     ///
     /// - Parameters:
     ///   - methodId: AppwriteEnums.ProjectAuthMethodId
@@ -85,7 +82,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -100,7 +97,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a list of all API keys from the current project.
     ///
@@ -118,12 +114,12 @@ open class Project: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.KeyList = { response in
@@ -138,11 +134,10 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new ephemeral API key. It's recommended to have multiple API keys
     /// with strict scopes for separate functions within your project.
-    /// 
+    ///
     /// You can also create a standard API key if you need a longer-lived key
     /// instead.
     ///
@@ -160,13 +155,13 @@ open class Project: Service {
 
         let apiParams: [String: Any?] = [
             "scopes": scopes.map { $0.rawValue },
-            "duration": duration
+            "duration": duration,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.EphemeralKey = { response in
@@ -181,9 +176,8 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
-    /// Get a key by its unique ID. 
+    /// Get a key by its unique ID.
     ///
     /// - Parameters:
     ///   - keyId: String
@@ -200,7 +194,7 @@ open class Project: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Key = { response in
@@ -215,7 +209,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a key by its unique ID. Use this endpoint to update the name,
     /// scopes, or expiration time of an API key.
@@ -240,13 +233,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "name": name,
             "scopes": scopes.map { $0.rawValue },
-            "expire": expire
+            "expire": expire,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Key = { response in
@@ -261,7 +254,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a key by its unique ID. Once deleted, the key can no longer be used
     /// to authenticate API calls.
@@ -281,16 +273,16 @@ open class Project: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Update the project labels. Labels can be used to easily filter projects in
     /// an organization.
@@ -312,7 +304,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -327,7 +319,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a list of all mock phones in the project. This endpoint returns an
     /// array of all mock phones and their OTPs.
@@ -346,12 +337,12 @@ open class Project: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.MockNumberList = { response in
@@ -366,7 +357,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new mock phone for your project. Use this endpoint to register a
     /// mock phone number and its sign-in OTP for your testers.
@@ -385,13 +375,13 @@ open class Project: Service {
 
         let apiParams: [String: Any?] = [
             "number": number,
-            "otp": otp
+            "otp": otp,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.MockNumber = { response in
@@ -406,7 +396,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a mock phone by its unique number. This endpoint returns the mock
     /// phone's OTP.
@@ -426,7 +415,7 @@ open class Project: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.MockNumber = { response in
@@ -441,7 +430,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a mock phone by its unique number. Use this endpoint to update the
     /// mock phone's OTP.
@@ -466,7 +454,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.MockNumber = { response in
@@ -481,7 +469,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a mock phone by its unique number. This endpoint removes the mock
     /// phone and its OTP configuration from the project.
@@ -501,16 +488,16 @@ open class Project: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Get a list of all OAuth2 providers supported by the server, along with the
     /// project's configuration for each. Credential fields are write-only and
@@ -530,12 +517,12 @@ open class Project: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2ProviderList = { response in
@@ -550,7 +537,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the OAuth2 server (OIDC provider) configuration.
     ///
@@ -610,13 +596,13 @@ open class Project: Service {
             "userCodeFormat": userCodeFormat,
             "deviceCodeDuration": deviceCodeDuration,
             "defaultScopes": defaultScopes,
-            "installationScopes": installationScopes
+            "installationScopes": installationScopes,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -631,7 +617,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Amazon configuration.
     ///
@@ -652,13 +637,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Amazon = { response in
@@ -673,7 +658,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Apple configuration.
     ///
@@ -700,13 +684,13 @@ open class Project: Service {
             "keyId": keyId,
             "teamId": teamId,
             "p8File": p8File,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Apple = { response in
@@ -721,7 +705,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Appwrite configuration.
     ///
@@ -742,13 +725,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Appwrite = { response in
@@ -763,7 +746,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Auth0 configuration.
     ///
@@ -787,13 +769,13 @@ open class Project: Service {
             "clientId": clientId,
             "clientSecret": clientSecret,
             "endpoint": endpoint,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Auth0 = { response in
@@ -808,7 +790,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Authentik configuration.
     ///
@@ -832,13 +813,13 @@ open class Project: Service {
             "clientId": clientId,
             "clientSecret": clientSecret,
             "endpoint": endpoint,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Authentik = { response in
@@ -853,7 +834,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Autodesk configuration.
     ///
@@ -874,13 +854,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Autodesk = { response in
@@ -895,7 +875,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Bitbucket configuration.
     ///
@@ -916,13 +895,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "key": key,
             "secret": secret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Bitbucket = { response in
@@ -937,7 +916,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Bitly configuration.
     ///
@@ -958,13 +936,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Bitly = { response in
@@ -979,7 +957,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Box configuration.
     ///
@@ -1000,13 +977,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Box = { response in
@@ -1021,7 +998,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Dailymotion configuration.
     ///
@@ -1042,13 +1018,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "apiKey": apiKey,
             "apiSecret": apiSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Dailymotion = { response in
@@ -1063,7 +1039,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Discord configuration.
     ///
@@ -1084,13 +1059,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Discord = { response in
@@ -1105,7 +1080,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Disqus configuration.
     ///
@@ -1126,13 +1100,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "publicKey": publicKey,
             "secretKey": secretKey,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Disqus = { response in
@@ -1147,7 +1121,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Dropbox configuration.
     ///
@@ -1168,13 +1141,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "appKey": appKey,
             "appSecret": appSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Dropbox = { response in
@@ -1189,7 +1162,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Etsy configuration.
     ///
@@ -1210,13 +1182,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "keyString": keyString,
             "sharedSecret": sharedSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Etsy = { response in
@@ -1231,7 +1203,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Facebook configuration.
     ///
@@ -1252,13 +1223,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "appId": appId,
             "appSecret": appSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Facebook = { response in
@@ -1273,7 +1244,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Figma configuration.
     ///
@@ -1294,13 +1264,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Figma = { response in
@@ -1315,7 +1285,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 FusionAuth configuration.
     ///
@@ -1339,13 +1308,13 @@ open class Project: Service {
             "clientId": clientId,
             "clientSecret": clientSecret,
             "endpoint": endpoint,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2FusionAuth = { response in
@@ -1360,7 +1329,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 GitHub configuration.
     ///
@@ -1381,13 +1349,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Github = { response in
@@ -1402,7 +1370,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Gitlab configuration.
     ///
@@ -1426,13 +1393,13 @@ open class Project: Service {
             "applicationId": applicationId,
             "secret": secret,
             "endpoint": endpoint,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Gitlab = { response in
@@ -1447,7 +1414,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Google configuration.
     ///
@@ -1471,13 +1437,13 @@ open class Project: Service {
             "clientId": clientId,
             "clientSecret": clientSecret,
             "prompt": prompt?.map { $0.rawValue },
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Google = { response in
@@ -1492,7 +1458,47 @@ open class Project: Service {
             converter: converter
         )
     }
+    ///
+    /// Update the project OAuth2 Hugging Face configuration.
+    ///
+    /// - Parameters:
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.OAuth2HuggingFace
+    ///
+    open func updateOAuth2HuggingFace(
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.OAuth2HuggingFace {
+        let apiPath: String = "/project/oauth2/huggingface"
 
+        let apiParams: [String: Any?] = [
+            "clientId": clientId,
+            "clientSecret": clientSecret,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.OAuth2HuggingFace = { response in
+            return AppwriteModels.OAuth2HuggingFace.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
     ///
     /// Update the project OAuth2 Keycloak configuration.
     ///
@@ -1519,13 +1525,13 @@ open class Project: Service {
             "clientSecret": clientSecret,
             "endpoint": endpoint,
             "realmName": realmName,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Keycloak = { response in
@@ -1540,7 +1546,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Kick configuration.
     ///
@@ -1561,13 +1566,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Kick = { response in
@@ -1582,7 +1587,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Linkedin configuration.
     ///
@@ -1603,13 +1607,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "primaryClientSecret": primaryClientSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Linkedin = { response in
@@ -1624,7 +1628,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Microsoft configuration.
     ///
@@ -1648,13 +1651,13 @@ open class Project: Service {
             "applicationId": applicationId,
             "applicationSecret": applicationSecret,
             "tenant": tenant,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Microsoft = { response in
@@ -1669,7 +1672,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Notion configuration.
     ///
@@ -1690,13 +1692,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "oauthClientId": oauthClientId,
             "oauthClientSecret": oauthClientSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Notion = { response in
@@ -1711,7 +1713,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Oidc configuration.
     ///
@@ -1750,13 +1751,13 @@ open class Project: Service {
             "userInfoURL": userInfoURL,
             "prompt": prompt?.map { $0.rawValue },
             "maxAge": maxAge,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Oidc = { response in
@@ -1771,7 +1772,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Okta configuration.
     ///
@@ -1798,13 +1798,13 @@ open class Project: Service {
             "clientSecret": clientSecret,
             "domain": domain,
             "authorizationServerId": authorizationServerId,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Okta = { response in
@@ -1819,7 +1819,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Paypal configuration.
     ///
@@ -1840,13 +1839,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "secretKey": secretKey,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Paypal = { response in
@@ -1861,7 +1860,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 PaypalSandbox configuration.
     ///
@@ -1882,13 +1880,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "secretKey": secretKey,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Paypal = { response in
@@ -1903,7 +1901,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Podio configuration.
     ///
@@ -1924,13 +1921,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Podio = { response in
@@ -1945,7 +1942,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Salesforce configuration.
     ///
@@ -1966,13 +1962,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "customerKey": customerKey,
             "customerSecret": customerSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Salesforce = { response in
@@ -1987,7 +1983,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Slack configuration.
     ///
@@ -2008,13 +2003,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Slack = { response in
@@ -2029,7 +2024,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Spotify configuration.
     ///
@@ -2050,13 +2044,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Spotify = { response in
@@ -2071,7 +2065,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Stripe configuration.
     ///
@@ -2092,13 +2085,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "apiSecretKey": apiSecretKey,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Stripe = { response in
@@ -2113,7 +2106,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Tradeshift configuration.
     ///
@@ -2134,13 +2126,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "oauth2ClientId": oauth2ClientId,
             "oauth2ClientSecret": oauth2ClientSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Tradeshift = { response in
@@ -2155,7 +2147,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Tradeshift Sandbox configuration.
     ///
@@ -2176,13 +2167,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "oauth2ClientId": oauth2ClientId,
             "oauth2ClientSecret": oauth2ClientSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Tradeshift = { response in
@@ -2197,7 +2188,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Twitch configuration.
     ///
@@ -2218,13 +2208,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Twitch = { response in
@@ -2239,7 +2229,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 WordPress configuration.
     ///
@@ -2260,13 +2249,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2WordPress = { response in
@@ -2281,7 +2270,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 X configuration.
     ///
@@ -2302,13 +2290,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "customerKey": customerKey,
             "secretKey": secretKey,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2X = { response in
@@ -2323,7 +2311,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Yahoo configuration.
     ///
@@ -2344,13 +2331,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Yahoo = { response in
@@ -2365,7 +2352,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Yandex configuration.
     ///
@@ -2386,13 +2372,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Yandex = { response in
@@ -2407,7 +2393,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Zoho configuration.
     ///
@@ -2428,13 +2413,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Zoho = { response in
@@ -2449,7 +2434,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the project OAuth2 Zoom configuration.
     ///
@@ -2470,13 +2454,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Zoom = { response in
@@ -2491,7 +2475,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a single OAuth2 provider configuration. Credential fields (client
     /// secret, p8 file, key/team IDs) are write-only and always returned empty.
@@ -2511,7 +2494,7 @@ open class Project: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> Any = { response in
@@ -2587,6 +2570,9 @@ open class Project: Service {
             if String(describing: responseMap["$id"] ?? "") == "yahoo" {
                 return AppwriteModels.OAuth2Yahoo.from(map: responseMap)
             }
+            if String(describing: responseMap["$id"] ?? "") == "huggingface" {
+                return AppwriteModels.OAuth2HuggingFace.from(map: responseMap)
+            }
             if String(describing: responseMap["$id"] ?? "") == "linkedin" {
                 return AppwriteModels.OAuth2Linkedin.from(map: responseMap)
             }
@@ -2649,7 +2635,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a list of all platforms in the project. This endpoint returns an array
     /// of all platforms and their configurations.
@@ -2668,12 +2653,12 @@ open class Project: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.PlatformList = { response in
@@ -2688,7 +2673,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new Android platform for your project. Use this endpoint to
     /// register a new Android platform where your users will run your application
@@ -2711,13 +2695,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "platformId": platformId,
             "name": name,
-            "applicationId": applicationId
+            "applicationId": applicationId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.PlatformAndroid = { response in
@@ -2732,7 +2716,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update an Android platform by its unique ID. Use this endpoint to update
     /// the platform's name or application ID.
@@ -2754,13 +2737,13 @@ open class Project: Service {
 
         let apiParams: [String: Any?] = [
             "name": name,
-            "applicationId": applicationId
+            "applicationId": applicationId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.PlatformAndroid = { response in
@@ -2775,7 +2758,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new Apple platform for your project. Use this endpoint to register
     /// a new Apple platform where your users will run your application which will
@@ -2798,13 +2780,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "platformId": platformId,
             "name": name,
-            "bundleIdentifier": bundleIdentifier
+            "bundleIdentifier": bundleIdentifier,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.PlatformApple = { response in
@@ -2819,7 +2801,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update an Apple platform by its unique ID. Use this endpoint to update the
     /// platform's name or bundle identifier.
@@ -2841,13 +2822,13 @@ open class Project: Service {
 
         let apiParams: [String: Any?] = [
             "name": name,
-            "bundleIdentifier": bundleIdentifier
+            "bundleIdentifier": bundleIdentifier,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.PlatformApple = { response in
@@ -2862,7 +2843,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new Linux platform for your project. Use this endpoint to register
     /// a new Linux platform where your users will run your application which will
@@ -2885,13 +2865,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "platformId": platformId,
             "name": name,
-            "packageName": packageName
+            "packageName": packageName,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.PlatformLinux = { response in
@@ -2906,7 +2886,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a Linux platform by its unique ID. Use this endpoint to update the
     /// platform's name or package name.
@@ -2928,13 +2907,13 @@ open class Project: Service {
 
         let apiParams: [String: Any?] = [
             "name": name,
-            "packageName": packageName
+            "packageName": packageName,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.PlatformLinux = { response in
@@ -2949,7 +2928,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new web platform for your project. Use this endpoint to register a
     /// new platform where your users will run your application which will interact
@@ -2972,13 +2950,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "platformId": platformId,
             "name": name,
-            "hostname": hostname
+            "hostname": hostname,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.PlatformWeb = { response in
@@ -2993,7 +2971,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a web platform by its unique ID. Use this endpoint to update the
     /// platform's name or hostname.
@@ -3015,13 +2992,13 @@ open class Project: Service {
 
         let apiParams: [String: Any?] = [
             "name": name,
-            "hostname": hostname
+            "hostname": hostname,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.PlatformWeb = { response in
@@ -3036,7 +3013,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new Windows platform for your project. Use this endpoint to
     /// register a new Windows platform where your users will run your application
@@ -3059,13 +3035,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "platformId": platformId,
             "name": name,
-            "packageIdentifierName": packageIdentifierName
+            "packageIdentifierName": packageIdentifierName,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.PlatformWindows = { response in
@@ -3080,7 +3056,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a Windows platform by its unique ID. Use this endpoint to update the
     /// platform's name or package identifier name.
@@ -3102,13 +3077,13 @@ open class Project: Service {
 
         let apiParams: [String: Any?] = [
             "name": name,
-            "packageIdentifierName": packageIdentifierName
+            "packageIdentifierName": packageIdentifierName,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.PlatformWindows = { response in
@@ -3123,7 +3098,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a platform by its unique ID. This endpoint returns the platform's
     /// details, including its name, type, and key configurations.
@@ -3143,7 +3117,7 @@ open class Project: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> Any = { response in
@@ -3176,7 +3150,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a platform by its unique ID. This endpoint removes the platform and
     /// all its configurations from the project.
@@ -3196,16 +3169,16 @@ open class Project: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Get a list of all project policies and their current configuration.
     ///
@@ -3223,12 +3196,12 @@ open class Project: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.PolicyList = { response in
@@ -3243,7 +3216,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Configures if aliased emails such as subaddresses and emails with suffixes
     /// are denied during new users sign-ups and email updates.
@@ -3265,7 +3237,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -3280,7 +3252,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Configures if only corporate email addresses (non-free and non-disposable
     /// domains) are allowed during new user sign-ups and email updates.
@@ -3302,7 +3273,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -3317,7 +3288,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Configures if disposable emails from known temporary domains are denied
     /// during new users sign-ups and email updates.
@@ -3339,7 +3309,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -3354,7 +3324,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Configures if emails from free providers such as Gmail or Yahoo are denied
     /// during new users sign-ups and email updates.
@@ -3376,7 +3345,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -3391,7 +3360,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Updating this policy allows you to control if team members can see other
     /// members information. When enabled, all team members can see ID, name,
@@ -3423,13 +3391,13 @@ open class Project: Service {
             "userPhone": userPhone,
             "userName": userName,
             "userMFA": userMFA,
-            "userAccessedAt": userAccessedAt
+            "userAccessedAt": userAccessedAt,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -3444,7 +3412,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Updating this policy allows you to control which factors users can use to
     /// complete an MFA challenge. Disabled factors cannot be used to create a
@@ -3472,13 +3439,13 @@ open class Project: Service {
             "totp": totp,
             "email": email,
             "phone": phone,
-            "custom": custom
+            "custom": custom,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -3493,7 +3460,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Updating this policy allows you to control if new passwords are checked
     /// against most common passwords dictionary. When enabled, and user changes
@@ -3516,7 +3482,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -3531,13 +3497,12 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Updates one of password strength policies. Based on total length
     /// configured, previous password hashes are stored, and users cannot choose a
     /// new password that is already stored in the passwird history list, when
     /// updating an user password, or setting new one through password recovery.
-    /// 
+    ///
     /// Keep in mind, while password history policy is disabled, the history is not
     /// being stored. Enabling the policy will not have any history on existing
     /// users, and it will only start to collect and enforce the policy on password
@@ -3560,7 +3525,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -3575,7 +3540,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Updating this policy allows you to control if password strength is checked
     /// against personal data. When enabled, and user sets or changes their
@@ -3599,7 +3563,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -3614,7 +3578,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the password strength requirements for users in the project.
     ///
@@ -3641,13 +3604,13 @@ open class Project: Service {
             "uppercase": uppercase,
             "lowercase": lowercase,
             "number": number,
-            "symbols": symbols
+            "symbols": symbols,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.PolicyPasswordStrength = { response in
@@ -3662,7 +3625,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Updating this policy allows you to control if email alert is sent upon
     /// session creation. When enabled, and user signs into their account, they
@@ -3687,7 +3649,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -3702,7 +3664,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update maximum duration how long sessions created within a project should
     /// stay active for.
@@ -3724,7 +3685,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -3739,7 +3700,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Updating this policy allows you to control if existing sessions should be
     /// invalidated when a password of a user is changed. When enabled, and user
@@ -3762,7 +3722,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -3777,7 +3737,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the maximum number of sessions allowed per user. When the limit is
     /// hit, the oldest session will be deleted to make room for new one.
@@ -3799,7 +3758,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -3814,7 +3773,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the maximum number of users in the project. When the limit is hit or
     /// amount of existing users already exceeded the limit, all users remain
@@ -3837,7 +3795,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -3852,7 +3810,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a policy by its unique ID. This endpoint returns the current
     /// configuration for the requested project policy.
@@ -3872,7 +3829,7 @@ open class Project: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> Any = { response in
@@ -3935,10 +3892,9 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update properties of a specific protocol. Use this endpoint to enable or
-    /// disable a protocol in your project. 
+    /// disable a protocol in your project.
     ///
     /// - Parameters:
     ///   - protocolId: AppwriteEnums.ProjectProtocolId
@@ -3960,7 +3916,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -3975,10 +3931,9 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update properties of a specific service. Use this endpoint to enable or
-    /// disable a service in your project. 
+    /// disable a service in your project.
     ///
     /// - Parameters:
     ///   - serviceId: AppwriteEnums.ProjectServiceId
@@ -4000,7 +3955,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -4015,7 +3970,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update the SMTP configuration for your project. Use this endpoint to
     /// configure your project's SMTP provider with your custom settings for
@@ -4059,13 +4013,13 @@ open class Project: Service {
             "replyToEmail": replyToEmail,
             "replyToName": replyToName,
             "secure": secure?.rawValue,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -4080,9 +4034,8 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
-    /// Send a test email to verify SMTP configuration. 
+    /// Send a test email to verify SMTP configuration.
     ///
     /// - Parameters:
     ///   - emails: [String]
@@ -4100,16 +4053,16 @@ open class Project: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "POST",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Get a list of all custom email templates configured for the project. This
     /// endpoint returns an array of all configured email templates and their
@@ -4129,12 +4082,12 @@ open class Project: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.EmailTemplateList = { response in
@@ -4149,7 +4102,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a custom email template for the specified locale and type. Use this
     /// endpoint to modify the content of your email templates.
@@ -4186,13 +4138,13 @@ open class Project: Service {
             "senderName": senderName,
             "senderEmail": senderEmail,
             "replyToEmail": replyToEmail,
-            "replyToName": replyToName
+            "replyToName": replyToName,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.EmailTemplate = { response in
@@ -4207,7 +4159,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a custom email template for the specified locale and type. This
     /// endpoint returns the template content, subject, and other configuration
@@ -4232,7 +4183,7 @@ open class Project: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.EmailTemplate = { response in
@@ -4247,7 +4198,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a list of all project environment variables.
     ///
@@ -4265,12 +4215,12 @@ open class Project: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.VariableList = { response in
@@ -4285,7 +4235,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new project environment variable. These variables can be accessed
     /// by all functions and sites in the project.
@@ -4310,13 +4259,13 @@ open class Project: Service {
             "variableId": variableId,
             "key": key,
             "value": value,
-            "secret": secret
+            "secret": secret,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Variable = { response in
@@ -4331,9 +4280,8 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
-    /// Get a variable by its unique ID. 
+    /// Get a variable by its unique ID.
     ///
     /// - Parameters:
     ///   - variableId: String
@@ -4350,7 +4298,7 @@ open class Project: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Variable = { response in
@@ -4365,7 +4313,6 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
     /// Update variable by its unique ID.
     ///
@@ -4389,13 +4336,13 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "key": key,
             "value": value,
-            "secret": secret
+            "secret": secret,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Variable = { response in
@@ -4410,9 +4357,8 @@ open class Project: Service {
             converter: converter
         )
     }
-
     ///
-    /// Delete a variable by its unique ID. 
+    /// Delete a variable by its unique ID.
     ///
     /// - Parameters:
     ///   - variableId: String
@@ -4429,15 +4375,14 @@ open class Project: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
-
 }

@@ -39,11 +39,11 @@ open class ColumnIndexList: Codable {
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
-            "indexes": indexes.map { $0.toMap() } as Any
+            "indexes": indexes.map { $0.toMap() } as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> ColumnIndexList {
+    public static func from(map: [String: Any]) -> ColumnIndexList {
         return ColumnIndexList(
             total: map["total"] as! Int,
             indexes: (map["indexes"] as! [[String: Any]]).map { ColumnIndex.from(map: $0) }

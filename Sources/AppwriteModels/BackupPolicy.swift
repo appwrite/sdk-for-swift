@@ -119,11 +119,11 @@ open class BackupPolicy: Codable {
             "retention": retention as Any,
             "schedule": schedule as Any,
             "type": type as Any,
-            "enabled": enabled as Any
+            "enabled": enabled as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> BackupPolicy {
+    public static func from(map: [String: Any]) -> BackupPolicy {
         return BackupPolicy(
             id: map["$id"] as! String,
             name: map["name"] as! String,

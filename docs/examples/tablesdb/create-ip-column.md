@@ -11,9 +11,9 @@ let tablesDB = TablesDB(client)
 let columnIp = try await tablesDB.createIpColumn(
     databaseId: "<DATABASE_ID>",
     tableId: "<TABLE_ID>",
-    key: "",
+    key: "<KEY>",
     required: false,
-    default: "", // optional
+    default: "192.0.2.0", // optional
     array: false // optional
 )
 

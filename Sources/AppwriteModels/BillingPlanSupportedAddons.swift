@@ -47,11 +47,11 @@ open class BillingPlanSupportedAddons: Codable {
         return [
             "baa": baa as Any,
             "premiumGeoDB": premiumGeoDB as Any,
-            "premiumGeoDBOrg": premiumGeoDBOrg as Any
+            "premiumGeoDBOrg": premiumGeoDBOrg as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> BillingPlanSupportedAddons {
+    public static func from(map: [String: Any]) -> BillingPlanSupportedAddons {
         return BillingPlanSupportedAddons(
             baa: map["baa"] as! Bool,
             premiumGeoDB: map["premiumGeoDB"] as! Bool,

@@ -79,11 +79,11 @@ open class PolicyMembershipPrivacy: Codable {
             "userPhone": userPhone as Any,
             "userName": userName as Any,
             "userMFA": userMFA as Any,
-            "userAccessedAt": userAccessedAt as Any
+            "userAccessedAt": userAccessedAt as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> PolicyMembershipPrivacy {
+    public static func from(map: [String: Any]) -> PolicyMembershipPrivacy {
         return PolicyMembershipPrivacy(
             id: map["$id"] as! String,
             userId: map["userId"] as! Bool,

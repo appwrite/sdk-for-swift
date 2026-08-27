@@ -39,11 +39,11 @@ open class PolicySessionDuration: Codable {
     public func toMap() -> [String: Any] {
         return [
             "$id": id as Any,
-            "duration": duration as Any
+            "duration": duration as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> PolicySessionDuration {
+    public static func from(map: [String: Any]) -> PolicySessionDuration {
         return PolicySessionDuration(
             id: map["$id"] as! String,
             duration: map["duration"] as! Int

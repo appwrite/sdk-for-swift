@@ -39,11 +39,11 @@ open class PlatformList: Codable {
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
-            "platforms": platforms as Any
+            "platforms": platforms as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> PlatformList {
+    public static func from(map: [String: Any]) -> PlatformList {
         return PlatformList(
             total: map["total"] as! Int,
             platforms: (map["platforms"] as! [Any]).map { AnyCodable($0) }

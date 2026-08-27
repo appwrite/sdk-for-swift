@@ -1,9 +1,9 @@
-import AsyncHTTPClient
-import Foundation
-import NIO
-import JSONCodable
 import AppwriteEnums
 import AppwriteModels
+import AsyncHTTPClient
+import Foundation
+import JSONCodable
+import NIO
 
 /// The Avatars service aims to help you complete everyday tasks related to your app image, icons, and avatars.
 open class Avatars: Service {
@@ -14,7 +14,7 @@ open class Avatars: Service {
     /// /account/sessions](https://appwrite.io/docs/references/cloud/client-web/account#getSessions)
     /// endpoint. Use width, height and quality arguments to change the output
     /// settings.
-    /// 
+    ///
     /// When one dimension is specified and the other is 0, the image is scaled
     /// with preserved aspect ratio. If both dimensions are 0, the API provides an
     /// image at source quality. If dimensions are not specified, the default size
@@ -40,12 +40,12 @@ open class Avatars: Service {
         let apiParams: [String: Any?] = [
             "width": width,
             "height": height,
-            "quality": quality
+            "quality": quality,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "image/png"
+            "accept": "image/png",
         ]
 
         return try await client.call(
@@ -55,17 +55,15 @@ open class Avatars: Service {
             params: apiParams
         )
     }
-
     ///
     /// The credit card endpoint will return you the icon of the credit card
     /// provider you need. Use width, height and quality arguments to change the
     /// output settings.
-    /// 
+    ///
     /// When one dimension is specified and the other is 0, the image is scaled
     /// with preserved aspect ratio. If both dimensions are 0, the API provides an
     /// image at source quality. If dimensions are not specified, the default size
     /// of image returned is 100x100px.
-    /// 
     ///
     /// - Parameters:
     ///   - code: AppwriteEnums.CreditCard
@@ -87,12 +85,12 @@ open class Avatars: Service {
         let apiParams: [String: Any?] = [
             "width": width,
             "height": height,
-            "quality": quality
+            "quality": quality,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "image/png"
+            "accept": "image/png",
         ]
 
         return try await client.call(
@@ -102,11 +100,10 @@ open class Avatars: Service {
             params: apiParams
         )
     }
-
     ///
     /// Use this endpoint to fetch the favorite icon (AKA favicon) of any remote
     /// website URL.
-    /// 
+    ///
     /// This endpoint does not follow HTTP redirects.
     ///
     /// - Parameters:
@@ -125,7 +122,7 @@ open class Avatars: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "image/*"
+            "accept": "image/*",
         ]
 
         return try await client.call(
@@ -135,18 +132,16 @@ open class Avatars: Service {
             params: apiParams
         )
     }
-
     ///
     /// You can use this endpoint to show different country flags icons to your
     /// users. The code argument receives the 2 letter country code. Use width,
     /// height and quality arguments to change the output settings. Country codes
     /// follow the [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) standard.
-    /// 
+    ///
     /// When one dimension is specified and the other is 0, the image is scaled
     /// with preserved aspect ratio. If both dimensions are 0, the API provides an
     /// image at source quality. If dimensions are not specified, the default size
     /// of image returned is 100x100px.
-    /// 
     ///
     /// - Parameters:
     ///   - code: AppwriteEnums.Flag
@@ -168,12 +163,12 @@ open class Avatars: Service {
         let apiParams: [String: Any?] = [
             "width": width,
             "height": height,
-            "quality": quality
+            "quality": quality,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "image/png"
+            "accept": "image/png",
         ]
 
         return try await client.call(
@@ -183,18 +178,17 @@ open class Avatars: Service {
             params: apiParams
         )
     }
-
     ///
     /// Use this endpoint to fetch a remote image URL and crop it to any image size
     /// you want. This endpoint is very useful if you need to crop and display
     /// remote images in your app or in case you want to make sure a 3rd party
     /// image is properly served using a TLS protocol.
-    /// 
+    ///
     /// When one dimension is specified and the other is 0, the image is scaled
     /// with preserved aspect ratio. If both dimensions are 0, the API provides an
     /// image at source quality. If dimensions are not specified, the default size
     /// of image returned is 400x400px.
-    /// 
+    ///
     /// This endpoint does not follow HTTP redirects.
     ///
     /// - Parameters:
@@ -214,12 +208,12 @@ open class Avatars: Service {
         let apiParams: [String: Any?] = [
             "url": url,
             "width": width,
-            "height": height
+            "height": height,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "image/*"
+            "accept": "image/*",
         ]
 
         return try await client.call(
@@ -229,24 +223,22 @@ open class Avatars: Service {
             params: apiParams
         )
     }
-
     ///
     /// Use this endpoint to show your user initials avatar icon on your website or
     /// app. By default, this route will try to print your logged-in user name or
     /// email initials. You can also overwrite the user name if you pass the 'name'
     /// parameter. If no name is given and no user is logged, an empty avatar will
     /// be returned.
-    /// 
+    ///
     /// You can use the color and background params to change the avatar colors. By
     /// default, a random theme will be selected. The random theme will persist for
     /// the user's initials when reloading the same theme will always return for
     /// the same initials.
-    /// 
+    ///
     /// When one dimension is specified and the other is 0, the image is scaled
     /// with preserved aspect ratio. If both dimensions are 0, the API provides an
     /// image at source quality. If dimensions are not specified, the default size
     /// of image returned is 100x100px.
-    /// 
     ///
     /// - Parameters:
     ///   - name: String (optional)
@@ -268,12 +260,12 @@ open class Avatars: Service {
             "name": name,
             "width": width,
             "height": height,
-            "background": background
+            "background": background,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "image/png"
+            "accept": "image/png",
         ]
 
         return try await client.call(
@@ -283,11 +275,70 @@ open class Avatars: Service {
             params: apiParams
         )
     }
+    ///
+    /// Returns the best available profile photo for a user. The endpoint tries
+    /// each source in priority order and returns the first successful result:
+    /// OAuth2 identity photo, Gravatar, Libravatar, Appwrite Initials, built-in
+    /// static fallback.
+    ///
+    /// The photo resolves for the currently authenticated user unless `userId`
+    /// points at another user. Passing `emailHash` and/or `name` resolves the
+    /// avatar from those values alone: the hash is looked up on Gravatar and
+    /// Libravatar, the name is rendered as initials, and the user's own identity
+    /// photos, email, and name leave the chain so they never shadow the avatar
+    /// being asked for. Emails are only ever accepted pre-hashed, so no address
+    /// ends up in a URL.
+    ///
+    /// - Parameters:
+    ///   - width: Int (optional)
+    ///   - height: Int (optional)
+    ///   - quality: Int (optional)
+    ///   - output: String (optional)
+    ///   - rating: String (optional)
+    ///   - userId: String (optional)
+    ///   - emailHash: String (optional)
+    ///   - name: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: ByteBuffer
+    ///
+    open func getPhoto(
+        width: Int? = nil,
+        height: Int? = nil,
+        quality: Int? = nil,
+        output: String? = nil,
+        rating: String? = nil,
+        userId: String? = nil,
+        emailHash: String? = nil,
+        name: String? = nil
+    ) async throws -> ByteBuffer {
+        let apiPath: String = "/avatars/photo"
 
+        let apiParams: [String: Any?] = [
+            "width": width,
+            "height": height,
+            "quality": quality,
+            "output": output,
+            "rating": rating,
+            "userId": userId,
+            "emailHash": emailHash,
+            "name": name,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "image/*",
+        ]
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams
+        )
+    }
     ///
     /// Converts a given plain text to a QR code image. You can use the query
     /// parameters to change the size and style of the resulting image.
-    /// 
     ///
     /// - Parameters:
     ///   - text: String
@@ -309,12 +360,12 @@ open class Avatars: Service {
             "text": text,
             "size": size,
             "margin": margin,
-            "download": download
+            "download": download,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "image/png"
+            "accept": "image/png",
         ]
 
         return try await client.call(
@@ -324,15 +375,14 @@ open class Avatars: Service {
             params: apiParams
         )
     }
-
     ///
     /// Use this endpoint to capture a screenshot of any website URL. This endpoint
     /// uses a headless browser to render the webpage and capture it as an image.
-    /// 
+    ///
     /// You can configure the browser viewport size, theme, user agent,
     /// geolocation, permissions, and more. Capture either just the viewport or the
     /// full page scroll.
-    /// 
+    ///
     /// When width and height are specified, the image is resized accordingly. If
     /// both dimensions are 0, the API provides an image at original size. If
     /// dimensions are not specified, the default viewport size is 1280x720px.
@@ -405,12 +455,12 @@ open class Avatars: Service {
             "width": width,
             "height": height,
             "quality": quality,
-            "output": output?.rawValue
+            "output": output?.rawValue,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "image/png"
+            "accept": "image/png",
         ]
 
         return try await client.call(
@@ -420,6 +470,4 @@ open class Avatars: Service {
             params: apiParams
         )
     }
-
-
 }

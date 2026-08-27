@@ -1,9 +1,9 @@
-import AsyncHTTPClient
-import Foundation
-import NIO
-import JSONCodable
 import AppwriteEnums
 import AppwriteModels
+import AsyncHTTPClient
+import Foundation
+import JSONCodable
+import NIO
 
 /// The Advisor service surfaces actionable reports about your project resources, with CTA descriptors for one-click remediation in the console.
 open class Advisor: Service {
@@ -11,7 +11,6 @@ open class Advisor: Service {
     ///
     /// Get a list of all the project's analyzer reports. You can use the query
     /// params to filter your results.
-    /// 
     ///
     /// - Parameters:
     ///   - queries: [String] (optional)
@@ -27,12 +26,12 @@ open class Advisor: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ReportList = { response in
@@ -47,11 +46,9 @@ open class Advisor: Service {
             converter: converter
         )
     }
-
     ///
     /// Get an analyzer report by its unique ID. The response includes the report's
     /// metadata and the nested insights it produced.
-    /// 
     ///
     /// - Parameters:
     ///   - reportId: String
@@ -68,7 +65,7 @@ open class Advisor: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Report = { response in
@@ -83,11 +80,9 @@ open class Advisor: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete an analyzer report by its unique ID. Nested insights and CTA
     /// metadata are removed asynchronously by the deletes worker.
-    /// 
     ///
     /// - Parameters:
     ///   - reportId: String
@@ -104,20 +99,19 @@ open class Advisor: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// List the insights produced under a single analyzer report. You can use the
     /// query params to filter your results further.
-    /// 
     ///
     /// - Parameters:
     ///   - reportId: String
@@ -136,12 +130,12 @@ open class Advisor: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.InsightList = { response in
@@ -156,10 +150,8 @@ open class Advisor: Service {
             converter: converter
         )
     }
-
     ///
     /// Get an insight by its unique ID, scoped to its parent report.
-    /// 
     ///
     /// - Parameters:
     ///   - reportId: String
@@ -179,7 +171,7 @@ open class Advisor: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Insight = { response in
@@ -194,6 +186,4 @@ open class Advisor: Service {
             converter: converter
         )
     }
-
-
 }

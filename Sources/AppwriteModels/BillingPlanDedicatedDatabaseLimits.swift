@@ -175,11 +175,11 @@ open class BillingPlanDedicatedDatabaseLimits: Codable {
             "maxSqlApiAllowedStatements": maxSqlApiAllowedStatements as Any,
             "allowedSqlStatements": allowedSqlStatements as Any,
             "allowedStorageClasses": allowedStorageClasses as Any,
-            "allowedSyncModes": allowedSyncModes as Any
+            "allowedSyncModes": allowedSyncModes as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> BillingPlanDedicatedDatabaseLimits {
+    public static func from(map: [String: Any]) -> BillingPlanDedicatedDatabaseLimits {
         return BillingPlanDedicatedDatabaseLimits(
             minCpu: map["minCpu"] as? Int,
             maxCpu: map["maxCpu"] as? Int,

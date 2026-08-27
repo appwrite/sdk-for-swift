@@ -39,11 +39,11 @@ open class ResourceTokenList: Codable {
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
-            "tokens": tokens.map { $0.toMap() } as Any
+            "tokens": tokens.map { $0.toMap() } as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> ResourceTokenList {
+    public static func from(map: [String: Any]) -> ResourceTokenList {
         return ResourceTokenList(
             total: map["total"] as! Int,
             tokens: (map["tokens"] as! [[String: Any]]).map { ResourceToken.from(map: $0) }

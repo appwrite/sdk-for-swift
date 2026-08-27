@@ -1,9 +1,9 @@
-import AsyncHTTPClient
-import Foundation
-import NIO
-import JSONCodable
 import AppwriteEnums
 import AppwriteModels
+import AsyncHTTPClient
+import Foundation
+import JSONCodable
+import NIO
 
 /// The Functions Service allows you view, create and manage your Cloud Functions.
 open class Functions: Service {
@@ -29,12 +29,12 @@ open class Functions: Service {
         let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.FunctionList = { response in
@@ -49,7 +49,6 @@ open class Functions: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new function. You can pass a list of
     /// [permissions](https://appwrite.io/docs/permissions) to allow different
@@ -130,13 +129,13 @@ open class Functions: Service {
             "providerPaths": providerPaths,
             "buildSpecification": buildSpecification,
             "runtimeSpecification": runtimeSpecification,
-            "deploymentRetention": deploymentRetention
+            "deploymentRetention": deploymentRetention,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Function = { response in
@@ -151,22 +150,20 @@ open class Functions: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a list of all runtimes that are currently active on your instance.
     ///
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.RuntimeList
     ///
-    open func listRuntimes(
-    ) async throws -> AppwriteModels.RuntimeList {
+    open func listRuntimes() async throws -> AppwriteModels.RuntimeList {
         let apiPath: String = "/functions/runtimes"
 
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.RuntimeList = { response in
@@ -181,7 +178,6 @@ open class Functions: Service {
             converter: converter
         )
     }
-
     ///
     /// List allowed function specifications for this instance.
     ///
@@ -201,7 +197,7 @@ open class Functions: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.SpecificationList = { response in
@@ -216,7 +212,6 @@ open class Functions: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a function by its unique ID.
     ///
@@ -235,7 +230,7 @@ open class Functions: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Function = { response in
@@ -250,7 +245,6 @@ open class Functions: Service {
             converter: converter
         )
     }
-
     ///
     /// Update function by its unique ID.
     ///
@@ -328,13 +322,13 @@ open class Functions: Service {
             "providerPaths": providerPaths,
             "buildSpecification": buildSpecification,
             "runtimeSpecification": runtimeSpecification,
-            "deploymentRetention": deploymentRetention
+            "deploymentRetention": deploymentRetention,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Function = { response in
@@ -349,7 +343,6 @@ open class Functions: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a function by its unique ID.
     ///
@@ -368,16 +361,16 @@ open class Functions: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Update the function active deployment. Use this endpoint to switch the code
     /// deployment that should be used when visitor opens your function.
@@ -402,7 +395,7 @@ open class Functions: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Function = { response in
@@ -417,7 +410,6 @@ open class Functions: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a list of all the function's code deployments. You can use the query
     /// params to filter your results.
@@ -442,12 +434,12 @@ open class Functions: Service {
         let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.DeploymentList = { response in
@@ -462,17 +454,16 @@ open class Functions: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new function code deployment. Use this endpoint to upload a new
     /// version of your code function. To execute your newly uploaded code, you'll
     /// need to update the function's deployment to use your new deployment UID.
-    /// 
+    ///
     /// This endpoint accepts a tar.gz file compressed with your code. Make sure to
     /// include any dependencies your code has within the compressed file. You can
     /// learn more about code packaging in the [Appwrite Cloud Functions
     /// tutorial](https://appwrite.io/docs/functions).
-    /// 
+    ///
     /// Use the "command" param to set the entrypoint used to execute your code.
     ///
     /// - Parameters:
@@ -499,13 +490,13 @@ open class Functions: Service {
             "entrypoint": entrypoint,
             "commands": commands,
             "code": code,
-            "activate": activate
+            "activate": activate,
         ]
 
         var apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "multipart/form-data",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Deployment = { response in
@@ -524,7 +515,6 @@ open class Functions: Service {
             onProgress: onProgress
         )
     }
-
     ///
     /// Create a new build for an existing function deployment. This endpoint
     /// allows you to rebuild a deployment with the updated function configuration,
@@ -549,13 +539,13 @@ open class Functions: Service {
 
         let apiParams: [String: Any?] = [
             "deploymentId": deploymentId,
-            "buildId": buildId
+            "buildId": buildId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Deployment = { response in
@@ -570,10 +560,9 @@ open class Functions: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a deployment based on a template.
-    /// 
+    ///
     /// Use this endpoint with combination of
     /// [listTemplates](https://appwrite.io/docs/products/functions/templates) to
     /// find the template details.
@@ -607,13 +596,13 @@ open class Functions: Service {
             "rootDirectory": rootDirectory,
             "type": type.rawValue,
             "reference": reference,
-            "activate": activate
+            "activate": activate,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Deployment = { response in
@@ -628,10 +617,9 @@ open class Functions: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a deployment when a function is connected to VCS.
-    /// 
+    ///
     /// This endpoint lets you create deployment from a branch, commit, or a tag.
     ///
     /// - Parameters:
@@ -654,13 +642,13 @@ open class Functions: Service {
         let apiParams: [String: Any?] = [
             "type": type.rawValue,
             "reference": reference,
-            "activate": activate
+            "activate": activate,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Deployment = { response in
@@ -675,7 +663,6 @@ open class Functions: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a function deployment by its unique ID.
     ///
@@ -697,7 +684,7 @@ open class Functions: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Deployment = { response in
@@ -712,7 +699,6 @@ open class Functions: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a code deployment by its unique ID.
     ///
@@ -734,16 +720,16 @@ open class Functions: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Get a function deployment content by its unique ID. The endpoint response
     /// return with a 'Content-Disposition: attachment' header that tells the
@@ -769,12 +755,12 @@ open class Functions: Service {
 
         let apiParams: [String: Any?] = [
             "type": type?.rawValue,
-            "token": token
+            "token": token,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "*/*"
+            "accept": "*/*",
         ]
 
         return try await client.call(
@@ -784,7 +770,6 @@ open class Functions: Service {
             params: apiParams
         )
     }
-
     ///
     /// Cancel an ongoing function deployment build. If the build is already in
     /// progress, it will be stopped and marked as canceled. If the build hasn't
@@ -811,7 +796,7 @@ open class Functions: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Deployment = { response in
@@ -826,7 +811,6 @@ open class Functions: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a list of all the current user function execution logs. You can use the
     /// query params to filter your results.
@@ -848,12 +832,12 @@ open class Functions: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ExecutionList = { response in
@@ -868,7 +852,6 @@ open class Functions: Service {
             converter: converter
         )
     }
-
     ///
     /// Trigger a function execution. The returned object will return you the
     /// current execution status. You can ping the `Get Execution` endpoint to get
@@ -904,13 +887,13 @@ open class Functions: Service {
             "path": path,
             "method": method?.rawValue,
             "headers": headers,
-            "scheduledAt": scheduledAt
+            "scheduledAt": scheduledAt,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Execution = { response in
@@ -925,7 +908,6 @@ open class Functions: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a function execution log by its unique ID.
     ///
@@ -947,7 +929,7 @@ open class Functions: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Execution = { response in
@@ -962,7 +944,6 @@ open class Functions: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a function execution by its unique ID.
     ///
@@ -984,16 +965,16 @@ open class Functions: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Get a list of all variables of a specific function.
     ///
@@ -1014,12 +995,12 @@ open class Functions: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.VariableList = { response in
@@ -1034,7 +1015,6 @@ open class Functions: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new function environment variable. These variables can be accessed
     /// in the function at runtime as environment variables.
@@ -1062,13 +1042,13 @@ open class Functions: Service {
             "variableId": variableId,
             "key": key,
             "value": value,
-            "secret": secret
+            "secret": secret,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Variable = { response in
@@ -1083,7 +1063,6 @@ open class Functions: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a variable by its unique ID.
     ///
@@ -1105,7 +1084,7 @@ open class Functions: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Variable = { response in
@@ -1120,7 +1099,6 @@ open class Functions: Service {
             converter: converter
         )
     }
-
     ///
     /// Update variable by its unique ID.
     ///
@@ -1147,13 +1125,13 @@ open class Functions: Service {
         let apiParams: [String: Any?] = [
             "key": key,
             "value": value,
-            "secret": secret
+            "secret": secret,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Variable = { response in
@@ -1168,7 +1146,6 @@ open class Functions: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a variable by its unique ID.
     ///
@@ -1190,15 +1167,14 @@ open class Functions: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
-
 }

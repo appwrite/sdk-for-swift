@@ -1,6 +1,6 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
-import AppwriteEnums
 
 /// ProjectService
 open class ProjectService: Codable {
@@ -40,11 +40,11 @@ open class ProjectService: Codable {
     public func toMap() -> [String: Any] {
         return [
             "$id": id.rawValue as Any,
-            "enabled": enabled as Any
+            "enabled": enabled as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> ProjectService {
+    public static func from(map: [String: Any]) -> ProjectService {
         return ProjectService(
             id: AppwriteEnums.ProjectServiceId(rawValue: map["$id"] as! String)!,
             enabled: map["enabled"] as! Bool

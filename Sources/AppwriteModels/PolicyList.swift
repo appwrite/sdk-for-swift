@@ -39,11 +39,11 @@ open class PolicyList: Codable {
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
-            "policies": policies as Any
+            "policies": policies as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> PolicyList {
+    public static func from(map: [String: Any]) -> PolicyList {
         return PolicyList(
             total: map["total"] as! Int,
             policies: (map["policies"] as! [Any]).map { AnyCodable($0) }

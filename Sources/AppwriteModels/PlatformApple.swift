@@ -1,6 +1,6 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
-import AppwriteEnums
 
 /// Platform Apple
 open class PlatformApple: Codable {
@@ -72,11 +72,11 @@ open class PlatformApple: Codable {
             "$updatedAt": updatedAt as Any,
             "name": name as Any,
             "type": type.rawValue as Any,
-            "bundleIdentifier": bundleIdentifier as Any
+            "bundleIdentifier": bundleIdentifier as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> PlatformApple {
+    public static func from(map: [String: Any]) -> PlatformApple {
         return PlatformApple(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

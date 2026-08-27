@@ -35,7 +35,7 @@ open class Oauth2Approve: Codable {
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Oauth2Approve {
+    public static func from(map: [String: Any]) -> Oauth2Approve {
         return Oauth2Approve(
             redirectUrl: map["redirectUrl"] as! String
         )

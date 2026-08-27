@@ -55,11 +55,11 @@ open class ProxyInvalidation: Codable {
             "domain": domain as Any,
             "type": type as Any,
             "reference": reference as Any,
-            "status": status as Any
+            "status": status as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> ProxyInvalidation {
+    public static func from(map: [String: Any]) -> ProxyInvalidation {
         return ProxyInvalidation(
             domain: map["domain"] as! String,
             type: map["type"] as! String,

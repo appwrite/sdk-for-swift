@@ -13,7 +13,7 @@ open class MockNumber: Codable {
 
     /// Mock phone number for testing phone authentication. Useful for testing phone authentication without sending an SMS.
     public let number: String
-    /// Mock OTP for the number. 
+    /// Mock OTP for the number.
     public let otp: String
     /// Attribute creation date in ISO 8601 format.
     public let createdAt: String
@@ -55,11 +55,11 @@ open class MockNumber: Codable {
             "number": number as Any,
             "otp": otp as Any,
             "$createdAt": createdAt as Any,
-            "$updatedAt": updatedAt as Any
+            "$updatedAt": updatedAt as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> MockNumber {
+    public static func from(map: [String: Any]) -> MockNumber {
         return MockNumber(
             number: map["number"] as! String,
             otp: map["otp"] as! String,

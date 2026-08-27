@@ -55,11 +55,11 @@ open class OAuth2Bitbucket: Codable {
             "$id": id as Any,
             "enabled": enabled as Any,
             "key": key as Any,
-            "secret": secret as Any
+            "secret": secret as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Bitbucket {
+    public static func from(map: [String: Any]) -> OAuth2Bitbucket {
         return OAuth2Bitbucket(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

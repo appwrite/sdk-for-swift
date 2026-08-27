@@ -111,11 +111,11 @@ open class UsageBillingPlan: Codable {
             "users": users.toMap() as Any,
             "GBHours": GBHours.toMap() as Any,
             "imageTransformations": imageTransformations.toMap() as Any,
-            "credits": credits?.toMap() as Any
+            "credits": credits?.toMap() as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> UsageBillingPlan {
+    public static func from(map: [String: Any]) -> UsageBillingPlan {
         return UsageBillingPlan(
             bandwidth: AdditionalResource.from(map: map["bandwidth"] as! [String: Any]),
             executions: AdditionalResource.from(map: map["executions"] as! [String: Any]),

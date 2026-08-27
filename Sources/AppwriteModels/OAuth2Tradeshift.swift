@@ -55,11 +55,11 @@ open class OAuth2Tradeshift: Codable {
             "$id": id as Any,
             "enabled": enabled as Any,
             "oauth2ClientId": oauth2ClientId as Any,
-            "oauth2ClientSecret": oauth2ClientSecret as Any
+            "oauth2ClientSecret": oauth2ClientSecret as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Tradeshift {
+    public static func from(map: [String: Any]) -> OAuth2Tradeshift {
         return OAuth2Tradeshift(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

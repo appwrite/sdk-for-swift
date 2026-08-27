@@ -39,11 +39,11 @@ open class PolicyDenyDisposableEmail: Codable {
     public func toMap() -> [String: Any] {
         return [
             "$id": id as Any,
-            "enabled": enabled as Any
+            "enabled": enabled as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> PolicyDenyDisposableEmail {
+    public static func from(map: [String: Any]) -> PolicyDenyDisposableEmail {
         return PolicyDenyDisposableEmail(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool

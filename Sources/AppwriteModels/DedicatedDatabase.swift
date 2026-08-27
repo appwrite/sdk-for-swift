@@ -407,11 +407,11 @@ open class DedicatedDatabase: Codable {
             "sqlApiMaxRows": sqlApiMaxRows as Any,
             "sqlApiMaxBytes": sqlApiMaxBytes as Any,
             "sqlApiTimeoutSeconds": sqlApiTimeoutSeconds as Any,
-            "error": error as Any
+            "error": error as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> DedicatedDatabase {
+    public static func from(map: [String: Any]) -> DedicatedDatabase {
         return DedicatedDatabase(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

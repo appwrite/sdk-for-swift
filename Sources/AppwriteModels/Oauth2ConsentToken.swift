@@ -111,11 +111,11 @@ open class Oauth2ConsentToken: Codable {
             "scopes": scopes as Any,
             "resources": resources as Any,
             "authorizationDetails": authorizationDetails as Any,
-            "expire": expire as Any
+            "expire": expire as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Oauth2ConsentToken {
+    public static func from(map: [String: Any]) -> Oauth2ConsentToken {
         return Oauth2ConsentToken(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

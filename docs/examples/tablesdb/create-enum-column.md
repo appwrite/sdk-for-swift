@@ -11,10 +11,10 @@ let tablesDB = TablesDB(client)
 let columnEnum = try await tablesDB.createEnumColumn(
     databaseId: "<DATABASE_ID>",
     tableId: "<TABLE_ID>",
-    key: "",
-    elements: [],
+    key: "<KEY>",
+    elements: ["active", "inactive"],
     required: false,
-    default: "<DEFAULT>", // optional
+    default: "active", // optional
     array: false // optional
 )
 

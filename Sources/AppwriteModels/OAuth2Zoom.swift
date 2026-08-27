@@ -55,11 +55,11 @@ open class OAuth2Zoom: Codable {
             "$id": id as Any,
             "enabled": enabled as Any,
             "clientId": clientId as Any,
-            "clientSecret": clientSecret as Any
+            "clientSecret": clientSecret as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Zoom {
+    public static func from(map: [String: Any]) -> OAuth2Zoom {
         return OAuth2Zoom(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

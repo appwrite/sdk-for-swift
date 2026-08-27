@@ -55,11 +55,11 @@ open class OAuth2Github: Codable {
             "$id": id as Any,
             "enabled": enabled as Any,
             "clientId": clientId as Any,
-            "clientSecret": clientSecret as Any
+            "clientSecret": clientSecret as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Github {
+    public static func from(map: [String: Any]) -> OAuth2Github {
         return OAuth2Github(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

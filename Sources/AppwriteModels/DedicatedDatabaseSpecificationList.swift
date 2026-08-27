@@ -47,11 +47,11 @@ open class DedicatedDatabaseSpecificationList: Codable {
         return [
             "specifications": specifications.map { $0.toMap() } as Any,
             "total": total as Any,
-            "pricing": pricing.toMap() as Any
+            "pricing": pricing.toMap() as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> DedicatedDatabaseSpecificationList {
+    public static func from(map: [String: Any]) -> DedicatedDatabaseSpecificationList {
         return DedicatedDatabaseSpecificationList(
             specifications: (map["specifications"] as! [[String: Any]]).map { DedicatedDatabaseSpecification.from(map: $0) },
             total: map["total"] as! Int,

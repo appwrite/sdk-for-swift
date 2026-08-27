@@ -11,7 +11,7 @@ let tablesDB = TablesDB(client)
 let result = try await tablesDB.deleteIndex(
     databaseId: "<DATABASE_ID>",
     tableId: "<TABLE_ID>",
-    key: ""
+    key: "<KEY>"
 )
 
 ```

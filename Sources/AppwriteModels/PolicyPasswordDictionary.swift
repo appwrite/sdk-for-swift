@@ -39,11 +39,11 @@ open class PolicyPasswordDictionary: Codable {
     public func toMap() -> [String: Any] {
         return [
             "$id": id as Any,
-            "enabled": enabled as Any
+            "enabled": enabled as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> PolicyPasswordDictionary {
+    public static func from(map: [String: Any]) -> PolicyPasswordDictionary {
         return PolicyPasswordDictionary(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool

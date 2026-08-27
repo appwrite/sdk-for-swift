@@ -9,7 +9,7 @@ let client = Client()
 let proxy = Proxy(client)
 
 let proxyRule = try await proxy.createSiteRule(
-    domain: "",
+    domain: "example.com",
     siteId: "<SITE_ID>",
     branch: "<BRANCH>" // optional
 )

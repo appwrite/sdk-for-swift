@@ -39,11 +39,11 @@ open class RuntimeList: Codable {
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
-            "runtimes": runtimes.map { $0.toMap() } as Any
+            "runtimes": runtimes.map { $0.toMap() } as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> RuntimeList {
+    public static func from(map: [String: Any]) -> RuntimeList {
         return RuntimeList(
             total: map["total"] as! Int,
             runtimes: (map["runtimes"] as! [[String: Any]]).map { Runtime.from(map: $0) }

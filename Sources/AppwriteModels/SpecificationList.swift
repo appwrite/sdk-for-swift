@@ -39,11 +39,11 @@ open class SpecificationList: Codable {
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
-            "specifications": specifications.map { $0.toMap() } as Any
+            "specifications": specifications.map { $0.toMap() } as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> SpecificationList {
+    public static func from(map: [String: Any]) -> SpecificationList {
         return SpecificationList(
             total: map["total"] as! Int,
             specifications: (map["specifications"] as! [[String: Any]]).map { Specification.from(map: $0) }

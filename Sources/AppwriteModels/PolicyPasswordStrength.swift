@@ -71,11 +71,11 @@ open class PolicyPasswordStrength: Codable {
             "uppercase": uppercase as Any,
             "lowercase": lowercase as Any,
             "number": number as Any,
-            "symbols": symbols as Any
+            "symbols": symbols as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> PolicyPasswordStrength {
+    public static func from(map: [String: Any]) -> PolicyPasswordStrength {
         return PolicyPasswordStrength(
             id: map["$id"] as! String,
             min: map["min"] as! Int,

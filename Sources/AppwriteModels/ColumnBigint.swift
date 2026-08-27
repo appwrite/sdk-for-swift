@@ -1,6 +1,6 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
-import AppwriteEnums
 
 /// ColumnBigInt
 open class ColumnBigint: Codable {
@@ -112,11 +112,11 @@ open class ColumnBigint: Codable {
             "$updatedAt": updatedAt as Any,
             "min": min as Any,
             "max": max as Any,
-            "default": `default` as Any
+            "default": `default` as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> ColumnBigint {
+    public static func from(map: [String: Any]) -> ColumnBigint {
         return ColumnBigint(
             key: map["key"] as! String,
             type: map["type"] as! String,

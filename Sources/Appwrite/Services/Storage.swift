@@ -1,9 +1,9 @@
-import AsyncHTTPClient
-import Foundation
-import NIO
-import JSONCodable
 import AppwriteEnums
 import AppwriteModels
+import AsyncHTTPClient
+import Foundation
+import JSONCodable
+import NIO
 
 /// The Storage service allows you to manage your project files.
 open class Storage: Service {
@@ -29,12 +29,12 @@ open class Storage: Service {
         let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.BucketList = { response in
@@ -49,7 +49,6 @@ open class Storage: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new storage bucket.
     ///
@@ -94,13 +93,13 @@ open class Storage: Service {
             "compression": compression?.rawValue,
             "encryption": encryption,
             "antivirus": antivirus,
-            "transformations": transformations
+            "transformations": transformations,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Bucket = { response in
@@ -115,7 +114,6 @@ open class Storage: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a storage bucket by its unique ID. This endpoint response returns a
     /// JSON object with the storage bucket metadata.
@@ -135,7 +133,7 @@ open class Storage: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Bucket = { response in
@@ -150,7 +148,6 @@ open class Storage: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a storage bucket by its unique ID.
     ///
@@ -195,13 +192,13 @@ open class Storage: Service {
             "compression": compression?.rawValue,
             "encryption": encryption,
             "antivirus": antivirus,
-            "transformations": transformations
+            "transformations": transformations,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Bucket = { response in
@@ -216,7 +213,6 @@ open class Storage: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a storage bucket by its unique ID.
     ///
@@ -235,16 +231,16 @@ open class Storage: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Get a list of all the user files. You can use the query params to filter
     /// your results.
@@ -269,12 +265,12 @@ open class Storage: Service {
         let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.FileList = { response in
@@ -289,26 +285,24 @@ open class Storage: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new file. Before using this route, you should create a new bucket
     /// resource using either a [server
     /// integration](https://appwrite.io/docs/server/storage#storageCreateBucket)
     /// API or directly from your Appwrite console.
-    /// 
+    ///
     /// Larger files should be uploaded using multiple requests with the
     /// [content-range](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Range)
     /// header to send a partial request with a maximum supported chunk of `5MB`.
     /// The `content-range` header values should always be in bytes.
-    /// 
+    ///
     /// When the first request is sent, the server will return the **File** object,
     /// and the subsequent part request must include the file's **id** in
     /// `x-appwrite-id` header to allow the server to know that the partial upload
     /// is for the existing file and not for a new one.
-    /// 
+    ///
     /// If you're creating a new file using one of the Appwrite SDKs, all the
     /// chunking logic will be managed by the SDK internally.
-    /// 
     ///
     /// - Parameters:
     ///   - bucketId: String
@@ -334,13 +328,13 @@ open class Storage: Service {
             "fileId": fileId,
             "file": file,
             "permissions": permissions,
-            "folder": folder
+            "folder": folder,
         ]
 
         var apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "multipart/form-data",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.File = { response in
@@ -359,7 +353,6 @@ open class Storage: Service {
             onProgress: onProgress
         )
     }
-
     ///
     /// Get a file by its unique ID. This endpoint response returns a JSON object
     /// with the file metadata.
@@ -382,7 +375,7 @@ open class Storage: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.File = { response in
@@ -397,7 +390,6 @@ open class Storage: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a file by its unique ID. Only users with write permissions have
     /// access to update this resource.
@@ -422,13 +414,13 @@ open class Storage: Service {
 
         let apiParams: [String: Any?] = [
             "name": name,
-            "permissions": permissions
+            "permissions": permissions,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.File = { response in
@@ -443,7 +435,6 @@ open class Storage: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a file by its unique ID. Only users with write permissions have
     /// access to delete this resource.
@@ -466,16 +457,16 @@ open class Storage: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Get a file content by its unique ID. The endpoint response return with a
     /// 'Content-Disposition: attachment' header that tells the browser to start
@@ -503,7 +494,7 @@ open class Storage: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "*/*"
+            "accept": "*/*",
         ]
 
         return try await client.call(
@@ -513,7 +504,6 @@ open class Storage: Service {
             params: apiParams
         )
     }
-
     ///
     /// Get a file preview image. Currently, this method supports preview for image
     /// files (jpg, png, and gif), other supported formats, like pdf, docs, slides,
@@ -571,12 +561,12 @@ open class Storage: Service {
             "rotation": rotation,
             "background": background,
             "output": output?.rawValue,
-            "token": token
+            "token": token,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "image/*"
+            "accept": "image/*",
         ]
 
         return try await client.call(
@@ -586,7 +576,6 @@ open class Storage: Service {
             params: apiParams
         )
     }
-
     ///
     /// Get a file content by its unique ID. This endpoint is similar to the
     /// download method but returns with no  'Content-Disposition: attachment'
@@ -614,7 +603,7 @@ open class Storage: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "*/*"
+            "accept": "*/*",
         ]
 
         return try await client.call(
@@ -624,6 +613,4 @@ open class Storage: Service {
             params: apiParams
         )
     }
-
-
 }

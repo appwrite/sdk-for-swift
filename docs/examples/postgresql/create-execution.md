@@ -1,0 +1,18 @@
+```swift
+import Appwrite
+
+let client = Client()
+    .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
+    .setProject("<YOUR_PROJECT_ID>") // Your project ID
+    .setKey("<YOUR_API_KEY>") // Your secret API key
+
+let postgresql = Postgresql(client)
+
+let dedicatedDatabaseExecution = try await postgresql.createExecution(
+    databaseId: "<DATABASE_ID>",
+    sql: "<SQL>",
+    bindings: [:], // optional
+    timeoutSeconds: 1 // optional
+)
+
+```

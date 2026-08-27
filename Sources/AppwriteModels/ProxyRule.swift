@@ -1,6 +1,6 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
-import AppwriteEnums
 
 /// Rule
 open class ProxyRule: Codable {
@@ -148,11 +148,11 @@ open class ProxyRule: Codable {
             "deploymentVcsProviderBranch": deploymentVcsProviderBranch as Any,
             "status": status.rawValue as Any,
             "logs": logs as Any,
-            "renewAt": renewAt as Any
+            "renewAt": renewAt as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> ProxyRule {
+    public static func from(map: [String: Any]) -> ProxyRule {
         return ProxyRule(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

@@ -13,7 +13,7 @@ let provider = try await messaging.createSMTPProvider(
     providerId: "<PROVIDER_ID>",
     name: "<NAME>",
     host: "<HOST>",
-    port: 1, // optional
+    port: 587, // optional
     username: "<USERNAME>", // optional
     password: "password", // optional
     encryption: .none, // optional

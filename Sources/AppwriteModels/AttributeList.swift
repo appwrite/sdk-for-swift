@@ -39,11 +39,11 @@ open class AttributeList: Codable {
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
-            "attributes": attributes as Any
+            "attributes": attributes as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> AttributeList {
+    public static func from(map: [String: Any]) -> AttributeList {
         return AttributeList(
             total: map["total"] as! Int,
             attributes: (map["attributes"] as! [Any]).map { AnyCodable($0) }

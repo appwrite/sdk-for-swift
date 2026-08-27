@@ -1,9 +1,9 @@
-import AsyncHTTPClient
-import Foundation
-import NIO
-import JSONCodable
 import AppwriteEnums
 import AppwriteModels
+import AsyncHTTPClient
+import Foundation
+import JSONCodable
+import NIO
 
 /// The Proxy Service allows you to configure actions for your domains beyond DNS configuration.
 open class Proxy: Service {
@@ -11,7 +11,7 @@ open class Proxy: Service {
     ///
     /// Create a new CDN cache invalidation for a domain. Executes a hard purge of
     /// cached content.
-    /// 
+    ///
     /// Depending on type, the invalidation purges a single cache tag, a single URL
     /// path, or all cached content for the domain.
     ///
@@ -32,13 +32,13 @@ open class Proxy: Service {
         let apiParams: [String: Any?] = [
             "domain": domain,
             "type": type.rawValue,
-            "reference": reference
+            "reference": reference,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ProxyInvalidation = { response in
@@ -53,7 +53,6 @@ open class Proxy: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a list of all the proxy rules. You can use the query params to filter
     /// your results.
@@ -72,12 +71,12 @@ open class Proxy: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ProxyRuleList = { response in
@@ -92,10 +91,9 @@ open class Proxy: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new proxy rule for serving Appwrite's API on custom domain.
-    /// 
+    ///
     /// Rule ID is automatically generated as MD5 hash of a rule domain for
     /// performance purposes.
     ///
@@ -116,7 +114,7 @@ open class Proxy: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ProxyRule = { response in
@@ -131,10 +129,9 @@ open class Proxy: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new proxy rule for executing Appwrite Function on custom domain.
-    /// 
+    ///
     /// Rule ID is automatically generated as MD5 hash of a rule domain for
     /// performance purposes.
     ///
@@ -155,13 +152,13 @@ open class Proxy: Service {
         let apiParams: [String: Any?] = [
             "domain": domain,
             "functionId": functionId,
-            "branch": branch
+            "branch": branch,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ProxyRule = { response in
@@ -176,11 +173,10 @@ open class Proxy: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new proxy rule for to redirect from custom domain to another
     /// domain.
-    /// 
+    ///
     /// Rule ID is automatically generated as MD5 hash of a rule domain for
     /// performance purposes.
     ///
@@ -207,13 +203,13 @@ open class Proxy: Service {
             "url": url,
             "statusCode": statusCode.rawValue,
             "resourceId": resourceId,
-            "resourceType": resourceType.rawValue
+            "resourceType": resourceType.rawValue,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ProxyRule = { response in
@@ -228,10 +224,9 @@ open class Proxy: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new proxy rule for serving Appwrite Site on custom domain.
-    /// 
+    ///
     /// Rule ID is automatically generated as MD5 hash of a rule domain for
     /// performance purposes.
     ///
@@ -252,13 +247,13 @@ open class Proxy: Service {
         let apiParams: [String: Any?] = [
             "domain": domain,
             "siteId": siteId,
-            "branch": branch
+            "branch": branch,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ProxyRule = { response in
@@ -273,7 +268,6 @@ open class Proxy: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a proxy rule by its unique ID.
     ///
@@ -292,7 +286,7 @@ open class Proxy: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ProxyRule = { response in
@@ -307,7 +301,6 @@ open class Proxy: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a proxy rule by its unique ID.
     ///
@@ -326,16 +319,16 @@ open class Proxy: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// If not succeeded yet, retry verification process of a proxy rule domain.
     /// This endpoint triggers domain verification by checking DNS records. If
@@ -358,7 +351,7 @@ open class Proxy: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ProxyRule = { response in
@@ -373,6 +366,4 @@ open class Proxy: Service {
             converter: converter
         )
     }
-
-
 }

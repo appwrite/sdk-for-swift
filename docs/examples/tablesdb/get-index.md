@@ -11,7 +11,7 @@ let tablesDB = TablesDB(client)
 let columnIndex = try await tablesDB.getIndex(
     databaseId: "<DATABASE_ID>",
     tableId: "<TABLE_ID>",
-    key: ""
+    key: "<KEY>"
 )
 
 ```

@@ -17,9 +17,9 @@ let package = Package(
                 "Appwrite",
                 "AppwriteEnums",
                 "AppwriteModels",
-                "JSONCodable"
+                "JSONCodable",
             ]
-        ),
+        )
     ],
     dependencies: [
         .package(url: "https://github.com/swift-server/async-http-client.git", from: "1.36.0"),
@@ -33,14 +33,14 @@ let package = Package(
                 .product(name: "NIOWebSocket", package: "swift-nio"),
                 "AppwriteModels",
                 "AppwriteEnums",
-                "JSONCodable"
+                "JSONCodable",
             ]
         ),
         .target(
             name: "AppwriteModels",
             dependencies: [
                 "AppwriteEnums",
-                "JSONCodable"
+                "JSONCodable",
             ]
         ),
         .target(
@@ -54,7 +54,7 @@ let package = Package(
             dependencies: [
                 "Appwrite"
             ]
-        )
+        ),
     ],
     swiftLanguageVersions: [.v5]
 )

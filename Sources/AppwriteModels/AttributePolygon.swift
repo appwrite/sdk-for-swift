@@ -1,6 +1,6 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
-import AppwriteEnums
 
 /// AttributePolygon
 open class AttributePolygon: Codable {
@@ -96,11 +96,11 @@ open class AttributePolygon: Codable {
             "array": array as Any,
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
-            "default": `default` as Any
+            "default": `default` as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> AttributePolygon {
+    public static func from(map: [String: Any]) -> AttributePolygon {
         return AttributePolygon(
             key: map["key"] as! String,
             type: map["type"] as! String,

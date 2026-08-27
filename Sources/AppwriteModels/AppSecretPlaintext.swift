@@ -95,11 +95,11 @@ open class AppSecretPlaintext: Codable {
             "hint": hint as Any,
             "createdById": createdById as Any,
             "createdByName": createdByName as Any,
-            "lastAccessedAt": lastAccessedAt as Any
+            "lastAccessedAt": lastAccessedAt as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> AppSecretPlaintext {
+    public static func from(map: [String: Any]) -> AppSecretPlaintext {
         return AppSecretPlaintext(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

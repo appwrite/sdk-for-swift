@@ -11,11 +11,11 @@ let tablesDB = TablesDB(client)
 let columnEnum = try await tablesDB.updateEnumColumn(
     databaseId: "<DATABASE_ID>",
     tableId: "<TABLE_ID>",
-    key: "",
-    elements: [],
+    key: "<KEY>",
+    elements: ["active", "inactive"],
     required: false,
-    default: "<DEFAULT>",
-    newKey: "" // optional
+    default: "active",
+    newKey: "<NEW_KEY>" // optional
 )
 
 ```

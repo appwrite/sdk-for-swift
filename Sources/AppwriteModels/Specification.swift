@@ -55,11 +55,11 @@ open class Specification: Codable {
             "memory": memory as Any,
             "cpus": cpus as Any,
             "enabled": enabled as Any,
-            "slug": slug as Any
+            "slug": slug as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Specification {
+    public static func from(map: [String: Any]) -> Specification {
         return Specification(
             memory: map["memory"] as! Int,
             cpus: map["cpus"] as! Double,

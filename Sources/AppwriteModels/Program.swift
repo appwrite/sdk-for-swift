@@ -95,11 +95,11 @@ open class Program: Codable {
             "url": url as Any,
             "active": active as Any,
             "external": external as Any,
-            "billingPlanId": billingPlanId as Any
+            "billingPlanId": billingPlanId as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Program {
+    public static func from(map: [String: Any]) -> Program {
         return Program(
             id: map["$id"] as! String,
             title: map["title"] as! String,

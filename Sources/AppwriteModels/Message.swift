@@ -1,6 +1,6 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
-import AppwriteEnums
 
 /// Message
 open class Message: Codable {
@@ -128,11 +128,11 @@ open class Message: Codable {
             "deliveryErrors": deliveryErrors as Any,
             "deliveredTotal": deliveredTotal as Any,
             "data": data as Any,
-            "status": status.rawValue as Any
+            "status": status.rawValue as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Message {
+    public static func from(map: [String: Any]) -> Message {
         return Message(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

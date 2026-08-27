@@ -9,7 +9,7 @@ let client = Client()
 let proxy = Proxy(client)
 
 let proxyRule = try await proxy.createFunctionRule(
-    domain: "",
+    domain: "example.com",
     functionId: "<FUNCTION_ID>",
     branch: "<BRANCH>" // optional
 )

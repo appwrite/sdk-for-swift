@@ -71,11 +71,11 @@ open class OAuth2Keycloak: Codable {
             "clientId": clientId as Any,
             "clientSecret": clientSecret as Any,
             "endpoint": endpoint as Any,
-            "realmName": realmName as Any
+            "realmName": realmName as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Keycloak {
+    public static func from(map: [String: Any]) -> OAuth2Keycloak {
         return OAuth2Keycloak(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,
