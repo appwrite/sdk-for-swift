@@ -63,11 +63,11 @@ open class MfaChallengeSecret: Codable {
             "$createdAt": createdAt as Any,
             "userId": userId as Any,
             "expire": expire as Any,
-            "code": code as Any
+            "code": code as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> MfaChallengeSecret {
+    public static func from(map: [String: Any]) -> MfaChallengeSecret {
         return MfaChallengeSecret(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

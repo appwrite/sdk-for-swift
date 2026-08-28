@@ -87,11 +87,11 @@ open class DedicatedDatabaseReplicas: Codable {
             "syncAcknowledgements": syncAcknowledgements as Any,
             "syncStandbyCount": syncStandbyCount as Any,
             "syncStateConfirmed": syncStateConfirmed as Any,
-            "members": members.map { $0.toMap() } as Any
+            "members": members.map { $0.toMap() } as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> DedicatedDatabaseReplicas {
+    public static func from(map: [String: Any]) -> DedicatedDatabaseReplicas {
         return DedicatedDatabaseReplicas(
             replicas: map["replicas"] as! Int,
             syncMode: map["syncMode"] as! String,

@@ -279,11 +279,11 @@ open class Function: Codable {
             "providerBranches": providerBranches as Any,
             "providerPaths": providerPaths as Any,
             "buildSpecification": buildSpecification as Any,
-            "runtimeSpecification": runtimeSpecification as Any
+            "runtimeSpecification": runtimeSpecification as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Function {
+    public static func from(map: [String: Any]) -> Function {
         return Function(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

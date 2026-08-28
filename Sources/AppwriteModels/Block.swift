@@ -111,11 +111,11 @@ open class Block: Codable {
             "region": region as Any,
             "organizationName": organizationName as Any,
             "organizationId": organizationId as Any,
-            "billingPlan": billingPlan as Any
+            "billingPlan": billingPlan as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Block {
+    public static func from(map: [String: Any]) -> Block {
         return Block(
             createdAt: map["$createdAt"] as! String,
             resourceType: map["resourceType"] as! String,

@@ -55,11 +55,11 @@ open class OAuth2Disqus: Codable {
             "$id": id as Any,
             "enabled": enabled as Any,
             "publicKey": publicKey as Any,
-            "secretKey": secretKey as Any
+            "secretKey": secretKey as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Disqus {
+    public static func from(map: [String: Any]) -> OAuth2Disqus {
         return OAuth2Disqus(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

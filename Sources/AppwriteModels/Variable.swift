@@ -87,11 +87,11 @@ open class Variable: Codable {
             "value": value as Any,
             "secret": secret as Any,
             "resourceType": resourceType as Any,
-            "resourceId": resourceId as Any
+            "resourceId": resourceId as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Variable {
+    public static func from(map: [String: Any]) -> Variable {
         return Variable(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

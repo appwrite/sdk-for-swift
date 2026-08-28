@@ -55,11 +55,11 @@ open class DedicatedDatabaseSpecificationPricing: Codable {
             "storageOverageRate": storageOverageRate as Any,
             "bandwidthOverageRate": bandwidthOverageRate as Any,
             "replicaRate": replicaRate as Any,
-            "pitrRate": pitrRate as Any
+            "pitrRate": pitrRate as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> DedicatedDatabaseSpecificationPricing {
+    public static func from(map: [String: Any]) -> DedicatedDatabaseSpecificationPricing {
         return DedicatedDatabaseSpecificationPricing(
             storageOverageRate: map["storageOverageRate"] as! Double,
             bandwidthOverageRate: map["bandwidthOverageRate"] as! Double,

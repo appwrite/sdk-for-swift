@@ -55,11 +55,11 @@ open class OAuth2Paypal: Codable {
             "$id": id as Any,
             "enabled": enabled as Any,
             "clientId": clientId as Any,
-            "secretKey": secretKey as Any
+            "secretKey": secretKey as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Paypal {
+    public static func from(map: [String: Any]) -> OAuth2Paypal {
         return OAuth2Paypal(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

@@ -1,6 +1,6 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
-import AppwriteEnums
 
 /// AttributeDatetime
 open class AttributeDatetime: Codable {
@@ -104,11 +104,11 @@ open class AttributeDatetime: Codable {
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
             "format": format as Any,
-            "default": `default` as Any
+            "default": `default` as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> AttributeDatetime {
+    public static func from(map: [String: Any]) -> AttributeDatetime {
         return AttributeDatetime(
             key: map["key"] as! String,
             type: map["type"] as! String,

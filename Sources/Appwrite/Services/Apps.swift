@@ -1,9 +1,9 @@
-import AsyncHTTPClient
-import Foundation
-import NIO
-import JSONCodable
 import AppwriteEnums
 import AppwriteModels
+import AsyncHTTPClient
+import Foundation
+import JSONCodable
+import NIO
 
 /// The Apps service allows you to manage OAuth2 applications, their keys, secrets, scopes, and installations.
 open class Apps: Service {
@@ -25,12 +25,12 @@ open class Apps: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AppsList = { response in
@@ -45,7 +45,6 @@ open class Apps: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new application.
     ///
@@ -114,13 +113,13 @@ open class Apps: Service {
             "enabled": enabled,
             "type": type,
             "deviceFlow": deviceFlow,
-            "teamId": teamId
+            "teamId": teamId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.App = { response in
@@ -135,22 +134,20 @@ open class Apps: Service {
             converter: converter
         )
     }
-
     ///
     /// List scopes an application can request when installed on a team.
     ///
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AppScopeList
     ///
-    open func listInstallationScopes(
-    ) async throws -> AppwriteModels.AppScopeList {
+    open func listInstallationScopes() async throws -> AppwriteModels.AppScopeList {
         let apiPath: String = "/apps/scopes/installations"
 
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AppScopeList = { response in
@@ -165,22 +162,20 @@ open class Apps: Service {
             converter: converter
         )
     }
-
     ///
     /// List scopes an application can request during the OAuth2 flow.
     ///
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AppScopeList
     ///
-    open func listOAuth2Scopes(
-    ) async throws -> AppwriteModels.AppScopeList {
+    open func listOAuth2Scopes() async throws -> AppwriteModels.AppScopeList {
         let apiPath: String = "/apps/scopes/oauth2"
 
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AppScopeList = { response in
@@ -195,7 +190,6 @@ open class Apps: Service {
             converter: converter
         )
     }
-
     ///
     /// Get an application by its unique ID.
     ///
@@ -214,7 +208,7 @@ open class Apps: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.App = { response in
@@ -229,7 +223,6 @@ open class Apps: Service {
             converter: converter
         )
     }
-
     ///
     /// Update an application by its unique ID.
     ///
@@ -301,13 +294,13 @@ open class Apps: Service {
             "type": type,
             "deviceFlow": deviceFlow,
             "installationScopes": installationScopes,
-            "installationRedirectUrl": installationRedirectUrl
+            "installationRedirectUrl": installationRedirectUrl,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.App = { response in
@@ -322,7 +315,6 @@ open class Apps: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete an application by its unique ID.
     ///
@@ -342,16 +334,16 @@ open class Apps: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// List installations of an application. Requires an app key sent in the
     /// `X-Appwrite-Key` header alongside the `X-Appwrite-App` header, or a caller
@@ -374,12 +366,12 @@ open class Apps: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AppInstallationList = { response in
@@ -394,7 +386,6 @@ open class Apps: Service {
             converter: converter
         )
     }
-
     ///
     /// Get an installation of an application by its unique ID. Requires an app key
     /// sent in the `X-Appwrite-Key` header alongside the `X-Appwrite-App` header,
@@ -418,7 +409,7 @@ open class Apps: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AppInstallation = { response in
@@ -433,7 +424,6 @@ open class Apps: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete an installation of an application by its unique ID. Requires a
     /// caller with update access to the app. Previously issued installation access
@@ -458,16 +448,16 @@ open class Apps: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Create a token for an installation of an application. Requires an app key
     /// sent in the `X-Appwrite-Key` header alongside the `X-Appwrite-App` header,
@@ -497,7 +487,7 @@ open class Apps: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Oauth2Token = { response in
@@ -512,7 +502,6 @@ open class Apps: Service {
             converter: converter
         )
     }
-
     ///
     /// List app keys for an application.
     ///
@@ -533,12 +522,12 @@ open class Apps: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AppKeyList = { response in
@@ -553,7 +542,6 @@ open class Apps: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new app key for an application. App keys carry no scopes; send one
     /// in the `X-Appwrite-Key` header alongside the `X-Appwrite-App` header to
@@ -575,7 +563,7 @@ open class Apps: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AppKey = { response in
@@ -590,7 +578,6 @@ open class Apps: Service {
             converter: converter
         )
     }
-
     ///
     /// Get an app key by its unique ID.
     ///
@@ -612,7 +599,7 @@ open class Apps: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AppKey = { response in
@@ -627,7 +614,6 @@ open class Apps: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete an app key by its unique ID.
     ///
@@ -650,16 +636,16 @@ open class Apps: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Update the labels of an application. Labels are read-only for clients; only
     /// a server SDK using a project API key can set them. Replaces the previous
@@ -685,7 +671,7 @@ open class Apps: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.App = { response in
@@ -700,7 +686,6 @@ open class Apps: Service {
             converter: converter
         )
     }
-
     ///
     /// List client secrets for an application.
     ///
@@ -721,12 +706,12 @@ open class Apps: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AppSecretList = { response in
@@ -741,7 +726,6 @@ open class Apps: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new client secret for an application.
     ///
@@ -761,7 +745,7 @@ open class Apps: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AppSecretPlaintext = { response in
@@ -776,7 +760,6 @@ open class Apps: Service {
             converter: converter
         )
     }
-
     ///
     /// Get an application client secret by its unique ID.
     ///
@@ -798,7 +781,7 @@ open class Apps: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AppSecret = { response in
@@ -813,7 +796,6 @@ open class Apps: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete an application client secret by its unique ID.
     ///
@@ -836,16 +818,16 @@ open class Apps: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Transfer an application to another team by its unique ID.
     ///
@@ -869,7 +851,7 @@ open class Apps: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.App = { response in
@@ -884,7 +866,6 @@ open class Apps: Service {
             converter: converter
         )
     }
-
     ///
     /// Revoke all tokens for an application by its unique ID.
     ///
@@ -904,15 +885,14 @@ open class Apps: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
-
 }

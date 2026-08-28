@@ -11,10 +11,10 @@ let databases = Databases(client)
 let attributeMediumtext = try await databases.updateMediumtextAttribute(
     databaseId: "<DATABASE_ID>",
     collectionId: "<COLLECTION_ID>",
-    key: "",
+    key: "<KEY>",
     required: false,
-    default: "<DEFAULT>",
-    newKey: "" // optional
+    default: "Hello World",
+    newKey: "<NEW_KEY>" // optional
 )
 
 ```

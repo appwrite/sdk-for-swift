@@ -11,10 +11,10 @@ let databases = Databases(client)
 let attributeVarchar = try await databases.createVarcharAttribute(
     databaseId: "<DATABASE_ID>",
     collectionId: "<COLLECTION_ID>",
-    key: "",
+    key: "<KEY>",
     size: 1,
     required: false,
-    default: "<DEFAULT>", // optional
+    default: "Hello World", // optional
     array: false, // optional
     encrypt: false // optional
 )

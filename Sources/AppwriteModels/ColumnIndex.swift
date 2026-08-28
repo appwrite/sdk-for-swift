@@ -103,11 +103,11 @@ open class ColumnIndex: Codable {
             "error": error as Any,
             "columns": columns as Any,
             "lengths": lengths as Any,
-            "orders": orders as Any
+            "orders": orders as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> ColumnIndex {
+    public static func from(map: [String: Any]) -> ColumnIndex {
         return ColumnIndex(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

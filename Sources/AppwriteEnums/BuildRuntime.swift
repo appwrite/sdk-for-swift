@@ -79,6 +79,7 @@ public enum BuildRuntime: String, Codable, CustomStringConvertible {
     case bun11 = "bun-1.1"
     case bun12 = "bun-1.2"
     case bun13 = "bun-1.3"
+    case bun14 = "bun-1.4"
     case go123 = "go-1.23"
     case go124 = "go-1.24"
     case go125 = "go-1.25"

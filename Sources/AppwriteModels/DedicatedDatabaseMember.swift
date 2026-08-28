@@ -8,6 +8,7 @@ open class DedicatedDatabaseMember: Codable {
         case id = "$id"
         case role = "role"
         case status = "status"
+        case replicating = "replicating"
         case lagSeconds = "lagSeconds"
     }
 
@@ -17,18 +18,22 @@ open class DedicatedDatabaseMember: Codable {
     public let role: String
     /// Member pod status. Possible values: pending (configured but absent from the backend topology, so nothing is bringing it up), provisioning (pod missing or Pending), starting (Running but not Ready), active (Running and Ready), failed (Failed phase or CrashLoopBackOff container), or the lowercased pod phase reported by the cluster.
     public let status: String
-    /// Replication lag in seconds. Null when the lag is not known: a primary has none to report, and a member the backend has not probed has none yet.
+    /// Whether the engine reports this member&#039;s replication stream as up. Null when no reading was taken: a primary has no stream to report, and a member that is not active, or whose probe did not answer, has none yet. False is a reading and null is the absence of one, so the two are not interchangeable. Read it beside lagSeconds before expecting a failover that names no target to find a promotable standby: a member streaming at a known lag is one, and a member reporting null is not evidence either way.
+    public let replicating: Bool?
+    /// Replication lag in seconds. Null when the lag is not known: a primary has none to report, and a member the backend has not probed has none yet. Also null against `replicating: true`, for a member that is streaming but whose engine printed no numeric lag.
     public let lagSeconds: Double?
 
     init(
         id: String,
         role: String,
         status: String,
+        replicating: Bool?,
         lagSeconds: Double?
     ) {
         self.id = id
         self.role = role
         self.status = status
+        self.replicating = replicating
         self.lagSeconds = lagSeconds
     }
 
@@ -38,6 +43,7 @@ open class DedicatedDatabaseMember: Codable {
         self.id = try container.decode(String.self, forKey: .id)
         self.role = try container.decode(String.self, forKey: .role)
         self.status = try container.decode(String.self, forKey: .status)
+        self.replicating = try container.decodeIfPresent(Bool.self, forKey: .replicating)
         self.lagSeconds = try container.decodeIfPresent(Double.self, forKey: .lagSeconds)
     }
 
@@ -47,6 +53,7 @@ open class DedicatedDatabaseMember: Codable {
         try container.encode(id, forKey: .id)
         try container.encode(role, forKey: .role)
         try container.encode(status, forKey: .status)
+        try container.encodeIfPresent(replicating, forKey: .replicating)
         try container.encodeIfPresent(lagSeconds, forKey: .lagSeconds)
     }
 
@@ -55,15 +62,17 @@ open class DedicatedDatabaseMember: Codable {
             "$id": id as Any,
             "role": role as Any,
             "status": status as Any,
-            "lagSeconds": lagSeconds as Any
+            "replicating": replicating as Any,
+            "lagSeconds": lagSeconds as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> DedicatedDatabaseMember {
+    public static func from(map: [String: Any]) -> DedicatedDatabaseMember {
         return DedicatedDatabaseMember(
             id: map["$id"] as! String,
             role: map["role"] as! String,
             status: map["status"] as! String,
+            replicating: map["replicating"] as? Bool,
             lagSeconds: map["lagSeconds"] as? Double
         )
     }

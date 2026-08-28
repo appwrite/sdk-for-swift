@@ -11,10 +11,10 @@ let tablesDB = TablesDB(client)
 let columnLine = try await tablesDB.updateLineColumn(
     databaseId: "<DATABASE_ID>",
     tableId: "<TABLE_ID>",
-    key: "",
+    key: "<KEY>",
     required: false,
     default: [[1, 2], [3, 4], [5, 6]], // optional
-    newKey: "" // optional
+    newKey: "<NEW_KEY>" // optional
 )
 
 ```

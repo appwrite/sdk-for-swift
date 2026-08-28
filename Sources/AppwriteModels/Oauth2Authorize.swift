@@ -39,11 +39,11 @@ open class Oauth2Authorize: Codable {
     public func toMap() -> [String: Any] {
         return [
             "grantId": grantId as Any,
-            "redirectUrl": redirectUrl as Any
+            "redirectUrl": redirectUrl as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Oauth2Authorize {
+    public static func from(map: [String: Any]) -> Oauth2Authorize {
         return Oauth2Authorize(
             grantId: map["grantId"] as! String,
             redirectUrl: map["redirectUrl"] as! String

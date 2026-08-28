@@ -12,7 +12,7 @@ let databases = Databases(client)
 let index = try await databases.createIndex(
     databaseId: "<DATABASE_ID>",
     collectionId: "<COLLECTION_ID>",
-    key: "",
+    key: "<KEY>",
     type: .key,
     attributes: [],
     orders: [.asc], // optional

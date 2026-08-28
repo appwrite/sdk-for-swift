@@ -55,11 +55,11 @@ open class OAuth2Etsy: Codable {
             "$id": id as Any,
             "enabled": enabled as Any,
             "keyString": keyString as Any,
-            "sharedSecret": sharedSecret as Any
+            "sharedSecret": sharedSecret as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Etsy {
+    public static func from(map: [String: Any]) -> OAuth2Etsy {
         return OAuth2Etsy(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

@@ -11,7 +11,7 @@ let databases = Databases(client)
 let result = try await databases.getAttribute(
     databaseId: "<DATABASE_ID>",
     collectionId: "<COLLECTION_ID>",
-    key: ""
+    key: "<KEY>"
 )
 
 ```

@@ -87,11 +87,11 @@ open class Runtime: Codable {
             "base": base as Any,
             "image": image as Any,
             "logo": logo as Any,
-            "supports": supports as Any
+            "supports": supports as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Runtime {
+    public static func from(map: [String: Any]) -> Runtime {
         return Runtime(
             id: map["$id"] as! String,
             key: map["key"] as! String,

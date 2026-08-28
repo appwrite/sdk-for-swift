@@ -87,11 +87,11 @@ open class BillingPlanAddonDetails: Codable {
             "currency": currency as Any,
             "price": price as Any,
             "value": value as Any,
-            "invoiceDesc": invoiceDesc as Any
+            "invoiceDesc": invoiceDesc as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> BillingPlanAddonDetails {
+    public static func from(map: [String: Any]) -> BillingPlanAddonDetails {
         return BillingPlanAddonDetails(
             supported: map["supported"] as! Bool,
             planIncluded: map["planIncluded"] as! Int,

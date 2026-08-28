@@ -255,11 +255,11 @@ open class ActivityEvent: Codable {
             "teamId": teamId as Any,
             "hostname": hostname as Any,
             "sdk": sdk as Any,
-            "sdkVersion": sdkVersion as Any
+            "sdkVersion": sdkVersion as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> ActivityEvent {
+    public static func from(map: [String: Any]) -> ActivityEvent {
         return ActivityEvent(
             id: map["$id"] as! String,
             actorType: map["actorType"] as! String,

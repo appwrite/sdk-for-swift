@@ -30,9 +30,10 @@ let site = try await sites.update(
     providerRootDirectory: "<PROVIDER_ROOT_DIRECTORY>", // optional
     providerBranches: [], // optional
     providerPaths: [], // optional
-    buildSpecification: "", // optional
-    runtimeSpecification: "", // optional
-    deploymentRetention: 0 // optional
+    buildSpecification: "s-1vcpu-512mb", // optional
+    runtimeSpecification: "s-1vcpu-512mb", // optional
+    deploymentRetention: 0, // optional
+    scopes: [.projectRead] // optional
 )
 
 ```

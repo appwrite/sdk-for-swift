@@ -12,9 +12,9 @@ let tablesDB = TablesDB(client)
 let columnRelationship = try await tablesDB.updateRelationshipColumn(
     databaseId: "<DATABASE_ID>",
     tableId: "<TABLE_ID>",
-    key: "",
+    key: "<KEY>",
     onDelete: .cascade, // optional
-    newKey: "" // optional
+    newKey: "<NEW_KEY>" // optional
 )
 
 ```

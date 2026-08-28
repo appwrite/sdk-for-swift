@@ -119,11 +119,11 @@ open class Collection: Codable {
             "attributes": attributes as Any,
             "indexes": indexes.map { $0.toMap() } as Any,
             "bytesMax": bytesMax as Any,
-            "bytesUsed": bytesUsed as Any
+            "bytesUsed": bytesUsed as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Collection {
+    public static func from(map: [String: Any]) -> Collection {
         return Collection(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

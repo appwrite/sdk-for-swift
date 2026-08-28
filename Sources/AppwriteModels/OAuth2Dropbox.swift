@@ -55,11 +55,11 @@ open class OAuth2Dropbox: Codable {
             "$id": id as Any,
             "enabled": enabled as Any,
             "appKey": appKey as Any,
-            "appSecret": appSecret as Any
+            "appSecret": appSecret as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Dropbox {
+    public static func from(map: [String: Any]) -> OAuth2Dropbox {
         return OAuth2Dropbox(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

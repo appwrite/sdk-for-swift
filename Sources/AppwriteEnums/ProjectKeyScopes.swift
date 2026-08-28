@@ -3,6 +3,7 @@ import Foundation
 public enum ProjectKeyScopes: String, Codable, CustomStringConvertible {
     case projectRead = "project.read"
     case projectWrite = "project.write"
+    case usageRead = "usage.read"
     case keysRead = "keys.read"
     case keysWrite = "keys.write"
     case platformsRead = "platforms.read"
@@ -42,6 +43,18 @@ public enum ProjectKeyScopes: String, Codable, CustomStringConvertible {
     case attributesWrite = "attributes.write"
     case documentsRead = "documents.read"
     case documentsWrite = "documents.write"
+    case documentsdbRead = "documentsdb.read"
+    case documentsdbWrite = "documentsdb.write"
+    case documentsdbCollectionsRead = "documentsdb.collections.read"
+    case documentsdbCollectionsWrite = "documentsdb.collections.write"
+    case documentsdbDocumentsRead = "documentsdb.documents.read"
+    case documentsdbDocumentsWrite = "documentsdb.documents.write"
+    case vectorsdbRead = "vectorsdb.read"
+    case vectorsdbWrite = "vectorsdb.write"
+    case vectorsdbCollectionsRead = "vectorsdb.collections.read"
+    case vectorsdbCollectionsWrite = "vectorsdb.collections.write"
+    case vectorsdbDocumentsRead = "vectorsdb.documents.read"
+    case vectorsdbDocumentsWrite = "vectorsdb.documents.write"
     case bucketsRead = "buckets.read"
     case bucketsWrite = "buckets.write"
     case filesRead = "files.read"
@@ -94,7 +107,6 @@ public enum ProjectKeyScopes: String, Codable, CustomStringConvertible {
     case archivesWrite = "archives.write"
     case restorationsRead = "restorations.read"
     case restorationsWrite = "restorations.write"
-    case dedicatedDatabasesExecute = "dedicatedDatabases.execute"
     case domainsRead = "domains.read"
     case domainsWrite = "domains.write"
     case wafRulesRead = "wafRules.read"
@@ -106,7 +118,6 @@ public enum ProjectKeyScopes: String, Codable, CustomStringConvertible {
     case oauth2Read = "oauth2.read"
     case oauth2Write = "oauth2.write"
     case oauth2Introspect = "oauth2.introspect"
-    case usageRead = "usage.read"
 
     public var description: String {
         return rawValue

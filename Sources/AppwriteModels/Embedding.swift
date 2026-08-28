@@ -55,11 +55,11 @@ open class Embedding: Codable {
             "model": model as Any,
             "dimension": dimension as Any,
             "embedding": embedding as Any,
-            "error": error as Any
+            "error": error as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Embedding {
+    public static func from(map: [String: Any]) -> Embedding {
         return Embedding(
             model: map["model"] as! String,
             dimension: map["dimension"] as! Int,

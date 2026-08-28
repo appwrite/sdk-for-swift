@@ -1,9 +1,9 @@
-import AsyncHTTPClient
-import Foundation
-import NIO
-import JSONCodable
 import AppwriteEnums
 import AppwriteModels
+import AsyncHTTPClient
+import Foundation
+import JSONCodable
+import NIO
 
 /// The Webhooks service allows you to manage your project webhooks.
 open class Webhooks: Service {
@@ -26,12 +26,12 @@ open class Webhooks: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.WebhookList = { response in
@@ -46,7 +46,6 @@ open class Webhooks: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new webhook. Use this endpoint to configure a URL that will
     /// receive events from Appwrite when specific events occur.
@@ -86,13 +85,13 @@ open class Webhooks: Service {
             "tls": tls,
             "authUsername": authUsername,
             "authPassword": authPassword,
-            "secret": secret
+            "secret": secret,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Webhook = { response in
@@ -107,10 +106,9 @@ open class Webhooks: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a webhook by its unique ID. This endpoint returns details about a
-    /// specific webhook configured for a project. 
+    /// specific webhook configured for a project.
     ///
     /// - Parameters:
     ///   - webhookId: String
@@ -127,7 +125,7 @@ open class Webhooks: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Webhook = { response in
@@ -142,7 +140,6 @@ open class Webhooks: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a webhook by its unique ID. Use this endpoint to update the URL,
     /// events, or status of an existing webhook.
@@ -179,13 +176,13 @@ open class Webhooks: Service {
             "enabled": enabled,
             "tls": tls,
             "authUsername": authUsername,
-            "authPassword": authPassword
+            "authPassword": authPassword,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Webhook = { response in
@@ -200,10 +197,9 @@ open class Webhooks: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a webhook by its unique ID. Once deleted, the webhook will no longer
-    /// receive project events. 
+    /// receive project events.
     ///
     /// - Parameters:
     ///   - webhookId: String
@@ -220,16 +216,16 @@ open class Webhooks: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Update the webhook signing key. This endpoint can be used to regenerate the
     /// signing key used to sign and validate payload deliveries for a specific
@@ -255,7 +251,7 @@ open class Webhooks: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Webhook = { response in
@@ -270,6 +266,4 @@ open class Webhooks: Service {
             converter: converter
         )
     }
-
-
 }

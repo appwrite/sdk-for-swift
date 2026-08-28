@@ -11,10 +11,10 @@ let tablesDB = TablesDB(client)
 let columnEmail = try await tablesDB.updateEmailColumn(
     databaseId: "<DATABASE_ID>",
     tableId: "<TABLE_ID>",
-    key: "",
+    key: "<KEY>",
     required: false,
     default: "email@example.com",
-    newKey: "" // optional
+    newKey: "<NEW_KEY>" // optional
 )
 
 ```

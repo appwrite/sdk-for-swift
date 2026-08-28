@@ -63,11 +63,11 @@ open class OAuth2Gitlab: Codable {
             "enabled": enabled as Any,
             "applicationId": applicationId as Any,
             "secret": secret as Any,
-            "endpoint": endpoint as Any
+            "endpoint": endpoint as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Gitlab {
+    public static func from(map: [String: Any]) -> OAuth2Gitlab {
         return OAuth2Gitlab(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

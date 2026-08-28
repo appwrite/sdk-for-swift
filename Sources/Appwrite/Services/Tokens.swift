@@ -1,9 +1,9 @@
-import AsyncHTTPClient
-import Foundation
-import NIO
-import JSONCodable
 import AppwriteEnums
 import AppwriteModels
+import AsyncHTTPClient
+import Foundation
+import JSONCodable
+import NIO
 
 /// The Tokens service allows you to create and manage resource tokens for secure file access.
 open class Tokens: Service {
@@ -32,12 +32,12 @@ open class Tokens: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ResourceTokenList = { response in
@@ -52,7 +52,6 @@ open class Tokens: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new token. A token is linked to a file. Token can be passed as a
     /// request URL search parameter.
@@ -80,7 +79,7 @@ open class Tokens: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ResourceToken = { response in
@@ -95,7 +94,6 @@ open class Tokens: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a token by its unique ID.
     ///
@@ -114,7 +112,7 @@ open class Tokens: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ResourceToken = { response in
@@ -129,7 +127,6 @@ open class Tokens: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a token by its unique ID. Use this endpoint to update a token's
     /// expiry date.
@@ -154,7 +151,7 @@ open class Tokens: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ResourceToken = { response in
@@ -169,7 +166,6 @@ open class Tokens: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a token by its unique ID.
     ///
@@ -188,15 +184,14 @@ open class Tokens: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
-
 }

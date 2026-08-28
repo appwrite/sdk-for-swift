@@ -1,6 +1,6 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
-import AppwriteEnums
 
 /// OAuth2Google
 open class OAuth2Google: Codable {
@@ -64,11 +64,11 @@ open class OAuth2Google: Codable {
             "enabled": enabled as Any,
             "clientId": clientId as Any,
             "clientSecret": clientSecret as Any,
-            "prompt": prompt.map { $0.rawValue } as Any
+            "prompt": prompt.map { $0.rawValue } as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Google {
+    public static func from(map: [String: Any]) -> OAuth2Google {
         return OAuth2Google(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

@@ -119,11 +119,11 @@ open class Oauth2Grant: Codable {
             "prompt": prompt as Any,
             "redirectUri": redirectUri as Any,
             "authTime": authTime as Any,
-            "expire": expire as Any
+            "expire": expire as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Oauth2Grant {
+    public static func from(map: [String: Any]) -> Oauth2Grant {
         return Oauth2Grant(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

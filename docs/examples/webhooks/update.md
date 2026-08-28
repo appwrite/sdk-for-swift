@@ -11,7 +11,7 @@ let webhooks = Webhooks(client)
 let webhook = try await webhooks.update(
     webhookId: "<WEBHOOK_ID>",
     name: "<NAME>",
-    url: "",
+    url: "https://example.com/webhook",
     events: [],
     enabled: false, // optional
     tls: false, // optional

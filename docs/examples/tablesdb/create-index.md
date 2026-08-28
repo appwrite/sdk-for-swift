@@ -12,7 +12,7 @@ let tablesDB = TablesDB(client)
 let columnIndex = try await tablesDB.createIndex(
     databaseId: "<DATABASE_ID>",
     tableId: "<TABLE_ID>",
-    key: "",
+    key: "<KEY>",
     type: .key,
     columns: [],
     orders: [.asc], // optional

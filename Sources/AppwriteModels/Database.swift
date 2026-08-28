@@ -1,6 +1,6 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
-import AppwriteEnums
 
 /// Database
 open class Database: Codable {
@@ -16,6 +16,9 @@ open class Database: Codable {
         case engine = "engine"
         case specification = "specification"
         case replicas = "replicas"
+        case error = "error"
+        case containerStatus = "containerStatus"
+        case lifecycleState = "lifecycleState"
         case policies = "policies"
         case archives = "archives"
     }
@@ -40,6 +43,12 @@ open class Database: Codable {
     public let specification: String?
     /// Number of secondary high availability replicas, excluding the primary. Null when backing configuration is unavailable.
     public let replicas: Int?
+    /// Error message when the dedicated backing failed. Null when the database has no dedicated backing or has not failed.
+    public let error: String?
+    /// Container status of the dedicated backing: active or inactive. Null when the database has no dedicated backing or the runtime has not reported one.
+    public let containerStatus: String?
+    /// Idle-lifecycle state of the dedicated backing: active, warm, cold, or hibernated. Null when the database has no dedicated backing or the runtime has not reported one.
+    public let lifecycleState: String?
     /// Database backup policies.
     public let policies: [BackupPolicy]?
     /// Database backup archives.
@@ -56,6 +65,9 @@ open class Database: Codable {
         engine: String?,
         specification: String?,
         replicas: Int?,
+        error: String?,
+        containerStatus: String?,
+        lifecycleState: String?,
         policies: [BackupPolicy]?,
         archives: [BackupArchive]?
     ) {
@@ -69,6 +81,9 @@ open class Database: Codable {
         self.engine = engine
         self.specification = specification
         self.replicas = replicas
+        self.error = error
+        self.containerStatus = containerStatus
+        self.lifecycleState = lifecycleState
         self.policies = policies
         self.archives = archives
     }
@@ -90,6 +105,9 @@ open class Database: Codable {
         self.engine = try container.decodeIfPresent(String.self, forKey: .engine)
         self.specification = try container.decodeIfPresent(String.self, forKey: .specification)
         self.replicas = try container.decodeIfPresent(Int.self, forKey: .replicas)
+        self.error = try container.decodeIfPresent(String.self, forKey: .error)
+        self.containerStatus = try container.decodeIfPresent(String.self, forKey: .containerStatus)
+        self.lifecycleState = try container.decodeIfPresent(String.self, forKey: .lifecycleState)
         self.policies = try container.decodeIfPresent([BackupPolicy].self, forKey: .policies)
         self.archives = try container.decodeIfPresent([BackupArchive].self, forKey: .archives)
     }
@@ -107,6 +125,9 @@ open class Database: Codable {
         try container.encodeIfPresent(engine, forKey: .engine)
         try container.encodeIfPresent(specification, forKey: .specification)
         try container.encodeIfPresent(replicas, forKey: .replicas)
+        try container.encodeIfPresent(error, forKey: .error)
+        try container.encodeIfPresent(containerStatus, forKey: .containerStatus)
+        try container.encodeIfPresent(lifecycleState, forKey: .lifecycleState)
         try container.encodeIfPresent(policies, forKey: .policies)
         try container.encodeIfPresent(archives, forKey: .archives)
     }
@@ -123,12 +144,15 @@ open class Database: Codable {
             "engine": engine as Any,
             "specification": specification as Any,
             "replicas": replicas as Any,
+            "error": error as Any,
+            "containerStatus": containerStatus as Any,
+            "lifecycleState": lifecycleState as Any,
             "policies": policies?.map { $0.toMap() } as Any,
-            "archives": archives?.map { $0.toMap() } as Any
+            "archives": archives?.map { $0.toMap() } as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Database {
+    public static func from(map: [String: Any]) -> Database {
         return Database(
             id: map["$id"] as! String,
             name: map["name"] as! String,
@@ -140,6 +164,9 @@ open class Database: Codable {
             engine: map["engine"] as? String,
             specification: map["specification"] as? String,
             replicas: map["replicas"] as? Int,
+            error: map["error"] as? String,
+            containerStatus: map["containerStatus"] as? String,
+            lifecycleState: map["lifecycleState"] as? String,
             policies: (map["policies"] as? [[String: Any]] ?? []).map { BackupPolicy.from(map: $0) },
             archives: (map["archives"] as? [[String: Any]] ?? []).map { BackupArchive.from(map: $0) }
         )

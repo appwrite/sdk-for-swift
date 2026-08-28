@@ -119,11 +119,11 @@ open class BackupArchive: Codable {
             "services": services as Any,
             "resources": resources as Any,
             "resourceId": resourceId as Any,
-            "resourceType": resourceType as Any
+            "resourceType": resourceType as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> BackupArchive {
+    public static func from(map: [String: Any]) -> BackupArchive {
         return BackupArchive(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

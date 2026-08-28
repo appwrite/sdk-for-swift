@@ -1,6 +1,6 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
-import AppwriteEnums
 
 /// AttributeInteger
 open class AttributeInteger: Codable {
@@ -112,11 +112,11 @@ open class AttributeInteger: Codable {
             "$updatedAt": updatedAt as Any,
             "min": min as Any,
             "max": max as Any,
-            "default": `default` as Any
+            "default": `default` as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> AttributeInteger {
+    public static func from(map: [String: Any]) -> AttributeInteger {
         return AttributeInteger(
             key: map["key"] as! String,
             type: map["type"] as! String,

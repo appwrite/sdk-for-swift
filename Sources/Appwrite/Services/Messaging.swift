@@ -1,9 +1,9 @@
-import AsyncHTTPClient
-import Foundation
-import NIO
-import JSONCodable
 import AppwriteEnums
 import AppwriteModels
+import AsyncHTTPClient
+import Foundation
+import JSONCodable
+import NIO
 
 /// The Messaging service allows you to send messages to any provider type (SMTP, push notification, SMS, etc.).
 open class Messaging: Service {
@@ -28,12 +28,12 @@ open class Messaging: Service {
         let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.MessageList = { response in
@@ -48,7 +48,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new email message.
     ///
@@ -96,13 +95,13 @@ open class Messaging: Service {
             "attachments": attachments,
             "draft": draft,
             "html": html,
-            "scheduledAt": scheduledAt
+            "scheduledAt": scheduledAt,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Message = { response in
@@ -117,12 +116,10 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Update an email message by its unique ID. This endpoint only works on
     /// messages that are in draft status. Messages that are already processing,
     /// sent, or failed cannot be updated.
-    /// 
     ///
     /// - Parameters:
     ///   - messageId: String
@@ -168,13 +165,13 @@ open class Messaging: Service {
             "cc": cc,
             "bcc": bcc,
             "scheduledAt": scheduledAt,
-            "attachments": attachments
+            "attachments": attachments,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Message = { response in
@@ -189,7 +186,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new push notification.
     ///
@@ -258,13 +254,13 @@ open class Messaging: Service {
             "scheduledAt": scheduledAt,
             "contentAvailable": contentAvailable,
             "critical": critical,
-            "priority": priority?.rawValue
+            "priority": priority?.rawValue,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Message = { response in
@@ -279,12 +275,10 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a push notification by its unique ID. This endpoint only works on
     /// messages that are in draft status. Messages that are already processing,
     /// sent, or failed cannot be updated.
-    /// 
     ///
     /// - Parameters:
     ///   - messageId: String
@@ -351,13 +345,13 @@ open class Messaging: Service {
             "scheduledAt": scheduledAt,
             "contentAvailable": contentAvailable,
             "critical": critical,
-            "priority": priority?.rawValue
+            "priority": priority?.rawValue,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Message = { response in
@@ -372,7 +366,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new SMS message.
     ///
@@ -406,13 +399,13 @@ open class Messaging: Service {
             "users": users,
             "targets": targets,
             "draft": draft,
-            "scheduledAt": scheduledAt
+            "scheduledAt": scheduledAt,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Message = { response in
@@ -427,7 +420,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new SMS message.
     ///
@@ -460,13 +452,13 @@ open class Messaging: Service {
             "users": users,
             "targets": targets,
             "draft": draft,
-            "scheduledAt": scheduledAt
+            "scheduledAt": scheduledAt,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Message = { response in
@@ -481,12 +473,10 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Update an SMS message by its unique ID. This endpoint only works on
     /// messages that are in draft status. Messages that are already processing,
     /// sent, or failed cannot be updated.
-    /// 
     ///
     /// - Parameters:
     ///   - messageId: String
@@ -518,13 +508,13 @@ open class Messaging: Service {
             "targets": targets,
             "content": content,
             "draft": draft,
-            "scheduledAt": scheduledAt
+            "scheduledAt": scheduledAt,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Message = { response in
@@ -539,12 +529,10 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Update an SMS message by its unique ID. This endpoint only works on
     /// messages that are in draft status. Messages that are already processing,
     /// sent, or failed cannot be updated.
-    /// 
     ///
     /// - Parameters:
     ///   - messageId: String
@@ -575,13 +563,13 @@ open class Messaging: Service {
             "targets": targets,
             "content": content,
             "draft": draft,
-            "scheduledAt": scheduledAt
+            "scheduledAt": scheduledAt,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Message = { response in
@@ -596,10 +584,8 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a message by its unique ID.
-    /// 
     ///
     /// - Parameters:
     ///   - messageId: String
@@ -616,7 +602,7 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Message = { response in
@@ -631,7 +617,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a message. If the message is not a draft or scheduled, but has been
     /// sent, this will not recall the message.
@@ -651,16 +636,16 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Get a list of the targets associated with a message.
     ///
@@ -681,12 +666,12 @@ open class Messaging: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.TargetList = { response in
@@ -701,7 +686,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a list of all providers from the current Appwrite project.
     ///
@@ -722,12 +706,12 @@ open class Messaging: Service {
         let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.ProviderList = { response in
@@ -742,7 +726,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new Apple Push Notification service provider.
     ///
@@ -779,13 +762,13 @@ open class Messaging: Service {
             "teamId": teamId,
             "bundleId": bundleId,
             "sandbox": sandbox,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -800,7 +783,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new Apple Push Notification service provider.
     ///
@@ -836,13 +818,13 @@ open class Messaging: Service {
             "teamId": teamId,
             "bundleId": bundleId,
             "sandbox": sandbox,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -857,7 +839,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a Apple Push Notification service provider by its unique ID.
     ///
@@ -894,13 +875,13 @@ open class Messaging: Service {
             "authKeyId": authKeyId,
             "teamId": teamId,
             "bundleId": bundleId,
-            "sandbox": sandbox
+            "sandbox": sandbox,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -915,7 +896,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a Apple Push Notification service provider by its unique ID.
     ///
@@ -951,13 +931,13 @@ open class Messaging: Service {
             "authKeyId": authKeyId,
             "teamId": teamId,
             "bundleId": bundleId,
-            "sandbox": sandbox
+            "sandbox": sandbox,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -972,7 +952,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new Firebase Cloud Messaging provider.
     ///
@@ -997,13 +976,13 @@ open class Messaging: Service {
             "providerId": providerId,
             "name": name,
             "serviceAccountJSON": serviceAccountJSON,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1018,7 +997,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new Firebase Cloud Messaging provider.
     ///
@@ -1042,13 +1020,13 @@ open class Messaging: Service {
             "providerId": providerId,
             "name": name,
             "serviceAccountJSON": serviceAccountJSON,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1063,7 +1041,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a Firebase Cloud Messaging provider by its unique ID.
     ///
@@ -1088,13 +1065,13 @@ open class Messaging: Service {
         let apiParams: [String: Any?] = [
             "name": name,
             "enabled": enabled,
-            "serviceAccountJSON": serviceAccountJSON
+            "serviceAccountJSON": serviceAccountJSON,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1109,7 +1086,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a Firebase Cloud Messaging provider by its unique ID.
     ///
@@ -1133,13 +1109,13 @@ open class Messaging: Service {
         let apiParams: [String: Any?] = [
             "name": name,
             "enabled": enabled,
-            "serviceAccountJSON": serviceAccountJSON
+            "serviceAccountJSON": serviceAccountJSON,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1154,7 +1130,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new Mailgun provider.
     ///
@@ -1196,13 +1171,13 @@ open class Messaging: Service {
             "fromEmail": fromEmail,
             "replyToName": replyToName,
             "replyToEmail": replyToEmail,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1217,7 +1192,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a Mailgun provider by its unique ID.
     ///
@@ -1259,13 +1233,13 @@ open class Messaging: Service {
             "fromName": fromName,
             "fromEmail": fromEmail,
             "replyToName": replyToName,
-            "replyToEmail": replyToEmail
+            "replyToEmail": replyToEmail,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1280,7 +1254,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new MSG91 provider.
     ///
@@ -1310,13 +1283,13 @@ open class Messaging: Service {
             "templateId": templateId,
             "senderId": senderId,
             "authKey": authKey,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1331,7 +1304,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a MSG91 provider by its unique ID.
     ///
@@ -1361,13 +1333,13 @@ open class Messaging: Service {
             "enabled": enabled,
             "templateId": templateId,
             "senderId": senderId,
-            "authKey": authKey
+            "authKey": authKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1382,7 +1354,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new Resend provider.
     ///
@@ -1418,13 +1389,13 @@ open class Messaging: Service {
             "fromEmail": fromEmail,
             "replyToName": replyToName,
             "replyToEmail": replyToEmail,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1439,7 +1410,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a Resend provider by its unique ID.
     ///
@@ -1475,13 +1445,13 @@ open class Messaging: Service {
             "fromName": fromName,
             "fromEmail": fromEmail,
             "replyToName": replyToName,
-            "replyToEmail": replyToEmail
+            "replyToEmail": replyToEmail,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1496,7 +1466,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new Sendgrid provider.
     ///
@@ -1532,13 +1501,13 @@ open class Messaging: Service {
             "fromEmail": fromEmail,
             "replyToName": replyToName,
             "replyToEmail": replyToEmail,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1553,7 +1522,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a Sendgrid provider by its unique ID.
     ///
@@ -1589,13 +1557,13 @@ open class Messaging: Service {
             "fromName": fromName,
             "fromEmail": fromEmail,
             "replyToName": replyToName,
-            "replyToEmail": replyToEmail
+            "replyToEmail": replyToEmail,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1610,7 +1578,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new Amazon SES provider.
     ///
@@ -1652,13 +1619,13 @@ open class Messaging: Service {
             "fromEmail": fromEmail,
             "replyToName": replyToName,
             "replyToEmail": replyToEmail,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1673,7 +1640,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Update an Amazon SES provider by its unique ID.
     ///
@@ -1715,13 +1681,13 @@ open class Messaging: Service {
             "fromName": fromName,
             "fromEmail": fromEmail,
             "replyToName": replyToName,
-            "replyToEmail": replyToEmail
+            "replyToEmail": replyToEmail,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1736,7 +1702,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new SMTP provider.
     ///
@@ -1791,13 +1756,13 @@ open class Messaging: Service {
             "fromEmail": fromEmail,
             "replyToName": replyToName,
             "replyToEmail": replyToEmail,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1812,7 +1777,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new SMTP provider.
     ///
@@ -1866,13 +1830,13 @@ open class Messaging: Service {
             "fromEmail": fromEmail,
             "replyToName": replyToName,
             "replyToEmail": replyToEmail,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1887,7 +1851,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a SMTP provider by its unique ID.
     ///
@@ -1942,13 +1905,13 @@ open class Messaging: Service {
             "fromEmail": fromEmail,
             "replyToName": replyToName,
             "replyToEmail": replyToEmail,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -1963,7 +1926,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a SMTP provider by its unique ID.
     ///
@@ -2017,13 +1979,13 @@ open class Messaging: Service {
             "fromEmail": fromEmail,
             "replyToName": replyToName,
             "replyToEmail": replyToEmail,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -2038,7 +2000,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new Telesign provider.
     ///
@@ -2068,13 +2029,13 @@ open class Messaging: Service {
             "from": from,
             "customerId": customerId,
             "apiKey": apiKey,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -2089,7 +2050,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a Telesign provider by its unique ID.
     ///
@@ -2119,13 +2079,13 @@ open class Messaging: Service {
             "enabled": enabled,
             "customerId": customerId,
             "apiKey": apiKey,
-            "from": from
+            "from": from,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -2140,7 +2100,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new Textmagic provider.
     ///
@@ -2170,13 +2129,13 @@ open class Messaging: Service {
             "from": from,
             "username": username,
             "apiKey": apiKey,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -2191,7 +2150,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a Textmagic provider by its unique ID.
     ///
@@ -2221,13 +2179,13 @@ open class Messaging: Service {
             "enabled": enabled,
             "username": username,
             "apiKey": apiKey,
-            "from": from
+            "from": from,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -2242,7 +2200,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new Twilio provider.
     ///
@@ -2272,13 +2229,13 @@ open class Messaging: Service {
             "from": from,
             "accountSid": accountSid,
             "authToken": authToken,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -2293,7 +2250,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a Twilio provider by its unique ID.
     ///
@@ -2323,13 +2279,13 @@ open class Messaging: Service {
             "enabled": enabled,
             "accountSid": accountSid,
             "authToken": authToken,
-            "from": from
+            "from": from,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -2344,7 +2300,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new Vonage provider.
     ///
@@ -2374,13 +2329,13 @@ open class Messaging: Service {
             "from": from,
             "apiKey": apiKey,
             "apiSecret": apiSecret,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -2395,7 +2350,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a Vonage provider by its unique ID.
     ///
@@ -2425,13 +2379,13 @@ open class Messaging: Service {
             "enabled": enabled,
             "apiKey": apiKey,
             "apiSecret": apiSecret,
-            "from": from
+            "from": from,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -2446,10 +2400,8 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a provider by its unique ID.
-    /// 
     ///
     /// - Parameters:
     ///   - providerId: String
@@ -2466,7 +2418,7 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Provider = { response in
@@ -2481,7 +2433,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a provider by its unique ID.
     ///
@@ -2500,16 +2451,16 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Get a list of all topics from the current Appwrite project.
     ///
@@ -2530,12 +2481,12 @@ open class Messaging: Service {
         let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.TopicList = { response in
@@ -2550,7 +2501,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new topic.
     ///
@@ -2571,13 +2521,13 @@ open class Messaging: Service {
         let apiParams: [String: Any?] = [
             "topicId": topicId,
             "name": name,
-            "subscribe": subscribe
+            "subscribe": subscribe,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Topic = { response in
@@ -2592,10 +2542,8 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a topic by its unique ID.
-    /// 
     ///
     /// - Parameters:
     ///   - topicId: String
@@ -2612,7 +2560,7 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Topic = { response in
@@ -2627,10 +2575,8 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a topic by its unique ID.
-    /// 
     ///
     /// - Parameters:
     ///   - topicId: String
@@ -2649,13 +2595,13 @@ open class Messaging: Service {
 
         let apiParams: [String: Any?] = [
             "name": name,
-            "subscribe": subscribe
+            "subscribe": subscribe,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Topic = { response in
@@ -2670,7 +2616,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a topic by its unique ID.
     ///
@@ -2689,16 +2634,16 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Get a list of all subscribers from the current Appwrite project.
     ///
@@ -2722,12 +2667,12 @@ open class Messaging: Service {
         let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.SubscriberList = { response in
@@ -2742,7 +2687,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new subscriber.
     ///
@@ -2763,13 +2707,13 @@ open class Messaging: Service {
 
         let apiParams: [String: Any?] = [
             "subscriberId": subscriberId,
-            "targetId": targetId
+            "targetId": targetId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Subscriber = { response in
@@ -2784,10 +2728,8 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a subscriber by its unique ID.
-    /// 
     ///
     /// - Parameters:
     ///   - topicId: String
@@ -2807,7 +2749,7 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Subscriber = { response in
@@ -2822,7 +2764,6 @@ open class Messaging: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a subscriber by its unique ID.
     ///
@@ -2844,15 +2785,14 @@ open class Messaging: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
-
 }

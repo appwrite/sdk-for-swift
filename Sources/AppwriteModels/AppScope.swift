@@ -63,11 +63,11 @@ open class AppScope: Codable {
             "description": description as Any,
             "type": type as Any,
             "category": category as Any,
-            "deprecated": deprecated as Any
+            "deprecated": deprecated as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> AppScope {
+    public static func from(map: [String: Any]) -> AppScope {
         return AppScope(
             value: map["value"] as! String,
             description: map["description"] as! String,

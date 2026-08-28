@@ -71,11 +71,11 @@ open class Oauth2DeviceAuthorization: Codable {
             "verification_uri": verification_uri as Any,
             "verification_uri_complete": verification_uri_complete as Any,
             "expires_in": expires_in as Any,
-            "interval": interval as Any
+            "interval": interval as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Oauth2DeviceAuthorization {
+    public static func from(map: [String: Any]) -> Oauth2DeviceAuthorization {
         return Oauth2DeviceAuthorization(
             device_code: map["device_code"] as! String,
             user_code: map["user_code"] as! String,

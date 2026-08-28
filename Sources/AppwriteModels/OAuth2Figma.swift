@@ -55,11 +55,11 @@ open class OAuth2Figma: Codable {
             "$id": id as Any,
             "enabled": enabled as Any,
             "clientId": clientId as Any,
-            "clientSecret": clientSecret as Any
+            "clientSecret": clientSecret as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Figma {
+    public static func from(map: [String: Any]) -> OAuth2Figma {
         return OAuth2Figma(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

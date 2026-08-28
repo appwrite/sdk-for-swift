@@ -55,11 +55,11 @@ open class InsightCTA: Codable {
             "label": label as Any,
             "service": service as Any,
             "method": method as Any,
-            "params": params as Any
+            "params": params as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> InsightCTA {
+    public static func from(map: [String: Any]) -> InsightCTA {
         return InsightCTA(
             label: map["label"] as! String,
             service: map["service"] as! String,

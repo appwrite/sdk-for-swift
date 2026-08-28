@@ -11,7 +11,7 @@ let databases = Databases(client)
 let attributePolygon = try await databases.createPolygonAttribute(
     databaseId: "<DATABASE_ID>",
     collectionId: "<COLLECTION_ID>",
-    key: "",
+    key: "<KEY>",
     required: false,
     default: [[[1, 2], [3, 4], [5, 6], [1, 2]]] // optional
 )

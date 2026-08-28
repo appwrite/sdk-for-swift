@@ -1,6 +1,6 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
-import AppwriteEnums
 
 /// Deployment
 open class Deployment: Codable {
@@ -240,11 +240,11 @@ open class Deployment: Codable {
             "providerCommitMessage": providerCommitMessage as Any,
             "providerCommitUrl": providerCommitUrl as Any,
             "providerBranch": providerBranch as Any,
-            "providerBranchUrl": providerBranchUrl as Any
+            "providerBranchUrl": providerBranchUrl as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Deployment {
+    public static func from(map: [String: Any]) -> Deployment {
         return Deployment(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

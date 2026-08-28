@@ -11,7 +11,7 @@ let tablesDB = TablesDB(client)
 let columnBoolean = try await tablesDB.createBooleanColumn(
     databaseId: "<DATABASE_ID>",
     tableId: "<TABLE_ID>",
-    key: "",
+    key: "<KEY>",
     required: false,
     default: false, // optional
     array: false // optional

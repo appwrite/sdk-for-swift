@@ -1,6 +1,6 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
-import AppwriteEnums
 
 /// billingPlan
 open class BillingPlan: Codable {
@@ -59,6 +59,7 @@ open class BillingPlan: Codable {
         case supportsMockNumbers = "supportsMockNumbers"
         case supportsOrganizationRoles = "supportsOrganizationRoles"
         case supportsCredits = "supportsCredits"
+        case supportsDedicatedDatabases = "supportsDedicatedDatabases"
         case supportsDisposableEmailValidation = "supportsDisposableEmailValidation"
         case supportsCanonicalEmailValidation = "supportsCanonicalEmailValidation"
         case supportsFreeEmailValidation = "supportsFreeEmailValidation"
@@ -74,6 +75,7 @@ open class BillingPlan: Codable {
         case limits = "limits"
         case group = "group"
         case program = "program"
+        case databaseComputeCredit = "databaseComputeCredit"
         case dedicatedDatabases = "dedicatedDatabases"
     }
 
@@ -183,6 +185,8 @@ open class BillingPlan: Codable {
     public let supportsOrganizationRoles: Bool
     /// Does plan support credit
     public let supportsCredits: Bool
+    /// Does plan support dedicated databases.
+    public let supportsDedicatedDatabases: Bool
     /// Does plan support blocking disposable email addresses.
     public let supportsDisposableEmailValidation: Bool
     /// Does plan support requiring canonical email addresses.
@@ -213,6 +217,8 @@ open class BillingPlan: Codable {
     public let group: AppwriteEnums.BillingPlanGroup
     /// Details of the program this plan is a part of.
     public let program: Program?
+    /// Included monthly dedicated-database compute credit in USD. Resets each billing cycle with no roll-over.
+    public let databaseComputeCredit: Double
     /// Dedicated database limits available to this plan.
     public let dedicatedDatabases: BillingPlanDedicatedDatabaseLimits?
 
@@ -270,6 +276,7 @@ open class BillingPlan: Codable {
         supportsMockNumbers: Bool,
         supportsOrganizationRoles: Bool,
         supportsCredits: Bool,
+        supportsDedicatedDatabases: Bool,
         supportsDisposableEmailValidation: Bool,
         supportsCanonicalEmailValidation: Bool,
         supportsFreeEmailValidation: Bool,
@@ -285,6 +292,7 @@ open class BillingPlan: Codable {
         limits: BillingPlanLimits?,
         group: AppwriteEnums.BillingPlanGroup,
         program: Program?,
+        databaseComputeCredit: Double,
         dedicatedDatabases: BillingPlanDedicatedDatabaseLimits?
     ) {
         self.id = id
@@ -340,6 +348,7 @@ open class BillingPlan: Codable {
         self.supportsMockNumbers = supportsMockNumbers
         self.supportsOrganizationRoles = supportsOrganizationRoles
         self.supportsCredits = supportsCredits
+        self.supportsDedicatedDatabases = supportsDedicatedDatabases
         self.supportsDisposableEmailValidation = supportsDisposableEmailValidation
         self.supportsCanonicalEmailValidation = supportsCanonicalEmailValidation
         self.supportsFreeEmailValidation = supportsFreeEmailValidation
@@ -355,6 +364,7 @@ open class BillingPlan: Codable {
         self.limits = limits
         self.group = group
         self.program = program
+        self.databaseComputeCredit = databaseComputeCredit
         self.dedicatedDatabases = dedicatedDatabases
     }
 
@@ -414,6 +424,7 @@ open class BillingPlan: Codable {
         self.supportsMockNumbers = try container.decode(Bool.self, forKey: .supportsMockNumbers)
         self.supportsOrganizationRoles = try container.decode(Bool.self, forKey: .supportsOrganizationRoles)
         self.supportsCredits = try container.decode(Bool.self, forKey: .supportsCredits)
+        self.supportsDedicatedDatabases = try container.decode(Bool.self, forKey: .supportsDedicatedDatabases)
         self.supportsDisposableEmailValidation = try container.decode(Bool.self, forKey: .supportsDisposableEmailValidation)
         self.supportsCanonicalEmailValidation = try container.decode(Bool.self, forKey: .supportsCanonicalEmailValidation)
         self.supportsFreeEmailValidation = try container.decode(Bool.self, forKey: .supportsFreeEmailValidation)
@@ -429,6 +440,7 @@ open class BillingPlan: Codable {
         self.limits = try container.decodeIfPresent(BillingPlanLimits.self, forKey: .limits)
         self.group = AppwriteEnums.BillingPlanGroup(rawValue: try container.decode(String.self, forKey: .group))!
         self.program = try container.decodeIfPresent(Program.self, forKey: .program)
+        self.databaseComputeCredit = try container.decode(Double.self, forKey: .databaseComputeCredit)
         self.dedicatedDatabases = try container.decodeIfPresent(BillingPlanDedicatedDatabaseLimits.self, forKey: .dedicatedDatabases)
     }
 
@@ -488,6 +500,7 @@ open class BillingPlan: Codable {
         try container.encode(supportsMockNumbers, forKey: .supportsMockNumbers)
         try container.encode(supportsOrganizationRoles, forKey: .supportsOrganizationRoles)
         try container.encode(supportsCredits, forKey: .supportsCredits)
+        try container.encode(supportsDedicatedDatabases, forKey: .supportsDedicatedDatabases)
         try container.encode(supportsDisposableEmailValidation, forKey: .supportsDisposableEmailValidation)
         try container.encode(supportsCanonicalEmailValidation, forKey: .supportsCanonicalEmailValidation)
         try container.encode(supportsFreeEmailValidation, forKey: .supportsFreeEmailValidation)
@@ -503,6 +516,7 @@ open class BillingPlan: Codable {
         try container.encodeIfPresent(limits, forKey: .limits)
         try container.encode(group.rawValue, forKey: .group)
         try container.encodeIfPresent(program, forKey: .program)
+        try container.encode(databaseComputeCredit, forKey: .databaseComputeCredit)
         try container.encodeIfPresent(dedicatedDatabases, forKey: .dedicatedDatabases)
     }
 
@@ -561,6 +575,7 @@ open class BillingPlan: Codable {
             "supportsMockNumbers": supportsMockNumbers as Any,
             "supportsOrganizationRoles": supportsOrganizationRoles as Any,
             "supportsCredits": supportsCredits as Any,
+            "supportsDedicatedDatabases": supportsDedicatedDatabases as Any,
             "supportsDisposableEmailValidation": supportsDisposableEmailValidation as Any,
             "supportsCanonicalEmailValidation": supportsCanonicalEmailValidation as Any,
             "supportsFreeEmailValidation": supportsFreeEmailValidation as Any,
@@ -576,11 +591,12 @@ open class BillingPlan: Codable {
             "limits": limits?.toMap() as Any,
             "group": group.rawValue as Any,
             "program": program?.toMap() as Any,
-            "dedicatedDatabases": dedicatedDatabases?.toMap() as Any
+            "databaseComputeCredit": databaseComputeCredit as Any,
+            "dedicatedDatabases": dedicatedDatabases?.toMap() as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> BillingPlan {
+    public static func from(map: [String: Any]) -> BillingPlan {
         return BillingPlan(
             id: map["$id"] as! String,
             name: map["name"] as! String,
@@ -635,6 +651,7 @@ open class BillingPlan: Codable {
             supportsMockNumbers: map["supportsMockNumbers"] as! Bool,
             supportsOrganizationRoles: map["supportsOrganizationRoles"] as! Bool,
             supportsCredits: map["supportsCredits"] as! Bool,
+            supportsDedicatedDatabases: map["supportsDedicatedDatabases"] as! Bool,
             supportsDisposableEmailValidation: map["supportsDisposableEmailValidation"] as! Bool,
             supportsCanonicalEmailValidation: map["supportsCanonicalEmailValidation"] as! Bool,
             supportsFreeEmailValidation: map["supportsFreeEmailValidation"] as! Bool,
@@ -650,6 +667,7 @@ open class BillingPlan: Codable {
             limits: map["limits"] as? [String: Any] != nil ? BillingPlanLimits.from(map: map["limits"] as! [String: Any]) : nil,
             group: AppwriteEnums.BillingPlanGroup(rawValue: map["group"] as! String)!,
             program: map["program"] as? [String: Any] != nil ? Program.from(map: map["program"] as! [String: Any]) : nil,
+            databaseComputeCredit: map["databaseComputeCredit"] as! Double,
             dedicatedDatabases: map["dedicatedDatabases"] as? [String: Any] != nil ? BillingPlanDedicatedDatabaseLimits.from(map: map["dedicatedDatabases"] as! [String: Any]) : nil
         )
     }

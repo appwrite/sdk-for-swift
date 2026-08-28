@@ -47,11 +47,11 @@ open class Oauth2Project: Codable {
         return [
             "$id": id as Any,
             "region": region as Any,
-            "endpoint": endpoint as Any
+            "endpoint": endpoint as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Oauth2Project {
+    public static func from(map: [String: Any]) -> Oauth2Project {
         return Oauth2Project(
             id: map["$id"] as! String,
             region: map["region"] as! String,

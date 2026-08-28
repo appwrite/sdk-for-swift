@@ -10,7 +10,7 @@ let client = Client()
 let proxy = Proxy(client)
 
 let proxyInvalidation = try await proxy.createInvalidation(
-    domain: "",
+    domain: "example.com",
     type: .tag,
     reference: "<REFERENCE>" // optional
 )

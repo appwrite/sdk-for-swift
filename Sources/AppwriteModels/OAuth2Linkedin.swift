@@ -55,11 +55,11 @@ open class OAuth2Linkedin: Codable {
             "$id": id as Any,
             "enabled": enabled as Any,
             "clientId": clientId as Any,
-            "primaryClientSecret": primaryClientSecret as Any
+            "primaryClientSecret": primaryClientSecret as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Linkedin {
+    public static func from(map: [String: Any]) -> OAuth2Linkedin {
         return OAuth2Linkedin(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

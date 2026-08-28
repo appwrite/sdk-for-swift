@@ -87,11 +87,11 @@ open class Topic: Codable {
             "emailTotal": emailTotal as Any,
             "smsTotal": smsTotal as Any,
             "pushTotal": pushTotal as Any,
-            "subscribe": subscribe as Any
+            "subscribe": subscribe as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Topic {
+    public static func from(map: [String: Any]) -> Topic {
         return Topic(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

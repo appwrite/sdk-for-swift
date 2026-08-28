@@ -11,7 +11,7 @@ let tablesDB = TablesDB(client)
 let columnUrl = try await tablesDB.createUrlColumn(
     databaseId: "<DATABASE_ID>",
     tableId: "<TABLE_ID>",
-    key: "",
+    key: "<KEY>",
     required: false,
     default: "https://example.com", // optional
     array: false // optional

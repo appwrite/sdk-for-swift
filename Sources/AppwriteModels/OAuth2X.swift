@@ -55,11 +55,11 @@ open class OAuth2X: Codable {
             "$id": id as Any,
             "enabled": enabled as Any,
             "customerKey": customerKey as Any,
-            "secretKey": secretKey as Any
+            "secretKey": secretKey as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2X {
+    public static func from(map: [String: Any]) -> OAuth2X {
         return OAuth2X(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

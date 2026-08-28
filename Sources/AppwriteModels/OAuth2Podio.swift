@@ -55,11 +55,11 @@ open class OAuth2Podio: Codable {
             "$id": id as Any,
             "enabled": enabled as Any,
             "clientId": clientId as Any,
-            "clientSecret": clientSecret as Any
+            "clientSecret": clientSecret as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Podio {
+    public static func from(map: [String: Any]) -> OAuth2Podio {
         return OAuth2Podio(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

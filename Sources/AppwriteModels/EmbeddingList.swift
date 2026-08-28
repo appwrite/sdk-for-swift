@@ -39,11 +39,11 @@ open class EmbeddingList: Codable {
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
-            "embeddings": embeddings.map { $0.toMap() } as Any
+            "embeddings": embeddings.map { $0.toMap() } as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> EmbeddingList {
+    public static func from(map: [String: Any]) -> EmbeddingList {
         return EmbeddingList(
             total: map["total"] as! Int,
             embeddings: (map["embeddings"] as! [[String: Any]]).map { Embedding.from(map: $0) }

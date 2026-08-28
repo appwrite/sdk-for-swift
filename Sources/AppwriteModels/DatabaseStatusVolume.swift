@@ -55,11 +55,11 @@ open class DatabaseStatusVolume: Codable {
             "path": path as Any,
             "usedPercent": usedPercent as Any,
             "available": available as Any,
-            "mounted": mounted as Any
+            "mounted": mounted as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> DatabaseStatusVolume {
+    public static func from(map: [String: Any]) -> DatabaseStatusVolume {
         return DatabaseStatusVolume(
             path: map["path"] as! String,
             usedPercent: map["usedPercent"] as! String,

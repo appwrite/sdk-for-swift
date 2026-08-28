@@ -55,11 +55,11 @@ open class OAuth2Facebook: Codable {
             "$id": id as Any,
             "enabled": enabled as Any,
             "appId": appId as Any,
-            "appSecret": appSecret as Any
+            "appSecret": appSecret as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Facebook {
+    public static func from(map: [String: Any]) -> OAuth2Facebook {
         return OAuth2Facebook(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

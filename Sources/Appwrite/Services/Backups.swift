@@ -1,9 +1,9 @@
-import AsyncHTTPClient
-import Foundation
-import NIO
-import JSONCodable
 import AppwriteEnums
 import AppwriteModels
+import AsyncHTTPClient
+import Foundation
+import JSONCodable
+import NIO
 
 /// The Backups service allows you to manage backup policies, archives, and restorations for your project.
 open class Backups: Service {
@@ -27,7 +27,7 @@ open class Backups: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.BackupArchiveList = { response in
@@ -42,7 +42,6 @@ open class Backups: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new archive asynchronously for a project.
     ///
@@ -60,13 +59,13 @@ open class Backups: Service {
 
         let apiParams: [String: Any?] = [
             "services": services.map { $0.rawValue },
-            "resourceId": resourceId
+            "resourceId": resourceId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.BackupArchive = { response in
@@ -81,7 +80,6 @@ open class Backups: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a backup archive using it's ID.
     ///
@@ -100,7 +98,7 @@ open class Backups: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.BackupArchive = { response in
@@ -115,7 +113,6 @@ open class Backups: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete an existing archive for a project.
     ///
@@ -135,16 +132,16 @@ open class Backups: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// List all policies for a project.
     ///
@@ -164,7 +161,7 @@ open class Backups: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.BackupPolicyList = { response in
@@ -179,7 +176,6 @@ open class Backups: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new backup policy.
     ///
@@ -212,13 +208,13 @@ open class Backups: Service {
             "resourceId": resourceId,
             "enabled": enabled,
             "retention": retention,
-            "schedule": schedule
+            "schedule": schedule,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.BackupPolicy = { response in
@@ -233,7 +229,6 @@ open class Backups: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a backup policy using it's ID.
     ///
@@ -252,7 +247,7 @@ open class Backups: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.BackupPolicy = { response in
@@ -267,7 +262,6 @@ open class Backups: Service {
             converter: converter
         )
     }
-
     ///
     /// Update an existing policy using it's ID.
     ///
@@ -294,13 +288,13 @@ open class Backups: Service {
             "name": name,
             "retention": retention,
             "schedule": schedule,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.BackupPolicy = { response in
@@ -315,7 +309,6 @@ open class Backups: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a policy using it's ID.
     ///
@@ -335,32 +328,32 @@ open class Backups: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Create and trigger a new restoration for a backup on a project.
-    /// 
+    ///
     /// For a backup of one database, the restoration resolves its destination
     /// before it is queued. When `newResourceId` is omitted, the archived database
     /// is restored in place and its own ID is returned in `options`. Pass a
     /// different `newResourceId` to restore alongside it as a new database
     /// instead.
-    /// 
+    ///
     /// The restoration migration records the archived database in `resourceId` and
     /// `resourceType`, and the resolved database in `destinationResourceId` and
     /// `destinationResourceType`. Database types are stored canonically as
     /// `database`, `documentsdb`, or `vectorsdb`. Project-wide restorations leave
     /// these fields empty because they do not have a single source or destination
     /// database.
-    /// 
+    ///
     /// To list every migration related to one database, use its canonical type in
     /// a nested `OR(AND(...), AND(...), AND(...))` across the root, parent, and
     /// destination relation pairs: `(resourceType, resourceId)`,
@@ -368,7 +361,7 @@ open class Backups: Service {
     /// destinationResourceId)`. Legacy and TablesDB databases use `database`; the
     /// operational `resourceType` of a table migration is not rewritten to
     /// `tablesdb`.
-    /// 
+    ///
     /// When restoring a DocumentsDB or VectorsDB database from a dedicated source,
     /// the restore provisions a fresh dedicated backing database at the source
     /// database's own specification and lands the data there. An in-place restore
@@ -377,7 +370,6 @@ open class Backups: Service {
     /// the source keeps serving its own data until the restored data is in place
     /// and any failure leaves it untouched. A serverless source has no dedicated
     /// backing to clone and restores onto the archived database instead.
-    /// 
     ///
     /// - Parameters:
     ///   - archiveId: String
@@ -399,13 +391,13 @@ open class Backups: Service {
             "archiveId": archiveId,
             "services": services.map { $0.rawValue },
             "newResourceId": newResourceId,
-            "newResourceName": newResourceName
+            "newResourceName": newResourceName,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.BackupRestoration = { response in
@@ -420,7 +412,6 @@ open class Backups: Service {
             converter: converter
         )
     }
-
     ///
     /// List all backup restorations for a project.
     ///
@@ -440,7 +431,7 @@ open class Backups: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.BackupRestorationList = { response in
@@ -455,7 +446,6 @@ open class Backups: Service {
             converter: converter
         )
     }
-
     ///
     /// Get the current status of a backup restoration.
     ///
@@ -474,7 +464,7 @@ open class Backups: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.BackupRestoration = { response in
@@ -489,6 +479,4 @@ open class Backups: Service {
             converter: converter
         )
     }
-
-
 }

@@ -39,11 +39,11 @@ open class ProxyRuleList: Codable {
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
-            "rules": rules.map { $0.toMap() } as Any
+            "rules": rules.map { $0.toMap() } as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> ProxyRuleList {
+    public static func from(map: [String: Any]) -> ProxyRuleList {
         return ProxyRuleList(
             total: map["total"] as! Int,
             rules: (map["rules"] as! [[String: Any]]).map { ProxyRule.from(map: $0) }

@@ -11,10 +11,10 @@ let tablesDB = TablesDB(client)
 let columnMediumtext = try await tablesDB.updateMediumtextColumn(
     databaseId: "<DATABASE_ID>",
     tableId: "<TABLE_ID>",
-    key: "",
+    key: "<KEY>",
     required: false,
-    default: "<DEFAULT>",
-    newKey: "" // optional
+    default: "Hello World",
+    newKey: "<NEW_KEY>" // optional
 )
 
 ```

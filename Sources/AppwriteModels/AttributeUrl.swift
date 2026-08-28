@@ -1,6 +1,6 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
-import AppwriteEnums
 
 /// AttributeURL
 open class AttributeUrl: Codable {
@@ -104,11 +104,11 @@ open class AttributeUrl: Codable {
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
             "format": format as Any,
-            "default": `default` as Any
+            "default": `default` as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> AttributeUrl {
+    public static func from(map: [String: Any]) -> AttributeUrl {
         return AttributeUrl(
             key: map["key"] as! String,
             type: map["type"] as! String,

@@ -1,9 +1,9 @@
-import AsyncHTTPClient
-import Foundation
-import NIO
-import JSONCodable
 import AppwriteEnums
 import AppwriteModels
+import AsyncHTTPClient
+import Foundation
+import JSONCodable
+import NIO
 
 /// The Databases service allows you to create structured collections of documents, query and filter lists of documents
 open class Databases: Service {
@@ -30,12 +30,12 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.DatabaseList = { response in
@@ -50,10 +50,8 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new Database.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -73,13 +71,13 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "databaseId": databaseId,
             "name": name,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Database = { response in
@@ -94,7 +92,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// List transactions across all databases.
     ///
@@ -115,7 +112,7 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.TransactionList = { response in
@@ -130,7 +127,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new transaction.
     ///
@@ -152,7 +148,7 @@ open class Databases: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Transaction = { response in
@@ -167,7 +163,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a transaction by its unique ID.
     ///
@@ -187,7 +182,7 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Transaction = { response in
@@ -202,7 +197,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a transaction, to either commit or roll back its operations.
     ///
@@ -224,13 +218,13 @@ open class Databases: Service {
 
         let apiParams: [String: Any?] = [
             "commit": commit,
-            "rollback": rollback
+            "rollback": rollback,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Transaction = { response in
@@ -245,7 +239,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a transaction by its unique ID.
     ///
@@ -265,29 +258,29 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Create multiple operations in a single transaction.
     ///
     /// - Parameters:
     ///   - transactionId: String
-    ///   - operations: [Any] (optional)
+    ///   - operations: [AnyCodable] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Transaction
     ///
     @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.createOperations` instead.")
     open func createOperations(
         transactionId: String,
-        operations: [Any]? = nil
+        operations: [AnyCodable]? = nil
     ) async throws -> AppwriteModels.Transaction {
         let apiPath: String = "/databases/transactions/{transactionId}/operations"
             .replacingOccurrences(of: "{transactionId}", with: transactionId)
@@ -299,7 +292,7 @@ open class Databases: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Transaction = { response in
@@ -314,7 +307,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a database by its unique ID. This endpoint response returns a JSON
     /// object with the database metadata.
@@ -335,7 +327,7 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Database = { response in
@@ -350,7 +342,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a database by its unique ID.
     ///
@@ -372,13 +363,13 @@ open class Databases: Service {
 
         let apiParams: [String: Any?] = [
             "name": name,
-            "enabled": enabled
+            "enabled": enabled,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Database = { response in
@@ -393,7 +384,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a database by its unique ID. Only API keys with with databases.write
     /// scope can delete a database.
@@ -414,16 +404,16 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Get a list of all collections that belong to the provided databaseId. You
     /// can use the search parameter to filter your results.
@@ -449,12 +439,12 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.CollectionList = { response in
@@ -469,7 +459,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a new Collection. Before using this route, you should create a new
     /// database resource using either a [server
@@ -483,8 +472,8 @@ open class Databases: Service {
     ///   - permissions: [String] (optional)
     ///   - documentSecurity: Bool (optional)
     ///   - enabled: Bool (optional)
-    ///   - attributes: [Any] (optional)
-    ///   - indexes: [Any] (optional)
+    ///   - attributes: [AnyCodable] (optional)
+    ///   - indexes: [AnyCodable] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Collection
     ///
@@ -496,8 +485,8 @@ open class Databases: Service {
         permissions: [String]? = nil,
         documentSecurity: Bool? = nil,
         enabled: Bool? = nil,
-        attributes: [Any]? = nil,
-        indexes: [Any]? = nil
+        attributes: [AnyCodable]? = nil,
+        indexes: [AnyCodable]? = nil
     ) async throws -> AppwriteModels.Collection {
         let apiPath: String = "/databases/{databaseId}/collections"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
@@ -509,13 +498,13 @@ open class Databases: Service {
             "documentSecurity": documentSecurity,
             "enabled": enabled,
             "attributes": attributes,
-            "indexes": indexes
+            "indexes": indexes,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Collection = { response in
@@ -530,7 +519,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Get a collection by its unique ID. This endpoint response returns a JSON
     /// object with the collection metadata.
@@ -554,7 +542,7 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Collection = { response in
@@ -569,7 +557,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a collection by its unique ID.
     ///
@@ -603,13 +590,13 @@ open class Databases: Service {
             "permissions": permissions,
             "documentSecurity": documentSecurity,
             "enabled": enabled,
-            "purge": purge
+            "purge": purge,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Collection = { response in
@@ -624,7 +611,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete a collection by its unique ID. Only users with write permissions
     /// have access to delete this resource.
@@ -648,16 +634,16 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// List attributes in the collection.
     ///
@@ -682,12 +668,12 @@ open class Databases: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeList = { response in
@@ -702,11 +688,9 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a bigint attribute. Optionally, minimum and maximum values can be
     /// provided.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -741,13 +725,13 @@ open class Databases: Service {
             "min": min,
             "max": max,
             "default": `default`,
-            "array": array
+            "array": array,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeBigint = { response in
@@ -762,11 +746,9 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a bigint attribute. Changing the `default` value will not update
     /// already existing documents.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -801,13 +783,13 @@ open class Databases: Service {
             "min": min,
             "max": max,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeBigint = { response in
@@ -822,10 +804,8 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a boolean attribute.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -854,13 +834,13 @@ open class Databases: Service {
             "key": key,
             "required": `required`,
             "default": `default`,
-            "array": array
+            "array": array,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeBoolean = { response in
@@ -875,7 +855,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a boolean attribute. Changing the `default` value will not update
     /// already existing documents.
@@ -907,13 +886,13 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeBoolean = { response in
@@ -928,7 +907,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a date time attribute according to the ISO 8601 standard.
     ///
@@ -959,13 +937,13 @@ open class Databases: Service {
             "key": key,
             "required": `required`,
             "default": `default`,
-            "array": array
+            "array": array,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeDatetime = { response in
@@ -980,7 +958,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a date time attribute. Changing the `default` value will not update
     /// already existing documents.
@@ -1012,13 +989,13 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeDatetime = { response in
@@ -1033,10 +1010,8 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Create an email attribute.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1065,13 +1040,13 @@ open class Databases: Service {
             "key": key,
             "required": `required`,
             "default": `default`,
-            "array": array
+            "array": array,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeEmail = { response in
@@ -1086,11 +1061,9 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Update an email attribute. Changing the `default` value will not update
     /// already existing documents.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1119,13 +1092,13 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeEmail = { response in
@@ -1140,11 +1113,9 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Create an enum attribute. The `elements` param acts as a white-list of
-    /// accepted values for this attribute. 
-    /// 
+    /// accepted values for this attribute.
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1176,13 +1147,13 @@ open class Databases: Service {
             "elements": elements,
             "required": `required`,
             "default": `default`,
-            "array": array
+            "array": array,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeEnum = { response in
@@ -1197,11 +1168,9 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Update an enum attribute. Changing the `default` value will not update
     /// already existing documents.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1233,13 +1202,13 @@ open class Databases: Service {
             "elements": elements,
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeEnum = { response in
@@ -1254,11 +1223,9 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a float attribute. Optionally, minimum and maximum values can be
     /// provided.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1293,13 +1260,13 @@ open class Databases: Service {
             "min": min,
             "max": max,
             "default": `default`,
-            "array": array
+            "array": array,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeFloat = { response in
@@ -1314,11 +1281,9 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a float attribute. Changing the `default` value will not update
     /// already existing documents.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1353,13 +1318,13 @@ open class Databases: Service {
             "min": min,
             "max": max,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeFloat = { response in
@@ -1374,11 +1339,9 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Create an integer attribute. Optionally, minimum and maximum values can be
     /// provided.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1413,13 +1376,13 @@ open class Databases: Service {
             "min": min,
             "max": max,
             "default": `default`,
-            "array": array
+            "array": array,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeInteger = { response in
@@ -1434,11 +1397,9 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Update an integer attribute. Changing the `default` value will not update
     /// already existing documents.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1473,13 +1434,13 @@ open class Databases: Service {
             "min": min,
             "max": max,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeInteger = { response in
@@ -1494,10 +1455,8 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Create IP address attribute.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1526,13 +1485,13 @@ open class Databases: Service {
             "key": key,
             "required": `required`,
             "default": `default`,
-            "array": array
+            "array": array,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeIp = { response in
@@ -1547,11 +1506,9 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Update an ip attribute. Changing the `default` value will not update
     /// already existing documents.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1580,13 +1537,13 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeIp = { response in
@@ -1601,7 +1558,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a geometric line attribute.
     ///
@@ -1629,13 +1585,13 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "key": key,
             "required": `required`,
-            "default": `default`
+            "default": `default`,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeLine = { response in
@@ -1650,7 +1606,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a line attribute. Changing the `default` value will not update
     /// already existing documents.
@@ -1682,13 +1637,13 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeLine = { response in
@@ -1703,10 +1658,8 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a longtext attribute.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1738,13 +1691,13 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "array": array,
-            "encrypt": encrypt
+            "encrypt": encrypt,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeLongtext = { response in
@@ -1759,11 +1712,9 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a longtext attribute. Changing the `default` value will not update
     /// already existing documents.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1792,13 +1743,13 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeLongtext = { response in
@@ -1813,10 +1764,8 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a mediumtext attribute.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1848,13 +1797,13 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "array": array,
-            "encrypt": encrypt
+            "encrypt": encrypt,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeMediumtext = { response in
@@ -1869,11 +1818,9 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a mediumtext attribute. Changing the `default` value will not update
     /// already existing documents.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -1902,13 +1849,13 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeMediumtext = { response in
@@ -1923,7 +1870,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a geometric point attribute.
     ///
@@ -1951,13 +1897,13 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "key": key,
             "required": `required`,
-            "default": `default`
+            "default": `default`,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributePoint = { response in
@@ -1972,7 +1918,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a point attribute. Changing the `default` value will not update
     /// already existing documents.
@@ -2004,13 +1949,13 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributePoint = { response in
@@ -2025,7 +1970,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a geometric polygon attribute.
     ///
@@ -2053,13 +1997,13 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "key": key,
             "required": `required`,
-            "default": `default`
+            "default": `default`,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributePolygon = { response in
@@ -2074,7 +2018,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a polygon attribute. Changing the `default` value will not update
     /// already existing documents.
@@ -2106,13 +2049,13 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributePolygon = { response in
@@ -2127,11 +2070,9 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Create relationship attribute. [Learn more about relationship
     /// attributes](https://appwrite.io/docs/databases-relationships#relationship-attributes).
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2166,13 +2107,13 @@ open class Databases: Service {
             "twoWay": twoWay,
             "key": key,
             "twoWayKey": twoWayKey,
-            "onDelete": onDelete?.rawValue
+            "onDelete": onDelete?.rawValue,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeRelationship = { response in
@@ -2187,11 +2128,9 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Update relationship attribute. [Learn more about relationship
     /// attributes](https://appwrite.io/docs/databases-relationships#relationship-attributes).
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2217,13 +2156,13 @@ open class Databases: Service {
 
         let apiParams: [String: Any?] = [
             "onDelete": onDelete?.rawValue,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeRelationship = { response in
@@ -2238,10 +2177,8 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a string attribute.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2276,13 +2213,13 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "array": array,
-            "encrypt": encrypt
+            "encrypt": encrypt,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeString = { response in
@@ -2297,11 +2234,9 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a string attribute. Changing the `default` value will not update
     /// already existing documents.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2333,13 +2268,13 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "size": size,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeString = { response in
@@ -2354,10 +2289,8 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a text attribute.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2389,13 +2322,13 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "array": array,
-            "encrypt": encrypt
+            "encrypt": encrypt,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeText = { response in
@@ -2410,11 +2343,9 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a text attribute. Changing the `default` value will not update
     /// already existing documents.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2443,13 +2374,13 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeText = { response in
@@ -2464,10 +2395,8 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a URL attribute.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2496,13 +2425,13 @@ open class Databases: Service {
             "key": key,
             "required": `required`,
             "default": `default`,
-            "array": array
+            "array": array,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeUrl = { response in
@@ -2517,11 +2446,9 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Update an url attribute. Changing the `default` value will not update
     /// already existing documents.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2550,13 +2477,13 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "required": `required`,
             "default": `default`,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeUrl = { response in
@@ -2571,10 +2498,8 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Create a varchar attribute.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2609,13 +2534,13 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "array": array,
-            "encrypt": encrypt
+            "encrypt": encrypt,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeVarchar = { response in
@@ -2630,11 +2555,9 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Update a varchar attribute. Changing the `default` value will not update
     /// already existing documents.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -2666,13 +2589,13 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "size": size,
-            "newKey": newKey
+            "newKey": newKey,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.AttributeVarchar = { response in
@@ -2687,7 +2610,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Get attribute by ID.
     ///
@@ -2713,7 +2635,7 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> Any = { response in
@@ -2761,7 +2683,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Deletes an attribute.
     ///
@@ -2787,16 +2708,16 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Get a list of all the user's documents in a given collection. You can use
     /// the query params to filter your results.
@@ -2829,12 +2750,12 @@ open class Databases: Service {
             "queries": queries,
             "transactionId": transactionId,
             "total": total,
-            "ttl": ttl
+            "ttl": ttl,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.DocumentList<T> = { response in
@@ -2883,7 +2804,6 @@ open class Databases: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Create a new Document. Before using this route, you should create a new
     /// collection resource using either a [server
@@ -2918,13 +2838,13 @@ open class Databases: Service {
             "documentId": documentId,
             "data": data,
             "permissions": permissions,
-            "transactionId": transactionId
+            "transactionId": transactionId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Document<T> = { response in
@@ -2975,7 +2895,6 @@ open class Databases: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Create new Documents. Before using this route, you should create a new
     /// collection resource using either a [server
@@ -2985,7 +2904,7 @@ open class Databases: Service {
     /// - Parameters:
     ///   - databaseId: String
     ///   - collectionId: String
-    ///   - documents: [Any]
+    ///   - documents: [AnyCodable]
     ///   - transactionId: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DocumentList<T>
@@ -2994,7 +2913,7 @@ open class Databases: Service {
     open func createDocuments<T>(
         databaseId: String,
         collectionId: String,
-        documents: [Any],
+        documents: [AnyCodable],
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.DocumentList<T> {
@@ -3004,13 +2923,13 @@ open class Databases: Service {
 
         let apiParams: [String: Any?] = [
             "documents": documents,
-            "transactionId": transactionId
+            "transactionId": transactionId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.DocumentList<T> = { response in
@@ -3035,7 +2954,7 @@ open class Databases: Service {
     /// - Parameters:
     ///   - databaseId: String
     ///   - collectionId: String
-    ///   - documents: [Any]
+    ///   - documents: [AnyCodable]
     ///   - transactionId: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DocumentList<T>
@@ -3044,7 +2963,7 @@ open class Databases: Service {
     open func createDocuments(
         databaseId: String,
         collectionId: String,
-        documents: [Any],
+        documents: [AnyCodable],
         transactionId: String? = nil
     ) async throws -> AppwriteModels.DocumentList<[String: AnyCodable]> {
         return try await createDocuments(
@@ -3055,18 +2974,16 @@ open class Databases: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Create or update Documents. Before using this route, you should create a
     /// new collection resource using either a [server
     /// integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
     /// API or directly from your database console.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
     ///   - collectionId: String
-    ///   - documents: [Any]
+    ///   - documents: [AnyCodable]
     ///   - transactionId: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DocumentList<T>
@@ -3075,7 +2992,7 @@ open class Databases: Service {
     open func upsertDocuments<T>(
         databaseId: String,
         collectionId: String,
-        documents: [Any],
+        documents: [AnyCodable],
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.DocumentList<T> {
@@ -3085,13 +3002,13 @@ open class Databases: Service {
 
         let apiParams: [String: Any?] = [
             "documents": documents,
-            "transactionId": transactionId
+            "transactionId": transactionId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.DocumentList<T> = { response in
@@ -3112,12 +3029,11 @@ open class Databases: Service {
     /// new collection resource using either a [server
     /// integration](https://appwrite.io/docs/server/databases#databasesCreateCollection)
     /// API or directly from your database console.
-    /// 
     ///
     /// - Parameters:
     ///   - databaseId: String
     ///   - collectionId: String
-    ///   - documents: [Any]
+    ///   - documents: [AnyCodable]
     ///   - transactionId: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DocumentList<T>
@@ -3126,7 +3042,7 @@ open class Databases: Service {
     open func upsertDocuments(
         databaseId: String,
         collectionId: String,
-        documents: [Any],
+        documents: [AnyCodable],
         transactionId: String? = nil
     ) async throws -> AppwriteModels.DocumentList<[String: AnyCodable]> {
         return try await upsertDocuments(
@@ -3137,7 +3053,6 @@ open class Databases: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Update all documents that match your queries, if no queries are submitted
     /// then all documents are updated. You can pass only specific fields to be
@@ -3168,13 +3083,13 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "data": data,
             "queries": queries,
-            "transactionId": transactionId
+            "transactionId": transactionId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.DocumentList<T> = { response in
@@ -3221,7 +3136,6 @@ open class Databases: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Bulk delete documents using queries, if no queries are passed then all
     /// documents are deleted.
@@ -3248,13 +3162,13 @@ open class Databases: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "transactionId": transactionId
+            "transactionId": transactionId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.DocumentList<T> = { response in
@@ -3297,7 +3211,6 @@ open class Databases: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Get a document by its unique ID. This endpoint response returns a JSON
     /// object with the document data.
@@ -3327,12 +3240,12 @@ open class Databases: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "transactionId": transactionId
+            "transactionId": transactionId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Document<T> = { response in
@@ -3378,7 +3291,6 @@ open class Databases: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Create or update a Document. Before using this route, you should create a
     /// new collection resource using either a [server
@@ -3413,13 +3325,13 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "data": data,
             "permissions": permissions,
-            "transactionId": transactionId
+            "transactionId": transactionId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Document<T> = { response in
@@ -3470,7 +3382,6 @@ open class Databases: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Update a document by its unique ID. Using the patch method you can pass
     /// only specific fields that will get updated.
@@ -3503,13 +3414,13 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "data": data,
             "permissions": permissions,
-            "transactionId": transactionId
+            "transactionId": transactionId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Document<T> = { response in
@@ -3558,7 +3469,6 @@ open class Databases: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Delete a document by its unique ID.
     ///
@@ -3588,16 +3498,16 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Decrement a specific attribute of a document by a given value.
     ///
@@ -3632,13 +3542,13 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "value": value,
             "min": min,
-            "transactionId": transactionId
+            "transactionId": transactionId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Document<T> = { response in
@@ -3689,7 +3599,6 @@ open class Databases: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// Increment a specific attribute of a document by a given value.
     ///
@@ -3724,13 +3633,13 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "value": value,
             "max": max,
-            "transactionId": transactionId
+            "transactionId": transactionId,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Document<T> = { response in
@@ -3781,7 +3690,6 @@ open class Databases: Service {
             nestedType: [String: AnyCodable].self
         )
     }
-
     ///
     /// List indexes in the collection.
     ///
@@ -3806,12 +3714,12 @@ open class Databases: Service {
 
         let apiParams: [String: Any?] = [
             "queries": queries,
-            "total": total
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.IndexList = { response in
@@ -3826,7 +3734,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Creates an index on the attributes listed. Your index should include all
     /// the attributes you will query in a single request.
@@ -3862,13 +3769,13 @@ open class Databases: Service {
             "type": type.rawValue,
             "attributes": attributes,
             "orders": orders?.map { $0.rawValue },
-            "lengths": lengths
+            "lengths": lengths,
         ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Index = { response in
@@ -3883,7 +3790,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Get an index by its unique ID.
     ///
@@ -3909,7 +3815,7 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Index = { response in
@@ -3924,7 +3830,6 @@ open class Databases: Service {
             converter: converter
         )
     }
-
     ///
     /// Delete an index.
     ///
@@ -3950,15 +3855,14 @@ open class Databases: Service {
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json"
+            "content-type": "application/json",
         ]
 
         return try await client.call(
             method: "DELETE",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
-
 }

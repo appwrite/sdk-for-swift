@@ -231,11 +231,11 @@ open class App: Codable {
             "userId": userId as Any,
             "installationScopes": installationScopes as Any,
             "installationRedirectUrl": installationRedirectUrl as Any,
-            "secrets": secrets.map { $0.toMap() } as Any
+            "secrets": secrets.map { $0.toMap() } as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> App {
+    public static func from(map: [String: Any]) -> App {
         return App(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

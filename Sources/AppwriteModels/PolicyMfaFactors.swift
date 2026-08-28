@@ -63,11 +63,11 @@ open class PolicyMfaFactors: Codable {
             "totp": totp as Any,
             "email": email as Any,
             "phone": phone as Any,
-            "custom": custom as Any
+            "custom": custom as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> PolicyMfaFactors {
+    public static func from(map: [String: Any]) -> PolicyMfaFactors {
         return PolicyMfaFactors(
             id: map["$id"] as! String,
             totp: map["totp"] as! Bool,

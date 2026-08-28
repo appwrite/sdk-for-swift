@@ -39,11 +39,11 @@ open class Oauth2OrganizationList: Codable {
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
-            "organizations": organizations.map { $0.toMap() } as Any
+            "organizations": organizations.map { $0.toMap() } as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Oauth2OrganizationList {
+    public static func from(map: [String: Any]) -> Oauth2OrganizationList {
         return Oauth2OrganizationList(
             total: map["total"] as! Int,
             organizations: (map["organizations"] as! [[String: Any]]).map { Oauth2Organization.from(map: $0) }

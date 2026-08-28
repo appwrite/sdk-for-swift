@@ -10,8 +10,8 @@ let client = Client()
 let project = Project(client)
 
 let project = try await project.updateSMTP(
-    host: "", // optional
-    port: 0, // optional
+    host: "example.com", // optional
+    port: 587, // optional
     username: "<USERNAME>", // optional
     password: "password", // optional
     senderEmail: "email@example.com", // optional

@@ -95,11 +95,11 @@ open class AppKey: Codable {
             "hint": hint as Any,
             "createdById": createdById as Any,
             "createdByName": createdByName as Any,
-            "lastAccessedAt": lastAccessedAt as Any
+            "lastAccessedAt": lastAccessedAt as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> AppKey {
+    public static func from(map: [String: Any]) -> AppKey {
         return AppKey(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

@@ -1,6 +1,6 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
-import AppwriteEnums
 
 /// Platform Linux
 open class PlatformLinux: Codable {
@@ -72,11 +72,11 @@ open class PlatformLinux: Codable {
             "$updatedAt": updatedAt as Any,
             "name": name as Any,
             "type": type.rawValue as Any,
-            "packageName": packageName as Any
+            "packageName": packageName as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> PlatformLinux {
+    public static func from(map: [String: Any]) -> PlatformLinux {
         return PlatformLinux(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

@@ -95,11 +95,11 @@ open class EphemeralKey: Codable {
             "scopes": scopes as Any,
             "secret": secret as Any,
             "accessedAt": accessedAt as Any,
-            "sdks": sdks as Any
+            "sdks": sdks as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> EphemeralKey {
+    public static func from(map: [String: Any]) -> EphemeralKey {
         return EphemeralKey(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

@@ -39,11 +39,11 @@ open class WebhookList: Codable {
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
-            "webhooks": webhooks.map { $0.toMap() } as Any
+            "webhooks": webhooks.map { $0.toMap() } as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> WebhookList {
+    public static func from(map: [String: Any]) -> WebhookList {
         return WebhookList(
             total: map["total"] as! Int,
             webhooks: (map["webhooks"] as! [[String: Any]]).map { Webhook.from(map: $0) }

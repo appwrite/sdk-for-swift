@@ -26,7 +26,7 @@ open class DedicatedDatabaseOperation: Codable {
     public let databaseId: String
     /// Operation type, such as provision, update, restore, pausing, resuming, failover, backup-create or cross-region-enable.
     public let type: String
-    /// Operation status. Possible values: running (in progress), completed (finished successfully), failed (ended in an error).
+    /// Operation status. Possible values: queued (accepted and waiting to resume), running (in progress), completed (finished successfully), failed (ended in an error).
     public let status: String
     /// Number of times this operation has been attempted.
     public let attempts: Int
@@ -111,11 +111,11 @@ open class DedicatedDatabaseOperation: Codable {
             "startedAt": startedAt as Any,
             "completedAt": completedAt as Any,
             "errorCode": errorCode as Any,
-            "errorMessage": errorMessage as Any
+            "errorMessage": errorMessage as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> DedicatedDatabaseOperation {
+    public static func from(map: [String: Any]) -> DedicatedDatabaseOperation {
         return DedicatedDatabaseOperation(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

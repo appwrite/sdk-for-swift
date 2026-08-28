@@ -55,11 +55,11 @@ open class OAuth2Stripe: Codable {
             "$id": id as Any,
             "enabled": enabled as Any,
             "clientId": clientId as Any,
-            "apiSecretKey": apiSecretKey as Any
+            "apiSecretKey": apiSecretKey as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Stripe {
+    public static func from(map: [String: Any]) -> OAuth2Stripe {
         return OAuth2Stripe(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

@@ -9,7 +9,7 @@ let client = Client()
 let proxy = Proxy(client)
 
 let proxyRule = try await proxy.createAPIRule(
-    domain: ""
+    domain: "example.com"
 )
 
 ```

@@ -39,11 +39,11 @@ open class PolicyUserLimit: Codable {
     public func toMap() -> [String: Any] {
         return [
             "$id": id as Any,
-            "total": total as Any
+            "total": total as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> PolicyUserLimit {
+    public static func from(map: [String: Any]) -> PolicyUserLimit {
         return PolicyUserLimit(
             id: map["$id"] as! String,
             total: map["total"] as! Int

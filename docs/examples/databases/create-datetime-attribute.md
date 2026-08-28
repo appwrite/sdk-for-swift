@@ -11,7 +11,7 @@ let databases = Databases(client)
 let attributeDatetime = try await databases.createDatetimeAttribute(
     databaseId: "<DATABASE_ID>",
     collectionId: "<COLLECTION_ID>",
-    key: "",
+    key: "<KEY>",
     required: false,
     default: "2020-10-15T06:38:00.000+00:00", // optional
     array: false // optional

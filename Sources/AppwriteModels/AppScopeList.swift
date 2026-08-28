@@ -39,11 +39,11 @@ open class AppScopeList: Codable {
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
-            "scopes": scopes.map { $0.toMap() } as Any
+            "scopes": scopes.map { $0.toMap() } as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> AppScopeList {
+    public static func from(map: [String: Any]) -> AppScopeList {
         return AppScopeList(
             total: map["total"] as! Int,
             scopes: (map["scopes"] as! [[String: Any]]).map { AppScope.from(map: $0) }

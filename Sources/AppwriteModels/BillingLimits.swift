@@ -87,11 +87,11 @@ open class BillingLimits: Codable {
             "GBHours": GBHours as Any,
             "imageTransformations": imageTransformations as Any,
             "authPhone": authPhone as Any,
-            "budgetLimit": budgetLimit as Any
+            "budgetLimit": budgetLimit as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> BillingLimits {
+    public static func from(map: [String: Any]) -> BillingLimits {
         return BillingLimits(
             bandwidth: map["bandwidth"] as? Int,
             storage: map["storage"] as? Int,

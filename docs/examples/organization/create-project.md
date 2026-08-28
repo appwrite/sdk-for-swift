@@ -10,7 +10,7 @@ let client = Client()
 let organization = Organization(client)
 
 let project = try await organization.createProject(
-    projectId: "",
+    projectId: "<PROJECT_ID>",
     name: "<NAME>",
     region: .fra // optional
 )

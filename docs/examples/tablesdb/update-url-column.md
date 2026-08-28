@@ -11,10 +11,10 @@ let tablesDB = TablesDB(client)
 let columnUrl = try await tablesDB.updateUrlColumn(
     databaseId: "<DATABASE_ID>",
     tableId: "<TABLE_ID>",
-    key: "",
+    key: "<KEY>",
     required: false,
     default: "https://example.com",
-    newKey: "" // optional
+    newKey: "<NEW_KEY>" // optional
 )
 
 ```

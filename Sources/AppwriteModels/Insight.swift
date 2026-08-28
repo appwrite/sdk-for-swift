@@ -159,11 +159,11 @@ open class Insight: Codable {
             "ctas": ctas.map { $0.toMap() } as Any,
             "analyzedAt": analyzedAt as Any,
             "dismissedAt": dismissedAt as Any,
-            "dismissedBy": dismissedBy as Any
+            "dismissedBy": dismissedBy as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Insight {
+    public static func from(map: [String: Any]) -> Insight {
         return Insight(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

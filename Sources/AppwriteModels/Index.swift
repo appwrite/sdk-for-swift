@@ -1,6 +1,6 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
-import AppwriteEnums
 
 /// Index
 open class Index: Codable {
@@ -104,11 +104,11 @@ open class Index: Codable {
             "error": error as Any,
             "attributes": attributes as Any,
             "lengths": lengths as Any,
-            "orders": orders as Any
+            "orders": orders as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Index {
+    public static func from(map: [String: Any]) -> Index {
         return Index(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

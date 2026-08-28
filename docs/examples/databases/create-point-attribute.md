@@ -11,7 +11,7 @@ let databases = Databases(client)
 let attributePoint = try await databases.createPointAttribute(
     databaseId: "<DATABASE_ID>",
     collectionId: "<COLLECTION_ID>",
-    key: "",
+    key: "<KEY>",
     required: false,
     default: [1, 2] // optional
 )

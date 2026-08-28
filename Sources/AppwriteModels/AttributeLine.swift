@@ -1,6 +1,6 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
-import AppwriteEnums
 
 /// AttributeLine
 open class AttributeLine: Codable {
@@ -96,11 +96,11 @@ open class AttributeLine: Codable {
             "array": array as Any,
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
-            "default": `default` as Any
+            "default": `default` as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> AttributeLine {
+    public static func from(map: [String: Any]) -> AttributeLine {
         return AttributeLine(
             key: map["key"] as! String,
             type: map["type"] as! String,

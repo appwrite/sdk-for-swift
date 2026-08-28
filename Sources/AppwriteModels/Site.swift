@@ -21,6 +21,7 @@ open class Site: Codable {
         case latestDeploymentId = "latestDeploymentId"
         case latestDeploymentCreatedAt = "latestDeploymentCreatedAt"
         case latestDeploymentStatus = "latestDeploymentStatus"
+        case scopes = "scopes"
         case vars = "vars"
         case timeout = "timeout"
         case installCommand = "installCommand"
@@ -73,6 +74,8 @@ open class Site: Codable {
     public let latestDeploymentCreatedAt: String
     /// Status of latest deployment. Possible values are &quot;waiting&quot;, &quot;processing&quot;, &quot;building&quot;, &quot;ready&quot;, and &quot;failed&quot;.
     public let latestDeploymentStatus: String
+    /// Allowed permission scopes.
+    public let scopes: [String]
     /// Site variables.
     public let vars: [Variable]
     /// Site request timeout in seconds.
@@ -127,6 +130,7 @@ open class Site: Codable {
         latestDeploymentId: String,
         latestDeploymentCreatedAt: String,
         latestDeploymentStatus: String,
+        scopes: [String],
         vars: [Variable],
         timeout: Int,
         installCommand: String,
@@ -162,6 +166,7 @@ open class Site: Codable {
         self.latestDeploymentId = latestDeploymentId
         self.latestDeploymentCreatedAt = latestDeploymentCreatedAt
         self.latestDeploymentStatus = latestDeploymentStatus
+        self.scopes = scopes
         self.vars = vars
         self.timeout = timeout
         self.installCommand = installCommand
@@ -201,6 +206,7 @@ open class Site: Codable {
         self.latestDeploymentId = try container.decode(String.self, forKey: .latestDeploymentId)
         self.latestDeploymentCreatedAt = try container.decode(String.self, forKey: .latestDeploymentCreatedAt)
         self.latestDeploymentStatus = try container.decode(String.self, forKey: .latestDeploymentStatus)
+        self.scopes = try container.decode([String].self, forKey: .scopes)
         self.vars = try container.decode([Variable].self, forKey: .vars)
         self.timeout = try container.decode(Int.self, forKey: .timeout)
         self.installCommand = try container.decode(String.self, forKey: .installCommand)
@@ -240,6 +246,7 @@ open class Site: Codable {
         try container.encode(latestDeploymentId, forKey: .latestDeploymentId)
         try container.encode(latestDeploymentCreatedAt, forKey: .latestDeploymentCreatedAt)
         try container.encode(latestDeploymentStatus, forKey: .latestDeploymentStatus)
+        try container.encode(scopes, forKey: .scopes)
         try container.encode(vars, forKey: .vars)
         try container.encode(timeout, forKey: .timeout)
         try container.encode(installCommand, forKey: .installCommand)
@@ -278,6 +285,7 @@ open class Site: Codable {
             "latestDeploymentId": latestDeploymentId as Any,
             "latestDeploymentCreatedAt": latestDeploymentCreatedAt as Any,
             "latestDeploymentStatus": latestDeploymentStatus as Any,
+            "scopes": scopes as Any,
             "vars": vars.map { $0.toMap() } as Any,
             "timeout": timeout as Any,
             "installCommand": installCommand as Any,
@@ -295,11 +303,11 @@ open class Site: Codable {
             "runtimeSpecification": runtimeSpecification as Any,
             "buildRuntime": buildRuntime as Any,
             "adapter": adapter as Any,
-            "fallbackFile": fallbackFile as Any
+            "fallbackFile": fallbackFile as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Site {
+    public static func from(map: [String: Any]) -> Site {
         return Site(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,
@@ -317,6 +325,7 @@ open class Site: Codable {
             latestDeploymentId: map["latestDeploymentId"] as! String,
             latestDeploymentCreatedAt: map["latestDeploymentCreatedAt"] as! String,
             latestDeploymentStatus: map["latestDeploymentStatus"] as! String,
+            scopes: map["scopes"] as! [String],
             vars: (map["vars"] as! [[String: Any]]).map { Variable.from(map: $0) },
             timeout: map["timeout"] as! Int,
             installCommand: map["installCommand"] as! String,

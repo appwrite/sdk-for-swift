@@ -11,7 +11,7 @@ let databases = Databases(client)
 let index = try await databases.getIndex(
     databaseId: "<DATABASE_ID>",
     collectionId: "<COLLECTION_ID>",
-    key: ""
+    key: "<KEY>"
 )
 
 ```

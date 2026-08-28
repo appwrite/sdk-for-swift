@@ -63,11 +63,11 @@ open class MfaFactors: Codable {
             "phone": phone as Any,
             "email": email as Any,
             "recoveryCode": recoveryCode as Any,
-            "custom": custom as Any
+            "custom": custom as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> MfaFactors {
+    public static func from(map: [String: Any]) -> MfaFactors {
         return MfaFactors(
             totp: map["totp"] as! Bool,
             phone: map["phone"] as! Bool,

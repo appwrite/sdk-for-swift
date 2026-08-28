@@ -39,11 +39,11 @@ open class BillingPlanLimits: Codable {
     public func toMap() -> [String: Any] {
         return [
             "credits": credits as Any,
-            "dailyCredits": dailyCredits as Any
+            "dailyCredits": dailyCredits as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> BillingPlanLimits {
+    public static func from(map: [String: Any]) -> BillingPlanLimits {
         return BillingPlanLimits(
             credits: map["credits"] as? Int,
             dailyCredits: map["dailyCredits"] as? Int

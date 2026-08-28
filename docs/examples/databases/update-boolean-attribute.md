@@ -11,10 +11,10 @@ let databases = Databases(client)
 let attributeBoolean = try await databases.updateBooleanAttribute(
     databaseId: "<DATABASE_ID>",
     collectionId: "<COLLECTION_ID>",
-    key: "",
+    key: "<KEY>",
     required: false,
     default: false,
-    newKey: "" // optional
+    newKey: "<NEW_KEY>" // optional
 )
 
 ```

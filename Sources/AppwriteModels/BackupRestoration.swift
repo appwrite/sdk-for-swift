@@ -38,7 +38,7 @@ open class BackupRestoration: Codable {
     public let services: [String]
     /// The resources that are backed up by this policy.
     public let resources: [String]
-    /// Optional data in key-value object. 
+    /// Optional data in key-value object.
     public let options: String
 
     init(
@@ -111,11 +111,11 @@ open class BackupRestoration: Codable {
             "migrationId": migrationId as Any,
             "services": services as Any,
             "resources": resources as Any,
-            "options": options as Any
+            "options": options as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> BackupRestoration {
+    public static func from(map: [String: Any]) -> BackupRestoration {
         return BackupRestoration(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

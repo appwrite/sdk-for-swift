@@ -71,11 +71,11 @@ open class AdditionalResource: Codable {
             "currency": currency as Any,
             "price": price as Any,
             "value": value as Any,
-            "invoiceDesc": invoiceDesc as Any
+            "invoiceDesc": invoiceDesc as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> AdditionalResource {
+    public static func from(map: [String: Any]) -> AdditionalResource {
         return AdditionalResource(
             name: map["name"] as! String,
             unit: map["unit"] as! String,

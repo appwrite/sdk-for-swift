@@ -39,11 +39,11 @@ open class DatabaseStatusConnections: Codable {
     public func toMap() -> [String: Any] {
         return [
             "current": current as Any,
-            "max": max as Any
+            "max": max as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> DatabaseStatusConnections {
+    public static func from(map: [String: Any]) -> DatabaseStatusConnections {
         return DatabaseStatusConnections(
             current: map["current"] as! Int,
             max: map["max"] as! Int

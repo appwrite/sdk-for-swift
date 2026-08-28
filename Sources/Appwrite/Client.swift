@@ -1,13 +1,14 @@
+@_exported import AppwriteModels
+import AsyncHTTPClient
+import Foundation
+@_exported import JSONCodable
 import NIO
 import NIOCore
-#if canImport(NIOFoundationCompat)
-import NIOFoundationCompat
-#endif
 import NIOSSL
-import Foundation
-import AsyncHTTPClient
-@_exported import AppwriteModels
-@_exported import JSONCodable
+
+#if canImport(NIOFoundationCompat)
+    import NIOFoundationCompat
+#endif
 
 let DASHDASH = "--"
 let CRLF = "\r\n"
@@ -15,7 +16,7 @@ let CRLF = "\r\n"
 open class Client {
 
     // MARK: Properties
-    public static var chunkSize = 5 * 1024 * 1024 // 5MB
+    public static var chunkSize = 5 * 1024 * 1024  // 5MB
     public static var maxConcurrentUploads = 8
 
     open var endPoint = "https://cloud.appwrite.io/v1"
@@ -25,8 +26,8 @@ open class Client {
         "x-sdk-name": "Swift",
         "x-sdk-platform": "server",
         "x-sdk-language": "swift",
-        "x-sdk-version": "21.0.0",
-        "x-appwrite-response-format": "1.9.6"
+        "x-sdk-version": "22.0.0-rc.1",
+        "x-appwrite-response-format": "1.9.6",
     ]
 
     internal var config: [String: String] = [:]
@@ -62,7 +63,8 @@ open class Client {
             connect: connectTimeout,
             read: readTimeout
         )
-        var tls = TLSConfiguration
+        var tls =
+            TLSConfiguration
             .makeClientConfiguration()
 
         if selfSigned {
@@ -282,7 +284,6 @@ open class Client {
         return self
     }
 
-
     ///
     /// Set self signed
     ///
@@ -330,47 +331,53 @@ open class Client {
         return self.headers
     }
 
-   ///
-   /// Builds a query string from parameters
-   ///
-   /// @param Dictionary<String, Any?> params
-   /// @param String prefix
-   ///
-   /// @return String
-   ///
-   open func parametersToQueryString(params: [String: Any?]) -> String {
-       var output: String = ""
+    ///
+    /// Builds a query string from parameters
+    ///
+    /// @param Dictionary<String, Any?> params
+    /// @param String prefix
+    ///
+    /// @return String
+    ///
+    open func parametersToQueryString(params: [String: Any?]) -> String {
+        var output: String = ""
 
-       func appendWhenNotLast(_ index: Int, ofTotal count: Int, outerIndex: Int? = nil, outerCount: Int? = nil) {
-           if (index != count - 1 || (outerIndex != nil
-               && outerCount != nil
-               && index == count - 1
-               && outerIndex! != outerCount! - 1)) {
-               output += "&"
-           }
-       }
+        func appendWhenNotLast(
+            _ index: Int, ofTotal count: Int, outerIndex: Int? = nil, outerCount: Int? = nil
+        ) {
+            if index != count - 1
+                || (outerIndex != nil
+                    && outerCount != nil
+                    && index == count - 1
+                    && outerIndex! != outerCount! - 1)
+            {
+                output += "&"
+            }
+        }
 
-       for (parameterIndex, element) in params.enumerated() {
-           switch element.value {
-           case nil:
-               break
-           case is Array<Any?>:
-               let list = element.value as! Array<Any?>
-               for (nestedIndex, item) in list.enumerated() {
-                   output += "\(element.key)[]=\(item!)"
-                   appendWhenNotLast(nestedIndex, ofTotal: list.count, outerIndex: parameterIndex, outerCount: params.count)
-               }
-               appendWhenNotLast(parameterIndex, ofTotal: params.count)
-           default:
-               output += "\(element.key)=\(element.value!)"
-               appendWhenNotLast(parameterIndex, ofTotal: params.count)
-           }
-       }
+        for (parameterIndex, element) in params.enumerated() {
+            switch element.value {
+            case nil:
+                break
+            case is [Any?]:
+                let list = element.value as! [Any?]
+                for (nestedIndex, item) in list.enumerated() {
+                    output += "\(element.key)[]=\(item!)"
+                    appendWhenNotLast(
+                        nestedIndex, ofTotal: list.count, outerIndex: parameterIndex,
+                        outerCount: params.count)
+                }
+                appendWhenNotLast(parameterIndex, ofTotal: params.count)
+            default:
+                output += "\(element.key)=\(element.value!)"
+                appendWhenNotLast(parameterIndex, ofTotal: params.count)
+            }
+        }
 
-       return output.addingPercentEncoding(
-           withAllowedCharacters: .urlHostAllowed
-       )?.replacingOccurrences(of: "+", with: "%2B") ?? "" // since urlHostAllowed doesn't include +
-   }
+        return output.addingPercentEncoding(
+            withAllowedCharacters: .urlHostAllowed
+        )?.replacingOccurrences(of: "+", with: "%2B") ?? ""  // since urlHostAllowed doesn't include +
+    }
 
     ///
     /// Send a ping to project as part of onboarding.
@@ -378,19 +385,19 @@ open class Client {
     /// @return String
     /// @throws Exception
     ///
-   open func ping() async throws -> String {
-       let apiPath: String = "/ping"
+    open func ping() async throws -> String {
+        let apiPath: String = "/ping"
 
-       let apiHeaders: [String: String] = [
-           "X-Appwrite-Project": config["project"] ?? "",
-           "accept": "application/json",
-       ]
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": config["project"] ?? "",
+            "accept": "application/json",
+        ]
 
-       return try await call(
-           method: "GET",
-           path: apiPath,
-           headers: apiHeaders
-       )
+        return try await call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders
+        )
     }
 
     ///
@@ -462,7 +469,7 @@ open class Client {
                 type = dict?["type"] as? String ?? ""
                 responseString = String(decoding: data.readableBytesView, as: UTF8.self)
             } catch {
-                message =  data.readString(length: data.readableBytes)!
+                message = data.readString(length: data.readableBytes)!
                 responseString = message
             }
 
@@ -485,7 +492,8 @@ open class Client {
     ) throws -> HTTPClientRequest {
         let validParams = params.filter { $0.value != nil }
 
-        let queryParameters = method == "GET" && !validParams.isEmpty
+        let queryParameters =
+            method == "GET" && !validParams.isEmpty
             ? (path.contains("?") ? "&" : "?") + parametersToQueryString(params: validParams)
             : ""
 
@@ -566,7 +574,7 @@ open class Client {
                 type = dict?["type"] as? String ?? ""
                 responseString = String(decoding: data.readableBytesView, as: UTF8.self)
             } catch {
-                message =  data.readString(length: data.readableBytes)!
+                message = data.readString(length: data.readableBytes)!
                 responseString = message
             }
 
@@ -590,7 +598,7 @@ open class Client {
     ) async throws -> T {
         let input = params[paramName] as! InputFile
 
-        switch(input.sourceType) {
+        switch input.sourceType {
         case "path":
             input.data = ByteBuffer(bytes: try! Data(contentsOf: URL(fileURLWithPath: input.path)))
         case "data":
@@ -613,15 +621,15 @@ open class Client {
         }
 
         var offset = 0
-        var result = [String:Any]()
+        var result = [String: Any]()
         var uploadId = idParamName != nil ? params[idParamName!] as? String : nil
 
-        if idParamName != nil {
+        if let uploadId {
             // Make a request to check if a file already exists
             do {
                 let map = try await call(
                     method: "GET",
-                    path: path + "/" + (params[idParamName!] as! String),
+                    path: path + "/" + uploadId,
                     headers: headers,
                     params: [:],
                     converter: { return $0 as! [String: Any] }
@@ -684,13 +692,14 @@ open class Client {
             nextChunk = 1
             completedChunks = 1
             uploadedBytes = first.1
-            onProgress?(UploadProgress(
-                id: uploadId ?? "",
-                progress: Double(uploadedBytes)/Double(size) * 100.0,
-                sizeUploaded: uploadedBytes,
-                chunksTotal: result["chunksTotal"] as? Int ?? totalChunks,
-                chunksUploaded: result["chunksUploaded"] as? Int ?? completedChunks
-            ))
+            onProgress?(
+                UploadProgress(
+                    id: uploadId ?? "",
+                    progress: Double(uploadedBytes) / Double(size) * 100.0,
+                    sizeUploaded: uploadedBytes,
+                    chunksTotal: result["chunksTotal"] as? Int ?? totalChunks,
+                    chunksUploaded: result["chunksUploaded"] as? Int ?? completedChunks
+                ))
         }
 
         let maxConcurrency = Client.maxConcurrentUploads
@@ -715,13 +724,14 @@ open class Client {
                     completedResponse = chunk.2
                 }
 
-                onProgress?(UploadProgress(
-                    id: uploadId ?? "",
-                    progress: Double(min(uploadedBytes, size))/Double(size) * 100.0,
-                    sizeUploaded: min(uploadedBytes, size),
-                    chunksTotal: chunk.2["chunksTotal"] as? Int ?? totalChunks,
-                    chunksUploaded: chunk.2["chunksUploaded"] as? Int ?? completedChunks
-                ))
+                onProgress?(
+                    UploadProgress(
+                        id: uploadId ?? "",
+                        progress: Double(min(uploadedBytes, size)) / Double(size) * 100.0,
+                        sizeUploaded: min(uploadedBytes, size),
+                        chunksTotal: chunk.2["chunksTotal"] as? Int ?? totalChunks,
+                        chunksUploaded: chunk.2["chunksUploaded"] as? Int ?? completedChunks
+                    ))
 
                 while inFlight < maxConcurrency && nextChunk < totalChunks {
                     let index = nextChunk
@@ -750,7 +760,7 @@ open class Client {
         _ request: inout HTTPClientRequest,
         with params: [String: Any?] = [:]
     ) throws {
-        var encodedParams = [String:Any]()
+        var encodedParams = [String: Any]()
 
         for (key, param) in params {
             if param is String
@@ -767,7 +777,8 @@ open class Client {
                 || param is [Int: Any]
                 || param is [Float: Any]
                 || param is [Double: Any]
-                || param is [Bool: Any] {
+                || param is [Bool: Any]
+            {
                 encodedParams[key] = param
             } else if let encodable = param as? Encodable {
                 encodedParams[key] = try encodable.toJson()
@@ -796,7 +807,7 @@ open class Client {
                 bodyBuffer.writeString("; filename=\"\(file.filename)\"")
                 bodyBuffer.writeString(CRLF)
                 bodyBuffer.writeString("Content-Length: \(bodyBuffer.readableBytes)")
-                bodyBuffer.writeString(CRLF+CRLF)
+                bodyBuffer.writeString(CRLF + CRLF)
 
                 var buffer = file.data! as! ByteBuffer
 
@@ -808,7 +819,7 @@ open class Client {
             let string = String(describing: value)
             bodyBuffer.writeString(CRLF)
             bodyBuffer.writeString("Content-Length: \(string.count)")
-            bodyBuffer.writeString(CRLF+CRLF)
+            bodyBuffer.writeString(CRLF + CRLF)
             bodyBuffer.writeString(string)
             bodyBuffer.writeString(CRLF)
         }
@@ -848,10 +859,10 @@ open class Client {
         let device = Client.getDevice()
 
         #if !os(Linux) && !os(Windows)
-        _ = addHeader(
-            key: "user-agent",
-            value: "\(packageInfo.packageName)/\(packageInfo.version) \(device)"
-        )
+            _ = addHeader(
+                key: "user-agent",
+                value: "\(packageInfo.packageName)/\(packageInfo.version) \(device)"
+            )
         #endif
     }
 
@@ -868,19 +879,19 @@ open class Client {
 extension Client {
     private static func getOperatingSystem() -> String {
         #if os(iOS)
-        return "ios"
+            return "ios"
         #elseif os(watchOS)
-        return "watchos"
+            return "watchos"
         #elseif os(tvOS)
-        return "tvos"
+            return "tvos"
         #elseif os(macOS)
-        return "macos"
+            return "macos"
         #elseif os(visionOS)
-        return "visionos"
+            return "visionos"
         #elseif os(Linux)
-        return "linux"
+            return "linux"
         #elseif os(Windows)
-        return "windows"
+            return "windows"
         #endif
     }
 
@@ -889,26 +900,26 @@ extension Client {
         var device = ""
 
         #if os(iOS)
-        let info = deviceInfo.iOSInfo
-        device = "\(info!.modelIdentifier) iOS/\(info!.systemVersion)"
+            let info = deviceInfo.iOSInfo
+            device = "\(info!.modelIdentifier) iOS/\(info!.systemVersion)"
         #elseif os(watchOS)
-        let info = deviceInfo.watchOSInfo
-        device = "\(info!.modelIdentifier) watchOS/\(info!.systemVersion)"
+            let info = deviceInfo.watchOSInfo
+            device = "\(info!.modelIdentifier) watchOS/\(info!.systemVersion)"
         #elseif os(tvOS)
-        let info = deviceInfo.iOSInfo
-        device = "\(info!.modelIdentifier) tvOS/\(info!.systemVersion)"
+            let info = deviceInfo.iOSInfo
+            device = "\(info!.modelIdentifier) tvOS/\(info!.systemVersion)"
         #elseif os(macOS)
-        let info = deviceInfo.macOSInfo
-        device = "(Macintosh; \(info!.model))"
+            let info = deviceInfo.macOSInfo
+            device = "(Macintosh; \(info!.model))"
         #elseif os(visionOS)
-        let info = deviceInfo.iOSInfo
-        device = "\(info!.modelIdentifier) visionOS/\(info!.systemVersion)"
+            let info = deviceInfo.iOSInfo
+            device = "\(info!.modelIdentifier) visionOS/\(info!.systemVersion)"
         #elseif os(Linux)
-        let info = deviceInfo.linuxInfo
-        device = "(Linux; U; \(info!.id) \(info!.version))"
+            let info = deviceInfo.linuxInfo
+            device = "(Linux; U; \(info!.id) \(info!.version))"
         #elseif os(Windows)
-        let info = deviceInfo.windowsInfo
-        device = "(Windows NT; \(info!.computerName))"
+            let info = deviceInfo.windowsInfo
+            device = "(Windows NT; \(info!.computerName))"
         #endif
 
         return device

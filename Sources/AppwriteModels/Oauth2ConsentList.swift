@@ -39,11 +39,11 @@ open class Oauth2ConsentList: Codable {
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
-            "consents": consents.map { $0.toMap() } as Any
+            "consents": consents.map { $0.toMap() } as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Oauth2ConsentList {
+    public static func from(map: [String: Any]) -> Oauth2ConsentList {
         return Oauth2ConsentList(
             total: map["total"] as! Int,
             consents: (map["consents"] as! [[String: Any]]).map { Oauth2Consent.from(map: $0) }

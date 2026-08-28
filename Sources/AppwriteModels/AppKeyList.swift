@@ -39,11 +39,11 @@ open class AppKeyList: Codable {
     public func toMap() -> [String: Any] {
         return [
             "total": total as Any,
-            "keys": keys.map { $0.toMap() } as Any
+            "keys": keys.map { $0.toMap() } as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> AppKeyList {
+    public static func from(map: [String: Any]) -> AppKeyList {
         return AppKeyList(
             total: map["total"] as! Int,
             keys: (map["keys"] as! [[String: Any]]).map { AppKey.from(map: $0) }

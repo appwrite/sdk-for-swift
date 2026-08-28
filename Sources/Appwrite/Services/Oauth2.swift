@@ -1,9 +1,9 @@
-import AsyncHTTPClient
-import Foundation
-import NIO
-import JSONCodable
 import AppwriteEnums
 import AppwriteModels
+import AsyncHTTPClient
+import Foundation
+import JSONCodable
+import NIO
 
 /// The OAuth2 service allows you to authorize apps and issue standards-based OAuth2 and OpenID Connect tokens.
 open class Oauth2: Service {
@@ -33,12 +33,12 @@ open class Oauth2: Service {
         let apiParams: [String: Any?] = [
             "grant_id": grantId,
             "authorization_details": authorizationDetails,
-            "scope": scope
+            "scope": scope,
         ]
 
         let apiHeaders: [String: String] = [
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Oauth2Approve = { response in
@@ -53,7 +53,6 @@ open class Oauth2: Service {
             converter: converter
         )
     }
-
     ///
     /// Begin the OAuth2 authorization flow. When called without a session, the
     /// user is redirected to the consent screen without grant ID. When called with
@@ -112,7 +111,7 @@ open class Oauth2: Service {
             "authorization_details": authorizationDetails,
             "resource": resource,
             "audience": audience,
-            "request_uri": requestUri
+            "request_uri": requestUri,
         ]
 
         let apiHeaders: [String: String] = [
@@ -131,7 +130,6 @@ open class Oauth2: Service {
             converter: converter
         )
     }
-
     ///
     /// Begin the OAuth2 authorization flow. When called without a session, the
     /// user is redirected to the consent screen without grant ID. When called with
@@ -190,12 +188,12 @@ open class Oauth2: Service {
             "authorization_details": authorizationDetails,
             "resource": resource,
             "audience": audience,
-            "request_uri": requestUri
+            "request_uri": requestUri,
         ]
 
         let apiHeaders: [String: String] = [
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Oauth2Authorize = { response in
@@ -210,7 +208,6 @@ open class Oauth2: Service {
             converter: converter
         )
     }
-
     ///
     /// Start the OAuth2 Device Authorization Grant. Returns the device code, user
     /// code, verification URL, expiration, and polling interval.
@@ -239,12 +236,12 @@ open class Oauth2: Service {
             "scope": scope,
             "authorization_details": authorizationDetails,
             "resource": resource,
-            "audience": audience
+            "audience": audience,
         ]
 
         let apiHeaders: [String: String] = [
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Oauth2DeviceAuthorization = { response in
@@ -259,7 +256,6 @@ open class Oauth2: Service {
             converter: converter
         )
     }
-
     ///
     /// Exchange a device flow user code for an OAuth2 grant. The authenticated
     /// user is bound to the pending grant. Pass the returned grant ID to the get
@@ -283,7 +279,7 @@ open class Oauth2: Service {
 
         let apiHeaders: [String: String] = [
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Oauth2Grant = { response in
@@ -298,7 +294,6 @@ open class Oauth2: Service {
             converter: converter
         )
     }
-
     ///
     /// Get an OAuth2 grant by its ID. Used by the consent screen to display the
     /// details of the authorization the user is being asked to approve. A grant
@@ -334,7 +329,6 @@ open class Oauth2: Service {
             converter: converter
         )
     }
-
     ///
     /// List the organizations the OAuth2 access token can access. Resolves the
     /// token's `organization` authorization details, expanding the `*` wildcard
@@ -358,7 +352,7 @@ open class Oauth2: Service {
         let apiParams: [String: Any?] = [
             "limit": limit,
             "offset": offset,
-            "search": search
+            "search": search,
         ]
 
         let apiHeaders: [String: String] = [
@@ -377,7 +371,6 @@ open class Oauth2: Service {
             converter: converter
         )
     }
-
     ///
     /// Store an OAuth2 authorization request server-side and receive a short-lived
     /// request_uri handle for the authorize endpoint.
@@ -430,12 +423,12 @@ open class Oauth2: Service {
             "max_age": maxAge,
             "authorization_details": authorizationDetails,
             "resource": resource,
-            "audience": audience
+            "audience": audience,
         ]
 
         let apiHeaders: [String: String] = [
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Oauth2PAR = { response in
@@ -450,7 +443,6 @@ open class Oauth2: Service {
             converter: converter
         )
     }
-
     ///
     /// List the projects the OAuth2 access token can access. Resolves the token's
     /// `project` authorization details, expanding the `*` wildcard into the
@@ -474,7 +466,7 @@ open class Oauth2: Service {
         let apiParams: [String: Any?] = [
             "limit": limit,
             "offset": offset,
-            "search": search
+            "search": search,
         ]
 
         let apiHeaders: [String: String] = [
@@ -493,7 +485,6 @@ open class Oauth2: Service {
             converter: converter
         )
     }
-
     ///
     /// Reject an OAuth2 grant when the user denies consent. Returns the
     /// `redirectUrl` the end user should be sent to with an `access_denied` error.
@@ -517,7 +508,7 @@ open class Oauth2: Service {
 
         let apiHeaders: [String: String] = [
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Oauth2Reject = { response in
@@ -532,7 +523,6 @@ open class Oauth2: Service {
             converter: converter
         )
     }
-
     ///
     /// Revoke an OAuth2 access token or refresh token.
     ///
@@ -557,21 +547,21 @@ open class Oauth2: Service {
             "token": token,
             "token_type_hint": tokenTypeHint,
             "client_id": clientId,
-            "client_secret": clientSecret
+            "client_secret": clientSecret,
         ]
 
         let apiHeaders: [String: String] = [
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         return try await client.call(
             method: "POST",
             path: apiPath,
             headers: apiHeaders,
-            params: apiParams        )
+            params: apiParams
+        )
     }
-
     ///
     /// Exchange an OAuth2 authorization code, refresh token, or device code for
     /// access and refresh tokens.
@@ -615,12 +605,12 @@ open class Oauth2: Service {
             "code_verifier": codeVerifier,
             "redirect_uri": redirectUri,
             "resource": resource,
-            "audience": audience
+            "audience": audience,
         ]
 
         let apiHeaders: [String: String] = [
             "content-type": "application/json",
-            "accept": "application/json"
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Oauth2Token = { response in
@@ -635,6 +625,4 @@ open class Oauth2: Service {
             converter: converter
         )
     }
-
-
 }

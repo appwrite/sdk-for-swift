@@ -55,11 +55,11 @@ open class OAuth2Dailymotion: Codable {
             "$id": id as Any,
             "enabled": enabled as Any,
             "apiKey": apiKey as Any,
-            "apiSecret": apiSecret as Any
+            "apiSecret": apiSecret as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Dailymotion {
+    public static func from(map: [String: Any]) -> OAuth2Dailymotion {
         return OAuth2Dailymotion(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

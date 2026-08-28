@@ -135,11 +135,11 @@ open class Bucket: Codable {
             "encryption": encryption as Any,
             "antivirus": antivirus as Any,
             "transformations": transformations as Any,
-            "totalSize": totalSize as Any
+            "totalSize": totalSize as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> Bucket {
+    public static func from(map: [String: Any]) -> Bucket {
         return Bucket(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

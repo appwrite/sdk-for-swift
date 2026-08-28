@@ -1,6 +1,6 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
-import AppwriteEnums
 
 /// AttributeRelationship
 open class AttributeRelationship: Codable {
@@ -136,11 +136,11 @@ open class AttributeRelationship: Codable {
             "twoWay": twoWay as Any,
             "twoWayKey": twoWayKey as Any,
             "onDelete": onDelete as Any,
-            "side": side as Any
+            "side": side as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> AttributeRelationship {
+    public static func from(map: [String: Any]) -> AttributeRelationship {
         return AttributeRelationship(
             key: map["key"] as! String,
             type: map["type"] as! String,

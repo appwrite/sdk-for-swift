@@ -71,11 +71,11 @@ open class OAuth2Okta: Codable {
             "clientId": clientId as Any,
             "clientSecret": clientSecret as Any,
             "domain": domain as Any,
-            "authorizationServerId": authorizationServerId as Any
+            "authorizationServerId": authorizationServerId as Any,
         ]
     }
 
-    public static func from(map: [String: Any] ) -> OAuth2Okta {
+    public static func from(map: [String: Any]) -> OAuth2Okta {
         return OAuth2Okta(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,
