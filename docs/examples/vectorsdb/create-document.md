@@ -23,7 +23,8 @@ let document = try await vectorsDB.createDocument(
             "key": "value"
         ]
     ],
-    permissions: [Permission.read(Role.any())] // optional
+    permissions: [Permission.read(Role.any())], // optional
+    transactionId: "<TRANSACTION_ID>" // optional
 )
 
 ```

@@ -24,7 +24,7 @@ open class DedicatedDatabaseOperation: Codable {
     public let createdAt: String
     /// Database ID the operation ran against.
     public let databaseId: String
-    /// Operation type, such as provision, update, restore, pausing, resuming, failover, backup-create or cross-region-enable.
+    /// Operation type, such as provision, update, credentials-update, restore, pausing, resuming, failover, backup-create or cross-region-enable.
     public let type: String
     /// Operation status. Possible values: queued (accepted and waiting to resume), running (in progress), completed (finished successfully), failed (ended in an error).
     public let status: String

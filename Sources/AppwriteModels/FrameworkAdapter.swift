@@ -21,14 +21,14 @@ open class FrameworkAdapter: Codable {
     /// Default output directory of build.
     public let outputDirectory: String
     /// Name of fallback file to use instead of 404 page. If null, Appwrite 404 page will be displayed.
-    public let fallbackFile: String
+    public let fallbackFile: String?
 
     init(
         key: String,
         installCommand: String,
         buildCommand: String,
         outputDirectory: String,
-        fallbackFile: String
+        fallbackFile: String?
     ) {
         self.key = key
         self.installCommand = installCommand
@@ -44,7 +44,7 @@ open class FrameworkAdapter: Codable {
         self.installCommand = try container.decode(String.self, forKey: .installCommand)
         self.buildCommand = try container.decode(String.self, forKey: .buildCommand)
         self.outputDirectory = try container.decode(String.self, forKey: .outputDirectory)
-        self.fallbackFile = try container.decode(String.self, forKey: .fallbackFile)
+        self.fallbackFile = try container.decodeIfPresent(String.self, forKey: .fallbackFile)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -54,7 +54,7 @@ open class FrameworkAdapter: Codable {
         try container.encode(installCommand, forKey: .installCommand)
         try container.encode(buildCommand, forKey: .buildCommand)
         try container.encode(outputDirectory, forKey: .outputDirectory)
-        try container.encode(fallbackFile, forKey: .fallbackFile)
+        try container.encodeIfPresent(fallbackFile, forKey: .fallbackFile)
     }
 
     public func toMap() -> [String: Any] {
@@ -73,7 +73,7 @@ open class FrameworkAdapter: Codable {
             installCommand: map["installCommand"] as! String,
             buildCommand: map["buildCommand"] as! String,
             outputDirectory: map["outputDirectory"] as! String,
-            fallbackFile: map["fallbackFile"] as! String
+            fallbackFile: map["fallbackFile"] as? String
         )
     }
 }

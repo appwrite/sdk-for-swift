@@ -844,19 +844,19 @@ open class Mysql: Service {
         )
     }
     ///
-    /// Rotate the primary connection credentials for a dedicated database.
-    /// Generates a new password and updates the database atomically. Previous
-    /// credentials stop working immediately. Returns the database with a refreshed
-    /// connection string carrying the new password.
+    /// Queue a rotation of the primary connection credentials for a dedicated
+    /// database. A hibernated database is woken by the worker before rotation.
+    /// List database operations until the returned operation reaches a terminal
+    /// status, then fetch the database again for the refreshed connection string.
     ///
     /// - Parameters:
     ///   - databaseId: String
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.DedicatedDatabase
+    /// - Returns: AppwriteModels.DedicatedDatabaseOperation
     ///
     open func updateCredentials(
         databaseId: String
-    ) async throws -> AppwriteModels.DedicatedDatabase {
+    ) async throws -> AppwriteModels.DedicatedDatabaseOperation {
         let apiPath: String = "/mysql/{databaseId}/credentials"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -868,8 +868,8 @@ open class Mysql: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.DedicatedDatabase = { response in
-            return AppwriteModels.DedicatedDatabase.from(map: response as! [String: Any])
+        let converter: (Any) throws -> AppwriteModels.DedicatedDatabaseOperation = { response in
+            return AppwriteModels.DedicatedDatabaseOperation.from(map: response as! [String: Any])
         }
 
         return try await client.call(

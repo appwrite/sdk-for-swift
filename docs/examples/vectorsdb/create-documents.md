@@ -11,7 +11,8 @@ let vectorsDB = VectorsDB(client)
 let documentList = try await vectorsDB.createDocuments(
     databaseId: "<DATABASE_ID>",
     collectionId: "<COLLECTION_ID>",
-    documents: []
+    documents: [],
+    transactionId: "<TRANSACTION_ID>" // optional
 )
 
 ```

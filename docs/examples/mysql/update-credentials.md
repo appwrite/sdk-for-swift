@@ -8,7 +8,7 @@ let client = Client()
 
 let mysql = Mysql(client)
 
-let dedicatedDatabase = try await mysql.updateCredentials(
+let dedicatedDatabaseOperation = try await mysql.updateCredentials(
     databaseId: "<DATABASE_ID>"
 )
 

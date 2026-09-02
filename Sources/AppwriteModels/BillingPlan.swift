@@ -43,6 +43,7 @@ open class BillingPlan: Codable {
         case activityLogs = "activityLogs"
         case usageLogs = "usageLogs"
         case usageLogsIntervals = "usageLogsIntervals"
+        case usageAggregateOnlyMetrics = "usageAggregateOnlyMetrics"
         case projectInactivityDays = "projectInactivityDays"
         case alertLimit = "alertLimit"
         case usage = "usage"
@@ -153,6 +154,8 @@ open class BillingPlan: Codable {
     public let usageLogs: Int
     /// Usage log time intervals allowed for this plan (e.g. 15m, 1h, 1d).
     public let usageLogsIntervals: [String]?
+    /// Metrics this plan only records as a total. They cannot be broken down by dimension or filtered, because the stored events cover a fraction of the real traffic.
+    public let usageAggregateOnlyMetrics: [String]?
     /// Number of days of console inactivity before a project is paused. 0 means pausing is disabled.
     public let projectInactivityDays: Int
     /// Alert threshold percentage
@@ -260,6 +263,7 @@ open class BillingPlan: Codable {
         activityLogs: Int?,
         usageLogs: Int,
         usageLogsIntervals: [String]?,
+        usageAggregateOnlyMetrics: [String]?,
         projectInactivityDays: Int,
         alertLimit: Int,
         usage: UsageBillingPlan,
@@ -332,6 +336,7 @@ open class BillingPlan: Codable {
         self.activityLogs = activityLogs
         self.usageLogs = usageLogs
         self.usageLogsIntervals = usageLogsIntervals
+        self.usageAggregateOnlyMetrics = usageAggregateOnlyMetrics
         self.projectInactivityDays = projectInactivityDays
         self.alertLimit = alertLimit
         self.usage = usage
@@ -408,6 +413,7 @@ open class BillingPlan: Codable {
         self.activityLogs = try container.decodeIfPresent(Int.self, forKey: .activityLogs)
         self.usageLogs = try container.decode(Int.self, forKey: .usageLogs)
         self.usageLogsIntervals = try container.decodeIfPresent([String].self, forKey: .usageLogsIntervals)
+        self.usageAggregateOnlyMetrics = try container.decodeIfPresent([String].self, forKey: .usageAggregateOnlyMetrics)
         self.projectInactivityDays = try container.decode(Int.self, forKey: .projectInactivityDays)
         self.alertLimit = try container.decode(Int.self, forKey: .alertLimit)
         self.usage = try container.decode(UsageBillingPlan.self, forKey: .usage)
@@ -484,6 +490,7 @@ open class BillingPlan: Codable {
         try container.encodeIfPresent(activityLogs, forKey: .activityLogs)
         try container.encode(usageLogs, forKey: .usageLogs)
         try container.encodeIfPresent(usageLogsIntervals, forKey: .usageLogsIntervals)
+        try container.encodeIfPresent(usageAggregateOnlyMetrics, forKey: .usageAggregateOnlyMetrics)
         try container.encode(projectInactivityDays, forKey: .projectInactivityDays)
         try container.encode(alertLimit, forKey: .alertLimit)
         try container.encode(usage, forKey: .usage)
@@ -559,6 +566,7 @@ open class BillingPlan: Codable {
             "activityLogs": activityLogs as Any,
             "usageLogs": usageLogs as Any,
             "usageLogsIntervals": usageLogsIntervals as Any,
+            "usageAggregateOnlyMetrics": usageAggregateOnlyMetrics as Any,
             "projectInactivityDays": projectInactivityDays as Any,
             "alertLimit": alertLimit as Any,
             "usage": usage.toMap() as Any,
@@ -635,6 +643,7 @@ open class BillingPlan: Codable {
             activityLogs: map["activityLogs"] as? Int,
             usageLogs: map["usageLogs"] as! Int,
             usageLogsIntervals: map["usageLogsIntervals"] as? [String],
+            usageAggregateOnlyMetrics: map["usageAggregateOnlyMetrics"] as? [String],
             projectInactivityDays: map["projectInactivityDays"] as! Int,
             alertLimit: map["alertLimit"] as! Int,
             usage: UsageBillingPlan.from(map: map["usage"] as! [String: Any]),

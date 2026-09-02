@@ -6,11 +6,12 @@ let client = Client()
     .setProject("<YOUR_PROJECT_ID>") // Your project ID
     .setKey("<YOUR_API_KEY>") // Your secret API key
 
-let tablesDB = TablesDB(client)
+let project = Project(client)
 
-let databaseMigration = try await tablesDB.cutoverMigration(
-    databaseId: "<DATABASE_ID>",
-    migrationId: "<MIGRATION_ID>"
+let oAuth2Resend = try await project.updateOAuth2Resend(
+    clientId: "<CLIENT_ID>", // optional
+    clientSecret: "<CLIENT_SECRET>", // optional
+    enabled: false // optional
 )
 
 ```
