@@ -8,7 +8,7 @@ let client = Client()
 
 let mongo = Mongo(client)
 
-let dedicatedDatabase = try await mongo.updateCredentials(
+let dedicatedDatabaseOperation = try await mongo.updateCredentials(
     databaseId: "<DATABASE_ID>"
 )
 

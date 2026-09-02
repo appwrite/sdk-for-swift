@@ -6,10 +6,12 @@ let client = Client()
     .setProject("<YOUR_PROJECT_ID>") // Your project ID
     .setKey("<YOUR_API_KEY>") // Your secret API key
 
-let postgresql = Postgresql(client)
+let project = Project(client)
 
-let dedicatedDatabaseOperation = try await postgresql.updateCredentials(
-    databaseId: "<DATABASE_ID>"
+let oAuth2Cloudflare = try await project.updateOAuth2Cloudflare(
+    clientId: "<CLIENT_ID>", // optional
+    clientSecret: "<CLIENT_SECRET>", // optional
+    enabled: false // optional
 )
 
 ```

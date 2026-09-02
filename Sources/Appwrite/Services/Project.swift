@@ -999,6 +999,47 @@ open class Project: Service {
         )
     }
     ///
+    /// Update the project OAuth2 Cloudflare configuration.
+    ///
+    /// - Parameters:
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.OAuth2Cloudflare
+    ///
+    open func updateOAuth2Cloudflare(
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.OAuth2Cloudflare {
+        let apiPath: String = "/project/oauth2/cloudflare"
+
+        let apiParams: [String: Any?] = [
+            "clientId": clientId,
+            "clientSecret": clientSecret,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.OAuth2Cloudflare = { response in
+            return AppwriteModels.OAuth2Cloudflare.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// Update the project OAuth2 Dailymotion configuration.
     ///
     /// - Parameters:
@@ -1943,6 +1984,47 @@ open class Project: Service {
         )
     }
     ///
+    /// Update the project OAuth2 Resend configuration.
+    ///
+    /// - Parameters:
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.OAuth2Resend
+    ///
+    open func updateOAuth2Resend(
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.OAuth2Resend {
+        let apiPath: String = "/project/oauth2/resend"
+
+        let apiParams: [String: Any?] = [
+            "clientId": clientId,
+            "clientSecret": clientSecret,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.OAuth2Resend = { response in
+            return AppwriteModels.OAuth2Resend.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// Update the project OAuth2 Salesforce configuration.
     ///
     /// - Parameters:
@@ -2572,6 +2654,12 @@ open class Project: Service {
             }
             if String(describing: responseMap["$id"] ?? "") == "huggingface" {
                 return AppwriteModels.OAuth2HuggingFace.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "resend" {
+                return AppwriteModels.OAuth2Resend.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "cloudflare" {
+                return AppwriteModels.OAuth2Cloudflare.from(map: responseMap)
             }
             if String(describing: responseMap["$id"] ?? "") == "linkedin" {
                 return AppwriteModels.OAuth2Linkedin.from(map: responseMap)

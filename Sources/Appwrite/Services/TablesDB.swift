@@ -657,11 +657,11 @@ open class TablesDB: Service {
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DatabaseMigration
     ///
-    open func cutoverMigration(
+    open func createCutover(
         databaseId: String,
         migrationId: String
     ) async throws -> AppwriteModels.DatabaseMigration {
-        let apiPath: String = "/tablesdb/{databaseId}/migrations/{migrationId}/cutover"
+        let apiPath: String = "/tablesdb/{databaseId}/migrations/{migrationId}/cutovers"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{migrationId}", with: migrationId)
 

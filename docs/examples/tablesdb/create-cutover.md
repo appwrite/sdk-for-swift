@@ -6,10 +6,11 @@ let client = Client()
     .setProject("<YOUR_PROJECT_ID>") // Your project ID
     .setKey("<YOUR_API_KEY>") // Your secret API key
 
-let postgresql = Postgresql(client)
+let tablesDB = TablesDB(client)
 
-let dedicatedDatabaseOperation = try await postgresql.updateCredentials(
-    databaseId: "<DATABASE_ID>"
+let databaseMigration = try await tablesDB.createCutover(
+    databaseId: "<DATABASE_ID>",
+    migrationId: "<MIGRATION_ID>"
 )
 
 ```

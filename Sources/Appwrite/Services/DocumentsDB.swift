@@ -769,6 +769,7 @@ open class DocumentsDB: Service {
     ///   - documentId: String
     ///   - data: Any
     ///   - permissions: [String] (optional)
+    ///   - transactionId: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Document<T>
     ///
@@ -778,6 +779,7 @@ open class DocumentsDB: Service {
         documentId: String,
         data: Any,
         permissions: [String]? = nil,
+        transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Document<T> {
         let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}/documents"
@@ -788,6 +790,7 @@ open class DocumentsDB: Service {
             "documentId": documentId,
             "data": data,
             "permissions": permissions,
+            "transactionId": transactionId,
         ]
 
         let apiHeaders: [String: String] = [
@@ -821,6 +824,7 @@ open class DocumentsDB: Service {
     ///   - documentId: String
     ///   - data: Any
     ///   - permissions: [String] (optional)
+    ///   - transactionId: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Document<T>
     ///
@@ -829,7 +833,8 @@ open class DocumentsDB: Service {
         collectionId: String,
         documentId: String,
         data: Any,
-        permissions: [String]? = nil
+        permissions: [String]? = nil,
+        transactionId: String? = nil
     ) async throws -> AppwriteModels.Document<[String: AnyCodable]> {
         return try await createDocument(
             databaseId: databaseId,
@@ -837,6 +842,7 @@ open class DocumentsDB: Service {
             documentId: documentId,
             data: data,
             permissions: permissions,
+            transactionId: transactionId,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -850,6 +856,7 @@ open class DocumentsDB: Service {
     ///   - databaseId: String
     ///   - collectionId: String
     ///   - documents: [AnyCodable]
+    ///   - transactionId: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DocumentList<T>
     ///
@@ -857,6 +864,7 @@ open class DocumentsDB: Service {
         databaseId: String,
         collectionId: String,
         documents: [AnyCodable],
+        transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.DocumentList<T> {
         let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}/documents"
@@ -864,7 +872,8 @@ open class DocumentsDB: Service {
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
 
         let apiParams: [String: Any?] = [
-            "documents": documents
+            "documents": documents,
+            "transactionId": transactionId,
         ]
 
         let apiHeaders: [String: String] = [
@@ -896,18 +905,21 @@ open class DocumentsDB: Service {
     ///   - databaseId: String
     ///   - collectionId: String
     ///   - documents: [AnyCodable]
+    ///   - transactionId: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DocumentList<T>
     ///
     open func createDocuments(
         databaseId: String,
         collectionId: String,
-        documents: [AnyCodable]
+        documents: [AnyCodable],
+        transactionId: String? = nil
     ) async throws -> AppwriteModels.DocumentList<[String: AnyCodable]> {
         return try await createDocuments(
             databaseId: databaseId,
             collectionId: collectionId,
             documents: documents,
+            transactionId: transactionId,
             nestedType: [String: AnyCodable].self
         )
     }

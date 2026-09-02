@@ -19,6 +19,7 @@ open class DedicatedDatabase: Codable {
         case connectionPort = "connectionPort"
         case connectionUser = "connectionUser"
         case connectionPassword = "connectionPassword"
+        case credentialGeneration = "credentialGeneration"
         case connectionString = "connectionString"
         case ssl = "ssl"
         case status = "status"
@@ -73,7 +74,7 @@ open class DedicatedDatabase: Codable {
     public let version: String
     /// Specification identifier.
     public let specification: String
-    /// Database backend provider. Possible values: prisma, edge.
+    /// Database backend provider. Possible values: edge.
     public let backend: String
     /// Database hostname for connections.
     public let hostname: String
@@ -83,6 +84,8 @@ open class DedicatedDatabase: Codable {
     public let connectionUser: String
     /// Database password for connections.
     public let connectionPassword: String
+    /// Committed generation of the primary connection credentials. Null until the rotation contract has been initialized.
+    public let credentialGeneration: Int
     /// Full database connection string (URI format).
     public let connectionString: String
     /// Whether SSL/TLS is required for client connections.
@@ -167,6 +170,7 @@ open class DedicatedDatabase: Codable {
         connectionPort: Int,
         connectionUser: String,
         connectionPassword: String,
+        credentialGeneration: Int,
         connectionString: String,
         ssl: Bool,
         status: String,
@@ -216,6 +220,7 @@ open class DedicatedDatabase: Codable {
         self.connectionPort = connectionPort
         self.connectionUser = connectionUser
         self.connectionPassword = connectionPassword
+        self.credentialGeneration = credentialGeneration
         self.connectionString = connectionString
         self.ssl = ssl
         self.status = status
@@ -269,6 +274,7 @@ open class DedicatedDatabase: Codable {
         self.connectionPort = try container.decode(Int.self, forKey: .connectionPort)
         self.connectionUser = try container.decode(String.self, forKey: .connectionUser)
         self.connectionPassword = try container.decode(String.self, forKey: .connectionPassword)
+        self.credentialGeneration = try container.decode(Int.self, forKey: .credentialGeneration)
         self.connectionString = try container.decode(String.self, forKey: .connectionString)
         self.ssl = try container.decode(Bool.self, forKey: .ssl)
         self.status = try container.decode(String.self, forKey: .status)
@@ -322,6 +328,7 @@ open class DedicatedDatabase: Codable {
         try container.encode(connectionPort, forKey: .connectionPort)
         try container.encode(connectionUser, forKey: .connectionUser)
         try container.encode(connectionPassword, forKey: .connectionPassword)
+        try container.encode(credentialGeneration, forKey: .credentialGeneration)
         try container.encode(connectionString, forKey: .connectionString)
         try container.encode(ssl, forKey: .ssl)
         try container.encode(status, forKey: .status)
@@ -374,6 +381,7 @@ open class DedicatedDatabase: Codable {
             "connectionPort": connectionPort as Any,
             "connectionUser": connectionUser as Any,
             "connectionPassword": connectionPassword as Any,
+            "credentialGeneration": credentialGeneration as Any,
             "connectionString": connectionString as Any,
             "ssl": ssl as Any,
             "status": status as Any,
@@ -427,6 +435,7 @@ open class DedicatedDatabase: Codable {
             connectionPort: map["connectionPort"] as! Int,
             connectionUser: map["connectionUser"] as! String,
             connectionPassword: map["connectionPassword"] as! String,
+            credentialGeneration: map["credentialGeneration"] as! Int,
             connectionString: map["connectionString"] as! String,
             ssl: map["ssl"] as! Bool,
             status: map["status"] as! String,
