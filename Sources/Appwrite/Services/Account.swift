@@ -2157,6 +2157,7 @@ open class Account: Service {
     ///   - success: String (optional)
     ///   - failure: String (optional)
     ///   - scopes: [String] (optional)
+    ///   - state: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: String?
     ///
@@ -2164,7 +2165,8 @@ open class Account: Service {
         provider: AppwriteEnums.OAuthProvider,
         success: String? = nil,
         failure: String? = nil,
-        scopes: [String]? = nil
+        scopes: [String]? = nil,
+        state: String? = nil
     ) async throws -> String? {
         let apiPath: String = "/account/tokens/oauth2/{provider}"
             .replacingOccurrences(of: "{provider}", with: provider.rawValue)
@@ -2173,6 +2175,7 @@ open class Account: Service {
             "success": success,
             "failure": failure,
             "scopes": scopes,
+            "state": state,
             "project": client.config["project"],
             "session": client.config["session"],
         ]
