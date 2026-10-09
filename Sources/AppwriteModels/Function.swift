@@ -24,6 +24,7 @@ open class Function: Codable {
         case vars = "vars"
         case events = "events"
         case schedule = "schedule"
+        case interval = "interval"
         case timeout = "timeout"
         case entrypoint = "entrypoint"
         case commands = "commands"
@@ -77,6 +78,8 @@ open class Function: Codable {
     public let events: [String]
     /// Function execution schedule in CRON format.
     public let schedule: String
+    /// Minutes between scheduled executions. 0 when the function has no interval.
+    public let interval: Int?
     /// Function execution timeout in seconds.
     public let timeout: Int
     /// The entrypoint file used to execute the deployment.
@@ -124,6 +127,7 @@ open class Function: Codable {
         vars: [Variable],
         events: [String],
         schedule: String,
+        interval: Int?,
         timeout: Int,
         entrypoint: String,
         commands: String,
@@ -157,6 +161,7 @@ open class Function: Codable {
         self.vars = vars
         self.events = events
         self.schedule = schedule
+        self.interval = interval
         self.timeout = timeout
         self.entrypoint = entrypoint
         self.commands = commands
@@ -194,6 +199,7 @@ open class Function: Codable {
         self.vars = try container.decode([Variable].self, forKey: .vars)
         self.events = try container.decode([String].self, forKey: .events)
         self.schedule = try container.decode(String.self, forKey: .schedule)
+        self.interval = try container.decodeIfPresent(Int.self, forKey: .interval)
         self.timeout = try container.decode(Int.self, forKey: .timeout)
         self.entrypoint = try container.decode(String.self, forKey: .entrypoint)
         self.commands = try container.decode(String.self, forKey: .commands)
@@ -231,6 +237,7 @@ open class Function: Codable {
         try container.encode(vars, forKey: .vars)
         try container.encode(events, forKey: .events)
         try container.encode(schedule, forKey: .schedule)
+        try container.encodeIfPresent(interval, forKey: .interval)
         try container.encode(timeout, forKey: .timeout)
         try container.encode(entrypoint, forKey: .entrypoint)
         try container.encode(commands, forKey: .commands)
@@ -267,6 +274,7 @@ open class Function: Codable {
             "vars": vars.map { $0.toMap() } as Any,
             "events": events as Any,
             "schedule": schedule as Any,
+            "interval": interval as Any,
             "timeout": timeout as Any,
             "entrypoint": entrypoint as Any,
             "commands": commands as Any,
@@ -304,6 +312,7 @@ open class Function: Codable {
             vars: (map["vars"] as! [[String: Any]]).map { Variable.from(map: $0) },
             events: map["events"] as! [String],
             schedule: map["schedule"] as! String,
+            interval: map["interval"] as? Int,
             timeout: map["timeout"] as! Int,
             entrypoint: map["entrypoint"] as! String,
             commands: map["commands"] as! String,
