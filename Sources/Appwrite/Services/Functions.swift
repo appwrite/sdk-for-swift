@@ -78,6 +78,7 @@ open class Functions: Service {
     ///   - buildSpecification: String (optional)
     ///   - runtimeSpecification: String (optional)
     ///   - deploymentRetention: Int (optional)
+    ///   - interval: Int (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Function
     ///
@@ -103,7 +104,8 @@ open class Functions: Service {
         providerPaths: [String]? = nil,
         buildSpecification: String? = nil,
         runtimeSpecification: String? = nil,
-        deploymentRetention: Int? = nil
+        deploymentRetention: Int? = nil,
+        interval: Int? = nil
     ) async throws -> AppwriteModels.Function {
         let apiPath: String = "/functions"
 
@@ -130,6 +132,7 @@ open class Functions: Service {
             "buildSpecification": buildSpecification,
             "runtimeSpecification": runtimeSpecification,
             "deploymentRetention": deploymentRetention,
+            "interval": interval,
         ]
 
         let apiHeaders: [String: String] = [
@@ -271,6 +274,7 @@ open class Functions: Service {
     ///   - buildSpecification: String (optional)
     ///   - runtimeSpecification: String (optional)
     ///   - deploymentRetention: Int (optional)
+    ///   - interval: Int (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Function
     ///
@@ -296,7 +300,8 @@ open class Functions: Service {
         providerPaths: [String]? = nil,
         buildSpecification: String? = nil,
         runtimeSpecification: String? = nil,
-        deploymentRetention: Int? = nil
+        deploymentRetention: Int? = nil,
+        interval: Int? = nil
     ) async throws -> AppwriteModels.Function {
         let apiPath: String = "/functions/{functionId}"
             .replacingOccurrences(of: "{functionId}", with: functionId)
@@ -323,6 +328,7 @@ open class Functions: Service {
             "buildSpecification": buildSpecification,
             "runtimeSpecification": runtimeSpecification,
             "deploymentRetention": deploymentRetention,
+            "interval": interval,
         ]
 
         let apiHeaders: [String: String] = [
