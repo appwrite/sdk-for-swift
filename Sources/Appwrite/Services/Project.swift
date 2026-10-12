@@ -4009,6 +4009,9 @@ open class Project: Service {
             if String(describing: responseMap["$id"] ?? "") == "deny-corporate-email" {
                 return AppwriteModels.PolicyDenyCorporateEmail.from(map: responseMap)
             }
+            if String(describing: responseMap["$id"] ?? "") == "passkey" {
+                return AppwriteModels.PolicyPasskey.from(map: responseMap)
+            }
             throw AppwriteError(message: "Unable to match response to any expected response model")
         }
 

@@ -26,7 +26,7 @@ open class Client {
         "x-sdk-name": "Swift",
         "x-sdk-platform": "server",
         "x-sdk-language": "swift",
-        "x-sdk-version": "22.3.0",
+        "x-sdk-version": "22.3.1",
         "x-appwrite-response-format": "2.0.0",
     ]
 
