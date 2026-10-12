@@ -1789,6 +1789,181 @@ open class Users: Service {
         )
     }
     ///
+    /// Get the list of verified passkeys registered by a user.
+    ///
+    /// - Parameters:
+    ///   - userId: String
+    ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.PasskeyList
+    ///
+    open func listPasskeys(
+        userId: String,
+        queries: [String]? = nil,
+        total: Bool? = nil
+    ) async throws -> AppwriteModels.PasskeyList {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
+        let apiPath: String = "/users/{userId}/passkeys"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let apiParams: [String: Any?] = [
+            "queries": queries,
+            "total": total,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.PasskeyList = { response in
+            return AppwriteModels.PasskeyList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Get a verified passkey of a user by its unique ID.
+    ///
+    /// - Parameters:
+    ///   - userId: String
+    ///   - passkeyId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Passkey
+    ///
+    open func getPasskey(
+        userId: String,
+        passkeyId: String
+    ) async throws -> AppwriteModels.Passkey {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+        if passkeyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"passkeyId\"")
+        }
+
+        let apiPath: String = "/users/{userId}/passkeys/{passkeyId}"
+            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{passkeyId}", with: passkeyId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Passkey = { response in
+            return AppwriteModels.Passkey.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Rename a passkey of a user.
+    ///
+    /// - Parameters:
+    ///   - userId: String
+    ///   - passkeyId: String
+    ///   - name: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Passkey
+    ///
+    open func updatePasskey(
+        userId: String,
+        passkeyId: String,
+        name: String
+    ) async throws -> AppwriteModels.Passkey {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+        if passkeyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"passkeyId\"")
+        }
+
+        let apiPath: String = "/users/{userId}/passkeys/{passkeyId}"
+            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{passkeyId}", with: passkeyId)
+
+        let apiParams: [String: Any?] = [
+            "name": name
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Passkey = { response in
+            return AppwriteModels.Passkey.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Delete a passkey from a user, for example when a device is lost. The
+    /// passkey can no longer be used to sign in.
+    ///
+    /// - Parameters:
+    ///   - userId: String
+    ///   - passkeyId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
+    ///
+    open func deletePasskey(
+        userId: String,
+        passkeyId: String
+    ) async throws -> Any {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+        if passkeyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"passkeyId\"")
+        }
+
+        let apiPath: String = "/users/{userId}/passkeys/{passkeyId}"
+            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{passkeyId}", with: passkeyId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        return try await client.call(
+            method: "DELETE",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams
+        )
+    }
+    ///
     /// Update the user password by its unique ID.
     ///
     /// - Parameters:
