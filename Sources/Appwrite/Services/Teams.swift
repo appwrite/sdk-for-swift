@@ -155,6 +155,10 @@ open class Teams: Service {
         teamId: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Team<T> {
+        if teamId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"teamId\"")
+        }
+
         let apiPath: String = "/teams/{teamId}"
             .replacingOccurrences(of: "{teamId}", with: teamId)
 
@@ -208,6 +212,10 @@ open class Teams: Service {
         name: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Team<T> {
+        if teamId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"teamId\"")
+        }
+
         let apiPath: String = "/teams/{teamId}"
             .replacingOccurrences(of: "{teamId}", with: teamId)
 
@@ -265,6 +273,10 @@ open class Teams: Service {
     open func delete(
         teamId: String
     ) async throws -> Any {
+        if teamId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"teamId\"")
+        }
+
         let apiPath: String = "/teams/{teamId}"
             .replacingOccurrences(of: "{teamId}", with: teamId)
 
@@ -273,6 +285,7 @@ open class Teams: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -297,6 +310,10 @@ open class Teams: Service {
         queries: [String]? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.AppInstallationList {
+        if teamId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"teamId\"")
+        }
+
         let apiPath: String = "/teams/{teamId}/installations"
             .replacingOccurrences(of: "{teamId}", with: teamId)
 
@@ -340,6 +357,10 @@ open class Teams: Service {
         appId: String,
         authorizationDetails: String? = nil
     ) async throws -> AppwriteModels.AppInstallation {
+        if teamId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"teamId\"")
+        }
+
         let apiPath: String = "/teams/{teamId}/installations"
             .replacingOccurrences(of: "{teamId}", with: teamId)
 
@@ -380,6 +401,13 @@ open class Teams: Service {
         teamId: String,
         installationId: String
     ) async throws -> AppwriteModels.AppInstallation {
+        if teamId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"teamId\"")
+        }
+        if installationId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"installationId\"")
+        }
+
         let apiPath: String = "/teams/{teamId}/installations/{installationId}"
             .replacingOccurrences(of: "{teamId}", with: teamId)
             .replacingOccurrences(of: "{installationId}", with: installationId)
@@ -421,6 +449,13 @@ open class Teams: Service {
         installationId: String,
         authorizationDetails: String? = nil
     ) async throws -> AppwriteModels.AppInstallation {
+        if teamId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"teamId\"")
+        }
+        if installationId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"installationId\"")
+        }
+
         let apiPath: String = "/teams/{teamId}/installations/{installationId}"
             .replacingOccurrences(of: "{teamId}", with: teamId)
             .replacingOccurrences(of: "{installationId}", with: installationId)
@@ -462,6 +497,13 @@ open class Teams: Service {
         teamId: String,
         installationId: String
     ) async throws -> Any {
+        if teamId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"teamId\"")
+        }
+        if installationId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"installationId\"")
+        }
+
         let apiPath: String = "/teams/{teamId}/installations/{installationId}"
             .replacingOccurrences(of: "{teamId}", with: teamId)
             .replacingOccurrences(of: "{installationId}", with: installationId)
@@ -500,6 +542,10 @@ open class Teams: Service {
         search: String? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.MembershipList {
+        if teamId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"teamId\"")
+        }
+
         let apiPath: String = "/teams/{teamId}/memberships"
             .replacingOccurrences(of: "{teamId}", with: teamId)
 
@@ -551,6 +597,7 @@ open class Teams: Service {
     /// - Parameters:
     ///   - teamId: String
     ///   - roles: [String]
+    ///   - membershipId: String (optional)
     ///   - email: String (optional)
     ///   - userId: String (optional)
     ///   - phone: String (optional)
@@ -562,16 +609,22 @@ open class Teams: Service {
     open func createMembership(
         teamId: String,
         roles: [String],
+        membershipId: String? = nil,
         email: String? = nil,
         userId: String? = nil,
         phone: String? = nil,
         url: String? = nil,
         name: String? = nil
     ) async throws -> AppwriteModels.Membership {
+        if teamId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"teamId\"")
+        }
+
         let apiPath: String = "/teams/{teamId}/memberships"
             .replacingOccurrences(of: "{teamId}", with: teamId)
 
         let apiParams: [String: Any?] = [
+            "membershipId": membershipId,
             "email": email,
             "userId": userId,
             "phone": phone,
@@ -613,6 +666,13 @@ open class Teams: Service {
         teamId: String,
         membershipId: String
     ) async throws -> AppwriteModels.Membership {
+        if teamId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"teamId\"")
+        }
+        if membershipId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"membershipId\"")
+        }
+
         let apiPath: String = "/teams/{teamId}/memberships/{membershipId}"
             .replacingOccurrences(of: "{teamId}", with: teamId)
             .replacingOccurrences(of: "{membershipId}", with: membershipId)
@@ -653,6 +713,13 @@ open class Teams: Service {
         membershipId: String,
         roles: [String]
     ) async throws -> AppwriteModels.Membership {
+        if teamId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"teamId\"")
+        }
+        if membershipId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"membershipId\"")
+        }
+
         let apiPath: String = "/teams/{teamId}/memberships/{membershipId}"
             .replacingOccurrences(of: "{teamId}", with: teamId)
             .replacingOccurrences(of: "{membershipId}", with: membershipId)
@@ -694,6 +761,13 @@ open class Teams: Service {
         teamId: String,
         membershipId: String
     ) async throws -> Any {
+        if teamId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"teamId\"")
+        }
+        if membershipId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"membershipId\"")
+        }
+
         let apiPath: String = "/teams/{teamId}/memberships/{membershipId}"
             .replacingOccurrences(of: "{teamId}", with: teamId)
             .replacingOccurrences(of: "{membershipId}", with: membershipId)
@@ -703,6 +777,7 @@ open class Teams: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -734,6 +809,13 @@ open class Teams: Service {
         userId: String,
         secret: String
     ) async throws -> AppwriteModels.Membership {
+        if teamId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"teamId\"")
+        }
+        if membershipId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"membershipId\"")
+        }
+
         let apiPath: String = "/teams/{teamId}/memberships/{membershipId}/status"
             .replacingOccurrences(of: "{teamId}", with: teamId)
             .replacingOccurrences(of: "{membershipId}", with: membershipId)
@@ -775,6 +857,10 @@ open class Teams: Service {
         teamId: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Preferences<T> {
+        if teamId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"teamId\"")
+        }
+
         let apiPath: String = "/teams/{teamId}/prefs"
             .replacingOccurrences(of: "{teamId}", with: teamId)
 
@@ -832,6 +918,10 @@ open class Teams: Service {
         prefs: Any,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Preferences<T> {
+        if teamId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"teamId\"")
+        }
+
         let apiPath: String = "/teams/{teamId}/prefs"
             .replacingOccurrences(of: "{teamId}", with: teamId)
 

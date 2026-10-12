@@ -35,10 +35,10 @@ open class DatabaseStatusVolume: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.path = try container.decode(String.self, forKey: .path)
-        self.usedPercent = try container.decode(String.self, forKey: .usedPercent)
-        self.available = try container.decode(String.self, forKey: .available)
-        self.mounted = try container.decode(Bool.self, forKey: .mounted)
+        self.path = try container.contains(.path) ? container.decode(String.self, forKey: .path) : ""
+        self.usedPercent = try container.contains(.usedPercent) ? container.decode(String.self, forKey: .usedPercent) : "0%"
+        self.available = try container.contains(.available) ? container.decode(String.self, forKey: .available) : "0GB"
+        self.mounted = try container.contains(.mounted) ? container.decode(Bool.self, forKey: .mounted) : false
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -60,6 +60,14 @@ open class DatabaseStatusVolume: Codable {
     }
 
     public static func from(map: [String: Any]) -> DatabaseStatusVolume {
+        let defaults: [String: Any] = [
+            "path": "",
+            "usedPercent": "0%",
+            "available": "0GB",
+            "mounted": false,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return DatabaseStatusVolume(
             path: map["path"] as! String,
             usedPercent: map["usedPercent"] as! String,

@@ -10,7 +10,10 @@ let teams = Teams(client)
 
 let membership = try await teams.createMembership(
     teamId: "<TEAM_ID>",
-    roles: [],
+    roles: [
+        "editor"
+    ],
+    membershipId: "<MEMBERSHIP_ID>", // optional
     email: "email@example.com", // optional
     userId: "<USER_ID>", // optional
     phone: "+12065550100", // optional

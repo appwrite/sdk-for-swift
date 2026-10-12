@@ -8,6 +8,8 @@ let client = Client()
 
 let functions = Functions(client)
 
-let runtimeList = try await functions.listRuntimes()
+let runtimeList = try await functions.listRuntimes(
+    total: false // optional
+)
 
 ```

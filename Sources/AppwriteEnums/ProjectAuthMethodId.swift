@@ -8,6 +8,7 @@ public enum ProjectAuthMethodId: String, Codable, CustomStringConvertible {
     case invites = "invites"
     case jwt = "jwt"
     case phone = "phone"
+    case passkey = "passkey"
 
     public var description: String {
         return rawValue

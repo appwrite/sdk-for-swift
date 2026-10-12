@@ -25,7 +25,7 @@ open class DedicatedDatabaseBranchList: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decode(Int.self, forKey: .total)
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
         self.branches = try container.decode([DedicatedDatabaseBranch].self, forKey: .branches)
     }
 
@@ -44,6 +44,11 @@ open class DedicatedDatabaseBranchList: Codable {
     }
 
     public static func from(map: [String: Any]) -> DedicatedDatabaseBranchList {
+        let defaults: [String: Any] = [
+            "total": 0,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return DedicatedDatabaseBranchList(
             total: map["total"] as! Int,
             branches: (map["branches"] as! [[String: Any]]).map { DedicatedDatabaseBranch.from(map: $0) }

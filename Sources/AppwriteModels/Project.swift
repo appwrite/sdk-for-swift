@@ -11,7 +11,6 @@ open class Project: Codable {
         case name = "name"
         case teamId = "teamId"
         case region = "region"
-        case devKeys = "devKeys"
         case smtpEnabled = "smtpEnabled"
         case smtpSenderName = "smtpSenderName"
         case smtpSenderEmail = "smtpSenderEmail"
@@ -34,6 +33,8 @@ open class Project: Codable {
         case consoleAccessedAt = "consoleAccessedAt"
         case wafEnabled = "wafEnabled"
         case billingLimits = "billingLimits"
+        case firstAccessedAt = "firstAccessedAt"
+        case mcpAccessedAt = "mcpAccessedAt"
         case oAuth2ServerEnabled = "oAuth2ServerEnabled"
         case oAuth2ServerAuthorizationUrl = "oAuth2ServerAuthorizationUrl"
         case oAuth2ServerScopes = "oAuth2ServerScopes"
@@ -65,8 +66,6 @@ open class Project: Codable {
     public let teamId: String
     /// Project region
     public let region: String
-    /// Deprecated since 1.9.5: List of dev keys.
-    public let devKeys: [DevKey]
     /// Status for custom SMTP
     public let smtpEnabled: Bool
     /// SMTP sender name
@@ -111,6 +110,10 @@ open class Project: Codable {
     public let wafEnabled: Bool?
     /// Billing limits reached
     public let billingLimits: BillingLimits?
+    /// First time the project received a non-console API request. Empty until the project is used.
+    public let firstAccessedAt: String?
+    /// Last time the project was accessed through the MCP server. Empty if it was never accessed via MCP.
+    public let mcpAccessedAt: String?
     /// OAuth2 server status
     public let oAuth2ServerEnabled: Bool?
     /// OAuth2 server authorization URL
@@ -153,7 +156,6 @@ open class Project: Codable {
         name: String,
         teamId: String,
         region: String,
-        devKeys: [DevKey],
         smtpEnabled: Bool,
         smtpSenderName: String,
         smtpSenderEmail: String,
@@ -176,6 +178,8 @@ open class Project: Codable {
         consoleAccessedAt: String,
         wafEnabled: Bool?,
         billingLimits: BillingLimits?,
+        firstAccessedAt: String?,
+        mcpAccessedAt: String?,
         oAuth2ServerEnabled: Bool?,
         oAuth2ServerAuthorizationUrl: String?,
         oAuth2ServerScopes: [String]?,
@@ -200,7 +204,6 @@ open class Project: Codable {
         self.name = name
         self.teamId = teamId
         self.region = region
-        self.devKeys = devKeys
         self.smtpEnabled = smtpEnabled
         self.smtpSenderName = smtpSenderName
         self.smtpSenderEmail = smtpSenderEmail
@@ -223,6 +226,8 @@ open class Project: Codable {
         self.consoleAccessedAt = consoleAccessedAt
         self.wafEnabled = wafEnabled
         self.billingLimits = billingLimits
+        self.firstAccessedAt = firstAccessedAt
+        self.mcpAccessedAt = mcpAccessedAt
         self.oAuth2ServerEnabled = oAuth2ServerEnabled
         self.oAuth2ServerAuthorizationUrl = oAuth2ServerAuthorizationUrl
         self.oAuth2ServerScopes = oAuth2ServerScopes
@@ -245,35 +250,36 @@ open class Project: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.teamId = try container.decode(String.self, forKey: .teamId)
-        self.region = try container.decode(String.self, forKey: .region)
-        self.devKeys = try container.decode([DevKey].self, forKey: .devKeys)
-        self.smtpEnabled = try container.decode(Bool.self, forKey: .smtpEnabled)
-        self.smtpSenderName = try container.decode(String.self, forKey: .smtpSenderName)
-        self.smtpSenderEmail = try container.decode(String.self, forKey: .smtpSenderEmail)
-        self.smtpReplyToName = try container.decode(String.self, forKey: .smtpReplyToName)
-        self.smtpReplyToEmail = try container.decode(String.self, forKey: .smtpReplyToEmail)
-        self.smtpHost = try container.decode(String.self, forKey: .smtpHost)
-        self.smtpPort = try container.decode(Int.self, forKey: .smtpPort)
-        self.smtpUsername = try container.decode(String.self, forKey: .smtpUsername)
-        self.smtpPassword = try container.decode(String.self, forKey: .smtpPassword)
-        self.smtpSecure = try container.decode(String.self, forKey: .smtpSecure)
-        self.pingCount = try container.decode(Int.self, forKey: .pingCount)
-        self.pingedAt = try container.decode(String.self, forKey: .pingedAt)
-        self.labels = try container.decode([String].self, forKey: .labels)
-        self.status = try container.decode(String.self, forKey: .status)
-        self.onboarding = try container.decode([String: AnyCodable].self, forKey: .onboarding)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
+        self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.teamId = try container.contains(.teamId) ? container.decode(String.self, forKey: .teamId) : ""
+        self.region = try container.contains(.region) ? container.decode(String.self, forKey: .region) : "fra"
+        self.smtpEnabled = try container.contains(.smtpEnabled) ? container.decode(Bool.self, forKey: .smtpEnabled) : false
+        self.smtpSenderName = try container.contains(.smtpSenderName) ? container.decode(String.self, forKey: .smtpSenderName) : ""
+        self.smtpSenderEmail = try container.contains(.smtpSenderEmail) ? container.decode(String.self, forKey: .smtpSenderEmail) : ""
+        self.smtpReplyToName = try container.contains(.smtpReplyToName) ? container.decode(String.self, forKey: .smtpReplyToName) : ""
+        self.smtpReplyToEmail = try container.contains(.smtpReplyToEmail) ? container.decode(String.self, forKey: .smtpReplyToEmail) : ""
+        self.smtpHost = try container.contains(.smtpHost) ? container.decode(String.self, forKey: .smtpHost) : ""
+        self.smtpPort = try container.contains(.smtpPort) ? container.decode(Int.self, forKey: .smtpPort) : 0
+        self.smtpUsername = try container.contains(.smtpUsername) ? container.decode(String.self, forKey: .smtpUsername) : ""
+        self.smtpPassword = try container.contains(.smtpPassword) ? container.decode(String.self, forKey: .smtpPassword) : ""
+        self.smtpSecure = try container.contains(.smtpSecure) ? container.decode(String.self, forKey: .smtpSecure) : ""
+        self.pingCount = try container.contains(.pingCount) ? container.decode(Int.self, forKey: .pingCount) : 0
+        self.pingedAt = try container.contains(.pingedAt) ? container.decode(String.self, forKey: .pingedAt) : ""
+        self.labels = try container.contains(.labels) ? container.decode([String].self, forKey: .labels) : []
+        self.status = try container.contains(.status) ? container.decode(String.self, forKey: .status) : "active"
+        self.onboarding = try container.contains(.onboarding) ? container.decode([String: AnyCodable].self, forKey: .onboarding) : ([String: Any]()).mapValues { AnyCodable($0) }
         self.authMethods = try container.decode([ProjectAuthMethod].self, forKey: .authMethods)
         self.services = try container.decode([ProjectService].self, forKey: .services)
         self.protocols = try container.decode([ProjectProtocol].self, forKey: .protocols)
         self.blocks = try container.decode([Block].self, forKey: .blocks)
-        self.consoleAccessedAt = try container.decode(String.self, forKey: .consoleAccessedAt)
+        self.consoleAccessedAt = try container.contains(.consoleAccessedAt) ? container.decode(String.self, forKey: .consoleAccessedAt) : ""
         self.wafEnabled = try container.decodeIfPresent(Bool.self, forKey: .wafEnabled)
         self.billingLimits = try container.decodeIfPresent(BillingLimits.self, forKey: .billingLimits)
+        self.firstAccessedAt = try container.decodeIfPresent(String.self, forKey: .firstAccessedAt)
+        self.mcpAccessedAt = try container.decodeIfPresent(String.self, forKey: .mcpAccessedAt)
         self.oAuth2ServerEnabled = try container.decodeIfPresent(Bool.self, forKey: .oAuth2ServerEnabled)
         self.oAuth2ServerAuthorizationUrl = try container.decodeIfPresent(String.self, forKey: .oAuth2ServerAuthorizationUrl)
         self.oAuth2ServerScopes = try container.decodeIfPresent([String].self, forKey: .oAuth2ServerScopes)
@@ -302,7 +308,6 @@ open class Project: Codable {
         try container.encode(name, forKey: .name)
         try container.encode(teamId, forKey: .teamId)
         try container.encode(region, forKey: .region)
-        try container.encode(devKeys, forKey: .devKeys)
         try container.encode(smtpEnabled, forKey: .smtpEnabled)
         try container.encode(smtpSenderName, forKey: .smtpSenderName)
         try container.encode(smtpSenderEmail, forKey: .smtpSenderEmail)
@@ -325,6 +330,8 @@ open class Project: Codable {
         try container.encode(consoleAccessedAt, forKey: .consoleAccessedAt)
         try container.encodeIfPresent(wafEnabled, forKey: .wafEnabled)
         try container.encodeIfPresent(billingLimits, forKey: .billingLimits)
+        try container.encodeIfPresent(firstAccessedAt, forKey: .firstAccessedAt)
+        try container.encodeIfPresent(mcpAccessedAt, forKey: .mcpAccessedAt)
         try container.encodeIfPresent(oAuth2ServerEnabled, forKey: .oAuth2ServerEnabled)
         try container.encodeIfPresent(oAuth2ServerAuthorizationUrl, forKey: .oAuth2ServerAuthorizationUrl)
         try container.encodeIfPresent(oAuth2ServerScopes, forKey: .oAuth2ServerScopes)
@@ -352,7 +359,6 @@ open class Project: Codable {
             "name": name as Any,
             "teamId": teamId as Any,
             "region": region as Any,
-            "devKeys": devKeys.map { $0.toMap() } as Any,
             "smtpEnabled": smtpEnabled as Any,
             "smtpSenderName": smtpSenderName as Any,
             "smtpSenderEmail": smtpSenderEmail as Any,
@@ -375,6 +381,8 @@ open class Project: Codable {
             "consoleAccessedAt": consoleAccessedAt as Any,
             "wafEnabled": wafEnabled as Any,
             "billingLimits": billingLimits?.toMap() as Any,
+            "firstAccessedAt": firstAccessedAt as Any,
+            "mcpAccessedAt": mcpAccessedAt as Any,
             "oAuth2ServerEnabled": oAuth2ServerEnabled as Any,
             "oAuth2ServerAuthorizationUrl": oAuth2ServerAuthorizationUrl as Any,
             "oAuth2ServerScopes": oAuth2ServerScopes as Any,
@@ -396,6 +404,32 @@ open class Project: Codable {
     }
 
     public static func from(map: [String: Any]) -> Project {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+            "name": "",
+            "teamId": "",
+            "region": "fra",
+            "smtpEnabled": false,
+            "smtpSenderName": "",
+            "smtpSenderEmail": "",
+            "smtpReplyToName": "",
+            "smtpReplyToEmail": "",
+            "smtpHost": "",
+            "smtpPort": 0,
+            "smtpUsername": "",
+            "smtpPassword": "",
+            "smtpSecure": "",
+            "pingCount": 0,
+            "pingedAt": "",
+            "labels": [Any](),
+            "status": "active",
+            "onboarding": [String: Any](),
+            "consoleAccessedAt": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return Project(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,
@@ -403,7 +437,6 @@ open class Project: Codable {
             name: map["name"] as! String,
             teamId: map["teamId"] as! String,
             region: map["region"] as! String,
-            devKeys: (map["devKeys"] as! [[String: Any]]).map { DevKey.from(map: $0) },
             smtpEnabled: map["smtpEnabled"] as! Bool,
             smtpSenderName: map["smtpSenderName"] as! String,
             smtpSenderEmail: map["smtpSenderEmail"] as! String,
@@ -426,6 +459,8 @@ open class Project: Codable {
             consoleAccessedAt: map["consoleAccessedAt"] as! String,
             wafEnabled: map["wafEnabled"] as? Bool,
             billingLimits: map["billingLimits"] as? [String: Any] != nil ? BillingLimits.from(map: map["billingLimits"] as! [String: Any]) : nil,
+            firstAccessedAt: map["firstAccessedAt"] as? String,
+            mcpAccessedAt: map["mcpAccessedAt"] as? String,
             oAuth2ServerEnabled: map["oAuth2ServerEnabled"] as? Bool,
             oAuth2ServerAuthorizationUrl: map["oAuth2ServerAuthorizationUrl"] as? String,
             oAuth2ServerScopes: map["oAuth2ServerScopes"] as? [String],

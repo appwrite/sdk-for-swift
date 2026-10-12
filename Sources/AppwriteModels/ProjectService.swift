@@ -27,7 +27,7 @@ open class ProjectService: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         self.id = AppwriteEnums.ProjectServiceId(rawValue: try container.decode(String.self, forKey: .id))!
-        self.enabled = try container.decode(Bool.self, forKey: .enabled)
+        self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : true
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -45,6 +45,11 @@ open class ProjectService: Codable {
     }
 
     public static func from(map: [String: Any]) -> ProjectService {
+        let defaults: [String: Any] = [
+            "enabled": true,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return ProjectService(
             id: AppwriteEnums.ProjectServiceId(rawValue: map["$id"] as! String)!,
             enabled: map["enabled"] as! Bool

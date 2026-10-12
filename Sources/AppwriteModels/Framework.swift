@@ -40,9 +40,9 @@ open class Framework: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.key = try container.decode(String.self, forKey: .key)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.buildRuntime = try container.decode(String.self, forKey: .buildRuntime)
+        self.key = try container.contains(.key) ? container.decode(String.self, forKey: .key) : ""
+        self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.buildRuntime = try container.contains(.buildRuntime) ? container.decode(String.self, forKey: .buildRuntime) : ""
         self.runtimes = try container.decode([String].self, forKey: .runtimes)
         self.adapters = try container.decode([FrameworkAdapter].self, forKey: .adapters)
     }
@@ -68,6 +68,13 @@ open class Framework: Codable {
     }
 
     public static func from(map: [String: Any]) -> Framework {
+        let defaults: [String: Any] = [
+            "key": "",
+            "name": "",
+            "buildRuntime": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return Framework(
             key: map["key"] as! String,
             name: map["name"] as! String,

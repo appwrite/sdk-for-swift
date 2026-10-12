@@ -25,7 +25,7 @@ open class ColumnIndexList: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decode(Int.self, forKey: .total)
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
         self.indexes = try container.decode([ColumnIndex].self, forKey: .indexes)
     }
 
@@ -44,6 +44,11 @@ open class ColumnIndexList: Codable {
     }
 
     public static func from(map: [String: Any]) -> ColumnIndexList {
+        let defaults: [String: Any] = [
+            "total": 0,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return ColumnIndexList(
             total: map["total"] as! Int,
             indexes: (map["indexes"] as! [[String: Any]]).map { ColumnIndex.from(map: $0) }

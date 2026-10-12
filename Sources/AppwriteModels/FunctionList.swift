@@ -25,7 +25,7 @@ open class FunctionList: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decode(Int.self, forKey: .total)
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
         self.functions = try container.decode([Function].self, forKey: .functions)
     }
 
@@ -44,6 +44,11 @@ open class FunctionList: Codable {
     }
 
     public static func from(map: [String: Any]) -> FunctionList {
+        let defaults: [String: Any] = [
+            "total": 0,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return FunctionList(
             total: map["total"] as! Int,
             functions: (map["functions"] as! [[String: Any]]).map { Function.from(map: $0) }

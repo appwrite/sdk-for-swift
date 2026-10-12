@@ -25,7 +25,7 @@ open class PolicyList: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decode(Int.self, forKey: .total)
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
         self.policies = try container.decode([AnyCodable].self, forKey: .policies)
     }
 
@@ -44,6 +44,11 @@ open class PolicyList: Codable {
     }
 
     public static func from(map: [String: Any]) -> PolicyList {
+        let defaults: [String: Any] = [
+            "total": 0,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return PolicyList(
             total: map["total"] as! Int,
             policies: (map["policies"] as! [Any]).map { AnyCodable($0) }

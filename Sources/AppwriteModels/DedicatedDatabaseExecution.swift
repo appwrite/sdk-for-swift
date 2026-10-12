@@ -45,12 +45,12 @@ open class DedicatedDatabaseExecution: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.rows = try container.decode([AnyCodable].self, forKey: .rows)
-        self.rowCount = try container.decode(Int.self, forKey: .rowCount)
+        self.rows = try container.contains(.rows) ? container.decode([AnyCodable].self, forKey: .rows) : ([Any]()).map { AnyCodable($0) }
+        self.rowCount = try container.contains(.rowCount) ? container.decode(Int.self, forKey: .rowCount) : 0
         self.columns = try container.decode([DedicatedDatabaseExecutionColumn].self, forKey: .columns)
-        self.durationMs = try container.decode(Int.self, forKey: .durationMs)
-        self.truncated = try container.decode(Bool.self, forKey: .truncated)
-        self.bytes = try container.decode(Int.self, forKey: .bytes)
+        self.durationMs = try container.contains(.durationMs) ? container.decode(Int.self, forKey: .durationMs) : 0
+        self.truncated = try container.contains(.truncated) ? container.decode(Bool.self, forKey: .truncated) : false
+        self.bytes = try container.contains(.bytes) ? container.decode(Int.self, forKey: .bytes) : 0
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -76,6 +76,15 @@ open class DedicatedDatabaseExecution: Codable {
     }
 
     public static func from(map: [String: Any]) -> DedicatedDatabaseExecution {
+        let defaults: [String: Any] = [
+            "rows": [Any](),
+            "rowCount": 0,
+            "durationMs": 0,
+            "truncated": false,
+            "bytes": 0,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return DedicatedDatabaseExecution(
             rows: (map["rows"] as! [Any]).map { AnyCodable($0) },
             rowCount: map["rowCount"] as! Int,

@@ -11,11 +11,11 @@ let messaging = Messaging(client)
 
 let message = try await messaging.updatePush(
     messageId: "<MESSAGE_ID>",
+    title: "<TITLE>", // optional
+    body: "<BODY>", // optional
     topics: [], // optional
     users: [], // optional
     targets: [], // optional
-    title: "<TITLE>", // optional
-    body: "<BODY>", // optional
     data: [:], // optional
     action: "<ACTION>", // optional
     image: "<ID1:ID2>", // optional
@@ -28,7 +28,8 @@ let message = try await messaging.updatePush(
     scheduledAt: "2020-10-15T06:38:00.000+00:00", // optional
     contentAvailable: false, // optional
     critical: false, // optional
-    priority: .normal // optional
+    priority: .normal, // optional
+    channelId: "<CHANNEL_ID>" // optional
 )
 
 ```

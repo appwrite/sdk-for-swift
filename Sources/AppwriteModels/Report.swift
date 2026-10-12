@@ -75,16 +75,16 @@ open class Report: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.appId = try container.decode(String.self, forKey: .appId)
-        self.type = try container.decode(String.self, forKey: .type)
-        self.title = try container.decode(String.self, forKey: .title)
-        self.summary = try container.decode(String.self, forKey: .summary)
-        self.targetType = try container.decode(String.self, forKey: .targetType)
-        self.target = try container.decode(String.self, forKey: .target)
-        self.categories = try container.decode([String].self, forKey: .categories)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
+        self.appId = try container.contains(.appId) ? container.decode(String.self, forKey: .appId) : ""
+        self.type = try container.contains(.type) ? container.decode(String.self, forKey: .type) : ""
+        self.title = try container.contains(.title) ? container.decode(String.self, forKey: .title) : ""
+        self.summary = try container.contains(.summary) ? container.decode(String.self, forKey: .summary) : ""
+        self.targetType = try container.contains(.targetType) ? container.decode(String.self, forKey: .targetType) : ""
+        self.target = try container.contains(.target) ? container.decode(String.self, forKey: .target) : ""
+        self.categories = try container.contains(.categories) ? container.decode([String].self, forKey: .categories) : []
         self.insights = try container.decode([Insight].self, forKey: .insights)
         self.analyzedAt = try container.decodeIfPresent(String.self, forKey: .analyzedAt)
     }
@@ -124,6 +124,20 @@ open class Report: Codable {
     }
 
     public static func from(map: [String: Any]) -> Report {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+            "appId": "",
+            "type": "",
+            "title": "",
+            "summary": "",
+            "targetType": "",
+            "target": "",
+            "categories": [Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return Report(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

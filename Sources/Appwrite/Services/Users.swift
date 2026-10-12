@@ -356,6 +356,10 @@ open class Users: Service {
     open func deleteIdentity(
         identityId: String
     ) async throws -> Any {
+        if identityId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"identityId\"")
+        }
+
         let apiPath: String = "/users/identities/{identityId}"
             .replacingOccurrences(of: "{identityId}", with: identityId)
 
@@ -364,6 +368,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -826,6 +831,10 @@ open class Users: Service {
         userId: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -881,6 +890,10 @@ open class Users: Service {
     open func delete(
         userId: String
     ) async throws -> Any {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -889,6 +902,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -912,6 +926,10 @@ open class Users: Service {
         email: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/email"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -962,7 +980,10 @@ open class Users: Service {
     /// impersonation headers are used, the request runs as the target user for API
     /// behavior, while internal audit logs still attribute the action to the
     /// original impersonator and store the impersonated target details only in
-    /// internal audit payload data.
+    /// internal audit payload data. Account endpoints are read-only while
+    /// impersonating: they report the target's account, and anything that would
+    /// change it is refused, so an impersonator cannot alter the target's
+    /// credentials or delete their account.
     ///
     /// - Parameters:
     ///   - userId: String
@@ -975,6 +996,10 @@ open class Users: Service {
         impersonator: Bool,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/impersonator"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -1006,7 +1031,10 @@ open class Users: Service {
     /// impersonation headers are used, the request runs as the target user for API
     /// behavior, while internal audit logs still attribute the action to the
     /// original impersonator and store the impersonated target details only in
-    /// internal audit payload data.
+    /// internal audit payload data. Account endpoints are read-only while
+    /// impersonating: they report the target's account, and anything that would
+    /// change it is refused, so an impersonator cannot alter the target's
+    /// credentials or delete their account.
     ///
     /// - Parameters:
     ///   - userId: String
@@ -1041,6 +1069,10 @@ open class Users: Service {
         sessionId: String? = nil,
         duration: Int? = nil
     ) async throws -> AppwriteModels.Jwt {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/jwts"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -1086,6 +1118,10 @@ open class Users: Service {
         labels: [String],
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/labels"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -1137,46 +1173,6 @@ open class Users: Service {
         )
     }
     ///
-    /// Get the user activity logs list by its unique ID.
-    ///
-    /// - Parameters:
-    ///   - userId: String
-    ///   - queries: [String] (optional)
-    ///   - total: Bool (optional)
-    /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.LogList
-    ///
-    open func listLogs(
-        userId: String,
-        queries: [String]? = nil,
-        total: Bool? = nil
-    ) async throws -> AppwriteModels.LogList {
-        let apiPath: String = "/users/{userId}/logs"
-            .replacingOccurrences(of: "{userId}", with: userId)
-
-        let apiParams: [String: Any?] = [
-            "queries": queries,
-            "total": total,
-        ]
-
-        let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json",
-        ]
-
-        let converter: (Any) throws -> AppwriteModels.LogList = { response in
-            return AppwriteModels.LogList.from(map: response as! [String: Any])
-        }
-
-        return try await client.call(
-            method: "GET",
-            path: apiPath,
-            headers: apiHeaders,
-            params: apiParams,
-            converter: converter
-        )
-    }
-    ///
     /// Get the user membership list by its unique ID.
     ///
     /// - Parameters:
@@ -1193,6 +1189,10 @@ open class Users: Service {
         search: String? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.MembershipList {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/memberships"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -1234,6 +1234,10 @@ open class Users: Service {
         mfa: Bool,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/mfa"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -1294,6 +1298,10 @@ open class Users: Service {
         mfa: Bool,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/mfa"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -1353,6 +1361,10 @@ open class Users: Service {
         userId: String,
         type: AppwriteEnums.AuthenticatorType
     ) async throws -> Any {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/mfa/authenticators/{type}"
             .replacingOccurrences(of: "{userId}", with: userId)
             .replacingOccurrences(of: "{type}", with: type.rawValue)
@@ -1362,6 +1374,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -1384,6 +1397,10 @@ open class Users: Service {
         userId: String,
         type: AppwriteEnums.AuthenticatorType
     ) async throws -> Any {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/mfa/authenticators/{type}"
             .replacingOccurrences(of: "{userId}", with: userId)
             .replacingOccurrences(of: "{type}", with: type.rawValue)
@@ -1393,6 +1410,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -1416,6 +1434,13 @@ open class Users: Service {
         userId: String,
         challengeId: String
     ) async throws -> AppwriteModels.MfaChallengeSecret {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+        if challengeId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"challengeId\"")
+        }
+
         let apiPath: String = "/users/{userId}/mfa/challenges/{challengeId}"
             .replacingOccurrences(of: "{userId}", with: userId)
             .replacingOccurrences(of: "{challengeId}", with: challengeId)
@@ -1451,6 +1476,10 @@ open class Users: Service {
     open func listMfaFactors(
         userId: String
     ) async throws -> AppwriteModels.MfaFactors {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/mfa/factors"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -1484,6 +1513,10 @@ open class Users: Service {
     open func listMFAFactors(
         userId: String
     ) async throws -> AppwriteModels.MfaFactors {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/mfa/factors"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -1521,6 +1554,10 @@ open class Users: Service {
     open func getMfaRecoveryCodes(
         userId: String
     ) async throws -> AppwriteModels.MfaRecoveryCodes {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/mfa/recovery-codes"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -1557,6 +1594,10 @@ open class Users: Service {
     open func getMFARecoveryCodes(
         userId: String
     ) async throws -> AppwriteModels.MfaRecoveryCodes {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/mfa/recovery-codes"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -1594,6 +1635,10 @@ open class Users: Service {
     open func updateMfaRecoveryCodes(
         userId: String
     ) async throws -> AppwriteModels.MfaRecoveryCodes {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/mfa/recovery-codes"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -1631,6 +1676,10 @@ open class Users: Service {
     open func updateMFARecoveryCodes(
         userId: String
     ) async throws -> AppwriteModels.MfaRecoveryCodes {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/mfa/recovery-codes"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -1669,6 +1718,10 @@ open class Users: Service {
     open func createMfaRecoveryCodes(
         userId: String
     ) async throws -> AppwriteModels.MfaRecoveryCodes {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/mfa/recovery-codes"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -1706,6 +1759,10 @@ open class Users: Service {
     open func createMFARecoveryCodes(
         userId: String
     ) async throws -> AppwriteModels.MfaRecoveryCodes {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/mfa/recovery-codes"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -1743,6 +1800,10 @@ open class Users: Service {
         name: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/name"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -1789,6 +1850,181 @@ open class Users: Service {
         )
     }
     ///
+    /// Get the list of verified passkeys registered by a user.
+    ///
+    /// - Parameters:
+    ///   - userId: String
+    ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.PasskeyList
+    ///
+    open func listPasskeys(
+        userId: String,
+        queries: [String]? = nil,
+        total: Bool? = nil
+    ) async throws -> AppwriteModels.PasskeyList {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
+        let apiPath: String = "/users/{userId}/passkeys"
+            .replacingOccurrences(of: "{userId}", with: userId)
+
+        let apiParams: [String: Any?] = [
+            "queries": queries,
+            "total": total,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.PasskeyList = { response in
+            return AppwriteModels.PasskeyList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Get a verified passkey of a user by its unique ID.
+    ///
+    /// - Parameters:
+    ///   - userId: String
+    ///   - passkeyId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Passkey
+    ///
+    open func getPasskey(
+        userId: String,
+        passkeyId: String
+    ) async throws -> AppwriteModels.Passkey {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+        if passkeyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"passkeyId\"")
+        }
+
+        let apiPath: String = "/users/{userId}/passkeys/{passkeyId}"
+            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{passkeyId}", with: passkeyId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Passkey = { response in
+            return AppwriteModels.Passkey.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Rename a passkey of a user.
+    ///
+    /// - Parameters:
+    ///   - userId: String
+    ///   - passkeyId: String
+    ///   - name: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Passkey
+    ///
+    open func updatePasskey(
+        userId: String,
+        passkeyId: String,
+        name: String
+    ) async throws -> AppwriteModels.Passkey {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+        if passkeyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"passkeyId\"")
+        }
+
+        let apiPath: String = "/users/{userId}/passkeys/{passkeyId}"
+            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{passkeyId}", with: passkeyId)
+
+        let apiParams: [String: Any?] = [
+            "name": name
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Passkey = { response in
+            return AppwriteModels.Passkey.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Delete a passkey from a user, for example when a device is lost. The
+    /// passkey can no longer be used to sign in.
+    ///
+    /// - Parameters:
+    ///   - userId: String
+    ///   - passkeyId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
+    ///
+    open func deletePasskey(
+        userId: String,
+        passkeyId: String
+    ) async throws -> Any {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+        if passkeyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"passkeyId\"")
+        }
+
+        let apiPath: String = "/users/{userId}/passkeys/{passkeyId}"
+            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{passkeyId}", with: passkeyId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        return try await client.call(
+            method: "DELETE",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams
+        )
+    }
+    ///
     /// Update the user password by its unique ID.
     ///
     /// - Parameters:
@@ -1802,6 +2038,10 @@ open class Users: Service {
         password: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/password"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -1861,6 +2101,10 @@ open class Users: Service {
         number: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/phone"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -1918,6 +2162,10 @@ open class Users: Service {
         userId: String,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Preferences<T> {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/prefs"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -1973,6 +2221,10 @@ open class Users: Service {
         prefs: Any,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Preferences<T> {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/prefs"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -2033,6 +2285,10 @@ open class Users: Service {
         userId: String,
         total: Bool? = nil
     ) async throws -> AppwriteModels.SessionList {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/sessions"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -2073,6 +2329,10 @@ open class Users: Service {
     open func createSession(
         userId: String
     ) async throws -> AppwriteModels.Session {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/sessions"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -2107,6 +2367,10 @@ open class Users: Service {
     open func deleteSessions(
         userId: String
     ) async throws -> Any {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/sessions"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -2115,6 +2379,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -2137,6 +2402,13 @@ open class Users: Service {
         userId: String,
         sessionId: String
     ) async throws -> Any {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+        if sessionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"sessionId\"")
+        }
+
         let apiPath: String = "/users/{userId}/sessions/{sessionId}"
             .replacingOccurrences(of: "{userId}", with: userId)
             .replacingOccurrences(of: "{sessionId}", with: sessionId)
@@ -2146,6 +2418,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -2170,6 +2443,10 @@ open class Users: Service {
         status: Bool,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/status"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -2231,6 +2508,10 @@ open class Users: Service {
         queries: [String]? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.TargetList {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/targets"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -2277,6 +2558,10 @@ open class Users: Service {
         providerId: String? = nil,
         name: String? = nil
     ) async throws -> AppwriteModels.Target {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/targets"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -2319,6 +2604,13 @@ open class Users: Service {
         userId: String,
         targetId: String
     ) async throws -> AppwriteModels.Target {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+        if targetId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"targetId\"")
+        }
+
         let apiPath: String = "/users/{userId}/targets/{targetId}"
             .replacingOccurrences(of: "{userId}", with: userId)
             .replacingOccurrences(of: "{targetId}", with: targetId)
@@ -2361,6 +2653,13 @@ open class Users: Service {
         providerId: String? = nil,
         name: String? = nil
     ) async throws -> AppwriteModels.Target {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+        if targetId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"targetId\"")
+        }
+
         let apiPath: String = "/users/{userId}/targets/{targetId}"
             .replacingOccurrences(of: "{userId}", with: userId)
             .replacingOccurrences(of: "{targetId}", with: targetId)
@@ -2402,6 +2701,13 @@ open class Users: Service {
         userId: String,
         targetId: String
     ) async throws -> Any {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+        if targetId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"targetId\"")
+        }
+
         let apiPath: String = "/users/{userId}/targets/{targetId}"
             .replacingOccurrences(of: "{userId}", with: userId)
             .replacingOccurrences(of: "{targetId}", with: targetId)
@@ -2411,6 +2717,7 @@ open class Users: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -2438,6 +2745,10 @@ open class Users: Service {
         length: Int? = nil,
         expire: Int? = nil
     ) async throws -> AppwriteModels.Token {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/tokens"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -2478,6 +2789,10 @@ open class Users: Service {
         emailVerification: Bool,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/verification"
             .replacingOccurrences(of: "{userId}", with: userId)
 
@@ -2537,6 +2852,10 @@ open class Users: Service {
         phoneVerification: Bool,
         nestedType: T.Type
     ) async throws -> AppwriteModels.User<T> {
+        if userId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"userId\"")
+        }
+
         let apiPath: String = "/users/{userId}/verification/phone"
             .replacingOccurrences(of: "{userId}", with: userId)
 

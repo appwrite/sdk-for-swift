@@ -9,7 +9,8 @@ let client = Client()
 let functions = Functions(client)
 
 let specificationList = try await functions.listSpecifications(
-    type: "runtimes" // optional
+    type: "runtimes", // optional
+    total: false // optional
 )
 
 ```

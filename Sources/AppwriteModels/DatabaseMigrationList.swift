@@ -25,7 +25,7 @@ open class DatabaseMigrationList: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decode(Int.self, forKey: .total)
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
         self.migrations = try container.decode([DatabaseMigration].self, forKey: .migrations)
     }
 
@@ -44,6 +44,11 @@ open class DatabaseMigrationList: Codable {
     }
 
     public static func from(map: [String: Any]) -> DatabaseMigrationList {
+        let defaults: [String: Any] = [
+            "total": 0,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return DatabaseMigrationList(
             total: map["total"] as! Int,
             migrations: (map["migrations"] as! [[String: Any]]).map { DatabaseMigration.from(map: $0) }

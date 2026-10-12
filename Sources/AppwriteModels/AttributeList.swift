@@ -25,7 +25,7 @@ open class AttributeList: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decode(Int.self, forKey: .total)
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
         self.attributes = try container.decode([AnyCodable].self, forKey: .attributes)
     }
 
@@ -44,6 +44,11 @@ open class AttributeList: Codable {
     }
 
     public static func from(map: [String: Any]) -> AttributeList {
+        let defaults: [String: Any] = [
+            "total": 0,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return AttributeList(
             total: map["total"] as! Int,
             attributes: (map["attributes"] as! [Any]).map { AnyCodable($0) }

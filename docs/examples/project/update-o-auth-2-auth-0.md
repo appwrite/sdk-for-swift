@@ -1,5 +1,6 @@
 ```swift
 import Appwrite
+import AppwriteEnums
 
 let client = Client()
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
@@ -12,6 +13,7 @@ let oAuth2Auth0 = try await project.updateOAuth2Auth0(
     clientId: "<CLIENT_ID>", // optional
     clientSecret: "<CLIENT_SECRET>", // optional
     endpoint: "<ENDPOINT>", // optional
+    prompt: [.none], // optional
     enabled: false // optional
 )
 

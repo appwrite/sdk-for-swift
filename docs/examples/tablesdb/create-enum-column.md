@@ -12,7 +12,10 @@ let columnEnum = try await tablesDB.createEnumColumn(
     databaseId: "<DATABASE_ID>",
     tableId: "<TABLE_ID>",
     key: "<KEY>",
-    elements: ["active", "inactive"],
+    elements: [
+        "active",
+        "inactive"
+    ],
     required: false,
     default: "active", // optional
     array: false // optional

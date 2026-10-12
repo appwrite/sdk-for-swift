@@ -55,14 +55,14 @@ open class EmailTemplate: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.templateId = try container.decode(String.self, forKey: .templateId)
-        self.locale = try container.decode(String.self, forKey: .locale)
-        self.message = try container.decode(String.self, forKey: .message)
-        self.senderName = try container.decode(String.self, forKey: .senderName)
-        self.senderEmail = try container.decode(String.self, forKey: .senderEmail)
-        self.replyToEmail = try container.decode(String.self, forKey: .replyToEmail)
-        self.replyToName = try container.decode(String.self, forKey: .replyToName)
-        self.subject = try container.decode(String.self, forKey: .subject)
+        self.templateId = try container.contains(.templateId) ? container.decode(String.self, forKey: .templateId) : ""
+        self.locale = try container.contains(.locale) ? container.decode(String.self, forKey: .locale) : ""
+        self.message = try container.contains(.message) ? container.decode(String.self, forKey: .message) : ""
+        self.senderName = try container.contains(.senderName) ? container.decode(String.self, forKey: .senderName) : ""
+        self.senderEmail = try container.contains(.senderEmail) ? container.decode(String.self, forKey: .senderEmail) : ""
+        self.replyToEmail = try container.contains(.replyToEmail) ? container.decode(String.self, forKey: .replyToEmail) : ""
+        self.replyToName = try container.contains(.replyToName) ? container.decode(String.self, forKey: .replyToName) : ""
+        self.subject = try container.contains(.subject) ? container.decode(String.self, forKey: .subject) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -92,6 +92,18 @@ open class EmailTemplate: Codable {
     }
 
     public static func from(map: [String: Any]) -> EmailTemplate {
+        let defaults: [String: Any] = [
+            "templateId": "",
+            "locale": "",
+            "message": "",
+            "senderName": "",
+            "senderEmail": "",
+            "replyToEmail": "",
+            "replyToName": "",
+            "subject": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return EmailTemplate(
             templateId: map["templateId"] as! String,
             locale: map["locale"] as! String,

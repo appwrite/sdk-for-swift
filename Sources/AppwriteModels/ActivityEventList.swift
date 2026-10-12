@@ -25,7 +25,7 @@ open class ActivityEventList: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decode(Int.self, forKey: .total)
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
         self.events = try container.decode([ActivityEvent].self, forKey: .events)
     }
 
@@ -44,6 +44,11 @@ open class ActivityEventList: Codable {
     }
 
     public static func from(map: [String: Any]) -> ActivityEventList {
+        let defaults: [String: Any] = [
+            "total": 0,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return ActivityEventList(
             total: map["total"] as! Int,
             events: (map["events"] as! [[String: Any]]).map { ActivityEvent.from(map: $0) }

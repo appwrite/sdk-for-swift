@@ -14,7 +14,9 @@ let index = try await vectorsDB.createIndex(
     collectionId: "<COLLECTION_ID>",
     key: "<KEY>",
     type: .hnswEuclidean,
-    attributes: [],
+    attributes: [
+        "embeddings"
+    ],
     orders: [.asc], // optional
     lengths: [] // optional
 )

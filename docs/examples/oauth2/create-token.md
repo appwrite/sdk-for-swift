@@ -3,8 +3,8 @@ import Appwrite
 
 let client = Client()
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
-    .setSession("") // The user session to authenticate with
     .setProject("<YOUR_PROJECT_ID>") // Your project ID
+    .setSession("") // The user session to authenticate with
 
 let oauth2 = Oauth2(client)
 
@@ -17,7 +17,7 @@ let oauth2Token = try await oauth2.createToken(
     client_secret: "<CLIENT_SECRET>", // optional
     code_verifier: "<CODE_VERIFIER>", // optional
     redirect_uri: "https://example.com", // optional
-    resource: "", // optional
+    resource: [], // optional
     audience: "<AUDIENCE>" // optional
 )
 

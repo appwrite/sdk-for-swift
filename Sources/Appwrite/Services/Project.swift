@@ -20,7 +20,8 @@ open class Project: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -49,6 +50,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -187,6 +189,10 @@ open class Project: Service {
     open func getKey(
         keyId: String
     ) async throws -> AppwriteModels.Key {
+        if keyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"keyId\"")
+        }
+
         let apiPath: String = "/project/keys/{keyId}"
             .replacingOccurrences(of: "{keyId}", with: keyId)
 
@@ -227,6 +233,10 @@ open class Project: Service {
         scopes: [AppwriteEnums.ProjectKeyScopes],
         expire: String? = nil
     ) async throws -> AppwriteModels.Key {
+        if keyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"keyId\"")
+        }
+
         let apiPath: String = "/project/keys/{keyId}"
             .replacingOccurrences(of: "{keyId}", with: keyId)
 
@@ -266,6 +276,10 @@ open class Project: Service {
     open func deleteKey(
         keyId: String
     ) async throws -> Any {
+        if keyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"keyId\"")
+        }
+
         let apiPath: String = "/project/keys/{keyId}"
             .replacingOccurrences(of: "{keyId}", with: keyId)
 
@@ -274,6 +288,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -408,6 +423,10 @@ open class Project: Service {
     open func getMockPhone(
         number: String
     ) async throws -> AppwriteModels.MockNumber {
+        if number.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"number\"")
+        }
+
         let apiPath: String = "/project/mock-phones/{number}"
             .replacingOccurrences(of: "{number}", with: number)
 
@@ -444,6 +463,10 @@ open class Project: Service {
         number: String,
         otp: String
     ) async throws -> AppwriteModels.MockNumber {
+        if number.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"number\"")
+        }
+
         let apiPath: String = "/project/mock-phones/{number}"
             .replacingOccurrences(of: "{number}", with: number)
 
@@ -481,6 +504,10 @@ open class Project: Service {
     open func deleteMockPhone(
         number: String
     ) async throws -> Any {
+        if number.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"number\"")
+        }
+
         let apiPath: String = "/project/mock-phones/{number}"
             .replacingOccurrences(of: "{number}", with: number)
 
@@ -489,6 +516,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -666,7 +694,9 @@ open class Project: Service {
     ///   - keyId: String (optional)
     ///   - teamId: String (optional)
     ///   - p8File: String (optional)
+    ///   - nativeClientIds: [String] (optional)
     ///   - enabled: Bool (optional)
+    ///   - nativeEnabled: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.OAuth2Apple
     ///
@@ -675,7 +705,9 @@ open class Project: Service {
         keyId: String? = nil,
         teamId: String? = nil,
         p8File: String? = nil,
-        enabled: Bool? = nil
+        nativeClientIds: [String]? = nil,
+        enabled: Bool? = nil,
+        nativeEnabled: Bool? = nil
     ) async throws -> AppwriteModels.OAuth2Apple {
         let apiPath: String = "/project/oauth2/apple"
 
@@ -684,7 +716,9 @@ open class Project: Service {
             "keyId": keyId,
             "teamId": teamId,
             "p8File": p8File,
+            "nativeClientIds": nativeClientIds,
             "enabled": enabled,
+            "nativeEnabled": nativeEnabled,
         ]
 
         let apiHeaders: [String: String] = [
@@ -753,6 +787,7 @@ open class Project: Service {
     ///   - clientId: String (optional)
     ///   - clientSecret: String (optional)
     ///   - endpoint: String (optional)
+    ///   - prompt: [AppwriteEnums.ProjectOAuth2Auth0Prompt] (optional)
     ///   - enabled: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.OAuth2Auth0
@@ -761,6 +796,7 @@ open class Project: Service {
         clientId: String? = nil,
         clientSecret: String? = nil,
         endpoint: String? = nil,
+        prompt: [AppwriteEnums.ProjectOAuth2Auth0Prompt]? = nil,
         enabled: Bool? = nil
     ) async throws -> AppwriteModels.OAuth2Auth0 {
         let apiPath: String = "/project/oauth2/auth0"
@@ -769,6 +805,7 @@ open class Project: Service {
             "clientId": clientId,
             "clientSecret": clientSecret,
             "endpoint": endpoint,
+            "prompt": prompt?.map { $0.rawValue },
             "enabled": enabled,
         ]
 
@@ -1086,6 +1123,7 @@ open class Project: Service {
     /// - Parameters:
     ///   - clientId: String (optional)
     ///   - clientSecret: String (optional)
+    ///   - prompt: [AppwriteEnums.ProjectOAuth2DiscordPrompt] (optional)
     ///   - enabled: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.OAuth2Discord
@@ -1093,6 +1131,7 @@ open class Project: Service {
     open func updateOAuth2Discord(
         clientId: String? = nil,
         clientSecret: String? = nil,
+        prompt: [AppwriteEnums.ProjectOAuth2DiscordPrompt]? = nil,
         enabled: Bool? = nil
     ) async throws -> AppwriteModels.OAuth2Discord {
         let apiPath: String = "/project/oauth2/discord"
@@ -1100,6 +1139,7 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
+            "prompt": prompt?.map { $0.rawValue },
             "enabled": enabled,
         ]
 
@@ -1376,6 +1416,7 @@ open class Project: Service {
     /// - Parameters:
     ///   - clientId: String (optional)
     ///   - clientSecret: String (optional)
+    ///   - prompt: [AppwriteEnums.ProjectOAuth2GitHubPrompt] (optional)
     ///   - enabled: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.OAuth2Github
@@ -1383,6 +1424,7 @@ open class Project: Service {
     open func updateOAuth2GitHub(
         clientId: String? = nil,
         clientSecret: String? = nil,
+        prompt: [AppwriteEnums.ProjectOAuth2GitHubPrompt]? = nil,
         enabled: Bool? = nil
     ) async throws -> AppwriteModels.OAuth2Github {
         let apiPath: String = "/project/oauth2/github"
@@ -1390,6 +1432,7 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
+            "prompt": prompt?.map { $0.rawValue },
             "enabled": enabled,
         ]
 
@@ -1462,7 +1505,9 @@ open class Project: Service {
     ///   - clientId: String (optional)
     ///   - clientSecret: String (optional)
     ///   - prompt: [AppwriteEnums.ProjectOAuth2GooglePrompt] (optional)
+    ///   - nativeClientIds: [String] (optional)
     ///   - enabled: Bool (optional)
+    ///   - nativeEnabled: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.OAuth2Google
     ///
@@ -1470,7 +1515,9 @@ open class Project: Service {
         clientId: String? = nil,
         clientSecret: String? = nil,
         prompt: [AppwriteEnums.ProjectOAuth2GooglePrompt]? = nil,
-        enabled: Bool? = nil
+        nativeClientIds: [String]? = nil,
+        enabled: Bool? = nil,
+        nativeEnabled: Bool? = nil
     ) async throws -> AppwriteModels.OAuth2Google {
         let apiPath: String = "/project/oauth2/google"
 
@@ -1478,7 +1525,9 @@ open class Project: Service {
             "clientId": clientId,
             "clientSecret": clientSecret,
             "prompt": prompt?.map { $0.rawValue },
+            "nativeClientIds": nativeClientIds,
             "enabled": enabled,
+            "nativeEnabled": nativeEnabled,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1530,6 +1579,50 @@ open class Project: Service {
 
         let converter: (Any) throws -> AppwriteModels.OAuth2HuggingFace = { response in
             return AppwriteModels.OAuth2HuggingFace.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Update the project OAuth2 Kakao configuration.
+    ///
+    /// - Parameters:
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    ///   - prompt: [AppwriteEnums.ProjectOAuth2KakaoPrompt] (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.OAuth2Kakao
+    ///
+    open func updateOAuth2Kakao(
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        prompt: [AppwriteEnums.ProjectOAuth2KakaoPrompt]? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.OAuth2Kakao {
+        let apiPath: String = "/project/oauth2/kakao"
+
+        let apiParams: [String: Any?] = [
+            "clientId": clientId,
+            "clientSecret": clientSecret,
+            "prompt": prompt?.map { $0.rawValue },
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.OAuth2Kakao = { response in
+            return AppwriteModels.OAuth2Kakao.from(map: response as! [String: Any])
         }
 
         return try await client.call(
@@ -1676,6 +1769,7 @@ open class Project: Service {
     ///   - applicationId: String (optional)
     ///   - applicationSecret: String (optional)
     ///   - tenant: String (optional)
+    ///   - prompt: [AppwriteEnums.ProjectOAuth2MicrosoftPrompt] (optional)
     ///   - enabled: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.OAuth2Microsoft
@@ -1684,6 +1778,7 @@ open class Project: Service {
         applicationId: String? = nil,
         applicationSecret: String? = nil,
         tenant: String? = nil,
+        prompt: [AppwriteEnums.ProjectOAuth2MicrosoftPrompt]? = nil,
         enabled: Bool? = nil
     ) async throws -> AppwriteModels.OAuth2Microsoft {
         let apiPath: String = "/project/oauth2/microsoft"
@@ -1692,6 +1787,7 @@ open class Project: Service {
             "applicationId": applicationId,
             "applicationSecret": applicationSecret,
             "tenant": tenant,
+            "prompt": prompt?.map { $0.rawValue },
             "enabled": enabled,
         ]
 
@@ -1821,6 +1917,7 @@ open class Project: Service {
     ///   - clientSecret: String (optional)
     ///   - domain: String (optional)
     ///   - authorizationServerId: String (optional)
+    ///   - prompt: [AppwriteEnums.ProjectOAuth2OktaPrompt] (optional)
     ///   - enabled: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.OAuth2Okta
@@ -1830,6 +1927,7 @@ open class Project: Service {
         clientSecret: String? = nil,
         domain: String? = nil,
         authorizationServerId: String? = nil,
+        prompt: [AppwriteEnums.ProjectOAuth2OktaPrompt]? = nil,
         enabled: Bool? = nil
     ) async throws -> AppwriteModels.OAuth2Okta {
         let apiPath: String = "/project/oauth2/okta"
@@ -1839,6 +1937,7 @@ open class Project: Service {
             "clientSecret": clientSecret,
             "domain": domain,
             "authorizationServerId": authorizationServerId,
+            "prompt": prompt?.map { $0.rawValue },
             "enabled": enabled,
         ]
 
@@ -2030,6 +2129,7 @@ open class Project: Service {
     /// - Parameters:
     ///   - customerKey: String (optional)
     ///   - customerSecret: String (optional)
+    ///   - prompt: [AppwriteEnums.ProjectOAuth2SalesforcePrompt] (optional)
     ///   - enabled: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.OAuth2Salesforce
@@ -2037,6 +2137,7 @@ open class Project: Service {
     open func updateOAuth2Salesforce(
         customerKey: String? = nil,
         customerSecret: String? = nil,
+        prompt: [AppwriteEnums.ProjectOAuth2SalesforcePrompt]? = nil,
         enabled: Bool? = nil
     ) async throws -> AppwriteModels.OAuth2Salesforce {
         let apiPath: String = "/project/oauth2/salesforce"
@@ -2044,6 +2145,7 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "customerKey": customerKey,
             "customerSecret": customerSecret,
+            "prompt": prompt?.map { $0.rawValue },
             "enabled": enabled,
         ]
 
@@ -2189,6 +2291,47 @@ open class Project: Service {
         )
     }
     ///
+    /// Update the project OAuth2 TikTok configuration.
+    ///
+    /// - Parameters:
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.OAuth2TikTok
+    ///
+    open func updateOAuth2TikTok(
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.OAuth2TikTok {
+        let apiPath: String = "/project/oauth2/tiktok"
+
+        let apiParams: [String: Any?] = [
+            "clientId": clientId,
+            "clientSecret": clientSecret,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.OAuth2TikTok = { response in
+            return AppwriteModels.OAuth2TikTok.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// Update the project OAuth2 Tradeshift configuration.
     ///
     /// - Parameters:
@@ -2301,6 +2444,47 @@ open class Project: Service {
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Twitch = { response in
             return AppwriteModels.OAuth2Twitch.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Update the project OAuth2 Webflow configuration.
+    ///
+    /// - Parameters:
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.OAuth2Webflow
+    ///
+    open func updateOAuth2Webflow(
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.OAuth2Webflow {
+        let apiPath: String = "/project/oauth2/webflow"
+
+        let apiParams: [String: Any?] = [
+            "clientId": clientId,
+            "clientSecret": clientSecret,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.OAuth2Webflow = { response in
+            return AppwriteModels.OAuth2Webflow.from(map: response as! [String: Any])
         }
 
         return try await client.call(
@@ -2481,6 +2665,7 @@ open class Project: Service {
     /// - Parameters:
     ///   - clientId: String (optional)
     ///   - clientSecret: String (optional)
+    ///   - prompt: [AppwriteEnums.ProjectOAuth2ZohoPrompt] (optional)
     ///   - enabled: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.OAuth2Zoho
@@ -2488,6 +2673,7 @@ open class Project: Service {
     open func updateOAuth2Zoho(
         clientId: String? = nil,
         clientSecret: String? = nil,
+        prompt: [AppwriteEnums.ProjectOAuth2ZohoPrompt]? = nil,
         enabled: Bool? = nil
     ) async throws -> AppwriteModels.OAuth2Zoho {
         let apiPath: String = "/project/oauth2/zoho"
@@ -2495,6 +2681,7 @@ open class Project: Service {
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
+            "prompt": prompt?.map { $0.rawValue },
             "enabled": enabled,
         ]
 
@@ -2628,6 +2815,9 @@ open class Project: Service {
             if String(describing: responseMap["$id"] ?? "") == "wordpress" {
                 return AppwriteModels.OAuth2WordPress.from(map: responseMap)
             }
+            if String(describing: responseMap["$id"] ?? "") == "webflow" {
+                return AppwriteModels.OAuth2Webflow.from(map: responseMap)
+            }
             if String(describing: responseMap["$id"] ?? "") == "twitch" {
                 return AppwriteModels.OAuth2Twitch.from(map: responseMap)
             }
@@ -2712,6 +2902,12 @@ open class Project: Service {
             if String(describing: responseMap["$id"] ?? "") == "microsoft" {
                 return AppwriteModels.OAuth2Microsoft.from(map: responseMap)
             }
+            if String(describing: responseMap["$id"] ?? "") == "tiktok" {
+                return AppwriteModels.OAuth2TikTok.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "kakao" {
+                return AppwriteModels.OAuth2Kakao.from(map: responseMap)
+            }
             throw AppwriteError(message: "Unable to match response to any expected response model")
         }
 
@@ -2770,13 +2966,15 @@ open class Project: Service {
     ///   - platformId: String
     ///   - name: String
     ///   - applicationId: String
+    ///   - fingerprints: [String] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.PlatformAndroid
     ///
     open func createAndroidPlatform(
         platformId: String,
         name: String,
-        applicationId: String
+        applicationId: String,
+        fingerprints: [String]? = nil
     ) async throws -> AppwriteModels.PlatformAndroid {
         let apiPath: String = "/project/platforms/android"
 
@@ -2784,6 +2982,7 @@ open class Project: Service {
             "platformId": platformId,
             "name": name,
             "applicationId": applicationId,
+            "fingerprints": fingerprints,
         ]
 
         let apiHeaders: [String: String] = [
@@ -2806,26 +3005,33 @@ open class Project: Service {
     }
     ///
     /// Update an Android platform by its unique ID. Use this endpoint to update
-    /// the platform's name or application ID.
+    /// the platform's name, application ID or signing certificate fingerprints.
     ///
     /// - Parameters:
     ///   - platformId: String
     ///   - name: String
     ///   - applicationId: String
+    ///   - fingerprints: [String] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.PlatformAndroid
     ///
     open func updateAndroidPlatform(
         platformId: String,
         name: String,
-        applicationId: String
+        applicationId: String,
+        fingerprints: [String]? = nil
     ) async throws -> AppwriteModels.PlatformAndroid {
+        if platformId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"platformId\"")
+        }
+
         let apiPath: String = "/project/platforms/android/{platformId}"
             .replacingOccurrences(of: "{platformId}", with: platformId)
 
         let apiParams: [String: Any?] = [
             "name": name,
             "applicationId": applicationId,
+            "fingerprints": fingerprints,
         ]
 
         let apiHeaders: [String: String] = [
@@ -2905,6 +3111,10 @@ open class Project: Service {
         name: String,
         bundleIdentifier: String
     ) async throws -> AppwriteModels.PlatformApple {
+        if platformId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"platformId\"")
+        }
+
         let apiPath: String = "/project/platforms/apple/{platformId}"
             .replacingOccurrences(of: "{platformId}", with: platformId)
 
@@ -2990,6 +3200,10 @@ open class Project: Service {
         name: String,
         packageName: String
     ) async throws -> AppwriteModels.PlatformLinux {
+        if platformId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"platformId\"")
+        }
+
         let apiPath: String = "/project/platforms/linux/{platformId}"
             .replacingOccurrences(of: "{platformId}", with: platformId)
 
@@ -3075,6 +3289,10 @@ open class Project: Service {
         name: String,
         hostname: String
     ) async throws -> AppwriteModels.PlatformWeb {
+        if platformId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"platformId\"")
+        }
+
         let apiPath: String = "/project/platforms/web/{platformId}"
             .replacingOccurrences(of: "{platformId}", with: platformId)
 
@@ -3160,6 +3378,10 @@ open class Project: Service {
         name: String,
         packageIdentifierName: String
     ) async throws -> AppwriteModels.PlatformWindows {
+        if platformId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"platformId\"")
+        }
+
         let apiPath: String = "/project/platforms/windows/{platformId}"
             .replacingOccurrences(of: "{platformId}", with: platformId)
 
@@ -3198,6 +3420,10 @@ open class Project: Service {
     open func getPlatform(
         platformId: String
     ) async throws -> Any {
+        if platformId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"platformId\"")
+        }
+
         let apiPath: String = "/project/platforms/{platformId}"
             .replacingOccurrences(of: "{platformId}", with: platformId)
 
@@ -3250,6 +3476,10 @@ open class Project: Service {
     open func deletePlatform(
         platformId: String
     ) async throws -> Any {
+        if platformId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"platformId\"")
+        }
+
         let apiPath: String = "/project/platforms/{platformId}"
             .replacingOccurrences(of: "{platformId}", with: platformId)
 
@@ -3258,6 +3488,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -3549,6 +3780,46 @@ open class Project: Service {
         )
     }
     ///
+    /// Set the relying party ID passkeys are bound to: the domain of your
+    /// application. Passkeys work on the project's web platforms on that domain or
+    /// its subdomains, and on the domain itself for Apple apps. A localhost web
+    /// platform enables passkeys for local development without a relying party ID.
+    /// The relying party ID cannot change while users have passkeys, and any
+    /// change invalidates ceremonies in progress.
+    ///
+    /// - Parameters:
+    ///   - rpId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project
+    ///
+    open func updatePasskeyPolicy(
+        rpId: String
+    ) async throws -> AppwriteModels.Project {
+        let apiPath: String = "/project/policies/passkey"
+
+        let apiParams: [String: Any?] = [
+            "rpId": rpId
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Project = { response in
+            return AppwriteModels.Project.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// Updating this policy allows you to control if new passwords are checked
     /// against most common passwords dictionary. When enabled, and user changes
     /// their password, password must not be contained in the dictionary.
@@ -3646,6 +3917,94 @@ open class Project: Service {
 
         let apiParams: [String: Any?] = [
             "enabled": enabled
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Project = { response in
+            return AppwriteModels.Project.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Updating this policy allows you to control if passwords are checked against
+    /// the Have I Been Pwned breach database. When enabled, every password a user
+    /// signs up, signs in or resets with is checked and the result is recorded on
+    /// the user as `passwordPwned`. On its own the policy only records. Enable
+    /// `users` to reject a breached password when a user signs up or sets a new
+    /// password, and `sessions` to refuse a sign-in with a breached password until
+    /// it is reset. Only the first five characters of the password hash are ever
+    /// shared with the service. Options left out keep their current value.
+    ///
+    /// - Parameters:
+    ///   - enabled: Bool (optional)
+    ///   - sessions: Bool (optional)
+    ///   - users: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project
+    ///
+    open func updatePasswordPwnedPolicy(
+        enabled: Bool? = nil,
+        sessions: Bool? = nil,
+        users: Bool? = nil
+    ) async throws -> AppwriteModels.Project {
+        let apiPath: String = "/project/policies/password-pwned"
+
+        let apiParams: [String: Any?] = [
+            "enabled": enabled,
+            "sessions": sessions,
+            "users": users,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Project = { response in
+            return AppwriteModels.Project.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Require a password reset when an email/password sign-in uses a password
+    /// older than the configured maximum age. Options left out keep their current
+    /// value.
+    ///
+    /// - Parameters:
+    ///   - enabled: Bool (optional)
+    ///   - maxAge: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project
+    ///
+    open func updatePasswordRotationPolicy(
+        enabled: Bool? = nil,
+        maxAge: Int? = nil
+    ) async throws -> AppwriteModels.Project {
+        let apiPath: String = "/project/policies/password-rotation"
+
+        let apiParams: [String: Any?] = [
+            "enabled": enabled,
+            "maxAge": maxAge,
         ]
 
         let apiHeaders: [String: String] = [
@@ -3936,6 +4295,12 @@ open class Project: Service {
             if String(describing: responseMap["$id"] ?? "") == "password-personal-data" {
                 return AppwriteModels.PolicyPasswordPersonalData.from(map: responseMap)
             }
+            if String(describing: responseMap["$id"] ?? "") == "password-pwned" {
+                return AppwriteModels.PolicyPasswordPwned.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "password-rotation" {
+                return AppwriteModels.PolicyPasswordRotation.from(map: responseMap)
+            }
             if String(describing: responseMap["$id"] ?? "") == "session-alert" {
                 return AppwriteModels.PolicySessionAlert.from(map: responseMap)
             }
@@ -3968,6 +4333,9 @@ open class Project: Service {
             }
             if String(describing: responseMap["$id"] ?? "") == "deny-corporate-email" {
                 return AppwriteModels.PolicyDenyCorporateEmail.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "passkey" {
+                return AppwriteModels.PolicyPasskey.from(map: responseMap)
             }
             throw AppwriteError(message: "Unable to match response to any expected response model")
         }
@@ -4142,6 +4510,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -4379,6 +4748,10 @@ open class Project: Service {
     open func getVariable(
         variableId: String
     ) async throws -> AppwriteModels.Variable {
+        if variableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"variableId\"")
+        }
+
         let apiPath: String = "/project/variables/{variableId}"
             .replacingOccurrences(of: "{variableId}", with: variableId)
 
@@ -4418,6 +4791,10 @@ open class Project: Service {
         value: String? = nil,
         secret: Bool? = nil
     ) async throws -> AppwriteModels.Variable {
+        if variableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"variableId\"")
+        }
+
         let apiPath: String = "/project/variables/{variableId}"
             .replacingOccurrences(of: "{variableId}", with: variableId)
 
@@ -4456,6 +4833,10 @@ open class Project: Service {
     open func deleteVariable(
         variableId: String
     ) async throws -> Any {
+        if variableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"variableId\"")
+        }
+
         let apiPath: String = "/project/variables/{variableId}"
             .replacingOccurrences(of: "{variableId}", with: variableId)
 
@@ -4464,6 +4845,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(

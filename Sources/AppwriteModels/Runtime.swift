@@ -55,13 +55,13 @@ open class Runtime: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.key = try container.decode(String.self, forKey: .key)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.version = try container.decode(String.self, forKey: .version)
-        self.base = try container.decode(String.self, forKey: .base)
-        self.image = try container.decode(String.self, forKey: .image)
-        self.logo = try container.decode(String.self, forKey: .logo)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.key = try container.contains(.key) ? container.decode(String.self, forKey: .key) : ""
+        self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.version = try container.contains(.version) ? container.decode(String.self, forKey: .version) : ""
+        self.base = try container.contains(.base) ? container.decode(String.self, forKey: .base) : ""
+        self.image = try container.contains(.image) ? container.decode(String.self, forKey: .image) : ""
+        self.logo = try container.contains(.logo) ? container.decode(String.self, forKey: .logo) : ""
         self.supports = try container.decode([String].self, forKey: .supports)
     }
 
@@ -92,6 +92,17 @@ open class Runtime: Codable {
     }
 
     public static func from(map: [String: Any]) -> Runtime {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "key": "",
+            "name": "",
+            "version": "",
+            "base": "",
+            "image": "",
+            "logo": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return Runtime(
             id: map["$id"] as! String,
             key: map["key"] as! String,

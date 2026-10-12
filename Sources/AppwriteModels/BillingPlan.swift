@@ -53,6 +53,7 @@ open class BillingPlan: Codable {
         case emailBranding = "emailBranding"
         case requiresPaymentMethod = "requiresPaymentMethod"
         case requiresBillingAddress = "requiresBillingAddress"
+        case eligibleCountries = "eligibleCountries"
         case isAvailable = "isAvailable"
         case selfService = "selfService"
         case premiumSupport = "premiumSupport"
@@ -161,8 +162,8 @@ open class BillingPlan: Codable {
     public let projectInactivityDays: Int
     /// Alert threshold percentage
     public let alertLimit: Int
-    /// Additional resources
-    public let usage: UsageBillingPlan
+    /// Additional resources. Null when the plan does not support usage billing.
+    public let usage: UsageBillingPlan?
     /// Addons
     public let addons: BillingPlanAddon
     /// Budget cap enabled or disabled.
@@ -175,6 +176,8 @@ open class BillingPlan: Codable {
     public let requiresPaymentMethod: Bool
     /// Does plan require billing address
     public let requiresBillingAddress: Bool
+    /// ISO country codes eligible for this regional plan. Empty means no restriction.
+    public let eligibleCountries: [String]?
     /// Is the billing plan available
     public let isAvailable: Bool
     /// Can user change the plan themselves
@@ -269,13 +272,14 @@ open class BillingPlan: Codable {
         usageAggregateOnlyMetrics: [String]?,
         projectInactivityDays: Int,
         alertLimit: Int,
-        usage: UsageBillingPlan,
+        usage: UsageBillingPlan?,
         addons: BillingPlanAddon,
         budgetCapEnabled: Bool,
         customSmtp: Bool,
         emailBranding: Bool,
         requiresPaymentMethod: Bool,
         requiresBillingAddress: Bool,
+        eligibleCountries: [String]?,
         isAvailable: Bool,
         selfService: Bool,
         premiumSupport: Bool,
@@ -350,6 +354,7 @@ open class BillingPlan: Codable {
         self.emailBranding = emailBranding
         self.requiresPaymentMethod = requiresPaymentMethod
         self.requiresBillingAddress = requiresBillingAddress
+        self.eligibleCountries = eligibleCountries
         self.isAvailable = isAvailable
         self.selfService = selfService
         self.premiumSupport = premiumSupport
@@ -381,78 +386,79 @@ open class BillingPlan: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.desc = try container.decode(String.self, forKey: .desc)
-        self.order = try container.decode(Int.self, forKey: .order)
-        self.price = try container.decode(Double.self, forKey: .price)
-        self.trial = try container.decode(Int.self, forKey: .trial)
-        self.bandwidth = try container.decode(Int.self, forKey: .bandwidth)
-        self.storage = try container.decode(Int.self, forKey: .storage)
-        self.imageTransformations = try container.decode(Int.self, forKey: .imageTransformations)
-        self.screenshotsGenerated = try container.decode(Int.self, forKey: .screenshotsGenerated)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.desc = try container.contains(.desc) ? container.decode(String.self, forKey: .desc) : ""
+        self.order = try container.contains(.order) ? container.decode(Int.self, forKey: .order) : 0
+        self.price = try container.contains(.price) ? container.decode(Double.self, forKey: .price) : 0
+        self.trial = try container.contains(.trial) ? container.decode(Int.self, forKey: .trial) : 0
+        self.bandwidth = try container.contains(.bandwidth) ? container.decode(Int.self, forKey: .bandwidth) : 0
+        self.storage = try container.contains(.storage) ? container.decode(Int.self, forKey: .storage) : 0
+        self.imageTransformations = try container.contains(.imageTransformations) ? container.decode(Int.self, forKey: .imageTransformations) : 0
+        self.screenshotsGenerated = try container.contains(.screenshotsGenerated) ? container.decode(Int.self, forKey: .screenshotsGenerated) : 0
         self.members = try container.decodeIfPresent(Int.self, forKey: .members)
-        self.webhooks = try container.decode(Int.self, forKey: .webhooks)
-        self.wafRules = try container.decode(Int.self, forKey: .wafRules)
-        self.projects = try container.decode(Int.self, forKey: .projects)
-        self.platforms = try container.decode(Int.self, forKey: .platforms)
-        self.users = try container.decode(Int.self, forKey: .users)
-        self.teams = try container.decode(Int.self, forKey: .teams)
-        self.databases = try container.decode(Int.self, forKey: .databases)
-        self.databasesReads = try container.decode(Int.self, forKey: .databasesReads)
-        self.databasesWrites = try container.decode(Int.self, forKey: .databasesWrites)
-        self.databasesBatchSize = try container.decode(Int.self, forKey: .databasesBatchSize)
-        self.buckets = try container.decode(Int.self, forKey: .buckets)
-        self.fileSize = try container.decode(Int.self, forKey: .fileSize)
-        self.functions = try container.decode(Int.self, forKey: .functions)
-        self.sites = try container.decode(Int.self, forKey: .sites)
-        self.executions = try container.decode(Int.self, forKey: .executions)
-        self.executionsRetentionCount = try container.decode(Int.self, forKey: .executionsRetentionCount)
-        self.GBHours = try container.decode(Int.self, forKey: .GBHours)
-        self.realtime = try container.decode(Int.self, forKey: .realtime)
-        self.realtimeMessages = try container.decode(Int.self, forKey: .realtimeMessages)
-        self.messages = try container.decode(Int.self, forKey: .messages)
-        self.topics = try container.decode(Int.self, forKey: .topics)
-        self.authPhone = try container.decode(Int.self, forKey: .authPhone)
-        self.domains = try container.decode(Int.self, forKey: .domains)
+        self.webhooks = try container.contains(.webhooks) ? container.decode(Int.self, forKey: .webhooks) : 0
+        self.wafRules = try container.contains(.wafRules) ? container.decode(Int.self, forKey: .wafRules) : 0
+        self.projects = try container.contains(.projects) ? container.decode(Int.self, forKey: .projects) : 0
+        self.platforms = try container.contains(.platforms) ? container.decode(Int.self, forKey: .platforms) : 0
+        self.users = try container.contains(.users) ? container.decode(Int.self, forKey: .users) : 0
+        self.teams = try container.contains(.teams) ? container.decode(Int.self, forKey: .teams) : 0
+        self.databases = try container.contains(.databases) ? container.decode(Int.self, forKey: .databases) : 0
+        self.databasesReads = try container.contains(.databasesReads) ? container.decode(Int.self, forKey: .databasesReads) : 0
+        self.databasesWrites = try container.contains(.databasesWrites) ? container.decode(Int.self, forKey: .databasesWrites) : 0
+        self.databasesBatchSize = try container.contains(.databasesBatchSize) ? container.decode(Int.self, forKey: .databasesBatchSize) : 0
+        self.buckets = try container.contains(.buckets) ? container.decode(Int.self, forKey: .buckets) : 0
+        self.fileSize = try container.contains(.fileSize) ? container.decode(Int.self, forKey: .fileSize) : 0
+        self.functions = try container.contains(.functions) ? container.decode(Int.self, forKey: .functions) : 0
+        self.sites = try container.contains(.sites) ? container.decode(Int.self, forKey: .sites) : 0
+        self.executions = try container.contains(.executions) ? container.decode(Int.self, forKey: .executions) : 0
+        self.executionsRetentionCount = try container.contains(.executionsRetentionCount) ? container.decode(Int.self, forKey: .executionsRetentionCount) : 1000
+        self.GBHours = try container.contains(.GBHours) ? container.decode(Int.self, forKey: .GBHours) : 0
+        self.realtime = try container.contains(.realtime) ? container.decode(Int.self, forKey: .realtime) : 0
+        self.realtimeMessages = try container.contains(.realtimeMessages) ? container.decode(Int.self, forKey: .realtimeMessages) : 0
+        self.messages = try container.contains(.messages) ? container.decode(Int.self, forKey: .messages) : 0
+        self.topics = try container.contains(.topics) ? container.decode(Int.self, forKey: .topics) : 0
+        self.authPhone = try container.contains(.authPhone) ? container.decode(Int.self, forKey: .authPhone) : 0
+        self.domains = try container.contains(.domains) ? container.decode(Int.self, forKey: .domains) : 0
         self.activityLogs = try container.decodeIfPresent(Int.self, forKey: .activityLogs)
-        self.usageLogs = try container.decode(Int.self, forKey: .usageLogs)
+        self.usageLogs = try container.contains(.usageLogs) ? container.decode(Int.self, forKey: .usageLogs) : 0
         self.usageLogsIntervals = try container.decodeIfPresent([String].self, forKey: .usageLogsIntervals)
         self.usageAggregateOnlyMetrics = try container.decodeIfPresent([String].self, forKey: .usageAggregateOnlyMetrics)
-        self.projectInactivityDays = try container.decode(Int.self, forKey: .projectInactivityDays)
-        self.alertLimit = try container.decode(Int.self, forKey: .alertLimit)
-        self.usage = try container.decode(UsageBillingPlan.self, forKey: .usage)
+        self.projectInactivityDays = try container.contains(.projectInactivityDays) ? container.decode(Int.self, forKey: .projectInactivityDays) : 0
+        self.alertLimit = try container.contains(.alertLimit) ? container.decode(Int.self, forKey: .alertLimit) : 80
+        self.usage = try container.decodeIfPresent(UsageBillingPlan.self, forKey: .usage)
         self.addons = try container.decode(BillingPlanAddon.self, forKey: .addons)
-        self.budgetCapEnabled = try container.decode(Bool.self, forKey: .budgetCapEnabled)
-        self.customSmtp = try container.decode(Bool.self, forKey: .customSmtp)
-        self.emailBranding = try container.decode(Bool.self, forKey: .emailBranding)
-        self.requiresPaymentMethod = try container.decode(Bool.self, forKey: .requiresPaymentMethod)
-        self.requiresBillingAddress = try container.decode(Bool.self, forKey: .requiresBillingAddress)
-        self.isAvailable = try container.decode(Bool.self, forKey: .isAvailable)
-        self.selfService = try container.decode(Bool.self, forKey: .selfService)
-        self.premiumSupport = try container.decode(Bool.self, forKey: .premiumSupport)
-        self.budgeting = try container.decode(Bool.self, forKey: .budgeting)
-        self.supportsMockNumbers = try container.decode(Bool.self, forKey: .supportsMockNumbers)
-        self.supportsOrganizationRoles = try container.decode(Bool.self, forKey: .supportsOrganizationRoles)
-        self.supportsCredits = try container.decode(Bool.self, forKey: .supportsCredits)
-        self.supportsDedicatedDatabases = try container.decode(Bool.self, forKey: .supportsDedicatedDatabases)
-        self.supportsDisposableEmailValidation = try container.decode(Bool.self, forKey: .supportsDisposableEmailValidation)
-        self.supportsCanonicalEmailValidation = try container.decode(Bool.self, forKey: .supportsCanonicalEmailValidation)
-        self.supportsFreeEmailValidation = try container.decode(Bool.self, forKey: .supportsFreeEmailValidation)
-        self.supportsCorporateEmailValidation = try container.decode(Bool.self, forKey: .supportsCorporateEmailValidation)
-        self.supportsProjectSpecificRoles = try container.decode(Bool.self, forKey: .supportsProjectSpecificRoles)
+        self.budgetCapEnabled = try container.contains(.budgetCapEnabled) ? container.decode(Bool.self, forKey: .budgetCapEnabled) : false
+        self.customSmtp = try container.contains(.customSmtp) ? container.decode(Bool.self, forKey: .customSmtp) : false
+        self.emailBranding = try container.contains(.emailBranding) ? container.decode(Bool.self, forKey: .emailBranding) : false
+        self.requiresPaymentMethod = try container.contains(.requiresPaymentMethod) ? container.decode(Bool.self, forKey: .requiresPaymentMethod) : true
+        self.requiresBillingAddress = try container.contains(.requiresBillingAddress) ? container.decode(Bool.self, forKey: .requiresBillingAddress) : false
+        self.eligibleCountries = try container.decodeIfPresent([String].self, forKey: .eligibleCountries)
+        self.isAvailable = try container.contains(.isAvailable) ? container.decode(Bool.self, forKey: .isAvailable) : true
+        self.selfService = try container.contains(.selfService) ? container.decode(Bool.self, forKey: .selfService) : true
+        self.premiumSupport = try container.contains(.premiumSupport) ? container.decode(Bool.self, forKey: .premiumSupport) : true
+        self.budgeting = try container.contains(.budgeting) ? container.decode(Bool.self, forKey: .budgeting) : true
+        self.supportsMockNumbers = try container.contains(.supportsMockNumbers) ? container.decode(Bool.self, forKey: .supportsMockNumbers) : true
+        self.supportsOrganizationRoles = try container.contains(.supportsOrganizationRoles) ? container.decode(Bool.self, forKey: .supportsOrganizationRoles) : true
+        self.supportsCredits = try container.contains(.supportsCredits) ? container.decode(Bool.self, forKey: .supportsCredits) : false
+        self.supportsDedicatedDatabases = try container.contains(.supportsDedicatedDatabases) ? container.decode(Bool.self, forKey: .supportsDedicatedDatabases) : false
+        self.supportsDisposableEmailValidation = try container.contains(.supportsDisposableEmailValidation) ? container.decode(Bool.self, forKey: .supportsDisposableEmailValidation) : false
+        self.supportsCanonicalEmailValidation = try container.contains(.supportsCanonicalEmailValidation) ? container.decode(Bool.self, forKey: .supportsCanonicalEmailValidation) : false
+        self.supportsFreeEmailValidation = try container.contains(.supportsFreeEmailValidation) ? container.decode(Bool.self, forKey: .supportsFreeEmailValidation) : false
+        self.supportsCorporateEmailValidation = try container.contains(.supportsCorporateEmailValidation) ? container.decode(Bool.self, forKey: .supportsCorporateEmailValidation) : false
+        self.supportsProjectSpecificRoles = try container.contains(.supportsProjectSpecificRoles) ? container.decode(Bool.self, forKey: .supportsProjectSpecificRoles) : false
         self.backupsEnabled = try container.decodeIfPresent(Bool.self, forKey: .backupsEnabled)
-        self.usagePerProject = try container.decode(Bool.self, forKey: .usagePerProject)
+        self.usagePerProject = try container.contains(.usagePerProject) ? container.decode(Bool.self, forKey: .usagePerProject) : true
         self.supportedAddons = try container.decode(BillingPlanSupportedAddons.self, forKey: .supportedAddons)
         self.backupPolicies = try container.decodeIfPresent(Int.self, forKey: .backupPolicies)
-        self.deploymentSize = try container.decode(Int.self, forKey: .deploymentSize)
-        self.buildSize = try container.decode(Int.self, forKey: .buildSize)
-        self.functionsIntervalMinimum = try container.decode(Int.self, forKey: .functionsIntervalMinimum)
-        self.databasesAllowEncrypt = try container.decode(Bool.self, forKey: .databasesAllowEncrypt)
+        self.deploymentSize = try container.contains(.deploymentSize) ? container.decode(Int.self, forKey: .deploymentSize) : 0
+        self.buildSize = try container.contains(.buildSize) ? container.decode(Int.self, forKey: .buildSize) : 0
+        self.functionsIntervalMinimum = try container.contains(.functionsIntervalMinimum) ? container.decode(Int.self, forKey: .functionsIntervalMinimum) : 0
+        self.databasesAllowEncrypt = try container.contains(.databasesAllowEncrypt) ? container.decode(Bool.self, forKey: .databasesAllowEncrypt) : false
         self.limits = try container.decodeIfPresent(BillingPlanLimits.self, forKey: .limits)
         self.group = AppwriteEnums.BillingPlanGroup(rawValue: try container.decode(String.self, forKey: .group))!
         self.program = try container.decodeIfPresent(Program.self, forKey: .program)
-        self.databaseComputeCredit = try container.decode(Double.self, forKey: .databaseComputeCredit)
+        self.databaseComputeCredit = try container.contains(.databaseComputeCredit) ? container.decode(Double.self, forKey: .databaseComputeCredit) : 0
         self.dedicatedDatabases = try container.decodeIfPresent(BillingPlanDedicatedDatabaseLimits.self, forKey: .dedicatedDatabases)
     }
 
@@ -499,13 +505,14 @@ open class BillingPlan: Codable {
         try container.encodeIfPresent(usageAggregateOnlyMetrics, forKey: .usageAggregateOnlyMetrics)
         try container.encode(projectInactivityDays, forKey: .projectInactivityDays)
         try container.encode(alertLimit, forKey: .alertLimit)
-        try container.encode(usage, forKey: .usage)
+        try container.encodeIfPresent(usage, forKey: .usage)
         try container.encode(addons, forKey: .addons)
         try container.encode(budgetCapEnabled, forKey: .budgetCapEnabled)
         try container.encode(customSmtp, forKey: .customSmtp)
         try container.encode(emailBranding, forKey: .emailBranding)
         try container.encode(requiresPaymentMethod, forKey: .requiresPaymentMethod)
         try container.encode(requiresBillingAddress, forKey: .requiresBillingAddress)
+        try container.encodeIfPresent(eligibleCountries, forKey: .eligibleCountries)
         try container.encode(isAvailable, forKey: .isAvailable)
         try container.encode(selfService, forKey: .selfService)
         try container.encode(premiumSupport, forKey: .premiumSupport)
@@ -576,13 +583,14 @@ open class BillingPlan: Codable {
             "usageAggregateOnlyMetrics": usageAggregateOnlyMetrics as Any,
             "projectInactivityDays": projectInactivityDays as Any,
             "alertLimit": alertLimit as Any,
-            "usage": usage.toMap() as Any,
+            "usage": usage?.toMap() as Any,
             "addons": addons.toMap() as Any,
             "budgetCapEnabled": budgetCapEnabled as Any,
             "customSmtp": customSmtp as Any,
             "emailBranding": emailBranding as Any,
             "requiresPaymentMethod": requiresPaymentMethod as Any,
             "requiresBillingAddress": requiresBillingAddress as Any,
+            "eligibleCountries": eligibleCountries as Any,
             "isAvailable": isAvailable as Any,
             "selfService": selfService as Any,
             "premiumSupport": premiumSupport as Any,
@@ -613,6 +621,70 @@ open class BillingPlan: Codable {
     }
 
     public static func from(map: [String: Any]) -> BillingPlan {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "name": "",
+            "desc": "",
+            "order": 0,
+            "price": 0.0,
+            "trial": 0,
+            "bandwidth": 0,
+            "storage": 0,
+            "imageTransformations": 0,
+            "screenshotsGenerated": 0,
+            "webhooks": 0,
+            "wafRules": 0,
+            "projects": 0,
+            "platforms": 0,
+            "users": 0,
+            "teams": 0,
+            "databases": 0,
+            "databasesReads": 0,
+            "databasesWrites": 0,
+            "databasesBatchSize": 0,
+            "buckets": 0,
+            "fileSize": 0,
+            "functions": 0,
+            "sites": 0,
+            "executions": 0,
+            "executionsRetentionCount": 1000,
+            "GBHours": 0,
+            "realtime": 0,
+            "realtimeMessages": 0,
+            "messages": 0,
+            "topics": 0,
+            "authPhone": 0,
+            "domains": 0,
+            "usageLogs": 0,
+            "projectInactivityDays": 0,
+            "alertLimit": 80,
+            "budgetCapEnabled": false,
+            "customSmtp": false,
+            "emailBranding": false,
+            "requiresPaymentMethod": true,
+            "requiresBillingAddress": false,
+            "isAvailable": true,
+            "selfService": true,
+            "premiumSupport": true,
+            "budgeting": true,
+            "supportsMockNumbers": true,
+            "supportsOrganizationRoles": true,
+            "supportsCredits": false,
+            "supportsDedicatedDatabases": false,
+            "supportsDisposableEmailValidation": false,
+            "supportsCanonicalEmailValidation": false,
+            "supportsFreeEmailValidation": false,
+            "supportsCorporateEmailValidation": false,
+            "supportsProjectSpecificRoles": false,
+            "usagePerProject": true,
+            "deploymentSize": 0,
+            "buildSize": 0,
+            "functionsIntervalMinimum": 0,
+            "databasesAllowEncrypt": false,
+            "databaseComputeCredit": 0.0,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return BillingPlan(
             id: map["$id"] as! String,
             name: map["name"] as! String,
@@ -654,13 +726,14 @@ open class BillingPlan: Codable {
             usageAggregateOnlyMetrics: map["usageAggregateOnlyMetrics"] as? [String],
             projectInactivityDays: map["projectInactivityDays"] as! Int,
             alertLimit: map["alertLimit"] as! Int,
-            usage: UsageBillingPlan.from(map: map["usage"] as! [String: Any]),
+            usage: map["usage"] as? [String: Any] != nil ? UsageBillingPlan.from(map: map["usage"] as! [String: Any]) : nil,
             addons: BillingPlanAddon.from(map: map["addons"] as! [String: Any]),
             budgetCapEnabled: map["budgetCapEnabled"] as! Bool,
             customSmtp: map["customSmtp"] as! Bool,
             emailBranding: map["emailBranding"] as! Bool,
             requiresPaymentMethod: map["requiresPaymentMethod"] as! Bool,
             requiresBillingAddress: map["requiresBillingAddress"] as! Bool,
+            eligibleCountries: map["eligibleCountries"] as? [String],
             isAvailable: map["isAvailable"] as! Bool,
             selfService: map["selfService"] as! Bool,
             premiumSupport: map["premiumSupport"] as! Bool,

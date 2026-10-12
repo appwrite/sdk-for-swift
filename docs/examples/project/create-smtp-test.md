@@ -9,7 +9,9 @@ let client = Client()
 let project = Project(client)
 
 let result = try await project.createSMTPTest(
-    emails: []
+    emails: [
+        "recipient@example.com"
+    ]
 )
 
 ```

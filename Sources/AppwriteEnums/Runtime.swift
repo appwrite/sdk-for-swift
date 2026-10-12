@@ -52,6 +52,7 @@ public enum Runtime: String, Codable, CustomStringConvertible {
     case dart310 = "dart-3.10"
     case dart311 = "dart-3.11"
     case dart312 = "dart-3.12"
+    case dart313 = "dart-3.13"
     case dotnet60 = "dotnet-6.0"
     case dotnet70 = "dotnet-7.0"
     case dotnet80 = "dotnet-8.0"
@@ -94,6 +95,7 @@ public enum Runtime: String, Codable, CustomStringConvertible {
     case flutter338 = "flutter-3.38"
     case flutter341 = "flutter-3.41"
     case flutter344 = "flutter-3.44"
+    case flutter347 = "flutter-3.47"
 
     public var description: String {
         return rawValue

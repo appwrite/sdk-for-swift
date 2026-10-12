@@ -1,5 +1,6 @@
 ```swift
 import Appwrite
+import AppwriteEnums
 
 let client = Client()
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
@@ -11,6 +12,7 @@ let project = Project(client)
 let oAuth2Salesforce = try await project.updateOAuth2Salesforce(
     customerKey: "<CUSTOMER_KEY>", // optional
     customerSecret: "<CUSTOMER_SECRET>", // optional
+    prompt: [.login], // optional
     enabled: false // optional
 )
 

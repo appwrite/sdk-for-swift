@@ -13,6 +13,8 @@ open class Topic: Codable {
         case smsTotal = "smsTotal"
         case pushTotal = "pushTotal"
         case subscribe = "subscribe"
+        case qos = "qos"
+        case expiry = "expiry"
     }
 
     /// Topic ID.
@@ -31,6 +33,10 @@ open class Topic: Codable {
     public let pushTotal: Int
     /// Subscribe permissions.
     public let subscribe: [String]
+    /// MQTT QoS for delivery on this topic. Null lets the subscriber choose their level.
+    public let qos: Int?
+    /// Message retention in seconds for offline delivery.
+    public let expiry: Int?
 
     init(
         id: String,
@@ -40,7 +46,9 @@ open class Topic: Codable {
         emailTotal: Int,
         smsTotal: Int,
         pushTotal: Int,
-        subscribe: [String]
+        subscribe: [String],
+        qos: Int?,
+        expiry: Int?
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -50,19 +58,25 @@ open class Topic: Codable {
         self.smsTotal = smsTotal
         self.pushTotal = pushTotal
         self.subscribe = subscribe
+        self.qos = qos
+        self.expiry = expiry
     }
 
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.emailTotal = try container.decode(Int.self, forKey: .emailTotal)
-        self.smsTotal = try container.decode(Int.self, forKey: .smsTotal)
-        self.pushTotal = try container.decode(Int.self, forKey: .pushTotal)
-        self.subscribe = try container.decode([String].self, forKey: .subscribe)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
+        self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.emailTotal = try container.contains(.emailTotal) ? container.decode(Int.self, forKey: .emailTotal) : 0
+        self.smsTotal = try container.contains(.smsTotal) ? container.decode(Int.self, forKey: .smsTotal) : 0
+        self.pushTotal = try container.contains(.pushTotal) ? container.decode(Int.self, forKey: .pushTotal) : 0
+        self.subscribe = try container.contains(.subscribe) ? container.decode([String].self, forKey: .subscribe) : [
+        "users"
+    ]
+        self.qos = try container.decodeIfPresent(Int.self, forKey: .qos)
+        self.expiry = try container.decodeIfPresent(Int.self, forKey: .expiry)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -76,6 +90,8 @@ open class Topic: Codable {
         try container.encode(smsTotal, forKey: .smsTotal)
         try container.encode(pushTotal, forKey: .pushTotal)
         try container.encode(subscribe, forKey: .subscribe)
+        try container.encodeIfPresent(qos, forKey: .qos)
+        try container.encodeIfPresent(expiry, forKey: .expiry)
     }
 
     public func toMap() -> [String: Any] {
@@ -88,10 +104,24 @@ open class Topic: Codable {
             "smsTotal": smsTotal as Any,
             "pushTotal": pushTotal as Any,
             "subscribe": subscribe as Any,
+            "qos": qos as Any,
+            "expiry": expiry as Any,
         ]
     }
 
     public static func from(map: [String: Any]) -> Topic {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+            "name": "",
+            "emailTotal": 0,
+            "smsTotal": 0,
+            "pushTotal": 0,
+            "subscribe": ["users"] as [Any],
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return Topic(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,
@@ -100,7 +130,9 @@ open class Topic: Codable {
             emailTotal: map["emailTotal"] as! Int,
             smsTotal: map["smsTotal"] as! Int,
             pushTotal: map["pushTotal"] as! Int,
-            subscribe: map["subscribe"] as! [String]
+            subscribe: map["subscribe"] as! [String],
+            qos: map["qos"] as? Int,
+            expiry: map["expiry"] as? Int
         )
     }
 }

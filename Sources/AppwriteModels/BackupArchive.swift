@@ -27,12 +27,12 @@ open class BackupArchive: Codable {
     public let updatedAt: String
     /// Archive policy ID.
     public let policyId: String
-    /// Archive size in bytes.
-    public let size: Int
+    /// Archive size in bytes. Null until the size is known.
+    public let size: Int?
     /// The status of the archive creation. Possible values: pending, processing, uploading, completed, failed, skipped.
     public let status: String
-    /// The backup start time.
-    public let startedAt: String
+    /// The backup start time. Null until the backup starts.
+    public let startedAt: String?
     /// Migration ID.
     public let migrationId: String
     /// The services that are backed up by this archive.
@@ -49,9 +49,9 @@ open class BackupArchive: Codable {
         createdAt: String,
         updatedAt: String,
         policyId: String,
-        size: Int,
+        size: Int?,
         status: String,
-        startedAt: String,
+        startedAt: String?,
         migrationId: String,
         services: [String],
         resources: [String],
@@ -75,14 +75,14 @@ open class BackupArchive: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.policyId = try container.decode(String.self, forKey: .policyId)
-        self.size = try container.decode(Int.self, forKey: .size)
-        self.status = try container.decode(String.self, forKey: .status)
-        self.startedAt = try container.decode(String.self, forKey: .startedAt)
-        self.migrationId = try container.decode(String.self, forKey: .migrationId)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
+        self.policyId = try container.contains(.policyId) ? container.decode(String.self, forKey: .policyId) : ""
+        self.size = try container.decodeIfPresent(Int.self, forKey: .size)
+        self.status = try container.contains(.status) ? container.decode(String.self, forKey: .status) : ""
+        self.startedAt = try container.decodeIfPresent(String.self, forKey: .startedAt)
+        self.migrationId = try container.contains(.migrationId) ? container.decode(String.self, forKey: .migrationId) : ""
         self.services = try container.decode([String].self, forKey: .services)
         self.resources = try container.decode([String].self, forKey: .resources)
         self.resourceId = try container.decodeIfPresent(String.self, forKey: .resourceId)
@@ -96,9 +96,9 @@ open class BackupArchive: Codable {
         try container.encode(createdAt, forKey: .createdAt)
         try container.encode(updatedAt, forKey: .updatedAt)
         try container.encode(policyId, forKey: .policyId)
-        try container.encode(size, forKey: .size)
+        try container.encodeIfPresent(size, forKey: .size)
         try container.encode(status, forKey: .status)
-        try container.encode(startedAt, forKey: .startedAt)
+        try container.encodeIfPresent(startedAt, forKey: .startedAt)
         try container.encode(migrationId, forKey: .migrationId)
         try container.encode(services, forKey: .services)
         try container.encode(resources, forKey: .resources)
@@ -124,14 +124,24 @@ open class BackupArchive: Codable {
     }
 
     public static func from(map: [String: Any]) -> BackupArchive {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+            "policyId": "",
+            "status": "",
+            "migrationId": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return BackupArchive(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
             policyId: map["policyId"] as! String,
-            size: map["size"] as! Int,
+            size: map["size"] as? Int,
             status: map["status"] as! String,
-            startedAt: map["startedAt"] as! String,
+            startedAt: map["startedAt"] as? String,
             migrationId: map["migrationId"] as! String,
             services: map["services"] as! [String],
             resources: map["resources"] as! [String],

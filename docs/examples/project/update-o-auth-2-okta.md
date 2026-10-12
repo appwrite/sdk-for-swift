@@ -1,5 +1,6 @@
 ```swift
 import Appwrite
+import AppwriteEnums
 
 let client = Client()
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
@@ -13,6 +14,7 @@ let oAuth2Okta = try await project.updateOAuth2Okta(
     clientSecret: "<CLIENT_SECRET>", // optional
     domain: "example.com", // optional
     authorizationServerId: "<AUTHORIZATION_SERVER_ID>", // optional
+    prompt: [.none], // optional
     enabled: false // optional
 )
 

@@ -60,15 +60,15 @@ open class Program: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.title = try container.decode(String.self, forKey: .title)
-        self.description = try container.decode(String.self, forKey: .description)
-        self.tag = try container.decode(String.self, forKey: .tag)
-        self.icon = try container.decode(String.self, forKey: .icon)
-        self.url = try container.decode(String.self, forKey: .url)
-        self.active = try container.decode(Bool.self, forKey: .active)
-        self.external = try container.decode(Bool.self, forKey: .external)
-        self.billingPlanId = try container.decode(String.self, forKey: .billingPlanId)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.title = try container.contains(.title) ? container.decode(String.self, forKey: .title) : ""
+        self.description = try container.contains(.description) ? container.decode(String.self, forKey: .description) : ""
+        self.tag = try container.contains(.tag) ? container.decode(String.self, forKey: .tag) : ""
+        self.icon = try container.contains(.icon) ? container.decode(String.self, forKey: .icon) : ""
+        self.url = try container.contains(.url) ? container.decode(String.self, forKey: .url) : ""
+        self.active = try container.contains(.active) ? container.decode(Bool.self, forKey: .active) : true
+        self.external = try container.contains(.external) ? container.decode(Bool.self, forKey: .external) : true
+        self.billingPlanId = try container.contains(.billingPlanId) ? container.decode(String.self, forKey: .billingPlanId) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -100,6 +100,19 @@ open class Program: Codable {
     }
 
     public static func from(map: [String: Any]) -> Program {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "title": "",
+            "description": "",
+            "tag": "",
+            "icon": "",
+            "url": "",
+            "active": true,
+            "external": true,
+            "billingPlanId": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return Program(
             id: map["$id"] as! String,
             title: map["title"] as! String,

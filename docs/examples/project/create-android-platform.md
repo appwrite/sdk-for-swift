@@ -11,7 +11,8 @@ let project = Project(client)
 let platformAndroid = try await project.createAndroidPlatform(
     platformId: "<PLATFORM_ID>",
     name: "<NAME>",
-    applicationId: "<APPLICATION_ID>"
+    applicationId: "<APPLICATION_ID>",
+    fingerprints: [] // optional
 )
 
 ```

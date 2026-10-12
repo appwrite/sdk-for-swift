@@ -10,7 +10,9 @@ let users = Users(client)
 
 let user = try await users.updateLabels(
     userId: "<USER_ID>",
-    labels: []
+    labels: [
+        "subscriber"
+    ]
 )
 
 ```

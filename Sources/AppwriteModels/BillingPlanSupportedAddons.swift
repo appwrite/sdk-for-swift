@@ -30,9 +30,9 @@ open class BillingPlanSupportedAddons: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.baa = try container.decode(Bool.self, forKey: .baa)
-        self.premiumGeoDB = try container.decode(Bool.self, forKey: .premiumGeoDB)
-        self.premiumGeoDBOrg = try container.decode(Bool.self, forKey: .premiumGeoDBOrg)
+        self.baa = try container.contains(.baa) ? container.decode(Bool.self, forKey: .baa) : false
+        self.premiumGeoDB = try container.contains(.premiumGeoDB) ? container.decode(Bool.self, forKey: .premiumGeoDB) : false
+        self.premiumGeoDBOrg = try container.contains(.premiumGeoDBOrg) ? container.decode(Bool.self, forKey: .premiumGeoDBOrg) : false
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -52,6 +52,13 @@ open class BillingPlanSupportedAddons: Codable {
     }
 
     public static func from(map: [String: Any]) -> BillingPlanSupportedAddons {
+        let defaults: [String: Any] = [
+            "baa": false,
+            "premiumGeoDB": false,
+            "premiumGeoDBOrg": false,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return BillingPlanSupportedAddons(
             baa: map["baa"] as! Bool,
             premiumGeoDB: map["premiumGeoDB"] as! Bool,

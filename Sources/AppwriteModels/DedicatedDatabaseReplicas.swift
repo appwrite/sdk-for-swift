@@ -55,12 +55,12 @@ open class DedicatedDatabaseReplicas: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.replicas = try container.decode(Int.self, forKey: .replicas)
-        self.syncMode = try container.decode(String.self, forKey: .syncMode)
+        self.replicas = try container.contains(.replicas) ? container.decode(Int.self, forKey: .replicas) : 0
+        self.syncMode = try container.contains(.syncMode) ? container.decode(String.self, forKey: .syncMode) : "async"
         self.effectiveSyncMode = try container.decodeIfPresent(String.self, forKey: .effectiveSyncMode)
-        self.syncDegraded = try container.decode(Bool.self, forKey: .syncDegraded)
-        self.syncAcknowledgements = try container.decode(Int.self, forKey: .syncAcknowledgements)
-        self.syncStandbyCount = try container.decode(Int.self, forKey: .syncStandbyCount)
+        self.syncDegraded = try container.contains(.syncDegraded) ? container.decode(Bool.self, forKey: .syncDegraded) : false
+        self.syncAcknowledgements = try container.contains(.syncAcknowledgements) ? container.decode(Int.self, forKey: .syncAcknowledgements) : 0
+        self.syncStandbyCount = try container.contains(.syncStandbyCount) ? container.decode(Int.self, forKey: .syncStandbyCount) : 0
         self.syncStateConfirmed = try container.decodeIfPresent(Bool.self, forKey: .syncStateConfirmed)
         self.members = try container.decode([DedicatedDatabaseMember].self, forKey: .members)
     }
@@ -92,6 +92,15 @@ open class DedicatedDatabaseReplicas: Codable {
     }
 
     public static func from(map: [String: Any]) -> DedicatedDatabaseReplicas {
+        let defaults: [String: Any] = [
+            "replicas": 0,
+            "syncMode": "async",
+            "syncDegraded": false,
+            "syncAcknowledgements": 0,
+            "syncStandbyCount": 0,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return DedicatedDatabaseReplicas(
             replicas: map["replicas"] as! Int,
             syncMode: map["syncMode"] as! String,

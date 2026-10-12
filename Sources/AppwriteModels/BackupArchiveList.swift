@@ -25,7 +25,7 @@ open class BackupArchiveList: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decode(Int.self, forKey: .total)
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
         self.archives = try container.decode([BackupArchive].self, forKey: .archives)
     }
 
@@ -44,6 +44,11 @@ open class BackupArchiveList: Codable {
     }
 
     public static func from(map: [String: Any]) -> BackupArchiveList {
+        let defaults: [String: Any] = [
+            "total": 0,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return BackupArchiveList(
             total: map["total"] as! Int,
             archives: (map["archives"] as! [[String: Any]]).map { BackupArchive.from(map: $0) }

@@ -25,7 +25,7 @@ open class MockNumberList: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decode(Int.self, forKey: .total)
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
         self.mockNumbers = try container.decode([MockNumber].self, forKey: .mockNumbers)
     }
 
@@ -44,6 +44,11 @@ open class MockNumberList: Codable {
     }
 
     public static func from(map: [String: Any]) -> MockNumberList {
+        let defaults: [String: Any] = [
+            "total": 0,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return MockNumberList(
             total: map["total"] as! Int,
             mockNumbers: (map["mockNumbers"] as! [[String: Any]]).map { MockNumber.from(map: $0) }

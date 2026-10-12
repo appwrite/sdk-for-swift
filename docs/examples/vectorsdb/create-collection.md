@@ -12,7 +12,7 @@ let vectorsdbCollection = try await vectorsDB.createCollection(
     databaseId: "<DATABASE_ID>",
     collectionId: "<COLLECTION_ID>",
     name: "<NAME>",
-    dimension: 1,
+    dimension: 4,
     permissions: [Permission.read(Role.any())], // optional
     documentSecurity: false, // optional
     enabled: false // optional

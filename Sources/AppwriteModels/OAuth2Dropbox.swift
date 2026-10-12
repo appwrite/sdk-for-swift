@@ -35,10 +35,10 @@ open class OAuth2Dropbox: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.enabled = try container.decode(Bool.self, forKey: .enabled)
-        self.appKey = try container.decode(String.self, forKey: .appKey)
-        self.appSecret = try container.decode(String.self, forKey: .appSecret)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : false
+        self.appKey = try container.contains(.appKey) ? container.decode(String.self, forKey: .appKey) : ""
+        self.appSecret = try container.contains(.appSecret) ? container.decode(String.self, forKey: .appSecret) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -60,6 +60,14 @@ open class OAuth2Dropbox: Codable {
     }
 
     public static func from(map: [String: Any]) -> OAuth2Dropbox {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "enabled": false,
+            "appKey": "",
+            "appSecret": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return OAuth2Dropbox(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,
