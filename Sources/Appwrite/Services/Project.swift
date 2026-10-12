@@ -3549,6 +3549,46 @@ open class Project: Service {
         )
     }
     ///
+    /// Set the relying party ID passkeys are bound to: the domain of your
+    /// application. Passkeys work on the project's web platforms on that domain or
+    /// its subdomains, and on the domain itself for Apple apps. A localhost web
+    /// platform enables passkeys for local development without a relying party ID.
+    /// The relying party ID cannot change while users have passkeys, and any
+    /// change invalidates ceremonies in progress.
+    ///
+    /// - Parameters:
+    ///   - rpId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project
+    ///
+    open func updatePasskeyPolicy(
+        rpId: String
+    ) async throws -> AppwriteModels.Project {
+        let apiPath: String = "/project/policies/passkey"
+
+        let apiParams: [String: Any?] = [
+            "rpId": rpId
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Project = { response in
+            return AppwriteModels.Project.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// Updating this policy allows you to control if new passwords are checked
     /// against most common passwords dictionary. When enabled, and user changes
     /// their password, password must not be contained in the dictionary.
