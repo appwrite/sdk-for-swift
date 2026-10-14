@@ -11,6 +11,8 @@ open class OAuth2Apple: Codable {
         case keyId = "keyId"
         case teamId = "teamId"
         case p8File = "p8File"
+        case nativeEnabled = "nativeEnabled"
+        case nativeClientIds = "nativeClientIds"
     }
 
     /// OAuth2 provider ID.
@@ -25,6 +27,10 @@ open class OAuth2Apple: Codable {
     public let teamId: String
     /// Apple OAuth2 .p8 private key file contents. The secret key wrapped by the PEM markers is 200 characters long.
     public let p8File: String
+    /// Native Sign in with Apple is active and can be used to create sessions from an ID token. Independent of enabled, which only controls the browser-based flow.
+    public let nativeEnabled: Bool?
+    /// App bundle IDs accepted as ID token audiences for native Sign in with Apple, next to the Services ID.
+    public let nativeClientIds: [String]?
 
     init(
         id: String,
@@ -32,7 +38,9 @@ open class OAuth2Apple: Codable {
         serviceId: String,
         keyId: String,
         teamId: String,
-        p8File: String
+        p8File: String,
+        nativeEnabled: Bool?,
+        nativeClientIds: [String]?
     ) {
         self.id = id
         self.enabled = enabled
@@ -40,6 +48,8 @@ open class OAuth2Apple: Codable {
         self.keyId = keyId
         self.teamId = teamId
         self.p8File = p8File
+        self.nativeEnabled = nativeEnabled
+        self.nativeClientIds = nativeClientIds
     }
 
     public required init(from decoder: Decoder) throws {
@@ -51,6 +61,8 @@ open class OAuth2Apple: Codable {
         self.keyId = try container.decode(String.self, forKey: .keyId)
         self.teamId = try container.decode(String.self, forKey: .teamId)
         self.p8File = try container.decode(String.self, forKey: .p8File)
+        self.nativeEnabled = try container.decodeIfPresent(Bool.self, forKey: .nativeEnabled)
+        self.nativeClientIds = try container.decodeIfPresent([String].self, forKey: .nativeClientIds)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -62,6 +74,8 @@ open class OAuth2Apple: Codable {
         try container.encode(keyId, forKey: .keyId)
         try container.encode(teamId, forKey: .teamId)
         try container.encode(p8File, forKey: .p8File)
+        try container.encodeIfPresent(nativeEnabled, forKey: .nativeEnabled)
+        try container.encodeIfPresent(nativeClientIds, forKey: .nativeClientIds)
     }
 
     public func toMap() -> [String: Any] {
@@ -72,6 +86,8 @@ open class OAuth2Apple: Codable {
             "keyId": keyId as Any,
             "teamId": teamId as Any,
             "p8File": p8File as Any,
+            "nativeEnabled": nativeEnabled as Any,
+            "nativeClientIds": nativeClientIds as Any,
         ]
     }
 
@@ -82,7 +98,9 @@ open class OAuth2Apple: Codable {
             serviceId: map["serviceId"] as! String,
             keyId: map["keyId"] as! String,
             teamId: map["teamId"] as! String,
-            p8File: map["p8File"] as! String
+            p8File: map["p8File"] as! String,
+            nativeEnabled: map["nativeEnabled"] as? Bool,
+            nativeClientIds: map["nativeClientIds"] as? [String]
         )
     }
 }

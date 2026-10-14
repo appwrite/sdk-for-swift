@@ -91,6 +91,7 @@ public enum ProjectKeyScopes: String, Codable, CustomStringConvertible {
     case webhooksWrite = "webhooks.write"
     case localeRead = "locale.read"
     case avatarsRead = "avatars.read"
+    case avatarsWrite = "avatars.write"
     case healthRead = "health.read"
     case assistantRead = "assistant.read"
     case migrationsRead = "migrations.read"
@@ -105,6 +106,7 @@ public enum ProjectKeyScopes: String, Codable, CustomStringConvertible {
     case reportsWrite = "reports.write"
     case presencesRead = "presences.read"
     case presencesWrite = "presences.write"
+    case dedicatedDatabasesExecute = "dedicatedDatabases.execute"
     case backupsPoliciesRead = "backups.policies.read"
     case backupsPoliciesWrite = "backups.policies.write"
     case archivesRead = "archives.read"
@@ -122,6 +124,8 @@ public enum ProjectKeyScopes: String, Codable, CustomStringConvertible {
     case oauth2Read = "oauth2.read"
     case oauth2Write = "oauth2.write"
     case oauth2Introspect = "oauth2.introspect"
+    case analyticsRead = "analytics.read"
+    case analyticsWrite = "analytics.write"
 
     public var description: String {
         return rawValue

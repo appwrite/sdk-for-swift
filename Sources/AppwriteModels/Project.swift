@@ -33,7 +33,10 @@ open class Project: Codable {
         case blocks = "blocks"
         case consoleAccessedAt = "consoleAccessedAt"
         case wafEnabled = "wafEnabled"
+        case parentId = "parentId"
         case billingLimits = "billingLimits"
+        case firstAccessedAt = "firstAccessedAt"
+        case mcpAccessedAt = "mcpAccessedAt"
         case oAuth2ServerEnabled = "oAuth2ServerEnabled"
         case oAuth2ServerAuthorizationUrl = "oAuth2ServerAuthorizationUrl"
         case oAuth2ServerScopes = "oAuth2ServerScopes"
@@ -109,8 +112,14 @@ open class Project: Codable {
     public let consoleAccessedAt: String
     /// Whether WAF enforcement is enabled for the project.
     public let wafEnabled: Bool?
+    /// ID of the project this environment belongs to. Null when the project is not an environment.
+    public let parentId: String?
     /// Billing limits reached
     public let billingLimits: BillingLimits?
+    /// First time the project received a non-console API request. Empty until the project is used.
+    public let firstAccessedAt: String?
+    /// Last time the project was accessed through the MCP server. Empty if it was never accessed via MCP.
+    public let mcpAccessedAt: String?
     /// OAuth2 server status
     public let oAuth2ServerEnabled: Bool?
     /// OAuth2 server authorization URL
@@ -192,7 +201,10 @@ open class Project: Codable {
         oAuth2ServerUserCodeLength: Int?,
         oAuth2ServerUserCodeFormat: String?,
         oAuth2ServerDeviceCodeDuration: Int?,
-        oAuth2ServerDiscoveryUrl: String?
+        oAuth2ServerDiscoveryUrl: String?,
+        parentId: String?,
+        firstAccessedAt: String?,
+        mcpAccessedAt: String?
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -222,7 +234,10 @@ open class Project: Codable {
         self.blocks = blocks
         self.consoleAccessedAt = consoleAccessedAt
         self.wafEnabled = wafEnabled
+        self.parentId = parentId
         self.billingLimits = billingLimits
+        self.firstAccessedAt = firstAccessedAt
+        self.mcpAccessedAt = mcpAccessedAt
         self.oAuth2ServerEnabled = oAuth2ServerEnabled
         self.oAuth2ServerAuthorizationUrl = oAuth2ServerAuthorizationUrl
         self.oAuth2ServerScopes = oAuth2ServerScopes
@@ -273,7 +288,10 @@ open class Project: Codable {
         self.blocks = try container.decode([Block].self, forKey: .blocks)
         self.consoleAccessedAt = try container.decode(String.self, forKey: .consoleAccessedAt)
         self.wafEnabled = try container.decodeIfPresent(Bool.self, forKey: .wafEnabled)
+        self.parentId = try container.decodeIfPresent(String.self, forKey: .parentId)
         self.billingLimits = try container.decodeIfPresent(BillingLimits.self, forKey: .billingLimits)
+        self.firstAccessedAt = try container.decodeIfPresent(String.self, forKey: .firstAccessedAt)
+        self.mcpAccessedAt = try container.decodeIfPresent(String.self, forKey: .mcpAccessedAt)
         self.oAuth2ServerEnabled = try container.decodeIfPresent(Bool.self, forKey: .oAuth2ServerEnabled)
         self.oAuth2ServerAuthorizationUrl = try container.decodeIfPresent(String.self, forKey: .oAuth2ServerAuthorizationUrl)
         self.oAuth2ServerScopes = try container.decodeIfPresent([String].self, forKey: .oAuth2ServerScopes)
@@ -324,7 +342,10 @@ open class Project: Codable {
         try container.encode(blocks, forKey: .blocks)
         try container.encode(consoleAccessedAt, forKey: .consoleAccessedAt)
         try container.encodeIfPresent(wafEnabled, forKey: .wafEnabled)
+        try container.encodeIfPresent(parentId, forKey: .parentId)
         try container.encodeIfPresent(billingLimits, forKey: .billingLimits)
+        try container.encodeIfPresent(firstAccessedAt, forKey: .firstAccessedAt)
+        try container.encodeIfPresent(mcpAccessedAt, forKey: .mcpAccessedAt)
         try container.encodeIfPresent(oAuth2ServerEnabled, forKey: .oAuth2ServerEnabled)
         try container.encodeIfPresent(oAuth2ServerAuthorizationUrl, forKey: .oAuth2ServerAuthorizationUrl)
         try container.encodeIfPresent(oAuth2ServerScopes, forKey: .oAuth2ServerScopes)
@@ -374,7 +395,10 @@ open class Project: Codable {
             "blocks": blocks.map { $0.toMap() } as Any,
             "consoleAccessedAt": consoleAccessedAt as Any,
             "wafEnabled": wafEnabled as Any,
+            "parentId": parentId as Any,
             "billingLimits": billingLimits?.toMap() as Any,
+            "firstAccessedAt": firstAccessedAt as Any,
+            "mcpAccessedAt": mcpAccessedAt as Any,
             "oAuth2ServerEnabled": oAuth2ServerEnabled as Any,
             "oAuth2ServerAuthorizationUrl": oAuth2ServerAuthorizationUrl as Any,
             "oAuth2ServerScopes": oAuth2ServerScopes as Any,
@@ -442,7 +466,10 @@ open class Project: Codable {
             oAuth2ServerUserCodeLength: map["oAuth2ServerUserCodeLength"] as? Int,
             oAuth2ServerUserCodeFormat: map["oAuth2ServerUserCodeFormat"] as? String,
             oAuth2ServerDeviceCodeDuration: map["oAuth2ServerDeviceCodeDuration"] as? Int,
-            oAuth2ServerDiscoveryUrl: map["oAuth2ServerDiscoveryUrl"] as? String
+            oAuth2ServerDiscoveryUrl: map["oAuth2ServerDiscoveryUrl"] as? String,
+            parentId: map["parentId"] as? String,
+            firstAccessedAt: map["firstAccessedAt"] as? String,
+            mcpAccessedAt: map["mcpAccessedAt"] as? String
         )
     }
 }

@@ -8,6 +8,10 @@ open class DedicatedDatabaseSpecification: Codable {
         case slug = "slug"
         case name = "name"
         case price = "price"
+        case storageOverageRate = "storageOverageRate"
+        case bandwidthOverageRate = "bandwidthOverageRate"
+        case replicaRate = "replicaRate"
+        case pitrRate = "pitrRate"
         case cpu = "cpu"
         case memory = "memory"
         case maxConnections = "maxConnections"
@@ -22,6 +26,14 @@ open class DedicatedDatabaseSpecification: Codable {
     public let name: String
     /// Monthly price of the specification in USD.
     public let price: Double
+    /// Price per GB of storage above the included amount, per month, in USD.
+    public let storageOverageRate: Double?
+    /// Price per GB of bandwidth above the included amount, per month, in USD.
+    public let bandwidthOverageRate: Double?
+    /// High availability replica price as a fraction of the specification price.
+    public let replicaRate: Double?
+    /// Point-in-time recovery price as a fraction of the specification price.
+    public let pitrRate: Double?
     /// Allocated CPU in millicores.
     public let cpu: Int
     /// Allocated memory in MB.
@@ -44,11 +56,19 @@ open class DedicatedDatabaseSpecification: Codable {
         maxConnections: Int,
         includedStorage: Int,
         includedBandwidth: Int,
-        enabled: Bool
+        enabled: Bool,
+        storageOverageRate: Double?,
+        bandwidthOverageRate: Double?,
+        replicaRate: Double?,
+        pitrRate: Double?
     ) {
         self.slug = slug
         self.name = name
         self.price = price
+        self.storageOverageRate = storageOverageRate
+        self.bandwidthOverageRate = bandwidthOverageRate
+        self.replicaRate = replicaRate
+        self.pitrRate = pitrRate
         self.cpu = cpu
         self.memory = memory
         self.maxConnections = maxConnections
@@ -69,6 +89,10 @@ open class DedicatedDatabaseSpecification: Codable {
         self.includedStorage = try container.decode(Int.self, forKey: .includedStorage)
         self.includedBandwidth = try container.decode(Int.self, forKey: .includedBandwidth)
         self.enabled = try container.decode(Bool.self, forKey: .enabled)
+        self.storageOverageRate = try container.decodeIfPresent(Double.self, forKey: .storageOverageRate)
+        self.bandwidthOverageRate = try container.decodeIfPresent(Double.self, forKey: .bandwidthOverageRate)
+        self.replicaRate = try container.decodeIfPresent(Double.self, forKey: .replicaRate)
+        self.pitrRate = try container.decodeIfPresent(Double.self, forKey: .pitrRate)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -77,6 +101,10 @@ open class DedicatedDatabaseSpecification: Codable {
         try container.encode(slug, forKey: .slug)
         try container.encode(name, forKey: .name)
         try container.encode(price, forKey: .price)
+        try container.encodeIfPresent(storageOverageRate, forKey: .storageOverageRate)
+        try container.encodeIfPresent(bandwidthOverageRate, forKey: .bandwidthOverageRate)
+        try container.encodeIfPresent(replicaRate, forKey: .replicaRate)
+        try container.encodeIfPresent(pitrRate, forKey: .pitrRate)
         try container.encode(cpu, forKey: .cpu)
         try container.encode(memory, forKey: .memory)
         try container.encode(maxConnections, forKey: .maxConnections)
@@ -90,6 +118,10 @@ open class DedicatedDatabaseSpecification: Codable {
             "slug": slug as Any,
             "name": name as Any,
             "price": price as Any,
+            "storageOverageRate": storageOverageRate as Any,
+            "bandwidthOverageRate": bandwidthOverageRate as Any,
+            "replicaRate": replicaRate as Any,
+            "pitrRate": pitrRate as Any,
             "cpu": cpu as Any,
             "memory": memory as Any,
             "maxConnections": maxConnections as Any,
@@ -109,7 +141,11 @@ open class DedicatedDatabaseSpecification: Codable {
             maxConnections: map["maxConnections"] as! Int,
             includedStorage: map["includedStorage"] as! Int,
             includedBandwidth: map["includedBandwidth"] as! Int,
-            enabled: map["enabled"] as! Bool
+            enabled: map["enabled"] as! Bool,
+            storageOverageRate: map["storageOverageRate"] as? Double,
+            bandwidthOverageRate: map["bandwidthOverageRate"] as? Double,
+            replicaRate: map["replicaRate"] as? Double,
+            pitrRate: map["pitrRate"] as? Double
         )
     }
 }

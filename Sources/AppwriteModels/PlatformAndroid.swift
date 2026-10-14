@@ -12,6 +12,7 @@ open class PlatformAndroid: Codable {
         case name = "name"
         case type = "type"
         case applicationId = "applicationId"
+        case fingerprints = "fingerprints"
     }
 
     /// Platform ID.
@@ -26,6 +27,8 @@ open class PlatformAndroid: Codable {
     public let type: AppwriteEnums.PlatformType
     /// Android application ID.
     public let applicationId: String
+    /// SHA-256 fingerprints of the certificates the app is signed with. Passkeys created in the app are accepted when its signature matches one.
+    public let fingerprints: [String]?
 
     init(
         id: String,
@@ -33,7 +36,8 @@ open class PlatformAndroid: Codable {
         updatedAt: String,
         name: String,
         type: AppwriteEnums.PlatformType,
-        applicationId: String
+        applicationId: String,
+        fingerprints: [String]?
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -41,6 +45,7 @@ open class PlatformAndroid: Codable {
         self.name = name
         self.type = type
         self.applicationId = applicationId
+        self.fingerprints = fingerprints
     }
 
     public required init(from decoder: Decoder) throws {
@@ -52,6 +57,7 @@ open class PlatformAndroid: Codable {
         self.name = try container.decode(String.self, forKey: .name)
         self.type = AppwriteEnums.PlatformType(rawValue: try container.decode(String.self, forKey: .type))!
         self.applicationId = try container.decode(String.self, forKey: .applicationId)
+        self.fingerprints = try container.decodeIfPresent([String].self, forKey: .fingerprints)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -63,6 +69,7 @@ open class PlatformAndroid: Codable {
         try container.encode(name, forKey: .name)
         try container.encode(type.rawValue, forKey: .type)
         try container.encode(applicationId, forKey: .applicationId)
+        try container.encodeIfPresent(fingerprints, forKey: .fingerprints)
     }
 
     public func toMap() -> [String: Any] {
@@ -73,6 +80,7 @@ open class PlatformAndroid: Codable {
             "name": name as Any,
             "type": type.rawValue as Any,
             "applicationId": applicationId as Any,
+            "fingerprints": fingerprints as Any,
         ]
     }
 
@@ -83,7 +91,8 @@ open class PlatformAndroid: Codable {
             updatedAt: map["$updatedAt"] as! String,
             name: map["name"] as! String,
             type: AppwriteEnums.PlatformType(rawValue: map["type"] as! String)!,
-            applicationId: map["applicationId"] as! String
+            applicationId: map["applicationId"] as! String,
+            fingerprints: map["fingerprints"] as? [String]
         )
     }
 }

@@ -330,6 +330,53 @@ open class Oauth2: Service {
         )
     }
     ///
+    /// Introspect an OAuth2 access token or refresh token. Authenticate with an
+    /// API key holding the `oauth2.introspect` scope to introspect any token in
+    /// the project, or with the client credentials of the app the token was issued
+    /// to.
+    ///
+    /// - Parameters:
+    ///   - token: String
+    ///   - tokenTypeHint: String (optional)
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Oauth2Introspection
+    ///
+    open func introspect(
+        token: String,
+        tokenTypeHint: String? = nil,
+        clientId: String? = nil,
+        clientSecret: String? = nil
+    ) async throws -> AppwriteModels.Oauth2Introspection {
+        let apiPath: String = "/oauth2/{project_id}/introspect"
+            .replacingOccurrences(of: "{project_id}", with: client.config["project"] ?? "")
+
+        let apiParams: [String: Any?] = [
+            "token": token,
+            "token_type_hint": tokenTypeHint,
+            "client_id": clientId,
+            "client_secret": clientSecret,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Oauth2Introspection = { response in
+            return AppwriteModels.Oauth2Introspection.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// List the organizations the OAuth2 access token can access. Resolves the
     /// token's `organization` authorization details, expanding the `*` wildcard
     /// into the concrete set of organizations the user can see.

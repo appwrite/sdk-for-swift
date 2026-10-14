@@ -1,3 +1,4 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
 
@@ -9,6 +10,7 @@ open class OAuth2Okta: Codable {
         case enabled = "enabled"
         case clientId = "clientId"
         case clientSecret = "clientSecret"
+        case prompt = "prompt"
         case domain = "domain"
         case authorizationServerId = "authorizationServerId"
     }
@@ -21,6 +23,8 @@ open class OAuth2Okta: Codable {
     public let clientId: String
     /// Okta OAuth2 client secret.
     public let clientSecret: String
+    /// Okta OAuth2 prompt values.
+    public let prompt: [AppwriteEnums.OAuth2OktaPrompt]?
     /// Okta OAuth2 domain.
     public let domain: String
     /// Okta OAuth2 authorization server ID.
@@ -32,12 +36,14 @@ open class OAuth2Okta: Codable {
         clientId: String,
         clientSecret: String,
         domain: String,
-        authorizationServerId: String
+        authorizationServerId: String,
+        prompt: [AppwriteEnums.OAuth2OktaPrompt]?
     ) {
         self.id = id
         self.enabled = enabled
         self.clientId = clientId
         self.clientSecret = clientSecret
+        self.prompt = prompt
         self.domain = domain
         self.authorizationServerId = authorizationServerId
     }
@@ -51,6 +57,11 @@ open class OAuth2Okta: Codable {
         self.clientSecret = try container.decode(String.self, forKey: .clientSecret)
         self.domain = try container.decode(String.self, forKey: .domain)
         self.authorizationServerId = try container.decode(String.self, forKey: .authorizationServerId)
+        if let promptStrings = try container.decodeIfPresent([String].self, forKey: .prompt) {
+            self.prompt = promptStrings.map { AppwriteEnums.OAuth2OktaPrompt(rawValue: $0)! }
+        } else {
+            self.prompt = nil
+        }
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -60,6 +71,7 @@ open class OAuth2Okta: Codable {
         try container.encode(enabled, forKey: .enabled)
         try container.encode(clientId, forKey: .clientId)
         try container.encode(clientSecret, forKey: .clientSecret)
+        try container.encodeIfPresent(prompt?.map { $0.rawValue }, forKey: .prompt)
         try container.encode(domain, forKey: .domain)
         try container.encode(authorizationServerId, forKey: .authorizationServerId)
     }
@@ -70,6 +82,7 @@ open class OAuth2Okta: Codable {
             "enabled": enabled as Any,
             "clientId": clientId as Any,
             "clientSecret": clientSecret as Any,
+            "prompt": prompt?.map { $0.rawValue } as Any,
             "domain": domain as Any,
             "authorizationServerId": authorizationServerId as Any,
         ]
@@ -82,7 +95,8 @@ open class OAuth2Okta: Codable {
             clientId: map["clientId"] as! String,
             clientSecret: map["clientSecret"] as! String,
             domain: map["domain"] as! String,
-            authorizationServerId: map["authorizationServerId"] as! String
+            authorizationServerId: map["authorizationServerId"] as! String,
+            prompt: (map["prompt"] as? [String])?.map { AppwriteEnums.OAuth2OktaPrompt(rawValue: $0)! }
         )
     }
 }

@@ -1,3 +1,4 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
 
@@ -9,6 +10,7 @@ open class OAuth2Auth0: Codable {
         case enabled = "enabled"
         case clientId = "clientId"
         case clientSecret = "clientSecret"
+        case prompt = "prompt"
         case endpoint = "endpoint"
     }
 
@@ -20,6 +22,8 @@ open class OAuth2Auth0: Codable {
     public let clientId: String
     /// Auth0 OAuth2 client secret.
     public let clientSecret: String
+    /// Auth0 OAuth2 prompt values.
+    public let prompt: [AppwriteEnums.OAuth2Auth0Prompt]?
     /// Auth0 OAuth2 endpoint domain.
     public let endpoint: String
 
@@ -28,12 +32,14 @@ open class OAuth2Auth0: Codable {
         enabled: Bool,
         clientId: String,
         clientSecret: String,
-        endpoint: String
+        endpoint: String,
+        prompt: [AppwriteEnums.OAuth2Auth0Prompt]?
     ) {
         self.id = id
         self.enabled = enabled
         self.clientId = clientId
         self.clientSecret = clientSecret
+        self.prompt = prompt
         self.endpoint = endpoint
     }
 
@@ -45,6 +51,11 @@ open class OAuth2Auth0: Codable {
         self.clientId = try container.decode(String.self, forKey: .clientId)
         self.clientSecret = try container.decode(String.self, forKey: .clientSecret)
         self.endpoint = try container.decode(String.self, forKey: .endpoint)
+        if let promptStrings = try container.decodeIfPresent([String].self, forKey: .prompt) {
+            self.prompt = promptStrings.map { AppwriteEnums.OAuth2Auth0Prompt(rawValue: $0)! }
+        } else {
+            self.prompt = nil
+        }
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -54,6 +65,7 @@ open class OAuth2Auth0: Codable {
         try container.encode(enabled, forKey: .enabled)
         try container.encode(clientId, forKey: .clientId)
         try container.encode(clientSecret, forKey: .clientSecret)
+        try container.encodeIfPresent(prompt?.map { $0.rawValue }, forKey: .prompt)
         try container.encode(endpoint, forKey: .endpoint)
     }
 
@@ -63,6 +75,7 @@ open class OAuth2Auth0: Codable {
             "enabled": enabled as Any,
             "clientId": clientId as Any,
             "clientSecret": clientSecret as Any,
+            "prompt": prompt?.map { $0.rawValue } as Any,
             "endpoint": endpoint as Any,
         ]
     }
@@ -73,7 +86,8 @@ open class OAuth2Auth0: Codable {
             enabled: map["enabled"] as! Bool,
             clientId: map["clientId"] as! String,
             clientSecret: map["clientSecret"] as! String,
-            endpoint: map["endpoint"] as! String
+            endpoint: map["endpoint"] as! String,
+            prompt: (map["prompt"] as? [String])?.map { AppwriteEnums.OAuth2Auth0Prompt(rawValue: $0)! }
         )
     }
 }

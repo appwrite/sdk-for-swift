@@ -873,4 +873,236 @@ open class Organization: Service {
             params: apiParams
         )
     }
+    ///
+    /// Get a list of all API keys of a project in your organization.
+    ///
+    /// - Parameters:
+    ///   - projectId: String
+    ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.KeyList
+    ///
+    open func listProjectKeys(
+        projectId: String,
+        queries: [String]? = nil,
+        total: Bool? = nil
+    ) async throws -> AppwriteModels.KeyList {
+        if projectId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"projectId\"")
+        }
+
+        let apiPath: String = "/organization/projects/{projectId}/keys"
+            .replacingOccurrences(of: "{projectId}", with: projectId)
+
+        let apiParams: [String: Any?] = [
+            "queries": queries,
+            "total": total,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.KeyList = { response in
+            return AppwriteModels.KeyList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Create a new ephemeral API key for a project in your organization. It's
+    /// recommended to have multiple API keys with strict scopes for separate
+    /// functions within your project.
+    ///
+    /// You can also create a standard API key if you need a longer-lived key
+    /// instead.
+    ///
+    /// - Parameters:
+    ///   - projectId: String
+    ///   - scopes: [AppwriteEnums.ProjectKeyScopes]
+    ///   - duration: Int
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.EphemeralKey
+    ///
+    open func createEphemeralProjectKey(
+        projectId: String,
+        scopes: [AppwriteEnums.ProjectKeyScopes],
+        duration: Int
+    ) async throws -> AppwriteModels.EphemeralKey {
+        if projectId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"projectId\"")
+        }
+
+        let apiPath: String = "/organization/projects/{projectId}/keys/ephemeral"
+            .replacingOccurrences(of: "{projectId}", with: projectId)
+
+        let apiParams: [String: Any?] = [
+            "scopes": scopes.map { $0.rawValue },
+            "duration": duration,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.EphemeralKey = { response in
+            return AppwriteModels.EphemeralKey.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Get a project key by its unique ID.
+    ///
+    /// - Parameters:
+    ///   - projectId: String
+    ///   - keyId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Key
+    ///
+    open func getProjectKey(
+        projectId: String,
+        keyId: String
+    ) async throws -> AppwriteModels.Key {
+        if projectId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"projectId\"")
+        }
+        if keyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"keyId\"")
+        }
+
+        let apiPath: String = "/organization/projects/{projectId}/keys/{keyId}"
+            .replacingOccurrences(of: "{projectId}", with: projectId)
+            .replacingOccurrences(of: "{keyId}", with: keyId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Key = { response in
+            return AppwriteModels.Key.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Update a project key by its unique ID. Use this endpoint to update the
+    /// name, scopes, or expiration time of an API key.
+    ///
+    /// - Parameters:
+    ///   - projectId: String
+    ///   - keyId: String
+    ///   - name: String
+    ///   - scopes: [AppwriteEnums.ProjectKeyScopes]
+    ///   - expire: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Key
+    ///
+    open func updateProjectKey(
+        projectId: String,
+        keyId: String,
+        name: String,
+        scopes: [AppwriteEnums.ProjectKeyScopes],
+        expire: String? = nil
+    ) async throws -> AppwriteModels.Key {
+        if projectId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"projectId\"")
+        }
+        if keyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"keyId\"")
+        }
+
+        let apiPath: String = "/organization/projects/{projectId}/keys/{keyId}"
+            .replacingOccurrences(of: "{projectId}", with: projectId)
+            .replacingOccurrences(of: "{keyId}", with: keyId)
+
+        let apiParams: [String: Any?] = [
+            "name": name,
+            "scopes": scopes.map { $0.rawValue },
+            "expire": expire,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Key = { response in
+            return AppwriteModels.Key.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PUT",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Delete a project key by its unique ID. Once deleted, the key can no longer
+    /// be used to authenticate API calls.
+    ///
+    /// - Parameters:
+    ///   - projectId: String
+    ///   - keyId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
+    ///
+    open func deleteProjectKey(
+        projectId: String,
+        keyId: String
+    ) async throws -> Any {
+        if projectId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"projectId\"")
+        }
+        if keyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"keyId\"")
+        }
+
+        let apiPath: String = "/organization/projects/{projectId}/keys/{keyId}"
+            .replacingOccurrences(of: "{projectId}", with: projectId)
+            .replacingOccurrences(of: "{keyId}", with: keyId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        return try await client.call(
+            method: "DELETE",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams
+        )
+    }
 }

@@ -19,6 +19,7 @@ open class BillingPlan: Codable {
         case members = "members"
         case webhooks = "webhooks"
         case wafRules = "wafRules"
+        case environments = "environments"
         case projects = "projects"
         case platforms = "platforms"
         case users = "users"
@@ -53,6 +54,7 @@ open class BillingPlan: Codable {
         case emailBranding = "emailBranding"
         case requiresPaymentMethod = "requiresPaymentMethod"
         case requiresBillingAddress = "requiresBillingAddress"
+        case eligibleCountries = "eligibleCountries"
         case isAvailable = "isAvailable"
         case selfService = "selfService"
         case premiumSupport = "premiumSupport"
@@ -107,6 +109,8 @@ open class BillingPlan: Codable {
     public let webhooks: Int
     /// Maximum WAF rules per project
     public let wafRules: Int
+    /// Maximum environments per project. 0 when the plan does not offer environments.
+    public let environments: Int?
     /// Projects
     public let projects: Int
     /// Platforms
@@ -175,6 +179,8 @@ open class BillingPlan: Codable {
     public let requiresPaymentMethod: Bool
     /// Does plan require billing address
     public let requiresBillingAddress: Bool
+    /// ISO country codes eligible for this regional plan. Empty means no restriction.
+    public let eligibleCountries: [String]?
     /// Is the billing plan available
     public let isAvailable: Bool
     /// Can user change the plan themselves
@@ -301,7 +307,9 @@ open class BillingPlan: Codable {
         group: AppwriteEnums.BillingPlanGroup,
         program: Program?,
         databaseComputeCredit: Double,
-        dedicatedDatabases: BillingPlanDedicatedDatabaseLimits?
+        dedicatedDatabases: BillingPlanDedicatedDatabaseLimits?,
+        environments: Int?,
+        eligibleCountries: [String]?
     ) {
         self.id = id
         self.name = name
@@ -316,6 +324,7 @@ open class BillingPlan: Codable {
         self.members = members
         self.webhooks = webhooks
         self.wafRules = wafRules
+        self.environments = environments
         self.projects = projects
         self.platforms = platforms
         self.users = users
@@ -350,6 +359,7 @@ open class BillingPlan: Codable {
         self.emailBranding = emailBranding
         self.requiresPaymentMethod = requiresPaymentMethod
         self.requiresBillingAddress = requiresBillingAddress
+        self.eligibleCountries = eligibleCountries
         self.isAvailable = isAvailable
         self.selfService = selfService
         self.premiumSupport = premiumSupport
@@ -415,6 +425,7 @@ open class BillingPlan: Codable {
         self.topics = try container.decode(Int.self, forKey: .topics)
         self.authPhone = try container.decode(Int.self, forKey: .authPhone)
         self.domains = try container.decode(Int.self, forKey: .domains)
+        self.environments = try container.decodeIfPresent(Int.self, forKey: .environments)
         self.activityLogs = try container.decodeIfPresent(Int.self, forKey: .activityLogs)
         self.usageLogs = try container.decode(Int.self, forKey: .usageLogs)
         self.usageLogsIntervals = try container.decodeIfPresent([String].self, forKey: .usageLogsIntervals)
@@ -441,6 +452,7 @@ open class BillingPlan: Codable {
         self.supportsFreeEmailValidation = try container.decode(Bool.self, forKey: .supportsFreeEmailValidation)
         self.supportsCorporateEmailValidation = try container.decode(Bool.self, forKey: .supportsCorporateEmailValidation)
         self.supportsProjectSpecificRoles = try container.decode(Bool.self, forKey: .supportsProjectSpecificRoles)
+        self.eligibleCountries = try container.decodeIfPresent([String].self, forKey: .eligibleCountries)
         self.backupsEnabled = try container.decodeIfPresent(Bool.self, forKey: .backupsEnabled)
         self.usagePerProject = try container.decode(Bool.self, forKey: .usagePerProject)
         self.supportedAddons = try container.decode(BillingPlanSupportedAddons.self, forKey: .supportedAddons)
@@ -472,6 +484,7 @@ open class BillingPlan: Codable {
         try container.encodeIfPresent(members, forKey: .members)
         try container.encode(webhooks, forKey: .webhooks)
         try container.encode(wafRules, forKey: .wafRules)
+        try container.encodeIfPresent(environments, forKey: .environments)
         try container.encode(projects, forKey: .projects)
         try container.encode(platforms, forKey: .platforms)
         try container.encode(users, forKey: .users)
@@ -506,6 +519,7 @@ open class BillingPlan: Codable {
         try container.encode(emailBranding, forKey: .emailBranding)
         try container.encode(requiresPaymentMethod, forKey: .requiresPaymentMethod)
         try container.encode(requiresBillingAddress, forKey: .requiresBillingAddress)
+        try container.encodeIfPresent(eligibleCountries, forKey: .eligibleCountries)
         try container.encode(isAvailable, forKey: .isAvailable)
         try container.encode(selfService, forKey: .selfService)
         try container.encode(premiumSupport, forKey: .premiumSupport)
@@ -549,6 +563,7 @@ open class BillingPlan: Codable {
             "members": members as Any,
             "webhooks": webhooks as Any,
             "wafRules": wafRules as Any,
+            "environments": environments as Any,
             "projects": projects as Any,
             "platforms": platforms as Any,
             "users": users as Any,
@@ -583,6 +598,7 @@ open class BillingPlan: Codable {
             "emailBranding": emailBranding as Any,
             "requiresPaymentMethod": requiresPaymentMethod as Any,
             "requiresBillingAddress": requiresBillingAddress as Any,
+            "eligibleCountries": eligibleCountries as Any,
             "isAvailable": isAvailable as Any,
             "selfService": selfService as Any,
             "premiumSupport": premiumSupport as Any,
@@ -686,7 +702,9 @@ open class BillingPlan: Codable {
             group: AppwriteEnums.BillingPlanGroup(rawValue: map["group"] as! String)!,
             program: map["program"] as? [String: Any] != nil ? Program.from(map: map["program"] as! [String: Any]) : nil,
             databaseComputeCredit: map["databaseComputeCredit"] as! Double,
-            dedicatedDatabases: map["dedicatedDatabases"] as? [String: Any] != nil ? BillingPlanDedicatedDatabaseLimits.from(map: map["dedicatedDatabases"] as! [String: Any]) : nil
+            dedicatedDatabases: map["dedicatedDatabases"] as? [String: Any] != nil ? BillingPlanDedicatedDatabaseLimits.from(map: map["dedicatedDatabases"] as! [String: Any]) : nil,
+            environments: map["environments"] as? Int,
+            eligibleCountries: map["eligibleCountries"] as? [String]
         )
     }
 }

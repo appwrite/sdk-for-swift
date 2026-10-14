@@ -9,7 +9,8 @@ let client = Client()
 let sites = Sites(client)
 
 let specificationList = try await sites.listSpecifications(
-    type: "runtimes" // optional
+    type: "runtimes", // optional
+    total: false // optional
 )
 
 ```

@@ -13,7 +13,9 @@ let oAuth2Google = try await project.updateOAuth2Google(
     clientId: "<CLIENT_ID>", // optional
     clientSecret: "<CLIENT_SECRET>", // optional
     prompt: [.none], // optional
-    enabled: false // optional
+    enabled: false, // optional
+    nativeClientIds: [], // optional
+    nativeEnabled: false // optional
 )
 
 ```

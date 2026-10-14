@@ -31,6 +31,9 @@ open class DedicatedDatabase: Codable {
         case cpu = "cpu"
         case memory = "memory"
         case storage = "storage"
+        case storageStatus = "storageStatus"
+        case storageTargetGb = "storageTargetGb"
+        case storageResizeStartedAt = "storageResizeStartedAt"
         case storageClass = "storageClass"
         case storageMaxGb = "storageMaxGb"
         case nodePool = "nodePool"
@@ -108,6 +111,12 @@ open class DedicatedDatabase: Codable {
     public let memory: Int
     /// Storage allocated in GB.
     public let storage: Int
+    /// Storage resize status. Possible values: idle (no resize in flight), resizing (the volume is growing towards storageTargetGb).
+    public let storageStatus: String?
+    /// Size in GB the volume is growing towards while storageStatus is resizing. 0 when no resize is in flight.
+    public let storageTargetGb: Int?
+    /// Time the in-flight storage resize started, in ISO 8601 format.
+    public let storageResizeStartedAt: String?
     /// Storage class. Currently always &#039;ssd&#039;; DigitalOcean exposes a single block-storage class.
     public let storageClass: String
     /// Maximum storage allowed in GB. 0 means use system default.
@@ -204,7 +213,10 @@ open class DedicatedDatabase: Codable {
         sqlApiMaxRows: Int,
         sqlApiMaxBytes: Int,
         sqlApiTimeoutSeconds: Int,
-        error: String
+        error: String,
+        storageStatus: String?,
+        storageTargetGb: Int?,
+        storageResizeStartedAt: String?
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -232,6 +244,9 @@ open class DedicatedDatabase: Codable {
         self.cpu = cpu
         self.memory = memory
         self.storage = storage
+        self.storageStatus = storageStatus
+        self.storageTargetGb = storageTargetGb
+        self.storageResizeStartedAt = storageResizeStartedAt
         self.storageClass = storageClass
         self.storageMaxGb = storageMaxGb
         self.nodePool = nodePool
@@ -309,6 +324,9 @@ open class DedicatedDatabase: Codable {
         self.sqlApiMaxBytes = try container.decode(Int.self, forKey: .sqlApiMaxBytes)
         self.sqlApiTimeoutSeconds = try container.decode(Int.self, forKey: .sqlApiTimeoutSeconds)
         self.error = try container.decode(String.self, forKey: .error)
+        self.storageStatus = try container.decodeIfPresent(String.self, forKey: .storageStatus)
+        self.storageTargetGb = try container.decodeIfPresent(Int.self, forKey: .storageTargetGb)
+        self.storageResizeStartedAt = try container.decodeIfPresent(String.self, forKey: .storageResizeStartedAt)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -340,6 +358,9 @@ open class DedicatedDatabase: Codable {
         try container.encode(cpu, forKey: .cpu)
         try container.encode(memory, forKey: .memory)
         try container.encode(storage, forKey: .storage)
+        try container.encodeIfPresent(storageStatus, forKey: .storageStatus)
+        try container.encodeIfPresent(storageTargetGb, forKey: .storageTargetGb)
+        try container.encodeIfPresent(storageResizeStartedAt, forKey: .storageResizeStartedAt)
         try container.encode(storageClass, forKey: .storageClass)
         try container.encode(storageMaxGb, forKey: .storageMaxGb)
         try container.encode(nodePool, forKey: .nodePool)
@@ -393,6 +414,9 @@ open class DedicatedDatabase: Codable {
             "cpu": cpu as Any,
             "memory": memory as Any,
             "storage": storage as Any,
+            "storageStatus": storageStatus as Any,
+            "storageTargetGb": storageTargetGb as Any,
+            "storageResizeStartedAt": storageResizeStartedAt as Any,
             "storageClass": storageClass as Any,
             "storageMaxGb": storageMaxGb as Any,
             "nodePool": nodePool as Any,
@@ -469,7 +493,10 @@ open class DedicatedDatabase: Codable {
             sqlApiMaxRows: map["sqlApiMaxRows"] as! Int,
             sqlApiMaxBytes: map["sqlApiMaxBytes"] as! Int,
             sqlApiTimeoutSeconds: map["sqlApiTimeoutSeconds"] as! Int,
-            error: map["error"] as! String
+            error: map["error"] as! String,
+            storageStatus: map["storageStatus"] as? String,
+            storageTargetGb: map["storageTargetGb"] as? Int,
+            storageResizeStartedAt: map["storageResizeStartedAt"] as? String
         )
     }
 }

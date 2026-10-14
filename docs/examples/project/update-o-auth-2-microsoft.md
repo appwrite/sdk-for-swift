@@ -1,5 +1,6 @@
 ```swift
 import Appwrite
+import AppwriteEnums
 
 let client = Client()
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
@@ -12,7 +13,8 @@ let oAuth2Microsoft = try await project.updateOAuth2Microsoft(
     applicationId: "<APPLICATION_ID>", // optional
     applicationSecret: "<APPLICATION_SECRET>", // optional
     tenant: "<TENANT>", // optional
-    enabled: false // optional
+    enabled: false, // optional
+    prompt: [.none] // optional
 )
 
 ```

@@ -1,3 +1,4 @@
+import AppwriteEnums
 import Foundation
 import JSONCodable
 
@@ -9,6 +10,7 @@ open class OAuth2Microsoft: Codable {
         case enabled = "enabled"
         case applicationId = "applicationId"
         case applicationSecret = "applicationSecret"
+        case prompt = "prompt"
         case tenant = "tenant"
     }
 
@@ -20,6 +22,8 @@ open class OAuth2Microsoft: Codable {
     public let applicationId: String
     /// Microsoft OAuth2 application secret.
     public let applicationSecret: String
+    /// Microsoft OAuth2 prompt values.
+    public let prompt: [AppwriteEnums.OAuth2MicrosoftPrompt]?
     /// Microsoft Entra ID tenant identifier. Use &#039;common&#039;, &#039;organizations&#039;, &#039;consumers&#039; or a specific tenant ID.
     public let tenant: String
 
@@ -28,12 +32,14 @@ open class OAuth2Microsoft: Codable {
         enabled: Bool,
         applicationId: String,
         applicationSecret: String,
-        tenant: String
+        tenant: String,
+        prompt: [AppwriteEnums.OAuth2MicrosoftPrompt]?
     ) {
         self.id = id
         self.enabled = enabled
         self.applicationId = applicationId
         self.applicationSecret = applicationSecret
+        self.prompt = prompt
         self.tenant = tenant
     }
 
@@ -45,6 +51,11 @@ open class OAuth2Microsoft: Codable {
         self.applicationId = try container.decode(String.self, forKey: .applicationId)
         self.applicationSecret = try container.decode(String.self, forKey: .applicationSecret)
         self.tenant = try container.decode(String.self, forKey: .tenant)
+        if let promptStrings = try container.decodeIfPresent([String].self, forKey: .prompt) {
+            self.prompt = promptStrings.map { AppwriteEnums.OAuth2MicrosoftPrompt(rawValue: $0)! }
+        } else {
+            self.prompt = nil
+        }
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -54,6 +65,7 @@ open class OAuth2Microsoft: Codable {
         try container.encode(enabled, forKey: .enabled)
         try container.encode(applicationId, forKey: .applicationId)
         try container.encode(applicationSecret, forKey: .applicationSecret)
+        try container.encodeIfPresent(prompt?.map { $0.rawValue }, forKey: .prompt)
         try container.encode(tenant, forKey: .tenant)
     }
 
@@ -63,6 +75,7 @@ open class OAuth2Microsoft: Codable {
             "enabled": enabled as Any,
             "applicationId": applicationId as Any,
             "applicationSecret": applicationSecret as Any,
+            "prompt": prompt?.map { $0.rawValue } as Any,
             "tenant": tenant as Any,
         ]
     }
@@ -73,7 +86,8 @@ open class OAuth2Microsoft: Codable {
             enabled: map["enabled"] as! Bool,
             applicationId: map["applicationId"] as! String,
             applicationSecret: map["applicationSecret"] as! String,
-            tenant: map["tenant"] as! String
+            tenant: map["tenant"] as! String,
+            prompt: (map["prompt"] as? [String])?.map { AppwriteEnums.OAuth2MicrosoftPrompt(rawValue: $0)! }
         )
     }
 }
