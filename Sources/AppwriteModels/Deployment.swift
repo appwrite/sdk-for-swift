@@ -151,33 +151,33 @@ open class Deployment: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.type = try container.decode(String.self, forKey: .type)
-        self.resourceId = try container.decode(String.self, forKey: .resourceId)
-        self.resourceType = try container.decode(String.self, forKey: .resourceType)
-        self.entrypoint = try container.decode(String.self, forKey: .entrypoint)
-        self.sourceSize = try container.decode(Int.self, forKey: .sourceSize)
-        self.buildSize = try container.decode(Int.self, forKey: .buildSize)
-        self.totalSize = try container.decode(Int.self, forKey: .totalSize)
-        self.buildId = try container.decode(String.self, forKey: .buildId)
-        self.activate = try container.decode(Bool.self, forKey: .activate)
-        self.screenshotLight = try container.decode(String.self, forKey: .screenshotLight)
-        self.screenshotDark = try container.decode(String.self, forKey: .screenshotDark)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
+        self.type = try container.contains(.type) ? container.decode(String.self, forKey: .type) : ""
+        self.resourceId = try container.contains(.resourceId) ? container.decode(String.self, forKey: .resourceId) : ""
+        self.resourceType = try container.contains(.resourceType) ? container.decode(String.self, forKey: .resourceType) : ""
+        self.entrypoint = try container.contains(.entrypoint) ? container.decode(String.self, forKey: .entrypoint) : ""
+        self.sourceSize = try container.contains(.sourceSize) ? container.decode(Int.self, forKey: .sourceSize) : 0
+        self.buildSize = try container.contains(.buildSize) ? container.decode(Int.self, forKey: .buildSize) : 0
+        self.totalSize = try container.contains(.totalSize) ? container.decode(Int.self, forKey: .totalSize) : 0
+        self.buildId = try container.contains(.buildId) ? container.decode(String.self, forKey: .buildId) : ""
+        self.activate = try container.contains(.activate) ? container.decode(Bool.self, forKey: .activate) : false
+        self.screenshotLight = try container.contains(.screenshotLight) ? container.decode(String.self, forKey: .screenshotLight) : ""
+        self.screenshotDark = try container.contains(.screenshotDark) ? container.decode(String.self, forKey: .screenshotDark) : ""
         self.status = AppwriteEnums.DeploymentStatus(rawValue: try container.decode(String.self, forKey: .status))!
-        self.buildLogs = try container.decode(String.self, forKey: .buildLogs)
-        self.buildDuration = try container.decode(Int.self, forKey: .buildDuration)
-        self.providerRepositoryName = try container.decode(String.self, forKey: .providerRepositoryName)
-        self.providerRepositoryOwner = try container.decode(String.self, forKey: .providerRepositoryOwner)
-        self.providerRepositoryUrl = try container.decode(String.self, forKey: .providerRepositoryUrl)
-        self.providerCommitHash = try container.decode(String.self, forKey: .providerCommitHash)
-        self.providerCommitAuthorUrl = try container.decode(String.self, forKey: .providerCommitAuthorUrl)
-        self.providerCommitAuthor = try container.decode(String.self, forKey: .providerCommitAuthor)
-        self.providerCommitMessage = try container.decode(String.self, forKey: .providerCommitMessage)
-        self.providerCommitUrl = try container.decode(String.self, forKey: .providerCommitUrl)
-        self.providerBranch = try container.decode(String.self, forKey: .providerBranch)
-        self.providerBranchUrl = try container.decode(String.self, forKey: .providerBranchUrl)
+        self.buildLogs = try container.contains(.buildLogs) ? container.decode(String.self, forKey: .buildLogs) : ""
+        self.buildDuration = try container.contains(.buildDuration) ? container.decode(Int.self, forKey: .buildDuration) : 0
+        self.providerRepositoryName = try container.contains(.providerRepositoryName) ? container.decode(String.self, forKey: .providerRepositoryName) : ""
+        self.providerRepositoryOwner = try container.contains(.providerRepositoryOwner) ? container.decode(String.self, forKey: .providerRepositoryOwner) : ""
+        self.providerRepositoryUrl = try container.contains(.providerRepositoryUrl) ? container.decode(String.self, forKey: .providerRepositoryUrl) : ""
+        self.providerCommitHash = try container.contains(.providerCommitHash) ? container.decode(String.self, forKey: .providerCommitHash) : ""
+        self.providerCommitAuthorUrl = try container.contains(.providerCommitAuthorUrl) ? container.decode(String.self, forKey: .providerCommitAuthorUrl) : ""
+        self.providerCommitAuthor = try container.contains(.providerCommitAuthor) ? container.decode(String.self, forKey: .providerCommitAuthor) : ""
+        self.providerCommitMessage = try container.contains(.providerCommitMessage) ? container.decode(String.self, forKey: .providerCommitMessage) : ""
+        self.providerCommitUrl = try container.contains(.providerCommitUrl) ? container.decode(String.self, forKey: .providerCommitUrl) : ""
+        self.providerBranch = try container.contains(.providerBranch) ? container.decode(String.self, forKey: .providerBranch) : ""
+        self.providerBranchUrl = try container.contains(.providerBranchUrl) ? container.decode(String.self, forKey: .providerBranchUrl) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -245,6 +245,36 @@ open class Deployment: Codable {
     }
 
     public static func from(map: [String: Any]) -> Deployment {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+            "type": "",
+            "resourceId": "",
+            "resourceType": "",
+            "entrypoint": "",
+            "sourceSize": 0,
+            "buildSize": 0,
+            "totalSize": 0,
+            "buildId": "",
+            "activate": false,
+            "screenshotLight": "",
+            "screenshotDark": "",
+            "buildLogs": "",
+            "buildDuration": 0,
+            "providerRepositoryName": "",
+            "providerRepositoryOwner": "",
+            "providerRepositoryUrl": "",
+            "providerCommitHash": "",
+            "providerCommitAuthorUrl": "",
+            "providerCommitAuthor": "",
+            "providerCommitMessage": "",
+            "providerCommitUrl": "",
+            "providerBranch": "",
+            "providerBranchUrl": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return Deployment(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

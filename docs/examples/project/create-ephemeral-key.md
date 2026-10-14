@@ -10,7 +10,7 @@ let client = Client()
 let project = Project(client)
 
 let ephemeralKey = try await project.createEphemeralKey(
-    scopes: [.projectRead],
+    scopes: [.usersRead],
     duration: 600
 )
 

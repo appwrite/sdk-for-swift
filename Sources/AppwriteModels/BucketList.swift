@@ -25,8 +25,8 @@ open class BucketList: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decode(Int.self, forKey: .total)
-        self.buckets = try container.decode([Bucket].self, forKey: .buckets)
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
+        self.buckets = try container.contains(.buckets) ? container.decode([Bucket].self, forKey: .buckets) : []
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -44,6 +44,12 @@ open class BucketList: Codable {
     }
 
     public static func from(map: [String: Any]) -> BucketList {
+        let defaults: [String: Any] = [
+            "total": 0,
+            "buckets": [Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return BucketList(
             total: map["total"] as! Int,
             buckets: (map["buckets"] as! [[String: Any]]).map { Bucket.from(map: $0) }

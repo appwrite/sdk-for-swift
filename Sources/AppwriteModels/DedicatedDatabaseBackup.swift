@@ -100,23 +100,23 @@ open class DedicatedDatabaseBackup: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.databaseId = try container.decode(String.self, forKey: .databaseId)
-        self.projectId = try container.decode(String.self, forKey: .projectId)
-        self.policyId = try container.decode(String.self, forKey: .policyId)
-        self.trigger = try container.decode(String.self, forKey: .trigger)
-        self.type = try container.decode(String.self, forKey: .type)
-        self.requestedType = try container.decode(String.self, forKey: .requestedType)
-        self.fallbackReason = try container.decode(String.self, forKey: .fallbackReason)
-        self.status = try container.decode(String.self, forKey: .status)
-        self.sizeBytes = try container.decode(Int.self, forKey: .sizeBytes)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.databaseId = try container.contains(.databaseId) ? container.decode(String.self, forKey: .databaseId) : ""
+        self.projectId = try container.contains(.projectId) ? container.decode(String.self, forKey: .projectId) : ""
+        self.policyId = try container.contains(.policyId) ? container.decode(String.self, forKey: .policyId) : ""
+        self.trigger = try container.contains(.trigger) ? container.decode(String.self, forKey: .trigger) : "manual"
+        self.type = try container.contains(.type) ? container.decode(String.self, forKey: .type) : "full"
+        self.requestedType = try container.contains(.requestedType) ? container.decode(String.self, forKey: .requestedType) : ""
+        self.fallbackReason = try container.contains(.fallbackReason) ? container.decode(String.self, forKey: .fallbackReason) : ""
+        self.status = try container.contains(.status) ? container.decode(String.self, forKey: .status) : "pending"
+        self.sizeBytes = try container.contains(.sizeBytes) ? container.decode(Int.self, forKey: .sizeBytes) : 0
         self.startedAt = try container.decodeIfPresent(String.self, forKey: .startedAt)
         self.completedAt = try container.decodeIfPresent(String.self, forKey: .completedAt)
         self.verifiedAt = try container.decodeIfPresent(String.self, forKey: .verifiedAt)
         self.expiresAt = try container.decodeIfPresent(String.self, forKey: .expiresAt)
         self.logPosition = try container.decodeIfPresent(String.self, forKey: .logPosition)
-        self.error = try container.decode(String.self, forKey: .error)
+        self.error = try container.contains(.error) ? container.decode(String.self, forKey: .error) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -164,6 +164,22 @@ open class DedicatedDatabaseBackup: Codable {
     }
 
     public static func from(map: [String: Any]) -> DedicatedDatabaseBackup {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "$createdAt": "",
+            "databaseId": "",
+            "projectId": "",
+            "policyId": "",
+            "trigger": "manual",
+            "type": "full",
+            "requestedType": "",
+            "fallbackReason": "",
+            "status": "pending",
+            "sizeBytes": 0,
+            "error": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return DedicatedDatabaseBackup(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

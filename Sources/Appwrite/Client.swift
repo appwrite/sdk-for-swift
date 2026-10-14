@@ -26,8 +26,8 @@ open class Client {
         "x-sdk-name": "Swift",
         "x-sdk-platform": "server",
         "x-sdk-language": "swift",
-        "x-sdk-version": "22.4.0",
-        "x-appwrite-response-format": "2.0.0",
+        "x-sdk-version": "23.0.0",
+        "x-appwrite-response-format": "2.5.0",
     ]
 
     internal var config: [String: String] = [:]
@@ -210,21 +210,6 @@ open class Client {
     }
 
     ///
-    /// Set DevKey
-    ///
-    /// Your secret dev API key
-    ///
-    /// @param String value
-    ///
-    /// @return Client
-    ///
-    open func setDevKey(_ value: String) -> Client {
-        config["devkey"] = value
-        _ = addHeader(key: "X-Appwrite-Dev-Key", value: value)
-        return self
-    }
-
-    ///
     /// Set Cookie
     ///
     /// The user cookie to authenticate with. Used by SDKs that forward an incoming Cookie header in server-side runtimes.
@@ -340,43 +325,34 @@ open class Client {
     /// @return String
     ///
     open func parametersToQueryString(params: [String: Any?]) -> String {
-        var output: String = ""
+        // RFC 3986 unreserved characters only, so `&`, `=`, `+` and `#` inside a value are escaped
+        let allowed = CharacterSet(
+            charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~"
+        )
 
-        func appendWhenNotLast(
-            _ index: Int, ofTotal count: Int, outerIndex: Int? = nil, outerCount: Int? = nil
-        ) {
-            if index != count - 1
-                || (outerIndex != nil
-                    && outerCount != nil
-                    && index == count - 1
-                    && outerIndex! != outerCount! - 1)
-            {
-                output += "&"
-            }
+        func encode(_ value: Any) -> String {
+            return "\(value)".addingPercentEncoding(withAllowedCharacters: allowed) ?? ""
         }
 
-        for (parameterIndex, element) in params.enumerated() {
-            switch element.value {
+        var output: [String] = []
+
+        for (key, value) in params {
+            switch value {
             case nil:
-                break
-            case is [Any?]:
-                let list = element.value as! [Any?]
-                for (nestedIndex, item) in list.enumerated() {
-                    output += "\(element.key)[]=\(item!)"
-                    appendWhenNotLast(
-                        nestedIndex, ofTotal: list.count, outerIndex: parameterIndex,
-                        outerCount: params.count)
+                continue
+            case let list as [Any?]:
+                for item in list {
+                    guard let item = item else {
+                        continue
+                    }
+                    output.append("\(encode("\(key)[]"))=\(encode(item))")
                 }
-                appendWhenNotLast(parameterIndex, ofTotal: params.count)
             default:
-                output += "\(element.key)=\(element.value!)"
-                appendWhenNotLast(parameterIndex, ofTotal: params.count)
+                output.append("\(encode(key))=\(encode(value!))")
             }
         }
 
-        return output.addingPercentEncoding(
-            withAllowedCharacters: .urlHostAllowed
-        )?.replacingOccurrences(of: "+", with: "%2B") ?? ""  // since urlHostAllowed doesn't include +
+        return output.joined(separator: "&")
     }
 
     ///
@@ -597,7 +573,15 @@ open class Client {
         onProgress: ((UploadProgress) -> Void)? = nil,
         method: String = "POST"
     ) async throws -> T {
-        let input = params[paramName] as! InputFile
+        guard let input = params[paramName] as? InputFile else {
+            return try await call(
+                method: method,
+                path: path,
+                headers: headers,
+                params: params,
+                converter: converter
+            )
+        }
 
         switch input.sourceType {
         case "path":
@@ -610,7 +594,7 @@ open class Client {
 
         let size = (input.data as! ByteBuffer).readableBytes
 
-        if size < Client.chunkSize {
+        if size <= Client.chunkSize || T.self == String.self {
             params[paramName] = input
             return try await call(
                 method: method,
@@ -782,7 +766,7 @@ open class Client {
             {
                 encodedParams[key] = param
             } else if let encodable = param as? Encodable {
-                encodedParams[key] = try encodable.toJson()
+                encodedParams[key] = try encodable.toJsonObject()
             } else if let param = param {
                 encodedParams[key] = String(describing: param)
             }
@@ -817,9 +801,15 @@ open class Client {
                 return
             }
 
-            let string = String(describing: value)
+            var string = String(describing: value)
+            if let object = value as? [String: Any],
+                let data = try? JSONSerialization.data(withJSONObject: object),
+                let json = String(data: data, encoding: .utf8)
+            {
+                string = json
+            }
             bodyBuffer.writeString(CRLF)
-            bodyBuffer.writeString("Content-Length: \(string.count)")
+            bodyBuffer.writeString("Content-Length: \(string.utf8.count)")
             bodyBuffer.writeString(CRLF + CRLF)
             bodyBuffer.writeString(string)
             bodyBuffer.writeString(CRLF)
@@ -851,7 +841,7 @@ open class Client {
         if !chunked {
             request.headers.add(name: "Content-Length", value: bodyBuffer.readableBytes.description)
         }
-        request.headers.add(name: "Content-Type", value: "multipart/form-data;boundary=\"\(Client.boundary)\"")
+        request.headers.add(name: "Content-Type", value: "multipart/form-data; boundary=\"\(Client.boundary)\"")
         request.body = .bytes(bodyBuffer)
     }
 

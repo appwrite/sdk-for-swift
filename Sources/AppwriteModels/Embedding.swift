@@ -35,10 +35,10 @@ open class Embedding: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.model = try container.decode(String.self, forKey: .model)
-        self.dimension = try container.decode(Int.self, forKey: .dimension)
-        self.embedding = try container.decode([Double].self, forKey: .embedding)
-        self.error = try container.decode(String.self, forKey: .error)
+        self.model = try container.contains(.model) ? container.decode(String.self, forKey: .model) : ""
+        self.dimension = try container.contains(.dimension) ? container.decode(Int.self, forKey: .dimension) : 0
+        self.embedding = try container.contains(.embedding) ? container.decode([Double].self, forKey: .embedding) : []
+        self.error = try container.contains(.error) ? container.decode(String.self, forKey: .error) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -60,6 +60,14 @@ open class Embedding: Codable {
     }
 
     public static func from(map: [String: Any]) -> Embedding {
+        let defaults: [String: Any] = [
+            "model": "",
+            "dimension": 0,
+            "embedding": [Any](),
+            "error": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return Embedding(
             model: map["model"] as! String,
             dimension: map["dimension"] as! Int,

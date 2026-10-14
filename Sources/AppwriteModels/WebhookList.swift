@@ -25,8 +25,8 @@ open class WebhookList: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decode(Int.self, forKey: .total)
-        self.webhooks = try container.decode([Webhook].self, forKey: .webhooks)
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
+        self.webhooks = try container.contains(.webhooks) ? container.decode([Webhook].self, forKey: .webhooks) : []
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -44,6 +44,12 @@ open class WebhookList: Codable {
     }
 
     public static func from(map: [String: Any]) -> WebhookList {
+        let defaults: [String: Any] = [
+            "total": 0,
+            "webhooks": [Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return WebhookList(
             total: map["total"] as! Int,
             webhooks: (map["webhooks"] as! [[String: Any]]).map { Webhook.from(map: $0) }

@@ -25,8 +25,8 @@ open class PolicySessionDuration: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.duration = try container.decode(Int.self, forKey: .duration)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.duration = try container.contains(.duration) ? container.decode(Int.self, forKey: .duration) : 31536000
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -44,6 +44,12 @@ open class PolicySessionDuration: Codable {
     }
 
     public static func from(map: [String: Any]) -> PolicySessionDuration {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "duration": 31536000,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return PolicySessionDuration(
             id: map["$id"] as! String,
             duration: map["duration"] as! Int

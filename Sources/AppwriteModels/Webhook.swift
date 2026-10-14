@@ -36,7 +36,7 @@ open class Webhook: Codable {
     public let tls: Bool
     /// HTTP basic authentication username.
     public let authUsername: String
-    /// HTTP basic authentication password.
+    /// HTTP basic authentication password. Write-only: always returned empty.
     public let authPassword: String
     /// Signature key which can be used to validate incoming webhook payloads. Only returned on creation and secret rotation.
     public let secret: String
@@ -80,19 +80,19 @@ open class Webhook: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.url = try container.decode(String.self, forKey: .url)
-        self.events = try container.decode([String].self, forKey: .events)
-        self.tls = try container.decode(Bool.self, forKey: .tls)
-        self.authUsername = try container.decode(String.self, forKey: .authUsername)
-        self.authPassword = try container.decode(String.self, forKey: .authPassword)
-        self.secret = try container.decode(String.self, forKey: .secret)
-        self.enabled = try container.decode(Bool.self, forKey: .enabled)
-        self.logs = try container.decode(String.self, forKey: .logs)
-        self.attempts = try container.decode(Int.self, forKey: .attempts)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
+        self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.url = try container.contains(.url) ? container.decode(String.self, forKey: .url) : ""
+        self.events = try container.contains(.events) ? container.decode([String].self, forKey: .events) : []
+        self.tls = try container.contains(.tls) ? container.decode(Bool.self, forKey: .tls) : true
+        self.authUsername = try container.contains(.authUsername) ? container.decode(String.self, forKey: .authUsername) : ""
+        self.authPassword = try container.contains(.authPassword) ? container.decode(String.self, forKey: .authPassword) : ""
+        self.secret = try container.contains(.secret) ? container.decode(String.self, forKey: .secret) : ""
+        self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : true
+        self.logs = try container.contains(.logs) ? container.decode(String.self, forKey: .logs) : ""
+        self.attempts = try container.contains(.attempts) ? container.decode(Int.self, forKey: .attempts) : 0
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -132,6 +132,23 @@ open class Webhook: Codable {
     }
 
     public static func from(map: [String: Any]) -> Webhook {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+            "name": "",
+            "url": "",
+            "events": [Any](),
+            "tls": true,
+            "authUsername": "",
+            "authPassword": "",
+            "secret": "",
+            "enabled": true,
+            "logs": "",
+            "attempts": 0,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return Webhook(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

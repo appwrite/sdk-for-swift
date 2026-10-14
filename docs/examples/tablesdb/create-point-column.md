@@ -13,7 +13,10 @@ let columnPoint = try await tablesDB.createPointColumn(
     tableId: "<TABLE_ID>",
     key: "<KEY>",
     required: false,
-    default: [1, 2] // optional
+    default: [
+        1,
+        2
+    ] // optional
 )
 
 ```

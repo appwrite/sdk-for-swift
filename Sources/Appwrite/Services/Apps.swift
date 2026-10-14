@@ -201,6 +201,10 @@ open class Apps: Service {
     open func get(
         appId: String
     ) async throws -> AppwriteModels.App {
+        if appId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"appId\"")
+        }
+
         let apiPath: String = "/apps/{appId}"
             .replacingOccurrences(of: "{appId}", with: appId)
 
@@ -272,6 +276,10 @@ open class Apps: Service {
         installationScopes: [String]? = nil,
         installationRedirectUrl: String? = nil
     ) async throws -> AppwriteModels.App {
+        if appId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"appId\"")
+        }
+
         let apiPath: String = "/apps/{appId}"
             .replacingOccurrences(of: "{appId}", with: appId)
 
@@ -326,6 +334,10 @@ open class Apps: Service {
     open func delete(
         appId: String
     ) async throws -> Any {
+        if appId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"appId\"")
+        }
+
         let apiPath: String = "/apps/{appId}"
             .replacingOccurrences(of: "{appId}", with: appId)
 
@@ -361,6 +373,10 @@ open class Apps: Service {
         queries: [String]? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.AppInstallationList {
+        if appId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"appId\"")
+        }
+
         let apiPath: String = "/apps/{appId}/installations"
             .replacingOccurrences(of: "{appId}", with: appId)
 
@@ -401,6 +417,13 @@ open class Apps: Service {
         appId: String,
         installationId: String
     ) async throws -> AppwriteModels.AppInstallation {
+        if appId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"appId\"")
+        }
+        if installationId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"installationId\"")
+        }
+
         let apiPath: String = "/apps/{appId}/installations/{installationId}"
             .replacingOccurrences(of: "{appId}", with: appId)
             .replacingOccurrences(of: "{installationId}", with: installationId)
@@ -439,6 +462,13 @@ open class Apps: Service {
         appId: String,
         installationId: String
     ) async throws -> Any {
+        if appId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"appId\"")
+        }
+        if installationId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"installationId\"")
+        }
+
         let apiPath: String = "/apps/{appId}/installations/{installationId}"
             .replacingOccurrences(of: "{appId}", with: appId)
             .replacingOccurrences(of: "{installationId}", with: installationId)
@@ -478,6 +508,13 @@ open class Apps: Service {
         appId: String,
         installationId: String
     ) async throws -> AppwriteModels.Oauth2Token {
+        if appId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"appId\"")
+        }
+        if installationId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"installationId\"")
+        }
+
         let apiPath: String = "/apps/{appId}/installations/{installationId}/tokens"
             .replacingOccurrences(of: "{appId}", with: appId)
             .replacingOccurrences(of: "{installationId}", with: installationId)
@@ -517,6 +554,10 @@ open class Apps: Service {
         queries: [String]? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.AppKeyList {
+        if appId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"appId\"")
+        }
+
         let apiPath: String = "/apps/{appId}/keys"
             .replacingOccurrences(of: "{appId}", with: appId)
 
@@ -555,6 +596,10 @@ open class Apps: Service {
     open func createKey(
         appId: String
     ) async throws -> AppwriteModels.AppKey {
+        if appId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"appId\"")
+        }
+
         let apiPath: String = "/apps/{appId}/keys"
             .replacingOccurrences(of: "{appId}", with: appId)
 
@@ -591,6 +636,13 @@ open class Apps: Service {
         appId: String,
         keyId: String
     ) async throws -> AppwriteModels.AppKey {
+        if appId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"appId\"")
+        }
+        if keyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"keyId\"")
+        }
+
         let apiPath: String = "/apps/{appId}/keys/{keyId}"
             .replacingOccurrences(of: "{appId}", with: appId)
             .replacingOccurrences(of: "{keyId}", with: keyId)
@@ -627,6 +679,13 @@ open class Apps: Service {
         appId: String,
         keyId: String
     ) async throws -> Any {
+        if appId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"appId\"")
+        }
+        if keyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"keyId\"")
+        }
+
         let apiPath: String = "/apps/{appId}/keys/{keyId}"
             .replacingOccurrences(of: "{appId}", with: appId)
             .replacingOccurrences(of: "{keyId}", with: keyId)
@@ -661,6 +720,10 @@ open class Apps: Service {
         appId: String,
         labels: [String]
     ) async throws -> AppwriteModels.App {
+        if appId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"appId\"")
+        }
+
         let apiPath: String = "/apps/{appId}/labels"
             .replacingOccurrences(of: "{appId}", with: appId)
 
@@ -701,6 +764,10 @@ open class Apps: Service {
         queries: [String]? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.AppSecretList {
+        if appId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"appId\"")
+        }
+
         let apiPath: String = "/apps/{appId}/secrets"
             .replacingOccurrences(of: "{appId}", with: appId)
 
@@ -737,6 +804,10 @@ open class Apps: Service {
     open func createSecret(
         appId: String
     ) async throws -> AppwriteModels.AppSecretPlaintext {
+        if appId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"appId\"")
+        }
+
         let apiPath: String = "/apps/{appId}/secrets"
             .replacingOccurrences(of: "{appId}", with: appId)
 
@@ -773,6 +844,13 @@ open class Apps: Service {
         appId: String,
         secretId: String
     ) async throws -> AppwriteModels.AppSecret {
+        if appId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"appId\"")
+        }
+        if secretId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"secretId\"")
+        }
+
         let apiPath: String = "/apps/{appId}/secrets/{secretId}"
             .replacingOccurrences(of: "{appId}", with: appId)
             .replacingOccurrences(of: "{secretId}", with: secretId)
@@ -809,6 +887,13 @@ open class Apps: Service {
         appId: String,
         secretId: String
     ) async throws -> Any {
+        if appId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"appId\"")
+        }
+        if secretId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"secretId\"")
+        }
+
         let apiPath: String = "/apps/{appId}/secrets/{secretId}"
             .replacingOccurrences(of: "{appId}", with: appId)
             .replacingOccurrences(of: "{secretId}", with: secretId)
@@ -841,6 +926,10 @@ open class Apps: Service {
         appId: String,
         teamId: String
     ) async throws -> AppwriteModels.App {
+        if appId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"appId\"")
+        }
+
         let apiPath: String = "/apps/{appId}/team"
             .replacingOccurrences(of: "{appId}", with: appId)
 
@@ -877,6 +966,10 @@ open class Apps: Service {
     open func deleteTokens(
         appId: String
     ) async throws -> Any {
+        if appId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"appId\"")
+        }
+
         let apiPath: String = "/apps/{appId}/tokens"
             .replacingOccurrences(of: "{appId}", with: appId)
 

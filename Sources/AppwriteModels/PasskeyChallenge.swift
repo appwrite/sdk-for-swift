@@ -40,11 +40,11 @@ open class PasskeyChallenge: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.passkeyId = try container.decode(String.self, forKey: .passkeyId)
-        self.expire = try container.decode(String.self, forKey: .expire)
-        self.publicKey = try container.decode([String: AnyCodable].self, forKey: .publicKey)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.passkeyId = try container.contains(.passkeyId) ? container.decode(String.self, forKey: .passkeyId) : ""
+        self.expire = try container.contains(.expire) ? container.decode(String.self, forKey: .expire) : ""
+        self.publicKey = try container.contains(.publicKey) ? container.decode([String: AnyCodable].self, forKey: .publicKey) : ([String: Any]()).mapValues { AnyCodable($0) }
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -68,6 +68,15 @@ open class PasskeyChallenge: Codable {
     }
 
     public static func from(map: [String: Any]) -> PasskeyChallenge {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "$createdAt": "",
+            "passkeyId": "",
+            "expire": "",
+            "publicKey": [String: Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return PasskeyChallenge(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

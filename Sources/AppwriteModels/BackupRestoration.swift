@@ -30,16 +30,16 @@ open class BackupRestoration: Codable {
     public let policyId: String
     /// The status of the restoration. Possible values: pending, downloading, processing, completed, failed.
     public let status: String
-    /// The backup start time.
-    public let startedAt: String
+    /// The restoration start time. Null until the restoration starts.
+    public let startedAt: String?
     /// Migration ID.
     public let migrationId: String
     /// The services that are backed up by this policy.
     public let services: [String]
     /// The resources that are backed up by this policy.
     public let resources: [String]
-    /// Optional data in key-value object.
-    public let options: String
+    /// Restoration options as a key-value object.
+    public let options: [String: AnyCodable]
 
     init(
         id: String,
@@ -48,11 +48,11 @@ open class BackupRestoration: Codable {
         archiveId: String,
         policyId: String,
         status: String,
-        startedAt: String,
+        startedAt: String?,
         migrationId: String,
         services: [String],
         resources: [String],
-        options: String
+        options: [String: AnyCodable]
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -70,17 +70,17 @@ open class BackupRestoration: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.archiveId = try container.decode(String.self, forKey: .archiveId)
-        self.policyId = try container.decode(String.self, forKey: .policyId)
-        self.status = try container.decode(String.self, forKey: .status)
-        self.startedAt = try container.decode(String.self, forKey: .startedAt)
-        self.migrationId = try container.decode(String.self, forKey: .migrationId)
-        self.services = try container.decode([String].self, forKey: .services)
-        self.resources = try container.decode([String].self, forKey: .resources)
-        self.options = try container.decode(String.self, forKey: .options)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
+        self.archiveId = try container.contains(.archiveId) ? container.decode(String.self, forKey: .archiveId) : ""
+        self.policyId = try container.contains(.policyId) ? container.decode(String.self, forKey: .policyId) : ""
+        self.status = try container.contains(.status) ? container.decode(String.self, forKey: .status) : ""
+        self.startedAt = try container.decodeIfPresent(String.self, forKey: .startedAt)
+        self.migrationId = try container.contains(.migrationId) ? container.decode(String.self, forKey: .migrationId) : ""
+        self.services = try container.contains(.services) ? container.decode([String].self, forKey: .services) : []
+        self.resources = try container.contains(.resources) ? container.decode([String].self, forKey: .resources) : []
+        self.options = try container.contains(.options) ? container.decode([String: AnyCodable].self, forKey: .options) : ([String: Any]()).mapValues { AnyCodable($0) }
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -92,7 +92,7 @@ open class BackupRestoration: Codable {
         try container.encode(archiveId, forKey: .archiveId)
         try container.encode(policyId, forKey: .policyId)
         try container.encode(status, forKey: .status)
-        try container.encode(startedAt, forKey: .startedAt)
+        try container.encodeIfPresent(startedAt, forKey: .startedAt)
         try container.encode(migrationId, forKey: .migrationId)
         try container.encode(services, forKey: .services)
         try container.encode(resources, forKey: .resources)
@@ -116,6 +116,20 @@ open class BackupRestoration: Codable {
     }
 
     public static func from(map: [String: Any]) -> BackupRestoration {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+            "archiveId": "",
+            "policyId": "",
+            "status": "",
+            "migrationId": "",
+            "services": [Any](),
+            "resources": [Any](),
+            "options": [String: Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return BackupRestoration(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,
@@ -123,11 +137,11 @@ open class BackupRestoration: Codable {
             archiveId: map["archiveId"] as! String,
             policyId: map["policyId"] as! String,
             status: map["status"] as! String,
-            startedAt: map["startedAt"] as! String,
+            startedAt: map["startedAt"] as? String,
             migrationId: map["migrationId"] as! String,
             services: map["services"] as! [String],
             resources: map["resources"] as! [String],
-            options: map["options"] as! String
+            options: (map["options"] as! [String: Any]).mapValues { AnyCodable($0) }
         )
     }
 }

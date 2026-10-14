@@ -25,8 +25,8 @@ open class DedicatedDatabaseExecutionColumn: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.name = try container.decode(String.self, forKey: .name)
-        self.type = try container.decode(String.self, forKey: .type)
+        self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.type = try container.contains(.type) ? container.decode(String.self, forKey: .type) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -44,6 +44,12 @@ open class DedicatedDatabaseExecutionColumn: Codable {
     }
 
     public static func from(map: [String: Any]) -> DedicatedDatabaseExecutionColumn {
+        let defaults: [String: Any] = [
+            "name": "",
+            "type": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return DedicatedDatabaseExecutionColumn(
             name: map["name"] as! String,
             type: map["type"] as! String

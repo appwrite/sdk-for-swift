@@ -183,6 +183,10 @@ open class Account: Service {
     open func getConsent(
         consentId: String
     ) async throws -> AppwriteModels.Oauth2Consent {
+        if consentId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"consentId\"")
+        }
+
         let apiPath: String = "/account/consents/{consentId}"
             .replacingOccurrences(of: "{consentId}", with: consentId)
 
@@ -218,6 +222,10 @@ open class Account: Service {
     open func deleteConsent(
         consentId: String
     ) async throws -> Any {
+        if consentId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"consentId\"")
+        }
+
         let apiPath: String = "/account/consents/{consentId}"
             .replacingOccurrences(of: "{consentId}", with: consentId)
 
@@ -253,6 +261,10 @@ open class Account: Service {
         queries: [String]? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.Oauth2ConsentTokenList {
+        if consentId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"consentId\"")
+        }
+
         let apiPath: String = "/account/consents/{consentId}/tokens"
             .replacingOccurrences(of: "{consentId}", with: consentId)
 
@@ -292,6 +304,13 @@ open class Account: Service {
         consentId: String,
         tokenId: String
     ) async throws -> AppwriteModels.Oauth2ConsentToken {
+        if consentId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"consentId\"")
+        }
+        if tokenId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tokenId\"")
+        }
+
         let apiPath: String = "/account/consents/{consentId}/tokens/{tokenId}"
             .replacingOccurrences(of: "{consentId}", with: consentId)
             .replacingOccurrences(of: "{tokenId}", with: tokenId)
@@ -330,6 +349,13 @@ open class Account: Service {
         consentId: String,
         tokenId: String
     ) async throws -> Any {
+        if consentId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"consentId\"")
+        }
+        if tokenId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tokenId\"")
+        }
+
         let apiPath: String = "/account/consents/{consentId}/tokens/{tokenId}"
             .replacingOccurrences(of: "{consentId}", with: consentId)
             .replacingOccurrences(of: "{tokenId}", with: tokenId)
@@ -468,6 +494,10 @@ open class Account: Service {
     open func deleteIdentity(
         identityId: String
     ) async throws -> Any {
+        if identityId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"identityId\"")
+        }
+
         let apiPath: String = "/account/identities/{identityId}"
             .replacingOccurrences(of: "{identityId}", with: identityId)
 
@@ -476,6 +506,7 @@ open class Account: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -483,44 +514,6 @@ open class Account: Service {
             path: apiPath,
             headers: apiHeaders,
             params: apiParams
-        )
-    }
-    ///
-    /// Get the list of latest security activity logs for the currently logged in
-    /// user. Each log returns user IP address, location and date and time of log.
-    ///
-    /// - Parameters:
-    ///   - queries: [String] (optional)
-    ///   - total: Bool (optional)
-    /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.LogList
-    ///
-    open func listLogs(
-        queries: [String]? = nil,
-        total: Bool? = nil
-    ) async throws -> AppwriteModels.LogList {
-        let apiPath: String = "/account/logs"
-
-        let apiParams: [String: Any?] = [
-            "queries": queries,
-            "total": total,
-        ]
-
-        let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? "",
-            "accept": "application/json",
-        ]
-
-        let converter: (Any) throws -> AppwriteModels.LogList = { response in
-            return AppwriteModels.LogList.from(map: response as! [String: Any])
-        }
-
-        return try await client.call(
-            method: "GET",
-            path: apiPath,
-            headers: apiHeaders,
-            params: apiParams,
-            converter: converter
         )
     }
     ///
@@ -799,6 +792,7 @@ open class Account: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -827,6 +821,7 @@ open class Account: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -2002,7 +1997,8 @@ open class Account: Service {
     }
     ///
     /// Delete all sessions from the user account and remove any sessions cookies
-    /// from the end client.
+    /// from the end client. Pass `current` as false to keep the session making the
+    /// request and sign out of every other session.
     ///
     /// - Parameters:
     ///   - current: Bool (optional)
@@ -2021,6 +2017,7 @@ open class Account: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -2068,6 +2065,9 @@ open class Account: Service {
     ///
     /// Allow the user to login into their account by providing a valid email and
     /// password combination. This route will create a new session for the user.
+    /// Use the optional `duration` parameter to create a shorter session, for
+    /// example when the user doesn't choose "remember me". It must be at least 60
+    /// seconds and cannot exceed the project maximum session length.
     ///
     /// A user is limited to 10 active sessions at a time by default. [Learn more
     /// about session
@@ -2335,6 +2335,10 @@ open class Account: Service {
     open func getSession(
         sessionId: String
     ) async throws -> AppwriteModels.Session {
+        if sessionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"sessionId\"")
+        }
+
         let apiPath: String = "/account/sessions/{sessionId}"
             .replacingOccurrences(of: "{sessionId}", with: sessionId)
 
@@ -2370,6 +2374,10 @@ open class Account: Service {
     open func updateSession(
         sessionId: String
     ) async throws -> AppwriteModels.Session {
+        if sessionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"sessionId\"")
+        }
+
         let apiPath: String = "/account/sessions/{sessionId}"
             .replacingOccurrences(of: "{sessionId}", with: sessionId)
 
@@ -2408,6 +2416,10 @@ open class Account: Service {
     open func deleteSession(
         sessionId: String
     ) async throws -> Any {
+        if sessionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"sessionId\"")
+        }
+
         let apiPath: String = "/account/sessions/{sessionId}"
             .replacingOccurrences(of: "{sessionId}", with: sessionId)
 
@@ -2416,6 +2428,7 @@ open class Account: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -2592,6 +2605,10 @@ open class Account: Service {
     /// create a new session using the [Create
     /// session](https://appwrite.io/docs/references/cloud/client-web/account#createSession)
     /// endpoint.
+    ///
+    /// If there is already an active session, the OAuth2 identity is attached to
+    /// the logged-in account and that session stays active until the token is
+    /// exchanged for a new one.
     ///
     /// A user is limited to 10 active sessions at a time by default. [Learn more
     /// about session

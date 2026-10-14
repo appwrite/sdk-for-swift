@@ -85,20 +85,20 @@ open class Bucket: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.permissions = try container.decode([String].self, forKey: .permissions)
-        self.fileSecurity = try container.decode(Bool.self, forKey: .fileSecurity)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.enabled = try container.decode(Bool.self, forKey: .enabled)
-        self.maximumFileSize = try container.decode(Int.self, forKey: .maximumFileSize)
-        self.allowedFileExtensions = try container.decode([String].self, forKey: .allowedFileExtensions)
-        self.compression = try container.decode(String.self, forKey: .compression)
-        self.encryption = try container.decode(Bool.self, forKey: .encryption)
-        self.antivirus = try container.decode(Bool.self, forKey: .antivirus)
-        self.transformations = try container.decode(Bool.self, forKey: .transformations)
-        self.totalSize = try container.decode(Int.self, forKey: .totalSize)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
+        self.permissions = try container.contains(.permissions) ? container.decode([String].self, forKey: .permissions) : []
+        self.fileSecurity = try container.contains(.fileSecurity) ? container.decode(Bool.self, forKey: .fileSecurity) : false
+        self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : true
+        self.maximumFileSize = try container.contains(.maximumFileSize) ? container.decode(Int.self, forKey: .maximumFileSize) : 0
+        self.allowedFileExtensions = try container.contains(.allowedFileExtensions) ? container.decode([String].self, forKey: .allowedFileExtensions) : []
+        self.compression = try container.contains(.compression) ? container.decode(String.self, forKey: .compression) : ""
+        self.encryption = try container.contains(.encryption) ? container.decode(Bool.self, forKey: .encryption) : true
+        self.antivirus = try container.contains(.antivirus) ? container.decode(Bool.self, forKey: .antivirus) : true
+        self.transformations = try container.contains(.transformations) ? container.decode(Bool.self, forKey: .transformations) : true
+        self.totalSize = try container.contains(.totalSize) ? container.decode(Int.self, forKey: .totalSize) : 0
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -140,6 +140,24 @@ open class Bucket: Codable {
     }
 
     public static func from(map: [String: Any]) -> Bucket {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+            "$permissions": [Any](),
+            "fileSecurity": false,
+            "name": "",
+            "enabled": true,
+            "maximumFileSize": 0,
+            "allowedFileExtensions": [Any](),
+            "compression": "",
+            "encryption": true,
+            "antivirus": true,
+            "transformations": true,
+            "totalSize": 0,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return Bucket(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

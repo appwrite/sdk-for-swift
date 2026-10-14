@@ -1,5 +1,26 @@
 # Change Log
 
+## 23.0.0
+
+* Breaking: removed `account.listLogs` and `users.listLogs`
+* Breaking: removed `organization.createKey`, `getKey`, `listKeys`, `updateKey` and `deleteKey`, and `OrganizationKeyScopes`
+* Breaking: removed the `Log`, `LogList`, `DevKey` and `DedicatedDatabaseSpecificationPricing` models
+* Breaking: removed `Project.devKeys`, `DedicatedDatabaseSpecificationList.pricing` and the unsent `Block` fields
+* Breaking: removed `Client.setDevKey`
+* Breaking: removed `BillingPlanGroup.starter`
+* Breaking: requests send response format `2.5.0`
+* Breaking: `resource` on the `oauth2` authorize, PAR, device and token methods is now `[String]?`
+* Breaking: `project.updateOAuth2Kakao` takes `enabled` before `prompt`
+* Breaking: `BackupRestoration.options` is now `[String: AnyCodable]`
+* Breaking: billing, backup and dedicated database fields the server can omit are now optional
+* Breaking: `providerIdToken`, `fingerprints`, OAuth2 `prompt` and native fields are now non-optional
+* Breaking: model initializers follow the API field order
+* Added: `Topic` helper to build MQTT topics for push messages
+* Updated: models fill documented defaults for fields missing from a response
+* Updated: empty required ID parameters now throw `AppwriteException` before sending the request
+* Updated: async-http-client 1.36.1 and swift-nio 2.102.0; swift-distributed-tracing pinned below 1.6.0
+* Fixed: query values with `&`, `=`, `+` or `#` are now percent-encoded
+
 ## 22.4.0
 
 * Added: `domains` service to manage domains, DNS records, email presets, prices, transfer status and zones

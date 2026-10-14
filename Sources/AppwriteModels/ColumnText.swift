@@ -66,14 +66,14 @@ open class ColumnText: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.key = try container.decode(String.self, forKey: .key)
-        self.type = try container.decode(String.self, forKey: .type)
+        self.key = try container.contains(.key) ? container.decode(String.self, forKey: .key) : ""
+        self.type = try container.contains(.type) ? container.decode(String.self, forKey: .type) : ""
         self.status = AppwriteEnums.ColumnStatus(rawValue: try container.decode(String.self, forKey: .status))!
-        self.error = try container.decode(String.self, forKey: .error)
-        self.`required` = try container.decode(Bool.self, forKey: .`required`)
+        self.error = try container.contains(.error) ? container.decode(String.self, forKey: .error) : ""
+        self.`required` = try container.contains(.`required`) ? container.decode(Bool.self, forKey: .`required`) : false
         self.array = try container.decodeIfPresent(Bool.self, forKey: .array)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
         self.`default` = try container.decodeIfPresent(String.self, forKey: .`default`)
         self.encrypt = try container.decodeIfPresent(Bool.self, forKey: .encrypt)
     }
@@ -109,6 +109,16 @@ open class ColumnText: Codable {
     }
 
     public static func from(map: [String: Any]) -> ColumnText {
+        let defaults: [String: Any] = [
+            "key": "",
+            "type": "",
+            "error": "",
+            "required": false,
+            "$createdAt": "",
+            "$updatedAt": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return ColumnText(
             key: map["key"] as! String,
             type: map["type"] as! String,

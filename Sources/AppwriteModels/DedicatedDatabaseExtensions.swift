@@ -30,9 +30,9 @@ open class DedicatedDatabaseExtensions: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.installed = try container.decode([String].self, forKey: .installed)
-        self.available = try container.decode([String].self, forKey: .available)
-        self.metadata = try container.decode([PostgresExtension].self, forKey: .metadata)
+        self.installed = try container.contains(.installed) ? container.decode([String].self, forKey: .installed) : []
+        self.available = try container.contains(.available) ? container.decode([String].self, forKey: .available) : []
+        self.metadata = try container.contains(.metadata) ? container.decode([PostgresExtension].self, forKey: .metadata) : []
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -52,6 +52,13 @@ open class DedicatedDatabaseExtensions: Codable {
     }
 
     public static func from(map: [String: Any]) -> DedicatedDatabaseExtensions {
+        let defaults: [String: Any] = [
+            "installed": [Any](),
+            "available": [Any](),
+            "metadata": [Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return DedicatedDatabaseExtensions(
             installed: map["installed"] as! [String],
             available: map["available"] as! [String],

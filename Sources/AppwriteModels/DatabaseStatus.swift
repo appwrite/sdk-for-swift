@@ -31,8 +31,8 @@ open class DatabaseStatus: Codable {
     public let version: String
     /// Database uptime in seconds.
     public let uptime: Int
-    /// Connection statistics.
-    public let connections: DatabaseStatusConnections
+    /// Connection statistics. Null when the database has not been probed.
+    public let connections: DatabaseStatusConnections?
     /// Requested replication sync mode. Possible values: async, sync, quorum. Compare with effectiveSyncMode for what the primary is enforcing.
     public let syncMode: String
     /// Replication sync mode the primary is actually enforcing. Null when high availability is disabled or the state could not be read.
@@ -56,7 +56,7 @@ open class DatabaseStatus: Codable {
         engine: String,
         version: String,
         uptime: Int,
-        connections: DatabaseStatusConnections,
+        connections: DatabaseStatusConnections?,
         syncMode: String,
         effectiveSyncMode: String?,
         syncDegraded: Bool,
@@ -85,20 +85,20 @@ open class DatabaseStatus: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.health = try container.decode(String.self, forKey: .health)
-        self.ready = try container.decode(Bool.self, forKey: .ready)
-        self.engine = try container.decode(String.self, forKey: .engine)
-        self.version = try container.decode(String.self, forKey: .version)
-        self.uptime = try container.decode(Int.self, forKey: .uptime)
-        self.connections = try container.decode(DatabaseStatusConnections.self, forKey: .connections)
-        self.syncMode = try container.decode(String.self, forKey: .syncMode)
+        self.health = try container.contains(.health) ? container.decode(String.self, forKey: .health) : "unknown"
+        self.ready = try container.contains(.ready) ? container.decode(Bool.self, forKey: .ready) : false
+        self.engine = try container.contains(.engine) ? container.decode(String.self, forKey: .engine) : "postgresql"
+        self.version = try container.contains(.version) ? container.decode(String.self, forKey: .version) : ""
+        self.uptime = try container.contains(.uptime) ? container.decode(Int.self, forKey: .uptime) : 0
+        self.connections = try container.decodeIfPresent(DatabaseStatusConnections.self, forKey: .connections)
+        self.syncMode = try container.contains(.syncMode) ? container.decode(String.self, forKey: .syncMode) : "async"
         self.effectiveSyncMode = try container.decodeIfPresent(String.self, forKey: .effectiveSyncMode)
-        self.syncDegraded = try container.decode(Bool.self, forKey: .syncDegraded)
-        self.syncAcknowledgements = try container.decode(Int.self, forKey: .syncAcknowledgements)
-        self.syncStandbyCount = try container.decode(Int.self, forKey: .syncStandbyCount)
+        self.syncDegraded = try container.contains(.syncDegraded) ? container.decode(Bool.self, forKey: .syncDegraded) : false
+        self.syncAcknowledgements = try container.contains(.syncAcknowledgements) ? container.decode(Int.self, forKey: .syncAcknowledgements) : 0
+        self.syncStandbyCount = try container.contains(.syncStandbyCount) ? container.decode(Int.self, forKey: .syncStandbyCount) : 0
         self.syncStateConfirmed = try container.decodeIfPresent(Bool.self, forKey: .syncStateConfirmed)
-        self.replicas = try container.decode([DatabaseStatusReplica].self, forKey: .replicas)
-        self.volumes = try container.decode([DatabaseStatusVolume].self, forKey: .volumes)
+        self.replicas = try container.contains(.replicas) ? container.decode([DatabaseStatusReplica].self, forKey: .replicas) : []
+        self.volumes = try container.contains(.volumes) ? container.decode([DatabaseStatusVolume].self, forKey: .volumes) : []
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -109,7 +109,7 @@ open class DatabaseStatus: Codable {
         try container.encode(engine, forKey: .engine)
         try container.encode(version, forKey: .version)
         try container.encode(uptime, forKey: .uptime)
-        try container.encode(connections, forKey: .connections)
+        try container.encodeIfPresent(connections, forKey: .connections)
         try container.encode(syncMode, forKey: .syncMode)
         try container.encodeIfPresent(effectiveSyncMode, forKey: .effectiveSyncMode)
         try container.encode(syncDegraded, forKey: .syncDegraded)
@@ -127,7 +127,7 @@ open class DatabaseStatus: Codable {
             "engine": engine as Any,
             "version": version as Any,
             "uptime": uptime as Any,
-            "connections": connections.toMap() as Any,
+            "connections": connections?.toMap() as Any,
             "syncMode": syncMode as Any,
             "effectiveSyncMode": effectiveSyncMode as Any,
             "syncDegraded": syncDegraded as Any,
@@ -140,13 +140,28 @@ open class DatabaseStatus: Codable {
     }
 
     public static func from(map: [String: Any]) -> DatabaseStatus {
+        let defaults: [String: Any] = [
+            "health": "unknown",
+            "ready": false,
+            "engine": "postgresql",
+            "version": "",
+            "uptime": 0,
+            "syncMode": "async",
+            "syncDegraded": false,
+            "syncAcknowledgements": 0,
+            "syncStandbyCount": 0,
+            "replicas": [Any](),
+            "volumes": [Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return DatabaseStatus(
             health: map["health"] as! String,
             ready: map["ready"] as! Bool,
             engine: map["engine"] as! String,
             version: map["version"] as! String,
             uptime: map["uptime"] as! Int,
-            connections: DatabaseStatusConnections.from(map: map["connections"] as! [String: Any]),
+            connections: map["connections"] as? [String: Any] != nil ? DatabaseStatusConnections.from(map: map["connections"] as! [String: Any]) : nil,
             syncMode: map["syncMode"] as! String,
             effectiveSyncMode: map["effectiveSyncMode"] as? String,
             syncDegraded: map["syncDegraded"] as! Bool,

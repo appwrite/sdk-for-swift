@@ -180,39 +180,39 @@ open class Function: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.execute = try container.decode([String].self, forKey: .execute)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.enabled = try container.decode(Bool.self, forKey: .enabled)
-        self.live = try container.decode(Bool.self, forKey: .live)
-        self.logging = try container.decode(Bool.self, forKey: .logging)
-        self.runtime = try container.decode(String.self, forKey: .runtime)
-        self.deploymentRetention = try container.decode(Int.self, forKey: .deploymentRetention)
-        self.deploymentId = try container.decode(String.self, forKey: .deploymentId)
-        self.deploymentCreatedAt = try container.decode(String.self, forKey: .deploymentCreatedAt)
-        self.latestDeploymentId = try container.decode(String.self, forKey: .latestDeploymentId)
-        self.latestDeploymentCreatedAt = try container.decode(String.self, forKey: .latestDeploymentCreatedAt)
-        self.latestDeploymentStatus = try container.decode(String.self, forKey: .latestDeploymentStatus)
-        self.scopes = try container.decode([String].self, forKey: .scopes)
-        self.vars = try container.decode([Variable].self, forKey: .vars)
-        self.events = try container.decode([String].self, forKey: .events)
-        self.schedule = try container.decode(String.self, forKey: .schedule)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
+        self.execute = try container.contains(.execute) ? container.decode([String].self, forKey: .execute) : []
+        self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : true
+        self.live = try container.contains(.live) ? container.decode(Bool.self, forKey: .live) : true
+        self.logging = try container.contains(.logging) ? container.decode(Bool.self, forKey: .logging) : true
+        self.runtime = try container.contains(.runtime) ? container.decode(String.self, forKey: .runtime) : ""
+        self.deploymentRetention = try container.contains(.deploymentRetention) ? container.decode(Int.self, forKey: .deploymentRetention) : 0
+        self.deploymentId = try container.contains(.deploymentId) ? container.decode(String.self, forKey: .deploymentId) : ""
+        self.deploymentCreatedAt = try container.contains(.deploymentCreatedAt) ? container.decode(String.self, forKey: .deploymentCreatedAt) : ""
+        self.latestDeploymentId = try container.contains(.latestDeploymentId) ? container.decode(String.self, forKey: .latestDeploymentId) : ""
+        self.latestDeploymentCreatedAt = try container.contains(.latestDeploymentCreatedAt) ? container.decode(String.self, forKey: .latestDeploymentCreatedAt) : ""
+        self.latestDeploymentStatus = try container.contains(.latestDeploymentStatus) ? container.decode(String.self, forKey: .latestDeploymentStatus) : ""
+        self.scopes = try container.contains(.scopes) ? container.decode([String].self, forKey: .scopes) : []
+        self.vars = try container.contains(.vars) ? container.decode([Variable].self, forKey: .vars) : []
+        self.events = try container.contains(.events) ? container.decode([String].self, forKey: .events) : []
+        self.schedule = try container.contains(.schedule) ? container.decode(String.self, forKey: .schedule) : ""
         self.interval = try container.decodeIfPresent(Int.self, forKey: .interval)
-        self.timeout = try container.decode(Int.self, forKey: .timeout)
-        self.entrypoint = try container.decode(String.self, forKey: .entrypoint)
-        self.commands = try container.decode(String.self, forKey: .commands)
-        self.version = try container.decode(String.self, forKey: .version)
-        self.installationId = try container.decode(String.self, forKey: .installationId)
-        self.providerRepositoryId = try container.decode(String.self, forKey: .providerRepositoryId)
-        self.providerBranch = try container.decode(String.self, forKey: .providerBranch)
-        self.providerRootDirectory = try container.decode(String.self, forKey: .providerRootDirectory)
-        self.providerSilentMode = try container.decode(Bool.self, forKey: .providerSilentMode)
-        self.providerBranches = try container.decode([String].self, forKey: .providerBranches)
-        self.providerPaths = try container.decode([String].self, forKey: .providerPaths)
-        self.buildSpecification = try container.decode(String.self, forKey: .buildSpecification)
-        self.runtimeSpecification = try container.decode(String.self, forKey: .runtimeSpecification)
+        self.timeout = try container.contains(.timeout) ? container.decode(Int.self, forKey: .timeout) : 15
+        self.entrypoint = try container.contains(.entrypoint) ? container.decode(String.self, forKey: .entrypoint) : ""
+        self.commands = try container.contains(.commands) ? container.decode(String.self, forKey: .commands) : ""
+        self.version = try container.contains(.version) ? container.decode(String.self, forKey: .version) : "v5"
+        self.installationId = try container.contains(.installationId) ? container.decode(String.self, forKey: .installationId) : ""
+        self.providerRepositoryId = try container.contains(.providerRepositoryId) ? container.decode(String.self, forKey: .providerRepositoryId) : ""
+        self.providerBranch = try container.contains(.providerBranch) ? container.decode(String.self, forKey: .providerBranch) : ""
+        self.providerRootDirectory = try container.contains(.providerRootDirectory) ? container.decode(String.self, forKey: .providerRootDirectory) : ""
+        self.providerSilentMode = try container.contains(.providerSilentMode) ? container.decode(Bool.self, forKey: .providerSilentMode) : false
+        self.providerBranches = try container.contains(.providerBranches) ? container.decode([String].self, forKey: .providerBranches) : []
+        self.providerPaths = try container.contains(.providerPaths) ? container.decode([String].self, forKey: .providerPaths) : []
+        self.buildSpecification = try container.contains(.buildSpecification) ? container.decode(String.self, forKey: .buildSpecification) : "s-1vcpu-512mb"
+        self.runtimeSpecification = try container.contains(.runtimeSpecification) ? container.decode(String.self, forKey: .runtimeSpecification) : "s-1vcpu-512mb"
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -292,6 +292,42 @@ open class Function: Codable {
     }
 
     public static func from(map: [String: Any]) -> Function {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+            "execute": [Any](),
+            "name": "",
+            "enabled": true,
+            "live": true,
+            "logging": true,
+            "runtime": "",
+            "deploymentRetention": 0,
+            "deploymentId": "",
+            "deploymentCreatedAt": "",
+            "latestDeploymentId": "",
+            "latestDeploymentCreatedAt": "",
+            "latestDeploymentStatus": "",
+            "scopes": [Any](),
+            "vars": [Any](),
+            "events": [Any](),
+            "schedule": "",
+            "timeout": 15,
+            "entrypoint": "",
+            "commands": "",
+            "version": "v5",
+            "installationId": "",
+            "providerRepositoryId": "",
+            "providerBranch": "",
+            "providerRootDirectory": "",
+            "providerSilentMode": false,
+            "providerBranches": [Any](),
+            "providerPaths": [Any](),
+            "buildSpecification": "s-1vcpu-512mb",
+            "runtimeSpecification": "s-1vcpu-512mb",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return Function(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

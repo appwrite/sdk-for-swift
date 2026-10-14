@@ -65,15 +65,15 @@ open class ColumnIndex: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.key = try container.decode(String.self, forKey: .key)
-        self.type = try container.decode(String.self, forKey: .type)
-        self.status = try container.decode(String.self, forKey: .status)
-        self.error = try container.decode(String.self, forKey: .error)
-        self.columns = try container.decode([String].self, forKey: .columns)
-        self.lengths = try container.decode([Int].self, forKey: .lengths)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
+        self.key = try container.contains(.key) ? container.decode(String.self, forKey: .key) : ""
+        self.type = try container.contains(.type) ? container.decode(String.self, forKey: .type) : ""
+        self.status = try container.contains(.status) ? container.decode(String.self, forKey: .status) : ""
+        self.error = try container.contains(.error) ? container.decode(String.self, forKey: .error) : ""
+        self.columns = try container.contains(.columns) ? container.decode([String].self, forKey: .columns) : []
+        self.lengths = try container.contains(.lengths) ? container.decode([Int].self, forKey: .lengths) : []
         self.orders = try container.decodeIfPresent([String].self, forKey: .orders)
     }
 
@@ -108,6 +108,19 @@ open class ColumnIndex: Codable {
     }
 
     public static func from(map: [String: Any]) -> ColumnIndex {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+            "key": "",
+            "type": "",
+            "status": "",
+            "error": "",
+            "columns": [Any](),
+            "lengths": [Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return ColumnIndex(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,
