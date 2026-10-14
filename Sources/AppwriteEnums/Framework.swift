@@ -13,6 +13,7 @@ public enum Framework: String, Codable, CustomStringConvertible {
     case remix = "remix"
     case lynx = "lynx"
     case flutter = "flutter"
+    case jaspr = "jaspr"
     case reactNative = "react-native"
     case vite = "vite"
     case other = "other"

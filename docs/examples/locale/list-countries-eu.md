@@ -8,6 +8,8 @@ let client = Client()
 
 let locale = Locale(client)
 
-let countryList = try await locale.listCountriesEU()
+let countryList = try await locale.listCountriesEU(
+    total: false // optional
+)
 
 ```

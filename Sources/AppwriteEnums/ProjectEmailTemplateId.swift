@@ -8,6 +8,8 @@ public enum ProjectEmailTemplateId: String, Codable, CustomStringConvertible {
     case mfaChallenge = "mfaChallenge"
     case sessionAlert = "sessionAlert"
     case otpSession = "otpSession"
+    case otpVerification = "otpVerification"
+    case otpRecovery = "otpRecovery"
 
     public var description: String {
         return rawValue

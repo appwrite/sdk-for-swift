@@ -157,13 +157,19 @@ open class Sites: Service {
     /// Get a list of all frameworks that are currently available on the server
     /// instance.
     ///
+    /// - Parameters:
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.FrameworkList
     ///
-    open func listFrameworks() async throws -> AppwriteModels.FrameworkList {
+    open func listFrameworks(
+        total: Bool? = nil
+    ) async throws -> AppwriteModels.FrameworkList {
         let apiPath: String = "/sites/frameworks"
 
-        let apiParams: [String: Any] = [:]
+        let apiParams: [String: Any?] = [
+            "total": total
+        ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
@@ -187,16 +193,19 @@ open class Sites: Service {
     ///
     /// - Parameters:
     ///   - type: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.SpecificationList
     ///
     open func listSpecifications(
-        type: String? = nil
+        type: String? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.SpecificationList {
         let apiPath: String = "/sites/specifications"
 
         let apiParams: [String: Any?] = [
-            "type": type
+            "type": type,
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [

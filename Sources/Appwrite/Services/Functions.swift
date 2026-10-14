@@ -156,13 +156,19 @@ open class Functions: Service {
     ///
     /// Get a list of all runtimes that are currently active on your instance.
     ///
+    /// - Parameters:
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.RuntimeList
     ///
-    open func listRuntimes() async throws -> AppwriteModels.RuntimeList {
+    open func listRuntimes(
+        total: Bool? = nil
+    ) async throws -> AppwriteModels.RuntimeList {
         let apiPath: String = "/functions/runtimes"
 
-        let apiParams: [String: Any] = [:]
+        let apiParams: [String: Any?] = [
+            "total": total
+        ]
 
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
@@ -186,16 +192,19 @@ open class Functions: Service {
     ///
     /// - Parameters:
     ///   - type: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.SpecificationList
     ///
     open func listSpecifications(
-        type: String? = nil
+        type: String? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.SpecificationList {
         let apiPath: String = "/functions/specifications"
 
         let apiParams: [String: Any?] = [
-            "type": type
+            "type": type,
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [

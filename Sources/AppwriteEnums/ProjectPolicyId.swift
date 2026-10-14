@@ -5,6 +5,8 @@ public enum ProjectPolicyId: String, Codable, CustomStringConvertible {
     case passwordHistory = "password-history"
     case passwordStrength = "password-strength"
     case passwordPersonalData = "password-personal-data"
+    case passwordPwned = "password-pwned"
+    case passwordRotation = "password-rotation"
     case sessionAlert = "session-alert"
     case sessionDuration = "session-duration"
     case sessionInvalidation = "session-invalidation"

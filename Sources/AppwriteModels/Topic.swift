@@ -13,6 +13,8 @@ open class Topic: Codable {
         case smsTotal = "smsTotal"
         case pushTotal = "pushTotal"
         case subscribe = "subscribe"
+        case qos = "qos"
+        case expiry = "expiry"
     }
 
     /// Topic ID.
@@ -31,6 +33,10 @@ open class Topic: Codable {
     public let pushTotal: Int
     /// Subscribe permissions.
     public let subscribe: [String]
+    /// MQTT QoS for delivery on this topic. Null lets the subscriber choose their level.
+    public let qos: Int?
+    /// Message retention in seconds for offline delivery.
+    public let expiry: Int?
 
     init(
         id: String,
@@ -40,7 +46,9 @@ open class Topic: Codable {
         emailTotal: Int,
         smsTotal: Int,
         pushTotal: Int,
-        subscribe: [String]
+        subscribe: [String],
+        qos: Int?,
+        expiry: Int?
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -50,6 +58,8 @@ open class Topic: Codable {
         self.smsTotal = smsTotal
         self.pushTotal = pushTotal
         self.subscribe = subscribe
+        self.qos = qos
+        self.expiry = expiry
     }
 
     public required init(from decoder: Decoder) throws {
@@ -63,6 +73,8 @@ open class Topic: Codable {
         self.smsTotal = try container.decode(Int.self, forKey: .smsTotal)
         self.pushTotal = try container.decode(Int.self, forKey: .pushTotal)
         self.subscribe = try container.decode([String].self, forKey: .subscribe)
+        self.qos = try container.decodeIfPresent(Int.self, forKey: .qos)
+        self.expiry = try container.decodeIfPresent(Int.self, forKey: .expiry)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -76,6 +88,8 @@ open class Topic: Codable {
         try container.encode(smsTotal, forKey: .smsTotal)
         try container.encode(pushTotal, forKey: .pushTotal)
         try container.encode(subscribe, forKey: .subscribe)
+        try container.encodeIfPresent(qos, forKey: .qos)
+        try container.encodeIfPresent(expiry, forKey: .expiry)
     }
 
     public func toMap() -> [String: Any] {
@@ -88,6 +102,8 @@ open class Topic: Codable {
             "smsTotal": smsTotal as Any,
             "pushTotal": pushTotal as Any,
             "subscribe": subscribe as Any,
+            "qos": qos as Any,
+            "expiry": expiry as Any,
         ]
     }
 
@@ -100,7 +116,9 @@ open class Topic: Codable {
             emailTotal: map["emailTotal"] as! Int,
             smsTotal: map["smsTotal"] as! Int,
             pushTotal: map["pushTotal"] as! Int,
-            subscribe: map["subscribe"] as! [String]
+            subscribe: map["subscribe"] as! [String],
+            qos: map["qos"] as? Int,
+            expiry: map["expiry"] as? Int
         )
     }
 }

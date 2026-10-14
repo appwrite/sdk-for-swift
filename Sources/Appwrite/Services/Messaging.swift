@@ -64,6 +64,8 @@ open class Messaging: Service {
     ///   - draft: Bool (optional)
     ///   - html: Bool (optional)
     ///   - scheduledAt: String (optional)
+    ///   - replyToEmail: String (optional)
+    ///   - replyToName: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Message
     ///
@@ -79,7 +81,9 @@ open class Messaging: Service {
         attachments: [String]? = nil,
         draft: Bool? = nil,
         html: Bool? = nil,
-        scheduledAt: String? = nil
+        scheduledAt: String? = nil,
+        replyToEmail: String? = nil,
+        replyToName: String? = nil
     ) async throws -> AppwriteModels.Message {
         let apiPath: String = "/messaging/messages/email"
 
@@ -96,6 +100,8 @@ open class Messaging: Service {
             "draft": draft,
             "html": html,
             "scheduledAt": scheduledAt,
+            "replyToEmail": replyToEmail,
+            "replyToName": replyToName,
         ]
 
         let apiHeaders: [String: String] = [
@@ -134,6 +140,8 @@ open class Messaging: Service {
     ///   - bcc: [String] (optional)
     ///   - scheduledAt: String (optional)
     ///   - attachments: [String] (optional)
+    ///   - replyToEmail: String (optional)
+    ///   - replyToName: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Message
     ///
@@ -149,7 +157,9 @@ open class Messaging: Service {
         cc: [String]? = nil,
         bcc: [String]? = nil,
         scheduledAt: String? = nil,
-        attachments: [String]? = nil
+        attachments: [String]? = nil,
+        replyToEmail: String? = nil,
+        replyToName: String? = nil
     ) async throws -> AppwriteModels.Message {
         let apiPath: String = "/messaging/messages/email/{messageId}"
             .replacingOccurrences(of: "{messageId}", with: messageId)
@@ -166,6 +176,8 @@ open class Messaging: Service {
             "bcc": bcc,
             "scheduledAt": scheduledAt,
             "attachments": attachments,
+            "replyToEmail": replyToEmail,
+            "replyToName": replyToName,
         ]
 
         let apiHeaders: [String: String] = [
@@ -209,6 +221,7 @@ open class Messaging: Service {
     ///   - contentAvailable: Bool (optional)
     ///   - critical: Bool (optional)
     ///   - priority: AppwriteEnums.MessagePriority (optional)
+    ///   - channelId: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Message
     ///
@@ -231,7 +244,8 @@ open class Messaging: Service {
         scheduledAt: String? = nil,
         contentAvailable: Bool? = nil,
         critical: Bool? = nil,
-        priority: AppwriteEnums.MessagePriority? = nil
+        priority: AppwriteEnums.MessagePriority? = nil,
+        channelId: String? = nil
     ) async throws -> AppwriteModels.Message {
         let apiPath: String = "/messaging/messages/push"
 
@@ -255,6 +269,7 @@ open class Messaging: Service {
             "contentAvailable": contentAvailable,
             "critical": critical,
             "priority": priority?.rawValue,
+            "channelId": channelId,
         ]
 
         let apiHeaders: [String: String] = [
@@ -300,6 +315,7 @@ open class Messaging: Service {
     ///   - contentAvailable: Bool (optional)
     ///   - critical: Bool (optional)
     ///   - priority: AppwriteEnums.MessagePriority (optional)
+    ///   - channelId: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Message
     ///
@@ -322,7 +338,8 @@ open class Messaging: Service {
         scheduledAt: String? = nil,
         contentAvailable: Bool? = nil,
         critical: Bool? = nil,
-        priority: AppwriteEnums.MessagePriority? = nil
+        priority: AppwriteEnums.MessagePriority? = nil,
+        channelId: String? = nil
     ) async throws -> AppwriteModels.Message {
         let apiPath: String = "/messaging/messages/push/{messageId}"
             .replacingOccurrences(of: "{messageId}", with: messageId)
@@ -346,6 +363,7 @@ open class Messaging: Service {
             "contentAvailable": contentAvailable,
             "critical": critical,
             "priority": priority?.rawValue,
+            "channelId": channelId,
         ]
 
         let apiHeaders: [String: String] = [
@@ -932,6 +950,104 @@ open class Messaging: Service {
             "teamId": teamId,
             "bundleId": bundleId,
             "sandbox": sandbox,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
+            return AppwriteModels.Provider.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Create a new Appwrite push provider.
+    ///
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String
+    ///   - enabled: Bool (optional)
+    ///   - qos: Int (optional)
+    ///   - expiry: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
+    ///
+    open func createAppwriteProvider(
+        providerId: String,
+        name: String,
+        enabled: Bool? = nil,
+        qos: Int? = nil,
+        expiry: Int? = nil
+    ) async throws -> AppwriteModels.Provider {
+        let apiPath: String = "/messaging/providers/appwrite"
+
+        let apiParams: [String: Any?] = [
+            "providerId": providerId,
+            "name": name,
+            "enabled": enabled,
+            "qos": qos,
+            "expiry": expiry,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
+            return AppwriteModels.Provider.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Update an Appwrite push provider by its unique ID.
+    ///
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String (optional)
+    ///   - enabled: Bool (optional)
+    ///   - qos: Int (optional)
+    ///   - expiry: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
+    ///
+    open func updateAppwriteProvider(
+        providerId: String,
+        name: String? = nil,
+        enabled: Bool? = nil,
+        qos: Int? = nil,
+        expiry: Int? = nil
+    ) async throws -> AppwriteModels.Provider {
+        if providerId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"providerId\"")
+        }
+
+        let apiPath: String = "/messaging/providers/appwrite/{providerId}"
+            .replacingOccurrences(of: "{providerId}", with: providerId)
+
+        let apiParams: [String: Any?] = [
+            "name": name,
+            "enabled": enabled,
+            "qos": qos,
+            "expiry": expiry,
         ]
 
         let apiHeaders: [String: String] = [
@@ -2508,13 +2624,17 @@ open class Messaging: Service {
     ///   - topicId: String
     ///   - name: String
     ///   - subscribe: [String] (optional)
+    ///   - qos: Int (optional)
+    ///   - expiry: Int (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Topic
     ///
     open func createTopic(
         topicId: String,
         name: String,
-        subscribe: [String]? = nil
+        subscribe: [String]? = nil,
+        qos: Int? = nil,
+        expiry: Int? = nil
     ) async throws -> AppwriteModels.Topic {
         let apiPath: String = "/messaging/topics"
 
@@ -2522,6 +2642,8 @@ open class Messaging: Service {
             "topicId": topicId,
             "name": name,
             "subscribe": subscribe,
+            "qos": qos,
+            "expiry": expiry,
         ]
 
         let apiHeaders: [String: String] = [
@@ -2582,13 +2704,17 @@ open class Messaging: Service {
     ///   - topicId: String
     ///   - name: String (optional)
     ///   - subscribe: [String] (optional)
+    ///   - qos: Int (optional)
+    ///   - expiry: Int (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Topic
     ///
     open func updateTopic(
         topicId: String,
         name: String? = nil,
-        subscribe: [String]? = nil
+        subscribe: [String]? = nil,
+        qos: Int? = nil,
+        expiry: Int? = nil
     ) async throws -> AppwriteModels.Topic {
         let apiPath: String = "/messaging/topics/{topicId}"
             .replacingOccurrences(of: "{topicId}", with: topicId)
@@ -2596,6 +2722,8 @@ open class Messaging: Service {
         let apiParams: [String: Any?] = [
             "name": name,
             "subscribe": subscribe,
+            "qos": qos,
+            "expiry": expiry,
         ]
 
         let apiHeaders: [String: String] = [

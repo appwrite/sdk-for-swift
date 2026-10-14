@@ -8,6 +8,8 @@ let client = Client()
 
 let sites = Sites(client)
 
-let frameworkList = try await sites.listFrameworks()
+let frameworkList = try await sites.listFrameworks(
+    total: false // optional
+)
 
 ```
