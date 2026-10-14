@@ -35,10 +35,10 @@ open class InsightCTA: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.label = try container.decode(String.self, forKey: .label)
-        self.service = try container.decode(String.self, forKey: .service)
-        self.method = try container.decode(String.self, forKey: .method)
-        self.params = try container.decode([String: AnyCodable].self, forKey: .params)
+        self.label = try container.contains(.label) ? container.decode(String.self, forKey: .label) : ""
+        self.service = try container.contains(.service) ? container.decode(String.self, forKey: .service) : ""
+        self.method = try container.contains(.method) ? container.decode(String.self, forKey: .method) : ""
+        self.params = try container.contains(.params) ? container.decode([String: AnyCodable].self, forKey: .params) : ([String: Any]()).mapValues { AnyCodable($0) }
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -60,6 +60,14 @@ open class InsightCTA: Codable {
     }
 
     public static func from(map: [String: Any]) -> InsightCTA {
+        let defaults: [String: Any] = [
+            "label": "",
+            "service": "",
+            "method": "",
+            "params": [String: Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return InsightCTA(
             label: map["label"] as! String,
             service: map["service"] as! String,

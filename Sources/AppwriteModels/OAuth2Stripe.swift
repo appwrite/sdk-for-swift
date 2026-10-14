@@ -35,10 +35,10 @@ open class OAuth2Stripe: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.enabled = try container.decode(Bool.self, forKey: .enabled)
-        self.clientId = try container.decode(String.self, forKey: .clientId)
-        self.apiSecretKey = try container.decode(String.self, forKey: .apiSecretKey)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : false
+        self.clientId = try container.contains(.clientId) ? container.decode(String.self, forKey: .clientId) : ""
+        self.apiSecretKey = try container.contains(.apiSecretKey) ? container.decode(String.self, forKey: .apiSecretKey) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -60,6 +60,14 @@ open class OAuth2Stripe: Codable {
     }
 
     public static func from(map: [String: Any]) -> OAuth2Stripe {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "enabled": false,
+            "clientId": "",
+            "apiSecretKey": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return OAuth2Stripe(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

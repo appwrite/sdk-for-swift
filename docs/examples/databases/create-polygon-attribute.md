@@ -13,7 +13,26 @@ let attributePolygon = try await databases.createPolygonAttribute(
     collectionId: "<COLLECTION_ID>",
     key: "<KEY>",
     required: false,
-    default: [[[1, 2], [3, 4], [5, 6], [1, 2]]] // optional
+    default: [
+        [
+            [
+                1,
+                2
+            ],
+            [
+                3,
+                4
+            ],
+            [
+                5,
+                6
+            ],
+            [
+                1,
+                2
+            ]
+        ]
+    ] // optional
 )
 
 ```

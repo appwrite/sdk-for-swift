@@ -236,6 +236,10 @@ open class Sites: Service {
     open func get(
         siteId: String
     ) async throws -> AppwriteModels.Site {
+        if siteId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"siteId\"")
+        }
+
         let apiPath: String = "/sites/{siteId}"
             .replacingOccurrences(of: "{siteId}", with: siteId)
 
@@ -315,6 +319,10 @@ open class Sites: Service {
         deploymentRetention: Int? = nil,
         scopes: [AppwriteEnums.ProjectKeyScopes]? = nil
     ) async throws -> AppwriteModels.Site {
+        if siteId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"siteId\"")
+        }
+
         let apiPath: String = "/sites/{siteId}"
             .replacingOccurrences(of: "{siteId}", with: siteId)
 
@@ -373,6 +381,10 @@ open class Sites: Service {
     open func delete(
         siteId: String
     ) async throws -> Any {
+        if siteId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"siteId\"")
+        }
+
         let apiPath: String = "/sites/{siteId}"
             .replacingOccurrences(of: "{siteId}", with: siteId)
 
@@ -381,6 +393,7 @@ open class Sites: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -404,6 +417,10 @@ open class Sites: Service {
         siteId: String,
         deploymentId: String
     ) async throws -> AppwriteModels.Site {
+        if siteId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"siteId\"")
+        }
+
         let apiPath: String = "/sites/{siteId}/deployment"
             .replacingOccurrences(of: "{siteId}", with: siteId)
 
@@ -447,6 +464,10 @@ open class Sites: Service {
         search: String? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.DeploymentList {
+        if siteId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"siteId\"")
+        }
+
         let apiPath: String = "/sites/{siteId}/deployments"
             .replacingOccurrences(of: "{siteId}", with: siteId)
 
@@ -497,6 +518,10 @@ open class Sites: Service {
         activate: Bool? = nil,
         onProgress: ((UploadProgress) -> Void)? = nil
     ) async throws -> AppwriteModels.Deployment {
+        if siteId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"siteId\"")
+        }
+
         let apiPath: String = "/sites/{siteId}/deployments"
             .replacingOccurrences(of: "{siteId}", with: siteId)
 
@@ -527,7 +552,8 @@ open class Sites: Service {
             paramName: paramName,
             idParamName: idParamName,
             converter: converter,
-            onProgress: onProgress
+            onProgress: onProgress,
+            method: "POST"
         )
     }
     ///
@@ -547,6 +573,10 @@ open class Sites: Service {
         siteId: String,
         deploymentId: String
     ) async throws -> AppwriteModels.Deployment {
+        if siteId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"siteId\"")
+        }
+
         let apiPath: String = "/sites/{siteId}/deployments/duplicate"
             .replacingOccurrences(of: "{siteId}", with: siteId)
 
@@ -599,6 +629,10 @@ open class Sites: Service {
         reference: String,
         activate: Bool? = nil
     ) async throws -> AppwriteModels.Deployment {
+        if siteId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"siteId\"")
+        }
+
         let apiPath: String = "/sites/{siteId}/deployments/template"
             .replacingOccurrences(of: "{siteId}", with: siteId)
 
@@ -648,6 +682,10 @@ open class Sites: Service {
         reference: String,
         activate: Bool? = nil
     ) async throws -> AppwriteModels.Deployment {
+        if siteId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"siteId\"")
+        }
+
         let apiPath: String = "/sites/{siteId}/deployments/vcs"
             .replacingOccurrences(of: "{siteId}", with: siteId)
 
@@ -688,6 +726,13 @@ open class Sites: Service {
         siteId: String,
         deploymentId: String
     ) async throws -> AppwriteModels.Deployment {
+        if siteId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"siteId\"")
+        }
+        if deploymentId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"deploymentId\"")
+        }
+
         let apiPath: String = "/sites/{siteId}/deployments/{deploymentId}"
             .replacingOccurrences(of: "{siteId}", with: siteId)
             .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
@@ -724,6 +769,13 @@ open class Sites: Service {
         siteId: String,
         deploymentId: String
     ) async throws -> Any {
+        if siteId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"siteId\"")
+        }
+        if deploymentId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"deploymentId\"")
+        }
+
         let apiPath: String = "/sites/{siteId}/deployments/{deploymentId}"
             .replacingOccurrences(of: "{siteId}", with: siteId)
             .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
@@ -733,6 +785,7 @@ open class Sites: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -761,6 +814,13 @@ open class Sites: Service {
         type: AppwriteEnums.DeploymentDownloadType? = nil,
         token: String? = nil
     ) async throws -> ByteBuffer {
+        if siteId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"siteId\"")
+        }
+        if deploymentId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"deploymentId\"")
+        }
+
         let apiPath: String = "/sites/{siteId}/deployments/{deploymentId}/download"
             .replacingOccurrences(of: "{siteId}", with: siteId)
             .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
@@ -799,6 +859,13 @@ open class Sites: Service {
         siteId: String,
         deploymentId: String
     ) async throws -> AppwriteModels.Deployment {
+        if siteId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"siteId\"")
+        }
+        if deploymentId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"deploymentId\"")
+        }
+
         let apiPath: String = "/sites/{siteId}/deployments/{deploymentId}/status"
             .replacingOccurrences(of: "{siteId}", with: siteId)
             .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
@@ -839,6 +906,10 @@ open class Sites: Service {
         queries: [String]? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.ExecutionList {
+        if siteId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"siteId\"")
+        }
+
         let apiPath: String = "/sites/{siteId}/logs"
             .replacingOccurrences(of: "{siteId}", with: siteId)
 
@@ -877,6 +948,13 @@ open class Sites: Service {
         siteId: String,
         logId: String
     ) async throws -> AppwriteModels.Execution {
+        if siteId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"siteId\"")
+        }
+        if logId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"logId\"")
+        }
+
         let apiPath: String = "/sites/{siteId}/logs/{logId}"
             .replacingOccurrences(of: "{siteId}", with: siteId)
             .replacingOccurrences(of: "{logId}", with: logId)
@@ -913,6 +991,13 @@ open class Sites: Service {
         siteId: String,
         logId: String
     ) async throws -> Any {
+        if siteId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"siteId\"")
+        }
+        if logId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"logId\"")
+        }
+
         let apiPath: String = "/sites/{siteId}/logs/{logId}"
             .replacingOccurrences(of: "{siteId}", with: siteId)
             .replacingOccurrences(of: "{logId}", with: logId)
@@ -947,6 +1032,10 @@ open class Sites: Service {
         queries: [String]? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.VariableList {
+        if siteId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"siteId\"")
+        }
+
         let apiPath: String = "/sites/{siteId}/variables"
             .replacingOccurrences(of: "{siteId}", with: siteId)
 
@@ -992,6 +1081,10 @@ open class Sites: Service {
         value: String,
         secret: Bool? = nil
     ) async throws -> AppwriteModels.Variable {
+        if siteId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"siteId\"")
+        }
+
         let apiPath: String = "/sites/{siteId}/variables"
             .replacingOccurrences(of: "{siteId}", with: siteId)
 
@@ -1033,6 +1126,13 @@ open class Sites: Service {
         siteId: String,
         variableId: String
     ) async throws -> AppwriteModels.Variable {
+        if siteId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"siteId\"")
+        }
+        if variableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"variableId\"")
+        }
+
         let apiPath: String = "/sites/{siteId}/variables/{variableId}"
             .replacingOccurrences(of: "{siteId}", with: siteId)
             .replacingOccurrences(of: "{variableId}", with: variableId)
@@ -1075,6 +1175,13 @@ open class Sites: Service {
         value: String? = nil,
         secret: Bool? = nil
     ) async throws -> AppwriteModels.Variable {
+        if siteId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"siteId\"")
+        }
+        if variableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"variableId\"")
+        }
+
         let apiPath: String = "/sites/{siteId}/variables/{variableId}"
             .replacingOccurrences(of: "{siteId}", with: siteId)
             .replacingOccurrences(of: "{variableId}", with: variableId)
@@ -1116,6 +1223,13 @@ open class Sites: Service {
         siteId: String,
         variableId: String
     ) async throws -> Any {
+        if siteId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"siteId\"")
+        }
+        if variableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"variableId\"")
+        }
+
         let apiPath: String = "/sites/{siteId}/variables/{variableId}"
             .replacingOccurrences(of: "{siteId}", with: siteId)
             .replacingOccurrences(of: "{variableId}", with: variableId)
@@ -1125,6 +1239,7 @@ open class Sites: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(

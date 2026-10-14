@@ -161,6 +161,10 @@ open class Messaging: Service {
         replyToEmail: String? = nil,
         replyToName: String? = nil
     ) async throws -> AppwriteModels.Message {
+        if messageId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"messageId\"")
+        }
+
         let apiPath: String = "/messaging/messages/email/{messageId}"
             .replacingOccurrences(of: "{messageId}", with: messageId)
 
@@ -341,6 +345,10 @@ open class Messaging: Service {
         priority: AppwriteEnums.MessagePriority? = nil,
         channelId: String? = nil
     ) async throws -> AppwriteModels.Message {
+        if messageId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"messageId\"")
+        }
+
         let apiPath: String = "/messaging/messages/push/{messageId}"
             .replacingOccurrences(of: "{messageId}", with: messageId)
 
@@ -517,6 +525,10 @@ open class Messaging: Service {
         draft: Bool? = nil,
         scheduledAt: String? = nil
     ) async throws -> AppwriteModels.Message {
+        if messageId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"messageId\"")
+        }
+
         let apiPath: String = "/messaging/messages/sms/{messageId}"
             .replacingOccurrences(of: "{messageId}", with: messageId)
 
@@ -572,6 +584,10 @@ open class Messaging: Service {
         draft: Bool? = nil,
         scheduledAt: String? = nil
     ) async throws -> AppwriteModels.Message {
+        if messageId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"messageId\"")
+        }
+
         let apiPath: String = "/messaging/messages/sms/{messageId}"
             .replacingOccurrences(of: "{messageId}", with: messageId)
 
@@ -613,6 +629,10 @@ open class Messaging: Service {
     open func getMessage(
         messageId: String
     ) async throws -> AppwriteModels.Message {
+        if messageId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"messageId\"")
+        }
+
         let apiPath: String = "/messaging/messages/{messageId}"
             .replacingOccurrences(of: "{messageId}", with: messageId)
 
@@ -647,6 +667,10 @@ open class Messaging: Service {
     open func delete(
         messageId: String
     ) async throws -> Any {
+        if messageId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"messageId\"")
+        }
+
         let apiPath: String = "/messaging/messages/{messageId}"
             .replacingOccurrences(of: "{messageId}", with: messageId)
 
@@ -655,6 +679,7 @@ open class Messaging: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -679,6 +704,10 @@ open class Messaging: Service {
         queries: [String]? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.TargetList {
+        if messageId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"messageId\"")
+        }
+
         let apiPath: String = "/messaging/messages/{messageId}/targets"
             .replacingOccurrences(of: "{messageId}", with: messageId)
 
@@ -883,6 +912,10 @@ open class Messaging: Service {
         bundleId: String? = nil,
         sandbox: Bool? = nil
     ) async throws -> AppwriteModels.Provider {
+        if providerId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"providerId\"")
+        }
+
         let apiPath: String = "/messaging/providers/apns/{providerId}"
             .replacingOccurrences(of: "{providerId}", with: providerId)
 
@@ -939,6 +972,10 @@ open class Messaging: Service {
         bundleId: String? = nil,
         sandbox: Bool? = nil
     ) async throws -> AppwriteModels.Provider {
+        if providerId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"providerId\"")
+        }
+
         let apiPath: String = "/messaging/providers/apns/{providerId}"
             .replacingOccurrences(of: "{providerId}", with: providerId)
 
@@ -1175,6 +1212,10 @@ open class Messaging: Service {
         enabled: Bool? = nil,
         serviceAccountJSON: Any? = nil
     ) async throws -> AppwriteModels.Provider {
+        if providerId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"providerId\"")
+        }
+
         let apiPath: String = "/messaging/providers/fcm/{providerId}"
             .replacingOccurrences(of: "{providerId}", with: providerId)
 
@@ -1219,6 +1260,10 @@ open class Messaging: Service {
         enabled: Bool? = nil,
         serviceAccountJSON: Any? = nil
     ) async throws -> AppwriteModels.Provider {
+        if providerId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"providerId\"")
+        }
+
         let apiPath: String = "/messaging/providers/fcm/{providerId}"
             .replacingOccurrences(of: "{providerId}", with: providerId)
 
@@ -1337,6 +1382,10 @@ open class Messaging: Service {
         replyToName: String? = nil,
         replyToEmail: String? = nil
     ) async throws -> AppwriteModels.Provider {
+        if providerId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"providerId\"")
+        }
+
         let apiPath: String = "/messaging/providers/mailgun/{providerId}"
             .replacingOccurrences(of: "{providerId}", with: providerId)
 
@@ -1441,6 +1490,10 @@ open class Messaging: Service {
         senderId: String? = nil,
         authKey: String? = nil
     ) async throws -> AppwriteModels.Provider {
+        if providerId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"providerId\"")
+        }
+
         let apiPath: String = "/messaging/providers/msg91/{providerId}"
             .replacingOccurrences(of: "{providerId}", with: providerId)
 
@@ -1551,6 +1604,10 @@ open class Messaging: Service {
         replyToName: String? = nil,
         replyToEmail: String? = nil
     ) async throws -> AppwriteModels.Provider {
+        if providerId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"providerId\"")
+        }
+
         let apiPath: String = "/messaging/providers/resend/{providerId}"
             .replacingOccurrences(of: "{providerId}", with: providerId)
 
@@ -1663,6 +1720,10 @@ open class Messaging: Service {
         replyToName: String? = nil,
         replyToEmail: String? = nil
     ) async throws -> AppwriteModels.Provider {
+        if providerId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"providerId\"")
+        }
+
         let apiPath: String = "/messaging/providers/sendgrid/{providerId}"
             .replacingOccurrences(of: "{providerId}", with: providerId)
 
@@ -1785,6 +1846,10 @@ open class Messaging: Service {
         replyToName: String? = nil,
         replyToEmail: String? = nil
     ) async throws -> AppwriteModels.Provider {
+        if providerId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"providerId\"")
+        }
+
         let apiPath: String = "/messaging/providers/ses/{providerId}"
             .replacingOccurrences(of: "{providerId}", with: providerId)
 
@@ -2005,6 +2070,10 @@ open class Messaging: Service {
         replyToEmail: String? = nil,
         enabled: Bool? = nil
     ) async throws -> AppwriteModels.Provider {
+        if providerId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"providerId\"")
+        }
+
         let apiPath: String = "/messaging/providers/smtp/{providerId}"
             .replacingOccurrences(of: "{providerId}", with: providerId)
 
@@ -2079,6 +2148,10 @@ open class Messaging: Service {
         replyToEmail: String? = nil,
         enabled: Bool? = nil
     ) async throws -> AppwriteModels.Provider {
+        if providerId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"providerId\"")
+        }
+
         let apiPath: String = "/messaging/providers/smtp/{providerId}"
             .replacingOccurrences(of: "{providerId}", with: providerId)
 
@@ -2187,6 +2260,10 @@ open class Messaging: Service {
         apiKey: String? = nil,
         from: String? = nil
     ) async throws -> AppwriteModels.Provider {
+        if providerId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"providerId\"")
+        }
+
         let apiPath: String = "/messaging/providers/telesign/{providerId}"
             .replacingOccurrences(of: "{providerId}", with: providerId)
 
@@ -2287,6 +2364,10 @@ open class Messaging: Service {
         apiKey: String? = nil,
         from: String? = nil
     ) async throws -> AppwriteModels.Provider {
+        if providerId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"providerId\"")
+        }
+
         let apiPath: String = "/messaging/providers/textmagic/{providerId}"
             .replacingOccurrences(of: "{providerId}", with: providerId)
 
@@ -2387,6 +2468,10 @@ open class Messaging: Service {
         authToken: String? = nil,
         from: String? = nil
     ) async throws -> AppwriteModels.Provider {
+        if providerId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"providerId\"")
+        }
+
         let apiPath: String = "/messaging/providers/twilio/{providerId}"
             .replacingOccurrences(of: "{providerId}", with: providerId)
 
@@ -2487,6 +2572,10 @@ open class Messaging: Service {
         apiSecret: String? = nil,
         from: String? = nil
     ) async throws -> AppwriteModels.Provider {
+        if providerId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"providerId\"")
+        }
+
         let apiPath: String = "/messaging/providers/vonage/{providerId}"
             .replacingOccurrences(of: "{providerId}", with: providerId)
 
@@ -2527,6 +2616,10 @@ open class Messaging: Service {
     open func getProvider(
         providerId: String
     ) async throws -> AppwriteModels.Provider {
+        if providerId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"providerId\"")
+        }
+
         let apiPath: String = "/messaging/providers/{providerId}"
             .replacingOccurrences(of: "{providerId}", with: providerId)
 
@@ -2560,6 +2653,10 @@ open class Messaging: Service {
     open func deleteProvider(
         providerId: String
     ) async throws -> Any {
+        if providerId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"providerId\"")
+        }
+
         let apiPath: String = "/messaging/providers/{providerId}"
             .replacingOccurrences(of: "{providerId}", with: providerId)
 
@@ -2568,6 +2665,7 @@ open class Messaging: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -2675,6 +2773,10 @@ open class Messaging: Service {
     open func getTopic(
         topicId: String
     ) async throws -> AppwriteModels.Topic {
+        if topicId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"topicId\"")
+        }
+
         let apiPath: String = "/messaging/topics/{topicId}"
             .replacingOccurrences(of: "{topicId}", with: topicId)
 
@@ -2716,6 +2818,10 @@ open class Messaging: Service {
         qos: Int? = nil,
         expiry: Int? = nil
     ) async throws -> AppwriteModels.Topic {
+        if topicId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"topicId\"")
+        }
+
         let apiPath: String = "/messaging/topics/{topicId}"
             .replacingOccurrences(of: "{topicId}", with: topicId)
 
@@ -2755,6 +2861,10 @@ open class Messaging: Service {
     open func deleteTopic(
         topicId: String
     ) async throws -> Any {
+        if topicId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"topicId\"")
+        }
+
         let apiPath: String = "/messaging/topics/{topicId}"
             .replacingOccurrences(of: "{topicId}", with: topicId)
 
@@ -2763,6 +2873,7 @@ open class Messaging: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -2789,6 +2900,10 @@ open class Messaging: Service {
         search: String? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.SubscriberList {
+        if topicId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"topicId\"")
+        }
+
         let apiPath: String = "/messaging/topics/{topicId}/subscribers"
             .replacingOccurrences(of: "{topicId}", with: topicId)
 
@@ -2830,6 +2945,10 @@ open class Messaging: Service {
         subscriberId: String,
         targetId: String
     ) async throws -> AppwriteModels.Subscriber {
+        if topicId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"topicId\"")
+        }
+
         let apiPath: String = "/messaging/topics/{topicId}/subscribers"
             .replacingOccurrences(of: "{topicId}", with: topicId)
 
@@ -2869,6 +2988,13 @@ open class Messaging: Service {
         topicId: String,
         subscriberId: String
     ) async throws -> AppwriteModels.Subscriber {
+        if topicId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"topicId\"")
+        }
+        if subscriberId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"subscriberId\"")
+        }
+
         let apiPath: String = "/messaging/topics/{topicId}/subscribers/{subscriberId}"
             .replacingOccurrences(of: "{topicId}", with: topicId)
             .replacingOccurrences(of: "{subscriberId}", with: subscriberId)
@@ -2905,6 +3031,13 @@ open class Messaging: Service {
         topicId: String,
         subscriberId: String
     ) async throws -> Any {
+        if topicId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"topicId\"")
+        }
+        if subscriberId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"subscriberId\"")
+        }
+
         let apiPath: String = "/messaging/topics/{topicId}/subscribers/{subscriberId}"
             .replacingOccurrences(of: "{topicId}", with: topicId)
             .replacingOccurrences(of: "{subscriberId}", with: subscriberId)
@@ -2914,6 +3047,7 @@ open class Messaging: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(

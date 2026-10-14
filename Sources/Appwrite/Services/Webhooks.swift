@@ -118,6 +118,10 @@ open class Webhooks: Service {
     open func get(
         webhookId: String
     ) async throws -> AppwriteModels.Webhook {
+        if webhookId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"webhookId\"")
+        }
+
         let apiPath: String = "/webhooks/{webhookId}"
             .replacingOccurrences(of: "{webhookId}", with: webhookId)
 
@@ -166,6 +170,10 @@ open class Webhooks: Service {
         authUsername: String? = nil,
         authPassword: String? = nil
     ) async throws -> AppwriteModels.Webhook {
+        if webhookId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"webhookId\"")
+        }
+
         let apiPath: String = "/webhooks/{webhookId}"
             .replacingOccurrences(of: "{webhookId}", with: webhookId)
 
@@ -209,6 +217,10 @@ open class Webhooks: Service {
     open func delete(
         webhookId: String
     ) async throws -> Any {
+        if webhookId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"webhookId\"")
+        }
+
         let apiPath: String = "/webhooks/{webhookId}"
             .replacingOccurrences(of: "{webhookId}", with: webhookId)
 
@@ -217,6 +229,7 @@ open class Webhooks: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -241,6 +254,10 @@ open class Webhooks: Service {
         webhookId: String,
         secret: String? = nil
     ) async throws -> AppwriteModels.Webhook {
+        if webhookId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"webhookId\"")
+        }
+
         let apiPath: String = "/webhooks/{webhookId}/secret"
             .replacingOccurrences(of: "{webhookId}", with: webhookId)
 

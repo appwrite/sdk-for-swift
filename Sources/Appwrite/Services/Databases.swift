@@ -178,6 +178,10 @@ open class Databases: Service {
     open func getTransaction(
         transactionId: String
     ) async throws -> AppwriteModels.Transaction {
+        if transactionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"transactionId\"")
+        }
+
         let apiPath: String = "/databases/transactions/{transactionId}"
             .replacingOccurrences(of: "{transactionId}", with: transactionId)
 
@@ -216,6 +220,10 @@ open class Databases: Service {
         commit: Bool? = nil,
         rollback: Bool? = nil
     ) async throws -> AppwriteModels.Transaction {
+        if transactionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"transactionId\"")
+        }
+
         let apiPath: String = "/databases/transactions/{transactionId}"
             .replacingOccurrences(of: "{transactionId}", with: transactionId)
 
@@ -254,6 +262,10 @@ open class Databases: Service {
     open func deleteTransaction(
         transactionId: String
     ) async throws -> Any {
+        if transactionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"transactionId\"")
+        }
+
         let apiPath: String = "/databases/transactions/{transactionId}"
             .replacingOccurrences(of: "{transactionId}", with: transactionId)
 
@@ -262,6 +274,7 @@ open class Databases: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -285,6 +298,10 @@ open class Databases: Service {
         transactionId: String,
         operations: [AnyCodable]? = nil
     ) async throws -> AppwriteModels.Transaction {
+        if transactionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"transactionId\"")
+        }
+
         let apiPath: String = "/databases/transactions/{transactionId}/operations"
             .replacingOccurrences(of: "{transactionId}", with: transactionId)
 
@@ -323,6 +340,10 @@ open class Databases: Service {
     open func get(
         databaseId: String
     ) async throws -> AppwriteModels.Database {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -361,6 +382,10 @@ open class Databases: Service {
         name: String? = nil,
         enabled: Bool? = nil
     ) async throws -> AppwriteModels.Database {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -400,6 +425,10 @@ open class Databases: Service {
     open func delete(
         databaseId: String
     ) async throws -> Any {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -408,6 +437,7 @@ open class Databases: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -436,6 +466,10 @@ open class Databases: Service {
         search: String? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.CollectionList {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -491,6 +525,10 @@ open class Databases: Service {
         attributes: [AnyCodable]? = nil,
         indexes: [AnyCodable]? = nil
     ) async throws -> AppwriteModels.Collection {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -537,6 +575,13 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String
     ) async throws -> AppwriteModels.Collection {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -584,6 +629,13 @@ open class Databases: Service {
         enabled: Bool? = nil,
         purge: Bool? = nil
     ) async throws -> AppwriteModels.Collection {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -629,6 +681,13 @@ open class Databases: Service {
         databaseId: String,
         collectionId: String
     ) async throws -> Any {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -638,6 +697,7 @@ open class Databases: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -665,6 +725,13 @@ open class Databases: Service {
         queries: [String]? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.AttributeList {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -718,6 +785,13 @@ open class Databases: Service {
         `default`: Int? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeBigint {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/bigint"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -776,6 +850,16 @@ open class Databases: Service {
         max: Int? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributeBigint {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/bigint/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -829,6 +913,13 @@ open class Databases: Service {
         `default`: Bool? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeBoolean {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/boolean"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -881,6 +972,16 @@ open class Databases: Service {
         `default`: Bool? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributeBoolean {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/boolean/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -932,6 +1033,13 @@ open class Databases: Service {
         `default`: String? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeDatetime {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/datetime"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -984,6 +1092,16 @@ open class Databases: Service {
         `default`: String? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributeDatetime {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/datetime/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -1035,6 +1153,13 @@ open class Databases: Service {
         `default`: String? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeEmail {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/email"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -1087,6 +1212,16 @@ open class Databases: Service {
         `default`: String? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributeEmail {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/email/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -1141,6 +1276,13 @@ open class Databases: Service {
         `default`: String? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeEnum {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/enum"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -1196,6 +1338,16 @@ open class Databases: Service {
         `default`: String? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributeEnum {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/enum/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -1253,6 +1405,13 @@ open class Databases: Service {
         `default`: Double? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeFloat {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/float"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -1311,6 +1470,16 @@ open class Databases: Service {
         max: Double? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributeFloat {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/float/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -1369,6 +1538,13 @@ open class Databases: Service {
         `default`: Int? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeInteger {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/integer"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -1427,6 +1603,16 @@ open class Databases: Service {
         max: Int? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributeInteger {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/integer/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -1480,6 +1666,13 @@ open class Databases: Service {
         `default`: String? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeIp {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/ip"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -1532,6 +1725,16 @@ open class Databases: Service {
         `default`: String? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributeIp {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/ip/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -1581,6 +1784,13 @@ open class Databases: Service {
         `required`: Bool,
         `default`: [[AnyCodable]]? = nil
     ) async throws -> AppwriteModels.AttributeLine {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/line"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -1632,6 +1842,16 @@ open class Databases: Service {
         `default`: [[AnyCodable]]? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributeLine {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/line/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -1685,6 +1905,13 @@ open class Databases: Service {
         array: Bool? = nil,
         encrypt: Bool? = nil
     ) async throws -> AppwriteModels.AttributeLongtext {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/longtext"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -1738,6 +1965,16 @@ open class Databases: Service {
         `default`: String? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributeLongtext {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/longtext/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -1791,6 +2028,13 @@ open class Databases: Service {
         array: Bool? = nil,
         encrypt: Bool? = nil
     ) async throws -> AppwriteModels.AttributeMediumtext {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/mediumtext"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -1844,6 +2088,16 @@ open class Databases: Service {
         `default`: String? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributeMediumtext {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/mediumtext/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -1893,6 +2147,13 @@ open class Databases: Service {
         `required`: Bool,
         `default`: [Double]? = nil
     ) async throws -> AppwriteModels.AttributePoint {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/point"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -1944,6 +2205,16 @@ open class Databases: Service {
         `default`: [Double]? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributePoint {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/point/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -1993,6 +2264,13 @@ open class Databases: Service {
         `required`: Bool,
         `default`: [[AnyCodable]]? = nil
     ) async throws -> AppwriteModels.AttributePolygon {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/polygon"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -2044,6 +2322,16 @@ open class Databases: Service {
         `default`: [[AnyCodable]]? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributePolygon {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/polygon/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -2100,6 +2388,13 @@ open class Databases: Service {
         twoWayKey: String? = nil,
         onDelete: AppwriteEnums.RelationMutate? = nil
     ) async throws -> AppwriteModels.AttributeRelationship {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/relationship"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -2152,6 +2447,16 @@ open class Databases: Service {
         onDelete: AppwriteEnums.RelationMutate? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributeRelationship {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/relationship/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -2206,6 +2511,13 @@ open class Databases: Service {
         array: Bool? = nil,
         encrypt: Bool? = nil
     ) async throws -> AppwriteModels.AttributeString {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/string"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -2262,6 +2574,16 @@ open class Databases: Service {
         size: Int? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributeString {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/string/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -2316,6 +2638,13 @@ open class Databases: Service {
         array: Bool? = nil,
         encrypt: Bool? = nil
     ) async throws -> AppwriteModels.AttributeText {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/text"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -2369,6 +2698,16 @@ open class Databases: Service {
         `default`: String? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributeText {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/text/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -2420,6 +2759,13 @@ open class Databases: Service {
         `default`: String? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.AttributeUrl {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/url"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -2472,6 +2818,16 @@ open class Databases: Service {
         `default`: String? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributeUrl {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/url/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -2527,6 +2883,13 @@ open class Databases: Service {
         array: Bool? = nil,
         encrypt: Bool? = nil
     ) async throws -> AppwriteModels.AttributeVarchar {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/varchar"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -2583,6 +2946,16 @@ open class Databases: Service {
         size: Int? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.AttributeVarchar {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/varchar/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -2629,6 +3002,16 @@ open class Databases: Service {
         collectionId: String,
         key: String
     ) async throws -> Any {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -2660,6 +3043,9 @@ open class Databases: Service {
             if String(describing: responseMap["type"] ?? "") == "boolean" {
                 return AppwriteModels.AttributeBoolean.from(map: responseMap)
             }
+            if String(describing: responseMap["type"] ?? "") == "bigint" {
+                return AppwriteModels.AttributeBigint.from(map: responseMap)
+            }
             if String(describing: responseMap["type"] ?? "") == "integer" {
                 return AppwriteModels.AttributeInteger.from(map: responseMap)
             }
@@ -2671,6 +3057,27 @@ open class Databases: Service {
             }
             if String(describing: responseMap["type"] ?? "") == "relationship" {
                 return AppwriteModels.AttributeRelationship.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "point" {
+                return AppwriteModels.AttributePoint.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "linestring" {
+                return AppwriteModels.AttributeLine.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "polygon" {
+                return AppwriteModels.AttributePolygon.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "varchar" {
+                return AppwriteModels.AttributeVarchar.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "text" {
+                return AppwriteModels.AttributeText.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "mediumtext" {
+                return AppwriteModels.AttributeMediumtext.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "longtext" {
+                return AppwriteModels.AttributeLongtext.from(map: responseMap)
             }
             if String(describing: responseMap["type"] ?? "") == "string" {
                 return AppwriteModels.AttributeString.from(map: responseMap)
@@ -2702,6 +3109,16 @@ open class Databases: Service {
         collectionId: String,
         key: String
     ) async throws -> Any {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/attributes/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -2712,6 +3129,7 @@ open class Databases: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -2745,6 +3163,13 @@ open class Databases: Service {
         ttl: Int? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.DocumentList<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/documents"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -2833,6 +3258,13 @@ open class Databases: Service {
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Document<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/documents"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -2920,6 +3352,13 @@ open class Databases: Service {
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.DocumentList<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/documents"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -2999,6 +3438,13 @@ open class Databases: Service {
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.DocumentList<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/documents"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -3079,6 +3525,13 @@ open class Databases: Service {
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.DocumentList<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/documents"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -3159,6 +3612,13 @@ open class Databases: Service {
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.DocumentList<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/documents"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -3236,6 +3696,16 @@ open class Databases: Service {
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Document<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if documentId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"documentId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -3320,6 +3790,16 @@ open class Databases: Service {
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Document<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if documentId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"documentId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -3409,6 +3889,16 @@ open class Databases: Service {
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Document<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if documentId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"documentId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -3490,6 +3980,16 @@ open class Databases: Service {
         documentId: String,
         transactionId: String? = nil
     ) async throws -> Any {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if documentId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"documentId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -3502,6 +4002,7 @@ open class Databases: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -3536,6 +4037,19 @@ open class Databases: Service {
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Document<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if documentId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"documentId\"")
+        }
+        if attribute.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"attribute\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/decrement"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -3627,6 +4141,19 @@ open class Databases: Service {
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Document<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if documentId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"documentId\"")
+        }
+        if attribute.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"attribute\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/increment"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -3711,6 +4238,13 @@ open class Databases: Service {
         queries: [String]? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.IndexList {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/indexes"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -3740,7 +4274,9 @@ open class Databases: Service {
     ///
     /// Creates an index on the attributes listed. Your index should include all
     /// the attributes you will query in a single request.
-    /// Attributes can be `key`, `fulltext`, and `unique`.
+    /// Attributes can be `key`, `fulltext`, `unique`, `spatial`, and `trigram`.
+    /// `trigram` is only available on PostgreSQL and lets `contains`,
+    /// `startsWith`, and `endsWith` queries on string attributes use an index.
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -3763,6 +4299,13 @@ open class Databases: Service {
         orders: [AppwriteEnums.OrderBy]? = nil,
         lengths: [Int]? = nil
     ) async throws -> AppwriteModels.Index {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/indexes"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -3809,6 +4352,16 @@ open class Databases: Service {
         collectionId: String,
         key: String
     ) async throws -> AppwriteModels.Index {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/indexes/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -3849,6 +4402,16 @@ open class Databases: Service {
         collectionId: String,
         key: String
     ) async throws -> Any {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/indexes/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{collectionId}", with: collectionId)
@@ -3859,6 +4422,7 @@ open class Databases: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(

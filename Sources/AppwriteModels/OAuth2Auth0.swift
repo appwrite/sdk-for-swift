@@ -23,7 +23,7 @@ open class OAuth2Auth0: Codable {
     /// Auth0 OAuth2 client secret.
     public let clientSecret: String
     /// Auth0 OAuth2 prompt values.
-    public let prompt: [AppwriteEnums.OAuth2Auth0Prompt]?
+    public let prompt: [AppwriteEnums.OAuth2Auth0Prompt]
     /// Auth0 OAuth2 endpoint domain.
     public let endpoint: String
 
@@ -32,8 +32,8 @@ open class OAuth2Auth0: Codable {
         enabled: Bool,
         clientId: String,
         clientSecret: String,
-        endpoint: String,
-        prompt: [AppwriteEnums.OAuth2Auth0Prompt]?
+        prompt: [AppwriteEnums.OAuth2Auth0Prompt],
+        endpoint: String
     ) {
         self.id = id
         self.enabled = enabled
@@ -46,16 +46,12 @@ open class OAuth2Auth0: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.enabled = try container.decode(Bool.self, forKey: .enabled)
-        self.clientId = try container.decode(String.self, forKey: .clientId)
-        self.clientSecret = try container.decode(String.self, forKey: .clientSecret)
-        self.endpoint = try container.decode(String.self, forKey: .endpoint)
-        if let promptStrings = try container.decodeIfPresent([String].self, forKey: .prompt) {
-            self.prompt = promptStrings.map { AppwriteEnums.OAuth2Auth0Prompt(rawValue: $0)! }
-        } else {
-            self.prompt = nil
-        }
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : false
+        self.clientId = try container.contains(.clientId) ? container.decode(String.self, forKey: .clientId) : ""
+        self.clientSecret = try container.contains(.clientSecret) ? container.decode(String.self, forKey: .clientSecret) : ""
+        self.prompt = (try container.contains(.prompt) ? container.decode([String].self, forKey: .prompt) : []).map { AppwriteEnums.OAuth2Auth0Prompt(rawValue: $0)! }
+        self.endpoint = try container.contains(.endpoint) ? container.decode(String.self, forKey: .endpoint) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -65,7 +61,7 @@ open class OAuth2Auth0: Codable {
         try container.encode(enabled, forKey: .enabled)
         try container.encode(clientId, forKey: .clientId)
         try container.encode(clientSecret, forKey: .clientSecret)
-        try container.encodeIfPresent(prompt?.map { $0.rawValue }, forKey: .prompt)
+        try container.encode(prompt.map { $0.rawValue }, forKey: .prompt)
         try container.encode(endpoint, forKey: .endpoint)
     }
 
@@ -75,19 +71,29 @@ open class OAuth2Auth0: Codable {
             "enabled": enabled as Any,
             "clientId": clientId as Any,
             "clientSecret": clientSecret as Any,
-            "prompt": prompt?.map { $0.rawValue } as Any,
+            "prompt": prompt.map { $0.rawValue } as Any,
             "endpoint": endpoint as Any,
         ]
     }
 
     public static func from(map: [String: Any]) -> OAuth2Auth0 {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "enabled": false,
+            "clientId": "",
+            "clientSecret": "",
+            "prompt": [Any](),
+            "endpoint": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return OAuth2Auth0(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,
             clientId: map["clientId"] as! String,
             clientSecret: map["clientSecret"] as! String,
-            endpoint: map["endpoint"] as! String,
-            prompt: (map["prompt"] as? [String])?.map { AppwriteEnums.OAuth2Auth0Prompt(rawValue: $0)! }
+            prompt: (map["prompt"] as! [String]).map { AppwriteEnums.OAuth2Auth0Prompt(rawValue: $0)! },
+            endpoint: map["endpoint"] as! String
         )
     }
 }

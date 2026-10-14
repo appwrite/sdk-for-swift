@@ -40,9 +40,9 @@ open class DedicatedDatabaseMember: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.role = try container.decode(String.self, forKey: .role)
-        self.status = try container.decode(String.self, forKey: .status)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.role = try container.contains(.role) ? container.decode(String.self, forKey: .role) : "unknown"
+        self.status = try container.contains(.status) ? container.decode(String.self, forKey: .status) : ""
         self.replicating = try container.decodeIfPresent(Bool.self, forKey: .replicating)
         self.lagSeconds = try container.decodeIfPresent(Double.self, forKey: .lagSeconds)
     }
@@ -68,6 +68,13 @@ open class DedicatedDatabaseMember: Codable {
     }
 
     public static func from(map: [String: Any]) -> DedicatedDatabaseMember {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "role": "unknown",
+            "status": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return DedicatedDatabaseMember(
             id: map["$id"] as! String,
             role: map["role"] as! String,

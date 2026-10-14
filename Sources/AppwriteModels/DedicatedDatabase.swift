@@ -70,9 +70,9 @@ open class DedicatedDatabase: Codable {
     /// Database display name.
     public let name: String
     /// Product API that owns this database: tablesdb, documentsdb, vectorsdb, mysql, postgresql, or mongodb.
-    public let api: String
+    public let api: String?
     /// Database engine: postgresql, mysql, or mongodb. Null until the backing reports one.
-    public let engine: String
+    public let engine: String?
     /// Database engine version.
     public let version: String
     /// Specification identifier.
@@ -82,20 +82,20 @@ open class DedicatedDatabase: Codable {
     /// Database hostname for connections.
     public let hostname: String
     /// Database port for connections. Derived from the engine when the backing has not reported one yet.
-    public let connectionPort: Int
+    public let connectionPort: Int?
     /// Database username for connections.
     public let connectionUser: String
     /// Database password for connections.
     public let connectionPassword: String
     /// Committed generation of the primary connection credentials. Null until the rotation contract has been initialized.
-    public let credentialGeneration: Int
+    public let credentialGeneration: Int?
     /// Full database connection string (URI format).
     public let connectionString: String
     /// Whether SSL/TLS is required for client connections.
     public let ssl: Bool
     /// Database status. Possible values: provisioning, ready, inactive, paused, failed, deleted, restoring, scaling.
     public let status: String
-    /// Container status for lifecycle-managed database runtimes: active or inactive.
+    /// Container status for lifecycle-managed database runtimes: active, inactive, or failed (a wake was declined because the backing namespace is gone).
     public let containerStatus: String
     /// Last activity timestamp in ISO 8601 format.
     public let lastAccessedAt: String?
@@ -112,9 +112,9 @@ open class DedicatedDatabase: Codable {
     /// Storage allocated in GB.
     public let storage: Int
     /// Storage resize status. Possible values: idle (no resize in flight), resizing (the volume is growing towards storageTargetGb).
-    public let storageStatus: String?
+    public let storageStatus: String
     /// Size in GB the volume is growing towards while storageStatus is resizing. 0 when no resize is in flight.
-    public let storageTargetGb: Int?
+    public let storageTargetGb: Int
     /// Time the in-flight storage resize started, in ISO 8601 format.
     public let storageResizeStartedAt: String?
     /// Storage class. Currently always &#039;ssd&#039;; DigitalOcean exposes a single block-storage class.
@@ -143,7 +143,7 @@ open class DedicatedDatabase: Codable {
     public let storageAutoscaling: Bool
     /// Storage usage percentage that triggers automatic expansion.
     public let storageAutoscalingThresholdPercent: Int
-    /// Maximum storage size in GB for autoscaling. 0 means no limit.
+    /// Maximum storage size in GB for autoscaling. Defaults to 3 times the specification&#039;s storage. 0 means no limit.
     public let storageAutoscalingMaxGb: Int
     /// Day of the week for the maintenance window. Possible values: sun, mon, tue, wed, thu, fri, sat.
     public let maintenanceWindowDay: String
@@ -170,16 +170,16 @@ open class DedicatedDatabase: Codable {
         updatedAt: String,
         projectId: String,
         name: String,
-        api: String,
-        engine: String,
+        api: String?,
+        engine: String?,
         version: String,
         specification: String,
         backend: String,
         hostname: String,
-        connectionPort: Int,
+        connectionPort: Int?,
         connectionUser: String,
         connectionPassword: String,
-        credentialGeneration: Int,
+        credentialGeneration: Int?,
         connectionString: String,
         ssl: Bool,
         status: String,
@@ -191,6 +191,9 @@ open class DedicatedDatabase: Codable {
         cpu: Int,
         memory: Int,
         storage: Int,
+        storageStatus: String,
+        storageTargetGb: Int,
+        storageResizeStartedAt: String?,
         storageClass: String,
         storageMaxGb: Int,
         nodePool: String,
@@ -213,10 +216,7 @@ open class DedicatedDatabase: Codable {
         sqlApiMaxRows: Int,
         sqlApiMaxBytes: Int,
         sqlApiTimeoutSeconds: Int,
-        error: String,
-        storageStatus: String?,
-        storageTargetGb: Int?,
-        storageResizeStartedAt: String?
+        error: String
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -275,58 +275,63 @@ open class DedicatedDatabase: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.projectId = try container.decode(String.self, forKey: .projectId)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.api = try container.decode(String.self, forKey: .api)
-        self.engine = try container.decode(String.self, forKey: .engine)
-        self.version = try container.decode(String.self, forKey: .version)
-        self.specification = try container.decode(String.self, forKey: .specification)
-        self.backend = try container.decode(String.self, forKey: .backend)
-        self.hostname = try container.decode(String.self, forKey: .hostname)
-        self.connectionPort = try container.decode(Int.self, forKey: .connectionPort)
-        self.connectionUser = try container.decode(String.self, forKey: .connectionUser)
-        self.connectionPassword = try container.decode(String.self, forKey: .connectionPassword)
-        self.credentialGeneration = try container.decode(Int.self, forKey: .credentialGeneration)
-        self.connectionString = try container.decode(String.self, forKey: .connectionString)
-        self.ssl = try container.decode(Bool.self, forKey: .ssl)
-        self.status = try container.decode(String.self, forKey: .status)
-        self.containerStatus = try container.decode(String.self, forKey: .containerStatus)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
+        self.projectId = try container.contains(.projectId) ? container.decode(String.self, forKey: .projectId) : ""
+        self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.api = try container.decodeIfPresent(String.self, forKey: .api)
+        self.engine = try container.decodeIfPresent(String.self, forKey: .engine)
+        self.version = try container.contains(.version) ? container.decode(String.self, forKey: .version) : ""
+        self.specification = try container.contains(.specification) ? container.decode(String.self, forKey: .specification) : ""
+        self.backend = try container.contains(.backend) ? container.decode(String.self, forKey: .backend) : ""
+        self.hostname = try container.contains(.hostname) ? container.decode(String.self, forKey: .hostname) : ""
+        self.connectionPort = try container.decodeIfPresent(Int.self, forKey: .connectionPort)
+        self.connectionUser = try container.contains(.connectionUser) ? container.decode(String.self, forKey: .connectionUser) : ""
+        self.connectionPassword = try container.contains(.connectionPassword) ? container.decode(String.self, forKey: .connectionPassword) : ""
+        self.credentialGeneration = try container.decodeIfPresent(Int.self, forKey: .credentialGeneration)
+        self.connectionString = try container.contains(.connectionString) ? container.decode(String.self, forKey: .connectionString) : ""
+        self.ssl = try container.contains(.ssl) ? container.decode(Bool.self, forKey: .ssl) : false
+        self.status = try container.contains(.status) ? container.decode(String.self, forKey: .status) : "provisioning"
+        self.containerStatus = try container.contains(.containerStatus) ? container.decode(String.self, forKey: .containerStatus) : ""
         self.lastAccessedAt = try container.decodeIfPresent(String.self, forKey: .lastAccessedAt)
         self.idleUntil = try container.decodeIfPresent(String.self, forKey: .idleUntil)
-        self.lifecycleState = try container.decode(String.self, forKey: .lifecycleState)
-        self.idleTimeoutMinutes = try container.decode(Int.self, forKey: .idleTimeoutMinutes)
-        self.cpu = try container.decode(Int.self, forKey: .cpu)
-        self.memory = try container.decode(Int.self, forKey: .memory)
-        self.storage = try container.decode(Int.self, forKey: .storage)
-        self.storageClass = try container.decode(String.self, forKey: .storageClass)
-        self.storageMaxGb = try container.decode(Int.self, forKey: .storageMaxGb)
-        self.nodePool = try container.decode(String.self, forKey: .nodePool)
-        self.replicas = try container.decode(Int.self, forKey: .replicas)
-        self.syncMode = try container.decode(String.self, forKey: .syncMode)
-        self.networkMaxConnections = try container.decode(Int.self, forKey: .networkMaxConnections)
-        self.networkIdleTimeoutSeconds = try container.decode(Int.self, forKey: .networkIdleTimeoutSeconds)
-        self.networkIPAllowlist = try container.decode([String].self, forKey: .networkIPAllowlist)
-        self.backupEnabled = try container.decode(Bool.self, forKey: .backupEnabled)
-        self.pitr = try container.decode(Bool.self, forKey: .pitr)
-        self.pitrRetentionDays = try container.decode(Int.self, forKey: .pitrRetentionDays)
-        self.storageAutoscaling = try container.decode(Bool.self, forKey: .storageAutoscaling)
-        self.storageAutoscalingThresholdPercent = try container.decode(Int.self, forKey: .storageAutoscalingThresholdPercent)
-        self.storageAutoscalingMaxGb = try container.decode(Int.self, forKey: .storageAutoscalingMaxGb)
-        self.maintenanceWindowDay = try container.decode(String.self, forKey: .maintenanceWindowDay)
-        self.maintenanceWindowHourUtc = try container.decode(Int.self, forKey: .maintenanceWindowHourUtc)
-        self.metricsEnabled = try container.decode(Bool.self, forKey: .metricsEnabled)
-        self.sqlApiEnabled = try container.decode(Bool.self, forKey: .sqlApiEnabled)
-        self.sqlApiAllowedStatements = try container.decode([String].self, forKey: .sqlApiAllowedStatements)
-        self.sqlApiMaxRows = try container.decode(Int.self, forKey: .sqlApiMaxRows)
-        self.sqlApiMaxBytes = try container.decode(Int.self, forKey: .sqlApiMaxBytes)
-        self.sqlApiTimeoutSeconds = try container.decode(Int.self, forKey: .sqlApiTimeoutSeconds)
-        self.error = try container.decode(String.self, forKey: .error)
-        self.storageStatus = try container.decodeIfPresent(String.self, forKey: .storageStatus)
-        self.storageTargetGb = try container.decodeIfPresent(Int.self, forKey: .storageTargetGb)
+        self.lifecycleState = try container.contains(.lifecycleState) ? container.decode(String.self, forKey: .lifecycleState) : ""
+        self.idleTimeoutMinutes = try container.contains(.idleTimeoutMinutes) ? container.decode(Int.self, forKey: .idleTimeoutMinutes) : 15
+        self.cpu = try container.contains(.cpu) ? container.decode(Int.self, forKey: .cpu) : 500
+        self.memory = try container.contains(.memory) ? container.decode(Int.self, forKey: .memory) : 512
+        self.storage = try container.contains(.storage) ? container.decode(Int.self, forKey: .storage) : 10
+        self.storageStatus = try container.contains(.storageStatus) ? container.decode(String.self, forKey: .storageStatus) : "idle"
+        self.storageTargetGb = try container.contains(.storageTargetGb) ? container.decode(Int.self, forKey: .storageTargetGb) : 0
         self.storageResizeStartedAt = try container.decodeIfPresent(String.self, forKey: .storageResizeStartedAt)
+        self.storageClass = try container.contains(.storageClass) ? container.decode(String.self, forKey: .storageClass) : "ssd"
+        self.storageMaxGb = try container.contains(.storageMaxGb) ? container.decode(Int.self, forKey: .storageMaxGb) : 0
+        self.nodePool = try container.contains(.nodePool) ? container.decode(String.self, forKey: .nodePool) : ""
+        self.replicas = try container.contains(.replicas) ? container.decode(Int.self, forKey: .replicas) : 0
+        self.syncMode = try container.contains(.syncMode) ? container.decode(String.self, forKey: .syncMode) : ""
+        self.networkMaxConnections = try container.contains(.networkMaxConnections) ? container.decode(Int.self, forKey: .networkMaxConnections) : 100
+        self.networkIdleTimeoutSeconds = try container.contains(.networkIdleTimeoutSeconds) ? container.decode(Int.self, forKey: .networkIdleTimeoutSeconds) : 900
+        self.networkIPAllowlist = try container.contains(.networkIPAllowlist) ? container.decode([String].self, forKey: .networkIPAllowlist) : []
+        self.backupEnabled = try container.contains(.backupEnabled) ? container.decode(Bool.self, forKey: .backupEnabled) : true
+        self.pitr = try container.contains(.pitr) ? container.decode(Bool.self, forKey: .pitr) : true
+        self.pitrRetentionDays = try container.contains(.pitrRetentionDays) ? container.decode(Int.self, forKey: .pitrRetentionDays) : 7
+        self.storageAutoscaling = try container.contains(.storageAutoscaling) ? container.decode(Bool.self, forKey: .storageAutoscaling) : true
+        self.storageAutoscalingThresholdPercent = try container.contains(.storageAutoscalingThresholdPercent) ? container.decode(Int.self, forKey: .storageAutoscalingThresholdPercent) : 85
+        self.storageAutoscalingMaxGb = try container.contains(.storageAutoscalingMaxGb) ? container.decode(Int.self, forKey: .storageAutoscalingMaxGb) : 0
+        self.maintenanceWindowDay = try container.contains(.maintenanceWindowDay) ? container.decode(String.self, forKey: .maintenanceWindowDay) : "sun"
+        self.maintenanceWindowHourUtc = try container.contains(.maintenanceWindowHourUtc) ? container.decode(Int.self, forKey: .maintenanceWindowHourUtc) : 3
+        self.metricsEnabled = try container.contains(.metricsEnabled) ? container.decode(Bool.self, forKey: .metricsEnabled) : false
+        self.sqlApiEnabled = try container.contains(.sqlApiEnabled) ? container.decode(Bool.self, forKey: .sqlApiEnabled) : true
+        self.sqlApiAllowedStatements = try container.contains(.sqlApiAllowedStatements) ? container.decode([String].self, forKey: .sqlApiAllowedStatements) : [
+        "SELECT",
+        "INSERT",
+        "UPDATE",
+        "DELETE"
+    ]
+        self.sqlApiMaxRows = try container.contains(.sqlApiMaxRows) ? container.decode(Int.self, forKey: .sqlApiMaxRows) : 10000
+        self.sqlApiMaxBytes = try container.contains(.sqlApiMaxBytes) ? container.decode(Int.self, forKey: .sqlApiMaxBytes) : 10485760
+        self.sqlApiTimeoutSeconds = try container.contains(.sqlApiTimeoutSeconds) ? container.decode(Int.self, forKey: .sqlApiTimeoutSeconds) : 30
+        self.error = try container.contains(.error) ? container.decode(String.self, forKey: .error) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -337,16 +342,16 @@ open class DedicatedDatabase: Codable {
         try container.encode(updatedAt, forKey: .updatedAt)
         try container.encode(projectId, forKey: .projectId)
         try container.encode(name, forKey: .name)
-        try container.encode(api, forKey: .api)
-        try container.encode(engine, forKey: .engine)
+        try container.encodeIfPresent(api, forKey: .api)
+        try container.encodeIfPresent(engine, forKey: .engine)
         try container.encode(version, forKey: .version)
         try container.encode(specification, forKey: .specification)
         try container.encode(backend, forKey: .backend)
         try container.encode(hostname, forKey: .hostname)
-        try container.encode(connectionPort, forKey: .connectionPort)
+        try container.encodeIfPresent(connectionPort, forKey: .connectionPort)
         try container.encode(connectionUser, forKey: .connectionUser)
         try container.encode(connectionPassword, forKey: .connectionPassword)
-        try container.encode(credentialGeneration, forKey: .credentialGeneration)
+        try container.encodeIfPresent(credentialGeneration, forKey: .credentialGeneration)
         try container.encode(connectionString, forKey: .connectionString)
         try container.encode(ssl, forKey: .ssl)
         try container.encode(status, forKey: .status)
@@ -358,8 +363,8 @@ open class DedicatedDatabase: Codable {
         try container.encode(cpu, forKey: .cpu)
         try container.encode(memory, forKey: .memory)
         try container.encode(storage, forKey: .storage)
-        try container.encodeIfPresent(storageStatus, forKey: .storageStatus)
-        try container.encodeIfPresent(storageTargetGb, forKey: .storageTargetGb)
+        try container.encode(storageStatus, forKey: .storageStatus)
+        try container.encode(storageTargetGb, forKey: .storageTargetGb)
         try container.encodeIfPresent(storageResizeStartedAt, forKey: .storageResizeStartedAt)
         try container.encode(storageClass, forKey: .storageClass)
         try container.encode(storageMaxGb, forKey: .storageMaxGb)
@@ -444,22 +449,71 @@ open class DedicatedDatabase: Codable {
     }
 
     public static func from(map: [String: Any]) -> DedicatedDatabase {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+            "projectId": "",
+            "name": "",
+            "version": "",
+            "specification": "",
+            "backend": "",
+            "hostname": "",
+            "connectionUser": "",
+            "connectionPassword": "",
+            "connectionString": "",
+            "ssl": false,
+            "status": "provisioning",
+            "containerStatus": "",
+            "lifecycleState": "",
+            "idleTimeoutMinutes": 15,
+            "cpu": 500,
+            "memory": 512,
+            "storage": 10,
+            "storageStatus": "idle",
+            "storageTargetGb": 0,
+            "storageClass": "ssd",
+            "storageMaxGb": 0,
+            "nodePool": "",
+            "replicas": 0,
+            "syncMode": "",
+            "networkMaxConnections": 100,
+            "networkIdleTimeoutSeconds": 900,
+            "networkIPAllowlist": [Any](),
+            "backupEnabled": true,
+            "pitr": true,
+            "pitrRetentionDays": 7,
+            "storageAutoscaling": true,
+            "storageAutoscalingThresholdPercent": 85,
+            "storageAutoscalingMaxGb": 0,
+            "maintenanceWindowDay": "sun",
+            "maintenanceWindowHourUtc": 3,
+            "metricsEnabled": false,
+            "sqlApiEnabled": true,
+            "sqlApiAllowedStatements": ["SELECT", "INSERT", "UPDATE", "DELETE"] as [Any],
+            "sqlApiMaxRows": 10000,
+            "sqlApiMaxBytes": 10485760,
+            "sqlApiTimeoutSeconds": 30,
+            "error": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return DedicatedDatabase(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
             projectId: map["projectId"] as! String,
             name: map["name"] as! String,
-            api: map["api"] as! String,
-            engine: map["engine"] as! String,
+            api: map["api"] as? String,
+            engine: map["engine"] as? String,
             version: map["version"] as! String,
             specification: map["specification"] as! String,
             backend: map["backend"] as! String,
             hostname: map["hostname"] as! String,
-            connectionPort: map["connectionPort"] as! Int,
+            connectionPort: map["connectionPort"] as? Int,
             connectionUser: map["connectionUser"] as! String,
             connectionPassword: map["connectionPassword"] as! String,
-            credentialGeneration: map["credentialGeneration"] as! Int,
+            credentialGeneration: map["credentialGeneration"] as? Int,
             connectionString: map["connectionString"] as! String,
             ssl: map["ssl"] as! Bool,
             status: map["status"] as! String,
@@ -471,6 +525,9 @@ open class DedicatedDatabase: Codable {
             cpu: map["cpu"] as! Int,
             memory: map["memory"] as! Int,
             storage: map["storage"] as! Int,
+            storageStatus: map["storageStatus"] as! String,
+            storageTargetGb: map["storageTargetGb"] as! Int,
+            storageResizeStartedAt: map["storageResizeStartedAt"] as? String,
             storageClass: map["storageClass"] as! String,
             storageMaxGb: map["storageMaxGb"] as! Int,
             nodePool: map["nodePool"] as! String,
@@ -493,10 +550,7 @@ open class DedicatedDatabase: Codable {
             sqlApiMaxRows: map["sqlApiMaxRows"] as! Int,
             sqlApiMaxBytes: map["sqlApiMaxBytes"] as! Int,
             sqlApiTimeoutSeconds: map["sqlApiTimeoutSeconds"] as! Int,
-            error: map["error"] as! String,
-            storageStatus: map["storageStatus"] as? String,
-            storageTargetGb: map["storageTargetGb"] as? Int,
-            storageResizeStartedAt: map["storageResizeStartedAt"] as? String
+            error: map["error"] as! String
         )
     }
 }

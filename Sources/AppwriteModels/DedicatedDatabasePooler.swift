@@ -65,16 +65,16 @@ open class DedicatedDatabasePooler: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.enabled = try container.decode(Bool.self, forKey: .enabled)
-        self.mode = try container.decode(String.self, forKey: .mode)
-        self.maxConnections = try container.decode(Int.self, forKey: .maxConnections)
-        self.defaultPoolSize = try container.decode(Int.self, forKey: .defaultPoolSize)
-        self.port = try container.decode(Int.self, forKey: .port)
-        self.readWriteSplitting = try container.decode(Bool.self, forKey: .readWriteSplitting)
-        self.poolerCpuRequest = try container.decode(String.self, forKey: .poolerCpuRequest)
-        self.poolerCpuLimit = try container.decode(String.self, forKey: .poolerCpuLimit)
-        self.poolerMemoryRequest = try container.decode(String.self, forKey: .poolerMemoryRequest)
-        self.poolerMemoryLimit = try container.decode(String.self, forKey: .poolerMemoryLimit)
+        self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : false
+        self.mode = try container.contains(.mode) ? container.decode(String.self, forKey: .mode) : "transaction"
+        self.maxConnections = try container.contains(.maxConnections) ? container.decode(Int.self, forKey: .maxConnections) : 100
+        self.defaultPoolSize = try container.contains(.defaultPoolSize) ? container.decode(Int.self, forKey: .defaultPoolSize) : 20
+        self.port = try container.contains(.port) ? container.decode(Int.self, forKey: .port) : 6432
+        self.readWriteSplitting = try container.contains(.readWriteSplitting) ? container.decode(Bool.self, forKey: .readWriteSplitting) : false
+        self.poolerCpuRequest = try container.contains(.poolerCpuRequest) ? container.decode(String.self, forKey: .poolerCpuRequest) : ""
+        self.poolerCpuLimit = try container.contains(.poolerCpuLimit) ? container.decode(String.self, forKey: .poolerCpuLimit) : ""
+        self.poolerMemoryRequest = try container.contains(.poolerMemoryRequest) ? container.decode(String.self, forKey: .poolerMemoryRequest) : ""
+        self.poolerMemoryLimit = try container.contains(.poolerMemoryLimit) ? container.decode(String.self, forKey: .poolerMemoryLimit) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -108,6 +108,20 @@ open class DedicatedDatabasePooler: Codable {
     }
 
     public static func from(map: [String: Any]) -> DedicatedDatabasePooler {
+        let defaults: [String: Any] = [
+            "enabled": false,
+            "mode": "transaction",
+            "maxConnections": 100,
+            "defaultPoolSize": 20,
+            "port": 6432,
+            "readWriteSplitting": false,
+            "poolerCpuRequest": "",
+            "poolerCpuLimit": "",
+            "poolerMemoryRequest": "",
+            "poolerMemoryLimit": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return DedicatedDatabasePooler(
             enabled: map["enabled"] as! Bool,
             mode: map["mode"] as! String,

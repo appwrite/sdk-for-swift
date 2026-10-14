@@ -25,8 +25,8 @@ open class PasskeyList: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decode(Int.self, forKey: .total)
-        self.passkeys = try container.decode([Passkey].self, forKey: .passkeys)
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
+        self.passkeys = try container.contains(.passkeys) ? container.decode([Passkey].self, forKey: .passkeys) : []
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -44,6 +44,12 @@ open class PasskeyList: Codable {
     }
 
     public static func from(map: [String: Any]) -> PasskeyList {
+        let defaults: [String: Any] = [
+            "total": 0,
+            "passkeys": [Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return PasskeyList(
             total: map["total"] as! Int,
             passkeys: (map["passkeys"] as! [[String: Any]]).map { Passkey.from(map: $0) }

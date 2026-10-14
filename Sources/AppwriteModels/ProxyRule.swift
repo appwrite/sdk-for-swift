@@ -41,7 +41,7 @@ open class ProxyRule: Codable {
     public let redirectStatusCode: Int
     /// ID of deployment. Used if type is &quot;deployment&quot;
     public let deploymentId: String
-    /// Type of deployment. Possible values are &quot;function&quot;, &quot;site&quot;. Used if rule&#039;s type is &quot;deployment&quot;.
+    /// Type of deployment resource: function, site, or dedicatedDatabase.
     public let deploymentResourceType: AppwriteEnums.ProxyRuleDeploymentResourceType?
     /// ID of deployment&#039;s resource (site or function ID). Used if type is &quot;deployment&quot;
     public let deploymentResourceId: String
@@ -91,24 +91,24 @@ open class ProxyRule: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.domain = try container.decode(String.self, forKey: .domain)
-        self.type = try container.decode(String.self, forKey: .type)
-        self.trigger = try container.decode(String.self, forKey: .trigger)
-        self.redirectUrl = try container.decode(String.self, forKey: .redirectUrl)
-        self.redirectStatusCode = try container.decode(Int.self, forKey: .redirectStatusCode)
-        self.deploymentId = try container.decode(String.self, forKey: .deploymentId)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
+        self.domain = try container.contains(.domain) ? container.decode(String.self, forKey: .domain) : ""
+        self.type = try container.contains(.type) ? container.decode(String.self, forKey: .type) : ""
+        self.trigger = try container.contains(.trigger) ? container.decode(String.self, forKey: .trigger) : ""
+        self.redirectUrl = try container.contains(.redirectUrl) ? container.decode(String.self, forKey: .redirectUrl) : ""
+        self.redirectStatusCode = try container.contains(.redirectStatusCode) ? container.decode(Int.self, forKey: .redirectStatusCode) : 301
+        self.deploymentId = try container.contains(.deploymentId) ? container.decode(String.self, forKey: .deploymentId) : ""
         if let deploymentResourceTypeString = try container.decodeIfPresent(String.self, forKey: .deploymentResourceType) {
             self.deploymentResourceType = AppwriteEnums.ProxyRuleDeploymentResourceType(rawValue: deploymentResourceTypeString)
         } else {
             self.deploymentResourceType = nil
         }
-        self.deploymentResourceId = try container.decode(String.self, forKey: .deploymentResourceId)
-        self.deploymentVcsProviderBranch = try container.decode(String.self, forKey: .deploymentVcsProviderBranch)
-        self.status = AppwriteEnums.ProxyRuleStatus(rawValue: try container.decode(String.self, forKey: .status))!
-        self.logs = try container.decode(String.self, forKey: .logs)
+        self.deploymentResourceId = try container.contains(.deploymentResourceId) ? container.decode(String.self, forKey: .deploymentResourceId) : ""
+        self.deploymentVcsProviderBranch = try container.contains(.deploymentVcsProviderBranch) ? container.decode(String.self, forKey: .deploymentVcsProviderBranch) : ""
+        self.status = AppwriteEnums.ProxyRuleStatus(rawValue: try container.contains(.status) ? container.decode(String.self, forKey: .status) : "unverified")!
+        self.logs = try container.contains(.logs) ? container.decode(String.self, forKey: .logs) : ""
         self.renewAt = try container.decode(String.self, forKey: .renewAt)
     }
 
@@ -153,6 +153,23 @@ open class ProxyRule: Codable {
     }
 
     public static func from(map: [String: Any]) -> ProxyRule {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+            "domain": "",
+            "type": "",
+            "trigger": "",
+            "redirectUrl": "",
+            "redirectStatusCode": 301,
+            "deploymentId": "",
+            "deploymentResourceId": "",
+            "deploymentVcsProviderBranch": "",
+            "status": "unverified",
+            "logs": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return ProxyRule(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

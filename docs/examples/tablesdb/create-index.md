@@ -14,7 +14,9 @@ let columnIndex = try await tablesDB.createIndex(
     tableId: "<TABLE_ID>",
     key: "<KEY>",
     type: .key,
-    columns: [],
+    columns: [
+        "username"
+    ],
     orders: [.asc], // optional
     lengths: [] // optional
 )

@@ -25,8 +25,8 @@ open class KeyList: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decode(Int.self, forKey: .total)
-        self.keys = try container.decode([Key].self, forKey: .keys)
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
+        self.keys = try container.contains(.keys) ? container.decode([Key].self, forKey: .keys) : []
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -44,6 +44,12 @@ open class KeyList: Codable {
     }
 
     public static func from(map: [String: Any]) -> KeyList {
+        let defaults: [String: Any] = [
+            "total": 0,
+            "keys": [Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return KeyList(
             total: map["total"] as! Int,
             keys: (map["keys"] as! [[String: Any]]).map { Key.from(map: $0) }

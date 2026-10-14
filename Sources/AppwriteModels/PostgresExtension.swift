@@ -35,10 +35,10 @@ open class PostgresExtension: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.key = try container.decode(String.self, forKey: .key)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.description = try container.decode(String.self, forKey: .description)
-        self.category = try container.decode(String.self, forKey: .category)
+        self.key = try container.contains(.key) ? container.decode(String.self, forKey: .key) : ""
+        self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.description = try container.contains(.description) ? container.decode(String.self, forKey: .description) : ""
+        self.category = try container.contains(.category) ? container.decode(String.self, forKey: .category) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -60,6 +60,14 @@ open class PostgresExtension: Codable {
     }
 
     public static func from(map: [String: Any]) -> PostgresExtension {
+        let defaults: [String: Any] = [
+            "key": "",
+            "name": "",
+            "description": "",
+            "category": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return PostgresExtension(
             key: map["key"] as! String,
             name: map["name"] as! String,

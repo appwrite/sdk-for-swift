@@ -75,18 +75,18 @@ open class Collection: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.permissions = try container.decode([String].self, forKey: .permissions)
-        self.databaseId = try container.decode(String.self, forKey: .databaseId)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.enabled = try container.decode(Bool.self, forKey: .enabled)
-        self.documentSecurity = try container.decode(Bool.self, forKey: .documentSecurity)
-        self.attributes = try container.decode([AnyCodable].self, forKey: .attributes)
-        self.indexes = try container.decode([Index].self, forKey: .indexes)
-        self.bytesMax = try container.decode(Int.self, forKey: .bytesMax)
-        self.bytesUsed = try container.decode(Int.self, forKey: .bytesUsed)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
+        self.permissions = try container.contains(.permissions) ? container.decode([String].self, forKey: .permissions) : []
+        self.databaseId = try container.contains(.databaseId) ? container.decode(String.self, forKey: .databaseId) : ""
+        self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : true
+        self.documentSecurity = try container.contains(.documentSecurity) ? container.decode(Bool.self, forKey: .documentSecurity) : false
+        self.attributes = try container.contains(.attributes) ? container.decode([AnyCodable].self, forKey: .attributes) : []
+        self.indexes = try container.contains(.indexes) ? container.decode([Index].self, forKey: .indexes) : []
+        self.bytesMax = try container.contains(.bytesMax) ? container.decode(Int.self, forKey: .bytesMax) : 0
+        self.bytesUsed = try container.contains(.bytesUsed) ? container.decode(Int.self, forKey: .bytesUsed) : 0
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -124,6 +124,22 @@ open class Collection: Codable {
     }
 
     public static func from(map: [String: Any]) -> Collection {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+            "$permissions": [Any](),
+            "databaseId": "",
+            "name": "",
+            "enabled": true,
+            "documentSecurity": false,
+            "attributes": [Any](),
+            "indexes": [Any](),
+            "bytesMax": 0,
+            "bytesUsed": 0,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return Collection(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

@@ -56,14 +56,14 @@ open class AttributeObject: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.key = try container.decode(String.self, forKey: .key)
-        self.type = try container.decode(String.self, forKey: .type)
+        self.key = try container.contains(.key) ? container.decode(String.self, forKey: .key) : ""
+        self.type = try container.contains(.type) ? container.decode(String.self, forKey: .type) : ""
         self.status = AppwriteEnums.AttributeStatus(rawValue: try container.decode(String.self, forKey: .status))!
-        self.error = try container.decode(String.self, forKey: .error)
-        self.`required` = try container.decode(Bool.self, forKey: .`required`)
+        self.error = try container.contains(.error) ? container.decode(String.self, forKey: .error) : ""
+        self.`required` = try container.contains(.`required`) ? container.decode(Bool.self, forKey: .`required`) : false
         self.array = try container.decodeIfPresent(Bool.self, forKey: .array)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -93,6 +93,16 @@ open class AttributeObject: Codable {
     }
 
     public static func from(map: [String: Any]) -> AttributeObject {
+        let defaults: [String: Any] = [
+            "key": "",
+            "type": "",
+            "error": "",
+            "required": false,
+            "$createdAt": "",
+            "$updatedAt": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return AttributeObject(
             key: map["key"] as! String,
             type: map["type"] as! String,

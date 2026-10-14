@@ -101,8 +101,8 @@ open class TablesDB: Service {
     }
     ///
     /// List the dedicated database specifications available on the current plan.
-    /// Each specification reports its resource limits, pricing, and whether it is
-    /// enabled for the organization.
+    /// Each specification reports its resource limits, its own prices and overage
+    /// rates, and whether it is enabled for the organization.
     ///
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DedicatedDatabaseSpecificationList
@@ -212,6 +212,10 @@ open class TablesDB: Service {
     open func getTransaction(
         transactionId: String
     ) async throws -> AppwriteModels.Transaction {
+        if transactionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"transactionId\"")
+        }
+
         let apiPath: String = "/tablesdb/transactions/{transactionId}"
             .replacingOccurrences(of: "{transactionId}", with: transactionId)
 
@@ -249,6 +253,10 @@ open class TablesDB: Service {
         commit: Bool? = nil,
         rollback: Bool? = nil
     ) async throws -> AppwriteModels.Transaction {
+        if transactionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"transactionId\"")
+        }
+
         let apiPath: String = "/tablesdb/transactions/{transactionId}"
             .replacingOccurrences(of: "{transactionId}", with: transactionId)
 
@@ -286,6 +294,10 @@ open class TablesDB: Service {
     open func deleteTransaction(
         transactionId: String
     ) async throws -> Any {
+        if transactionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"transactionId\"")
+        }
+
         let apiPath: String = "/tablesdb/transactions/{transactionId}"
             .replacingOccurrences(of: "{transactionId}", with: transactionId)
 
@@ -294,6 +306,7 @@ open class TablesDB: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -316,6 +329,10 @@ open class TablesDB: Service {
         transactionId: String,
         operations: [AnyCodable]? = nil
     ) async throws -> AppwriteModels.Transaction {
+        if transactionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"transactionId\"")
+        }
+
         let apiPath: String = "/tablesdb/transactions/{transactionId}/operations"
             .replacingOccurrences(of: "{transactionId}", with: transactionId)
 
@@ -353,6 +370,10 @@ open class TablesDB: Service {
     open func get(
         databaseId: String
     ) async throws -> AppwriteModels.Database {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -396,6 +417,10 @@ open class TablesDB: Service {
         replicas: Int? = nil,
         syncMode: String? = nil
     ) async throws -> AppwriteModels.Database {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -437,6 +462,10 @@ open class TablesDB: Service {
     open func delete(
         databaseId: String
     ) async throws -> Any {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -445,6 +474,7 @@ open class TablesDB: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -475,6 +505,10 @@ open class TablesDB: Service {
         databaseId: String,
         targetReplicaId: String? = nil
     ) async throws -> AppwriteModels.DedicatedDatabase {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/failovers"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -512,6 +546,10 @@ open class TablesDB: Service {
     open func listMigrations(
         databaseId: String
     ) async throws -> AppwriteModels.DatabaseMigrationList {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/migrations"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -551,6 +589,10 @@ open class TablesDB: Service {
         specification: String,
         autoCutover: Bool? = nil
     ) async throws -> AppwriteModels.DatabaseMigration {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/migrations"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -590,6 +632,13 @@ open class TablesDB: Service {
         databaseId: String,
         migrationId: String
     ) async throws -> AppwriteModels.DatabaseMigration {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if migrationId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"migrationId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/migrations/{migrationId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{migrationId}", with: migrationId)
@@ -627,6 +676,13 @@ open class TablesDB: Service {
         databaseId: String,
         migrationId: String
     ) async throws -> Any {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if migrationId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"migrationId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/migrations/{migrationId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{migrationId}", with: migrationId)
@@ -664,6 +720,13 @@ open class TablesDB: Service {
         databaseId: String,
         migrationId: String
     ) async throws -> AppwriteModels.DatabaseMigration {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if migrationId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"migrationId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/migrations/{migrationId}/cutovers"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{migrationId}", with: migrationId)
@@ -708,6 +771,10 @@ open class TablesDB: Service {
         limit: Int? = nil,
         offset: Int? = nil
     ) async throws -> AppwriteModels.DedicatedDatabaseOperationList {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/operations"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -746,6 +813,10 @@ open class TablesDB: Service {
     open func getReplicas(
         databaseId: String
     ) async throws -> AppwriteModels.DedicatedDatabaseReplicas {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/replicas"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -781,6 +852,10 @@ open class TablesDB: Service {
     open func getStatus(
         databaseId: String
     ) async throws -> AppwriteModels.DatabaseStatus {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/status"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -821,6 +896,10 @@ open class TablesDB: Service {
         search: String? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.TableList {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -875,6 +954,10 @@ open class TablesDB: Service {
         columns: [AnyCodable]? = nil,
         indexes: [AnyCodable]? = nil
     ) async throws -> AppwriteModels.Table {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -920,6 +1003,13 @@ open class TablesDB: Service {
         databaseId: String,
         tableId: String
     ) async throws -> AppwriteModels.Table {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -966,6 +1056,13 @@ open class TablesDB: Service {
         enabled: Bool? = nil,
         purge: Bool? = nil
     ) async throws -> AppwriteModels.Table {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -1010,6 +1107,13 @@ open class TablesDB: Service {
         databaseId: String,
         tableId: String
     ) async throws -> Any {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -1019,6 +1123,7 @@ open class TablesDB: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -1045,6 +1150,13 @@ open class TablesDB: Service {
         queries: [String]? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.ColumnList {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -1097,6 +1209,13 @@ open class TablesDB: Service {
         `default`: Int? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.ColumnBigint {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/bigint"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -1154,6 +1273,16 @@ open class TablesDB: Service {
         max: Int? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.ColumnBigint {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/bigint/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -1206,6 +1335,13 @@ open class TablesDB: Service {
         `default`: Bool? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.ColumnBoolean {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/boolean"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -1257,6 +1393,16 @@ open class TablesDB: Service {
         `default`: Bool? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.ColumnBoolean {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/boolean/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -1307,6 +1453,13 @@ open class TablesDB: Service {
         `default`: String? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.ColumnDatetime {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/datetime"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -1358,6 +1511,16 @@ open class TablesDB: Service {
         `default`: String? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.ColumnDatetime {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/datetime/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -1408,6 +1571,13 @@ open class TablesDB: Service {
         `default`: String? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.ColumnEmail {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/email"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -1459,6 +1629,16 @@ open class TablesDB: Service {
         `default`: String? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.ColumnEmail {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/email/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -1512,6 +1692,13 @@ open class TablesDB: Service {
         `default`: String? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.ColumnEnum {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/enum"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -1566,6 +1753,16 @@ open class TablesDB: Service {
         `default`: String? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.ColumnEnum {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/enum/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -1622,6 +1819,13 @@ open class TablesDB: Service {
         `default`: Double? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.ColumnFloat {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/float"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -1679,6 +1883,16 @@ open class TablesDB: Service {
         max: Double? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.ColumnFloat {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/float/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -1736,6 +1950,13 @@ open class TablesDB: Service {
         `default`: Int? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.ColumnInteger {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/integer"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -1793,6 +2014,16 @@ open class TablesDB: Service {
         max: Int? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.ColumnInteger {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/integer/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -1845,6 +2076,13 @@ open class TablesDB: Service {
         `default`: String? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.ColumnIp {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/ip"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -1896,6 +2134,16 @@ open class TablesDB: Service {
         `default`: String? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.ColumnIp {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/ip/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -1944,6 +2192,13 @@ open class TablesDB: Service {
         `required`: Bool,
         `default`: [[AnyCodable]]? = nil
     ) async throws -> AppwriteModels.ColumnLine {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/line"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -1994,6 +2249,16 @@ open class TablesDB: Service {
         `default`: [[AnyCodable]]? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.ColumnLine {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/line/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -2046,6 +2311,13 @@ open class TablesDB: Service {
         array: Bool? = nil,
         encrypt: Bool? = nil
     ) async throws -> AppwriteModels.ColumnLongtext {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/longtext"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -2098,6 +2370,16 @@ open class TablesDB: Service {
         `default`: String? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.ColumnLongtext {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/longtext/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -2150,6 +2432,13 @@ open class TablesDB: Service {
         array: Bool? = nil,
         encrypt: Bool? = nil
     ) async throws -> AppwriteModels.ColumnMediumtext {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/mediumtext"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -2202,6 +2491,16 @@ open class TablesDB: Service {
         `default`: String? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.ColumnMediumtext {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/mediumtext/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -2250,6 +2549,13 @@ open class TablesDB: Service {
         `required`: Bool,
         `default`: [Double]? = nil
     ) async throws -> AppwriteModels.ColumnPoint {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/point"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -2300,6 +2606,16 @@ open class TablesDB: Service {
         `default`: [Double]? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.ColumnPoint {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/point/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -2348,6 +2664,13 @@ open class TablesDB: Service {
         `required`: Bool,
         `default`: [[AnyCodable]]? = nil
     ) async throws -> AppwriteModels.ColumnPolygon {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/polygon"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -2398,6 +2721,16 @@ open class TablesDB: Service {
         `default`: [[AnyCodable]]? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.ColumnPolygon {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/polygon/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -2453,6 +2786,13 @@ open class TablesDB: Service {
         twoWayKey: String? = nil,
         onDelete: AppwriteEnums.RelationMutate? = nil
     ) async throws -> AppwriteModels.ColumnRelationship {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/relationship"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -2485,6 +2825,64 @@ open class TablesDB: Service {
         )
     }
     ///
+    /// Update relationship column. [Learn more about relationship
+    /// columns](https://appwrite.io/docs/databases-relationships#relationship-columns).
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - tableId: String
+    ///   - key: String
+    ///   - onDelete: AppwriteEnums.RelationMutate (optional)
+    ///   - newKey: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ColumnRelationship
+    ///
+    open func updateRelationshipColumn(
+        databaseId: String,
+        tableId: String,
+        key: String,
+        onDelete: AppwriteEnums.RelationMutate? = nil,
+        newKey: String? = nil
+    ) async throws -> AppwriteModels.ColumnRelationship {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
+        let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/relationship/{key}"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{key}", with: key)
+
+        let apiParams: [String: Any?] = [
+            "onDelete": onDelete?.rawValue,
+            "newKey": newKey,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.ColumnRelationship = { response in
+            return AppwriteModels.ColumnRelationship.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// Create a string column.
     ///
     /// - Parameters:
@@ -2510,6 +2908,13 @@ open class TablesDB: Service {
         array: Bool? = nil,
         encrypt: Bool? = nil
     ) async throws -> AppwriteModels.ColumnString {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/string"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -2566,6 +2971,16 @@ open class TablesDB: Service {
         size: Int? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.ColumnString {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/string/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -2619,6 +3034,13 @@ open class TablesDB: Service {
         array: Bool? = nil,
         encrypt: Bool? = nil
     ) async throws -> AppwriteModels.ColumnText {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/text"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -2671,6 +3093,16 @@ open class TablesDB: Service {
         `default`: String? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.ColumnText {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/text/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -2721,6 +3153,13 @@ open class TablesDB: Service {
         `default`: String? = nil,
         array: Bool? = nil
     ) async throws -> AppwriteModels.ColumnUrl {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/url"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -2772,6 +3211,16 @@ open class TablesDB: Service {
         `default`: String? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.ColumnUrl {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/url/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -2826,6 +3275,13 @@ open class TablesDB: Service {
         array: Bool? = nil,
         encrypt: Bool? = nil
     ) async throws -> AppwriteModels.ColumnVarchar {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/varchar"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -2881,6 +3337,16 @@ open class TablesDB: Service {
         size: Int? = nil,
         newKey: String? = nil
     ) async throws -> AppwriteModels.ColumnVarchar {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/varchar/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -2926,6 +3392,16 @@ open class TablesDB: Service {
         tableId: String,
         key: String
     ) async throws -> Any {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -2957,6 +3433,9 @@ open class TablesDB: Service {
             if String(describing: responseMap["type"] ?? "") == "boolean" {
                 return AppwriteModels.ColumnBoolean.from(map: responseMap)
             }
+            if String(describing: responseMap["type"] ?? "") == "bigint" {
+                return AppwriteModels.ColumnBigint.from(map: responseMap)
+            }
             if String(describing: responseMap["type"] ?? "") == "integer" {
                 return AppwriteModels.ColumnInteger.from(map: responseMap)
             }
@@ -2968,6 +3447,27 @@ open class TablesDB: Service {
             }
             if String(describing: responseMap["type"] ?? "") == "relationship" {
                 return AppwriteModels.ColumnRelationship.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "point" {
+                return AppwriteModels.ColumnPoint.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "linestring" {
+                return AppwriteModels.ColumnLine.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "polygon" {
+                return AppwriteModels.ColumnPolygon.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "varchar" {
+                return AppwriteModels.ColumnVarchar.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "text" {
+                return AppwriteModels.ColumnText.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "mediumtext" {
+                return AppwriteModels.ColumnMediumtext.from(map: responseMap)
+            }
+            if String(describing: responseMap["type"] ?? "") == "longtext" {
+                return AppwriteModels.ColumnLongtext.from(map: responseMap)
             }
             if String(describing: responseMap["type"] ?? "") == "string" {
                 return AppwriteModels.ColumnString.from(map: responseMap)
@@ -2998,6 +3498,16 @@ open class TablesDB: Service {
         tableId: String,
         key: String
     ) async throws -> Any {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -3008,6 +3518,7 @@ open class TablesDB: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -3015,54 +3526,6 @@ open class TablesDB: Service {
             path: apiPath,
             headers: apiHeaders,
             params: apiParams
-        )
-    }
-    ///
-    /// Update relationship column. [Learn more about relationship
-    /// columns](https://appwrite.io/docs/databases-relationships#relationship-columns).
-    ///
-    /// - Parameters:
-    ///   - databaseId: String
-    ///   - tableId: String
-    ///   - key: String
-    ///   - onDelete: AppwriteEnums.RelationMutate (optional)
-    ///   - newKey: String (optional)
-    /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.ColumnRelationship
-    ///
-    open func updateRelationshipColumn(
-        databaseId: String,
-        tableId: String,
-        key: String,
-        onDelete: AppwriteEnums.RelationMutate? = nil,
-        newKey: String? = nil
-    ) async throws -> AppwriteModels.ColumnRelationship {
-        let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/{key}/relationship"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
-
-        let apiParams: [String: Any?] = [
-            "onDelete": onDelete?.rawValue,
-            "newKey": newKey,
-        ]
-
-        let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? "",
-            "content-type": "application/json",
-            "accept": "application/json",
-        ]
-
-        let converter: (Any) throws -> AppwriteModels.ColumnRelationship = { response in
-            return AppwriteModels.ColumnRelationship.from(map: response as! [String: Any])
-        }
-
-        return try await client.call(
-            method: "PATCH",
-            path: apiPath,
-            headers: apiHeaders,
-            params: apiParams,
-            converter: converter
         )
     }
     ///
@@ -3082,6 +3545,13 @@ open class TablesDB: Service {
         queries: [String]? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.ColumnIndexList {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/indexes"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -3111,7 +3581,9 @@ open class TablesDB: Service {
     ///
     /// Creates an index on the columns listed. Your index should include all the
     /// columns you will query in a single request.
-    /// Type can be `key`, `fulltext`, or `unique`.
+    /// Type can be `key`, `fulltext`, `unique`, `spatial`, or `trigram`. `trigram`
+    /// is only available on PostgreSQL and lets `contains`, `startsWith`, and
+    /// `endsWith` queries on string columns use an index.
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -3133,6 +3605,13 @@ open class TablesDB: Service {
         orders: [AppwriteEnums.OrderBy]? = nil,
         lengths: [Int]? = nil
     ) async throws -> AppwriteModels.ColumnIndex {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/indexes"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -3178,6 +3657,16 @@ open class TablesDB: Service {
         tableId: String,
         key: String
     ) async throws -> AppwriteModels.ColumnIndex {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/indexes/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -3217,6 +3706,16 @@ open class TablesDB: Service {
         tableId: String,
         key: String
     ) async throws -> Any {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if key.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"key\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/indexes/{key}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -3227,6 +3726,7 @@ open class TablesDB: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -3259,6 +3759,13 @@ open class TablesDB: Service {
         ttl: Int? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.RowList<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -3345,6 +3852,13 @@ open class TablesDB: Service {
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Row<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -3430,6 +3944,13 @@ open class TablesDB: Service {
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.RowList<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -3507,6 +4028,13 @@ open class TablesDB: Service {
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.RowList<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -3584,6 +4112,13 @@ open class TablesDB: Service {
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.RowList<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -3661,6 +4196,13 @@ open class TablesDB: Service {
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.RowList<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -3736,6 +4278,16 @@ open class TablesDB: Service {
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Row<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if rowId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"rowId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -3818,6 +4370,16 @@ open class TablesDB: Service {
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Row<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if rowId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"rowId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -3905,6 +4467,16 @@ open class TablesDB: Service {
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Row<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if rowId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"rowId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -3984,6 +4556,16 @@ open class TablesDB: Service {
         rowId: String,
         transactionId: String? = nil
     ) async throws -> Any {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if rowId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"rowId\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -3996,6 +4578,7 @@ open class TablesDB: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -4029,6 +4612,19 @@ open class TablesDB: Service {
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Row<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if rowId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"rowId\"")
+        }
+        if column.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"column\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}/{column}/decrement"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)
@@ -4118,6 +4714,19 @@ open class TablesDB: Service {
         transactionId: String? = nil,
         nestedType: T.Type
     ) async throws -> AppwriteModels.Row<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if tableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tableId\"")
+        }
+        if rowId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"rowId\"")
+        }
+        if column.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"column\"")
+        }
+
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}/{column}/increment"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{tableId}", with: tableId)

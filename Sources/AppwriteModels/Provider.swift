@@ -60,14 +60,14 @@ open class Provider: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.provider = try container.decode(String.self, forKey: .provider)
-        self.enabled = try container.decode(Bool.self, forKey: .enabled)
-        self.type = try container.decode(String.self, forKey: .type)
-        self.credentials = try container.decode([String: AnyCodable].self, forKey: .credentials)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
+        self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.provider = try container.contains(.provider) ? container.decode(String.self, forKey: .provider) : ""
+        self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : true
+        self.type = try container.contains(.type) ? container.decode(String.self, forKey: .type) : ""
+        self.credentials = try container.contains(.credentials) ? container.decode([String: AnyCodable].self, forKey: .credentials) : ([String: Any]()).mapValues { AnyCodable($0) }
         self.options = try container.decodeIfPresent([String: AnyCodable].self, forKey: .options)
     }
 
@@ -100,6 +100,18 @@ open class Provider: Codable {
     }
 
     public static func from(map: [String: Any]) -> Provider {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+            "name": "",
+            "provider": "",
+            "enabled": true,
+            "type": "",
+            "credentials": [String: Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return Provider(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

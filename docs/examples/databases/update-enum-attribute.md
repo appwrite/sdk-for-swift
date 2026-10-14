@@ -12,7 +12,10 @@ let attributeEnum = try await databases.updateEnumAttribute(
     databaseId: "<DATABASE_ID>",
     collectionId: "<COLLECTION_ID>",
     key: "<KEY>",
-    elements: ["active", "inactive"],
+    elements: [
+        "active",
+        "inactive"
+    ],
     required: false,
     default: "active",
     newKey: "<NEW_KEY>" // optional
