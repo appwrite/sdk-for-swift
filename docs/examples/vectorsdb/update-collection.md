@@ -12,7 +12,7 @@ let vectorsdbCollection = try await vectorsDB.updateCollection(
     databaseId: "<DATABASE_ID>",
     collectionId: "<COLLECTION_ID>",
     name: "<NAME>",
-    dimension: 1, // optional
+    dimension: 4, // optional
     permissions: [Permission.read(Role.any())], // optional
     documentSecurity: false, // optional
     enabled: false // optional

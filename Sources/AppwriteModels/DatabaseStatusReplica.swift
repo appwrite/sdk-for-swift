@@ -40,9 +40,9 @@ open class DatabaseStatusReplica: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.index = try container.decode(Int.self, forKey: .index)
-        self.role = try container.decode(String.self, forKey: .role)
-        self.healthy = try container.decode(Bool.self, forKey: .healthy)
+        self.index = try container.contains(.index) ? container.decode(Int.self, forKey: .index) : 0
+        self.role = try container.contains(.role) ? container.decode(String.self, forKey: .role) : "unknown"
+        self.healthy = try container.contains(.healthy) ? container.decode(Bool.self, forKey: .healthy) : false
         self.replicating = try container.decodeIfPresent(Bool.self, forKey: .replicating)
         self.lagSeconds = try container.decodeIfPresent(Double.self, forKey: .lagSeconds)
     }
@@ -68,6 +68,13 @@ open class DatabaseStatusReplica: Codable {
     }
 
     public static func from(map: [String: Any]) -> DatabaseStatusReplica {
+        let defaults: [String: Any] = [
+            "index": 0,
+            "role": "unknown",
+            "healthy": false,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return DatabaseStatusReplica(
             index: map["index"] as! Int,
             role: map["role"] as! String,

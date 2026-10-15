@@ -14,7 +14,9 @@ let index = try await databases.createIndex(
     collectionId: "<COLLECTION_ID>",
     key: "<KEY>",
     type: .key,
-    attributes: [],
+    attributes: [
+        "username"
+    ],
     orders: [.asc], // optional
     lengths: [] // optional
 )

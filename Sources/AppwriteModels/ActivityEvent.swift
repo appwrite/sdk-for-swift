@@ -160,35 +160,35 @@ open class ActivityEvent: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.actorType = try container.decode(String.self, forKey: .actorType)
-        self.actorId = try container.decode(String.self, forKey: .actorId)
-        self.actorEmail = try container.decode(String.self, forKey: .actorEmail)
-        self.actorName = try container.decode(String.self, forKey: .actorName)
-        self.resourceParent = try container.decode(String.self, forKey: .resourceParent)
-        self.resourceType = try container.decode(String.self, forKey: .resourceType)
-        self.resourceId = try container.decode(String.self, forKey: .resourceId)
-        self.resource = try container.decode(String.self, forKey: .resource)
-        self.event = try container.decode(String.self, forKey: .event)
-        self.userAgent = try container.decode(String.self, forKey: .userAgent)
-        self.ip = try container.decode(String.self, forKey: .ip)
-        self.mode = try container.decode(String.self, forKey: .mode)
-        self.country = try container.decode(String.self, forKey: .country)
-        self.continentCode = try container.decode(String.self, forKey: .continentCode)
-        self.city = try container.decode(String.self, forKey: .city)
-        self.subdivisions = try container.decode(String.self, forKey: .subdivisions)
-        self.isp = try container.decode(String.self, forKey: .isp)
-        self.autonomousSystemNumber = try container.decode(String.self, forKey: .autonomousSystemNumber)
-        self.autonomousSystemOrganization = try container.decode(String.self, forKey: .autonomousSystemOrganization)
-        self.connectionType = try container.decode(String.self, forKey: .connectionType)
-        self.connectionUsageType = try container.decode(String.self, forKey: .connectionUsageType)
-        self.connectionOrganization = try container.decode(String.self, forKey: .connectionOrganization)
-        self.time = try container.decode(String.self, forKey: .time)
-        self.projectId = try container.decode(String.self, forKey: .projectId)
-        self.teamId = try container.decode(String.self, forKey: .teamId)
-        self.hostname = try container.decode(String.self, forKey: .hostname)
-        self.sdk = try container.decode(String.self, forKey: .sdk)
-        self.sdkVersion = try container.decode(String.self, forKey: .sdkVersion)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.actorType = try container.contains(.actorType) ? container.decode(String.self, forKey: .actorType) : ""
+        self.actorId = try container.contains(.actorId) ? container.decode(String.self, forKey: .actorId) : ""
+        self.actorEmail = try container.contains(.actorEmail) ? container.decode(String.self, forKey: .actorEmail) : ""
+        self.actorName = try container.contains(.actorName) ? container.decode(String.self, forKey: .actorName) : ""
+        self.resourceParent = try container.contains(.resourceParent) ? container.decode(String.self, forKey: .resourceParent) : ""
+        self.resourceType = try container.contains(.resourceType) ? container.decode(String.self, forKey: .resourceType) : ""
+        self.resourceId = try container.contains(.resourceId) ? container.decode(String.self, forKey: .resourceId) : ""
+        self.resource = try container.contains(.resource) ? container.decode(String.self, forKey: .resource) : ""
+        self.event = try container.contains(.event) ? container.decode(String.self, forKey: .event) : ""
+        self.userAgent = try container.contains(.userAgent) ? container.decode(String.self, forKey: .userAgent) : ""
+        self.ip = try container.contains(.ip) ? container.decode(String.self, forKey: .ip) : ""
+        self.mode = try container.contains(.mode) ? container.decode(String.self, forKey: .mode) : ""
+        self.country = try container.contains(.country) ? container.decode(String.self, forKey: .country) : ""
+        self.continentCode = try container.contains(.continentCode) ? container.decode(String.self, forKey: .continentCode) : ""
+        self.city = try container.contains(.city) ? container.decode(String.self, forKey: .city) : ""
+        self.subdivisions = try container.contains(.subdivisions) ? container.decode(String.self, forKey: .subdivisions) : ""
+        self.isp = try container.contains(.isp) ? container.decode(String.self, forKey: .isp) : ""
+        self.autonomousSystemNumber = try container.contains(.autonomousSystemNumber) ? container.decode(String.self, forKey: .autonomousSystemNumber) : ""
+        self.autonomousSystemOrganization = try container.contains(.autonomousSystemOrganization) ? container.decode(String.self, forKey: .autonomousSystemOrganization) : ""
+        self.connectionType = try container.contains(.connectionType) ? container.decode(String.self, forKey: .connectionType) : ""
+        self.connectionUsageType = try container.contains(.connectionUsageType) ? container.decode(String.self, forKey: .connectionUsageType) : ""
+        self.connectionOrganization = try container.contains(.connectionOrganization) ? container.decode(String.self, forKey: .connectionOrganization) : ""
+        self.time = try container.contains(.time) ? container.decode(String.self, forKey: .time) : ""
+        self.projectId = try container.contains(.projectId) ? container.decode(String.self, forKey: .projectId) : ""
+        self.teamId = try container.contains(.teamId) ? container.decode(String.self, forKey: .teamId) : ""
+        self.hostname = try container.contains(.hostname) ? container.decode(String.self, forKey: .hostname) : ""
+        self.sdk = try container.contains(.sdk) ? container.decode(String.self, forKey: .sdk) : ""
+        self.sdkVersion = try container.contains(.sdkVersion) ? container.decode(String.self, forKey: .sdkVersion) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -260,6 +260,39 @@ open class ActivityEvent: Codable {
     }
 
     public static func from(map: [String: Any]) -> ActivityEvent {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "actorType": "",
+            "actorId": "",
+            "actorEmail": "",
+            "actorName": "",
+            "resourceParent": "",
+            "resourceType": "",
+            "resourceId": "",
+            "resource": "",
+            "event": "",
+            "userAgent": "",
+            "ip": "",
+            "mode": "",
+            "country": "",
+            "continentCode": "",
+            "city": "",
+            "subdivisions": "",
+            "isp": "",
+            "autonomousSystemNumber": "",
+            "autonomousSystemOrganization": "",
+            "connectionType": "",
+            "connectionUsageType": "",
+            "connectionOrganization": "",
+            "time": "",
+            "projectId": "",
+            "teamId": "",
+            "hostname": "",
+            "sdk": "",
+            "sdkVersion": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return ActivityEvent(
             id: map["$id"] as! String,
             actorType: map["actorType"] as! String,

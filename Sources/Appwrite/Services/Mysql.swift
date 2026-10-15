@@ -119,8 +119,8 @@ open class Mysql: Service {
     }
     ///
     /// List the dedicated database specifications available on the current plan.
-    /// Each specification reports its resource limits, pricing, and whether it is
-    /// enabled for the organization.
+    /// Each specification reports its resource limits, its own prices and overage
+    /// rates, and whether it is enabled for the organization.
     ///
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DedicatedDatabaseSpecificationList
@@ -159,6 +159,10 @@ open class Mysql: Service {
     open func get(
         databaseId: String
     ) async throws -> AppwriteModels.DedicatedDatabase {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -235,6 +239,10 @@ open class Mysql: Service {
         sqlApiMaxBytes: Int? = nil,
         sqlApiTimeoutSeconds: Int? = nil
     ) async throws -> AppwriteModels.DedicatedDatabase {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -293,6 +301,10 @@ open class Mysql: Service {
     open func delete(
         databaseId: String
     ) async throws -> Any {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -325,6 +337,10 @@ open class Mysql: Service {
         databaseId: String,
         queries: [String]? = nil
     ) async throws -> AppwriteModels.DedicatedDatabaseBackupList {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/backups"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -363,6 +379,10 @@ open class Mysql: Service {
         databaseId: String,
         type: String? = nil
     ) async throws -> AppwriteModels.DedicatedDatabaseBackup {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/backups"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -401,6 +421,10 @@ open class Mysql: Service {
         databaseId: String,
         queries: [String]? = nil
     ) async throws -> AppwriteModels.BackupPolicyList {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/backups/policies"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -448,6 +472,10 @@ open class Mysql: Service {
         type: String? = nil,
         enabled: Bool? = nil
     ) async throws -> AppwriteModels.BackupPolicy {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/backups/policies"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -491,6 +519,13 @@ open class Mysql: Service {
         databaseId: String,
         policyId: String
     ) async throws -> AppwriteModels.BackupPolicy {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if policyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"policyId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/backups/policies/{policyId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{policyId}", with: policyId)
@@ -535,6 +570,13 @@ open class Mysql: Service {
         retention: Int? = nil,
         enabled: Bool? = nil
     ) async throws -> AppwriteModels.BackupPolicy {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if policyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"policyId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/backups/policies/{policyId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{policyId}", with: policyId)
@@ -578,6 +620,13 @@ open class Mysql: Service {
         databaseId: String,
         policyId: String
     ) async throws -> Any {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if policyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"policyId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/backups/policies/{policyId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{policyId}", with: policyId)
@@ -624,6 +673,10 @@ open class Mysql: Service {
         `prefix`: String? = nil,
         endpoint: String? = nil
     ) async throws -> AppwriteModels.DedicatedDatabaseBackupStorage {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/backups/storage"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -669,6 +722,13 @@ open class Mysql: Service {
         databaseId: String,
         backupId: String
     ) async throws -> AppwriteModels.DedicatedDatabaseBackup {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if backupId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"backupId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/backups/{backupId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{backupId}", with: backupId)
@@ -706,6 +766,13 @@ open class Mysql: Service {
         databaseId: String,
         backupId: String
     ) async throws -> Any {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if backupId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"backupId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/backups/{backupId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{backupId}", with: backupId)
@@ -737,6 +804,10 @@ open class Mysql: Service {
     open func listBranches(
         databaseId: String
     ) async throws -> AppwriteModels.DedicatedDatabaseBranchList {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/branches"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -778,6 +849,10 @@ open class Mysql: Service {
         branchId: String? = nil,
         ttl: Int? = nil
     ) async throws -> AppwriteModels.DedicatedDatabase {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/branches"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -819,6 +894,13 @@ open class Mysql: Service {
         databaseId: String,
         branchId: String
     ) async throws -> AppwriteModels.DedicatedDatabase {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if branchId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"branchId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/branches/{branchId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{branchId}", with: branchId)
@@ -857,6 +939,10 @@ open class Mysql: Service {
     open func updateCredentials(
         databaseId: String
     ) async throws -> AppwriteModels.DedicatedDatabaseOperation {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/credentials"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -890,6 +976,10 @@ open class Mysql: Service {
     /// without a per-query cloud round-trip. The statement type must be on the
     /// database's configured allow-list. Use bound parameters for any
     /// user-supplied values — the API does not interpolate raw strings.
+    /// Long-running statements (for example CREATE INDEX) can outlive the HTTP
+    /// request: if the request ends before a result is returned, check the
+    /// database before retrying, and prefer a direct connection for work that may
+    /// take minutes.
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -905,6 +995,10 @@ open class Mysql: Service {
         bindings: Any? = nil,
         timeoutSeconds: Int? = nil
     ) async throws -> AppwriteModels.DedicatedDatabaseExecution {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/executions"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -953,6 +1047,10 @@ open class Mysql: Service {
         databaseId: String,
         targetReplicaId: String? = nil
     ) async throws -> AppwriteModels.DedicatedDatabase {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/failovers"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -995,6 +1093,10 @@ open class Mysql: Service {
         day: String,
         hourUtc: Int
     ) async throws -> AppwriteModels.DedicatedDatabase {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/maintenance"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -1039,6 +1141,10 @@ open class Mysql: Service {
         targetType: String,
         specification: String? = nil
     ) async throws -> AppwriteModels.DedicatedDatabase {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/migrations"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -1085,6 +1191,10 @@ open class Mysql: Service {
         limit: Int? = nil,
         offset: Int? = nil
     ) async throws -> AppwriteModels.DedicatedDatabaseOperationList {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/operations"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -1123,6 +1233,10 @@ open class Mysql: Service {
     open func getPitr(
         databaseId: String
     ) async throws -> AppwriteModels.DedicatedDatabasePITRWindows {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/pitr"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -1157,6 +1271,10 @@ open class Mysql: Service {
     open func getPooler(
         databaseId: String
     ) async throws -> AppwriteModels.DedicatedDatabasePooler {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/pooler"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -1207,6 +1325,10 @@ open class Mysql: Service {
         poolerMemoryRequest: String? = nil,
         poolerMemoryLimit: String? = nil
     ) async throws -> AppwriteModels.DedicatedDatabasePooler {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/pooler"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -1251,6 +1373,10 @@ open class Mysql: Service {
     open func getReplicas(
         databaseId: String
     ) async throws -> AppwriteModels.DedicatedDatabaseReplicas {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/replicas"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -1293,6 +1419,10 @@ open class Mysql: Service {
         limit: Int? = nil,
         offset: Int? = nil
     ) async throws -> AppwriteModels.DedicatedDatabaseRestorationList {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/restorations"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -1326,12 +1456,26 @@ open class Mysql: Service {
     /// an ISO 8601 datetime. PITR requires the database to have PITR enabled and
     /// is only available for enterprise databases.
     ///
+    /// By default the backup is replayed over the database it was taken from. Pass
+    /// `restoreMode` as `clone` to recover it onto a second workload beside this
+    /// database instead: this database keeps serving its own data while the clone
+    /// is filled, and the switch happens as soon as the clone is ready, on the
+    /// endpoint and credentials it already had. Pass `autoPromote` as false to
+    /// hold the clone until you promote it yourself. Pass `restoreMode` as `copy`
+    /// to recover onto a separate database with its own endpoint, either one you
+    /// name with `targetDatabaseId` or one provisioned as a copy of this
+    /// database's engine, version, specification and replicas. Neither mode is
+    /// available for a point-in-time recovery or an incremental backup.
+    ///
     /// - Parameters:
     ///   - databaseId: String
     ///   - type: String (optional)
     ///   - backupId: String (optional)
     ///   - targetDatabaseId: String (optional)
     ///   - targetTime: String (optional)
+    ///   - restoreMode: String (optional)
+    ///   - targetName: String (optional)
+    ///   - autoPromote: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DedicatedDatabaseRestoration
     ///
@@ -1340,8 +1484,15 @@ open class Mysql: Service {
         type: String? = nil,
         backupId: String? = nil,
         targetDatabaseId: String? = nil,
-        targetTime: String? = nil
+        targetTime: String? = nil,
+        restoreMode: String? = nil,
+        targetName: String? = nil,
+        autoPromote: Bool? = nil
     ) async throws -> AppwriteModels.DedicatedDatabaseRestoration {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/restorations"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -1350,6 +1501,9 @@ open class Mysql: Service {
             "backupId": backupId,
             "targetDatabaseId": targetDatabaseId,
             "targetTime": targetTime,
+            "restoreMode": restoreMode,
+            "targetName": targetName,
+            "autoPromote": autoPromote,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1384,6 +1538,13 @@ open class Mysql: Service {
         databaseId: String,
         restorationId: String
     ) async throws -> AppwriteModels.DedicatedDatabaseRestoration {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if restorationId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"restorationId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/restorations/{restorationId}"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
             .replacingOccurrences(of: "{restorationId}", with: restorationId)
@@ -1408,6 +1569,55 @@ open class Mysql: Service {
         )
     }
     ///
+    /// Switch the database over to the clone a restoration recovered. The database
+    /// keeps
+    /// its endpoint and credentials; clients reconnect once. Writes made after the
+    /// recovery point are discarded, and the side being replaced is retained
+    /// briefly so
+    /// the switch can be reversed.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - restorationId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DedicatedDatabaseRestoration
+    ///
+    open func promoteRestoration(
+        databaseId: String,
+        restorationId: String
+    ) async throws -> AppwriteModels.DedicatedDatabaseRestoration {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if restorationId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"restorationId\"")
+        }
+
+        let apiPath: String = "/mysql/{databaseId}/restorations/{restorationId}/promotions"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{restorationId}", with: restorationId)
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.DedicatedDatabaseRestoration = { response in
+            return AppwriteModels.DedicatedDatabaseRestoration.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// Get real-time health and status information for a dedicated database.
     /// Returns health status, readiness, uptime, connection info, replica status,
     /// and volume information.
@@ -1420,6 +1630,10 @@ open class Mysql: Service {
     open func getStatus(
         databaseId: String
     ) async throws -> AppwriteModels.DatabaseStatus {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/status"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
@@ -1456,6 +1670,10 @@ open class Mysql: Service {
         databaseId: String,
         targetVersion: String
     ) async throws -> AppwriteModels.DedicatedDatabase {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+
         let apiPath: String = "/mysql/{databaseId}/upgrades"
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 

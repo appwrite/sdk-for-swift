@@ -25,8 +25,8 @@ open class ProxyRuleList: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decode(Int.self, forKey: .total)
-        self.rules = try container.decode([ProxyRule].self, forKey: .rules)
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
+        self.rules = try container.contains(.rules) ? container.decode([ProxyRule].self, forKey: .rules) : []
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -44,6 +44,12 @@ open class ProxyRuleList: Codable {
     }
 
     public static func from(map: [String: Any]) -> ProxyRuleList {
+        let defaults: [String: Any] = [
+            "total": 0,
+            "rules": [Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return ProxyRuleList(
             total: map["total"] as! Int,
             rules: (map["rules"] as! [[String: Any]]).map { ProxyRule.from(map: $0) }

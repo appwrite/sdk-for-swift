@@ -91,6 +91,10 @@ open class Backups: Service {
     open func getArchive(
         archiveId: String
     ) async throws -> AppwriteModels.BackupArchive {
+        if archiveId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"archiveId\"")
+        }
+
         let apiPath: String = "/backups/archives/{archiveId}"
             .replacingOccurrences(of: "{archiveId}", with: archiveId)
 
@@ -124,6 +128,10 @@ open class Backups: Service {
     open func deleteArchive(
         archiveId: String
     ) async throws -> Any {
+        if archiveId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"archiveId\"")
+        }
+
         let apiPath: String = "/backups/archives/{archiveId}"
             .replacingOccurrences(of: "{archiveId}", with: archiveId)
 
@@ -240,6 +248,10 @@ open class Backups: Service {
     open func getPolicy(
         policyId: String
     ) async throws -> AppwriteModels.BackupPolicy {
+        if policyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"policyId\"")
+        }
+
         let apiPath: String = "/backups/policies/{policyId}"
             .replacingOccurrences(of: "{policyId}", with: policyId)
 
@@ -281,6 +293,10 @@ open class Backups: Service {
         schedule: String? = nil,
         enabled: Bool? = nil
     ) async throws -> AppwriteModels.BackupPolicy {
+        if policyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"policyId\"")
+        }
+
         let apiPath: String = "/backups/policies/{policyId}"
             .replacingOccurrences(of: "{policyId}", with: policyId)
 
@@ -320,6 +336,10 @@ open class Backups: Service {
     open func deletePolicy(
         policyId: String
     ) async throws -> Any {
+        if policyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"policyId\"")
+        }
+
         let apiPath: String = "/backups/policies/{policyId}"
             .replacingOccurrences(of: "{policyId}", with: policyId)
 
@@ -457,6 +477,10 @@ open class Backups: Service {
     open func getRestoration(
         restorationId: String
     ) async throws -> AppwriteModels.BackupRestoration {
+        if restorationId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"restorationId\"")
+        }
+
         let apiPath: String = "/backups/restorations/{restorationId}"
             .replacingOccurrences(of: "{restorationId}", with: restorationId)
 

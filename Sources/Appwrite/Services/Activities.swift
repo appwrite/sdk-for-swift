@@ -53,6 +53,10 @@ open class Activities: Service {
     open func getEvent(
         eventId: String
     ) async throws -> AppwriteModels.ActivityEvent {
+        if eventId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"eventId\"")
+        }
+
         let apiPath: String = "/activities/events/{eventId}"
             .replacingOccurrences(of: "{eventId}", with: eventId)
 

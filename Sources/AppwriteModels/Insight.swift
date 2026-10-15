@@ -100,20 +100,20 @@ open class Insight: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.reportId = try container.decode(String.self, forKey: .reportId)
-        self.type = try container.decode(String.self, forKey: .type)
-        self.severity = try container.decode(String.self, forKey: .severity)
-        self.status = try container.decode(String.self, forKey: .status)
-        self.resourceType = try container.decode(String.self, forKey: .resourceType)
-        self.resourceId = try container.decode(String.self, forKey: .resourceId)
-        self.parentResourceType = try container.decode(String.self, forKey: .parentResourceType)
-        self.parentResourceId = try container.decode(String.self, forKey: .parentResourceId)
-        self.title = try container.decode(String.self, forKey: .title)
-        self.summary = try container.decode(String.self, forKey: .summary)
-        self.ctas = try container.decode([InsightCTA].self, forKey: .ctas)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
+        self.reportId = try container.contains(.reportId) ? container.decode(String.self, forKey: .reportId) : ""
+        self.type = try container.contains(.type) ? container.decode(String.self, forKey: .type) : ""
+        self.severity = try container.contains(.severity) ? container.decode(String.self, forKey: .severity) : "info"
+        self.status = try container.contains(.status) ? container.decode(String.self, forKey: .status) : "active"
+        self.resourceType = try container.contains(.resourceType) ? container.decode(String.self, forKey: .resourceType) : ""
+        self.resourceId = try container.contains(.resourceId) ? container.decode(String.self, forKey: .resourceId) : ""
+        self.parentResourceType = try container.contains(.parentResourceType) ? container.decode(String.self, forKey: .parentResourceType) : ""
+        self.parentResourceId = try container.contains(.parentResourceId) ? container.decode(String.self, forKey: .parentResourceId) : ""
+        self.title = try container.contains(.title) ? container.decode(String.self, forKey: .title) : ""
+        self.summary = try container.contains(.summary) ? container.decode(String.self, forKey: .summary) : ""
+        self.ctas = try container.contains(.ctas) ? container.decode([InsightCTA].self, forKey: .ctas) : []
         self.analyzedAt = try container.decodeIfPresent(String.self, forKey: .analyzedAt)
         self.dismissedAt = try container.decodeIfPresent(String.self, forKey: .dismissedAt)
         self.dismissedBy = try container.decodeIfPresent(String.self, forKey: .dismissedBy)
@@ -164,6 +164,24 @@ open class Insight: Codable {
     }
 
     public static func from(map: [String: Any]) -> Insight {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+            "reportId": "",
+            "type": "",
+            "severity": "info",
+            "status": "active",
+            "resourceType": "",
+            "resourceId": "",
+            "parentResourceType": "",
+            "parentResourceId": "",
+            "title": "",
+            "summary": "",
+            "ctas": [Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return Insight(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

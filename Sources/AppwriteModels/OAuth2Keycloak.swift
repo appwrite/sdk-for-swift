@@ -45,12 +45,12 @@ open class OAuth2Keycloak: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.enabled = try container.decode(Bool.self, forKey: .enabled)
-        self.clientId = try container.decode(String.self, forKey: .clientId)
-        self.clientSecret = try container.decode(String.self, forKey: .clientSecret)
-        self.endpoint = try container.decode(String.self, forKey: .endpoint)
-        self.realmName = try container.decode(String.self, forKey: .realmName)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : false
+        self.clientId = try container.contains(.clientId) ? container.decode(String.self, forKey: .clientId) : ""
+        self.clientSecret = try container.contains(.clientSecret) ? container.decode(String.self, forKey: .clientSecret) : ""
+        self.endpoint = try container.contains(.endpoint) ? container.decode(String.self, forKey: .endpoint) : ""
+        self.realmName = try container.contains(.realmName) ? container.decode(String.self, forKey: .realmName) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -76,6 +76,16 @@ open class OAuth2Keycloak: Codable {
     }
 
     public static func from(map: [String: Any]) -> OAuth2Keycloak {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "enabled": false,
+            "clientId": "",
+            "clientSecret": "",
+            "endpoint": "",
+            "realmName": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return OAuth2Keycloak(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

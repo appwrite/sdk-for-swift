@@ -75,18 +75,18 @@ open class BackupPolicy: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.services = try container.decode([String].self, forKey: .services)
-        self.resources = try container.decode([String].self, forKey: .resources)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
+        self.services = try container.contains(.services) ? container.decode([String].self, forKey: .services) : []
+        self.resources = try container.contains(.resources) ? container.decode([String].self, forKey: .resources) : []
         self.resourceId = try container.decodeIfPresent(String.self, forKey: .resourceId)
         self.resourceType = try container.decodeIfPresent(String.self, forKey: .resourceType)
-        self.retention = try container.decode(Int.self, forKey: .retention)
-        self.schedule = try container.decode(String.self, forKey: .schedule)
-        self.type = try container.decode(String.self, forKey: .type)
-        self.enabled = try container.decode(Bool.self, forKey: .enabled)
+        self.retention = try container.contains(.retention) ? container.decode(Int.self, forKey: .retention) : 1
+        self.schedule = try container.contains(.schedule) ? container.decode(String.self, forKey: .schedule) : "0 * * * *"
+        self.type = try container.contains(.type) ? container.decode(String.self, forKey: .type) : "full"
+        self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : false
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -124,6 +124,20 @@ open class BackupPolicy: Codable {
     }
 
     public static func from(map: [String: Any]) -> BackupPolicy {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "name": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+            "services": [Any](),
+            "resources": [Any](),
+            "retention": 1,
+            "schedule": "0 * * * *",
+            "type": "full",
+            "enabled": false,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return BackupPolicy(
             id: map["$id"] as! String,
             name: map["name"] as! String,

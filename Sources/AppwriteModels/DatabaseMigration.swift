@@ -100,23 +100,23 @@ open class DatabaseMigration: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.projectId = try container.decode(String.self, forKey: .projectId)
-        self.databaseId = try container.decode(String.self, forKey: .databaseId)
-        self.specification = try container.decode(String.self, forKey: .specification)
-        self.phase = try container.decode(String.self, forKey: .phase)
-        self.attempt = try container.decode(Int.self, forKey: .attempt)
-        self.lastError = try container.decode(String.self, forKey: .lastError)
-        self.lagDocuments = try container.decode(Int.self, forKey: .lagDocuments)
-        self.changelogWatermark = try container.decode(Int.self, forKey: .changelogWatermark)
-        self.verifiedAt = try container.decode(String.self, forKey: .verifiedAt)
-        self.cutoverAt = try container.decode(String.self, forKey: .cutoverAt)
-        self.soakUntil = try container.decode(String.self, forKey: .soakUntil)
-        self.autoCutover = try container.decode(Bool.self, forKey: .autoCutover)
-        self.cutoverRequested = try container.decode(Bool.self, forKey: .cutoverRequested)
-        self.paused = try container.decode(Bool.self, forKey: .paused)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
+        self.projectId = try container.contains(.projectId) ? container.decode(String.self, forKey: .projectId) : ""
+        self.databaseId = try container.contains(.databaseId) ? container.decode(String.self, forKey: .databaseId) : ""
+        self.specification = try container.contains(.specification) ? container.decode(String.self, forKey: .specification) : ""
+        self.phase = try container.contains(.phase) ? container.decode(String.self, forKey: .phase) : "pending"
+        self.attempt = try container.contains(.attempt) ? container.decode(Int.self, forKey: .attempt) : 0
+        self.lastError = try container.contains(.lastError) ? container.decode(String.self, forKey: .lastError) : ""
+        self.lagDocuments = try container.contains(.lagDocuments) ? container.decode(Int.self, forKey: .lagDocuments) : 0
+        self.changelogWatermark = try container.contains(.changelogWatermark) ? container.decode(Int.self, forKey: .changelogWatermark) : 0
+        self.verifiedAt = try container.contains(.verifiedAt) ? container.decode(String.self, forKey: .verifiedAt) : ""
+        self.cutoverAt = try container.contains(.cutoverAt) ? container.decode(String.self, forKey: .cutoverAt) : ""
+        self.soakUntil = try container.contains(.soakUntil) ? container.decode(String.self, forKey: .soakUntil) : ""
+        self.autoCutover = try container.contains(.autoCutover) ? container.decode(Bool.self, forKey: .autoCutover) : true
+        self.cutoverRequested = try container.contains(.cutoverRequested) ? container.decode(Bool.self, forKey: .cutoverRequested) : false
+        self.paused = try container.contains(.paused) ? container.decode(Bool.self, forKey: .paused) : false
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -164,6 +164,27 @@ open class DatabaseMigration: Codable {
     }
 
     public static func from(map: [String: Any]) -> DatabaseMigration {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+            "projectId": "",
+            "databaseId": "",
+            "specification": "",
+            "phase": "pending",
+            "attempt": 0,
+            "lastError": "",
+            "lagDocuments": 0,
+            "changelogWatermark": 0,
+            "verifiedAt": "",
+            "cutoverAt": "",
+            "soakUntil": "",
+            "autoCutover": true,
+            "cutoverRequested": false,
+            "paused": false,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return DatabaseMigration(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

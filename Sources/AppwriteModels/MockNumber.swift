@@ -35,10 +35,10 @@ open class MockNumber: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.number = try container.decode(String.self, forKey: .number)
-        self.otp = try container.decode(String.self, forKey: .otp)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
+        self.number = try container.contains(.number) ? container.decode(String.self, forKey: .number) : ""
+        self.otp = try container.contains(.otp) ? container.decode(String.self, forKey: .otp) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -60,6 +60,14 @@ open class MockNumber: Codable {
     }
 
     public static func from(map: [String: Any]) -> MockNumber {
+        let defaults: [String: Any] = [
+            "number": "",
+            "otp": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return MockNumber(
             number: map["number"] as! String,
             otp: map["otp"] as! String,

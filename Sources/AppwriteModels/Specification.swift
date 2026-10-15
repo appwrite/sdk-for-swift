@@ -35,10 +35,10 @@ open class Specification: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.memory = try container.decode(Int.self, forKey: .memory)
-        self.cpus = try container.decode(Double.self, forKey: .cpus)
-        self.enabled = try container.decode(Bool.self, forKey: .enabled)
-        self.slug = try container.decode(String.self, forKey: .slug)
+        self.memory = try container.contains(.memory) ? container.decode(Int.self, forKey: .memory) : 0
+        self.cpus = try container.contains(.cpus) ? container.decode(Double.self, forKey: .cpus) : 0
+        self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : false
+        self.slug = try container.contains(.slug) ? container.decode(String.self, forKey: .slug) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -60,6 +60,14 @@ open class Specification: Codable {
     }
 
     public static func from(map: [String: Any]) -> Specification {
+        let defaults: [String: Any] = [
+            "memory": 0,
+            "cpus": 0.0,
+            "enabled": false,
+            "slug": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return Specification(
             memory: map["memory"] as! Int,
             cpus: map["cpus"] as! Double,

@@ -55,14 +55,14 @@ open class Variable: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.key = try container.decode(String.self, forKey: .key)
-        self.value = try container.decode(String.self, forKey: .value)
-        self.secret = try container.decode(Bool.self, forKey: .secret)
-        self.resourceType = try container.decode(String.self, forKey: .resourceType)
-        self.resourceId = try container.decode(String.self, forKey: .resourceId)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
+        self.key = try container.contains(.key) ? container.decode(String.self, forKey: .key) : ""
+        self.value = try container.contains(.value) ? container.decode(String.self, forKey: .value) : ""
+        self.secret = try container.contains(.secret) ? container.decode(Bool.self, forKey: .secret) : false
+        self.resourceType = try container.contains(.resourceType) ? container.decode(String.self, forKey: .resourceType) : ""
+        self.resourceId = try container.contains(.resourceId) ? container.decode(String.self, forKey: .resourceId) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -92,6 +92,18 @@ open class Variable: Codable {
     }
 
     public static func from(map: [String: Any]) -> Variable {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+            "key": "",
+            "value": "",
+            "secret": false,
+            "resourceType": "",
+            "resourceId": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return Variable(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

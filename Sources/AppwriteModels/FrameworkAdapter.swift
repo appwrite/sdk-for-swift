@@ -40,10 +40,10 @@ open class FrameworkAdapter: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.key = try container.decode(String.self, forKey: .key)
-        self.installCommand = try container.decode(String.self, forKey: .installCommand)
-        self.buildCommand = try container.decode(String.self, forKey: .buildCommand)
-        self.outputDirectory = try container.decode(String.self, forKey: .outputDirectory)
+        self.key = try container.contains(.key) ? container.decode(String.self, forKey: .key) : ""
+        self.installCommand = try container.contains(.installCommand) ? container.decode(String.self, forKey: .installCommand) : ""
+        self.buildCommand = try container.contains(.buildCommand) ? container.decode(String.self, forKey: .buildCommand) : ""
+        self.outputDirectory = try container.contains(.outputDirectory) ? container.decode(String.self, forKey: .outputDirectory) : ""
         self.fallbackFile = try container.decodeIfPresent(String.self, forKey: .fallbackFile)
     }
 
@@ -68,6 +68,14 @@ open class FrameworkAdapter: Codable {
     }
 
     public static func from(map: [String: Any]) -> FrameworkAdapter {
+        let defaults: [String: Any] = [
+            "key": "",
+            "installCommand": "",
+            "buildCommand": "",
+            "outputDirectory": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return FrameworkAdapter(
             key: map["key"] as! String,
             installCommand: map["installCommand"] as! String,
