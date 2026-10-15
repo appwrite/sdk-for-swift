@@ -25,8 +25,8 @@ open class FrameworkList: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decode(Int.self, forKey: .total)
-        self.frameworks = try container.decode([Framework].self, forKey: .frameworks)
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
+        self.frameworks = try container.contains(.frameworks) ? container.decode([Framework].self, forKey: .frameworks) : []
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -44,6 +44,12 @@ open class FrameworkList: Codable {
     }
 
     public static func from(map: [String: Any]) -> FrameworkList {
+        let defaults: [String: Any] = [
+            "total": 0,
+            "frameworks": [Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return FrameworkList(
             total: map["total"] as! Int,
             frameworks: (map["frameworks"] as! [[String: Any]]).map { Framework.from(map: $0) }

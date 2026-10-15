@@ -20,7 +20,8 @@ open class Project: Service {
         let apiParams: [String: Any] = [:]
 
         let apiHeaders: [String: String] = [
-            "X-Appwrite-Project": client.config["project"] ?? ""
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json",
         ]
 
         let converter: (Any) throws -> AppwriteModels.Project = { response in
@@ -49,6 +50,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -377,6 +379,10 @@ open class Project: Service {
     open func getKey(
         keyId: String
     ) async throws -> AppwriteModels.Key {
+        if keyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"keyId\"")
+        }
+
         let apiPath: String = "/project/keys/{keyId}"
             .replacingOccurrences(of: "{keyId}", with: keyId)
 
@@ -417,6 +423,10 @@ open class Project: Service {
         scopes: [AppwriteEnums.ProjectKeyScopes],
         expire: String? = nil
     ) async throws -> AppwriteModels.Key {
+        if keyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"keyId\"")
+        }
+
         let apiPath: String = "/project/keys/{keyId}"
             .replacingOccurrences(of: "{keyId}", with: keyId)
 
@@ -456,6 +466,10 @@ open class Project: Service {
     open func deleteKey(
         keyId: String
     ) async throws -> Any {
+        if keyId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"keyId\"")
+        }
+
         let apiPath: String = "/project/keys/{keyId}"
             .replacingOccurrences(of: "{keyId}", with: keyId)
 
@@ -464,6 +478,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -598,6 +613,10 @@ open class Project: Service {
     open func getMockPhone(
         number: String
     ) async throws -> AppwriteModels.MockNumber {
+        if number.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"number\"")
+        }
+
         let apiPath: String = "/project/mock-phones/{number}"
             .replacingOccurrences(of: "{number}", with: number)
 
@@ -634,6 +653,10 @@ open class Project: Service {
         number: String,
         otp: String
     ) async throws -> AppwriteModels.MockNumber {
+        if number.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"number\"")
+        }
+
         let apiPath: String = "/project/mock-phones/{number}"
             .replacingOccurrences(of: "{number}", with: number)
 
@@ -671,6 +694,10 @@ open class Project: Service {
     open func deleteMockPhone(
         number: String
     ) async throws -> Any {
+        if number.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"number\"")
+        }
+
         let apiPath: String = "/project/mock-phones/{number}"
             .replacingOccurrences(of: "{number}", with: number)
 
@@ -679,6 +706,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -1757,24 +1785,24 @@ open class Project: Service {
     /// - Parameters:
     ///   - clientId: String (optional)
     ///   - clientSecret: String (optional)
-    ///   - prompt: [AppwriteEnums.ProjectOAuth2KakaoPrompt] (optional)
     ///   - enabled: Bool (optional)
+    ///   - prompt: [AppwriteEnums.ProjectOAuth2KakaoPrompt] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.OAuth2Kakao
     ///
     open func updateOAuth2Kakao(
         clientId: String? = nil,
         clientSecret: String? = nil,
-        prompt: [AppwriteEnums.ProjectOAuth2KakaoPrompt]? = nil,
-        enabled: Bool? = nil
+        enabled: Bool? = nil,
+        prompt: [AppwriteEnums.ProjectOAuth2KakaoPrompt]? = nil
     ) async throws -> AppwriteModels.OAuth2Kakao {
         let apiPath: String = "/project/oauth2/kakao"
 
         let apiParams: [String: Any?] = [
             "clientId": clientId,
             "clientSecret": clientSecret,
-            "prompt": prompt?.map { $0.rawValue },
             "enabled": enabled,
+            "prompt": prompt?.map { $0.rawValue },
         ]
 
         let apiHeaders: [String: String] = [
@@ -3167,7 +3195,7 @@ open class Project: Service {
     }
     ///
     /// Update an Android platform by its unique ID. Use this endpoint to update
-    /// the platform's name or application ID.
+    /// the platform's name, application ID or signing certificate fingerprints.
     ///
     /// - Parameters:
     ///   - platformId: String
@@ -3183,6 +3211,10 @@ open class Project: Service {
         applicationId: String,
         fingerprints: [String]? = nil
     ) async throws -> AppwriteModels.PlatformAndroid {
+        if platformId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"platformId\"")
+        }
+
         let apiPath: String = "/project/platforms/android/{platformId}"
             .replacingOccurrences(of: "{platformId}", with: platformId)
 
@@ -3269,6 +3301,10 @@ open class Project: Service {
         name: String,
         bundleIdentifier: String
     ) async throws -> AppwriteModels.PlatformApple {
+        if platformId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"platformId\"")
+        }
+
         let apiPath: String = "/project/platforms/apple/{platformId}"
             .replacingOccurrences(of: "{platformId}", with: platformId)
 
@@ -3354,6 +3390,10 @@ open class Project: Service {
         name: String,
         packageName: String
     ) async throws -> AppwriteModels.PlatformLinux {
+        if platformId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"platformId\"")
+        }
+
         let apiPath: String = "/project/platforms/linux/{platformId}"
             .replacingOccurrences(of: "{platformId}", with: platformId)
 
@@ -3439,6 +3479,10 @@ open class Project: Service {
         name: String,
         hostname: String
     ) async throws -> AppwriteModels.PlatformWeb {
+        if platformId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"platformId\"")
+        }
+
         let apiPath: String = "/project/platforms/web/{platformId}"
             .replacingOccurrences(of: "{platformId}", with: platformId)
 
@@ -3524,6 +3568,10 @@ open class Project: Service {
         name: String,
         packageIdentifierName: String
     ) async throws -> AppwriteModels.PlatformWindows {
+        if platformId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"platformId\"")
+        }
+
         let apiPath: String = "/project/platforms/windows/{platformId}"
             .replacingOccurrences(of: "{platformId}", with: platformId)
 
@@ -3562,6 +3610,10 @@ open class Project: Service {
     open func getPlatform(
         platformId: String
     ) async throws -> Any {
+        if platformId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"platformId\"")
+        }
+
         let apiPath: String = "/project/platforms/{platformId}"
             .replacingOccurrences(of: "{platformId}", with: platformId)
 
@@ -3614,6 +3666,10 @@ open class Project: Service {
     open func deletePlatform(
         platformId: String
     ) async throws -> Any {
+        if platformId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"platformId\"")
+        }
+
         let apiPath: String = "/project/platforms/{platformId}"
             .replacingOccurrences(of: "{platformId}", with: platformId)
 
@@ -3622,6 +3678,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -4643,6 +4700,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -4880,6 +4938,10 @@ open class Project: Service {
     open func getVariable(
         variableId: String
     ) async throws -> AppwriteModels.Variable {
+        if variableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"variableId\"")
+        }
+
         let apiPath: String = "/project/variables/{variableId}"
             .replacingOccurrences(of: "{variableId}", with: variableId)
 
@@ -4919,6 +4981,10 @@ open class Project: Service {
         value: String? = nil,
         secret: Bool? = nil
     ) async throws -> AppwriteModels.Variable {
+        if variableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"variableId\"")
+        }
+
         let apiPath: String = "/project/variables/{variableId}"
             .replacingOccurrences(of: "{variableId}", with: variableId)
 
@@ -4957,6 +5023,10 @@ open class Project: Service {
     open func deleteVariable(
         variableId: String
     ) async throws -> Any {
+        if variableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"variableId\"")
+        }
+
         let apiPath: String = "/project/variables/{variableId}"
             .replacingOccurrences(of: "{variableId}", with: variableId)
 
@@ -4965,6 +5035,7 @@ open class Project: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(

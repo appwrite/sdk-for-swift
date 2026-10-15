@@ -60,15 +60,15 @@ open class Key: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.expire = try container.decode(String.self, forKey: .expire)
-        self.scopes = try container.decode([String].self, forKey: .scopes)
-        self.secret = try container.decode(String.self, forKey: .secret)
-        self.accessedAt = try container.decode(String.self, forKey: .accessedAt)
-        self.sdks = try container.decode([String].self, forKey: .sdks)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
+        self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.expire = try container.contains(.expire) ? container.decode(String.self, forKey: .expire) : ""
+        self.scopes = try container.contains(.scopes) ? container.decode([String].self, forKey: .scopes) : []
+        self.secret = try container.contains(.secret) ? container.decode(String.self, forKey: .secret) : ""
+        self.accessedAt = try container.contains(.accessedAt) ? container.decode(String.self, forKey: .accessedAt) : ""
+        self.sdks = try container.contains(.sdks) ? container.decode([String].self, forKey: .sdks) : []
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -100,6 +100,19 @@ open class Key: Codable {
     }
 
     public static func from(map: [String: Any]) -> Key {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+            "name": "",
+            "expire": "",
+            "scopes": [Any](),
+            "secret": "",
+            "accessedAt": "",
+            "sdks": [Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return Key(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

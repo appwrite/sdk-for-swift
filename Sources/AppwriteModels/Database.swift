@@ -45,7 +45,7 @@ open class Database: Codable {
     public let replicas: Int?
     /// Error message when the dedicated backing failed. Null when the database has no dedicated backing or has not failed.
     public let error: String?
-    /// Container status of the dedicated backing: active or inactive. Null when the database has no dedicated backing or the runtime has not reported one.
+    /// Container status of the dedicated backing: active, inactive, or failed (a wake was declined because the backing namespace is gone). Null when the database has no dedicated backing or the runtime has not reported one.
     public let containerStatus: String?
     /// Idle-lifecycle state of the dedicated backing: active, warm, cold, or hibernated. Null when the database has no dedicated backing or the runtime has not reported one.
     public let lifecycleState: String?
@@ -91,12 +91,12 @@ open class Database: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.enabled = try container.decode(Bool.self, forKey: .enabled)
-        self.type = AppwriteEnums.DatabaseType(rawValue: try container.decode(String.self, forKey: .type))!
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
+        self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : true
+        self.type = AppwriteEnums.DatabaseType(rawValue: try container.contains(.type) ? container.decode(String.self, forKey: .type) : "legacy")!
         if let statusString = try container.decodeIfPresent(String.self, forKey: .status) {
             self.status = AppwriteEnums.DatabaseStatus(rawValue: statusString)
         } else {
@@ -153,6 +153,16 @@ open class Database: Codable {
     }
 
     public static func from(map: [String: Any]) -> Database {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "name": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+            "enabled": true,
+            "type": "legacy",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return Database(
             id: map["$id"] as! String,
             name: map["name"] as! String,

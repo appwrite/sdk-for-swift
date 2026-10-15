@@ -55,14 +55,14 @@ open class BillingPlanAddonDetails: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.supported = try container.decode(Bool.self, forKey: .supported)
-        self.planIncluded = try container.decode(Int.self, forKey: .planIncluded)
-        self.limit = try container.decode(Int.self, forKey: .limit)
-        self.type = try container.decode(String.self, forKey: .type)
+        self.supported = try container.contains(.supported) ? container.decode(Bool.self, forKey: .supported) : false
+        self.planIncluded = try container.contains(.planIncluded) ? container.decode(Int.self, forKey: .planIncluded) : 0
+        self.limit = try container.contains(.limit) ? container.decode(Int.self, forKey: .limit) : 0
+        self.type = try container.contains(.type) ? container.decode(String.self, forKey: .type) : "numeric"
         self.currency = try container.decodeIfPresent(String.self, forKey: .currency)
-        self.price = try container.decode(Double.self, forKey: .price)
-        self.value = try container.decode(Int.self, forKey: .value)
-        self.invoiceDesc = try container.decode(String.self, forKey: .invoiceDesc)
+        self.price = try container.contains(.price) ? container.decode(Double.self, forKey: .price) : 0
+        self.value = try container.contains(.value) ? container.decode(Int.self, forKey: .value) : 0
+        self.invoiceDesc = try container.contains(.invoiceDesc) ? container.decode(String.self, forKey: .invoiceDesc) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -92,6 +92,17 @@ open class BillingPlanAddonDetails: Codable {
     }
 
     public static func from(map: [String: Any]) -> BillingPlanAddonDetails {
+        let defaults: [String: Any] = [
+            "supported": false,
+            "planIncluded": 0,
+            "limit": 0,
+            "type": "numeric",
+            "price": 0.0,
+            "value": 0,
+            "invoiceDesc": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return BillingPlanAddonDetails(
             supported: map["supported"] as! Bool,
             planIncluded: map["planIncluded"] as! Int,

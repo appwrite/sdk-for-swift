@@ -25,8 +25,8 @@ open class VariableList: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decode(Int.self, forKey: .total)
-        self.variables = try container.decode([Variable].self, forKey: .variables)
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
+        self.variables = try container.contains(.variables) ? container.decode([Variable].self, forKey: .variables) : []
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -44,6 +44,12 @@ open class VariableList: Codable {
     }
 
     public static func from(map: [String: Any]) -> VariableList {
+        let defaults: [String: Any] = [
+            "total": 0,
+            "variables": [Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return VariableList(
             total: map["total"] as! Int,
             variables: (map["variables"] as! [[String: Any]]).map { Variable.from(map: $0) }

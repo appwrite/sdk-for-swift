@@ -12,8 +12,8 @@ let project = Project(client)
 let oAuth2Kakao = try await project.updateOAuth2Kakao(
     clientId: "<CLIENT_ID>", // optional
     clientSecret: "<CLIENT_SECRET>", // optional
-    prompt: [.none], // optional
-    enabled: false // optional
+    enabled: false, // optional
+    prompt: [.none] // optional
 )
 
 ```

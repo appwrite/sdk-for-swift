@@ -10,7 +10,10 @@ let client = Client()
 let embeddings = Embeddings(client)
 
 let embeddingList = try await embeddings.createTextEmbeddings(
-    texts: [],
+    texts: [
+        "Appwrite helps developers build applications.",
+        "Find documents with semantic search."
+    ],
     model: .nomicEmbedText // optional
 )
 

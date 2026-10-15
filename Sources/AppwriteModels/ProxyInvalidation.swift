@@ -35,10 +35,10 @@ open class ProxyInvalidation: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.domain = try container.decode(String.self, forKey: .domain)
-        self.type = try container.decode(String.self, forKey: .type)
-        self.reference = try container.decode(String.self, forKey: .reference)
-        self.status = try container.decode(String.self, forKey: .status)
+        self.domain = try container.contains(.domain) ? container.decode(String.self, forKey: .domain) : ""
+        self.type = try container.contains(.type) ? container.decode(String.self, forKey: .type) : ""
+        self.reference = try container.contains(.reference) ? container.decode(String.self, forKey: .reference) : ""
+        self.status = try container.contains(.status) ? container.decode(String.self, forKey: .status) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -60,6 +60,14 @@ open class ProxyInvalidation: Codable {
     }
 
     public static func from(map: [String: Any]) -> ProxyInvalidation {
+        let defaults: [String: Any] = [
+            "domain": "",
+            "type": "",
+            "reference": "",
+            "status": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return ProxyInvalidation(
             domain: map["domain"] as! String,
             type: map["type"] as! String,

@@ -25,8 +25,8 @@ open class OAuth2ProviderList: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decode(Int.self, forKey: .total)
-        self.providers = try container.decode([AnyCodable].self, forKey: .providers)
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
+        self.providers = try container.contains(.providers) ? container.decode([AnyCodable].self, forKey: .providers) : []
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -44,6 +44,12 @@ open class OAuth2ProviderList: Codable {
     }
 
     public static func from(map: [String: Any]) -> OAuth2ProviderList {
+        let defaults: [String: Any] = [
+            "total": 0,
+            "providers": [Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return OAuth2ProviderList(
             total: map["total"] as! Int,
             providers: (map["providers"] as! [Any]).map { AnyCodable($0) }

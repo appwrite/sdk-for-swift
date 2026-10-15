@@ -1,0 +1,81 @@
+import Foundation
+
+/// Thrown by `Topic.path(_:)` when a level is invalid.
+public struct TopicError: Swift.Error, LocalizedError, CustomStringConvertible {
+    /// What is wrong with the levels.
+    public let message: String
+
+    init(_ message: String) {
+        self.message = message
+    }
+
+    public var description: String {
+        return message
+    }
+
+    public var errorDescription: String? {
+        return message
+    }
+}
+
+/// Validate the levels passed to `path(_:)`: a non-empty list of non-empty strings, none holding
+/// the level separator `/` or the MQTT wildcards `+` and `#`.
+private func levelsOf(_ levels: [String]) throws -> [String] {
+    if levels.isEmpty {
+        throw TopicError("path() needs at least one level")
+    }
+    for (index, level) in levels.enumerated() {
+        if level.isEmpty {
+            throw TopicError("empty level at index \(index)")
+        }
+        if level.contains("/") {
+            let parts =
+                level
+                .components(separatedBy: "/")
+                .map { "'\($0)'" }
+                .joined(separator: ", ")
+            throw TopicError("\"\(level)\" contains \"/\", split it: path([\(parts)])")
+        }
+        if level.contains("+") {
+            throw TopicError("\"\(level)\" contains \"+\", not allowed in a topic")
+        }
+        if level.contains("#") {
+            throw TopicError("\"\(level)\" contains \"#\", not allowed in a topic")
+        }
+        if level.contains("\0") {
+            throw TopicError("level at index \(index) contains a NUL character")
+        }
+    }
+    return levels
+}
+
+/// Helper to build MQTT topics for `Push`, level by level.
+///
+///     try Topic.path(["user", userId, "notification"])  // "user/123/notification"
+///     try Topic.path(["org", orgId]).path(["logs"])  // "org/42/logs"
+public final class Topic: CustomStringConvertible, Sendable {
+    private let levels: [String]
+
+    private init(_ levels: [String]) {
+        self.levels = levels
+    }
+
+    /// Start a topic with the given levels, e.g. `try Topic.path(["user", userId])`.
+    public static func path(_ levels: [String]) throws -> Topic {
+        return Topic(try levelsOf(levels))
+    }
+
+    /// Append the given levels.
+    public func path(_ levels: [String]) throws -> Topic {
+        return Topic(self.levels + (try levelsOf(levels)))
+    }
+
+    /// The topic string, levels joined with `/`.
+    public func toString() -> String {
+        return levels.joined(separator: "/")
+    }
+
+    public var description: String {
+        return toString()
+    }
+}

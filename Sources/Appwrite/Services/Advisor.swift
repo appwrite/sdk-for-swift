@@ -58,6 +58,10 @@ open class Advisor: Service {
     open func getReport(
         reportId: String
     ) async throws -> AppwriteModels.Report {
+        if reportId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"reportId\"")
+        }
+
         let apiPath: String = "/reports/{reportId}"
             .replacingOccurrences(of: "{reportId}", with: reportId)
 
@@ -92,6 +96,10 @@ open class Advisor: Service {
     open func deleteReport(
         reportId: String
     ) async throws -> Any {
+        if reportId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"reportId\"")
+        }
+
         let apiPath: String = "/reports/{reportId}"
             .replacingOccurrences(of: "{reportId}", with: reportId)
 
@@ -100,6 +108,7 @@ open class Advisor: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -125,6 +134,10 @@ open class Advisor: Service {
         queries: [String]? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.InsightList {
+        if reportId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"reportId\"")
+        }
+
         let apiPath: String = "/reports/{reportId}/insights"
             .replacingOccurrences(of: "{reportId}", with: reportId)
 
@@ -163,6 +176,13 @@ open class Advisor: Service {
         reportId: String,
         insightId: String
     ) async throws -> AppwriteModels.Insight {
+        if reportId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"reportId\"")
+        }
+        if insightId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"insightId\"")
+        }
+
         let apiPath: String = "/reports/{reportId}/insights/{insightId}"
             .replacingOccurrences(of: "{reportId}", with: reportId)
             .replacingOccurrences(of: "{insightId}", with: insightId)

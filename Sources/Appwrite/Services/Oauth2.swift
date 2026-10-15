@@ -72,7 +72,7 @@ open class Oauth2: Service {
     ///   - prompt: String (optional)
     ///   - maxAge: Int (optional)
     ///   - authorizationDetails: String (optional)
-    ///   - resource: String (optional)
+    ///   - resource: [String] (optional)
     ///   - audience: String (optional)
     ///   - requestUri: String (optional)
     /// - Throws: Exception if the request fails
@@ -90,7 +90,7 @@ open class Oauth2: Service {
         prompt: String? = nil,
         maxAge: Int? = nil,
         authorizationDetails: String? = nil,
-        resource: String? = nil,
+        resource: [String]? = nil,
         audience: String? = nil,
         requestUri: String? = nil
     ) async throws -> AppwriteModels.Oauth2Authorize {
@@ -149,7 +149,7 @@ open class Oauth2: Service {
     ///   - prompt: String (optional)
     ///   - maxAge: Int (optional)
     ///   - authorizationDetails: String (optional)
-    ///   - resource: String (optional)
+    ///   - resource: [String] (optional)
     ///   - audience: String (optional)
     ///   - requestUri: String (optional)
     /// - Throws: Exception if the request fails
@@ -167,7 +167,7 @@ open class Oauth2: Service {
         prompt: String? = nil,
         maxAge: Int? = nil,
         authorizationDetails: String? = nil,
-        resource: String? = nil,
+        resource: [String]? = nil,
         audience: String? = nil,
         requestUri: String? = nil
     ) async throws -> AppwriteModels.Oauth2Authorize {
@@ -216,7 +216,7 @@ open class Oauth2: Service {
     ///   - clientId: String (optional)
     ///   - scope: String (optional)
     ///   - authorizationDetails: String (optional)
-    ///   - resource: String (optional)
+    ///   - resource: [String] (optional)
     ///   - audience: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Oauth2DeviceAuthorization
@@ -225,7 +225,7 @@ open class Oauth2: Service {
         clientId: String? = nil,
         scope: String? = nil,
         authorizationDetails: String? = nil,
-        resource: String? = nil,
+        resource: [String]? = nil,
         audience: String? = nil
     ) async throws -> AppwriteModels.Oauth2DeviceAuthorization {
         let apiPath: String = "/oauth2/{project_id}/device_authorization"
@@ -307,6 +307,10 @@ open class Oauth2: Service {
     open func getGrant(
         grantId: String
     ) async throws -> AppwriteModels.Oauth2Grant {
+        if grantId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"grantId\"")
+        }
+
         let apiPath: String = "/oauth2/{project_id}/grants/{grant_id}"
             .replacingOccurrences(of: "{project_id}", with: client.config["project"] ?? "")
             .replacingOccurrences(of: "{grant_id}", with: grantId)
@@ -434,7 +438,7 @@ open class Oauth2: Service {
     ///   - prompt: String (optional)
     ///   - maxAge: Int (optional)
     ///   - authorizationDetails: String (optional)
-    ///   - resource: String (optional)
+    ///   - resource: [String] (optional)
     ///   - audience: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Oauth2PAR
@@ -451,7 +455,7 @@ open class Oauth2: Service {
         prompt: String? = nil,
         maxAge: Int? = nil,
         authorizationDetails: String? = nil,
-        resource: String? = nil,
+        resource: [String]? = nil,
         audience: String? = nil
     ) async throws -> AppwriteModels.Oauth2PAR {
         let apiPath: String = "/oauth2/{project_id}/par"
@@ -622,7 +626,7 @@ open class Oauth2: Service {
     ///   - clientSecret: String (optional)
     ///   - codeVerifier: String (optional)
     ///   - redirectUri: String (optional)
-    ///   - resource: String (optional)
+    ///   - resource: [String] (optional)
     ///   - audience: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Oauth2Token
@@ -636,7 +640,7 @@ open class Oauth2: Service {
         clientSecret: String? = nil,
         codeVerifier: String? = nil,
         redirectUri: String? = nil,
-        resource: String? = nil,
+        resource: [String]? = nil,
         audience: String? = nil
     ) async throws -> AppwriteModels.Oauth2Token {
         let apiPath: String = "/oauth2/{project_id}/token"

@@ -60,6 +60,10 @@ open class Presences: Service {
     open func get(
         presenceId: String
     ) async throws -> AppwriteModels.Presence {
+        if presenceId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"presenceId\"")
+        }
+
         let apiPath: String = "/presences/{presenceId}"
             .replacingOccurrences(of: "{presenceId}", with: presenceId)
 
@@ -103,6 +107,10 @@ open class Presences: Service {
         expiresAt: String? = nil,
         metadata: Any? = nil
     ) async throws -> AppwriteModels.Presence {
+        if presenceId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"presenceId\"")
+        }
+
         let apiPath: String = "/presences/{presenceId}"
             .replacingOccurrences(of: "{presenceId}", with: presenceId)
 
@@ -156,6 +164,10 @@ open class Presences: Service {
         permissions: [String]? = nil,
         purge: Bool? = nil
     ) async throws -> AppwriteModels.Presence {
+        if presenceId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"presenceId\"")
+        }
+
         let apiPath: String = "/presences/{presenceId}"
             .replacingOccurrences(of: "{presenceId}", with: presenceId)
 
@@ -197,6 +209,10 @@ open class Presences: Service {
     open func delete(
         presenceId: String
     ) async throws -> Any {
+        if presenceId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"presenceId\"")
+        }
+
         let apiPath: String = "/presences/{presenceId}"
             .replacingOccurrences(of: "{presenceId}", with: presenceId)
 
@@ -205,6 +221,7 @@ open class Presences: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(

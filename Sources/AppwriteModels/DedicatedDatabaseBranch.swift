@@ -30,7 +30,7 @@ open class DedicatedDatabaseBranch: Codable {
     /// Branch hostname for direct connections.
     public let host: String
     /// Branch port. Null until the backing reports one.
-    public let port: Int
+    public let port: Int?
     /// Advertised catalog the client connects to. MySQL/MariaDB use default; Postgres uses the routing label.
     public let database: String
     /// Database username. Shared with the parent database.
@@ -50,7 +50,7 @@ open class DedicatedDatabaseBranch: Codable {
         namespace: String,
         expiresAt: Int,
         host: String,
-        port: Int,
+        port: Int?,
         database: String,
         username: String,
         password: String,
@@ -75,18 +75,18 @@ open class DedicatedDatabaseBranch: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.branchId = try container.decode(String.self, forKey: .branchId)
-        self.branchName = try container.decode(String.self, forKey: .branchName)
-        self.namespace = try container.decode(String.self, forKey: .namespace)
-        self.expiresAt = try container.decode(Int.self, forKey: .expiresAt)
-        self.host = try container.decode(String.self, forKey: .host)
-        self.port = try container.decode(Int.self, forKey: .port)
-        self.database = try container.decode(String.self, forKey: .database)
-        self.username = try container.decode(String.self, forKey: .username)
-        self.password = try container.decode(String.self, forKey: .password)
-        self.ssl = try container.decode(Bool.self, forKey: .ssl)
-        self.engine = try container.decode(String.self, forKey: .engine)
-        self.connectionString = try container.decode(String.self, forKey: .connectionString)
+        self.branchId = try container.contains(.branchId) ? container.decode(String.self, forKey: .branchId) : ""
+        self.branchName = try container.contains(.branchName) ? container.decode(String.self, forKey: .branchName) : ""
+        self.namespace = try container.contains(.namespace) ? container.decode(String.self, forKey: .namespace) : ""
+        self.expiresAt = try container.contains(.expiresAt) ? container.decode(Int.self, forKey: .expiresAt) : 0
+        self.host = try container.contains(.host) ? container.decode(String.self, forKey: .host) : ""
+        self.port = try container.decodeIfPresent(Int.self, forKey: .port)
+        self.database = try container.contains(.database) ? container.decode(String.self, forKey: .database) : ""
+        self.username = try container.contains(.username) ? container.decode(String.self, forKey: .username) : ""
+        self.password = try container.contains(.password) ? container.decode(String.self, forKey: .password) : ""
+        self.ssl = try container.contains(.ssl) ? container.decode(Bool.self, forKey: .ssl) : false
+        self.engine = try container.contains(.engine) ? container.decode(String.self, forKey: .engine) : ""
+        self.connectionString = try container.contains(.connectionString) ? container.decode(String.self, forKey: .connectionString) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -97,7 +97,7 @@ open class DedicatedDatabaseBranch: Codable {
         try container.encode(namespace, forKey: .namespace)
         try container.encode(expiresAt, forKey: .expiresAt)
         try container.encode(host, forKey: .host)
-        try container.encode(port, forKey: .port)
+        try container.encodeIfPresent(port, forKey: .port)
         try container.encode(database, forKey: .database)
         try container.encode(username, forKey: .username)
         try container.encode(password, forKey: .password)
@@ -124,13 +124,28 @@ open class DedicatedDatabaseBranch: Codable {
     }
 
     public static func from(map: [String: Any]) -> DedicatedDatabaseBranch {
+        let defaults: [String: Any] = [
+            "branchId": "",
+            "branchName": "",
+            "namespace": "",
+            "expiresAt": 0,
+            "host": "",
+            "database": "",
+            "username": "",
+            "password": "",
+            "ssl": false,
+            "engine": "",
+            "connectionString": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return DedicatedDatabaseBranch(
             branchId: map["branchId"] as! String,
             branchName: map["branchName"] as! String,
             namespace: map["namespace"] as! String,
             expiresAt: map["expiresAt"] as! Int,
             host: map["host"] as! String,
-            port: map["port"] as! Int,
+            port: map["port"] as? Int,
             database: map["database"] as! String,
             username: map["username"] as! String,
             password: map["password"] as! String,

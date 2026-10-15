@@ -45,12 +45,12 @@ open class AdditionalResource: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.name = try container.decode(String.self, forKey: .name)
-        self.unit = try container.decode(String.self, forKey: .unit)
-        self.currency = try container.decode(String.self, forKey: .currency)
-        self.price = try container.decode(Double.self, forKey: .price)
-        self.value = try container.decode(Int.self, forKey: .value)
-        self.invoiceDesc = try container.decode(String.self, forKey: .invoiceDesc)
+        self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.unit = try container.contains(.unit) ? container.decode(String.self, forKey: .unit) : ""
+        self.currency = try container.contains(.currency) ? container.decode(String.self, forKey: .currency) : ""
+        self.price = try container.contains(.price) ? container.decode(Double.self, forKey: .price) : 0
+        self.value = try container.contains(.value) ? container.decode(Int.self, forKey: .value) : 0
+        self.invoiceDesc = try container.contains(.invoiceDesc) ? container.decode(String.self, forKey: .invoiceDesc) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -76,6 +76,16 @@ open class AdditionalResource: Codable {
     }
 
     public static func from(map: [String: Any]) -> AdditionalResource {
+        let defaults: [String: Any] = [
+            "name": "",
+            "unit": "",
+            "currency": "",
+            "price": 0.0,
+            "value": 0,
+            "invoiceDesc": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return AdditionalResource(
             name: map["name"] as! String,
             unit: map["unit"] as! String,

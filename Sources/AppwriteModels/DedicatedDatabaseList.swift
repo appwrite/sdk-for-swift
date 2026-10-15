@@ -25,8 +25,8 @@ open class DedicatedDatabaseList: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decode(Int.self, forKey: .total)
-        self.databases = try container.decode([DedicatedDatabase].self, forKey: .databases)
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
+        self.databases = try container.contains(.databases) ? container.decode([DedicatedDatabase].self, forKey: .databases) : []
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -44,6 +44,12 @@ open class DedicatedDatabaseList: Codable {
     }
 
     public static func from(map: [String: Any]) -> DedicatedDatabaseList {
+        let defaults: [String: Any] = [
+            "total": 0,
+            "databases": [Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return DedicatedDatabaseList(
             total: map["total"] as! Int,
             databases: (map["databases"] as! [[String: Any]]).map { DedicatedDatabase.from(map: $0) }
