@@ -25,8 +25,8 @@ open class DedicatedDatabasePITRWindows: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.earliest = try container.decode(String.self, forKey: .earliest)
-        self.latest = try container.decode(String.self, forKey: .latest)
+        self.earliest = try container.contains(.earliest) ? container.decode(String.self, forKey: .earliest) : ""
+        self.latest = try container.contains(.latest) ? container.decode(String.self, forKey: .latest) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -44,6 +44,12 @@ open class DedicatedDatabasePITRWindows: Codable {
     }
 
     public static func from(map: [String: Any]) -> DedicatedDatabasePITRWindows {
+        let defaults: [String: Any] = [
+            "earliest": "",
+            "latest": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return DedicatedDatabasePITRWindows(
             earliest: map["earliest"] as! String,
             latest: map["latest"] as! String

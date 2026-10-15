@@ -25,8 +25,8 @@ open class EmbeddingList: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decode(Int.self, forKey: .total)
-        self.embeddings = try container.decode([Embedding].self, forKey: .embeddings)
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
+        self.embeddings = try container.contains(.embeddings) ? container.decode([Embedding].self, forKey: .embeddings) : []
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -44,6 +44,12 @@ open class EmbeddingList: Codable {
     }
 
     public static func from(map: [String: Any]) -> EmbeddingList {
+        let defaults: [String: Any] = [
+            "total": 0,
+            "embeddings": [Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return EmbeddingList(
             total: map["total"] as! Int,
             embeddings: (map["embeddings"] as! [[String: Any]]).map { Embedding.from(map: $0) }

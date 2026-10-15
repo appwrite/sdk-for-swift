@@ -25,8 +25,8 @@ open class DatabaseStatusConnections: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.current = try container.decode(Int.self, forKey: .current)
-        self.max = try container.decode(Int.self, forKey: .max)
+        self.current = try container.contains(.current) ? container.decode(Int.self, forKey: .current) : 0
+        self.max = try container.contains(.max) ? container.decode(Int.self, forKey: .max) : 100
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -44,6 +44,12 @@ open class DatabaseStatusConnections: Codable {
     }
 
     public static func from(map: [String: Any]) -> DatabaseStatusConnections {
+        let defaults: [String: Any] = [
+            "current": 0,
+            "max": 100,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return DatabaseStatusConnections(
             current: map["current"] as! Int,
             max: map["max"] as! Int

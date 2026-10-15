@@ -50,13 +50,13 @@ open class PolicyMembershipPrivacy: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.userId = try container.decode(Bool.self, forKey: .userId)
-        self.userEmail = try container.decode(Bool.self, forKey: .userEmail)
-        self.userPhone = try container.decode(Bool.self, forKey: .userPhone)
-        self.userName = try container.decode(Bool.self, forKey: .userName)
-        self.userMFA = try container.decode(Bool.self, forKey: .userMFA)
-        self.userAccessedAt = try container.decode(Bool.self, forKey: .userAccessedAt)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.userId = try container.contains(.userId) ? container.decode(Bool.self, forKey: .userId) : false
+        self.userEmail = try container.contains(.userEmail) ? container.decode(Bool.self, forKey: .userEmail) : false
+        self.userPhone = try container.contains(.userPhone) ? container.decode(Bool.self, forKey: .userPhone) : false
+        self.userName = try container.contains(.userName) ? container.decode(Bool.self, forKey: .userName) : false
+        self.userMFA = try container.contains(.userMFA) ? container.decode(Bool.self, forKey: .userMFA) : false
+        self.userAccessedAt = try container.contains(.userAccessedAt) ? container.decode(Bool.self, forKey: .userAccessedAt) : false
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -84,6 +84,17 @@ open class PolicyMembershipPrivacy: Codable {
     }
 
     public static func from(map: [String: Any]) -> PolicyMembershipPrivacy {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "userId": false,
+            "userEmail": false,
+            "userPhone": false,
+            "userName": false,
+            "userMFA": false,
+            "userAccessedAt": false,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return PolicyMembershipPrivacy(
             id: map["$id"] as! String,
             userId: map["userId"] as! Bool,

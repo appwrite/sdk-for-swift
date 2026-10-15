@@ -10,9 +10,9 @@ let oauth2 = Oauth2(client)
 
 let oauth2Introspection = try await oauth2.introspect(
     token: "<TOKEN>",
-    token_type_hint: "access_token", // optional
-    client_id: "<CLIENT_ID>", // optional
-    client_secret: "<CLIENT_SECRET>" // optional
+    tokenTypeHint: "access_token", // optional
+    clientId: "<CLIENT_ID>", // optional
+    clientSecret: "<CLIENT_SECRET>" // optional
 )
 
 ```

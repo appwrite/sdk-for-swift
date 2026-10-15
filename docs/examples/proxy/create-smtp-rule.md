@@ -6,10 +6,12 @@ let client = Client()
     .setProject("<YOUR_PROJECT_ID>") // Your project ID
     .setKey("<YOUR_API_KEY>") // Your secret API key
 
-let organization = Organization(client)
+let proxy = Proxy(client)
 
-let key = try await organization.getKey(
-    keyId: "<KEY_ID>"
+let proxyRule = try await proxy.createSMTPRule(
+    domain: "example.com",
+    functionId: "<FUNCTION_ID>",
+    branch: "<BRANCH>" // optional
 )
 
 ```

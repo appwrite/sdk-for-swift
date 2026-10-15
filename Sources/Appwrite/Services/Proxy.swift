@@ -15,6 +15,8 @@ open class Proxy: Service {
     /// Depending on type, the invalidation purges a single cache tag, a single URL
     /// path, or all cached content for the domain.
     ///
+    /// Domains that route to a function do not support cache invalidation.
+    ///
     /// - Parameters:
     ///   - domain: String
     ///   - type: AppwriteEnums.InvalidationType
@@ -269,6 +271,48 @@ open class Proxy: Service {
         )
     }
     ///
+    /// Create an SMTP ingress rule that asynchronously executes an Appwrite
+    /// Function for incoming email.
+    ///
+    /// - Parameters:
+    ///   - domain: String
+    ///   - functionId: String
+    ///   - branch: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ProxyRule
+    ///
+    open func createSMTPRule(
+        domain: String,
+        functionId: String,
+        branch: String? = nil
+    ) async throws -> AppwriteModels.ProxyRule {
+        let apiPath: String = "/proxy/rules/smtp"
+
+        let apiParams: [String: Any?] = [
+            "domain": domain,
+            "functionId": functionId,
+            "branch": branch,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.ProxyRule = { response in
+            return AppwriteModels.ProxyRule.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// Get a proxy rule by its unique ID.
     ///
     /// - Parameters:
@@ -279,6 +323,10 @@ open class Proxy: Service {
     open func getRule(
         ruleId: String
     ) async throws -> AppwriteModels.ProxyRule {
+        if ruleId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"ruleId\"")
+        }
+
         let apiPath: String = "/proxy/rules/{ruleId}"
             .replacingOccurrences(of: "{ruleId}", with: ruleId)
 
@@ -312,6 +360,10 @@ open class Proxy: Service {
     open func deleteRule(
         ruleId: String
     ) async throws -> Any {
+        if ruleId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"ruleId\"")
+        }
+
         let apiPath: String = "/proxy/rules/{ruleId}"
             .replacingOccurrences(of: "{ruleId}", with: ruleId)
 
@@ -320,6 +372,7 @@ open class Proxy: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -343,6 +396,10 @@ open class Proxy: Service {
     open func updateRuleStatus(
         ruleId: String
     ) async throws -> AppwriteModels.ProxyRule {
+        if ruleId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"ruleId\"")
+        }
+
         let apiPath: String = "/proxy/rules/{ruleId}/status"
             .replacingOccurrences(of: "{ruleId}", with: ruleId)
 

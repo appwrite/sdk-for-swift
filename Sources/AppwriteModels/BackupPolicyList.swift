@@ -25,8 +25,8 @@ open class BackupPolicyList: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decode(Int.self, forKey: .total)
-        self.policies = try container.decode([BackupPolicy].self, forKey: .policies)
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
+        self.policies = try container.contains(.policies) ? container.decode([BackupPolicy].self, forKey: .policies) : []
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -44,6 +44,12 @@ open class BackupPolicyList: Codable {
     }
 
     public static func from(map: [String: Any]) -> BackupPolicyList {
+        let defaults: [String: Any] = [
+            "total": 0,
+            "policies": [Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return BackupPolicyList(
             total: map["total"] as! Int,
             policies: (map["policies"] as! [[String: Any]]).map { BackupPolicy.from(map: $0) }

@@ -35,10 +35,10 @@ open class OAuth2Tradeshift: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.enabled = try container.decode(Bool.self, forKey: .enabled)
-        self.oauth2ClientId = try container.decode(String.self, forKey: .oauth2ClientId)
-        self.oauth2ClientSecret = try container.decode(String.self, forKey: .oauth2ClientSecret)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : false
+        self.oauth2ClientId = try container.contains(.oauth2ClientId) ? container.decode(String.self, forKey: .oauth2ClientId) : ""
+        self.oauth2ClientSecret = try container.contains(.oauth2ClientSecret) ? container.decode(String.self, forKey: .oauth2ClientSecret) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -60,6 +60,14 @@ open class OAuth2Tradeshift: Codable {
     }
 
     public static func from(map: [String: Any]) -> OAuth2Tradeshift {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "enabled": false,
+            "oauth2ClientId": "",
+            "oauth2ClientSecret": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return OAuth2Tradeshift(
             id: map["$id"] as! String,
             enabled: map["enabled"] as! Bool,

@@ -25,8 +25,8 @@ open class ResourceTokenList: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decode(Int.self, forKey: .total)
-        self.tokens = try container.decode([ResourceToken].self, forKey: .tokens)
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
+        self.tokens = try container.contains(.tokens) ? container.decode([ResourceToken].self, forKey: .tokens) : []
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -44,6 +44,12 @@ open class ResourceTokenList: Codable {
     }
 
     public static func from(map: [String: Any]) -> ResourceTokenList {
+        let defaults: [String: Any] = [
+            "total": 0,
+            "tokens": [Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return ResourceTokenList(
             total: map["total"] as! Int,
             tokens: (map["tokens"] as! [[String: Any]]).map { ResourceToken.from(map: $0) }

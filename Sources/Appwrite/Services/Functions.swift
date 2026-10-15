@@ -235,6 +235,10 @@ open class Functions: Service {
     open func get(
         functionId: String
     ) async throws -> AppwriteModels.Function {
+        if functionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"functionId\"")
+        }
+
         let apiPath: String = "/functions/{functionId}"
             .replacingOccurrences(of: "{functionId}", with: functionId)
 
@@ -284,6 +288,7 @@ open class Functions: Service {
     ///   - runtimeSpecification: String (optional)
     ///   - deploymentRetention: Int (optional)
     ///   - interval: Int (optional)
+    ///   - emailEnabled: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Function
     ///
@@ -310,8 +315,13 @@ open class Functions: Service {
         buildSpecification: String? = nil,
         runtimeSpecification: String? = nil,
         deploymentRetention: Int? = nil,
-        interval: Int? = nil
+        interval: Int? = nil,
+        emailEnabled: Bool? = nil
     ) async throws -> AppwriteModels.Function {
+        if functionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"functionId\"")
+        }
+
         let apiPath: String = "/functions/{functionId}"
             .replacingOccurrences(of: "{functionId}", with: functionId)
 
@@ -338,6 +348,7 @@ open class Functions: Service {
             "runtimeSpecification": runtimeSpecification,
             "deploymentRetention": deploymentRetention,
             "interval": interval,
+            "emailEnabled": emailEnabled,
         ]
 
         let apiHeaders: [String: String] = [
@@ -369,6 +380,10 @@ open class Functions: Service {
     open func delete(
         functionId: String
     ) async throws -> Any {
+        if functionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"functionId\"")
+        }
+
         let apiPath: String = "/functions/{functionId}"
             .replacingOccurrences(of: "{functionId}", with: functionId)
 
@@ -377,6 +392,7 @@ open class Functions: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -400,6 +416,10 @@ open class Functions: Service {
         functionId: String,
         deploymentId: String
     ) async throws -> AppwriteModels.Function {
+        if functionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"functionId\"")
+        }
+
         let apiPath: String = "/functions/{functionId}/deployment"
             .replacingOccurrences(of: "{functionId}", with: functionId)
 
@@ -443,6 +463,10 @@ open class Functions: Service {
         search: String? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.DeploymentList {
+        if functionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"functionId\"")
+        }
+
         let apiPath: String = "/functions/{functionId}/deployments"
             .replacingOccurrences(of: "{functionId}", with: functionId)
 
@@ -498,6 +522,10 @@ open class Functions: Service {
         commands: String? = nil,
         onProgress: ((UploadProgress) -> Void)? = nil
     ) async throws -> AppwriteModels.Deployment {
+        if functionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"functionId\"")
+        }
+
         let apiPath: String = "/functions/{functionId}/deployments"
             .replacingOccurrences(of: "{functionId}", with: functionId)
 
@@ -527,7 +555,8 @@ open class Functions: Service {
             paramName: paramName,
             idParamName: idParamName,
             converter: converter,
-            onProgress: onProgress
+            onProgress: onProgress,
+            method: "POST"
         )
     }
     ///
@@ -549,6 +578,10 @@ open class Functions: Service {
         deploymentId: String,
         buildId: String? = nil
     ) async throws -> AppwriteModels.Deployment {
+        if functionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"functionId\"")
+        }
+
         let apiPath: String = "/functions/{functionId}/deployments/duplicate"
             .replacingOccurrences(of: "{functionId}", with: functionId)
 
@@ -602,6 +635,10 @@ open class Functions: Service {
         reference: String,
         activate: Bool? = nil
     ) async throws -> AppwriteModels.Deployment {
+        if functionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"functionId\"")
+        }
+
         let apiPath: String = "/functions/{functionId}/deployments/template"
             .replacingOccurrences(of: "{functionId}", with: functionId)
 
@@ -651,6 +688,10 @@ open class Functions: Service {
         reference: String,
         activate: Bool? = nil
     ) async throws -> AppwriteModels.Deployment {
+        if functionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"functionId\"")
+        }
+
         let apiPath: String = "/functions/{functionId}/deployments/vcs"
             .replacingOccurrences(of: "{functionId}", with: functionId)
 
@@ -691,6 +732,13 @@ open class Functions: Service {
         functionId: String,
         deploymentId: String
     ) async throws -> AppwriteModels.Deployment {
+        if functionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"functionId\"")
+        }
+        if deploymentId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"deploymentId\"")
+        }
+
         let apiPath: String = "/functions/{functionId}/deployments/{deploymentId}"
             .replacingOccurrences(of: "{functionId}", with: functionId)
             .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
@@ -727,6 +775,13 @@ open class Functions: Service {
         functionId: String,
         deploymentId: String
     ) async throws -> Any {
+        if functionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"functionId\"")
+        }
+        if deploymentId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"deploymentId\"")
+        }
+
         let apiPath: String = "/functions/{functionId}/deployments/{deploymentId}"
             .replacingOccurrences(of: "{functionId}", with: functionId)
             .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
@@ -736,6 +791,7 @@ open class Functions: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -764,6 +820,13 @@ open class Functions: Service {
         type: AppwriteEnums.DeploymentDownloadType? = nil,
         token: String? = nil
     ) async throws -> ByteBuffer {
+        if functionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"functionId\"")
+        }
+        if deploymentId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"deploymentId\"")
+        }
+
         let apiPath: String = "/functions/{functionId}/deployments/{deploymentId}/download"
             .replacingOccurrences(of: "{functionId}", with: functionId)
             .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
@@ -802,6 +865,13 @@ open class Functions: Service {
         functionId: String,
         deploymentId: String
     ) async throws -> AppwriteModels.Deployment {
+        if functionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"functionId\"")
+        }
+        if deploymentId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"deploymentId\"")
+        }
+
         let apiPath: String = "/functions/{functionId}/deployments/{deploymentId}/status"
             .replacingOccurrences(of: "{functionId}", with: functionId)
             .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
@@ -842,6 +912,10 @@ open class Functions: Service {
         queries: [String]? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.ExecutionList {
+        if functionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"functionId\"")
+        }
+
         let apiPath: String = "/functions/{functionId}/executions"
             .replacingOccurrences(of: "{functionId}", with: functionId)
 
@@ -893,6 +967,10 @@ open class Functions: Service {
         headers: Any? = nil,
         scheduledAt: String? = nil
     ) async throws -> AppwriteModels.Execution {
+        if functionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"functionId\"")
+        }
+
         let apiPath: String = "/functions/{functionId}/executions"
             .replacingOccurrences(of: "{functionId}", with: functionId)
 
@@ -936,6 +1014,13 @@ open class Functions: Service {
         functionId: String,
         executionId: String
     ) async throws -> AppwriteModels.Execution {
+        if functionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"functionId\"")
+        }
+        if executionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"executionId\"")
+        }
+
         let apiPath: String = "/functions/{functionId}/executions/{executionId}"
             .replacingOccurrences(of: "{functionId}", with: functionId)
             .replacingOccurrences(of: "{executionId}", with: executionId)
@@ -972,6 +1057,13 @@ open class Functions: Service {
         functionId: String,
         executionId: String
     ) async throws -> Any {
+        if functionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"functionId\"")
+        }
+        if executionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"executionId\"")
+        }
+
         let apiPath: String = "/functions/{functionId}/executions/{executionId}"
             .replacingOccurrences(of: "{functionId}", with: functionId)
             .replacingOccurrences(of: "{executionId}", with: executionId)
@@ -981,6 +1073,7 @@ open class Functions: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
@@ -1005,6 +1098,10 @@ open class Functions: Service {
         queries: [String]? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.VariableList {
+        if functionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"functionId\"")
+        }
+
         let apiPath: String = "/functions/{functionId}/variables"
             .replacingOccurrences(of: "{functionId}", with: functionId)
 
@@ -1050,6 +1147,10 @@ open class Functions: Service {
         value: String,
         secret: Bool? = nil
     ) async throws -> AppwriteModels.Variable {
+        if functionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"functionId\"")
+        }
+
         let apiPath: String = "/functions/{functionId}/variables"
             .replacingOccurrences(of: "{functionId}", with: functionId)
 
@@ -1091,6 +1192,13 @@ open class Functions: Service {
         functionId: String,
         variableId: String
     ) async throws -> AppwriteModels.Variable {
+        if functionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"functionId\"")
+        }
+        if variableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"variableId\"")
+        }
+
         let apiPath: String = "/functions/{functionId}/variables/{variableId}"
             .replacingOccurrences(of: "{functionId}", with: functionId)
             .replacingOccurrences(of: "{variableId}", with: variableId)
@@ -1133,6 +1241,13 @@ open class Functions: Service {
         value: String? = nil,
         secret: Bool? = nil
     ) async throws -> AppwriteModels.Variable {
+        if functionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"functionId\"")
+        }
+        if variableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"variableId\"")
+        }
+
         let apiPath: String = "/functions/{functionId}/variables/{variableId}"
             .replacingOccurrences(of: "{functionId}", with: functionId)
             .replacingOccurrences(of: "{variableId}", with: variableId)
@@ -1174,6 +1289,13 @@ open class Functions: Service {
         functionId: String,
         variableId: String
     ) async throws -> Any {
+        if functionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"functionId\"")
+        }
+        if variableId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"variableId\"")
+        }
+
         let apiPath: String = "/functions/{functionId}/variables/{variableId}"
             .replacingOccurrences(of: "{functionId}", with: functionId)
             .replacingOccurrences(of: "{variableId}", with: variableId)
@@ -1183,6 +1305,7 @@ open class Functions: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(

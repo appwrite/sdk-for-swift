@@ -27,13 +27,13 @@ open class DedicatedDatabaseSpecification: Codable {
     /// Monthly price of the specification in USD.
     public let price: Double
     /// Price per GB of storage above the included amount, per month, in USD.
-    public let storageOverageRate: Double?
+    public let storageOverageRate: Double
     /// Price per GB of bandwidth above the included amount, per month, in USD.
-    public let bandwidthOverageRate: Double?
+    public let bandwidthOverageRate: Double
     /// High availability replica price as a fraction of the specification price.
-    public let replicaRate: Double?
+    public let replicaRate: Double
     /// Point-in-time recovery price as a fraction of the specification price.
-    public let pitrRate: Double?
+    public let pitrRate: Double
     /// Allocated CPU in millicores.
     public let cpu: Int
     /// Allocated memory in MB.
@@ -51,16 +51,16 @@ open class DedicatedDatabaseSpecification: Codable {
         slug: String,
         name: String,
         price: Double,
+        storageOverageRate: Double,
+        bandwidthOverageRate: Double,
+        replicaRate: Double,
+        pitrRate: Double,
         cpu: Int,
         memory: Int,
         maxConnections: Int,
         includedStorage: Int,
         includedBandwidth: Int,
-        enabled: Bool,
-        storageOverageRate: Double?,
-        bandwidthOverageRate: Double?,
-        replicaRate: Double?,
-        pitrRate: Double?
+        enabled: Bool
     ) {
         self.slug = slug
         self.name = name
@@ -80,19 +80,19 @@ open class DedicatedDatabaseSpecification: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.slug = try container.decode(String.self, forKey: .slug)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.price = try container.decode(Double.self, forKey: .price)
-        self.cpu = try container.decode(Int.self, forKey: .cpu)
-        self.memory = try container.decode(Int.self, forKey: .memory)
-        self.maxConnections = try container.decode(Int.self, forKey: .maxConnections)
-        self.includedStorage = try container.decode(Int.self, forKey: .includedStorage)
-        self.includedBandwidth = try container.decode(Int.self, forKey: .includedBandwidth)
-        self.enabled = try container.decode(Bool.self, forKey: .enabled)
-        self.storageOverageRate = try container.decodeIfPresent(Double.self, forKey: .storageOverageRate)
-        self.bandwidthOverageRate = try container.decodeIfPresent(Double.self, forKey: .bandwidthOverageRate)
-        self.replicaRate = try container.decodeIfPresent(Double.self, forKey: .replicaRate)
-        self.pitrRate = try container.decodeIfPresent(Double.self, forKey: .pitrRate)
+        self.slug = try container.contains(.slug) ? container.decode(String.self, forKey: .slug) : ""
+        self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.price = try container.contains(.price) ? container.decode(Double.self, forKey: .price) : 0
+        self.storageOverageRate = try container.contains(.storageOverageRate) ? container.decode(Double.self, forKey: .storageOverageRate) : 0
+        self.bandwidthOverageRate = try container.contains(.bandwidthOverageRate) ? container.decode(Double.self, forKey: .bandwidthOverageRate) : 0
+        self.replicaRate = try container.contains(.replicaRate) ? container.decode(Double.self, forKey: .replicaRate) : 0
+        self.pitrRate = try container.contains(.pitrRate) ? container.decode(Double.self, forKey: .pitrRate) : 0
+        self.cpu = try container.contains(.cpu) ? container.decode(Int.self, forKey: .cpu) : 0
+        self.memory = try container.contains(.memory) ? container.decode(Int.self, forKey: .memory) : 0
+        self.maxConnections = try container.contains(.maxConnections) ? container.decode(Int.self, forKey: .maxConnections) : 0
+        self.includedStorage = try container.contains(.includedStorage) ? container.decode(Int.self, forKey: .includedStorage) : 0
+        self.includedBandwidth = try container.contains(.includedBandwidth) ? container.decode(Int.self, forKey: .includedBandwidth) : 0
+        self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : false
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -101,10 +101,10 @@ open class DedicatedDatabaseSpecification: Codable {
         try container.encode(slug, forKey: .slug)
         try container.encode(name, forKey: .name)
         try container.encode(price, forKey: .price)
-        try container.encodeIfPresent(storageOverageRate, forKey: .storageOverageRate)
-        try container.encodeIfPresent(bandwidthOverageRate, forKey: .bandwidthOverageRate)
-        try container.encodeIfPresent(replicaRate, forKey: .replicaRate)
-        try container.encodeIfPresent(pitrRate, forKey: .pitrRate)
+        try container.encode(storageOverageRate, forKey: .storageOverageRate)
+        try container.encode(bandwidthOverageRate, forKey: .bandwidthOverageRate)
+        try container.encode(replicaRate, forKey: .replicaRate)
+        try container.encode(pitrRate, forKey: .pitrRate)
         try container.encode(cpu, forKey: .cpu)
         try container.encode(memory, forKey: .memory)
         try container.encode(maxConnections, forKey: .maxConnections)
@@ -132,20 +132,37 @@ open class DedicatedDatabaseSpecification: Codable {
     }
 
     public static func from(map: [String: Any]) -> DedicatedDatabaseSpecification {
+        let defaults: [String: Any] = [
+            "slug": "",
+            "name": "",
+            "price": 0.0,
+            "storageOverageRate": 0.0,
+            "bandwidthOverageRate": 0.0,
+            "replicaRate": 0.0,
+            "pitrRate": 0.0,
+            "cpu": 0,
+            "memory": 0,
+            "maxConnections": 0,
+            "includedStorage": 0,
+            "includedBandwidth": 0,
+            "enabled": false,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return DedicatedDatabaseSpecification(
             slug: map["slug"] as! String,
             name: map["name"] as! String,
             price: map["price"] as! Double,
+            storageOverageRate: map["storageOverageRate"] as! Double,
+            bandwidthOverageRate: map["bandwidthOverageRate"] as! Double,
+            replicaRate: map["replicaRate"] as! Double,
+            pitrRate: map["pitrRate"] as! Double,
             cpu: map["cpu"] as! Int,
             memory: map["memory"] as! Int,
             maxConnections: map["maxConnections"] as! Int,
             includedStorage: map["includedStorage"] as! Int,
             includedBandwidth: map["includedBandwidth"] as! Int,
-            enabled: map["enabled"] as! Bool,
-            storageOverageRate: map["storageOverageRate"] as? Double,
-            bandwidthOverageRate: map["bandwidthOverageRate"] as? Double,
-            replicaRate: map["replicaRate"] as? Double,
-            pitrRate: map["pitrRate"] as? Double
+            enabled: map["enabled"] as! Bool
         )
     }
 }

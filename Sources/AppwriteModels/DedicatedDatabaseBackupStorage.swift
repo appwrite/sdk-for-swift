@@ -40,11 +40,11 @@ open class DedicatedDatabaseBackupStorage: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.provider = try container.decode(String.self, forKey: .provider)
-        self.bucket = try container.decode(String.self, forKey: .bucket)
-        self.region = try container.decode(String.self, forKey: .region)
-        self.`prefix` = try container.decode(String.self, forKey: .`prefix`)
-        self.endpoint = try container.decode(String.self, forKey: .endpoint)
+        self.provider = try container.contains(.provider) ? container.decode(String.self, forKey: .provider) : ""
+        self.bucket = try container.contains(.bucket) ? container.decode(String.self, forKey: .bucket) : ""
+        self.region = try container.contains(.region) ? container.decode(String.self, forKey: .region) : ""
+        self.`prefix` = try container.contains(.`prefix`) ? container.decode(String.self, forKey: .`prefix`) : "backups/"
+        self.endpoint = try container.contains(.endpoint) ? container.decode(String.self, forKey: .endpoint) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -68,6 +68,15 @@ open class DedicatedDatabaseBackupStorage: Codable {
     }
 
     public static func from(map: [String: Any]) -> DedicatedDatabaseBackupStorage {
+        let defaults: [String: Any] = [
+            "provider": "",
+            "bucket": "",
+            "region": "",
+            "prefix": "backups/",
+            "endpoint": "",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return DedicatedDatabaseBackupStorage(
             provider: map["provider"] as! String,
             bucket: map["bucket"] as! String,

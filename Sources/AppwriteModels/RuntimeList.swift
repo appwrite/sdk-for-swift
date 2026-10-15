@@ -25,8 +25,8 @@ open class RuntimeList: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.total = try container.decode(Int.self, forKey: .total)
-        self.runtimes = try container.decode([Runtime].self, forKey: .runtimes)
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
+        self.runtimes = try container.contains(.runtimes) ? container.decode([Runtime].self, forKey: .runtimes) : []
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -44,6 +44,12 @@ open class RuntimeList: Codable {
     }
 
     public static func from(map: [String: Any]) -> RuntimeList {
+        let defaults: [String: Any] = [
+            "total": 0,
+            "runtimes": [Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return RuntimeList(
             total: map["total"] as! Int,
             runtimes: (map["runtimes"] as! [[String: Any]]).map { Runtime.from(map: $0) }

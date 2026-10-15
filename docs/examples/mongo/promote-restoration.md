@@ -6,10 +6,11 @@ let client = Client()
     .setProject("<YOUR_PROJECT_ID>") // Your project ID
     .setKey("<YOUR_API_KEY>") // Your secret API key
 
-let organization = Organization(client)
+let mongo = Mongo(client)
 
-let result = try await organization.deleteKey(
-    keyId: "<KEY_ID>"
+let dedicatedDatabaseRestoration = try await mongo.promoteRestoration(
+    databaseId: "<DATABASE_ID>",
+    restorationId: "<RESTORATION_ID>"
 )
 
 ```

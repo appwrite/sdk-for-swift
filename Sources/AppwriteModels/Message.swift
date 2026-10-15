@@ -81,19 +81,19 @@ open class Message: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.providerType = try container.decode(String.self, forKey: .providerType)
-        self.topics = try container.decode([String].self, forKey: .topics)
-        self.users = try container.decode([String].self, forKey: .users)
-        self.targets = try container.decode([String].self, forKey: .targets)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
+        self.providerType = try container.contains(.providerType) ? container.decode(String.self, forKey: .providerType) : ""
+        self.topics = try container.contains(.topics) ? container.decode([String].self, forKey: .topics) : []
+        self.users = try container.contains(.users) ? container.decode([String].self, forKey: .users) : []
+        self.targets = try container.contains(.targets) ? container.decode([String].self, forKey: .targets) : []
         self.scheduledAt = try container.decodeIfPresent(String.self, forKey: .scheduledAt)
         self.deliveredAt = try container.decodeIfPresent(String.self, forKey: .deliveredAt)
         self.deliveryErrors = try container.decodeIfPresent([String].self, forKey: .deliveryErrors)
-        self.deliveredTotal = try container.decode(Int.self, forKey: .deliveredTotal)
-        self.data = try container.decode([String: AnyCodable].self, forKey: .data)
-        self.status = AppwriteEnums.MessageStatus(rawValue: try container.decode(String.self, forKey: .status))!
+        self.deliveredTotal = try container.contains(.deliveredTotal) ? container.decode(Int.self, forKey: .deliveredTotal) : 0
+        self.data = try container.contains(.data) ? container.decode([String: AnyCodable].self, forKey: .data) : ([String: Any]()).mapValues { AnyCodable($0) }
+        self.status = AppwriteEnums.MessageStatus(rawValue: try container.contains(.status) ? container.decode(String.self, forKey: .status) : "draft")!
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -133,6 +133,20 @@ open class Message: Codable {
     }
 
     public static func from(map: [String: Any]) -> Message {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+            "providerType": "",
+            "topics": [Any](),
+            "users": [Any](),
+            "targets": [Any](),
+            "deliveredTotal": 0,
+            "data": [String: Any](),
+            "status": "draft",
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return Message(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,

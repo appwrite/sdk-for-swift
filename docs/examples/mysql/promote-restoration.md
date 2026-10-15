@@ -6,11 +6,11 @@ let client = Client()
     .setProject("<YOUR_PROJECT_ID>") // Your project ID
     .setKey("<YOUR_API_KEY>") // Your secret API key
 
-let organization = Organization(client)
+let mysql = Mysql(client)
 
-let keyList = try await organization.listKeys(
-    queries: [], // optional
-    total: false // optional
+let dedicatedDatabaseRestoration = try await mysql.promoteRestoration(
+    databaseId: "<DATABASE_ID>",
+    restorationId: "<RESTORATION_ID>"
 )
 
 ```

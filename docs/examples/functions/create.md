@@ -13,7 +13,9 @@ let function = try await functions.create(
     functionId: "<FUNCTION_ID>",
     name: "<NAME>",
     runtime: .node145,
-    execute: ["any"], // optional
+    execute: [
+        "any"
+    ], // optional
     events: [], // optional
     schedule: "0 0 * * *", // optional
     timeout: 1, // optional

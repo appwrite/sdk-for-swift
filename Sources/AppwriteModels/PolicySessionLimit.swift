@@ -25,8 +25,8 @@ open class PolicySessionLimit: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.total = try container.decode(Int.self, forKey: .total)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -44,6 +44,12 @@ open class PolicySessionLimit: Codable {
     }
 
     public static func from(map: [String: Any]) -> PolicySessionLimit {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "total": 0,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return PolicySessionLimit(
             id: map["$id"] as! String,
             total: map["total"] as! Int

@@ -67,21 +67,21 @@ open class Organization<T: Codable>: Codable {
     /// Billing email set for the organization.
     public let billingEmail: String
     /// Billing cycle start date.
-    public let billingStartDate: String
+    public let billingStartDate: String?
     /// Current invoice cycle start date.
-    public let billingCurrentInvoiceDate: String
+    public let billingCurrentInvoiceDate: String?
     /// Next invoice cycle start date.
-    public let billingNextInvoiceDate: String
+    public let billingNextInvoiceDate: String?
     /// Start date of trial.
     public let billingTrialStartDate: String?
     /// Number of trial days.
-    public let billingTrialDays: Int
+    public let billingTrialDays: Int?
     /// Current active aggregation id.
-    public let billingAggregationId: String
+    public let billingAggregationId: String?
     /// Current active aggregation id.
-    public let billingInvoiceId: String
+    public let billingInvoiceId: String?
     /// Default payment method.
-    public let paymentMethodId: String
+    public let paymentMethodId: String?
     /// Default payment method.
     public let billingAddressId: String?
     /// Backup payment method.
@@ -126,14 +126,14 @@ open class Organization<T: Codable>: Codable {
         billingPlanId: String,
         billingPlanDetails: BillingPlan,
         billingEmail: String,
-        billingStartDate: String,
-        billingCurrentInvoiceDate: String,
-        billingNextInvoiceDate: String,
+        billingStartDate: String?,
+        billingCurrentInvoiceDate: String?,
+        billingNextInvoiceDate: String?,
         billingTrialStartDate: String?,
-        billingTrialDays: Int,
-        billingAggregationId: String,
-        billingInvoiceId: String,
-        paymentMethodId: String,
+        billingTrialDays: Int?,
+        billingAggregationId: String?,
+        billingInvoiceId: String?,
+        paymentMethodId: String?,
         billingAddressId: String?,
         backupPaymentMethodId: String?,
         status: String,
@@ -190,29 +190,31 @@ open class Organization<T: Codable>: Codable {
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.id = try container.decode(String.self, forKey: .id)
-        self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.updatedAt = try container.decode(String.self, forKey: .updatedAt)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.total = try container.decode(Int.self, forKey: .total)
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
+        self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
+        self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.total = try container.contains(.total) ? container.decode(Int.self, forKey: .total) : 0
         self.prefs = try container.decode(Preferences<T>.self, forKey: .prefs)
         self.billingBudget = try container.decodeIfPresent(Int.self, forKey: .billingBudget)
-        self.budgetAlerts = try container.decode([Int].self, forKey: .budgetAlerts)
-        self.billingPlan = try container.decode(String.self, forKey: .billingPlan)
-        self.billingPlanId = try container.decode(String.self, forKey: .billingPlanId)
+        self.budgetAlerts = try container.contains(.budgetAlerts) ? container.decode([Int].self, forKey: .budgetAlerts) : [
+        75
+    ]
+        self.billingPlan = try container.contains(.billingPlan) ? container.decode(String.self, forKey: .billingPlan) : "tier-0"
+        self.billingPlanId = try container.contains(.billingPlanId) ? container.decode(String.self, forKey: .billingPlanId) : "tier-0"
         self.billingPlanDetails = try container.decode(BillingPlan.self, forKey: .billingPlanDetails)
-        self.billingEmail = try container.decode(String.self, forKey: .billingEmail)
-        self.billingStartDate = try container.decode(String.self, forKey: .billingStartDate)
-        self.billingCurrentInvoiceDate = try container.decode(String.self, forKey: .billingCurrentInvoiceDate)
-        self.billingNextInvoiceDate = try container.decode(String.self, forKey: .billingNextInvoiceDate)
+        self.billingEmail = try container.contains(.billingEmail) ? container.decode(String.self, forKey: .billingEmail) : ""
+        self.billingStartDate = try container.decodeIfPresent(String.self, forKey: .billingStartDate)
+        self.billingCurrentInvoiceDate = try container.decodeIfPresent(String.self, forKey: .billingCurrentInvoiceDate)
+        self.billingNextInvoiceDate = try container.decodeIfPresent(String.self, forKey: .billingNextInvoiceDate)
         self.billingTrialStartDate = try container.decodeIfPresent(String.self, forKey: .billingTrialStartDate)
-        self.billingTrialDays = try container.decode(Int.self, forKey: .billingTrialDays)
-        self.billingAggregationId = try container.decode(String.self, forKey: .billingAggregationId)
-        self.billingInvoiceId = try container.decode(String.self, forKey: .billingInvoiceId)
-        self.paymentMethodId = try container.decode(String.self, forKey: .paymentMethodId)
+        self.billingTrialDays = try container.decodeIfPresent(Int.self, forKey: .billingTrialDays)
+        self.billingAggregationId = try container.decodeIfPresent(String.self, forKey: .billingAggregationId)
+        self.billingInvoiceId = try container.decodeIfPresent(String.self, forKey: .billingInvoiceId)
+        self.paymentMethodId = try container.decodeIfPresent(String.self, forKey: .paymentMethodId)
         self.billingAddressId = try container.decodeIfPresent(String.self, forKey: .billingAddressId)
         self.backupPaymentMethodId = try container.decodeIfPresent(String.self, forKey: .backupPaymentMethodId)
-        self.status = try container.decode(String.self, forKey: .status)
+        self.status = try container.contains(.status) ? container.decode(String.self, forKey: .status) : "draft"
         self.remarks = try container.decodeIfPresent(String.self, forKey: .remarks)
         self.agreementBAA = try container.decodeIfPresent(String.self, forKey: .agreementBAA)
         self.programManagerName = try container.decodeIfPresent(String.self, forKey: .programManagerName)
@@ -222,9 +224,9 @@ open class Organization<T: Codable>: Codable {
         self.billingLimits = try container.decodeIfPresent(BillingLimits.self, forKey: .billingLimits)
         self.billingPlanDowngrade = try container.decodeIfPresent(String.self, forKey: .billingPlanDowngrade)
         self.billingTaxId = try container.decodeIfPresent(String.self, forKey: .billingTaxId)
-        self.markedForDeletion = try container.decode(Bool.self, forKey: .markedForDeletion)
-        self.platform = try container.decode(String.self, forKey: .platform)
-        self.projects = try container.decode([String].self, forKey: .projects)
+        self.markedForDeletion = try container.contains(.markedForDeletion) ? container.decode(Bool.self, forKey: .markedForDeletion) : false
+        self.platform = try container.contains(.platform) ? container.decode(String.self, forKey: .platform) : "appwrite"
+        self.projects = try container.contains(.projects) ? container.decode([String].self, forKey: .projects) : []
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -242,14 +244,14 @@ open class Organization<T: Codable>: Codable {
         try container.encode(billingPlanId, forKey: .billingPlanId)
         try container.encode(billingPlanDetails, forKey: .billingPlanDetails)
         try container.encode(billingEmail, forKey: .billingEmail)
-        try container.encode(billingStartDate, forKey: .billingStartDate)
-        try container.encode(billingCurrentInvoiceDate, forKey: .billingCurrentInvoiceDate)
-        try container.encode(billingNextInvoiceDate, forKey: .billingNextInvoiceDate)
+        try container.encodeIfPresent(billingStartDate, forKey: .billingStartDate)
+        try container.encodeIfPresent(billingCurrentInvoiceDate, forKey: .billingCurrentInvoiceDate)
+        try container.encodeIfPresent(billingNextInvoiceDate, forKey: .billingNextInvoiceDate)
         try container.encodeIfPresent(billingTrialStartDate, forKey: .billingTrialStartDate)
-        try container.encode(billingTrialDays, forKey: .billingTrialDays)
-        try container.encode(billingAggregationId, forKey: .billingAggregationId)
-        try container.encode(billingInvoiceId, forKey: .billingInvoiceId)
-        try container.encode(paymentMethodId, forKey: .paymentMethodId)
+        try container.encodeIfPresent(billingTrialDays, forKey: .billingTrialDays)
+        try container.encodeIfPresent(billingAggregationId, forKey: .billingAggregationId)
+        try container.encodeIfPresent(billingInvoiceId, forKey: .billingInvoiceId)
+        try container.encodeIfPresent(paymentMethodId, forKey: .paymentMethodId)
         try container.encodeIfPresent(billingAddressId, forKey: .billingAddressId)
         try container.encodeIfPresent(backupPaymentMethodId, forKey: .backupPaymentMethodId)
         try container.encode(status, forKey: .status)
@@ -308,6 +310,23 @@ open class Organization<T: Codable>: Codable {
     }
 
     public static func from(map: [String: Any]) -> Organization {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "$createdAt": "",
+            "$updatedAt": "",
+            "name": "",
+            "total": 0,
+            "budgetAlerts": [75] as [Any],
+            "billingPlan": "tier-0",
+            "billingPlanId": "tier-0",
+            "billingEmail": "",
+            "status": "draft",
+            "markedForDeletion": false,
+            "platform": "appwrite",
+            "projects": [Any](),
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
         return Organization(
             id: map["$id"] as! String,
             createdAt: map["$createdAt"] as! String,
@@ -321,14 +340,14 @@ open class Organization<T: Codable>: Codable {
             billingPlanId: map["billingPlanId"] as! String,
             billingPlanDetails: BillingPlan.from(map: map["billingPlanDetails"] as! [String: Any]),
             billingEmail: map["billingEmail"] as! String,
-            billingStartDate: map["billingStartDate"] as! String,
-            billingCurrentInvoiceDate: map["billingCurrentInvoiceDate"] as! String,
-            billingNextInvoiceDate: map["billingNextInvoiceDate"] as! String,
+            billingStartDate: map["billingStartDate"] as? String,
+            billingCurrentInvoiceDate: map["billingCurrentInvoiceDate"] as? String,
+            billingNextInvoiceDate: map["billingNextInvoiceDate"] as? String,
             billingTrialStartDate: map["billingTrialStartDate"] as? String,
-            billingTrialDays: map["billingTrialDays"] as! Int,
-            billingAggregationId: map["billingAggregationId"] as! String,
-            billingInvoiceId: map["billingInvoiceId"] as! String,
-            paymentMethodId: map["paymentMethodId"] as! String,
+            billingTrialDays: map["billingTrialDays"] as? Int,
+            billingAggregationId: map["billingAggregationId"] as? String,
+            billingInvoiceId: map["billingInvoiceId"] as? String,
+            paymentMethodId: map["paymentMethodId"] as? String,
             billingAddressId: map["billingAddressId"] as? String,
             backupPaymentMethodId: map["backupPaymentMethodId"] as? String,
             status: map["status"] as! String,

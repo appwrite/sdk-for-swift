@@ -26,6 +26,13 @@ open class Tokens: Service {
         queries: [String]? = nil,
         total: Bool? = nil
     ) async throws -> AppwriteModels.ResourceTokenList {
+        if bucketId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"bucketId\"")
+        }
+        if fileId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"fileId\"")
+        }
+
         let apiPath: String = "/tokens/buckets/{bucketId}/files/{fileId}"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
             .replacingOccurrences(of: "{fileId}", with: fileId)
@@ -68,6 +75,13 @@ open class Tokens: Service {
         fileId: String,
         expire: String? = nil
     ) async throws -> AppwriteModels.ResourceToken {
+        if bucketId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"bucketId\"")
+        }
+        if fileId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"fileId\"")
+        }
+
         let apiPath: String = "/tokens/buckets/{bucketId}/files/{fileId}"
             .replacingOccurrences(of: "{bucketId}", with: bucketId)
             .replacingOccurrences(of: "{fileId}", with: fileId)
@@ -105,6 +119,10 @@ open class Tokens: Service {
     open func get(
         tokenId: String
     ) async throws -> AppwriteModels.ResourceToken {
+        if tokenId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tokenId\"")
+        }
+
         let apiPath: String = "/tokens/{tokenId}"
             .replacingOccurrences(of: "{tokenId}", with: tokenId)
 
@@ -141,6 +159,10 @@ open class Tokens: Service {
         tokenId: String,
         expire: String? = nil
     ) async throws -> AppwriteModels.ResourceToken {
+        if tokenId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tokenId\"")
+        }
+
         let apiPath: String = "/tokens/{tokenId}"
             .replacingOccurrences(of: "{tokenId}", with: tokenId)
 
@@ -177,6 +199,10 @@ open class Tokens: Service {
     open func delete(
         tokenId: String
     ) async throws -> Any {
+        if tokenId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"tokenId\"")
+        }
+
         let apiPath: String = "/tokens/{tokenId}"
             .replacingOccurrences(of: "{tokenId}", with: tokenId)
 
@@ -185,6 +211,7 @@ open class Tokens: Service {
         let apiHeaders: [String: String] = [
             "X-Appwrite-Project": client.config["project"] ?? "",
             "content-type": "application/json",
+            "accept": "application/json",
         ]
 
         return try await client.call(
