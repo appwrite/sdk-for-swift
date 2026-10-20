@@ -32,7 +32,8 @@ let attributePolygon = try await databases.createPolygonAttribute(
                 2
             ]
         ]
-    ] // optional
+    ], // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

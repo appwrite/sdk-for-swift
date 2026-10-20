@@ -11,7 +11,8 @@ let databases = Databases(client)
 let database = try await databases.create(
     databaseId: "<DATABASE_ID>",
     name: "<NAME>",
-    enabled: false // optional
+    enabled: false, // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

@@ -15,7 +15,8 @@ let topic = try await messaging.updateTopic(
         "any"
     ], // optional
     qos: 0, // optional
-    expiry: 0 // optional
+    expiry: 0, // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

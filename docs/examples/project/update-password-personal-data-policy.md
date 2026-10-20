@@ -9,7 +9,8 @@ let client = Client()
 let project = Project(client)
 
 let project = try await project.updatePasswordPersonalDataPolicy(
-    enabled: false
+    enabled: false,
+    denyList: [] // optional
 )
 
 ```

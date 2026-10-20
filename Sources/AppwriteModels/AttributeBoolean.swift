@@ -7,6 +7,7 @@ open class AttributeBoolean: Codable {
 
     enum CodingKeys: String, CodingKey {
         case key = "key"
+        case description = "description"
         case type = "type"
         case status = "status"
         case error = "error"
@@ -19,6 +20,8 @@ open class AttributeBoolean: Codable {
 
     /// Attribute Key.
     public let key: String
+    /// Optional description for the attribute.
+    public let description: String
     /// Attribute type.
     public let type: String
     /// Attribute status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
@@ -38,6 +41,7 @@ open class AttributeBoolean: Codable {
 
     init(
         key: String,
+        description: String,
         type: String,
         status: AppwriteEnums.AttributeStatus,
         error: String,
@@ -48,6 +52,7 @@ open class AttributeBoolean: Codable {
         `default`: Bool?
     ) {
         self.key = key
+        self.description = description
         self.type = type
         self.status = status
         self.error = error
@@ -62,6 +67,7 @@ open class AttributeBoolean: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         self.key = try container.contains(.key) ? container.decode(String.self, forKey: .key) : ""
+        self.description = try container.contains(.description) ? container.decode(String.self, forKey: .description) : ""
         self.type = try container.contains(.type) ? container.decode(String.self, forKey: .type) : ""
         self.status = AppwriteEnums.AttributeStatus(rawValue: try container.decode(String.self, forKey: .status))!
         self.error = try container.contains(.error) ? container.decode(String.self, forKey: .error) : ""
@@ -76,6 +82,7 @@ open class AttributeBoolean: Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
 
         try container.encode(key, forKey: .key)
+        try container.encode(description, forKey: .description)
         try container.encode(type, forKey: .type)
         try container.encode(status.rawValue, forKey: .status)
         try container.encode(error, forKey: .error)
@@ -89,6 +96,7 @@ open class AttributeBoolean: Codable {
     public func toMap() -> [String: Any] {
         return [
             "key": key as Any,
+            "description": description as Any,
             "type": type as Any,
             "status": status.rawValue as Any,
             "error": error as Any,
@@ -103,6 +111,7 @@ open class AttributeBoolean: Codable {
     public static func from(map: [String: Any]) -> AttributeBoolean {
         let defaults: [String: Any] = [
             "key": "",
+            "description": "",
             "type": "",
             "error": "",
             "required": false,
@@ -113,6 +122,7 @@ open class AttributeBoolean: Codable {
 
         return AttributeBoolean(
             key: map["key"] as! String,
+            description: map["description"] as! String,
             type: map["type"] as! String,
             status: AppwriteEnums.AttributeStatus(rawValue: map["status"] as! String)!,
             error: map["error"] as! String,

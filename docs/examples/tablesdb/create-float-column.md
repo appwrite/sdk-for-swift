@@ -16,7 +16,8 @@ let columnFloat = try await tablesDB.createFloatColumn(
     min: 0, // optional
     max: 100, // optional
     default: 10.5, // optional
-    array: false // optional
+    array: false, // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

@@ -517,6 +517,43 @@ open class Account: Service {
         )
     }
     ///
+    /// Get the team memberships of the currently logged in user.
+    ///
+    /// - Parameters:
+    ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.MembershipList
+    ///
+    open func listMemberships(
+        queries: [String]? = nil,
+        total: Bool? = nil
+    ) async throws -> AppwriteModels.MembershipList {
+        let apiPath: String = "/account/memberships"
+
+        let apiParams: [String: Any?] = [
+            "queries": queries,
+            "total": total,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.MembershipList = { response in
+            return AppwriteModels.MembershipList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// Enable or disable MFA on an account.
     ///
     /// - Parameters:
@@ -1826,6 +1863,14 @@ open class Account: Service {
     /// the only valid redirect URLs are the ones from domains you have set when
     /// adding your platforms in the console interface.
     ///
+    /// The new password must satisfy the project's enabled password policies,
+    /// including custom deny lists. Dictionary entries match the entire password
+    /// case-sensitively; personal-data terms match substrings case-insensitively.
+    /// Personal-data validation runs after token verification against the
+    /// recovered user's ID, name, email, and phone, closing the previous recovery
+    /// gap for profile-based checks. A rejected password leaves the existing
+    /// credentials unchanged and the recovery token usable.
+    ///
     /// - Parameters:
     ///   - userId: String
     ///   - secret: String
@@ -1921,6 +1966,14 @@ open class Account: Service {
     /// Pass the **userId** of the user along with the **secret** code from the
     /// email and the new **password** to set. If confirmed, this route will return
     /// a 200 status code, the code is consumed and the user's password is updated.
+    ///
+    /// The new password must satisfy the project's enabled password policies,
+    /// including custom deny lists. Dictionary entries match the entire password
+    /// case-sensitively; personal-data terms match substrings case-insensitively.
+    /// Personal-data validation runs after token verification against the
+    /// recovered user's ID, name, email, and phone, closing the previous recovery
+    /// gap for profile-based checks. A rejected password leaves the existing
+    /// credentials unchanged and the recovery token usable.
     ///
     /// - Parameters:
     ///   - userId: String

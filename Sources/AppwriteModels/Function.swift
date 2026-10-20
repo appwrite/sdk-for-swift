@@ -10,6 +10,7 @@ open class Function: Codable {
         case updatedAt = "$updatedAt"
         case execute = "execute"
         case name = "name"
+        case description = "description"
         case enabled = "enabled"
         case live = "live"
         case logging = "logging"
@@ -51,6 +52,8 @@ open class Function: Codable {
     public let execute: [String]
     /// Function name.
     public let name: String
+    /// Optional description for the function.
+    public let description: String
     /// Function enabled.
     public let enabled: Bool
     /// Is the function deployed with the latest configuration? This is set to false if you&#039;ve changed an environment variables, entrypoint, commands, or other settings that needs redeploy to be applied. When the value is false, redeploy the function to update it with the latest configuration.
@@ -116,6 +119,7 @@ open class Function: Codable {
         updatedAt: String,
         execute: [String],
         name: String,
+        description: String,
         enabled: Bool,
         live: Bool,
         logging: Bool,
@@ -151,6 +155,7 @@ open class Function: Codable {
         self.updatedAt = updatedAt
         self.execute = execute
         self.name = name
+        self.description = description
         self.enabled = enabled
         self.live = live
         self.logging = logging
@@ -190,6 +195,7 @@ open class Function: Codable {
         self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
         self.execute = try container.contains(.execute) ? container.decode([String].self, forKey: .execute) : []
         self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.description = try container.contains(.description) ? container.decode(String.self, forKey: .description) : ""
         self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : true
         self.live = try container.contains(.live) ? container.decode(Bool.self, forKey: .live) : true
         self.logging = try container.contains(.logging) ? container.decode(Bool.self, forKey: .logging) : true
@@ -229,6 +235,7 @@ open class Function: Codable {
         try container.encode(updatedAt, forKey: .updatedAt)
         try container.encode(execute, forKey: .execute)
         try container.encode(name, forKey: .name)
+        try container.encode(description, forKey: .description)
         try container.encode(enabled, forKey: .enabled)
         try container.encode(live, forKey: .live)
         try container.encode(logging, forKey: .logging)
@@ -267,6 +274,7 @@ open class Function: Codable {
             "$updatedAt": updatedAt as Any,
             "execute": execute as Any,
             "name": name as Any,
+            "description": description as Any,
             "enabled": enabled as Any,
             "live": live as Any,
             "logging": logging as Any,
@@ -306,6 +314,7 @@ open class Function: Codable {
             "$updatedAt": "",
             "execute": [Any](),
             "name": "",
+            "description": "",
             "enabled": true,
             "live": true,
             "logging": true,
@@ -343,6 +352,7 @@ open class Function: Codable {
             updatedAt: map["$updatedAt"] as! String,
             execute: map["execute"] as! [String],
             name: map["name"] as! String,
+            description: map["description"] as! String,
             enabled: map["enabled"] as! Bool,
             live: map["live"] as! Bool,
             logging: map["logging"] as! Bool,

@@ -18,7 +18,8 @@ let columnEnum = try await tablesDB.createEnumColumn(
     ],
     required: false,
     default: "active", // optional
-    array: false // optional
+    array: false, // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

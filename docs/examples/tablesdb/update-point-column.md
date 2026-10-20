@@ -17,7 +17,8 @@ let columnPoint = try await tablesDB.updatePointColumn(
         1,
         2
     ], // optional
-    newKey: "<NEW_KEY>" // optional
+    newKey: "<NEW_KEY>", // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

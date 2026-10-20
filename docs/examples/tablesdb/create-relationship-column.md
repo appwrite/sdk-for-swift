@@ -17,7 +17,8 @@ let columnRelationship = try await tablesDB.createRelationshipColumn(
     twoWay: false, // optional
     key: "<KEY>", // optional
     twoWayKey: "<TWO_WAY_KEY>", // optional
-    onDelete: .cascade // optional
+    onDelete: .cascade, // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

@@ -10,7 +10,8 @@ let domains = Domains(client)
 
 let domainsList = try await domains.list(
     queries: [], // optional
-    search: "<SEARCH>" // optional
+    search: "<SEARCH>", // optional
+    total: false // optional
 )
 
 ```

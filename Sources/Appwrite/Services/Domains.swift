@@ -15,18 +15,21 @@ open class Domains: Service {
     /// - Parameters:
     ///   - queries: [String] (optional)
     ///   - search: String (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DomainsList
     ///
     open func list(
         queries: [String]? = nil,
-        search: String? = nil
+        search: String? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.DomainsList {
         let apiPath: String = "/domains"
 
         let apiParams: [String: Any?] = [
             "queries": queries,
             "search": search,
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
@@ -803,12 +806,14 @@ open class Domains: Service {
     /// - Parameters:
     ///   - domainId: String
     ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DnsRecordsList
     ///
     open func listRecords(
         domainId: String,
-        queries: [String]? = nil
+        queries: [String]? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.DnsRecordsList {
         if domainId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"domainId\"")
@@ -818,7 +823,8 @@ open class Domains: Service {
             .replacingOccurrences(of: "{domainId}", with: domainId)
 
         let apiParams: [String: Any?] = [
-            "queries": queries
+            "queries": queries,
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [

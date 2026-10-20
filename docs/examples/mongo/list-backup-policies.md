@@ -10,7 +10,8 @@ let mongo = Mongo(client)
 
 let backupPolicyList = try await mongo.listBackupPolicies(
     databaseId: "<DATABASE_ID>",
-    queries: [] // optional
+    queries: [], // optional
+    total: false // optional
 )
 
 ```

@@ -53,6 +53,7 @@ open class DocumentsDB: Service {
     ///   - databaseId: String
     ///   - name: String
     ///   - enabled: Bool (optional)
+    ///   - description: String (optional)
     ///   - specification: String (optional)
     ///   - replicas: Int (optional)
     ///   - syncMode: String (optional)
@@ -63,6 +64,7 @@ open class DocumentsDB: Service {
         databaseId: String,
         name: String,
         enabled: Bool? = nil,
+        description: String? = nil,
         specification: String? = nil,
         replicas: Int? = nil,
         syncMode: String? = nil
@@ -73,6 +75,7 @@ open class DocumentsDB: Service {
             "databaseId": databaseId,
             "name": name,
             "enabled": enabled,
+            "description": description,
             "specification": specification,
             "replicas": replicas,
             "syncMode": syncMode,
@@ -400,6 +403,7 @@ open class DocumentsDB: Service {
     ///   - databaseId: String
     ///   - name: String
     ///   - enabled: Bool (optional)
+    ///   - description: String (optional)
     ///   - specification: String (optional)
     ///   - replicas: Int (optional)
     ///   - syncMode: String (optional)
@@ -410,6 +414,7 @@ open class DocumentsDB: Service {
         databaseId: String,
         name: String,
         enabled: Bool? = nil,
+        description: String? = nil,
         specification: String? = nil,
         replicas: Int? = nil,
         syncMode: String? = nil
@@ -424,6 +429,7 @@ open class DocumentsDB: Service {
         let apiParams: [String: Any?] = [
             "name": name,
             "enabled": enabled,
+            "description": description,
             "specification": specification,
             "replicas": replicas,
             "syncMode": syncMode,
@@ -544,6 +550,7 @@ open class DocumentsDB: Service {
     ///   - enabled: Bool (optional)
     ///   - attributes: [AnyCodable] (optional)
     ///   - indexes: [AnyCodable] (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Collection
     ///
@@ -555,7 +562,8 @@ open class DocumentsDB: Service {
         documentSecurity: Bool? = nil,
         enabled: Bool? = nil,
         attributes: [AnyCodable]? = nil,
-        indexes: [AnyCodable]? = nil
+        indexes: [AnyCodable]? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Collection {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -572,6 +580,7 @@ open class DocumentsDB: Service {
             "enabled": enabled,
             "attributes": attributes,
             "indexes": indexes,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -647,6 +656,7 @@ open class DocumentsDB: Service {
     ///   - documentSecurity: Bool (optional)
     ///   - enabled: Bool (optional)
     ///   - purge: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Collection
     ///
@@ -657,7 +667,8 @@ open class DocumentsDB: Service {
         permissions: [String]? = nil,
         documentSecurity: Bool? = nil,
         enabled: Bool? = nil,
-        purge: Bool? = nil
+        purge: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Collection {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -676,6 +687,7 @@ open class DocumentsDB: Service {
             "documentSecurity": documentSecurity,
             "enabled": enabled,
             "purge": purge,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1256,6 +1268,102 @@ open class DocumentsDB: Service {
             collectionId: collectionId,
             queries: queries,
             transactionId: transactionId,
+            nestedType: [String: AnyCodable].self
+        )
+    }
+    ///
+    /// Get a list of all the user's documents in a given collection using a POST
+    /// request. This behaves identically to the list documents endpoint but
+    /// accepts the queries in the request body, allowing much larger `queries`
+    /// arrays than can fit in a URL query string.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - queries: [String] (optional)
+    ///   - transactionId: String (optional)
+    ///   - total: Bool (optional)
+    ///   - ttl: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DocumentList<T>
+    ///
+    open func createQuery<T>(
+        databaseId: String,
+        collectionId: String,
+        queries: [String]? = nil,
+        transactionId: String? = nil,
+        total: Bool? = nil,
+        ttl: Int? = nil,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.DocumentList<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
+        let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}/documents/query"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
+        let apiParams: [String: Any?] = [
+            "queries": queries,
+            "transactionId": transactionId,
+            "total": total,
+            "ttl": ttl,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.DocumentList<T> = { response in
+            return AppwriteModels.DocumentList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get a list of all the user's documents in a given collection using a POST
+    /// request. This behaves identically to the list documents endpoint but
+    /// accepts the queries in the request body, allowing much larger `queries`
+    /// arrays than can fit in a URL query string.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - queries: [String] (optional)
+    ///   - transactionId: String (optional)
+    ///   - total: Bool (optional)
+    ///   - ttl: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DocumentList<T>
+    ///
+    open func createQuery(
+        databaseId: String,
+        collectionId: String,
+        queries: [String]? = nil,
+        transactionId: String? = nil,
+        total: Bool? = nil,
+        ttl: Int? = nil
+    ) async throws -> AppwriteModels.DocumentList<[String: AnyCodable]> {
+        return try await createQuery(
+            databaseId: databaseId,
+            collectionId: collectionId,
+            queries: queries,
+            transactionId: transactionId,
+            total: total,
+            ttl: ttl,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -1857,6 +1965,7 @@ open class DocumentsDB: Service {
     ///   - attributes: [String]
     ///   - orders: [AppwriteEnums.OrderBy] (optional)
     ///   - lengths: [Int] (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Index
     ///
@@ -1867,7 +1976,8 @@ open class DocumentsDB: Service {
         type: AppwriteEnums.DocumentsDBIndexType,
         attributes: [String],
         orders: [AppwriteEnums.OrderBy]? = nil,
-        lengths: [Int]? = nil
+        lengths: [Int]? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Index {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -1886,6 +1996,7 @@ open class DocumentsDB: Service {
             "attributes": attributes,
             "orders": orders?.map { $0.rawValue },
             "lengths": lengths,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [

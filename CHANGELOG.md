@@ -1,5 +1,17 @@
 # Change Log
 
+## 23.1.0
+
+* Added: `description` params and model fields on databases, collections, tables, attributes, columns, indexes, buckets, functions, sites, topics, variables, keys and webhooks
+* Added: `account.listMemberships` to list the current user's team memberships
+* Added: `createQuery` on `Databases`, `DocumentsDB` and `TablesDB` to send list queries in the request body
+* Added: `total` param on `Activities`, `Backups`, `Domains`, `Mongo`, `Mysql` and `Postgresql` list methods
+* Added: `emails` param on `messaging.createEmail` and `updateEmail` for recipients without an Appwrite target
+* Added: `denyList` on `project.updatePasswordDictionaryPolicy`, `updatePasswordPersonalDataPolicy` and their policy models
+* Added: `BillingPlan.functionsAllowCron`
+* Fixed: `Query.lessThanEqual` takes its attribute unlabelled like other queries; `lessThanEqual(attribute:value:)` is deprecated
+* Updated: SDK diagnostics are written to stderr instead of stdout
+
 ## 23.0.0
 
 * Breaking: removed `account.listLogs` and `users.listLogs`

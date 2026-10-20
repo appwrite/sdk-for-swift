@@ -11,6 +11,7 @@ open class VectorsdbCollection: Codable {
         case permissions = "$permissions"
         case databaseId = "databaseId"
         case name = "name"
+        case description = "description"
         case enabled = "enabled"
         case documentSecurity = "documentSecurity"
         case attributes = "attributes"
@@ -32,6 +33,8 @@ open class VectorsdbCollection: Codable {
     public let databaseId: String
     /// Collection name.
     public let name: String
+    /// Optional description for the collection.
+    public let description: String
     /// Collection enabled. Can be &#039;enabled&#039; or &#039;disabled&#039;. When disabled, the collection is inaccessible to users, but remains accessible to Server SDKs using API keys.
     public let enabled: Bool
     /// Whether document-level permissions are enabled. [Learn more about permissions](https://appwrite.io/docs/permissions).
@@ -54,6 +57,7 @@ open class VectorsdbCollection: Codable {
         permissions: [String],
         databaseId: String,
         name: String,
+        description: String,
         enabled: Bool,
         documentSecurity: Bool,
         attributes: [AnyCodable],
@@ -68,6 +72,7 @@ open class VectorsdbCollection: Codable {
         self.permissions = permissions
         self.databaseId = databaseId
         self.name = name
+        self.description = description
         self.enabled = enabled
         self.documentSecurity = documentSecurity
         self.attributes = attributes
@@ -86,6 +91,7 @@ open class VectorsdbCollection: Codable {
         self.permissions = try container.contains(.permissions) ? container.decode([String].self, forKey: .permissions) : []
         self.databaseId = try container.contains(.databaseId) ? container.decode(String.self, forKey: .databaseId) : ""
         self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.description = try container.contains(.description) ? container.decode(String.self, forKey: .description) : ""
         self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : true
         self.documentSecurity = try container.contains(.documentSecurity) ? container.decode(Bool.self, forKey: .documentSecurity) : false
         self.attributes = try container.contains(.attributes) ? container.decode([AnyCodable].self, forKey: .attributes) : []
@@ -104,6 +110,7 @@ open class VectorsdbCollection: Codable {
         try container.encode(permissions, forKey: .permissions)
         try container.encode(databaseId, forKey: .databaseId)
         try container.encode(name, forKey: .name)
+        try container.encode(description, forKey: .description)
         try container.encode(enabled, forKey: .enabled)
         try container.encode(documentSecurity, forKey: .documentSecurity)
         try container.encode(attributes, forKey: .attributes)
@@ -121,6 +128,7 @@ open class VectorsdbCollection: Codable {
             "$permissions": permissions as Any,
             "databaseId": databaseId as Any,
             "name": name as Any,
+            "description": description as Any,
             "enabled": enabled as Any,
             "documentSecurity": documentSecurity as Any,
             "attributes": attributes as Any,
@@ -139,6 +147,7 @@ open class VectorsdbCollection: Codable {
             "$permissions": [Any](),
             "databaseId": "",
             "name": "",
+            "description": "",
             "enabled": true,
             "documentSecurity": false,
             "attributes": [Any](),
@@ -156,6 +165,7 @@ open class VectorsdbCollection: Codable {
             permissions: map["$permissions"] as! [String],
             databaseId: map["databaseId"] as! String,
             name: map["name"] as! String,
+            description: map["description"] as! String,
             enabled: map["enabled"] as! Bool,
             documentSecurity: map["documentSecurity"] as! Bool,
             attributes: (map["attributes"] as! [Any]).map { AnyCodable($0) },

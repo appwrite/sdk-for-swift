@@ -16,7 +16,8 @@ let columnInteger = try await tablesDB.updateIntegerColumn(
     default: 10,
     min: 0, // optional
     max: 100, // optional
-    newKey: "<NEW_KEY>" // optional
+    newKey: "<NEW_KEY>", // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

@@ -14,7 +14,8 @@ let columnRelationship = try await tablesDB.updateRelationshipColumn(
     tableId: "<TABLE_ID>",
     key: "<KEY>",
     onDelete: .cascade, // optional
-    newKey: "<NEW_KEY>" // optional
+    newKey: "<NEW_KEY>", // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

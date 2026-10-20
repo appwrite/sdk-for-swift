@@ -9,7 +9,8 @@ let client = Client()
 let backups = Backups(client)
 
 let backupPolicyList = try await backups.listPolicies(
-    queries: [] // optional
+    queries: [], // optional
+    total: false // optional
 )
 
 ```

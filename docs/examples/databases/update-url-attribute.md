@@ -14,7 +14,8 @@ let attributeUrl = try await databases.updateUrlAttribute(
     key: "<KEY>",
     required: false,
     default: "https://example.com",
-    newKey: "<NEW_KEY>" // optional
+    newKey: "<NEW_KEY>", // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

@@ -33,7 +33,8 @@ let attributePolygon = try await databases.updatePolygonAttribute(
             ]
         ]
     ], // optional
-    newKey: "<NEW_KEY>" // optional
+    newKey: "<NEW_KEY>", // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

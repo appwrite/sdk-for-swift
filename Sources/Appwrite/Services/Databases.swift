@@ -57,6 +57,7 @@ open class Databases: Service {
     ///   - databaseId: String
     ///   - name: String
     ///   - enabled: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Database
     ///
@@ -64,7 +65,8 @@ open class Databases: Service {
     open func create(
         databaseId: String,
         name: String,
-        enabled: Bool? = nil
+        enabled: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Database {
         let apiPath: String = "/databases"
 
@@ -72,6 +74,7 @@ open class Databases: Service {
             "databaseId": databaseId,
             "name": name,
             "enabled": enabled,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -373,6 +376,7 @@ open class Databases: Service {
     ///   - databaseId: String
     ///   - name: String (optional)
     ///   - enabled: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Database
     ///
@@ -380,7 +384,8 @@ open class Databases: Service {
     open func update(
         databaseId: String,
         name: String? = nil,
-        enabled: Bool? = nil
+        enabled: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Database {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -392,6 +397,7 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "name": name,
             "enabled": enabled,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -511,6 +517,7 @@ open class Databases: Service {
     ///   - enabled: Bool (optional)
     ///   - attributes: [AnyCodable] (optional)
     ///   - indexes: [AnyCodable] (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Collection
     ///
@@ -523,7 +530,8 @@ open class Databases: Service {
         documentSecurity: Bool? = nil,
         enabled: Bool? = nil,
         attributes: [AnyCodable]? = nil,
-        indexes: [AnyCodable]? = nil
+        indexes: [AnyCodable]? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Collection {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -540,6 +548,7 @@ open class Databases: Service {
             "enabled": enabled,
             "attributes": attributes,
             "indexes": indexes,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -616,6 +625,7 @@ open class Databases: Service {
     ///   - documentSecurity: Bool (optional)
     ///   - enabled: Bool (optional)
     ///   - purge: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Collection
     ///
@@ -627,7 +637,8 @@ open class Databases: Service {
         permissions: [String]? = nil,
         documentSecurity: Bool? = nil,
         enabled: Bool? = nil,
-        purge: Bool? = nil
+        purge: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Collection {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -646,6 +657,7 @@ open class Databases: Service {
             "documentSecurity": documentSecurity,
             "enabled": enabled,
             "purge": purge,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -771,6 +783,7 @@ open class Databases: Service {
     ///   - max: Int (optional)
     ///   - default: Int (optional)
     ///   - array: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeBigint
     ///
@@ -783,7 +796,8 @@ open class Databases: Service {
         min: Int? = nil,
         max: Int? = nil,
         `default`: Int? = nil,
-        array: Bool? = nil
+        array: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeBigint {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -803,6 +817,7 @@ open class Databases: Service {
             "max": max,
             "default": `default`,
             "array": array,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -836,6 +851,7 @@ open class Databases: Service {
     ///   - min: Int (optional)
     ///   - max: Int (optional)
     ///   - newKey: String (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeBigint
     ///
@@ -848,7 +864,8 @@ open class Databases: Service {
         `default`: Int? = nil,
         min: Int? = nil,
         max: Int? = nil,
-        newKey: String? = nil
+        newKey: String? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeBigint {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -871,6 +888,7 @@ open class Databases: Service {
             "max": max,
             "default": `default`,
             "newKey": newKey,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -901,6 +919,7 @@ open class Databases: Service {
     ///   - required: Bool
     ///   - default: Bool (optional)
     ///   - array: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeBoolean
     ///
@@ -911,7 +930,8 @@ open class Databases: Service {
         key: String,
         `required`: Bool,
         `default`: Bool? = nil,
-        array: Bool? = nil
+        array: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeBoolean {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -929,6 +949,7 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "array": array,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -960,6 +981,7 @@ open class Databases: Service {
     ///   - required: Bool
     ///   - default: Bool (optional)
     ///   - newKey: String (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeBoolean
     ///
@@ -970,7 +992,8 @@ open class Databases: Service {
         key: String,
         `required`: Bool,
         `default`: Bool? = nil,
-        newKey: String? = nil
+        newKey: String? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeBoolean {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -991,6 +1014,7 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "newKey": newKey,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1021,6 +1045,7 @@ open class Databases: Service {
     ///   - required: Bool
     ///   - default: String (optional)
     ///   - array: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeDatetime
     ///
@@ -1031,7 +1056,8 @@ open class Databases: Service {
         key: String,
         `required`: Bool,
         `default`: String? = nil,
-        array: Bool? = nil
+        array: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeDatetime {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -1049,6 +1075,7 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "array": array,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1080,6 +1107,7 @@ open class Databases: Service {
     ///   - required: Bool
     ///   - default: String (optional)
     ///   - newKey: String (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeDatetime
     ///
@@ -1090,7 +1118,8 @@ open class Databases: Service {
         key: String,
         `required`: Bool,
         `default`: String? = nil,
-        newKey: String? = nil
+        newKey: String? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeDatetime {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -1111,6 +1140,7 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "newKey": newKey,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1141,6 +1171,7 @@ open class Databases: Service {
     ///   - required: Bool
     ///   - default: String (optional)
     ///   - array: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeEmail
     ///
@@ -1151,7 +1182,8 @@ open class Databases: Service {
         key: String,
         `required`: Bool,
         `default`: String? = nil,
-        array: Bool? = nil
+        array: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeEmail {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -1169,6 +1201,7 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "array": array,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1200,6 +1233,7 @@ open class Databases: Service {
     ///   - required: Bool
     ///   - default: String (optional)
     ///   - newKey: String (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeEmail
     ///
@@ -1210,7 +1244,8 @@ open class Databases: Service {
         key: String,
         `required`: Bool,
         `default`: String? = nil,
-        newKey: String? = nil
+        newKey: String? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeEmail {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -1231,6 +1266,7 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "newKey": newKey,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1263,6 +1299,7 @@ open class Databases: Service {
     ///   - required: Bool
     ///   - default: String (optional)
     ///   - array: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeEnum
     ///
@@ -1274,7 +1311,8 @@ open class Databases: Service {
         elements: [String],
         `required`: Bool,
         `default`: String? = nil,
-        array: Bool? = nil
+        array: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeEnum {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -1293,6 +1331,7 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "array": array,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1325,6 +1364,7 @@ open class Databases: Service {
     ///   - required: Bool
     ///   - default: String (optional)
     ///   - newKey: String (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeEnum
     ///
@@ -1336,7 +1376,8 @@ open class Databases: Service {
         elements: [String],
         `required`: Bool,
         `default`: String? = nil,
-        newKey: String? = nil
+        newKey: String? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeEnum {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -1358,6 +1399,7 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "newKey": newKey,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1391,6 +1433,7 @@ open class Databases: Service {
     ///   - max: Double (optional)
     ///   - default: Double (optional)
     ///   - array: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeFloat
     ///
@@ -1403,7 +1446,8 @@ open class Databases: Service {
         min: Double? = nil,
         max: Double? = nil,
         `default`: Double? = nil,
-        array: Bool? = nil
+        array: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeFloat {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -1423,6 +1467,7 @@ open class Databases: Service {
             "max": max,
             "default": `default`,
             "array": array,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1456,6 +1501,7 @@ open class Databases: Service {
     ///   - min: Double (optional)
     ///   - max: Double (optional)
     ///   - newKey: String (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeFloat
     ///
@@ -1468,7 +1514,8 @@ open class Databases: Service {
         `default`: Double? = nil,
         min: Double? = nil,
         max: Double? = nil,
-        newKey: String? = nil
+        newKey: String? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeFloat {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -1491,6 +1538,7 @@ open class Databases: Service {
             "max": max,
             "default": `default`,
             "newKey": newKey,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1524,6 +1572,7 @@ open class Databases: Service {
     ///   - max: Int (optional)
     ///   - default: Int (optional)
     ///   - array: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeInteger
     ///
@@ -1536,7 +1585,8 @@ open class Databases: Service {
         min: Int? = nil,
         max: Int? = nil,
         `default`: Int? = nil,
-        array: Bool? = nil
+        array: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeInteger {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -1556,6 +1606,7 @@ open class Databases: Service {
             "max": max,
             "default": `default`,
             "array": array,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1589,6 +1640,7 @@ open class Databases: Service {
     ///   - min: Int (optional)
     ///   - max: Int (optional)
     ///   - newKey: String (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeInteger
     ///
@@ -1601,7 +1653,8 @@ open class Databases: Service {
         `default`: Int? = nil,
         min: Int? = nil,
         max: Int? = nil,
-        newKey: String? = nil
+        newKey: String? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeInteger {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -1624,6 +1677,7 @@ open class Databases: Service {
             "max": max,
             "default": `default`,
             "newKey": newKey,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1654,6 +1708,7 @@ open class Databases: Service {
     ///   - required: Bool
     ///   - default: String (optional)
     ///   - array: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeIp
     ///
@@ -1664,7 +1719,8 @@ open class Databases: Service {
         key: String,
         `required`: Bool,
         `default`: String? = nil,
-        array: Bool? = nil
+        array: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeIp {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -1682,6 +1738,7 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "array": array,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1713,6 +1770,7 @@ open class Databases: Service {
     ///   - required: Bool
     ///   - default: String (optional)
     ///   - newKey: String (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeIp
     ///
@@ -1723,7 +1781,8 @@ open class Databases: Service {
         key: String,
         `required`: Bool,
         `default`: String? = nil,
-        newKey: String? = nil
+        newKey: String? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeIp {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -1744,6 +1803,7 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "newKey": newKey,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1773,6 +1833,7 @@ open class Databases: Service {
     ///   - key: String
     ///   - required: Bool
     ///   - default: [[AnyCodable]] (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeLine
     ///
@@ -1782,7 +1843,8 @@ open class Databases: Service {
         collectionId: String,
         key: String,
         `required`: Bool,
-        `default`: [[AnyCodable]]? = nil
+        `default`: [[AnyCodable]]? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeLine {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -1799,6 +1861,7 @@ open class Databases: Service {
             "key": key,
             "required": `required`,
             "default": `default`,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1830,6 +1893,7 @@ open class Databases: Service {
     ///   - required: Bool
     ///   - default: [[AnyCodable]] (optional)
     ///   - newKey: String (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeLine
     ///
@@ -1840,7 +1904,8 @@ open class Databases: Service {
         key: String,
         `required`: Bool,
         `default`: [[AnyCodable]]? = nil,
-        newKey: String? = nil
+        newKey: String? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeLine {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -1861,6 +1926,7 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "newKey": newKey,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1892,6 +1958,7 @@ open class Databases: Service {
     ///   - default: String (optional)
     ///   - array: Bool (optional)
     ///   - encrypt: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeLongtext
     ///
@@ -1903,7 +1970,8 @@ open class Databases: Service {
         `required`: Bool,
         `default`: String? = nil,
         array: Bool? = nil,
-        encrypt: Bool? = nil
+        encrypt: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeLongtext {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -1922,6 +1990,7 @@ open class Databases: Service {
             "default": `default`,
             "array": array,
             "encrypt": encrypt,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1953,6 +2022,7 @@ open class Databases: Service {
     ///   - required: Bool
     ///   - default: String (optional)
     ///   - newKey: String (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeLongtext
     ///
@@ -1963,7 +2033,8 @@ open class Databases: Service {
         key: String,
         `required`: Bool,
         `default`: String? = nil,
-        newKey: String? = nil
+        newKey: String? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeLongtext {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -1984,6 +2055,7 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "newKey": newKey,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -2015,6 +2087,7 @@ open class Databases: Service {
     ///   - default: String (optional)
     ///   - array: Bool (optional)
     ///   - encrypt: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeMediumtext
     ///
@@ -2026,7 +2099,8 @@ open class Databases: Service {
         `required`: Bool,
         `default`: String? = nil,
         array: Bool? = nil,
-        encrypt: Bool? = nil
+        encrypt: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeMediumtext {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -2045,6 +2119,7 @@ open class Databases: Service {
             "default": `default`,
             "array": array,
             "encrypt": encrypt,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -2076,6 +2151,7 @@ open class Databases: Service {
     ///   - required: Bool
     ///   - default: String (optional)
     ///   - newKey: String (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeMediumtext
     ///
@@ -2086,7 +2162,8 @@ open class Databases: Service {
         key: String,
         `required`: Bool,
         `default`: String? = nil,
-        newKey: String? = nil
+        newKey: String? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeMediumtext {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -2107,6 +2184,7 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "newKey": newKey,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -2136,6 +2214,7 @@ open class Databases: Service {
     ///   - key: String
     ///   - required: Bool
     ///   - default: [Double] (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributePoint
     ///
@@ -2145,7 +2224,8 @@ open class Databases: Service {
         collectionId: String,
         key: String,
         `required`: Bool,
-        `default`: [Double]? = nil
+        `default`: [Double]? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributePoint {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -2162,6 +2242,7 @@ open class Databases: Service {
             "key": key,
             "required": `required`,
             "default": `default`,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -2193,6 +2274,7 @@ open class Databases: Service {
     ///   - required: Bool
     ///   - default: [Double] (optional)
     ///   - newKey: String (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributePoint
     ///
@@ -2203,7 +2285,8 @@ open class Databases: Service {
         key: String,
         `required`: Bool,
         `default`: [Double]? = nil,
-        newKey: String? = nil
+        newKey: String? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributePoint {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -2224,6 +2307,7 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "newKey": newKey,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -2253,6 +2337,7 @@ open class Databases: Service {
     ///   - key: String
     ///   - required: Bool
     ///   - default: [[AnyCodable]] (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributePolygon
     ///
@@ -2262,7 +2347,8 @@ open class Databases: Service {
         collectionId: String,
         key: String,
         `required`: Bool,
-        `default`: [[AnyCodable]]? = nil
+        `default`: [[AnyCodable]]? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributePolygon {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -2279,6 +2365,7 @@ open class Databases: Service {
             "key": key,
             "required": `required`,
             "default": `default`,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -2310,6 +2397,7 @@ open class Databases: Service {
     ///   - required: Bool
     ///   - default: [[AnyCodable]] (optional)
     ///   - newKey: String (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributePolygon
     ///
@@ -2320,7 +2408,8 @@ open class Databases: Service {
         key: String,
         `required`: Bool,
         `default`: [[AnyCodable]]? = nil,
-        newKey: String? = nil
+        newKey: String? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributePolygon {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -2341,6 +2430,7 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "newKey": newKey,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -2374,6 +2464,7 @@ open class Databases: Service {
     ///   - key: String (optional)
     ///   - twoWayKey: String (optional)
     ///   - onDelete: AppwriteEnums.RelationMutate (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeRelationship
     ///
@@ -2386,7 +2477,8 @@ open class Databases: Service {
         twoWay: Bool? = nil,
         key: String? = nil,
         twoWayKey: String? = nil,
-        onDelete: AppwriteEnums.RelationMutate? = nil
+        onDelete: AppwriteEnums.RelationMutate? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeRelationship {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -2406,6 +2498,7 @@ open class Databases: Service {
             "key": key,
             "twoWayKey": twoWayKey,
             "onDelete": onDelete?.rawValue,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -2436,6 +2529,7 @@ open class Databases: Service {
     ///   - key: String
     ///   - onDelete: AppwriteEnums.RelationMutate (optional)
     ///   - newKey: String (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeRelationship
     ///
@@ -2445,7 +2539,8 @@ open class Databases: Service {
         collectionId: String,
         key: String,
         onDelete: AppwriteEnums.RelationMutate? = nil,
-        newKey: String? = nil
+        newKey: String? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeRelationship {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -2465,6 +2560,7 @@ open class Databases: Service {
         let apiParams: [String: Any?] = [
             "onDelete": onDelete?.rawValue,
             "newKey": newKey,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -2497,6 +2593,7 @@ open class Databases: Service {
     ///   - default: String (optional)
     ///   - array: Bool (optional)
     ///   - encrypt: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeString
     ///
@@ -2509,7 +2606,8 @@ open class Databases: Service {
         `required`: Bool,
         `default`: String? = nil,
         array: Bool? = nil,
-        encrypt: Bool? = nil
+        encrypt: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeString {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -2529,6 +2627,7 @@ open class Databases: Service {
             "default": `default`,
             "array": array,
             "encrypt": encrypt,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -2561,6 +2660,7 @@ open class Databases: Service {
     ///   - default: String (optional)
     ///   - size: Int (optional)
     ///   - newKey: String (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeString
     ///
@@ -2572,7 +2672,8 @@ open class Databases: Service {
         `required`: Bool,
         `default`: String? = nil,
         size: Int? = nil,
-        newKey: String? = nil
+        newKey: String? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeString {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -2594,6 +2695,7 @@ open class Databases: Service {
             "default": `default`,
             "size": size,
             "newKey": newKey,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -2625,6 +2727,7 @@ open class Databases: Service {
     ///   - default: String (optional)
     ///   - array: Bool (optional)
     ///   - encrypt: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeText
     ///
@@ -2636,7 +2739,8 @@ open class Databases: Service {
         `required`: Bool,
         `default`: String? = nil,
         array: Bool? = nil,
-        encrypt: Bool? = nil
+        encrypt: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeText {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -2655,6 +2759,7 @@ open class Databases: Service {
             "default": `default`,
             "array": array,
             "encrypt": encrypt,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -2686,6 +2791,7 @@ open class Databases: Service {
     ///   - required: Bool
     ///   - default: String (optional)
     ///   - newKey: String (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeText
     ///
@@ -2696,7 +2802,8 @@ open class Databases: Service {
         key: String,
         `required`: Bool,
         `default`: String? = nil,
-        newKey: String? = nil
+        newKey: String? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeText {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -2717,6 +2824,7 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "newKey": newKey,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -2747,6 +2855,7 @@ open class Databases: Service {
     ///   - required: Bool
     ///   - default: String (optional)
     ///   - array: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeUrl
     ///
@@ -2757,7 +2866,8 @@ open class Databases: Service {
         key: String,
         `required`: Bool,
         `default`: String? = nil,
-        array: Bool? = nil
+        array: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeUrl {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -2775,6 +2885,7 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "array": array,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -2806,6 +2917,7 @@ open class Databases: Service {
     ///   - required: Bool
     ///   - default: String (optional)
     ///   - newKey: String (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeUrl
     ///
@@ -2816,7 +2928,8 @@ open class Databases: Service {
         key: String,
         `required`: Bool,
         `default`: String? = nil,
-        newKey: String? = nil
+        newKey: String? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeUrl {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -2837,6 +2950,7 @@ open class Databases: Service {
             "required": `required`,
             "default": `default`,
             "newKey": newKey,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -2869,6 +2983,7 @@ open class Databases: Service {
     ///   - default: String (optional)
     ///   - array: Bool (optional)
     ///   - encrypt: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeVarchar
     ///
@@ -2881,7 +2996,8 @@ open class Databases: Service {
         `required`: Bool,
         `default`: String? = nil,
         array: Bool? = nil,
-        encrypt: Bool? = nil
+        encrypt: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeVarchar {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -2901,6 +3017,7 @@ open class Databases: Service {
             "default": `default`,
             "array": array,
             "encrypt": encrypt,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -2933,6 +3050,7 @@ open class Databases: Service {
     ///   - default: String (optional)
     ///   - size: Int (optional)
     ///   - newKey: String (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.AttributeVarchar
     ///
@@ -2944,7 +3062,8 @@ open class Databases: Service {
         `required`: Bool,
         `default`: String? = nil,
         size: Int? = nil,
-        newKey: String? = nil
+        newKey: String? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.AttributeVarchar {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -2966,6 +3085,7 @@ open class Databases: Service {
             "default": `default`,
             "size": size,
             "newKey": newKey,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -3143,6 +3263,14 @@ open class Databases: Service {
     /// Get a list of all the user's documents in a given collection. You can use
     /// the query params to filter your results.
     ///
+    /// Documents returned by aggregate, groupBy or distinct queries hold only the
+    /// attributes they select, group or aggregate, typed as a document types them,
+    /// with a joined attribute named by its join alias (`alias.attribute`). They
+    /// have no `$id`, `$sequence`, `$createdAt`, `$updatedAt`, `$permissions`,
+    /// `$databaseId` or `$collectionId` unless they select or group it, and
+    /// neither does a right or full join document that no document of this
+    /// collection matched.
+    ///
     /// - Parameters:
     ///   - databaseId: String
     ///   - collectionId: String
@@ -3202,6 +3330,14 @@ open class Databases: Service {
     ///
     /// Get a list of all the user's documents in a given collection. You can use
     /// the query params to filter your results.
+    ///
+    /// Documents returned by aggregate, groupBy or distinct queries hold only the
+    /// attributes they select, group or aggregate, typed as a document types them,
+    /// with a joined attribute named by its join alias (`alias.attribute`). They
+    /// have no `$id`, `$sequence`, `$createdAt`, `$updatedAt`, `$permissions`,
+    /// `$databaseId` or `$collectionId` unless they select or group it, and
+    /// neither does a right or full join document that no document of this
+    /// collection matched.
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -3671,6 +3807,104 @@ open class Databases: Service {
             collectionId: collectionId,
             queries: queries,
             transactionId: transactionId,
+            nestedType: [String: AnyCodable].self
+        )
+    }
+    ///
+    /// Get a list of all the user's documents in a given collection using a POST
+    /// request. This behaves identically to the list documents endpoint but
+    /// accepts the queries in the request body, allowing much larger `queries`
+    /// arrays than can fit in a URL query string.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - queries: [String] (optional)
+    ///   - transactionId: String (optional)
+    ///   - total: Bool (optional)
+    ///   - ttl: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DocumentList<T>
+    ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.createQuery` instead.")
+    open func createQuery<T>(
+        databaseId: String,
+        collectionId: String,
+        queries: [String]? = nil,
+        transactionId: String? = nil,
+        total: Bool? = nil,
+        ttl: Int? = nil,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.DocumentList<T> {
+        if databaseId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
+        }
+        if collectionId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"collectionId\"")
+        }
+
+        let apiPath: String = "/databases/{databaseId}/collections/{collectionId}/documents/query"
+            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+
+        let apiParams: [String: Any?] = [
+            "queries": queries,
+            "transactionId": transactionId,
+            "total": total,
+            "ttl": ttl,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.DocumentList<T> = { response in
+            return AppwriteModels.DocumentList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get a list of all the user's documents in a given collection using a POST
+    /// request. This behaves identically to the list documents endpoint but
+    /// accepts the queries in the request body, allowing much larger `queries`
+    /// arrays than can fit in a URL query string.
+    ///
+    /// - Parameters:
+    ///   - databaseId: String
+    ///   - collectionId: String
+    ///   - queries: [String] (optional)
+    ///   - transactionId: String (optional)
+    ///   - total: Bool (optional)
+    ///   - ttl: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.DocumentList<T>
+    ///
+    @available(*, deprecated, message: "This API has been deprecated since 1.8.0. Please use `TablesDB.createQuery` instead.")
+    open func createQuery(
+        databaseId: String,
+        collectionId: String,
+        queries: [String]? = nil,
+        transactionId: String? = nil,
+        total: Bool? = nil,
+        ttl: Int? = nil
+    ) async throws -> AppwriteModels.DocumentList<[String: AnyCodable]> {
+        return try await createQuery(
+            databaseId: databaseId,
+            collectionId: collectionId,
+            queries: queries,
+            transactionId: transactionId,
+            total: total,
+            ttl: ttl,
             nestedType: [String: AnyCodable].self
         )
     }
@@ -4286,6 +4520,7 @@ open class Databases: Service {
     ///   - attributes: [String]
     ///   - orders: [AppwriteEnums.OrderBy] (optional)
     ///   - lengths: [Int] (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Index
     ///
@@ -4297,7 +4532,8 @@ open class Databases: Service {
         type: AppwriteEnums.DatabasesIndexType,
         attributes: [String],
         orders: [AppwriteEnums.OrderBy]? = nil,
-        lengths: [Int]? = nil
+        lengths: [Int]? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Index {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -4316,6 +4552,7 @@ open class Databases: Service {
             "attributes": attributes,
             "orders": orders?.map { $0.rawValue },
             "lengths": lengths,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [

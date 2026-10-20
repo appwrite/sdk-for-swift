@@ -11,6 +11,7 @@ open class Bucket: Codable {
         case permissions = "$permissions"
         case fileSecurity = "fileSecurity"
         case name = "name"
+        case description = "description"
         case enabled = "enabled"
         case maximumFileSize = "maximumFileSize"
         case allowedFileExtensions = "allowedFileExtensions"
@@ -33,6 +34,8 @@ open class Bucket: Codable {
     public let fileSecurity: Bool
     /// Bucket name.
     public let name: String
+    /// Optional description for the bucket.
+    public let description: String
     /// Bucket enabled.
     public let enabled: Bool
     /// Maximum file size supported.
@@ -57,6 +60,7 @@ open class Bucket: Codable {
         permissions: [String],
         fileSecurity: Bool,
         name: String,
+        description: String,
         enabled: Bool,
         maximumFileSize: Int,
         allowedFileExtensions: [String],
@@ -72,6 +76,7 @@ open class Bucket: Codable {
         self.permissions = permissions
         self.fileSecurity = fileSecurity
         self.name = name
+        self.description = description
         self.enabled = enabled
         self.maximumFileSize = maximumFileSize
         self.allowedFileExtensions = allowedFileExtensions
@@ -91,6 +96,7 @@ open class Bucket: Codable {
         self.permissions = try container.contains(.permissions) ? container.decode([String].self, forKey: .permissions) : []
         self.fileSecurity = try container.contains(.fileSecurity) ? container.decode(Bool.self, forKey: .fileSecurity) : false
         self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.description = try container.contains(.description) ? container.decode(String.self, forKey: .description) : ""
         self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : true
         self.maximumFileSize = try container.contains(.maximumFileSize) ? container.decode(Int.self, forKey: .maximumFileSize) : 0
         self.allowedFileExtensions = try container.contains(.allowedFileExtensions) ? container.decode([String].self, forKey: .allowedFileExtensions) : []
@@ -110,6 +116,7 @@ open class Bucket: Codable {
         try container.encode(permissions, forKey: .permissions)
         try container.encode(fileSecurity, forKey: .fileSecurity)
         try container.encode(name, forKey: .name)
+        try container.encode(description, forKey: .description)
         try container.encode(enabled, forKey: .enabled)
         try container.encode(maximumFileSize, forKey: .maximumFileSize)
         try container.encode(allowedFileExtensions, forKey: .allowedFileExtensions)
@@ -128,6 +135,7 @@ open class Bucket: Codable {
             "$permissions": permissions as Any,
             "fileSecurity": fileSecurity as Any,
             "name": name as Any,
+            "description": description as Any,
             "enabled": enabled as Any,
             "maximumFileSize": maximumFileSize as Any,
             "allowedFileExtensions": allowedFileExtensions as Any,
@@ -147,6 +155,7 @@ open class Bucket: Codable {
             "$permissions": [Any](),
             "fileSecurity": false,
             "name": "",
+            "description": "",
             "enabled": true,
             "maximumFileSize": 0,
             "allowedFileExtensions": [Any](),
@@ -165,6 +174,7 @@ open class Bucket: Codable {
             permissions: map["$permissions"] as! [String],
             fileSecurity: map["fileSecurity"] as! Bool,
             name: map["name"] as! String,
+            description: map["description"] as! String,
             enabled: map["enabled"] as! Bool,
             maximumFileSize: map["maximumFileSize"] as! Int,
             allowedFileExtensions: map["allowedFileExtensions"] as! [String],

@@ -16,7 +16,8 @@ let attributePoint = try await databases.createPointAttribute(
     default: [
         1,
         2
-    ] // optional
+    ], // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

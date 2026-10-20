@@ -16,7 +16,8 @@ let attributeFloat = try await databases.updateFloatAttribute(
     default: 10.5,
     min: 0, // optional
     max: 100, // optional
-    newKey: "<NEW_KEY>" // optional
+    newKey: "<NEW_KEY>", // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```
