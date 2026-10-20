@@ -79,6 +79,7 @@ open class Functions: Service {
     ///   - runtimeSpecification: String (optional)
     ///   - deploymentRetention: Int (optional)
     ///   - interval: Int (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Function
     ///
@@ -105,7 +106,8 @@ open class Functions: Service {
         buildSpecification: String? = nil,
         runtimeSpecification: String? = nil,
         deploymentRetention: Int? = nil,
-        interval: Int? = nil
+        interval: Int? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Function {
         let apiPath: String = "/functions"
 
@@ -133,6 +135,7 @@ open class Functions: Service {
             "runtimeSpecification": runtimeSpecification,
             "deploymentRetention": deploymentRetention,
             "interval": interval,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -288,6 +291,7 @@ open class Functions: Service {
     ///   - runtimeSpecification: String (optional)
     ///   - deploymentRetention: Int (optional)
     ///   - interval: Int (optional)
+    ///   - description: String (optional)
     ///   - emailEnabled: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Function
@@ -316,6 +320,7 @@ open class Functions: Service {
         runtimeSpecification: String? = nil,
         deploymentRetention: Int? = nil,
         interval: Int? = nil,
+        description: String? = nil,
         emailEnabled: Bool? = nil
     ) async throws -> AppwriteModels.Function {
         if functionId.isEmpty {
@@ -348,6 +353,7 @@ open class Functions: Service {
             "runtimeSpecification": runtimeSpecification,
             "deploymentRetention": deploymentRetention,
             "interval": interval,
+            "description": description,
             "emailEnabled": emailEnabled,
         ]
 
@@ -1137,6 +1143,7 @@ open class Functions: Service {
     ///   - key: String
     ///   - value: String
     ///   - secret: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Variable
     ///
@@ -1145,7 +1152,8 @@ open class Functions: Service {
         variableId: String,
         key: String,
         value: String,
-        secret: Bool? = nil
+        secret: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Variable {
         if functionId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"functionId\"")
@@ -1159,6 +1167,7 @@ open class Functions: Service {
             "key": key,
             "value": value,
             "secret": secret,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1231,6 +1240,7 @@ open class Functions: Service {
     ///   - key: String (optional)
     ///   - value: String (optional)
     ///   - secret: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Variable
     ///
@@ -1239,7 +1249,8 @@ open class Functions: Service {
         variableId: String,
         key: String? = nil,
         value: String? = nil,
-        secret: Bool? = nil
+        secret: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Variable {
         if functionId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"functionId\"")
@@ -1256,6 +1267,7 @@ open class Functions: Service {
             "key": key,
             "value": value,
             "secret": secret,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [

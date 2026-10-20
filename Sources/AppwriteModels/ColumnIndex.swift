@@ -9,6 +9,7 @@ open class ColumnIndex: Codable {
         case createdAt = "$createdAt"
         case updatedAt = "$updatedAt"
         case key = "key"
+        case description = "description"
         case type = "type"
         case status = "status"
         case error = "error"
@@ -25,6 +26,8 @@ open class ColumnIndex: Codable {
     public let updatedAt: String
     /// Index Key.
     public let key: String
+    /// Optional description for the index.
+    public let description: String
     /// Index type.
     public let type: String
     /// Index status. Possible values: `available`, `processing`, `deleting`, `stuck`, or `failed`
@@ -43,6 +46,7 @@ open class ColumnIndex: Codable {
         createdAt: String,
         updatedAt: String,
         key: String,
+        description: String,
         type: String,
         status: String,
         error: String,
@@ -54,6 +58,7 @@ open class ColumnIndex: Codable {
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.key = key
+        self.description = description
         self.type = type
         self.status = status
         self.error = error
@@ -69,6 +74,7 @@ open class ColumnIndex: Codable {
         self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
         self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
         self.key = try container.contains(.key) ? container.decode(String.self, forKey: .key) : ""
+        self.description = try container.contains(.description) ? container.decode(String.self, forKey: .description) : ""
         self.type = try container.contains(.type) ? container.decode(String.self, forKey: .type) : ""
         self.status = try container.contains(.status) ? container.decode(String.self, forKey: .status) : ""
         self.error = try container.contains(.error) ? container.decode(String.self, forKey: .error) : ""
@@ -84,6 +90,7 @@ open class ColumnIndex: Codable {
         try container.encode(createdAt, forKey: .createdAt)
         try container.encode(updatedAt, forKey: .updatedAt)
         try container.encode(key, forKey: .key)
+        try container.encode(description, forKey: .description)
         try container.encode(type, forKey: .type)
         try container.encode(status, forKey: .status)
         try container.encode(error, forKey: .error)
@@ -98,6 +105,7 @@ open class ColumnIndex: Codable {
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
             "key": key as Any,
+            "description": description as Any,
             "type": type as Any,
             "status": status as Any,
             "error": error as Any,
@@ -113,6 +121,7 @@ open class ColumnIndex: Codable {
             "$createdAt": "",
             "$updatedAt": "",
             "key": "",
+            "description": "",
             "type": "",
             "status": "",
             "error": "",
@@ -126,6 +135,7 @@ open class ColumnIndex: Codable {
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
             key: map["key"] as! String,
+            description: map["description"] as! String,
             type: map["type"] as! String,
             status: map["status"] as! String,
             error: map["error"] as! String,

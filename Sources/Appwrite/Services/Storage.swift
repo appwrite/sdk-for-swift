@@ -64,6 +64,7 @@ open class Storage: Service {
     ///   - encryption: Bool (optional)
     ///   - antivirus: Bool (optional)
     ///   - transformations: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Bucket
     ///
@@ -78,7 +79,8 @@ open class Storage: Service {
         compression: AppwriteEnums.Compression? = nil,
         encryption: Bool? = nil,
         antivirus: Bool? = nil,
-        transformations: Bool? = nil
+        transformations: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Bucket {
         let apiPath: String = "/storage/buckets"
 
@@ -94,6 +96,7 @@ open class Storage: Service {
             "encryption": encryption,
             "antivirus": antivirus,
             "transformations": transformations,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -167,6 +170,7 @@ open class Storage: Service {
     ///   - encryption: Bool (optional)
     ///   - antivirus: Bool (optional)
     ///   - transformations: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Bucket
     ///
@@ -181,7 +185,8 @@ open class Storage: Service {
         compression: AppwriteEnums.Compression? = nil,
         encryption: Bool? = nil,
         antivirus: Bool? = nil,
-        transformations: Bool? = nil
+        transformations: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Bucket {
         if bucketId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"bucketId\"")
@@ -201,6 +206,7 @@ open class Storage: Service {
             "encryption": encryption,
             "antivirus": antivirus,
             "transformations": transformations,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [

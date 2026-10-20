@@ -20,7 +20,8 @@ let bucket = try await storage.createBucket(
     compression: .none, // optional
     encryption: false, // optional
     antivirus: false, // optional
-    transformations: false // optional
+    transformations: false, // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

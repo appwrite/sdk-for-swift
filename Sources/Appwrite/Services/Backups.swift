@@ -13,16 +13,19 @@ open class Backups: Service {
     ///
     /// - Parameters:
     ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.BackupArchiveList
     ///
     open func listArchives(
-        queries: [String]? = nil
+        queries: [String]? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.BackupArchiveList {
         let apiPath: String = "/backups/archives"
 
         let apiParams: [String: Any?] = [
-            "queries": queries
+            "queries": queries,
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
@@ -155,16 +158,19 @@ open class Backups: Service {
     ///
     /// - Parameters:
     ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.BackupPolicyList
     ///
     open func listPolicies(
-        queries: [String]? = nil
+        queries: [String]? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.BackupPolicyList {
         let apiPath: String = "/backups/policies"
 
         let apiParams: [String: Any?] = [
-            "queries": queries
+            "queries": queries,
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
@@ -437,16 +443,19 @@ open class Backups: Service {
     ///
     /// - Parameters:
     ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.BackupRestorationList
     ///
     open func listRestorations(
-        queries: [String]? = nil
+        queries: [String]? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.BackupRestorationList {
         let apiPath: String = "/backups/restorations"
 
         let apiParams: [String: Any?] = [
-            "queries": queries
+            "queries": queries,
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [

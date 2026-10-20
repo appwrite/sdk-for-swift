@@ -18,7 +18,8 @@ let index = try await databases.createIndex(
         "username"
     ],
     orders: [.asc], // optional
-    lengths: [] // optional
+    lengths: [], // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

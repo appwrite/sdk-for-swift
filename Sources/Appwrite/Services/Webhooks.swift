@@ -60,6 +60,7 @@ open class Webhooks: Service {
     ///   - authUsername: String (optional)
     ///   - authPassword: String (optional)
     ///   - secret: String (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Webhook
     ///
@@ -72,7 +73,8 @@ open class Webhooks: Service {
         tls: Bool? = nil,
         authUsername: String? = nil,
         authPassword: String? = nil,
-        secret: String? = nil
+        secret: String? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Webhook {
         let apiPath: String = "/webhooks"
 
@@ -86,6 +88,7 @@ open class Webhooks: Service {
             "authUsername": authUsername,
             "authPassword": authPassword,
             "secret": secret,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -157,6 +160,7 @@ open class Webhooks: Service {
     ///   - tls: Bool (optional)
     ///   - authUsername: String (optional)
     ///   - authPassword: String (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Webhook
     ///
@@ -168,7 +172,8 @@ open class Webhooks: Service {
         enabled: Bool? = nil,
         tls: Bool? = nil,
         authUsername: String? = nil,
-        authPassword: String? = nil
+        authPassword: String? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Webhook {
         if webhookId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"webhookId\"")
@@ -185,6 +190,7 @@ open class Webhooks: Service {
             "tls": tls,
             "authUsername": authUsername,
             "authPassword": authPassword,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [

@@ -9,7 +9,8 @@ let client = Client()
 let postgresql = Postgresql(client)
 
 let dedicatedDatabaseList = try await postgresql.list(
-    queries: [] // optional
+    queries: [], // optional
+    total: false // optional
 )
 
 ```

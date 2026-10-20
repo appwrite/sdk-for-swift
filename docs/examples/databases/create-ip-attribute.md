@@ -14,7 +14,8 @@ let attributeIp = try await databases.createIpAttribute(
     key: "<KEY>",
     required: false,
     default: "192.0.2.0", // optional
-    array: false // optional
+    array: false, // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

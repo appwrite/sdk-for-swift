@@ -17,7 +17,8 @@ let attributePoint = try await databases.updatePointAttribute(
         1,
         2
     ], // optional
-    newKey: "<NEW_KEY>" // optional
+    newKey: "<NEW_KEY>", // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

@@ -26,7 +26,8 @@ let columnLine = try await tablesDB.createLineColumn(
             5,
             6
         ]
-    ] // optional
+    ], // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

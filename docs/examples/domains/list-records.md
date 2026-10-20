@@ -10,7 +10,8 @@ let domains = Domains(client)
 
 let dnsRecordsList = try await domains.listRecords(
     domainId: "<DOMAIN_ID>",
-    queries: [] // optional
+    queries: [], // optional
+    total: false // optional
 )
 
 ```

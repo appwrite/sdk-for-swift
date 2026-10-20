@@ -9,7 +9,8 @@ let client = Client()
 let backups = Backups(client)
 
 let backupArchiveList = try await backups.listArchives(
-    queries: [] // optional
+    queries: [], // optional
+    total: false // optional
 )
 
 ```

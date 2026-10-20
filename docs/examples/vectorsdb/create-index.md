@@ -18,7 +18,8 @@ let index = try await vectorsDB.createIndex(
         "embeddings"
     ],
     orders: [.asc], // optional
-    lengths: [] // optional
+    lengths: [], // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

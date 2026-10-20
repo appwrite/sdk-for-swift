@@ -414,6 +414,7 @@ open class Project: Service {
     ///   - name: String
     ///   - scopes: [AppwriteEnums.ProjectKeyScopes]
     ///   - expire: String (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Key
     ///
@@ -421,7 +422,8 @@ open class Project: Service {
         keyId: String,
         name: String,
         scopes: [AppwriteEnums.ProjectKeyScopes],
-        expire: String? = nil
+        expire: String? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Key {
         if keyId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"keyId\"")
@@ -434,6 +436,7 @@ open class Project: Service {
             "name": name,
             "scopes": scopes.map { $0.rawValue },
             "expire": expire,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -4014,18 +4017,29 @@ open class Project: Service {
     /// against most common passwords dictionary. When enabled, and user changes
     /// their password, password must not be contained in the dictionary.
     ///
+    /// Custom denyList entries use case-sensitive equality and apply only while
+    /// this policy is enabled. Omit denyList or pass null to preserve it, pass an
+    /// array to replace it, or pass [] to clear it. Entries are stored without
+    /// trimming or deduplication. Existing passwords remain valid for sign-in and
+    /// password confirmation. The combined serialized project authentication
+    /// configuration must fit within 16,384 characters, even when each list meets
+    /// its entry limits.
+    ///
     /// - Parameters:
     ///   - enabled: Bool
+    ///   - denyList: [String] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Project
     ///
     open func updatePasswordDictionaryPolicy(
-        enabled: Bool
+        enabled: Bool,
+        denyList: [String]? = nil
     ) async throws -> AppwriteModels.Project {
         let apiPath: String = "/project/policies/password-dictionary"
 
         let apiParams: [String: Any?] = [
-            "enabled": enabled
+            "enabled": enabled,
+            "denyList": denyList,
         ]
 
         let apiHeaders: [String: String] = [
@@ -4095,18 +4109,31 @@ open class Project: Service {
     /// password, the password must not contain user ID, name, email or phone
     /// number.
     ///
+    /// Custom denyList entries use case-insensitive substring matching and apply
+    /// only while this policy is enabled. Omit denyList or pass null to preserve
+    /// it, pass an array to replace it, or pass [] to clear it. Entries are stored
+    /// without trimming or deduplication. Existing passwords remain valid for
+    /// sign-in and password confirmation. The combined serialized project
+    /// authentication configuration must fit within 16,384 characters, even when
+    /// each list meets its entry limits.
+    /// Password recovery also checks the recovered user profile, closing the
+    /// previous gap in profile-based personal-data validation.
+    ///
     /// - Parameters:
     ///   - enabled: Bool
+    ///   - denyList: [String] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Project
     ///
     open func updatePasswordPersonalDataPolicy(
-        enabled: Bool
+        enabled: Bool,
+        denyList: [String]? = nil
     ) async throws -> AppwriteModels.Project {
         let apiPath: String = "/project/policies/password-personal-data"
 
         let apiParams: [String: Any?] = [
-            "enabled": enabled
+            "enabled": enabled,
+            "denyList": denyList,
         ]
 
         let apiHeaders: [String: String] = [
@@ -4891,6 +4918,7 @@ open class Project: Service {
     ///   - key: String
     ///   - value: String
     ///   - secret: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Variable
     ///
@@ -4898,7 +4926,8 @@ open class Project: Service {
         variableId: String,
         key: String,
         value: String,
-        secret: Bool? = nil
+        secret: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Variable {
         let apiPath: String = "/project/variables"
 
@@ -4907,6 +4936,7 @@ open class Project: Service {
             "key": key,
             "value": value,
             "secret": secret,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -4972,6 +5002,7 @@ open class Project: Service {
     ///   - key: String (optional)
     ///   - value: String (optional)
     ///   - secret: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Variable
     ///
@@ -4979,7 +5010,8 @@ open class Project: Service {
         variableId: String,
         key: String? = nil,
         value: String? = nil,
-        secret: Bool? = nil
+        secret: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Variable {
         if variableId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"variableId\"")
@@ -4992,6 +5024,7 @@ open class Project: Service {
             "key": key,
             "value": value,
             "secret": secret,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [

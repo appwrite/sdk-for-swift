@@ -18,7 +18,8 @@ let attributeEnum = try await databases.createEnumAttribute(
     ],
     required: false,
     default: "active", // optional
-    array: false // optional
+    array: false, // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

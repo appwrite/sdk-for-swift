@@ -11,6 +11,7 @@ open class Table: Codable {
         case permissions = "$permissions"
         case databaseId = "databaseId"
         case name = "name"
+        case description = "description"
         case enabled = "enabled"
         case rowSecurity = "rowSecurity"
         case columns = "columns"
@@ -31,6 +32,8 @@ open class Table: Codable {
     public let databaseId: String
     /// Table name.
     public let name: String
+    /// Optional description for the table.
+    public let description: String
     /// Table enabled. Can be &#039;enabled&#039; or &#039;disabled&#039;. When disabled, the table is inaccessible to users, but remains accessible to Server SDKs using API keys.
     public let enabled: Bool
     /// Whether row-level permissions are enabled. [Learn more about permissions](https://appwrite.io/docs/permissions).
@@ -51,6 +54,7 @@ open class Table: Codable {
         permissions: [String],
         databaseId: String,
         name: String,
+        description: String,
         enabled: Bool,
         rowSecurity: Bool,
         columns: [AnyCodable],
@@ -64,6 +68,7 @@ open class Table: Codable {
         self.permissions = permissions
         self.databaseId = databaseId
         self.name = name
+        self.description = description
         self.enabled = enabled
         self.rowSecurity = rowSecurity
         self.columns = columns
@@ -81,6 +86,7 @@ open class Table: Codable {
         self.permissions = try container.contains(.permissions) ? container.decode([String].self, forKey: .permissions) : []
         self.databaseId = try container.contains(.databaseId) ? container.decode(String.self, forKey: .databaseId) : ""
         self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.description = try container.contains(.description) ? container.decode(String.self, forKey: .description) : ""
         self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : true
         self.rowSecurity = try container.contains(.rowSecurity) ? container.decode(Bool.self, forKey: .rowSecurity) : false
         self.columns = try container.contains(.columns) ? container.decode([AnyCodable].self, forKey: .columns) : []
@@ -98,6 +104,7 @@ open class Table: Codable {
         try container.encode(permissions, forKey: .permissions)
         try container.encode(databaseId, forKey: .databaseId)
         try container.encode(name, forKey: .name)
+        try container.encode(description, forKey: .description)
         try container.encode(enabled, forKey: .enabled)
         try container.encode(rowSecurity, forKey: .rowSecurity)
         try container.encode(columns, forKey: .columns)
@@ -114,6 +121,7 @@ open class Table: Codable {
             "$permissions": permissions as Any,
             "databaseId": databaseId as Any,
             "name": name as Any,
+            "description": description as Any,
             "enabled": enabled as Any,
             "rowSecurity": rowSecurity as Any,
             "columns": columns as Any,
@@ -131,6 +139,7 @@ open class Table: Codable {
             "$permissions": [Any](),
             "databaseId": "",
             "name": "",
+            "description": "",
             "enabled": true,
             "rowSecurity": false,
             "columns": [Any](),
@@ -147,6 +156,7 @@ open class Table: Codable {
             permissions: map["$permissions"] as! [String],
             databaseId: map["databaseId"] as! String,
             name: map["name"] as! String,
+            description: map["description"] as! String,
             enabled: map["enabled"] as! Bool,
             rowSecurity: map["rowSecurity"] as! Bool,
             columns: (map["columns"] as! [Any]).map { AnyCodable($0) },

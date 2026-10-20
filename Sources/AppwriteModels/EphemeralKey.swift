@@ -9,6 +9,7 @@ open class EphemeralKey: Codable {
         case createdAt = "$createdAt"
         case updatedAt = "$updatedAt"
         case name = "name"
+        case description = "description"
         case expire = "expire"
         case scopes = "scopes"
         case secret = "secret"
@@ -24,6 +25,8 @@ open class EphemeralKey: Codable {
     public let updatedAt: String
     /// Key name.
     public let name: String
+    /// Optional description for the key.
+    public let description: String
     /// Key expiration date in ISO 8601 format.
     public let expire: String
     /// Allowed permission scopes.
@@ -40,6 +43,7 @@ open class EphemeralKey: Codable {
         createdAt: String,
         updatedAt: String,
         name: String,
+        description: String,
         expire: String,
         scopes: [String],
         secret: String,
@@ -50,6 +54,7 @@ open class EphemeralKey: Codable {
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.name = name
+        self.description = description
         self.expire = expire
         self.scopes = scopes
         self.secret = secret
@@ -64,6 +69,7 @@ open class EphemeralKey: Codable {
         self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
         self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
         self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.description = try container.contains(.description) ? container.decode(String.self, forKey: .description) : ""
         self.expire = try container.contains(.expire) ? container.decode(String.self, forKey: .expire) : ""
         self.scopes = try container.contains(.scopes) ? container.decode([String].self, forKey: .scopes) : []
         self.secret = try container.contains(.secret) ? container.decode(String.self, forKey: .secret) : ""
@@ -78,6 +84,7 @@ open class EphemeralKey: Codable {
         try container.encode(createdAt, forKey: .createdAt)
         try container.encode(updatedAt, forKey: .updatedAt)
         try container.encode(name, forKey: .name)
+        try container.encode(description, forKey: .description)
         try container.encode(expire, forKey: .expire)
         try container.encode(scopes, forKey: .scopes)
         try container.encode(secret, forKey: .secret)
@@ -91,6 +98,7 @@ open class EphemeralKey: Codable {
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
             "name": name as Any,
+            "description": description as Any,
             "expire": expire as Any,
             "scopes": scopes as Any,
             "secret": secret as Any,
@@ -105,6 +113,7 @@ open class EphemeralKey: Codable {
             "$createdAt": "",
             "$updatedAt": "",
             "name": "",
+            "description": "",
             "expire": "",
             "scopes": [Any](),
             "secret": "",
@@ -118,6 +127,7 @@ open class EphemeralKey: Codable {
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
             name: map["name"] as! String,
+            description: map["description"] as! String,
             expire: map["expire"] as! String,
             scopes: map["scopes"] as! [String],
             secret: map["secret"] as! String,

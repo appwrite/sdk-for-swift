@@ -14,7 +14,8 @@ let columnText = try await tablesDB.updateTextColumn(
     key: "<KEY>",
     required: false,
     default: "Hello World",
-    newKey: "<NEW_KEY>" // optional
+    newKey: "<NEW_KEY>", // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

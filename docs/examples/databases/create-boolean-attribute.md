@@ -14,7 +14,8 @@ let attributeBoolean = try await databases.createBooleanAttribute(
     key: "<KEY>",
     required: false,
     default: false, // optional
-    array: false // optional
+    array: false, // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

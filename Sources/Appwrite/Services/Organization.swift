@@ -871,6 +871,7 @@ open class Organization: Service {
     ///   - name: String
     ///   - scopes: [AppwriteEnums.ProjectKeyScopes]
     ///   - expire: String (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Key
     ///
@@ -879,7 +880,8 @@ open class Organization: Service {
         keyId: String,
         name: String,
         scopes: [AppwriteEnums.ProjectKeyScopes],
-        expire: String? = nil
+        expire: String? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Key {
         if projectId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"projectId\"")
@@ -896,6 +898,7 @@ open class Organization: Service {
             "name": name,
             "scopes": scopes.map { $0.rawValue },
             "expire": expire,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [

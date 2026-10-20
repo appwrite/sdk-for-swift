@@ -9,6 +9,7 @@ open class Variable: Codable {
         case createdAt = "$createdAt"
         case updatedAt = "$updatedAt"
         case key = "key"
+        case description = "description"
         case value = "value"
         case secret = "secret"
         case resourceType = "resourceType"
@@ -23,6 +24,8 @@ open class Variable: Codable {
     public let updatedAt: String
     /// Variable key.
     public let key: String
+    /// Optional description for the variable.
+    public let description: String
     /// Variable value.
     public let value: String
     /// Variable secret flag. Secret variables can only be updated or deleted, but never read.
@@ -37,6 +40,7 @@ open class Variable: Codable {
         createdAt: String,
         updatedAt: String,
         key: String,
+        description: String,
         value: String,
         secret: Bool,
         resourceType: String,
@@ -46,6 +50,7 @@ open class Variable: Codable {
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.key = key
+        self.description = description
         self.value = value
         self.secret = secret
         self.resourceType = resourceType
@@ -59,6 +64,7 @@ open class Variable: Codable {
         self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
         self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
         self.key = try container.contains(.key) ? container.decode(String.self, forKey: .key) : ""
+        self.description = try container.contains(.description) ? container.decode(String.self, forKey: .description) : ""
         self.value = try container.contains(.value) ? container.decode(String.self, forKey: .value) : ""
         self.secret = try container.contains(.secret) ? container.decode(Bool.self, forKey: .secret) : false
         self.resourceType = try container.contains(.resourceType) ? container.decode(String.self, forKey: .resourceType) : ""
@@ -72,6 +78,7 @@ open class Variable: Codable {
         try container.encode(createdAt, forKey: .createdAt)
         try container.encode(updatedAt, forKey: .updatedAt)
         try container.encode(key, forKey: .key)
+        try container.encode(description, forKey: .description)
         try container.encode(value, forKey: .value)
         try container.encode(secret, forKey: .secret)
         try container.encode(resourceType, forKey: .resourceType)
@@ -84,6 +91,7 @@ open class Variable: Codable {
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
             "key": key as Any,
+            "description": description as Any,
             "value": value as Any,
             "secret": secret as Any,
             "resourceType": resourceType as Any,
@@ -97,6 +105,7 @@ open class Variable: Codable {
             "$createdAt": "",
             "$updatedAt": "",
             "key": "",
+            "description": "",
             "value": "",
             "secret": false,
             "resourceType": "",
@@ -109,6 +118,7 @@ open class Variable: Codable {
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
             key: map["key"] as! String,
+            description: map["description"] as! String,
             value: map["value"] as! String,
             secret: map["secret"] as! Bool,
             resourceType: map["resourceType"] as! String,

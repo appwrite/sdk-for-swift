@@ -66,6 +66,7 @@ open class Messaging: Service {
     ///   - scheduledAt: String (optional)
     ///   - replyToEmail: String (optional)
     ///   - replyToName: String (optional)
+    ///   - emails: [String] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Message
     ///
@@ -83,7 +84,8 @@ open class Messaging: Service {
         html: Bool? = nil,
         scheduledAt: String? = nil,
         replyToEmail: String? = nil,
-        replyToName: String? = nil
+        replyToName: String? = nil,
+        emails: [String]? = nil
     ) async throws -> AppwriteModels.Message {
         let apiPath: String = "/messaging/messages/email"
 
@@ -102,6 +104,7 @@ open class Messaging: Service {
             "scheduledAt": scheduledAt,
             "replyToEmail": replyToEmail,
             "replyToName": replyToName,
+            "emails": emails,
         ]
 
         let apiHeaders: [String: String] = [
@@ -142,6 +145,7 @@ open class Messaging: Service {
     ///   - attachments: [String] (optional)
     ///   - replyToEmail: String (optional)
     ///   - replyToName: String (optional)
+    ///   - emails: [String] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Message
     ///
@@ -159,7 +163,8 @@ open class Messaging: Service {
         scheduledAt: String? = nil,
         attachments: [String]? = nil,
         replyToEmail: String? = nil,
-        replyToName: String? = nil
+        replyToName: String? = nil,
+        emails: [String]? = nil
     ) async throws -> AppwriteModels.Message {
         if messageId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"messageId\"")
@@ -182,6 +187,7 @@ open class Messaging: Service {
             "attachments": attachments,
             "replyToEmail": replyToEmail,
             "replyToName": replyToName,
+            "emails": emails,
         ]
 
         let apiHeaders: [String: String] = [
@@ -2724,6 +2730,7 @@ open class Messaging: Service {
     ///   - subscribe: [String] (optional)
     ///   - qos: Int (optional)
     ///   - expiry: Int (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Topic
     ///
@@ -2732,7 +2739,8 @@ open class Messaging: Service {
         name: String,
         subscribe: [String]? = nil,
         qos: Int? = nil,
-        expiry: Int? = nil
+        expiry: Int? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Topic {
         let apiPath: String = "/messaging/topics"
 
@@ -2742,6 +2750,7 @@ open class Messaging: Service {
             "subscribe": subscribe,
             "qos": qos,
             "expiry": expiry,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -2808,6 +2817,7 @@ open class Messaging: Service {
     ///   - subscribe: [String] (optional)
     ///   - qos: Int (optional)
     ///   - expiry: Int (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Topic
     ///
@@ -2816,7 +2826,8 @@ open class Messaging: Service {
         name: String? = nil,
         subscribe: [String]? = nil,
         qos: Int? = nil,
-        expiry: Int? = nil
+        expiry: Int? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Topic {
         if topicId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"topicId\"")
@@ -2830,6 +2841,7 @@ open class Messaging: Service {
             "subscribe": subscribe,
             "qos": qos,
             "expiry": expiry,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [

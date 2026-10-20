@@ -9,6 +9,7 @@ open class Webhook: Codable {
         case createdAt = "$createdAt"
         case updatedAt = "$updatedAt"
         case name = "name"
+        case description = "description"
         case url = "url"
         case events = "events"
         case tls = "tls"
@@ -28,6 +29,8 @@ open class Webhook: Codable {
     public let updatedAt: String
     /// Webhook name.
     public let name: String
+    /// Optional description for the webhook.
+    public let description: String
     /// Webhook URL endpoint.
     public let url: String
     /// Webhook trigger events.
@@ -52,6 +55,7 @@ open class Webhook: Codable {
         createdAt: String,
         updatedAt: String,
         name: String,
+        description: String,
         url: String,
         events: [String],
         tls: Bool,
@@ -66,6 +70,7 @@ open class Webhook: Codable {
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.name = name
+        self.description = description
         self.url = url
         self.events = events
         self.tls = tls
@@ -84,6 +89,7 @@ open class Webhook: Codable {
         self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
         self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
         self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.description = try container.contains(.description) ? container.decode(String.self, forKey: .description) : ""
         self.url = try container.contains(.url) ? container.decode(String.self, forKey: .url) : ""
         self.events = try container.contains(.events) ? container.decode([String].self, forKey: .events) : []
         self.tls = try container.contains(.tls) ? container.decode(Bool.self, forKey: .tls) : true
@@ -102,6 +108,7 @@ open class Webhook: Codable {
         try container.encode(createdAt, forKey: .createdAt)
         try container.encode(updatedAt, forKey: .updatedAt)
         try container.encode(name, forKey: .name)
+        try container.encode(description, forKey: .description)
         try container.encode(url, forKey: .url)
         try container.encode(events, forKey: .events)
         try container.encode(tls, forKey: .tls)
@@ -119,6 +126,7 @@ open class Webhook: Codable {
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
             "name": name as Any,
+            "description": description as Any,
             "url": url as Any,
             "events": events as Any,
             "tls": tls as Any,
@@ -137,6 +145,7 @@ open class Webhook: Codable {
             "$createdAt": "",
             "$updatedAt": "",
             "name": "",
+            "description": "",
             "url": "",
             "events": [Any](),
             "tls": true,
@@ -154,6 +163,7 @@ open class Webhook: Codable {
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
             name: map["name"] as! String,
+            description: map["description"] as! String,
             url: map["url"] as! String,
             events: map["events"] as! [String],
             tls: map["tls"] as! Bool,

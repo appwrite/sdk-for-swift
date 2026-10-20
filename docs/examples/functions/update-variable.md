@@ -13,7 +13,8 @@ let variable = try await functions.updateVariable(
     variableId: "<VARIABLE_ID>",
     key: "<KEY>", // optional
     value: "<VALUE>", // optional
-    secret: false // optional
+    secret: false, // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```
