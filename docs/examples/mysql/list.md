@@ -9,7 +9,8 @@ let client = Client()
 let mysql = Mysql(client)
 
 let dedicatedDatabaseList = try await mysql.list(
-    queries: [] // optional
+    queries: [], // optional
+    total: false // optional
 )
 
 ```

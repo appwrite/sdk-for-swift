@@ -9,6 +9,7 @@ open class Topic: Codable {
         case createdAt = "$createdAt"
         case updatedAt = "$updatedAt"
         case name = "name"
+        case description = "description"
         case emailTotal = "emailTotal"
         case smsTotal = "smsTotal"
         case pushTotal = "pushTotal"
@@ -25,6 +26,8 @@ open class Topic: Codable {
     public let updatedAt: String
     /// The name of the topic.
     public let name: String
+    /// Optional description for the topic.
+    public let description: String
     /// Total count of email subscribers subscribed to the topic.
     public let emailTotal: Int
     /// Total count of SMS subscribers subscribed to the topic.
@@ -43,6 +46,7 @@ open class Topic: Codable {
         createdAt: String,
         updatedAt: String,
         name: String,
+        description: String,
         emailTotal: Int,
         smsTotal: Int,
         pushTotal: Int,
@@ -54,6 +58,7 @@ open class Topic: Codable {
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.name = name
+        self.description = description
         self.emailTotal = emailTotal
         self.smsTotal = smsTotal
         self.pushTotal = pushTotal
@@ -69,6 +74,7 @@ open class Topic: Codable {
         self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
         self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
         self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.description = try container.contains(.description) ? container.decode(String.self, forKey: .description) : ""
         self.emailTotal = try container.contains(.emailTotal) ? container.decode(Int.self, forKey: .emailTotal) : 0
         self.smsTotal = try container.contains(.smsTotal) ? container.decode(Int.self, forKey: .smsTotal) : 0
         self.pushTotal = try container.contains(.pushTotal) ? container.decode(Int.self, forKey: .pushTotal) : 0
@@ -86,6 +92,7 @@ open class Topic: Codable {
         try container.encode(createdAt, forKey: .createdAt)
         try container.encode(updatedAt, forKey: .updatedAt)
         try container.encode(name, forKey: .name)
+        try container.encode(description, forKey: .description)
         try container.encode(emailTotal, forKey: .emailTotal)
         try container.encode(smsTotal, forKey: .smsTotal)
         try container.encode(pushTotal, forKey: .pushTotal)
@@ -100,6 +107,7 @@ open class Topic: Codable {
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
             "name": name as Any,
+            "description": description as Any,
             "emailTotal": emailTotal as Any,
             "smsTotal": smsTotal as Any,
             "pushTotal": pushTotal as Any,
@@ -115,6 +123,7 @@ open class Topic: Codable {
             "$createdAt": "",
             "$updatedAt": "",
             "name": "",
+            "description": "",
             "emailTotal": 0,
             "smsTotal": 0,
             "pushTotal": 0,
@@ -127,6 +136,7 @@ open class Topic: Codable {
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
             name: map["name"] as! String,
+            description: map["description"] as! String,
             emailTotal: map["emailTotal"] as! Int,
             smsTotal: map["smsTotal"] as! Int,
             pushTotal: map["pushTotal"] as! Int,

@@ -15,7 +15,8 @@ let vectorsdbCollection = try await vectorsDB.createCollection(
     dimension: 4,
     permissions: [Permission.read(Role.any())], // optional
     documentSecurity: false, // optional
-    enabled: false // optional
+    enabled: false, // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

@@ -18,7 +18,8 @@ let webhook = try await webhooks.update(
     enabled: false, // optional
     tls: false, // optional
     authUsername: "<AUTH_USERNAME>", // optional
-    authPassword: "password" // optional
+    authPassword: "password", // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

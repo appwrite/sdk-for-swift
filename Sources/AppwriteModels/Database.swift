@@ -8,6 +8,7 @@ open class Database: Codable {
     enum CodingKeys: String, CodingKey {
         case id = "$id"
         case name = "name"
+        case description = "description"
         case createdAt = "$createdAt"
         case updatedAt = "$updatedAt"
         case enabled = "enabled"
@@ -27,6 +28,8 @@ open class Database: Codable {
     public let id: String
     /// Database name.
     public let name: String
+    /// Optional description for the database.
+    public let description: String
     /// Database creation date in ISO 8601 format.
     public let createdAt: String
     /// Database update date in ISO 8601 format.
@@ -57,6 +60,7 @@ open class Database: Codable {
     init(
         id: String,
         name: String,
+        description: String,
         createdAt: String,
         updatedAt: String,
         enabled: Bool,
@@ -73,6 +77,7 @@ open class Database: Codable {
     ) {
         self.id = id
         self.name = name
+        self.description = description
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.enabled = enabled
@@ -93,6 +98,7 @@ open class Database: Codable {
 
         self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
         self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.description = try container.contains(.description) ? container.decode(String.self, forKey: .description) : ""
         self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
         self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
         self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : true
@@ -117,6 +123,7 @@ open class Database: Codable {
 
         try container.encode(id, forKey: .id)
         try container.encode(name, forKey: .name)
+        try container.encode(description, forKey: .description)
         try container.encode(createdAt, forKey: .createdAt)
         try container.encode(updatedAt, forKey: .updatedAt)
         try container.encode(enabled, forKey: .enabled)
@@ -136,6 +143,7 @@ open class Database: Codable {
         return [
             "$id": id as Any,
             "name": name as Any,
+            "description": description as Any,
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
             "enabled": enabled as Any,
@@ -156,6 +164,7 @@ open class Database: Codable {
         let defaults: [String: Any] = [
             "$id": "",
             "name": "",
+            "description": "",
             "$createdAt": "",
             "$updatedAt": "",
             "enabled": true,
@@ -166,6 +175,7 @@ open class Database: Codable {
         return Database(
             id: map["$id"] as! String,
             name: map["name"] as! String,
+            description: map["description"] as! String,
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
             enabled: map["enabled"] as! Bool,

@@ -10,7 +10,8 @@ let mongo = Mongo(client)
 
 let dedicatedDatabaseBackupList = try await mongo.listBackups(
     databaseId: "<DATABASE_ID>",
-    queries: [] // optional
+    queries: [], // optional
+    total: false // optional
 )
 
 ```

@@ -77,6 +77,7 @@ open class Sites: Service {
     ///   - runtimeSpecification: String (optional)
     ///   - deploymentRetention: Int (optional)
     ///   - scopes: [AppwriteEnums.ProjectKeyScopes] (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Site
     ///
@@ -104,7 +105,8 @@ open class Sites: Service {
         buildSpecification: String? = nil,
         runtimeSpecification: String? = nil,
         deploymentRetention: Int? = nil,
-        scopes: [AppwriteEnums.ProjectKeyScopes]? = nil
+        scopes: [AppwriteEnums.ProjectKeyScopes]? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Site {
         let apiPath: String = "/sites"
 
@@ -133,6 +135,7 @@ open class Sites: Service {
             "runtimeSpecification": runtimeSpecification,
             "deploymentRetention": deploymentRetention,
             "scopes": scopes?.map { $0.rawValue },
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -290,6 +293,7 @@ open class Sites: Service {
     ///   - runtimeSpecification: String (optional)
     ///   - deploymentRetention: Int (optional)
     ///   - scopes: [AppwriteEnums.ProjectKeyScopes] (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Site
     ///
@@ -317,7 +321,8 @@ open class Sites: Service {
         buildSpecification: String? = nil,
         runtimeSpecification: String? = nil,
         deploymentRetention: Int? = nil,
-        scopes: [AppwriteEnums.ProjectKeyScopes]? = nil
+        scopes: [AppwriteEnums.ProjectKeyScopes]? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Site {
         if siteId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"siteId\"")
@@ -350,6 +355,7 @@ open class Sites: Service {
             "runtimeSpecification": runtimeSpecification,
             "deploymentRetention": deploymentRetention,
             "scopes": scopes?.map { $0.rawValue },
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1071,6 +1077,7 @@ open class Sites: Service {
     ///   - key: String
     ///   - value: String
     ///   - secret: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Variable
     ///
@@ -1079,7 +1086,8 @@ open class Sites: Service {
         variableId: String,
         key: String,
         value: String,
-        secret: Bool? = nil
+        secret: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Variable {
         if siteId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"siteId\"")
@@ -1093,6 +1101,7 @@ open class Sites: Service {
             "key": key,
             "value": value,
             "secret": secret,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1165,6 +1174,7 @@ open class Sites: Service {
     ///   - key: String (optional)
     ///   - value: String (optional)
     ///   - secret: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Variable
     ///
@@ -1173,7 +1183,8 @@ open class Sites: Service {
         variableId: String,
         key: String? = nil,
         value: String? = nil,
-        secret: Bool? = nil
+        secret: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Variable {
         if siteId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"siteId\"")
@@ -1190,6 +1201,7 @@ open class Sites: Service {
             "key": key,
             "value": value,
             "secret": secret,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [

@@ -9,6 +9,7 @@ open class Site: Codable {
         case createdAt = "$createdAt"
         case updatedAt = "$updatedAt"
         case name = "name"
+        case description = "description"
         case enabled = "enabled"
         case live = "live"
         case logging = "logging"
@@ -50,6 +51,8 @@ open class Site: Codable {
     public let updatedAt: String
     /// Site name.
     public let name: String
+    /// Optional description for the site.
+    public let description: String
     /// Site enabled.
     public let enabled: Bool
     /// Is the site deployed with the latest configuration? This is set to false if you&#039;ve changed an environment variables, entrypoint, commands, or other settings that needs redeploy to be applied. When the value is false, redeploy the site to update it with the latest configuration.
@@ -118,6 +121,7 @@ open class Site: Codable {
         createdAt: String,
         updatedAt: String,
         name: String,
+        description: String,
         enabled: Bool,
         live: Bool,
         logging: Bool,
@@ -154,6 +158,7 @@ open class Site: Codable {
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.name = name
+        self.description = description
         self.enabled = enabled
         self.live = live
         self.logging = logging
@@ -194,6 +199,7 @@ open class Site: Codable {
         self.createdAt = try container.contains(.createdAt) ? container.decode(String.self, forKey: .createdAt) : ""
         self.updatedAt = try container.contains(.updatedAt) ? container.decode(String.self, forKey: .updatedAt) : ""
         self.name = try container.contains(.name) ? container.decode(String.self, forKey: .name) : ""
+        self.description = try container.contains(.description) ? container.decode(String.self, forKey: .description) : ""
         self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : true
         self.live = try container.contains(.live) ? container.decode(Bool.self, forKey: .live) : true
         self.logging = try container.contains(.logging) ? container.decode(Bool.self, forKey: .logging) : true
@@ -234,6 +240,7 @@ open class Site: Codable {
         try container.encode(createdAt, forKey: .createdAt)
         try container.encode(updatedAt, forKey: .updatedAt)
         try container.encode(name, forKey: .name)
+        try container.encode(description, forKey: .description)
         try container.encode(enabled, forKey: .enabled)
         try container.encode(live, forKey: .live)
         try container.encode(logging, forKey: .logging)
@@ -273,6 +280,7 @@ open class Site: Codable {
             "$createdAt": createdAt as Any,
             "$updatedAt": updatedAt as Any,
             "name": name as Any,
+            "description": description as Any,
             "enabled": enabled as Any,
             "live": live as Any,
             "logging": logging as Any,
@@ -313,6 +321,7 @@ open class Site: Codable {
             "$createdAt": "",
             "$updatedAt": "",
             "name": "",
+            "description": "",
             "enabled": true,
             "live": true,
             "logging": true,
@@ -350,6 +359,7 @@ open class Site: Codable {
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
             name: map["name"] as! String,
+            description: map["description"] as! String,
             enabled: map["enabled"] as! Bool,
             live: map["live"] as! Bool,
             logging: map["logging"] as! Bool,

@@ -9,7 +9,8 @@ let client = Client()
 let backups = Backups(client)
 
 let backupRestorationList = try await backups.listRestorations(
-    queries: [] // optional
+    queries: [], // optional
+    total: false // optional
 )
 
 ```

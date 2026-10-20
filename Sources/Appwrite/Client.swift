@@ -26,7 +26,7 @@ open class Client {
         "x-sdk-name": "Swift",
         "x-sdk-platform": "server",
         "x-sdk-language": "swift",
-        "x-sdk-version": "23.0.0",
+        "x-sdk-version": "23.1.0",
         "x-appwrite-response-format": "2.5.0",
     ]
 
@@ -88,7 +88,7 @@ open class Client {
             try http.syncShutdown()
             try httpForRedirect.syncShutdown()
         } catch {
-            print(error)
+            FileHandle.standardError.write(Data("\(error)\n".utf8))
         }
     }
 

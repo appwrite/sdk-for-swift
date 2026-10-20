@@ -10,7 +10,8 @@ let postgresql = Postgresql(client)
 
 let backupPolicyList = try await postgresql.listBackupPolicies(
     databaseId: "<DATABASE_ID>",
-    queries: [] // optional
+    queries: [], // optional
+    total: false // optional
 )
 
 ```

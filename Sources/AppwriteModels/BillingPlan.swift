@@ -75,6 +75,7 @@ open class BillingPlan: Codable {
         case deploymentSize = "deploymentSize"
         case buildSize = "buildSize"
         case functionsIntervalMinimum = "functionsIntervalMinimum"
+        case functionsAllowCron = "functionsAllowCron"
         case databasesAllowEncrypt = "databasesAllowEncrypt"
         case limits = "limits"
         case group = "group"
@@ -221,6 +222,8 @@ open class BillingPlan: Codable {
     public let buildSize: Int
     /// Shortest function schedule interval allowed, in minutes. 0 allows every interval.
     public let functionsIntervalMinimum: Int
+    /// Does the plan allow cron function schedules or only intervals.
+    public let functionsAllowCron: Bool
     /// Does the plan support encrypted string attributes or not.
     public let databasesAllowEncrypt: Bool
     /// Plan specific limits
@@ -304,6 +307,7 @@ open class BillingPlan: Codable {
         deploymentSize: Int,
         buildSize: Int,
         functionsIntervalMinimum: Int,
+        functionsAllowCron: Bool,
         databasesAllowEncrypt: Bool,
         limits: BillingPlanLimits?,
         group: AppwriteEnums.BillingPlanGroup,
@@ -380,6 +384,7 @@ open class BillingPlan: Codable {
         self.deploymentSize = deploymentSize
         self.buildSize = buildSize
         self.functionsIntervalMinimum = functionsIntervalMinimum
+        self.functionsAllowCron = functionsAllowCron
         self.databasesAllowEncrypt = databasesAllowEncrypt
         self.limits = limits
         self.group = group
@@ -460,6 +465,7 @@ open class BillingPlan: Codable {
         self.deploymentSize = try container.contains(.deploymentSize) ? container.decode(Int.self, forKey: .deploymentSize) : 0
         self.buildSize = try container.contains(.buildSize) ? container.decode(Int.self, forKey: .buildSize) : 0
         self.functionsIntervalMinimum = try container.contains(.functionsIntervalMinimum) ? container.decode(Int.self, forKey: .functionsIntervalMinimum) : 0
+        self.functionsAllowCron = try container.contains(.functionsAllowCron) ? container.decode(Bool.self, forKey: .functionsAllowCron) : true
         self.databasesAllowEncrypt = try container.contains(.databasesAllowEncrypt) ? container.decode(Bool.self, forKey: .databasesAllowEncrypt) : false
         self.limits = try container.decodeIfPresent(BillingPlanLimits.self, forKey: .limits)
         self.group = AppwriteEnums.BillingPlanGroup(rawValue: try container.decode(String.self, forKey: .group))!
@@ -540,6 +546,7 @@ open class BillingPlan: Codable {
         try container.encode(deploymentSize, forKey: .deploymentSize)
         try container.encode(buildSize, forKey: .buildSize)
         try container.encode(functionsIntervalMinimum, forKey: .functionsIntervalMinimum)
+        try container.encode(functionsAllowCron, forKey: .functionsAllowCron)
         try container.encode(databasesAllowEncrypt, forKey: .databasesAllowEncrypt)
         try container.encodeIfPresent(limits, forKey: .limits)
         try container.encode(group.rawValue, forKey: .group)
@@ -619,6 +626,7 @@ open class BillingPlan: Codable {
             "deploymentSize": deploymentSize as Any,
             "buildSize": buildSize as Any,
             "functionsIntervalMinimum": functionsIntervalMinimum as Any,
+            "functionsAllowCron": functionsAllowCron as Any,
             "databasesAllowEncrypt": databasesAllowEncrypt as Any,
             "limits": limits?.toMap() as Any,
             "group": group.rawValue as Any,
@@ -689,6 +697,7 @@ open class BillingPlan: Codable {
             "deploymentSize": 0,
             "buildSize": 0,
             "functionsIntervalMinimum": 0,
+            "functionsAllowCron": true,
             "databasesAllowEncrypt": false,
             "databaseComputeCredit": 0.0,
         ]
@@ -764,6 +773,7 @@ open class BillingPlan: Codable {
             deploymentSize: map["deploymentSize"] as! Int,
             buildSize: map["buildSize"] as! Int,
             functionsIntervalMinimum: map["functionsIntervalMinimum"] as! Int,
+            functionsAllowCron: map["functionsAllowCron"] as! Bool,
             databasesAllowEncrypt: map["databasesAllowEncrypt"] as! Bool,
             limits: map["limits"] as? [String: Any] != nil ? BillingPlanLimits.from(map: map["limits"] as! [String: Any]) : nil,
             group: AppwriteEnums.BillingPlanGroup(rawValue: map["group"] as! String)!,

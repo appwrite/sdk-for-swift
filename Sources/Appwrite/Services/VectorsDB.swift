@@ -53,6 +53,7 @@ open class VectorsDB: Service {
     ///   - databaseId: String
     ///   - name: String
     ///   - enabled: Bool (optional)
+    ///   - description: String (optional)
     ///   - specification: String (optional)
     ///   - replicas: Int (optional)
     ///   - syncMode: String (optional)
@@ -63,6 +64,7 @@ open class VectorsDB: Service {
         databaseId: String,
         name: String,
         enabled: Bool? = nil,
+        description: String? = nil,
         specification: String? = nil,
         replicas: Int? = nil,
         syncMode: String? = nil
@@ -73,6 +75,7 @@ open class VectorsDB: Service {
             "databaseId": databaseId,
             "name": name,
             "enabled": enabled,
+            "description": description,
             "specification": specification,
             "replicas": replicas,
             "syncMode": syncMode,
@@ -400,6 +403,7 @@ open class VectorsDB: Service {
     ///   - databaseId: String
     ///   - name: String
     ///   - enabled: Bool (optional)
+    ///   - description: String (optional)
     ///   - specification: String (optional)
     ///   - replicas: Int (optional)
     ///   - syncMode: String (optional)
@@ -410,6 +414,7 @@ open class VectorsDB: Service {
         databaseId: String,
         name: String,
         enabled: Bool? = nil,
+        description: String? = nil,
         specification: String? = nil,
         replicas: Int? = nil,
         syncMode: String? = nil
@@ -424,6 +429,7 @@ open class VectorsDB: Service {
         let apiParams: [String: Any?] = [
             "name": name,
             "enabled": enabled,
+            "description": description,
             "specification": specification,
             "replicas": replicas,
             "syncMode": syncMode,
@@ -543,6 +549,7 @@ open class VectorsDB: Service {
     ///   - permissions: [String] (optional)
     ///   - documentSecurity: Bool (optional)
     ///   - enabled: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.VectorsdbCollection
     ///
@@ -553,7 +560,8 @@ open class VectorsDB: Service {
         dimension: Int,
         permissions: [String]? = nil,
         documentSecurity: Bool? = nil,
-        enabled: Bool? = nil
+        enabled: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.VectorsdbCollection {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -569,6 +577,7 @@ open class VectorsDB: Service {
             "permissions": permissions,
             "documentSecurity": documentSecurity,
             "enabled": enabled,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -644,6 +653,7 @@ open class VectorsDB: Service {
     ///   - permissions: [String] (optional)
     ///   - documentSecurity: Bool (optional)
     ///   - enabled: Bool (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.VectorsdbCollection
     ///
@@ -654,7 +664,8 @@ open class VectorsDB: Service {
         dimension: Int? = nil,
         permissions: [String]? = nil,
         documentSecurity: Bool? = nil,
-        enabled: Bool? = nil
+        enabled: Bool? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.VectorsdbCollection {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -673,6 +684,7 @@ open class VectorsDB: Service {
             "permissions": permissions,
             "documentSecurity": documentSecurity,
             "enabled": enabled,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [
@@ -1746,6 +1758,7 @@ open class VectorsDB: Service {
     ///   - attributes: [String]
     ///   - orders: [AppwriteEnums.OrderBy] (optional)
     ///   - lengths: [Int] (optional)
+    ///   - description: String (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Index
     ///
@@ -1756,7 +1769,8 @@ open class VectorsDB: Service {
         type: AppwriteEnums.VectorsDBIndexType,
         attributes: [String],
         orders: [AppwriteEnums.OrderBy]? = nil,
-        lengths: [Int]? = nil
+        lengths: [Int]? = nil,
+        description: String? = nil
     ) async throws -> AppwriteModels.Index {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -1775,6 +1789,7 @@ open class VectorsDB: Service {
             "attributes": attributes,
             "orders": orders?.map { $0.rawValue },
             "lengths": lengths,
+            "description": description,
         ]
 
         let apiHeaders: [String: String] = [

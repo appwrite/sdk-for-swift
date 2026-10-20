@@ -32,7 +32,8 @@ let columnPolygon = try await tablesDB.createPolygonColumn(
                 2
             ]
         ]
-    ] // optional
+    ], // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

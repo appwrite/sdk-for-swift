@@ -13,16 +13,19 @@ open class Postgresql: Service {
     ///
     /// - Parameters:
     ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DedicatedDatabaseList
     ///
     open func list(
-        queries: [String]? = nil
+        queries: [String]? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.DedicatedDatabaseList {
         let apiPath: String = "/postgresql"
 
         let apiParams: [String: Any?] = [
-            "queries": queries
+            "queries": queries,
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
@@ -330,12 +333,14 @@ open class Postgresql: Service {
     /// - Parameters:
     ///   - databaseId: String
     ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.DedicatedDatabaseBackupList
     ///
     open func listBackups(
         databaseId: String,
-        queries: [String]? = nil
+        queries: [String]? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.DedicatedDatabaseBackupList {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -345,7 +350,8 @@ open class Postgresql: Service {
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
         let apiParams: [String: Any?] = [
-            "queries": queries
+            "queries": queries,
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [
@@ -414,12 +420,14 @@ open class Postgresql: Service {
     /// - Parameters:
     ///   - databaseId: String
     ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.BackupPolicyList
     ///
     open func listBackupPolicies(
         databaseId: String,
-        queries: [String]? = nil
+        queries: [String]? = nil,
+        total: Bool? = nil
     ) async throws -> AppwriteModels.BackupPolicyList {
         if databaseId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"databaseId\"")
@@ -429,7 +437,8 @@ open class Postgresql: Service {
             .replacingOccurrences(of: "{databaseId}", with: databaseId)
 
         let apiParams: [String: Any?] = [
-            "queries": queries
+            "queries": queries,
+            "total": total,
         ]
 
         let apiHeaders: [String: String] = [

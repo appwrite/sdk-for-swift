@@ -16,7 +16,8 @@ let attributeBigint = try await databases.createBigIntAttribute(
     min: 0, // optional
     max: 1000000, // optional
     default: 0, // optional
-    array: false // optional
+    array: false, // optional
+    description: "<DESCRIPTION>" // optional
 )
 
 ```

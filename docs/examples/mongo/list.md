@@ -9,7 +9,8 @@ let client = Client()
 let mongo = Mongo(client)
 
 let dedicatedDatabaseList = try await mongo.list(
-    queries: [] // optional
+    queries: [], // optional
+    total: false // optional
 )
 
 ```
