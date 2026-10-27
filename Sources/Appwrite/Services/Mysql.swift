@@ -167,7 +167,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any] = [:]
 
@@ -247,7 +247,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -309,7 +309,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any] = [:]
 
@@ -347,7 +347,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/backups"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -390,7 +390,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/backups"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "type": type
@@ -434,7 +434,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/backups/policies"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -486,7 +486,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/backups/policies"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "policyId": policyId,
@@ -536,8 +536,8 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/backups/policies/{policyId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{policyId}", with: policyId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{policyId}", with: try Client.encodePath(policyId))
 
         let apiParams: [String: Any] = [:]
 
@@ -587,8 +587,8 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/backups/policies/{policyId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{policyId}", with: policyId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{policyId}", with: try Client.encodePath(policyId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -637,8 +637,8 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/backups/policies/{policyId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{policyId}", with: policyId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{policyId}", with: try Client.encodePath(policyId))
 
         let apiParams: [String: Any] = [:]
 
@@ -687,7 +687,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/backups/storage"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "provider": provider,
@@ -739,8 +739,8 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/backups/{backupId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{backupId}", with: backupId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{backupId}", with: try Client.encodePath(backupId))
 
         let apiParams: [String: Any] = [:]
 
@@ -783,8 +783,8 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/backups/{backupId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{backupId}", with: backupId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{backupId}", with: try Client.encodePath(backupId))
 
         let apiParams: [String: Any] = [:]
 
@@ -818,7 +818,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/branches"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any] = [:]
 
@@ -863,7 +863,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/branches"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "branchId": branchId,
@@ -911,8 +911,8 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/branches/{branchId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{branchId}", with: branchId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{branchId}", with: try Client.encodePath(branchId))
 
         let apiParams: [String: Any] = [:]
 
@@ -953,7 +953,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/credentials"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1009,7 +1009,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/executions"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "sql": sql,
@@ -1061,7 +1061,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/failovers"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "targetReplicaId": targetReplicaId
@@ -1107,7 +1107,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/maintenance"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "day": day,
@@ -1155,7 +1155,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/migrations"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "targetType": targetType,
@@ -1205,7 +1205,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/operations"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "status": status,
@@ -1247,7 +1247,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/pitr"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1285,7 +1285,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/pooler"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1339,7 +1339,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/pooler"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "mode": mode,
@@ -1387,7 +1387,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/replicas"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1433,7 +1433,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/restorations"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "status": status,
@@ -1503,7 +1503,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/restorations"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "type": type,
@@ -1555,8 +1555,8 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/restorations/{restorationId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{restorationId}", with: restorationId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{restorationId}", with: try Client.encodePath(restorationId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1603,8 +1603,8 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/restorations/{restorationId}/promotions"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{restorationId}", with: restorationId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{restorationId}", with: try Client.encodePath(restorationId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1644,7 +1644,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/status"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1684,7 +1684,7 @@ open class Mysql: Service {
         }
 
         let apiPath: String = "/mysql/{databaseId}/upgrades"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "targetVersion": targetVersion

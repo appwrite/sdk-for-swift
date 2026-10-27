@@ -19,6 +19,11 @@ open class Client {
     public static var chunkSize = 5 * 1024 * 1024  // 5MB
     public static var maxConcurrentUploads = 8
 
+    /// Characters a path segment keeps as they are: letters, digits and -_.!~*'(), as encodeURIComponent.
+    private static let pathSegmentAllowed = CharacterSet(
+        charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.!~*'()"
+    )
+
     open var endPoint = "https://cloud.appwrite.io/v1"
 
     open var headers: [String: String] = [
@@ -26,8 +31,8 @@ open class Client {
         "x-sdk-name": "Swift",
         "x-sdk-platform": "server",
         "x-sdk-language": "swift",
-        "x-sdk-version": "23.1.0",
-        "x-appwrite-response-format": "2.5.0",
+        "x-sdk-version": "23.2.0",
+        "x-appwrite-response-format": "2.6.2",
     ]
 
     internal var config: [String: String] = [:]
@@ -55,7 +60,8 @@ open class Client {
 
     private static func createHTTP(
         selfSigned: Bool = false,
-        redirectConfiguration: HTTPClient.Configuration.RedirectConfiguration = .follow(max: 5, allowCycles: false),
+        // Calls follow no redirects: one would carry the API key to wherever it points.
+        redirectConfiguration: HTTPClient.Configuration.RedirectConfiguration = .disallow,
         connectTimeout: TimeAmount = .seconds(30),
         readTimeout: TimeAmount = .seconds(30)
     ) -> HTTPClient {
@@ -90,6 +96,20 @@ open class Client {
         } catch {
             FileHandle.standardError.write(Data("\(error)\n".utf8))
         }
+    }
+
+    ///
+    /// Encodes a value as one path segment, so it fills exactly the segment it replaces
+    ///
+    /// @param String value
+    ///
+    /// @return String
+    ///
+    internal static func encodePath(_ value: String) throws -> String {
+        if value == "." || value == ".." {
+            throw AppwriteError(message: "Path parameter cannot be \".\" or \"..\"")
+        }
+        return value.addingPercentEncoding(withAllowedCharacters: pathSegmentAllowed) ?? ""
     }
 
     ///
@@ -488,8 +508,6 @@ open class Client {
             request.headers.add(name: "accept-encoding", value: "gzip")
         }
 
-        request.addDomainCookies()
-
         if "GET" != method {
             try buildBody(for: &request, with: validParams)
         }
@@ -526,7 +544,16 @@ open class Client {
         var data = try await response.body.collect(upTo: Int.max)
 
         switch response.status.code {
-        case 0..<400:
+        case 300..<400:
+            let location = response.headers["location"].first ?? ""
+
+            throw AppwriteError(
+                message: "Redirect to \(location) not followed",
+                code: Int(response.status.code),
+                type: "",
+                response: String(decoding: data.readableBytesView, as: UTF8.self)
+            )
+        case 0..<300:
             switch T.self {
             case is Bool.Type:
                 return true as! T
@@ -622,7 +649,7 @@ open class Client {
             do {
                 let map = try await call(
                     method: "GET",
-                    path: path + "/" + uploadId,
+                    path: path + "/" + Client.encodePath(uploadId),
                     headers: headers,
                     params: [:],
                     converter: { return $0 as! [String: Any] }

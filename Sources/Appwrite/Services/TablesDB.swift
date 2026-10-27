@@ -220,7 +220,7 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/transactions/{transactionId}"
-            .replacingOccurrences(of: "{transactionId}", with: transactionId)
+            .replacingOccurrences(of: "{transactionId}", with: try Client.encodePath(transactionId))
 
         let apiParams: [String: Any] = [:]
 
@@ -261,7 +261,7 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/transactions/{transactionId}"
-            .replacingOccurrences(of: "{transactionId}", with: transactionId)
+            .replacingOccurrences(of: "{transactionId}", with: try Client.encodePath(transactionId))
 
         let apiParams: [String: Any?] = [
             "commit": commit,
@@ -302,7 +302,7 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/transactions/{transactionId}"
-            .replacingOccurrences(of: "{transactionId}", with: transactionId)
+            .replacingOccurrences(of: "{transactionId}", with: try Client.encodePath(transactionId))
 
         let apiParams: [String: Any] = [:]
 
@@ -337,7 +337,7 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/transactions/{transactionId}/operations"
-            .replacingOccurrences(of: "{transactionId}", with: transactionId)
+            .replacingOccurrences(of: "{transactionId}", with: try Client.encodePath(transactionId))
 
         let apiParams: [String: Any?] = [
             "operations": operations
@@ -378,7 +378,7 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any] = [:]
 
@@ -427,7 +427,7 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -473,7 +473,7 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any] = [:]
 
@@ -516,7 +516,7 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/failovers"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "targetReplicaId": targetReplicaId
@@ -557,7 +557,7 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/migrations"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any] = [:]
 
@@ -605,7 +605,7 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/migrations"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "specification": specification,
@@ -651,8 +651,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/migrations/{migrationId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{migrationId}", with: migrationId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{migrationId}", with: try Client.encodePath(migrationId))
 
         let apiParams: [String: Any] = [:]
 
@@ -695,8 +695,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/migrations/{migrationId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{migrationId}", with: migrationId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{migrationId}", with: try Client.encodePath(migrationId))
 
         let apiParams: [String: Any] = [:]
 
@@ -742,8 +742,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/migrations/{migrationId}/cutovers"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{migrationId}", with: migrationId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{migrationId}", with: try Client.encodePath(migrationId))
 
         let apiParams: [String: Any] = [:]
 
@@ -790,7 +790,7 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/operations"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "status": status,
@@ -832,7 +832,7 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/replicas"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any] = [:]
 
@@ -871,7 +871,7 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/status"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any] = [:]
 
@@ -915,7 +915,7 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -975,7 +975,7 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "tableId": tableId,
@@ -1028,8 +1028,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1083,8 +1083,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -1135,8 +1135,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1178,8 +1178,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -1239,8 +1239,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/bigint"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -1309,9 +1309,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/bigint/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any?] = [
             "required": `required`,
@@ -1371,8 +1371,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/boolean"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -1435,9 +1435,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/boolean/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any?] = [
             "required": `required`,
@@ -1495,8 +1495,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/datetime"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -1559,9 +1559,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/datetime/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any?] = [
             "required": `required`,
@@ -1619,8 +1619,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/email"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -1683,9 +1683,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/email/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any?] = [
             "required": `required`,
@@ -1746,8 +1746,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/enum"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -1813,9 +1813,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/enum/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any?] = [
             "elements": elements,
@@ -1879,8 +1879,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/float"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -1949,9 +1949,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/float/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any?] = [
             "required": `required`,
@@ -2016,8 +2016,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/integer"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -2086,9 +2086,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/integer/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any?] = [
             "required": `required`,
@@ -2148,8 +2148,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/ip"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -2212,9 +2212,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/ip/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any?] = [
             "required": `required`,
@@ -2270,8 +2270,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/line"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -2333,9 +2333,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/line/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any?] = [
             "required": `required`,
@@ -2395,8 +2395,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/longtext"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -2460,9 +2460,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/longtext/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any?] = [
             "required": `required`,
@@ -2522,8 +2522,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/mediumtext"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -2587,9 +2587,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/mediumtext/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any?] = [
             "required": `required`,
@@ -2645,8 +2645,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/point"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -2708,9 +2708,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/point/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any?] = [
             "required": `required`,
@@ -2766,8 +2766,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/polygon"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -2829,9 +2829,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/polygon/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any?] = [
             "required": `required`,
@@ -2894,8 +2894,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/relationship"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "relatedTableId": relatedTableId,
@@ -2958,9 +2958,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/relationship/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any?] = [
             "onDelete": onDelete?.rawValue,
@@ -3022,8 +3022,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/string"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -3091,9 +3091,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/string/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any?] = [
             "required": `required`,
@@ -3154,8 +3154,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/text"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -3219,9 +3219,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/text/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any?] = [
             "required": `required`,
@@ -3279,8 +3279,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/url"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -3343,9 +3343,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/url/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any?] = [
             "required": `required`,
@@ -3407,8 +3407,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/varchar"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -3475,9 +3475,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/varchar/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any?] = [
             "required": `required`,
@@ -3531,9 +3531,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any] = [:]
 
@@ -3637,9 +3637,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/columns/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any] = [:]
 
@@ -3681,8 +3681,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/indexes"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -3743,8 +3743,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/indexes"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -3799,9 +3799,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/indexes/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any] = [:]
 
@@ -3848,9 +3848,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/indexes/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any] = [:]
 
@@ -3873,10 +3873,11 @@ open class TablesDB: Service {
     ///
     /// Rows returned by aggregate, groupBy or distinct queries hold only the
     /// columns they select, group or aggregate, typed as a row types them, with a
-    /// joined column named by its join alias (`alias.column`). They have no `$id`,
-    /// `$sequence`, `$createdAt`, `$updatedAt`, `$permissions`, `$databaseId` or
-    /// `$tableId` unless they select or group it, and neither does a right or full
-    /// join row that no row of this table matched.
+    /// joined column named by its join alias (`alias.column`). The response omits
+    /// their `$id`, `$sequence`, `$createdAt`, `$updatedAt`, `$permissions`,
+    /// `$databaseId` and `$tableId` unless they select or group it, and those of a
+    /// right or full join row that no row of this table matched. SDK row models
+    /// fill omitted system columns with empty values.
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -3905,8 +3906,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -3939,10 +3940,11 @@ open class TablesDB: Service {
     ///
     /// Rows returned by aggregate, groupBy or distinct queries hold only the
     /// columns they select, group or aggregate, typed as a row types them, with a
-    /// joined column named by its join alias (`alias.column`). They have no `$id`,
-    /// `$sequence`, `$createdAt`, `$updatedAt`, `$permissions`, `$databaseId` or
-    /// `$tableId` unless they select or group it, and neither does a right or full
-    /// join row that no row of this table matched.
+    /// joined column named by its join alias (`alias.column`). The response omits
+    /// their `$id`, `$sequence`, `$createdAt`, `$updatedAt`, `$permissions`,
+    /// `$databaseId` and `$tableId` unless they select or group it, and those of a
+    /// right or full join row that no row of this table matched. SDK row models
+    /// fill omitted system columns with empty values.
     ///
     /// - Parameters:
     ///   - databaseId: String
@@ -4005,8 +4007,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "rowId": rowId,
@@ -4097,8 +4099,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "rows": rows,
@@ -4181,8 +4183,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "rows": rows,
@@ -4265,8 +4267,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "data": data,
@@ -4349,8 +4351,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -4435,8 +4437,8 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows/query"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -4530,9 +4532,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{rowId}", with: rowId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{rowId}", with: try Client.encodePath(rowId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -4622,9 +4624,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{rowId}", with: rowId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{rowId}", with: try Client.encodePath(rowId))
 
         let apiParams: [String: Any?] = [
             "data": data,
@@ -4719,9 +4721,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{rowId}", with: rowId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{rowId}", with: try Client.encodePath(rowId))
 
         let apiParams: [String: Any?] = [
             "data": data,
@@ -4808,9 +4810,9 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{rowId}", with: rowId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{rowId}", with: try Client.encodePath(rowId))
 
         let apiParams: [String: Any?] = [
             "transactionId": transactionId
@@ -4867,10 +4869,10 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}/{column}/decrement"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{rowId}", with: rowId)
-            .replacingOccurrences(of: "{column}", with: column)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{rowId}", with: try Client.encodePath(rowId))
+            .replacingOccurrences(of: "{column}", with: try Client.encodePath(column))
 
         let apiParams: [String: Any?] = [
             "value": value,
@@ -4969,10 +4971,10 @@ open class TablesDB: Service {
         }
 
         let apiPath: String = "/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}/{column}/increment"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{tableId}", with: tableId)
-            .replacingOccurrences(of: "{rowId}", with: rowId)
-            .replacingOccurrences(of: "{column}", with: column)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{tableId}", with: try Client.encodePath(tableId))
+            .replacingOccurrences(of: "{rowId}", with: try Client.encodePath(rowId))
+            .replacingOccurrences(of: "{column}", with: try Client.encodePath(column))
 
         let apiParams: [String: Any?] = [
             "value": value,

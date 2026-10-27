@@ -243,7 +243,7 @@ open class Functions: Service {
         }
 
         let apiPath: String = "/functions/{functionId}"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
+            .replacingOccurrences(of: "{functionId}", with: try Client.encodePath(functionId))
 
         let apiParams: [String: Any] = [:]
 
@@ -328,7 +328,7 @@ open class Functions: Service {
         }
 
         let apiPath: String = "/functions/{functionId}"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
+            .replacingOccurrences(of: "{functionId}", with: try Client.encodePath(functionId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -391,7 +391,7 @@ open class Functions: Service {
         }
 
         let apiPath: String = "/functions/{functionId}"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
+            .replacingOccurrences(of: "{functionId}", with: try Client.encodePath(functionId))
 
         let apiParams: [String: Any] = [:]
 
@@ -427,7 +427,7 @@ open class Functions: Service {
         }
 
         let apiPath: String = "/functions/{functionId}/deployment"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
+            .replacingOccurrences(of: "{functionId}", with: try Client.encodePath(functionId))
 
         let apiParams: [String: Any?] = [
             "deploymentId": deploymentId
@@ -474,7 +474,7 @@ open class Functions: Service {
         }
 
         let apiPath: String = "/functions/{functionId}/deployments"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
+            .replacingOccurrences(of: "{functionId}", with: try Client.encodePath(functionId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -533,7 +533,7 @@ open class Functions: Service {
         }
 
         let apiPath: String = "/functions/{functionId}/deployments"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
+            .replacingOccurrences(of: "{functionId}", with: try Client.encodePath(functionId))
 
         var apiParams: [String: Any?] = [
             "entrypoint": entrypoint,
@@ -589,7 +589,7 @@ open class Functions: Service {
         }
 
         let apiPath: String = "/functions/{functionId}/deployments/duplicate"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
+            .replacingOccurrences(of: "{functionId}", with: try Client.encodePath(functionId))
 
         let apiParams: [String: Any?] = [
             "deploymentId": deploymentId,
@@ -646,7 +646,7 @@ open class Functions: Service {
         }
 
         let apiPath: String = "/functions/{functionId}/deployments/template"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
+            .replacingOccurrences(of: "{functionId}", with: try Client.encodePath(functionId))
 
         let apiParams: [String: Any?] = [
             "repository": repository,
@@ -699,7 +699,7 @@ open class Functions: Service {
         }
 
         let apiPath: String = "/functions/{functionId}/deployments/vcs"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
+            .replacingOccurrences(of: "{functionId}", with: try Client.encodePath(functionId))
 
         let apiParams: [String: Any?] = [
             "type": type.rawValue,
@@ -746,8 +746,8 @@ open class Functions: Service {
         }
 
         let apiPath: String = "/functions/{functionId}/deployments/{deploymentId}"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
-            .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
+            .replacingOccurrences(of: "{functionId}", with: try Client.encodePath(functionId))
+            .replacingOccurrences(of: "{deploymentId}", with: try Client.encodePath(deploymentId))
 
         let apiParams: [String: Any] = [:]
 
@@ -789,8 +789,8 @@ open class Functions: Service {
         }
 
         let apiPath: String = "/functions/{functionId}/deployments/{deploymentId}"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
-            .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
+            .replacingOccurrences(of: "{functionId}", with: try Client.encodePath(functionId))
+            .replacingOccurrences(of: "{deploymentId}", with: try Client.encodePath(deploymentId))
 
         let apiParams: [String: Any] = [:]
 
@@ -834,8 +834,8 @@ open class Functions: Service {
         }
 
         let apiPath: String = "/functions/{functionId}/deployments/{deploymentId}/download"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
-            .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
+            .replacingOccurrences(of: "{functionId}", with: try Client.encodePath(functionId))
+            .replacingOccurrences(of: "{deploymentId}", with: try Client.encodePath(deploymentId))
 
         let apiParams: [String: Any?] = [
             "type": type?.rawValue,
@@ -879,8 +879,8 @@ open class Functions: Service {
         }
 
         let apiPath: String = "/functions/{functionId}/deployments/{deploymentId}/status"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
-            .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
+            .replacingOccurrences(of: "{functionId}", with: try Client.encodePath(functionId))
+            .replacingOccurrences(of: "{deploymentId}", with: try Client.encodePath(deploymentId))
 
         let apiParams: [String: Any] = [:]
 
@@ -923,7 +923,7 @@ open class Functions: Service {
         }
 
         let apiPath: String = "/functions/{functionId}/executions"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
+            .replacingOccurrences(of: "{functionId}", with: try Client.encodePath(functionId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -978,7 +978,7 @@ open class Functions: Service {
         }
 
         let apiPath: String = "/functions/{functionId}/executions"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
+            .replacingOccurrences(of: "{functionId}", with: try Client.encodePath(functionId))
 
         let apiParams: [String: Any?] = [
             "body": body,
@@ -1028,8 +1028,8 @@ open class Functions: Service {
         }
 
         let apiPath: String = "/functions/{functionId}/executions/{executionId}"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
-            .replacingOccurrences(of: "{executionId}", with: executionId)
+            .replacingOccurrences(of: "{functionId}", with: try Client.encodePath(functionId))
+            .replacingOccurrences(of: "{executionId}", with: try Client.encodePath(executionId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1071,8 +1071,8 @@ open class Functions: Service {
         }
 
         let apiPath: String = "/functions/{functionId}/executions/{executionId}"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
-            .replacingOccurrences(of: "{executionId}", with: executionId)
+            .replacingOccurrences(of: "{functionId}", with: try Client.encodePath(functionId))
+            .replacingOccurrences(of: "{executionId}", with: try Client.encodePath(executionId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1109,7 +1109,7 @@ open class Functions: Service {
         }
 
         let apiPath: String = "/functions/{functionId}/variables"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
+            .replacingOccurrences(of: "{functionId}", with: try Client.encodePath(functionId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -1160,7 +1160,7 @@ open class Functions: Service {
         }
 
         let apiPath: String = "/functions/{functionId}/variables"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
+            .replacingOccurrences(of: "{functionId}", with: try Client.encodePath(functionId))
 
         let apiParams: [String: Any?] = [
             "variableId": variableId,
@@ -1209,8 +1209,8 @@ open class Functions: Service {
         }
 
         let apiPath: String = "/functions/{functionId}/variables/{variableId}"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
-            .replacingOccurrences(of: "{variableId}", with: variableId)
+            .replacingOccurrences(of: "{functionId}", with: try Client.encodePath(functionId))
+            .replacingOccurrences(of: "{variableId}", with: try Client.encodePath(variableId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1260,8 +1260,8 @@ open class Functions: Service {
         }
 
         let apiPath: String = "/functions/{functionId}/variables/{variableId}"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
-            .replacingOccurrences(of: "{variableId}", with: variableId)
+            .replacingOccurrences(of: "{functionId}", with: try Client.encodePath(functionId))
+            .replacingOccurrences(of: "{variableId}", with: try Client.encodePath(variableId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -1309,8 +1309,8 @@ open class Functions: Service {
         }
 
         let apiPath: String = "/functions/{functionId}/variables/{variableId}"
-            .replacingOccurrences(of: "{functionId}", with: functionId)
-            .replacingOccurrences(of: "{variableId}", with: variableId)
+            .replacingOccurrences(of: "{functionId}", with: try Client.encodePath(functionId))
+            .replacingOccurrences(of: "{variableId}", with: try Client.encodePath(variableId))
 
         let apiParams: [String: Any] = [:]
 

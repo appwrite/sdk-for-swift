@@ -195,7 +195,7 @@ open class ProxyRule: Codable {
             status: AppwriteEnums.ProxyRuleStatus(rawValue: map["status"] as! String)!,
             logs: map["logs"] as! String,
             renewAt: map["renewAt"] as! String,
-            protocol: AppwriteEnums.ProxyRuleProtocol(rawValue: map["protocol"] as! String)!
+            `protocol`: AppwriteEnums.ProxyRuleProtocol(rawValue: map["protocol"] as! String)!
         )
     }
 }

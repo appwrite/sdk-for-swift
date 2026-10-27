@@ -361,7 +361,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/identities/{identityId}"
-            .replacingOccurrences(of: "{identityId}", with: identityId)
+            .replacingOccurrences(of: "{identityId}", with: try Client.encodePath(identityId))
 
         let apiParams: [String: Any] = [:]
 
@@ -836,7 +836,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any] = [:]
 
@@ -895,7 +895,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any] = [:]
 
@@ -931,7 +931,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/email"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any?] = [
             "email": email
@@ -1001,7 +1001,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/impersonator"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any?] = [
             "impersonator": impersonator
@@ -1074,7 +1074,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/jwts"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any?] = [
             "sessionId": sessionId,
@@ -1123,7 +1123,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/labels"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any?] = [
             "labels": labels
@@ -1194,7 +1194,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/memberships"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -1239,7 +1239,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/mfa"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any?] = [
             "mfa": mfa
@@ -1303,7 +1303,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/mfa"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any?] = [
             "mfa": mfa
@@ -1366,8 +1366,8 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/mfa/authenticators/{type}"
-            .replacingOccurrences(of: "{userId}", with: userId)
-            .replacingOccurrences(of: "{type}", with: type.rawValue)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
+            .replacingOccurrences(of: "{type}", with: try Client.encodePath(type.rawValue))
 
         let apiParams: [String: Any] = [:]
 
@@ -1402,8 +1402,8 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/mfa/authenticators/{type}"
-            .replacingOccurrences(of: "{userId}", with: userId)
-            .replacingOccurrences(of: "{type}", with: type.rawValue)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
+            .replacingOccurrences(of: "{type}", with: try Client.encodePath(type.rawValue))
 
         let apiParams: [String: Any] = [:]
 
@@ -1442,8 +1442,8 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/mfa/challenges/{challengeId}"
-            .replacingOccurrences(of: "{userId}", with: userId)
-            .replacingOccurrences(of: "{challengeId}", with: challengeId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
+            .replacingOccurrences(of: "{challengeId}", with: try Client.encodePath(challengeId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1481,7 +1481,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/mfa/factors"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1518,7 +1518,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/mfa/factors"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1559,7 +1559,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/mfa/recovery-codes"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1599,7 +1599,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/mfa/recovery-codes"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1640,7 +1640,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/mfa/recovery-codes"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1681,7 +1681,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/mfa/recovery-codes"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1723,7 +1723,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/mfa/recovery-codes"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1764,7 +1764,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/mfa/recovery-codes"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1805,7 +1805,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/name"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any?] = [
             "name": name
@@ -1869,7 +1869,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/passkeys"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -1914,8 +1914,8 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/passkeys/{passkeyId}"
-            .replacingOccurrences(of: "{userId}", with: userId)
-            .replacingOccurrences(of: "{passkeyId}", with: passkeyId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
+            .replacingOccurrences(of: "{passkeyId}", with: try Client.encodePath(passkeyId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1959,8 +1959,8 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/passkeys/{passkeyId}"
-            .replacingOccurrences(of: "{userId}", with: userId)
-            .replacingOccurrences(of: "{passkeyId}", with: passkeyId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
+            .replacingOccurrences(of: "{passkeyId}", with: try Client.encodePath(passkeyId))
 
         let apiParams: [String: Any?] = [
             "name": name
@@ -2006,8 +2006,8 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/passkeys/{passkeyId}"
-            .replacingOccurrences(of: "{userId}", with: userId)
-            .replacingOccurrences(of: "{passkeyId}", with: passkeyId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
+            .replacingOccurrences(of: "{passkeyId}", with: try Client.encodePath(passkeyId))
 
         let apiParams: [String: Any] = [:]
 
@@ -2043,7 +2043,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/password"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any?] = [
             "password": password
@@ -2106,7 +2106,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/phone"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any?] = [
             "number": number
@@ -2167,7 +2167,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/prefs"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any] = [:]
 
@@ -2226,7 +2226,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/prefs"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any?] = [
             "prefs": prefs
@@ -2290,7 +2290,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/sessions"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any?] = [
             "total": total
@@ -2334,7 +2334,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/sessions"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any] = [:]
 
@@ -2372,7 +2372,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/sessions"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any] = [:]
 
@@ -2410,8 +2410,8 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/sessions/{sessionId}"
-            .replacingOccurrences(of: "{userId}", with: userId)
-            .replacingOccurrences(of: "{sessionId}", with: sessionId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
+            .replacingOccurrences(of: "{sessionId}", with: try Client.encodePath(sessionId))
 
         let apiParams: [String: Any] = [:]
 
@@ -2448,7 +2448,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/status"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any?] = [
             "status": status
@@ -2513,7 +2513,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/targets"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -2563,7 +2563,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/targets"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any?] = [
             "targetId": targetId,
@@ -2612,8 +2612,8 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/targets/{targetId}"
-            .replacingOccurrences(of: "{userId}", with: userId)
-            .replacingOccurrences(of: "{targetId}", with: targetId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
+            .replacingOccurrences(of: "{targetId}", with: try Client.encodePath(targetId))
 
         let apiParams: [String: Any] = [:]
 
@@ -2661,8 +2661,8 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/targets/{targetId}"
-            .replacingOccurrences(of: "{userId}", with: userId)
-            .replacingOccurrences(of: "{targetId}", with: targetId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
+            .replacingOccurrences(of: "{targetId}", with: try Client.encodePath(targetId))
 
         let apiParams: [String: Any?] = [
             "identifier": identifier,
@@ -2709,8 +2709,8 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/targets/{targetId}"
-            .replacingOccurrences(of: "{userId}", with: userId)
-            .replacingOccurrences(of: "{targetId}", with: targetId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
+            .replacingOccurrences(of: "{targetId}", with: try Client.encodePath(targetId))
 
         let apiParams: [String: Any] = [:]
 
@@ -2750,7 +2750,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/tokens"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any?] = [
             "length": length,
@@ -2794,7 +2794,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/verification"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any?] = [
             "emailVerification": emailVerification
@@ -2857,7 +2857,7 @@ open class Users: Service {
         }
 
         let apiPath: String = "/users/{userId}/verification/phone"
-            .replacingOccurrences(of: "{userId}", with: userId)
+            .replacingOccurrences(of: "{userId}", with: try Client.encodePath(userId))
 
         let apiParams: [String: Any?] = [
             "phoneVerification": phoneVerification

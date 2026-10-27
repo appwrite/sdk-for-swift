@@ -11,7 +11,7 @@ let users = Users(client)
 let user = try await users.createPHPassUser(
     userId: "<USER_ID>",
     email: "email@example.com",
-    password: "password",
+    password: "",
     name: "<NAME>" // optional
 )
 
