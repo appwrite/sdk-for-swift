@@ -1,5 +1,6 @@
 ```swift
 import Appwrite
+import AppwriteEnums
 
 let client = Client()
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
@@ -10,7 +11,8 @@ let project = Project(client)
 
 let project = try await project.createEnvironment(
     environmentId: "<ENVIRONMENT_ID>",
-    name: "<NAME>"
+    name: "<NAME>",
+    resources: [.database, .table, .column, .index, .bucket, .team, .function, .environmentVariable] // optional
 )
 
 ```

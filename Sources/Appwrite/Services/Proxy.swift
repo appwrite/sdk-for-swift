@@ -328,7 +328,7 @@ open class Proxy: Service {
         }
 
         let apiPath: String = "/proxy/rules/{ruleId}"
-            .replacingOccurrences(of: "{ruleId}", with: ruleId)
+            .replacingOccurrences(of: "{ruleId}", with: try Client.encodePath(ruleId))
 
         let apiParams: [String: Any] = [:]
 
@@ -365,7 +365,7 @@ open class Proxy: Service {
         }
 
         let apiPath: String = "/proxy/rules/{ruleId}"
-            .replacingOccurrences(of: "{ruleId}", with: ruleId)
+            .replacingOccurrences(of: "{ruleId}", with: try Client.encodePath(ruleId))
 
         let apiParams: [String: Any] = [:]
 
@@ -401,7 +401,7 @@ open class Proxy: Service {
         }
 
         let apiPath: String = "/proxy/rules/{ruleId}/status"
-            .replacingOccurrences(of: "{ruleId}", with: ruleId)
+            .replacingOccurrences(of: "{ruleId}", with: try Client.encodePath(ruleId))
 
         let apiParams: [String: Any] = [:]
 

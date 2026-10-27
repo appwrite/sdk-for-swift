@@ -99,7 +99,7 @@ open class Backups: Service {
         }
 
         let apiPath: String = "/backups/archives/{archiveId}"
-            .replacingOccurrences(of: "{archiveId}", with: archiveId)
+            .replacingOccurrences(of: "{archiveId}", with: try Client.encodePath(archiveId))
 
         let apiParams: [String: Any] = [:]
 
@@ -136,7 +136,7 @@ open class Backups: Service {
         }
 
         let apiPath: String = "/backups/archives/{archiveId}"
-            .replacingOccurrences(of: "{archiveId}", with: archiveId)
+            .replacingOccurrences(of: "{archiveId}", with: try Client.encodePath(archiveId))
 
         let apiParams: [String: Any] = [:]
 
@@ -259,7 +259,7 @@ open class Backups: Service {
         }
 
         let apiPath: String = "/backups/policies/{policyId}"
-            .replacingOccurrences(of: "{policyId}", with: policyId)
+            .replacingOccurrences(of: "{policyId}", with: try Client.encodePath(policyId))
 
         let apiParams: [String: Any] = [:]
 
@@ -304,7 +304,7 @@ open class Backups: Service {
         }
 
         let apiPath: String = "/backups/policies/{policyId}"
-            .replacingOccurrences(of: "{policyId}", with: policyId)
+            .replacingOccurrences(of: "{policyId}", with: try Client.encodePath(policyId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -347,7 +347,7 @@ open class Backups: Service {
         }
 
         let apiPath: String = "/backups/policies/{policyId}"
-            .replacingOccurrences(of: "{policyId}", with: policyId)
+            .replacingOccurrences(of: "{policyId}", with: try Client.encodePath(policyId))
 
         let apiParams: [String: Any] = [:]
 
@@ -491,7 +491,7 @@ open class Backups: Service {
         }
 
         let apiPath: String = "/backups/restorations/{restorationId}"
-            .replacingOccurrences(of: "{restorationId}", with: restorationId)
+            .replacingOccurrences(of: "{restorationId}", with: try Client.encodePath(restorationId))
 
         let apiParams: [String: Any] = [:]
 

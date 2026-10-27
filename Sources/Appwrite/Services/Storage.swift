@@ -65,6 +65,7 @@ open class Storage: Service {
     ///   - antivirus: Bool (optional)
     ///   - transformations: Bool (optional)
     ///   - description: String (optional)
+    ///   - stripMetadata: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Bucket
     ///
@@ -80,7 +81,8 @@ open class Storage: Service {
         encryption: Bool? = nil,
         antivirus: Bool? = nil,
         transformations: Bool? = nil,
-        description: String? = nil
+        description: String? = nil,
+        stripMetadata: Bool? = nil
     ) async throws -> AppwriteModels.Bucket {
         let apiPath: String = "/storage/buckets"
 
@@ -97,6 +99,7 @@ open class Storage: Service {
             "antivirus": antivirus,
             "transformations": transformations,
             "description": description,
+            "stripMetadata": stripMetadata,
         ]
 
         let apiHeaders: [String: String] = [
@@ -134,7 +137,7 @@ open class Storage: Service {
         }
 
         let apiPath: String = "/storage/buckets/{bucketId}"
-            .replacingOccurrences(of: "{bucketId}", with: bucketId)
+            .replacingOccurrences(of: "{bucketId}", with: try Client.encodePath(bucketId))
 
         let apiParams: [String: Any] = [:]
 
@@ -171,6 +174,7 @@ open class Storage: Service {
     ///   - antivirus: Bool (optional)
     ///   - transformations: Bool (optional)
     ///   - description: String (optional)
+    ///   - stripMetadata: Bool (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Bucket
     ///
@@ -186,14 +190,15 @@ open class Storage: Service {
         encryption: Bool? = nil,
         antivirus: Bool? = nil,
         transformations: Bool? = nil,
-        description: String? = nil
+        description: String? = nil,
+        stripMetadata: Bool? = nil
     ) async throws -> AppwriteModels.Bucket {
         if bucketId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"bucketId\"")
         }
 
         let apiPath: String = "/storage/buckets/{bucketId}"
-            .replacingOccurrences(of: "{bucketId}", with: bucketId)
+            .replacingOccurrences(of: "{bucketId}", with: try Client.encodePath(bucketId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -207,6 +212,7 @@ open class Storage: Service {
             "antivirus": antivirus,
             "transformations": transformations,
             "description": description,
+            "stripMetadata": stripMetadata,
         ]
 
         let apiHeaders: [String: String] = [
@@ -243,7 +249,7 @@ open class Storage: Service {
         }
 
         let apiPath: String = "/storage/buckets/{bucketId}"
-            .replacingOccurrences(of: "{bucketId}", with: bucketId)
+            .replacingOccurrences(of: "{bucketId}", with: try Client.encodePath(bucketId))
 
         let apiParams: [String: Any] = [:]
 
@@ -283,7 +289,7 @@ open class Storage: Service {
         }
 
         let apiPath: String = "/storage/buckets/{bucketId}/files"
-            .replacingOccurrences(of: "{bucketId}", with: bucketId)
+            .replacingOccurrences(of: "{bucketId}", with: try Client.encodePath(bucketId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -349,7 +355,7 @@ open class Storage: Service {
         }
 
         let apiPath: String = "/storage/buckets/{bucketId}/files"
-            .replacingOccurrences(of: "{bucketId}", with: bucketId)
+            .replacingOccurrences(of: "{bucketId}", with: try Client.encodePath(bucketId))
 
         var apiParams: [String: Any?] = [
             "fileId": fileId,
@@ -403,8 +409,8 @@ open class Storage: Service {
         }
 
         let apiPath: String = "/storage/buckets/{bucketId}/files/{fileId}"
-            .replacingOccurrences(of: "{bucketId}", with: bucketId)
-            .replacingOccurrences(of: "{fileId}", with: fileId)
+            .replacingOccurrences(of: "{bucketId}", with: try Client.encodePath(bucketId))
+            .replacingOccurrences(of: "{fileId}", with: try Client.encodePath(fileId))
 
         let apiParams: [String: Any] = [:]
 
@@ -451,8 +457,8 @@ open class Storage: Service {
         }
 
         let apiPath: String = "/storage/buckets/{bucketId}/files/{fileId}"
-            .replacingOccurrences(of: "{bucketId}", with: bucketId)
-            .replacingOccurrences(of: "{fileId}", with: fileId)
+            .replacingOccurrences(of: "{bucketId}", with: try Client.encodePath(bucketId))
+            .replacingOccurrences(of: "{fileId}", with: try Client.encodePath(fileId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -499,8 +505,8 @@ open class Storage: Service {
         }
 
         let apiPath: String = "/storage/buckets/{bucketId}/files/{fileId}"
-            .replacingOccurrences(of: "{bucketId}", with: bucketId)
-            .replacingOccurrences(of: "{fileId}", with: fileId)
+            .replacingOccurrences(of: "{bucketId}", with: try Client.encodePath(bucketId))
+            .replacingOccurrences(of: "{fileId}", with: try Client.encodePath(fileId))
 
         let apiParams: [String: Any] = [:]
 
@@ -542,8 +548,8 @@ open class Storage: Service {
         }
 
         let apiPath: String = "/storage/buckets/{bucketId}/files/{fileId}/download"
-            .replacingOccurrences(of: "{bucketId}", with: bucketId)
-            .replacingOccurrences(of: "{fileId}", with: fileId)
+            .replacingOccurrences(of: "{bucketId}", with: try Client.encodePath(bucketId))
+            .replacingOccurrences(of: "{fileId}", with: try Client.encodePath(fileId))
 
         let apiParams: [String: Any?] = [
             "token": token
@@ -610,8 +616,8 @@ open class Storage: Service {
         }
 
         let apiPath: String = "/storage/buckets/{bucketId}/files/{fileId}/preview"
-            .replacingOccurrences(of: "{bucketId}", with: bucketId)
-            .replacingOccurrences(of: "{fileId}", with: fileId)
+            .replacingOccurrences(of: "{bucketId}", with: try Client.encodePath(bucketId))
+            .replacingOccurrences(of: "{fileId}", with: try Client.encodePath(fileId))
 
         let apiParams: [String: Any?] = [
             "width": width,
@@ -665,8 +671,8 @@ open class Storage: Service {
         }
 
         let apiPath: String = "/storage/buckets/{bucketId}/files/{fileId}/view"
-            .replacingOccurrences(of: "{bucketId}", with: bucketId)
-            .replacingOccurrences(of: "{fileId}", with: fileId)
+            .replacingOccurrences(of: "{bucketId}", with: try Client.encodePath(bucketId))
+            .replacingOccurrences(of: "{fileId}", with: try Client.encodePath(fileId))
 
         let apiParams: [String: Any?] = [
             "token": token

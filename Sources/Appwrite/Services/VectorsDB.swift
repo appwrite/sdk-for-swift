@@ -217,7 +217,7 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/transactions/{transactionId}"
-            .replacingOccurrences(of: "{transactionId}", with: transactionId)
+            .replacingOccurrences(of: "{transactionId}", with: try Client.encodePath(transactionId))
 
         let apiParams: [String: Any] = [:]
 
@@ -258,7 +258,7 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/transactions/{transactionId}"
-            .replacingOccurrences(of: "{transactionId}", with: transactionId)
+            .replacingOccurrences(of: "{transactionId}", with: try Client.encodePath(transactionId))
 
         let apiParams: [String: Any?] = [
             "commit": commit,
@@ -299,7 +299,7 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/transactions/{transactionId}"
-            .replacingOccurrences(of: "{transactionId}", with: transactionId)
+            .replacingOccurrences(of: "{transactionId}", with: try Client.encodePath(transactionId))
 
         let apiParams: [String: Any] = [:]
 
@@ -334,7 +334,7 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/transactions/{transactionId}/operations"
-            .replacingOccurrences(of: "{transactionId}", with: transactionId)
+            .replacingOccurrences(of: "{transactionId}", with: try Client.encodePath(transactionId))
 
         let apiParams: [String: Any?] = [
             "operations": operations
@@ -375,7 +375,7 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any] = [:]
 
@@ -424,7 +424,7 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -470,7 +470,7 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any] = [:]
 
@@ -510,7 +510,7 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/collections"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -568,7 +568,7 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/collections"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "collectionId": collectionId,
@@ -620,8 +620,8 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/collections/{collectionId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any] = [:]
 
@@ -675,8 +675,8 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/collections/{collectionId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -727,8 +727,8 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/collections/{collectionId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any] = [:]
 
@@ -776,8 +776,8 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/collections/{collectionId}/documents"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -869,8 +869,8 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/collections/{collectionId}/documents"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any?] = [
             "documentId": documentId,
@@ -961,8 +961,8 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/collections/{collectionId}/documents"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any?] = [
             "documents": documents,
@@ -1045,8 +1045,8 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/collections/{collectionId}/documents"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any?] = [
             "documents": documents,
@@ -1130,8 +1130,8 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/collections/{collectionId}/documents"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any?] = [
             "data": data,
@@ -1215,8 +1215,8 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/collections/{collectionId}/documents"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -1301,8 +1301,8 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/collections/{collectionId}/documents/query"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -1396,9 +1396,9 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/collections/{collectionId}/documents/{documentId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
-            .replacingOccurrences(of: "{documentId}", with: documentId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
+            .replacingOccurrences(of: "{documentId}", with: try Client.encodePath(documentId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -1488,9 +1488,9 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/collections/{collectionId}/documents/{documentId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
-            .replacingOccurrences(of: "{documentId}", with: documentId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
+            .replacingOccurrences(of: "{documentId}", with: try Client.encodePath(documentId))
 
         let apiParams: [String: Any?] = [
             "data": data,
@@ -1585,9 +1585,9 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/collections/{collectionId}/documents/{documentId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
-            .replacingOccurrences(of: "{documentId}", with: documentId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
+            .replacingOccurrences(of: "{documentId}", with: try Client.encodePath(documentId))
 
         let apiParams: [String: Any?] = [
             "data": data,
@@ -1674,9 +1674,9 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/collections/{collectionId}/documents/{documentId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
-            .replacingOccurrences(of: "{documentId}", with: documentId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
+            .replacingOccurrences(of: "{documentId}", with: try Client.encodePath(documentId))
 
         let apiParams: [String: Any?] = [
             "transactionId": transactionId
@@ -1720,8 +1720,8 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/collections/{collectionId}/indexes"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -1780,8 +1780,8 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/collections/{collectionId}/indexes"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -1836,9 +1836,9 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/collections/{collectionId}/indexes/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any] = [:]
 
@@ -1885,9 +1885,9 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/collections/{collectionId}/indexes/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any] = [:]
 
@@ -1930,7 +1930,7 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/failovers"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "targetReplicaId": targetReplicaId
@@ -1979,7 +1979,7 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/operations"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "status": status,
@@ -2021,7 +2021,7 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/replicas"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any] = [:]
 
@@ -2060,7 +2060,7 @@ open class VectorsDB: Service {
         }
 
         let apiPath: String = "/vectorsdb/{databaseId}/status"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any] = [:]
 

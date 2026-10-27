@@ -61,7 +61,7 @@ open class Activities: Service {
         }
 
         let apiPath: String = "/activities/events/{eventId}"
-            .replacingOccurrences(of: "{eventId}", with: eventId)
+            .replacingOccurrences(of: "{eventId}", with: try Client.encodePath(eventId))
 
         let apiParams: [String: Any] = [:]
 

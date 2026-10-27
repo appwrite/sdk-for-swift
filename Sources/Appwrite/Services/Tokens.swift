@@ -34,8 +34,8 @@ open class Tokens: Service {
         }
 
         let apiPath: String = "/tokens/buckets/{bucketId}/files/{fileId}"
-            .replacingOccurrences(of: "{bucketId}", with: bucketId)
-            .replacingOccurrences(of: "{fileId}", with: fileId)
+            .replacingOccurrences(of: "{bucketId}", with: try Client.encodePath(bucketId))
+            .replacingOccurrences(of: "{fileId}", with: try Client.encodePath(fileId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -83,8 +83,8 @@ open class Tokens: Service {
         }
 
         let apiPath: String = "/tokens/buckets/{bucketId}/files/{fileId}"
-            .replacingOccurrences(of: "{bucketId}", with: bucketId)
-            .replacingOccurrences(of: "{fileId}", with: fileId)
+            .replacingOccurrences(of: "{bucketId}", with: try Client.encodePath(bucketId))
+            .replacingOccurrences(of: "{fileId}", with: try Client.encodePath(fileId))
 
         let apiParams: [String: Any?] = [
             "expire": expire
@@ -124,7 +124,7 @@ open class Tokens: Service {
         }
 
         let apiPath: String = "/tokens/{tokenId}"
-            .replacingOccurrences(of: "{tokenId}", with: tokenId)
+            .replacingOccurrences(of: "{tokenId}", with: try Client.encodePath(tokenId))
 
         let apiParams: [String: Any] = [:]
 
@@ -164,7 +164,7 @@ open class Tokens: Service {
         }
 
         let apiPath: String = "/tokens/{tokenId}"
-            .replacingOccurrences(of: "{tokenId}", with: tokenId)
+            .replacingOccurrences(of: "{tokenId}", with: try Client.encodePath(tokenId))
 
         let apiParams: [String: Any?] = [
             "expire": expire
@@ -204,7 +204,7 @@ open class Tokens: Service {
         }
 
         let apiPath: String = "/tokens/{tokenId}"
-            .replacingOccurrences(of: "{tokenId}", with: tokenId)
+            .replacingOccurrences(of: "{tokenId}", with: try Client.encodePath(tokenId))
 
         let apiParams: [String: Any] = [:]
 

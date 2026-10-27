@@ -1,5 +1,22 @@
 # Change Log
 
+## 23.2.0
+
+* Updated: requests send response format `2.6.2`
+* Updated: redirects are no longer followed; a 3xx response throws `AppwriteError` naming its `Location`
+* Updated: the client no longer keeps cookies between requests
+* Fixed: a `.` or `..` path parameter throws `AppwriteError` before the request is sent
+* Added: `migrations` service with `list`, `get`, `retry`, `delete`, Appwrite, Firebase, NHost and Supabase migrations, and CSV and JSON imports and exports
+* Added: `AppwriteMigrationResource`, `FirebaseMigrationResource`, `NHostMigrationResource`, `SupabaseMigrationResource` and `OnDuplicate` enums
+* Added: `Migration`, `MigrationList` and `MigrationReport` models
+* Added: `project.updateDenyRealtimeGuestsPolicy`, `ProjectPolicyId.denyRealtimeGuests` and the `PolicyDenyRealtimeGuests` model
+* Added: `project.deleteSessions` to sign out every session in the project
+* Added: `stripMetadata` on `storage.createBucket`, `storage.updateBucket` and the `Bucket` model
+* Added: `deploymentRetention`, `deploymentRetentionMax` and `deploymentsRetentionCount` on `BillingPlan`
+* Added: `python315`, `deno29`, `go127` and `rust199` on `Runtime` and `BuildRuntime`
+* Fixed: path parameters and upload IDs are percent-encoded as one segment, so `/`, `?` and `#` stay in the value
+* Updated: async-http-client 1.36.2 and swift-nio 2.104.0
+
 ## 23.1.0
 
 * Added: `description` params and model fields on databases, collections, tables, attributes, columns, indexes, buckets, functions, sites, topics, variables, keys and webhooks

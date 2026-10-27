@@ -27,7 +27,7 @@ open class DnsRecord: Codable {
     public let updatedAt: String
     /// DNS record type (e.g. A, CNAME, MX).
     public let type: String
-    /// Record name or subdomain.
+    /// Record name relative to the domain, or `@` for the domain itself.
     public let name: String
     /// Value of the record (IP address, domain, etc.).
     public let value: String
