@@ -81,7 +81,7 @@ open class DedicatedDatabaseBackupStorage: Codable {
             provider: map["provider"] as! String,
             bucket: map["bucket"] as! String,
             region: map["region"] as! String,
-            prefix: map["prefix"] as! String,
+            `prefix`: map["prefix"] as! String,
             endpoint: map["endpoint"] as! String
         )
     }

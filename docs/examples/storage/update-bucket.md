@@ -21,7 +21,8 @@ let bucket = try await storage.updateBucket(
     encryption: false, // optional
     antivirus: false, // optional
     transformations: false, // optional
-    description: "<DESCRIPTION>" // optional
+    description: "<DESCRIPTION>", // optional
+    stripMetadata: false // optional
 )
 
 ```

@@ -217,7 +217,7 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/transactions/{transactionId}"
-            .replacingOccurrences(of: "{transactionId}", with: transactionId)
+            .replacingOccurrences(of: "{transactionId}", with: try Client.encodePath(transactionId))
 
         let apiParams: [String: Any] = [:]
 
@@ -258,7 +258,7 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/transactions/{transactionId}"
-            .replacingOccurrences(of: "{transactionId}", with: transactionId)
+            .replacingOccurrences(of: "{transactionId}", with: try Client.encodePath(transactionId))
 
         let apiParams: [String: Any?] = [
             "commit": commit,
@@ -299,7 +299,7 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/transactions/{transactionId}"
-            .replacingOccurrences(of: "{transactionId}", with: transactionId)
+            .replacingOccurrences(of: "{transactionId}", with: try Client.encodePath(transactionId))
 
         let apiParams: [String: Any] = [:]
 
@@ -334,7 +334,7 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/transactions/{transactionId}/operations"
-            .replacingOccurrences(of: "{transactionId}", with: transactionId)
+            .replacingOccurrences(of: "{transactionId}", with: try Client.encodePath(transactionId))
 
         let apiParams: [String: Any?] = [
             "operations": operations
@@ -375,7 +375,7 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any] = [:]
 
@@ -424,7 +424,7 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -470,7 +470,7 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any] = [:]
 
@@ -510,7 +510,7 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/collections"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -570,7 +570,7 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/collections"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "collectionId": collectionId,
@@ -623,8 +623,8 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any] = [:]
 
@@ -678,8 +678,8 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -730,8 +730,8 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any] = [:]
 
@@ -779,8 +779,8 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}/documents"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -872,8 +872,8 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}/documents"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any?] = [
             "documentId": documentId,
@@ -964,8 +964,8 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}/documents"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any?] = [
             "documents": documents,
@@ -1048,8 +1048,8 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}/documents"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any?] = [
             "documents": documents,
@@ -1133,8 +1133,8 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}/documents"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any?] = [
             "data": data,
@@ -1218,8 +1218,8 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}/documents"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -1304,8 +1304,8 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}/documents/query"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -1399,9 +1399,9 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}/documents/{documentId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
-            .replacingOccurrences(of: "{documentId}", with: documentId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
+            .replacingOccurrences(of: "{documentId}", with: try Client.encodePath(documentId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -1491,9 +1491,9 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}/documents/{documentId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
-            .replacingOccurrences(of: "{documentId}", with: documentId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
+            .replacingOccurrences(of: "{documentId}", with: try Client.encodePath(documentId))
 
         let apiParams: [String: Any?] = [
             "data": data,
@@ -1588,9 +1588,9 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}/documents/{documentId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
-            .replacingOccurrences(of: "{documentId}", with: documentId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
+            .replacingOccurrences(of: "{documentId}", with: try Client.encodePath(documentId))
 
         let apiParams: [String: Any?] = [
             "data": data,
@@ -1677,9 +1677,9 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}/documents/{documentId}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
-            .replacingOccurrences(of: "{documentId}", with: documentId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
+            .replacingOccurrences(of: "{documentId}", with: try Client.encodePath(documentId))
 
         let apiParams: [String: Any?] = [
             "transactionId": transactionId
@@ -1736,10 +1736,10 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/decrement"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
-            .replacingOccurrences(of: "{documentId}", with: documentId)
-            .replacingOccurrences(of: "{attribute}", with: attribute)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
+            .replacingOccurrences(of: "{documentId}", with: try Client.encodePath(documentId))
+            .replacingOccurrences(of: "{attribute}", with: try Client.encodePath(attribute))
 
         let apiParams: [String: Any?] = [
             "value": value,
@@ -1838,10 +1838,10 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/increment"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
-            .replacingOccurrences(of: "{documentId}", with: documentId)
-            .replacingOccurrences(of: "{attribute}", with: attribute)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
+            .replacingOccurrences(of: "{documentId}", with: try Client.encodePath(documentId))
+            .replacingOccurrences(of: "{attribute}", with: try Client.encodePath(attribute))
 
         let apiParams: [String: Any?] = [
             "value": value,
@@ -1927,8 +1927,8 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}/indexes"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -1987,8 +1987,8 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}/indexes"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -2043,9 +2043,9 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}/indexes/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any] = [:]
 
@@ -2092,9 +2092,9 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/collections/{collectionId}/indexes/{key}"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
-            .replacingOccurrences(of: "{collectionId}", with: collectionId)
-            .replacingOccurrences(of: "{key}", with: key)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
+            .replacingOccurrences(of: "{collectionId}", with: try Client.encodePath(collectionId))
+            .replacingOccurrences(of: "{key}", with: try Client.encodePath(key))
 
         let apiParams: [String: Any] = [:]
 
@@ -2137,7 +2137,7 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/failovers"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "targetReplicaId": targetReplicaId
@@ -2186,7 +2186,7 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/operations"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any?] = [
             "status": status,
@@ -2228,7 +2228,7 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/replicas"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any] = [:]
 
@@ -2267,7 +2267,7 @@ open class DocumentsDB: Service {
         }
 
         let apiPath: String = "/documentsdb/{databaseId}/status"
-            .replacingOccurrences(of: "{databaseId}", with: databaseId)
+            .replacingOccurrences(of: "{databaseId}", with: try Client.encodePath(databaseId))
 
         let apiParams: [String: Any] = [:]
 

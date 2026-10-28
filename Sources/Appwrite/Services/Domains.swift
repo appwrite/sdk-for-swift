@@ -193,7 +193,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any] = [:]
 
@@ -233,7 +233,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any] = [:]
 
@@ -270,7 +270,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/nameservers"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any?] = [
             "nameservers": nameservers
@@ -314,7 +314,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/nameservers/verification"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any] = [:]
 
@@ -352,7 +352,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/presets/google-workspace"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any] = [:]
 
@@ -391,7 +391,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/presets/google-workspace"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any] = [:]
 
@@ -429,7 +429,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/presets/icloud"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any] = [:]
 
@@ -468,7 +468,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/presets/icloud"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any] = [:]
 
@@ -506,7 +506,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/presets/mailgun"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any] = [:]
 
@@ -545,7 +545,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/presets/mailgun"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any] = [:]
 
@@ -583,7 +583,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/presets/outlook"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any] = [:]
 
@@ -622,7 +622,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/presets/outlook"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any] = [:]
 
@@ -660,7 +660,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/presets/proton-mail"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any] = [:]
 
@@ -699,7 +699,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/presets/proton-mail"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any] = [:]
 
@@ -737,7 +737,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/presets/zoho"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any] = [:]
 
@@ -776,7 +776,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/presets/zoho"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any] = [:]
 
@@ -820,7 +820,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -870,7 +870,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records/a"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -930,8 +930,8 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records/a/{recordId}"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
-            .replacingOccurrences(of: "{recordId}", with: recordId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
+            .replacingOccurrences(of: "{recordId}", with: try Client.encodePath(recordId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -985,7 +985,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records/aaaa"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -1045,8 +1045,8 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records/aaaa/{recordId}"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
-            .replacingOccurrences(of: "{recordId}", with: recordId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
+            .replacingOccurrences(of: "{recordId}", with: try Client.encodePath(recordId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -1101,7 +1101,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records/alias"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -1164,8 +1164,8 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records/alias/{recordId}"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
-            .replacingOccurrences(of: "{recordId}", with: recordId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
+            .replacingOccurrences(of: "{recordId}", with: try Client.encodePath(recordId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -1219,7 +1219,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records/caa"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -1279,8 +1279,8 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records/caa/{recordId}"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
-            .replacingOccurrences(of: "{recordId}", with: recordId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
+            .replacingOccurrences(of: "{recordId}", with: try Client.encodePath(recordId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -1337,7 +1337,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records/cname"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -1393,8 +1393,8 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records/cname/{recordId}"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
-            .replacingOccurrences(of: "{recordId}", with: recordId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
+            .replacingOccurrences(of: "{recordId}", with: try Client.encodePath(recordId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -1447,7 +1447,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records/https"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -1507,8 +1507,8 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records/https/{recordId}"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
-            .replacingOccurrences(of: "{recordId}", with: recordId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
+            .replacingOccurrences(of: "{recordId}", with: try Client.encodePath(recordId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -1567,7 +1567,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records/mx"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -1626,8 +1626,8 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records/mx/{recordId}"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
-            .replacingOccurrences(of: "{recordId}", with: recordId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
+            .replacingOccurrences(of: "{recordId}", with: try Client.encodePath(recordId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -1682,7 +1682,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records/ns"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -1744,8 +1744,8 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records/ns/{recordId}"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
-            .replacingOccurrences(of: "{recordId}", with: recordId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
+            .replacingOccurrences(of: "{recordId}", with: try Client.encodePath(recordId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -1806,7 +1806,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records/srv"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -1884,8 +1884,8 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records/srv/{recordId}"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
-            .replacingOccurrences(of: "{recordId}", with: recordId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
+            .replacingOccurrences(of: "{recordId}", with: try Client.encodePath(recordId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -1941,7 +1941,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records/txt"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -2002,8 +2002,8 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records/txt/{recordId}"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
-            .replacingOccurrences(of: "{recordId}", with: recordId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
+            .replacingOccurrences(of: "{recordId}", with: try Client.encodePath(recordId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -2057,8 +2057,8 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records/{recordId}"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
-            .replacingOccurrences(of: "{recordId}", with: recordId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
+            .replacingOccurrences(of: "{recordId}", with: try Client.encodePath(recordId))
 
         let apiParams: [String: Any] = [:]
 
@@ -2102,8 +2102,8 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/records/{recordId}"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
-            .replacingOccurrences(of: "{recordId}", with: recordId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
+            .replacingOccurrences(of: "{recordId}", with: try Client.encodePath(recordId))
 
         let apiParams: [String: Any] = [:]
 
@@ -2144,7 +2144,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/team"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any?] = [
             "teamId": teamId
@@ -2185,7 +2185,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/transfers/status"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any] = [:]
 
@@ -2225,7 +2225,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/zone"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any] = [:]
 
@@ -2244,8 +2244,8 @@ open class Domains: Service {
     ///
     /// Update the DNS zone for the given domain using the provided zone file
     /// content.
-    /// All parsed records are imported and then the main domain document is
-    /// returned.
+    /// All parsed records the domain does not already have are imported and then
+    /// the main domain document is returned.
     ///
     /// - Parameters:
     ///   - domainId: String
@@ -2262,7 +2262,7 @@ open class Domains: Service {
         }
 
         let apiPath: String = "/domains/{domainId}/zone"
-            .replacingOccurrences(of: "{domainId}", with: domainId)
+            .replacingOccurrences(of: "{domainId}", with: try Client.encodePath(domainId))
 
         let apiParams: [String: Any?] = [
             "content": content

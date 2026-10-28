@@ -126,7 +126,7 @@ open class Webhooks: Service {
         }
 
         let apiPath: String = "/webhooks/{webhookId}"
-            .replacingOccurrences(of: "{webhookId}", with: webhookId)
+            .replacingOccurrences(of: "{webhookId}", with: try Client.encodePath(webhookId))
 
         let apiParams: [String: Any] = [:]
 
@@ -180,7 +180,7 @@ open class Webhooks: Service {
         }
 
         let apiPath: String = "/webhooks/{webhookId}"
-            .replacingOccurrences(of: "{webhookId}", with: webhookId)
+            .replacingOccurrences(of: "{webhookId}", with: try Client.encodePath(webhookId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -228,7 +228,7 @@ open class Webhooks: Service {
         }
 
         let apiPath: String = "/webhooks/{webhookId}"
-            .replacingOccurrences(of: "{webhookId}", with: webhookId)
+            .replacingOccurrences(of: "{webhookId}", with: try Client.encodePath(webhookId))
 
         let apiParams: [String: Any] = [:]
 
@@ -265,7 +265,7 @@ open class Webhooks: Service {
         }
 
         let apiPath: String = "/webhooks/{webhookId}/secret"
-            .replacingOccurrences(of: "{webhookId}", with: webhookId)
+            .replacingOccurrences(of: "{webhookId}", with: try Client.encodePath(webhookId))
 
         let apiParams: [String: Any?] = [
             "secret": secret

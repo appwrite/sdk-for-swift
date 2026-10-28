@@ -142,13 +142,13 @@ open class AttributeInteger: Codable {
             type: map["type"] as! String,
             status: AppwriteEnums.AttributeStatus(rawValue: map["status"] as! String)!,
             error: map["error"] as! String,
-            required: map["required"] as! Bool,
+            `required`: map["required"] as! Bool,
             array: map["array"] as? Bool,
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
             min: map["min"] as? Int,
             max: map["max"] as? Int,
-            default: map["default"] as? Int
+            `default`: map["default"] as? Int
         )
     }
 }

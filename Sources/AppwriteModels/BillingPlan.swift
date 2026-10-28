@@ -34,6 +34,9 @@ open class BillingPlan: Codable {
         case sites = "sites"
         case executions = "executions"
         case executionsRetentionCount = "executionsRetentionCount"
+        case deploymentRetention = "deploymentRetention"
+        case deploymentRetentionMax = "deploymentRetentionMax"
+        case deploymentsRetentionCount = "deploymentsRetentionCount"
         case GBHours = "GBHours"
         case realtime = "realtime"
         case realtimeMessages = "realtimeMessages"
@@ -140,6 +143,12 @@ open class BillingPlan: Codable {
     public let executions: Int
     /// Rolling max executions retained per function/site
     public let executionsRetentionCount: Int
+    /// Days non-active deployments are kept when a function or site sets no retention.
+    public let deploymentRetention: Int?
+    /// Maximum deployment retention in days a function or site can set. 0 means unlimited.
+    public let deploymentRetentionMax: Int?
+    /// Non-active deployments kept per function or site. 0 means unlimited.
+    public let deploymentsRetentionCount: Int?
     /// GB hours for functions
     public let GBHours: Int
     /// Realtime connections
@@ -266,6 +275,9 @@ open class BillingPlan: Codable {
         sites: Int,
         executions: Int,
         executionsRetentionCount: Int,
+        deploymentRetention: Int?,
+        deploymentRetentionMax: Int?,
+        deploymentsRetentionCount: Int?,
         GBHours: Int,
         realtime: Int,
         realtimeMessages: Int,
@@ -343,6 +355,9 @@ open class BillingPlan: Codable {
         self.sites = sites
         self.executions = executions
         self.executionsRetentionCount = executionsRetentionCount
+        self.deploymentRetention = deploymentRetention
+        self.deploymentRetentionMax = deploymentRetentionMax
+        self.deploymentsRetentionCount = deploymentsRetentionCount
         self.GBHours = GBHours
         self.realtime = realtime
         self.realtimeMessages = realtimeMessages
@@ -424,6 +439,9 @@ open class BillingPlan: Codable {
         self.sites = try container.contains(.sites) ? container.decode(Int.self, forKey: .sites) : 0
         self.executions = try container.contains(.executions) ? container.decode(Int.self, forKey: .executions) : 0
         self.executionsRetentionCount = try container.contains(.executionsRetentionCount) ? container.decode(Int.self, forKey: .executionsRetentionCount) : 1000
+        self.deploymentRetention = try container.decodeIfPresent(Int.self, forKey: .deploymentRetention)
+        self.deploymentRetentionMax = try container.decodeIfPresent(Int.self, forKey: .deploymentRetentionMax)
+        self.deploymentsRetentionCount = try container.decodeIfPresent(Int.self, forKey: .deploymentsRetentionCount)
         self.GBHours = try container.contains(.GBHours) ? container.decode(Int.self, forKey: .GBHours) : 0
         self.realtime = try container.contains(.realtime) ? container.decode(Int.self, forKey: .realtime) : 0
         self.realtimeMessages = try container.contains(.realtimeMessages) ? container.decode(Int.self, forKey: .realtimeMessages) : 0
@@ -505,6 +523,9 @@ open class BillingPlan: Codable {
         try container.encode(sites, forKey: .sites)
         try container.encode(executions, forKey: .executions)
         try container.encode(executionsRetentionCount, forKey: .executionsRetentionCount)
+        try container.encodeIfPresent(deploymentRetention, forKey: .deploymentRetention)
+        try container.encodeIfPresent(deploymentRetentionMax, forKey: .deploymentRetentionMax)
+        try container.encodeIfPresent(deploymentsRetentionCount, forKey: .deploymentsRetentionCount)
         try container.encode(GBHours, forKey: .GBHours)
         try container.encode(realtime, forKey: .realtime)
         try container.encode(realtimeMessages, forKey: .realtimeMessages)
@@ -585,6 +606,9 @@ open class BillingPlan: Codable {
             "sites": sites as Any,
             "executions": executions as Any,
             "executionsRetentionCount": executionsRetentionCount as Any,
+            "deploymentRetention": deploymentRetention as Any,
+            "deploymentRetentionMax": deploymentRetentionMax as Any,
+            "deploymentsRetentionCount": deploymentsRetentionCount as Any,
             "GBHours": GBHours as Any,
             "realtime": realtime as Any,
             "realtimeMessages": realtimeMessages as Any,
@@ -732,6 +756,9 @@ open class BillingPlan: Codable {
             sites: map["sites"] as! Int,
             executions: map["executions"] as! Int,
             executionsRetentionCount: map["executionsRetentionCount"] as! Int,
+            deploymentRetention: map["deploymentRetention"] as? Int,
+            deploymentRetentionMax: map["deploymentRetentionMax"] as? Int,
+            deploymentsRetentionCount: map["deploymentsRetentionCount"] as? Int,
             GBHours: map["GBHours"] as! Int,
             realtime: map["realtime"] as! Int,
             realtimeMessages: map["realtimeMessages"] as! Int,

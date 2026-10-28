@@ -30,7 +30,7 @@ open class Provider: Codable {
     public let enabled: Bool
     /// Type of provider.
     public let type: String
-    /// Provider credentials.
+    /// Provider credentials. Secret values are write-only and never returned.
     public let credentials: [String: AnyCodable]
     /// Provider options.
     public let options: [String: AnyCodable]?

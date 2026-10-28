@@ -134,11 +134,11 @@ open class ColumnLongtext: Codable {
             type: map["type"] as! String,
             status: AppwriteEnums.ColumnStatus(rawValue: map["status"] as! String)!,
             error: map["error"] as! String,
-            required: map["required"] as! Bool,
+            `required`: map["required"] as! Bool,
             array: map["array"] as? Bool,
             createdAt: map["$createdAt"] as! String,
             updatedAt: map["$updatedAt"] as! String,
-            default: map["default"] as? String,
+            `default`: map["default"] as? String,
             encrypt: map["encrypt"] as? Bool
         )
     }

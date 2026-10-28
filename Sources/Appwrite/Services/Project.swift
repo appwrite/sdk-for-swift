@@ -75,7 +75,7 @@ open class Project: Service {
         enabled: Bool
     ) async throws -> AppwriteModels.Project {
         let apiPath: String = "/project/auth-methods/{methodId}"
-            .replacingOccurrences(of: "{methodId}", with: methodId.rawValue)
+            .replacingOccurrences(of: "{methodId}", with: try Client.encodePath(methodId.rawValue))
 
         let apiParams: [String: Any?] = [
             "enabled": enabled
@@ -142,21 +142,32 @@ open class Project: Service {
     /// project in the same organization and region, with its own resources and
     /// users. Its usage is billed under the project it belongs to.
     ///
+    /// Pass `resources` to copy the project into the environment. The environment
+    /// is returned at once and the copy runs as a migration of the environment,
+    /// listed by its migrations routes and announced on its `migrations.*`
+    /// realtime events; a resource whose ID can be chosen keeps it. Users are
+    /// copied newest first and at most 90 of them, so the environment keeps room
+    /// under its limit of 100 users for test accounts, and the memberships of
+    /// users left behind are not copied.
+    ///
     /// - Parameters:
     ///   - environmentId: String
     ///   - name: String
+    ///   - resources: [AppwriteEnums.EnvironmentResource] (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.Project
     ///
     open func createEnvironment(
         environmentId: String,
-        name: String
+        name: String,
+        resources: [AppwriteEnums.EnvironmentResource]? = nil
     ) async throws -> AppwriteModels.Project {
         let apiPath: String = "/project/environments"
 
         let apiParams: [String: Any?] = [
             "environmentId": environmentId,
             "name": name,
+            "resources": resources?.map { $0.rawValue },
         ]
 
         let apiHeaders: [String: String] = [
@@ -193,7 +204,7 @@ open class Project: Service {
         }
 
         let apiPath: String = "/project/environments/{environmentId}"
-            .replacingOccurrences(of: "{environmentId}", with: environmentId)
+            .replacingOccurrences(of: "{environmentId}", with: try Client.encodePath(environmentId))
 
         let apiParams: [String: Any] = [:]
 
@@ -232,7 +243,7 @@ open class Project: Service {
         }
 
         let apiPath: String = "/project/environments/{environmentId}"
-            .replacingOccurrences(of: "{environmentId}", with: environmentId)
+            .replacingOccurrences(of: "{environmentId}", with: try Client.encodePath(environmentId))
 
         let apiParams: [String: Any?] = [
             "name": name
@@ -272,7 +283,7 @@ open class Project: Service {
         }
 
         let apiPath: String = "/project/environments/{environmentId}"
-            .replacingOccurrences(of: "{environmentId}", with: environmentId)
+            .replacingOccurrences(of: "{environmentId}", with: try Client.encodePath(environmentId))
 
         let apiParams: [String: Any] = [:]
 
@@ -384,7 +395,7 @@ open class Project: Service {
         }
 
         let apiPath: String = "/project/keys/{keyId}"
-            .replacingOccurrences(of: "{keyId}", with: keyId)
+            .replacingOccurrences(of: "{keyId}", with: try Client.encodePath(keyId))
 
         let apiParams: [String: Any] = [:]
 
@@ -430,7 +441,7 @@ open class Project: Service {
         }
 
         let apiPath: String = "/project/keys/{keyId}"
-            .replacingOccurrences(of: "{keyId}", with: keyId)
+            .replacingOccurrences(of: "{keyId}", with: try Client.encodePath(keyId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -474,7 +485,7 @@ open class Project: Service {
         }
 
         let apiPath: String = "/project/keys/{keyId}"
-            .replacingOccurrences(of: "{keyId}", with: keyId)
+            .replacingOccurrences(of: "{keyId}", with: try Client.encodePath(keyId))
 
         let apiParams: [String: Any] = [:]
 
@@ -621,7 +632,7 @@ open class Project: Service {
         }
 
         let apiPath: String = "/project/mock-phones/{number}"
-            .replacingOccurrences(of: "{number}", with: number)
+            .replacingOccurrences(of: "{number}", with: try Client.encodePath(number))
 
         let apiParams: [String: Any] = [:]
 
@@ -661,7 +672,7 @@ open class Project: Service {
         }
 
         let apiPath: String = "/project/mock-phones/{number}"
-            .replacingOccurrences(of: "{number}", with: number)
+            .replacingOccurrences(of: "{number}", with: try Client.encodePath(number))
 
         let apiParams: [String: Any?] = [
             "otp": otp
@@ -702,7 +713,7 @@ open class Project: Service {
         }
 
         let apiPath: String = "/project/mock-phones/{number}"
-            .replacingOccurrences(of: "{number}", with: number)
+            .replacingOccurrences(of: "{number}", with: try Client.encodePath(number))
 
         let apiParams: [String: Any] = [:]
 
@@ -2950,7 +2961,7 @@ open class Project: Service {
         providerId: AppwriteEnums.ProjectOAuthProviderId
     ) async throws -> Any {
         let apiPath: String = "/project/oauth2/{providerId}"
-            .replacingOccurrences(of: "{providerId}", with: providerId.rawValue)
+            .replacingOccurrences(of: "{providerId}", with: try Client.encodePath(providerId.rawValue))
 
         let apiParams: [String: Any] = [:]
 
@@ -3219,7 +3230,7 @@ open class Project: Service {
         }
 
         let apiPath: String = "/project/platforms/android/{platformId}"
-            .replacingOccurrences(of: "{platformId}", with: platformId)
+            .replacingOccurrences(of: "{platformId}", with: try Client.encodePath(platformId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -3309,7 +3320,7 @@ open class Project: Service {
         }
 
         let apiPath: String = "/project/platforms/apple/{platformId}"
-            .replacingOccurrences(of: "{platformId}", with: platformId)
+            .replacingOccurrences(of: "{platformId}", with: try Client.encodePath(platformId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -3398,7 +3409,7 @@ open class Project: Service {
         }
 
         let apiPath: String = "/project/platforms/linux/{platformId}"
-            .replacingOccurrences(of: "{platformId}", with: platformId)
+            .replacingOccurrences(of: "{platformId}", with: try Client.encodePath(platformId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -3487,7 +3498,7 @@ open class Project: Service {
         }
 
         let apiPath: String = "/project/platforms/web/{platformId}"
-            .replacingOccurrences(of: "{platformId}", with: platformId)
+            .replacingOccurrences(of: "{platformId}", with: try Client.encodePath(platformId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -3576,7 +3587,7 @@ open class Project: Service {
         }
 
         let apiPath: String = "/project/platforms/windows/{platformId}"
-            .replacingOccurrences(of: "{platformId}", with: platformId)
+            .replacingOccurrences(of: "{platformId}", with: try Client.encodePath(platformId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -3618,7 +3629,7 @@ open class Project: Service {
         }
 
         let apiPath: String = "/project/platforms/{platformId}"
-            .replacingOccurrences(of: "{platformId}", with: platformId)
+            .replacingOccurrences(of: "{platformId}", with: try Client.encodePath(platformId))
 
         let apiParams: [String: Any] = [:]
 
@@ -3674,7 +3685,7 @@ open class Project: Service {
         }
 
         let apiPath: String = "/project/platforms/{platformId}"
-            .replacingOccurrences(of: "{platformId}", with: platformId)
+            .replacingOccurrences(of: "{platformId}", with: try Client.encodePath(platformId))
 
         let apiParams: [String: Any] = [:]
 
@@ -3849,6 +3860,43 @@ open class Project: Service {
         enabled: Bool
     ) async throws -> AppwriteModels.Project {
         let apiPath: String = "/project/policies/deny-free-email"
+
+        let apiParams: [String: Any?] = [
+            "enabled": enabled
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Project = { response in
+            return AppwriteModels.Project.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Configures if guests, connections without a signed-in user, may subscribe
+    /// to realtime channels. When enabled, a guest can still connect and sign in
+    /// over the connection, but cannot subscribe until it does.
+    ///
+    /// - Parameters:
+    ///   - enabled: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project
+    ///
+    open func updateDenyRealtimeGuestsPolicy(
+        enabled: Bool
+    ) async throws -> AppwriteModels.Project {
+        let apiPath: String = "/project/policies/deny-realtime-guests"
 
         let apiParams: [String: Any?] = [
             "enabled": enabled
@@ -4487,7 +4535,7 @@ open class Project: Service {
         policyId: AppwriteEnums.ProjectPolicyId
     ) async throws -> Any {
         let apiPath: String = "/project/policies/{policyId}"
-            .replacingOccurrences(of: "{policyId}", with: policyId.rawValue)
+            .replacingOccurrences(of: "{policyId}", with: try Client.encodePath(policyId.rawValue))
 
         let apiParams: [String: Any] = [:]
 
@@ -4551,6 +4599,9 @@ open class Project: Service {
             if String(describing: responseMap["$id"] ?? "") == "deny-corporate-email" {
                 return AppwriteModels.PolicyDenyCorporateEmail.from(map: responseMap)
             }
+            if String(describing: responseMap["$id"] ?? "") == "deny-realtime-guests" {
+                return AppwriteModels.PolicyDenyRealtimeGuests.from(map: responseMap)
+            }
             if String(describing: responseMap["$id"] ?? "") == "passkey" {
                 return AppwriteModels.PolicyPasskey.from(map: responseMap)
             }
@@ -4580,7 +4631,7 @@ open class Project: Service {
         enabled: Bool
     ) async throws -> AppwriteModels.Project {
         let apiPath: String = "/project/protocols/{protocolId}"
-            .replacingOccurrences(of: "{protocolId}", with: protocolId.rawValue)
+            .replacingOccurrences(of: "{protocolId}", with: try Client.encodePath(protocolId.rawValue))
 
         let apiParams: [String: Any?] = [
             "enabled": enabled
@@ -4619,7 +4670,7 @@ open class Project: Service {
         enabled: Bool
     ) async throws -> AppwriteModels.Project {
         let apiPath: String = "/project/services/{serviceId}"
-            .replacingOccurrences(of: "{serviceId}", with: serviceId.rawValue)
+            .replacingOccurrences(of: "{serviceId}", with: try Client.encodePath(serviceId.rawValue))
 
         let apiParams: [String: Any?] = [
             "enabled": enabled
@@ -4641,6 +4692,33 @@ open class Project: Service {
             headers: apiHeaders,
             params: apiParams,
             converter: converter
+        )
+    }
+    ///
+    /// Delete all sessions in the project. Any session created before this request
+    /// will be invalidated immediately: users will be signed out of every active
+    /// client (web, mobile, server SDKs, JWTs), and will be able to sign in again
+    /// afterwards. API keys are not affected by this action.
+    ///
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
+    ///
+    open func deleteSessions() async throws -> Any {
+        let apiPath: String = "/project/sessions"
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        return try await client.call(
+            method: "DELETE",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams
         )
     }
     ///
@@ -4849,7 +4927,7 @@ open class Project: Service {
         locale: AppwriteEnums.ProjectEmailTemplateLocale? = nil
     ) async throws -> AppwriteModels.EmailTemplate {
         let apiPath: String = "/project/templates/email/{templateId}"
-            .replacingOccurrences(of: "{templateId}", with: templateId.rawValue)
+            .replacingOccurrences(of: "{templateId}", with: try Client.encodePath(templateId.rawValue))
 
         let apiParams: [String: Any?] = [
             "locale": locale?.rawValue
@@ -4973,7 +5051,7 @@ open class Project: Service {
         }
 
         let apiPath: String = "/project/variables/{variableId}"
-            .replacingOccurrences(of: "{variableId}", with: variableId)
+            .replacingOccurrences(of: "{variableId}", with: try Client.encodePath(variableId))
 
         let apiParams: [String: Any] = [:]
 
@@ -5018,7 +5096,7 @@ open class Project: Service {
         }
 
         let apiPath: String = "/project/variables/{variableId}"
-            .replacingOccurrences(of: "{variableId}", with: variableId)
+            .replacingOccurrences(of: "{variableId}", with: try Client.encodePath(variableId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -5061,7 +5139,7 @@ open class Project: Service {
         }
 
         let apiPath: String = "/project/variables/{variableId}"
-            .replacingOccurrences(of: "{variableId}", with: variableId)
+            .replacingOccurrences(of: "{variableId}", with: try Client.encodePath(variableId))
 
         let apiParams: [String: Any] = [:]
 

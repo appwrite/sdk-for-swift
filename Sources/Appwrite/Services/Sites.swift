@@ -244,7 +244,7 @@ open class Sites: Service {
         }
 
         let apiPath: String = "/sites/{siteId}"
-            .replacingOccurrences(of: "{siteId}", with: siteId)
+            .replacingOccurrences(of: "{siteId}", with: try Client.encodePath(siteId))
 
         let apiParams: [String: Any] = [:]
 
@@ -329,7 +329,7 @@ open class Sites: Service {
         }
 
         let apiPath: String = "/sites/{siteId}"
-            .replacingOccurrences(of: "{siteId}", with: siteId)
+            .replacingOccurrences(of: "{siteId}", with: try Client.encodePath(siteId))
 
         let apiParams: [String: Any?] = [
             "name": name,
@@ -392,7 +392,7 @@ open class Sites: Service {
         }
 
         let apiPath: String = "/sites/{siteId}"
-            .replacingOccurrences(of: "{siteId}", with: siteId)
+            .replacingOccurrences(of: "{siteId}", with: try Client.encodePath(siteId))
 
         let apiParams: [String: Any] = [:]
 
@@ -428,7 +428,7 @@ open class Sites: Service {
         }
 
         let apiPath: String = "/sites/{siteId}/deployment"
-            .replacingOccurrences(of: "{siteId}", with: siteId)
+            .replacingOccurrences(of: "{siteId}", with: try Client.encodePath(siteId))
 
         let apiParams: [String: Any?] = [
             "deploymentId": deploymentId
@@ -475,7 +475,7 @@ open class Sites: Service {
         }
 
         let apiPath: String = "/sites/{siteId}/deployments"
-            .replacingOccurrences(of: "{siteId}", with: siteId)
+            .replacingOccurrences(of: "{siteId}", with: try Client.encodePath(siteId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -529,7 +529,7 @@ open class Sites: Service {
         }
 
         let apiPath: String = "/sites/{siteId}/deployments"
-            .replacingOccurrences(of: "{siteId}", with: siteId)
+            .replacingOccurrences(of: "{siteId}", with: try Client.encodePath(siteId))
 
         var apiParams: [String: Any?] = [
             "installCommand": installCommand,
@@ -584,7 +584,7 @@ open class Sites: Service {
         }
 
         let apiPath: String = "/sites/{siteId}/deployments/duplicate"
-            .replacingOccurrences(of: "{siteId}", with: siteId)
+            .replacingOccurrences(of: "{siteId}", with: try Client.encodePath(siteId))
 
         let apiParams: [String: Any?] = [
             "deploymentId": deploymentId
@@ -640,7 +640,7 @@ open class Sites: Service {
         }
 
         let apiPath: String = "/sites/{siteId}/deployments/template"
-            .replacingOccurrences(of: "{siteId}", with: siteId)
+            .replacingOccurrences(of: "{siteId}", with: try Client.encodePath(siteId))
 
         let apiParams: [String: Any?] = [
             "repository": repository,
@@ -693,7 +693,7 @@ open class Sites: Service {
         }
 
         let apiPath: String = "/sites/{siteId}/deployments/vcs"
-            .replacingOccurrences(of: "{siteId}", with: siteId)
+            .replacingOccurrences(of: "{siteId}", with: try Client.encodePath(siteId))
 
         let apiParams: [String: Any?] = [
             "type": type.rawValue,
@@ -740,8 +740,8 @@ open class Sites: Service {
         }
 
         let apiPath: String = "/sites/{siteId}/deployments/{deploymentId}"
-            .replacingOccurrences(of: "{siteId}", with: siteId)
-            .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
+            .replacingOccurrences(of: "{siteId}", with: try Client.encodePath(siteId))
+            .replacingOccurrences(of: "{deploymentId}", with: try Client.encodePath(deploymentId))
 
         let apiParams: [String: Any] = [:]
 
@@ -783,8 +783,8 @@ open class Sites: Service {
         }
 
         let apiPath: String = "/sites/{siteId}/deployments/{deploymentId}"
-            .replacingOccurrences(of: "{siteId}", with: siteId)
-            .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
+            .replacingOccurrences(of: "{siteId}", with: try Client.encodePath(siteId))
+            .replacingOccurrences(of: "{deploymentId}", with: try Client.encodePath(deploymentId))
 
         let apiParams: [String: Any] = [:]
 
@@ -828,8 +828,8 @@ open class Sites: Service {
         }
 
         let apiPath: String = "/sites/{siteId}/deployments/{deploymentId}/download"
-            .replacingOccurrences(of: "{siteId}", with: siteId)
-            .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
+            .replacingOccurrences(of: "{siteId}", with: try Client.encodePath(siteId))
+            .replacingOccurrences(of: "{deploymentId}", with: try Client.encodePath(deploymentId))
 
         let apiParams: [String: Any?] = [
             "type": type?.rawValue,
@@ -873,8 +873,8 @@ open class Sites: Service {
         }
 
         let apiPath: String = "/sites/{siteId}/deployments/{deploymentId}/status"
-            .replacingOccurrences(of: "{siteId}", with: siteId)
-            .replacingOccurrences(of: "{deploymentId}", with: deploymentId)
+            .replacingOccurrences(of: "{siteId}", with: try Client.encodePath(siteId))
+            .replacingOccurrences(of: "{deploymentId}", with: try Client.encodePath(deploymentId))
 
         let apiParams: [String: Any] = [:]
 
@@ -917,7 +917,7 @@ open class Sites: Service {
         }
 
         let apiPath: String = "/sites/{siteId}/logs"
-            .replacingOccurrences(of: "{siteId}", with: siteId)
+            .replacingOccurrences(of: "{siteId}", with: try Client.encodePath(siteId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -962,8 +962,8 @@ open class Sites: Service {
         }
 
         let apiPath: String = "/sites/{siteId}/logs/{logId}"
-            .replacingOccurrences(of: "{siteId}", with: siteId)
-            .replacingOccurrences(of: "{logId}", with: logId)
+            .replacingOccurrences(of: "{siteId}", with: try Client.encodePath(siteId))
+            .replacingOccurrences(of: "{logId}", with: try Client.encodePath(logId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1005,8 +1005,8 @@ open class Sites: Service {
         }
 
         let apiPath: String = "/sites/{siteId}/logs/{logId}"
-            .replacingOccurrences(of: "{siteId}", with: siteId)
-            .replacingOccurrences(of: "{logId}", with: logId)
+            .replacingOccurrences(of: "{siteId}", with: try Client.encodePath(siteId))
+            .replacingOccurrences(of: "{logId}", with: try Client.encodePath(logId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1043,7 +1043,7 @@ open class Sites: Service {
         }
 
         let apiPath: String = "/sites/{siteId}/variables"
-            .replacingOccurrences(of: "{siteId}", with: siteId)
+            .replacingOccurrences(of: "{siteId}", with: try Client.encodePath(siteId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -1094,7 +1094,7 @@ open class Sites: Service {
         }
 
         let apiPath: String = "/sites/{siteId}/variables"
-            .replacingOccurrences(of: "{siteId}", with: siteId)
+            .replacingOccurrences(of: "{siteId}", with: try Client.encodePath(siteId))
 
         let apiParams: [String: Any?] = [
             "variableId": variableId,
@@ -1143,8 +1143,8 @@ open class Sites: Service {
         }
 
         let apiPath: String = "/sites/{siteId}/variables/{variableId}"
-            .replacingOccurrences(of: "{siteId}", with: siteId)
-            .replacingOccurrences(of: "{variableId}", with: variableId)
+            .replacingOccurrences(of: "{siteId}", with: try Client.encodePath(siteId))
+            .replacingOccurrences(of: "{variableId}", with: try Client.encodePath(variableId))
 
         let apiParams: [String: Any] = [:]
 
@@ -1194,8 +1194,8 @@ open class Sites: Service {
         }
 
         let apiPath: String = "/sites/{siteId}/variables/{variableId}"
-            .replacingOccurrences(of: "{siteId}", with: siteId)
-            .replacingOccurrences(of: "{variableId}", with: variableId)
+            .replacingOccurrences(of: "{siteId}", with: try Client.encodePath(siteId))
+            .replacingOccurrences(of: "{variableId}", with: try Client.encodePath(variableId))
 
         let apiParams: [String: Any?] = [
             "key": key,
@@ -1243,8 +1243,8 @@ open class Sites: Service {
         }
 
         let apiPath: String = "/sites/{siteId}/variables/{variableId}"
-            .replacingOccurrences(of: "{siteId}", with: siteId)
-            .replacingOccurrences(of: "{variableId}", with: variableId)
+            .replacingOccurrences(of: "{siteId}", with: try Client.encodePath(siteId))
+            .replacingOccurrences(of: "{variableId}", with: try Client.encodePath(variableId))
 
         let apiParams: [String: Any] = [:]
 

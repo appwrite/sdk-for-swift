@@ -63,7 +63,7 @@ open class Advisor: Service {
         }
 
         let apiPath: String = "/reports/{reportId}"
-            .replacingOccurrences(of: "{reportId}", with: reportId)
+            .replacingOccurrences(of: "{reportId}", with: try Client.encodePath(reportId))
 
         let apiParams: [String: Any] = [:]
 
@@ -101,7 +101,7 @@ open class Advisor: Service {
         }
 
         let apiPath: String = "/reports/{reportId}"
-            .replacingOccurrences(of: "{reportId}", with: reportId)
+            .replacingOccurrences(of: "{reportId}", with: try Client.encodePath(reportId))
 
         let apiParams: [String: Any] = [:]
 
@@ -139,7 +139,7 @@ open class Advisor: Service {
         }
 
         let apiPath: String = "/reports/{reportId}/insights"
-            .replacingOccurrences(of: "{reportId}", with: reportId)
+            .replacingOccurrences(of: "{reportId}", with: try Client.encodePath(reportId))
 
         let apiParams: [String: Any?] = [
             "queries": queries,
@@ -184,8 +184,8 @@ open class Advisor: Service {
         }
 
         let apiPath: String = "/reports/{reportId}/insights/{insightId}"
-            .replacingOccurrences(of: "{reportId}", with: reportId)
-            .replacingOccurrences(of: "{insightId}", with: insightId)
+            .replacingOccurrences(of: "{reportId}", with: try Client.encodePath(reportId))
+            .replacingOccurrences(of: "{insightId}", with: try Client.encodePath(insightId))
 
         let apiParams: [String: Any] = [:]
 

@@ -19,6 +19,7 @@ open class Bucket: Codable {
         case encryption = "encryption"
         case antivirus = "antivirus"
         case transformations = "transformations"
+        case stripMetadata = "stripMetadata"
         case totalSize = "totalSize"
     }
 
@@ -50,6 +51,8 @@ open class Bucket: Codable {
     public let antivirus: Bool
     /// Image transformations are enabled.
     public let transformations: Bool
+    /// Metadata such as location, device and capture time is removed from uploaded images.
+    public let stripMetadata: Bool
     /// Total size of this bucket in bytes.
     public let totalSize: Int
 
@@ -68,6 +71,7 @@ open class Bucket: Codable {
         encryption: Bool,
         antivirus: Bool,
         transformations: Bool,
+        stripMetadata: Bool,
         totalSize: Int
     ) {
         self.id = id
@@ -84,6 +88,7 @@ open class Bucket: Codable {
         self.encryption = encryption
         self.antivirus = antivirus
         self.transformations = transformations
+        self.stripMetadata = stripMetadata
         self.totalSize = totalSize
     }
 
@@ -104,6 +109,7 @@ open class Bucket: Codable {
         self.encryption = try container.contains(.encryption) ? container.decode(Bool.self, forKey: .encryption) : true
         self.antivirus = try container.contains(.antivirus) ? container.decode(Bool.self, forKey: .antivirus) : true
         self.transformations = try container.contains(.transformations) ? container.decode(Bool.self, forKey: .transformations) : true
+        self.stripMetadata = try container.contains(.stripMetadata) ? container.decode(Bool.self, forKey: .stripMetadata) : false
         self.totalSize = try container.contains(.totalSize) ? container.decode(Int.self, forKey: .totalSize) : 0
     }
 
@@ -124,6 +130,7 @@ open class Bucket: Codable {
         try container.encode(encryption, forKey: .encryption)
         try container.encode(antivirus, forKey: .antivirus)
         try container.encode(transformations, forKey: .transformations)
+        try container.encode(stripMetadata, forKey: .stripMetadata)
         try container.encode(totalSize, forKey: .totalSize)
     }
 
@@ -143,6 +150,7 @@ open class Bucket: Codable {
             "encryption": encryption as Any,
             "antivirus": antivirus as Any,
             "transformations": transformations as Any,
+            "stripMetadata": stripMetadata as Any,
             "totalSize": totalSize as Any,
         ]
     }
@@ -163,6 +171,7 @@ open class Bucket: Codable {
             "encryption": true,
             "antivirus": true,
             "transformations": true,
+            "stripMetadata": false,
             "totalSize": 0,
         ]
         let map = defaults.merging(map) { _, new in new }
@@ -182,6 +191,7 @@ open class Bucket: Codable {
             encryption: map["encryption"] as! Bool,
             antivirus: map["antivirus"] as! Bool,
             transformations: map["transformations"] as! Bool,
+            stripMetadata: map["stripMetadata"] as! Bool,
             totalSize: map["totalSize"] as! Int
         )
     }

@@ -12,7 +12,7 @@ let backupPolicy = try await mysql.updateBackupPolicy(
     databaseId: "<DATABASE_ID>",
     policyId: "<POLICY_ID>",
     name: "<NAME>", // optional
-    schedule: "", // optional
+    schedule: nil, // optional
     retention: 1, // optional
     enabled: false // optional
 )

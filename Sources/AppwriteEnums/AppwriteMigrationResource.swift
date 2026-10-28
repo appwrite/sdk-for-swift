@@ -1,0 +1,48 @@
+import Foundation
+
+public enum AppwriteMigrationResource: String, Codable, CustomStringConvertible {
+    case user = "user"
+    case team = "team"
+    case membership = "membership"
+    case authMethods = "auth-methods"
+    case policies = "policies"
+    case oauth2Provider = "oauth2-provider"
+    case database = "database"
+    case table = "table"
+    case column = "column"
+    case index = "index"
+    case row = "row"
+    case document = "document"
+    case attribute = "attribute"
+    case collection = "collection"
+    case documentsdb = "documentsdb"
+    case vectorsdb = "vectorsdb"
+    case bucket = "bucket"
+    case file = "file"
+    case function = "function"
+    case deployment = "deployment"
+    case environmentVariable = "environment-variable"
+    case provider = "provider"
+    case topic = "topic"
+    case subscriber = "subscriber"
+    case message = "message"
+    case site = "site"
+    case siteDeployment = "site-deployment"
+    case siteVariable = "site-variable"
+    case platform = "platform"
+    case apiKey = "api-key"
+    case webhook = "webhook"
+    case smtp = "smtp"
+    case backupPolicy = "backup-policy"
+    case projectVariable = "project-variable"
+    case projectProtocols = "project-protocols"
+    case projectLabels = "project-labels"
+    case projectServices = "project-services"
+    case projectEmailTemplate = "project-email-template"
+    case projectEnvironment = "project-environment"
+    case rule = "rule"
+
+    public var description: String {
+        return rawValue
+    }
+}
