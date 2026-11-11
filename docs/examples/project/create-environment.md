@@ -9,7 +9,7 @@ let client = Client()
 
 let project = Project(client)
 
-let project = try await project.createEnvironment(
+let environment = try await project.createEnvironment(
     environmentId: "<ENVIRONMENT_ID>",
     name: "<NAME>",
     resources: [.database, .table, .column, .index, .bucket, .team, .function, .environmentVariable] // optional

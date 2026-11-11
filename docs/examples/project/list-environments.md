@@ -8,7 +8,7 @@ let client = Client()
 
 let project = Project(client)
 
-let projectList = try await project.listEnvironments(
+let environmentList = try await project.listEnvironments(
     queries: [], // optional
     total: false // optional
 )

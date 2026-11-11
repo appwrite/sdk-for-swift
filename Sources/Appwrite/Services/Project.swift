@@ -12,9 +12,11 @@ open class Project: Service {
     /// Get a project.
     ///
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func get() async throws -> AppwriteModels.Project {
+    open func get<T>(
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project"
 
         let apiParams: [String: Any] = [:]
@@ -24,7 +26,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -34,6 +36,18 @@ open class Project: Service {
             headers: apiHeaders,
             params: apiParams,
             converter: converter
+        )
+    }
+
+    ///
+    /// Get a project.
+    ///
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func get() async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await get(
+            nestedType: [String: AnyCodable].self
         )
     }
     ///
@@ -68,12 +82,13 @@ open class Project: Service {
     ///   - methodId: AppwriteEnums.ProjectAuthMethodId
     ///   - enabled: Bool
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updateAuthMethod(
+    open func updateAuthMethod<T>(
         methodId: AppwriteEnums.ProjectAuthMethodId,
-        enabled: Bool
-    ) async throws -> AppwriteModels.Project {
+        enabled: Bool,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/auth-methods/{methodId}"
             .replacingOccurrences(of: "{methodId}", with: try Client.encodePath(methodId.rawValue))
 
@@ -87,7 +102,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -99,20 +114,42 @@ open class Project: Service {
             converter: converter
         )
     }
+
+    ///
+    /// Update properties of a specific auth method. Use this endpoint to enable or
+    /// disable a method in your project.
+    ///
+    /// - Parameters:
+    ///   - methodId: AppwriteEnums.ProjectAuthMethodId
+    ///   - enabled: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateAuthMethod(
+        methodId: AppwriteEnums.ProjectAuthMethodId,
+        enabled: Bool
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updateAuthMethod(
+            methodId: methodId,
+            enabled: enabled,
+            nestedType: [String: AnyCodable].self
+        )
+    }
     ///
     /// Get a list of all environments of the project. You can use the query params
-    /// to filter your results.
+    /// to filter your results. An environment is listed by its ID, the one passed
+    /// in the `X-Appwrite-Environment` header to act in it.
     ///
     /// - Parameters:
     ///   - queries: [String] (optional)
     ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.ProjectList
+    /// - Returns: AppwriteModels.EnvironmentList
     ///
     open func listEnvironments(
         queries: [String]? = nil,
         total: Bool? = nil
-    ) async throws -> AppwriteModels.ProjectList {
+    ) async throws -> AppwriteModels.EnvironmentList {
         let apiPath: String = "/project/environments"
 
         let apiParams: [String: Any?] = [
@@ -125,8 +162,8 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.ProjectList = { response in
-            return AppwriteModels.ProjectList.from(map: response as! [String: Any])
+        let converter: (Any) throws -> AppwriteModels.EnvironmentList = { response in
+            return AppwriteModels.EnvironmentList.from(map: response as! [String: Any])
         }
 
         return try await client.call(
@@ -140,7 +177,11 @@ open class Project: Service {
     ///
     /// Create a new environment of the project. An environment is a separate
     /// project in the same organization and region, with its own resources and
-    /// users. Its usage is billed under the project it belongs to.
+    /// users. Its usage is billed under the project it belongs to. Requests act in
+    /// the environment when they carry the project's ID in the
+    /// `X-Appwrite-Project` header and the environment's ID in the
+    /// `X-Appwrite-Environment` header; the environment has no project ID of its
+    /// own to pass.
     ///
     /// Pass `resources` to copy the project into the environment. The environment
     /// is returned at once and the copy runs as a migration of the environment,
@@ -155,13 +196,13 @@ open class Project: Service {
     ///   - name: String
     ///   - resources: [AppwriteEnums.EnvironmentResource] (optional)
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Environment
     ///
     open func createEnvironment(
         environmentId: String,
         name: String,
         resources: [AppwriteEnums.EnvironmentResource]? = nil
-    ) async throws -> AppwriteModels.Project {
+    ) async throws -> AppwriteModels.Environment {
         let apiPath: String = "/project/environments"
 
         let apiParams: [String: Any?] = [
@@ -176,8 +217,8 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
-            return AppwriteModels.Project.from(map: response as! [String: Any])
+        let converter: (Any) throws -> AppwriteModels.Environment = { response in
+            return AppwriteModels.Environment.from(map: response as! [String: Any])
         }
 
         return try await client.call(
@@ -189,16 +230,17 @@ open class Project: Service {
         )
     }
     ///
-    /// Get an environment of the project by its unique ID.
+    /// Get an environment of the project by its ID, the one passed in the
+    /// `X-Appwrite-Environment` header to act in it.
     ///
     /// - Parameters:
     ///   - environmentId: String
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Environment
     ///
     open func getEnvironment(
         environmentId: String
-    ) async throws -> AppwriteModels.Project {
+    ) async throws -> AppwriteModels.Environment {
         if environmentId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"environmentId\"")
         }
@@ -213,8 +255,8 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
-            return AppwriteModels.Project.from(map: response as! [String: Any])
+        let converter: (Any) throws -> AppwriteModels.Environment = { response in
+            return AppwriteModels.Environment.from(map: response as! [String: Any])
         }
 
         return try await client.call(
@@ -226,18 +268,19 @@ open class Project: Service {
         )
     }
     ///
-    /// Update the name of an environment of the project.
+    /// Update the name of an environment of the project. The environment ID cannot
+    /// be changed.
     ///
     /// - Parameters:
     ///   - environmentId: String
     ///   - name: String
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Environment
     ///
     open func updateEnvironment(
         environmentId: String,
         name: String
-    ) async throws -> AppwriteModels.Project {
+    ) async throws -> AppwriteModels.Environment {
         if environmentId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"environmentId\"")
         }
@@ -255,8 +298,8 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
-            return AppwriteModels.Project.from(map: response as! [String: Any])
+        let converter: (Any) throws -> AppwriteModels.Environment = { response in
+            return AppwriteModels.Environment.from(map: response as! [String: Any])
         }
 
         return try await client.call(
@@ -509,11 +552,12 @@ open class Project: Service {
     /// - Parameters:
     ///   - labels: [String]
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updateLabels(
-        labels: [String]
-    ) async throws -> AppwriteModels.Project {
+    open func updateLabels<T>(
+        labels: [String],
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/labels"
 
         let apiParams: [String: Any?] = [
@@ -526,7 +570,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -536,6 +580,24 @@ open class Project: Service {
             headers: apiHeaders,
             params: apiParams,
             converter: converter
+        )
+    }
+
+    ///
+    /// Update the project labels. Labels can be used to easily filter projects in
+    /// an organization.
+    ///
+    /// - Parameters:
+    ///   - labels: [String]
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateLabels(
+        labels: [String]
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updateLabels(
+            labels: labels,
+            nestedType: [String: AnyCodable].self
         )
     }
     ///
@@ -790,9 +852,9 @@ open class Project: Service {
     ///   - defaultScopes: [String] (optional)
     ///   - installationScopes: [String] (optional)
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updateOAuth2Server(
+    open func updateOAuth2Server<T>(
         enabled: Bool,
         authorizationUrl: String,
         scopes: [String]? = nil,
@@ -808,8 +870,9 @@ open class Project: Service {
         userCodeFormat: String? = nil,
         deviceCodeDuration: Int? = nil,
         defaultScopes: [String]? = nil,
-        installationScopes: [String]? = nil
-    ) async throws -> AppwriteModels.Project {
+        installationScopes: [String]? = nil,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/oauth2-server"
 
         let apiParams: [String: Any?] = [
@@ -837,7 +900,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -847,6 +910,68 @@ open class Project: Service {
             headers: apiHeaders,
             params: apiParams,
             converter: converter
+        )
+    }
+
+    ///
+    /// Update the OAuth2 server (OIDC provider) configuration.
+    ///
+    /// - Parameters:
+    ///   - enabled: Bool
+    ///   - authorizationUrl: String
+    ///   - scopes: [String] (optional)
+    ///   - authorizationDetailsTypes: [String] (optional)
+    ///   - accessTokenDuration: Int (optional)
+    ///   - refreshTokenDuration: Int (optional)
+    ///   - publicAccessTokenDuration: Int (optional)
+    ///   - publicRefreshTokenDuration: Int (optional)
+    ///   - installationAccessTokenDuration: Int (optional)
+    ///   - confidentialPkce: Bool (optional)
+    ///   - verificationUrl: String (optional)
+    ///   - userCodeLength: Int (optional)
+    ///   - userCodeFormat: String (optional)
+    ///   - deviceCodeDuration: Int (optional)
+    ///   - defaultScopes: [String] (optional)
+    ///   - installationScopes: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateOAuth2Server(
+        enabled: Bool,
+        authorizationUrl: String,
+        scopes: [String]? = nil,
+        authorizationDetailsTypes: [String]? = nil,
+        accessTokenDuration: Int? = nil,
+        refreshTokenDuration: Int? = nil,
+        publicAccessTokenDuration: Int? = nil,
+        publicRefreshTokenDuration: Int? = nil,
+        installationAccessTokenDuration: Int? = nil,
+        confidentialPkce: Bool? = nil,
+        verificationUrl: String? = nil,
+        userCodeLength: Int? = nil,
+        userCodeFormat: String? = nil,
+        deviceCodeDuration: Int? = nil,
+        defaultScopes: [String]? = nil,
+        installationScopes: [String]? = nil
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updateOAuth2Server(
+            enabled: enabled,
+            authorizationUrl: authorizationUrl,
+            scopes: scopes,
+            authorizationDetailsTypes: authorizationDetailsTypes,
+            accessTokenDuration: accessTokenDuration,
+            refreshTokenDuration: refreshTokenDuration,
+            publicAccessTokenDuration: publicAccessTokenDuration,
+            publicRefreshTokenDuration: publicRefreshTokenDuration,
+            installationAccessTokenDuration: installationAccessTokenDuration,
+            confidentialPkce: confidentialPkce,
+            verificationUrl: verificationUrl,
+            userCodeLength: userCodeLength,
+            userCodeFormat: userCodeFormat,
+            deviceCodeDuration: deviceCodeDuration,
+            defaultScopes: defaultScopes,
+            installationScopes: installationScopes,
+            nestedType: [String: AnyCodable].self
         )
     }
     ///
@@ -2659,6 +2784,88 @@ open class Project: Service {
         )
     }
     ///
+    /// Update the project OAuth2 Vipps MobilePay configuration.
+    ///
+    /// - Parameters:
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.OAuth2Vipps
+    ///
+    open func updateOAuth2Vipps(
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.OAuth2Vipps {
+        let apiPath: String = "/project/oauth2/vipps"
+
+        let apiParams: [String: Any?] = [
+            "clientId": clientId,
+            "clientSecret": clientSecret,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.OAuth2Vipps = { response in
+            return AppwriteModels.OAuth2Vipps.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Update the project OAuth2 Vipps MobilePay Sandbox configuration.
+    ///
+    /// - Parameters:
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.OAuth2Vipps
+    ///
+    open func updateOAuth2VippsSandbox(
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.OAuth2Vipps {
+        let apiPath: String = "/project/oauth2/vippsSandbox"
+
+        let apiParams: [String: Any?] = [
+            "clientId": clientId,
+            "clientSecret": clientSecret,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.OAuth2Vipps = { response in
+            return AppwriteModels.OAuth2Vipps.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// Update the project OAuth2 Webflow configuration.
     ///
     /// - Parameters:
@@ -3070,8 +3277,14 @@ open class Project: Service {
             if String(describing: responseMap["$id"] ?? "") == "facebook" {
                 return AppwriteModels.OAuth2Facebook.from(map: responseMap)
             }
+            if String(describing: responseMap["$id"] ?? "") == "tradeshift" {
+                return AppwriteModels.OAuth2Tradeshift.from(map: responseMap)
+            }
             if String(describing: responseMap["$id"] ?? "") == "tradeshiftBox" {
                 return AppwriteModels.OAuth2Tradeshift.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "paypal" {
+                return AppwriteModels.OAuth2Paypal.from(map: responseMap)
             }
             if String(describing: responseMap["$id"] ?? "") == "paypalSandbox" {
                 return AppwriteModels.OAuth2Paypal.from(map: responseMap)
@@ -3111,6 +3324,12 @@ open class Project: Service {
             }
             if String(describing: responseMap["$id"] ?? "") == "kakao" {
                 return AppwriteModels.OAuth2Kakao.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "vipps" {
+                return AppwriteModels.OAuth2Vipps.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "vippsSandbox" {
+                return AppwriteModels.OAuth2Vipps.from(map: responseMap)
             }
             throw AppwriteError(message: "Unable to match response to any expected response model")
         }
@@ -3740,17 +3959,77 @@ open class Project: Service {
         )
     }
     ///
+    /// Update whether account devices are enabled for the project. When enabled, a
+    /// browser can create an account device that holds multiple sessions and
+    /// switch between them. When disabled, account devices can no longer be
+    /// created, so each browser is limited to a single active session.
+    ///
+    /// - Parameters:
+    ///   - enabled: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateAccountDevicesPolicy<T>(
+        enabled: Bool,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
+        let apiPath: String = "/project/policies/account-devices"
+
+        let apiParams: [String: Any?] = [
+            "enabled": enabled
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
+            return AppwriteModels.Project.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update whether account devices are enabled for the project. When enabled, a
+    /// browser can create an account device that holds multiple sessions and
+    /// switch between them. When disabled, account devices can no longer be
+    /// created, so each browser is limited to a single active session.
+    ///
+    /// - Parameters:
+    ///   - enabled: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateAccountDevicesPolicy(
+        enabled: Bool
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updateAccountDevicesPolicy(
+            enabled: enabled,
+            nestedType: [String: AnyCodable].self
+        )
+    }
+    ///
     /// Configures if aliased emails such as subaddresses and emails with suffixes
     /// are denied during new users sign-ups and email updates.
     ///
     /// - Parameters:
     ///   - enabled: Bool
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updateDenyAliasedEmailPolicy(
-        enabled: Bool
-    ) async throws -> AppwriteModels.Project {
+    open func updateDenyAliasedEmailPolicy<T>(
+        enabled: Bool,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/policies/deny-aliased-email"
 
         let apiParams: [String: Any?] = [
@@ -3763,7 +4042,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -3775,6 +4054,24 @@ open class Project: Service {
             converter: converter
         )
     }
+
+    ///
+    /// Configures if aliased emails such as subaddresses and emails with suffixes
+    /// are denied during new users sign-ups and email updates.
+    ///
+    /// - Parameters:
+    ///   - enabled: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateDenyAliasedEmailPolicy(
+        enabled: Bool
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updateDenyAliasedEmailPolicy(
+            enabled: enabled,
+            nestedType: [String: AnyCodable].self
+        )
+    }
     ///
     /// Configures if only corporate email addresses (non-free and non-disposable
     /// domains) are allowed during new user sign-ups and email updates.
@@ -3782,11 +4079,12 @@ open class Project: Service {
     /// - Parameters:
     ///   - enabled: Bool
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updateDenyCorporateEmailPolicy(
-        enabled: Bool
-    ) async throws -> AppwriteModels.Project {
+    open func updateDenyCorporateEmailPolicy<T>(
+        enabled: Bool,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/policies/deny-corporate-email"
 
         let apiParams: [String: Any?] = [
@@ -3799,7 +4097,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -3811,6 +4109,24 @@ open class Project: Service {
             converter: converter
         )
     }
+
+    ///
+    /// Configures if only corporate email addresses (non-free and non-disposable
+    /// domains) are allowed during new user sign-ups and email updates.
+    ///
+    /// - Parameters:
+    ///   - enabled: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateDenyCorporateEmailPolicy(
+        enabled: Bool
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updateDenyCorporateEmailPolicy(
+            enabled: enabled,
+            nestedType: [String: AnyCodable].self
+        )
+    }
     ///
     /// Configures if disposable emails from known temporary domains are denied
     /// during new users sign-ups and email updates.
@@ -3818,11 +4134,12 @@ open class Project: Service {
     /// - Parameters:
     ///   - enabled: Bool
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updateDenyDisposableEmailPolicy(
-        enabled: Bool
-    ) async throws -> AppwriteModels.Project {
+    open func updateDenyDisposableEmailPolicy<T>(
+        enabled: Bool,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/policies/deny-disposable-email"
 
         let apiParams: [String: Any?] = [
@@ -3835,7 +4152,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -3847,6 +4164,24 @@ open class Project: Service {
             converter: converter
         )
     }
+
+    ///
+    /// Configures if disposable emails from known temporary domains are denied
+    /// during new users sign-ups and email updates.
+    ///
+    /// - Parameters:
+    ///   - enabled: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateDenyDisposableEmailPolicy(
+        enabled: Bool
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updateDenyDisposableEmailPolicy(
+            enabled: enabled,
+            nestedType: [String: AnyCodable].self
+        )
+    }
     ///
     /// Configures if emails from free providers such as Gmail or Yahoo are denied
     /// during new users sign-ups and email updates.
@@ -3854,11 +4189,12 @@ open class Project: Service {
     /// - Parameters:
     ///   - enabled: Bool
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updateDenyFreeEmailPolicy(
-        enabled: Bool
-    ) async throws -> AppwriteModels.Project {
+    open func updateDenyFreeEmailPolicy<T>(
+        enabled: Bool,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/policies/deny-free-email"
 
         let apiParams: [String: Any?] = [
@@ -3871,7 +4207,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -3883,6 +4219,24 @@ open class Project: Service {
             converter: converter
         )
     }
+
+    ///
+    /// Configures if emails from free providers such as Gmail or Yahoo are denied
+    /// during new users sign-ups and email updates.
+    ///
+    /// - Parameters:
+    ///   - enabled: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateDenyFreeEmailPolicy(
+        enabled: Bool
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updateDenyFreeEmailPolicy(
+            enabled: enabled,
+            nestedType: [String: AnyCodable].self
+        )
+    }
     ///
     /// Configures if guests, connections without a signed-in user, may subscribe
     /// to realtime channels. When enabled, a guest can still connect and sign in
@@ -3891,11 +4245,12 @@ open class Project: Service {
     /// - Parameters:
     ///   - enabled: Bool
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updateDenyRealtimeGuestsPolicy(
-        enabled: Bool
-    ) async throws -> AppwriteModels.Project {
+    open func updateDenyRealtimeGuestsPolicy<T>(
+        enabled: Bool,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/policies/deny-realtime-guests"
 
         let apiParams: [String: Any?] = [
@@ -3908,7 +4263,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -3918,6 +4273,25 @@ open class Project: Service {
             headers: apiHeaders,
             params: apiParams,
             converter: converter
+        )
+    }
+
+    ///
+    /// Configures if guests, connections without a signed-in user, may subscribe
+    /// to realtime channels. When enabled, a guest can still connect and sign in
+    /// over the connection, but cannot subscribe until it does.
+    ///
+    /// - Parameters:
+    ///   - enabled: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateDenyRealtimeGuestsPolicy(
+        enabled: Bool
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updateDenyRealtimeGuestsPolicy(
+            enabled: enabled,
+            nestedType: [String: AnyCodable].self
         )
     }
     ///
@@ -3933,16 +4307,17 @@ open class Project: Service {
     ///   - userMFA: Bool (optional)
     ///   - userAccessedAt: Bool (optional)
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updateMembershipPrivacyPolicy(
+    open func updateMembershipPrivacyPolicy<T>(
         userId: Bool? = nil,
         userEmail: Bool? = nil,
         userPhone: Bool? = nil,
         userName: Bool? = nil,
         userMFA: Bool? = nil,
-        userAccessedAt: Bool? = nil
-    ) async throws -> AppwriteModels.Project {
+        userAccessedAt: Bool? = nil,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/policies/membership-privacy"
 
         let apiParams: [String: Any?] = [
@@ -3960,7 +4335,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -3970,6 +4345,40 @@ open class Project: Service {
             headers: apiHeaders,
             params: apiParams,
             converter: converter
+        )
+    }
+
+    ///
+    /// Updating this policy allows you to control if team members can see other
+    /// members information. When enabled, all team members can see ID, name,
+    /// email, phone number, and MFA status of other members..
+    ///
+    /// - Parameters:
+    ///   - userId: Bool (optional)
+    ///   - userEmail: Bool (optional)
+    ///   - userPhone: Bool (optional)
+    ///   - userName: Bool (optional)
+    ///   - userMFA: Bool (optional)
+    ///   - userAccessedAt: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateMembershipPrivacyPolicy(
+        userId: Bool? = nil,
+        userEmail: Bool? = nil,
+        userPhone: Bool? = nil,
+        userName: Bool? = nil,
+        userMFA: Bool? = nil,
+        userAccessedAt: Bool? = nil
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updateMembershipPrivacyPolicy(
+            userId: userId,
+            userEmail: userEmail,
+            userPhone: userPhone,
+            userName: userName,
+            userMFA: userMFA,
+            userAccessedAt: userAccessedAt,
+            nestedType: [String: AnyCodable].self
         )
     }
     ///
@@ -3985,14 +4394,15 @@ open class Project: Service {
     ///   - phone: Bool (optional)
     ///   - custom: Bool (optional)
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updateMFAFactorsPolicy(
+    open func updateMFAFactorsPolicy<T>(
         totp: Bool? = nil,
         email: Bool? = nil,
         phone: Bool? = nil,
-        custom: Bool? = nil
-    ) async throws -> AppwriteModels.Project {
+        custom: Bool? = nil,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/policies/mfa-factors"
 
         let apiParams: [String: Any?] = [
@@ -4008,7 +4418,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -4018,6 +4428,36 @@ open class Project: Service {
             headers: apiHeaders,
             params: apiParams,
             converter: converter
+        )
+    }
+
+    ///
+    /// Updating this policy allows you to control which factors users can use to
+    /// complete an MFA challenge. Disabled factors cannot be used to create a
+    /// challenge and are reported as unavailable when listing factors. The custom
+    /// factor is disabled by default; enable it to deliver challenge codes through
+    /// your own channel. Recovery codes always remain available as a fallback.
+    ///
+    /// - Parameters:
+    ///   - totp: Bool (optional)
+    ///   - email: Bool (optional)
+    ///   - phone: Bool (optional)
+    ///   - custom: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateMFAFactorsPolicy(
+        totp: Bool? = nil,
+        email: Bool? = nil,
+        phone: Bool? = nil,
+        custom: Bool? = nil
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updateMFAFactorsPolicy(
+            totp: totp,
+            email: email,
+            phone: phone,
+            custom: custom,
+            nestedType: [String: AnyCodable].self
         )
     }
     ///
@@ -4031,11 +4471,12 @@ open class Project: Service {
     /// - Parameters:
     ///   - rpId: String
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updatePasskeyPolicy(
-        rpId: String
-    ) async throws -> AppwriteModels.Project {
+    open func updatePasskeyPolicy<T>(
+        rpId: String,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/policies/passkey"
 
         let apiParams: [String: Any?] = [
@@ -4048,7 +4489,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -4058,6 +4499,28 @@ open class Project: Service {
             headers: apiHeaders,
             params: apiParams,
             converter: converter
+        )
+    }
+
+    ///
+    /// Set the relying party ID passkeys are bound to: the domain of your
+    /// application. Passkeys work on the project's web platforms on that domain or
+    /// its subdomains, and on the domain itself for Apple apps. A localhost web
+    /// platform enables passkeys for local development without a relying party ID.
+    /// The relying party ID cannot change while users have passkeys, and any
+    /// change invalidates ceremonies in progress.
+    ///
+    /// - Parameters:
+    ///   - rpId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updatePasskeyPolicy(
+        rpId: String
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updatePasskeyPolicy(
+            rpId: rpId,
+            nestedType: [String: AnyCodable].self
         )
     }
     ///
@@ -4077,12 +4540,13 @@ open class Project: Service {
     ///   - enabled: Bool
     ///   - denyList: [String] (optional)
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updatePasswordDictionaryPolicy(
+    open func updatePasswordDictionaryPolicy<T>(
         enabled: Bool,
-        denyList: [String]? = nil
-    ) async throws -> AppwriteModels.Project {
+        denyList: [String]? = nil,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/policies/password-dictionary"
 
         let apiParams: [String: Any?] = [
@@ -4096,7 +4560,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -4106,6 +4570,36 @@ open class Project: Service {
             headers: apiHeaders,
             params: apiParams,
             converter: converter
+        )
+    }
+
+    ///
+    /// Updating this policy allows you to control if new passwords are checked
+    /// against most common passwords dictionary. When enabled, and user changes
+    /// their password, password must not be contained in the dictionary.
+    ///
+    /// Custom denyList entries use case-sensitive equality and apply only while
+    /// this policy is enabled. Omit denyList or pass null to preserve it, pass an
+    /// array to replace it, or pass [] to clear it. Entries are stored without
+    /// trimming or deduplication. Existing passwords remain valid for sign-in and
+    /// password confirmation. The combined serialized project authentication
+    /// configuration must fit within 16,384 characters, even when each list meets
+    /// its entry limits.
+    ///
+    /// - Parameters:
+    ///   - enabled: Bool
+    ///   - denyList: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updatePasswordDictionaryPolicy(
+        enabled: Bool,
+        denyList: [String]? = nil
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updatePasswordDictionaryPolicy(
+            enabled: enabled,
+            denyList: denyList,
+            nestedType: [String: AnyCodable].self
         )
     }
     ///
@@ -4122,11 +4616,12 @@ open class Project: Service {
     /// - Parameters:
     ///   - total: Int (optional)
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updatePasswordHistoryPolicy(
-        total: Int? = nil
-    ) async throws -> AppwriteModels.Project {
+    open func updatePasswordHistoryPolicy<T>(
+        total: Int? = nil,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/policies/password-history"
 
         let apiParams: [String: Any?] = [
@@ -4139,7 +4634,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -4149,6 +4644,31 @@ open class Project: Service {
             headers: apiHeaders,
             params: apiParams,
             converter: converter
+        )
+    }
+
+    ///
+    /// Updates one of password strength policies. Based on total length
+    /// configured, previous password hashes are stored, and users cannot choose a
+    /// new password that is already stored in the passwird history list, when
+    /// updating an user password, or setting new one through password recovery.
+    ///
+    /// Keep in mind, while password history policy is disabled, the history is not
+    /// being stored. Enabling the policy will not have any history on existing
+    /// users, and it will only start to collect and enforce the policy on password
+    /// changes since the policy is enabled.
+    ///
+    /// - Parameters:
+    ///   - total: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updatePasswordHistoryPolicy(
+        total: Int? = nil
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updatePasswordHistoryPolicy(
+            total: total,
+            nestedType: [String: AnyCodable].self
         )
     }
     ///
@@ -4171,12 +4691,13 @@ open class Project: Service {
     ///   - enabled: Bool
     ///   - denyList: [String] (optional)
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updatePasswordPersonalDataPolicy(
+    open func updatePasswordPersonalDataPolicy<T>(
         enabled: Bool,
-        denyList: [String]? = nil
-    ) async throws -> AppwriteModels.Project {
+        denyList: [String]? = nil,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/policies/password-personal-data"
 
         let apiParams: [String: Any?] = [
@@ -4190,7 +4711,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -4200,6 +4721,39 @@ open class Project: Service {
             headers: apiHeaders,
             params: apiParams,
             converter: converter
+        )
+    }
+
+    ///
+    /// Updating this policy allows you to control if password strength is checked
+    /// against personal data. When enabled, and user sets or changes their
+    /// password, the password must not contain user ID, name, email or phone
+    /// number.
+    ///
+    /// Custom denyList entries use case-insensitive substring matching and apply
+    /// only while this policy is enabled. Omit denyList or pass null to preserve
+    /// it, pass an array to replace it, or pass [] to clear it. Entries are stored
+    /// without trimming or deduplication. Existing passwords remain valid for
+    /// sign-in and password confirmation. The combined serialized project
+    /// authentication configuration must fit within 16,384 characters, even when
+    /// each list meets its entry limits.
+    /// Password recovery also checks the recovered user profile, closing the
+    /// previous gap in profile-based personal-data validation.
+    ///
+    /// - Parameters:
+    ///   - enabled: Bool
+    ///   - denyList: [String] (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updatePasswordPersonalDataPolicy(
+        enabled: Bool,
+        denyList: [String]? = nil
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updatePasswordPersonalDataPolicy(
+            enabled: enabled,
+            denyList: denyList,
+            nestedType: [String: AnyCodable].self
         )
     }
     ///
@@ -4217,13 +4771,14 @@ open class Project: Service {
     ///   - sessions: Bool (optional)
     ///   - users: Bool (optional)
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updatePasswordPwnedPolicy(
+    open func updatePasswordPwnedPolicy<T>(
         enabled: Bool? = nil,
         sessions: Bool? = nil,
-        users: Bool? = nil
-    ) async throws -> AppwriteModels.Project {
+        users: Bool? = nil,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/policies/password-pwned"
 
         let apiParams: [String: Any?] = [
@@ -4238,7 +4793,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -4250,6 +4805,36 @@ open class Project: Service {
             converter: converter
         )
     }
+
+    ///
+    /// Updating this policy allows you to control if passwords are checked against
+    /// the Have I Been Pwned breach database. When enabled, every password a user
+    /// signs up, signs in or resets with is checked and the result is recorded on
+    /// the user as `passwordPwned`. On its own the policy only records. Enable
+    /// `users` to reject a breached password when a user signs up or sets a new
+    /// password, and `sessions` to refuse a sign-in with a breached password until
+    /// it is reset. Only the first five characters of the password hash are ever
+    /// shared with the service. Options left out keep their current value.
+    ///
+    /// - Parameters:
+    ///   - enabled: Bool (optional)
+    ///   - sessions: Bool (optional)
+    ///   - users: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updatePasswordPwnedPolicy(
+        enabled: Bool? = nil,
+        sessions: Bool? = nil,
+        users: Bool? = nil
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updatePasswordPwnedPolicy(
+            enabled: enabled,
+            sessions: sessions,
+            users: users,
+            nestedType: [String: AnyCodable].self
+        )
+    }
     ///
     /// Require a password reset when an email/password sign-in uses a password
     /// older than the configured maximum age. Options left out keep their current
@@ -4259,12 +4844,13 @@ open class Project: Service {
     ///   - enabled: Bool (optional)
     ///   - maxAge: Int (optional)
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updatePasswordRotationPolicy(
+    open func updatePasswordRotationPolicy<T>(
         enabled: Bool? = nil,
-        maxAge: Int? = nil
-    ) async throws -> AppwriteModels.Project {
+        maxAge: Int? = nil,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/policies/password-rotation"
 
         let apiParams: [String: Any?] = [
@@ -4278,7 +4864,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -4288,6 +4874,28 @@ open class Project: Service {
             headers: apiHeaders,
             params: apiParams,
             converter: converter
+        )
+    }
+
+    ///
+    /// Require a password reset when an email/password sign-in uses a password
+    /// older than the configured maximum age. Options left out keep their current
+    /// value.
+    ///
+    /// - Parameters:
+    ///   - enabled: Bool (optional)
+    ///   - maxAge: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updatePasswordRotationPolicy(
+        enabled: Bool? = nil,
+        maxAge: Int? = nil
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updatePasswordRotationPolicy(
+            enabled: enabled,
+            maxAge: maxAge,
+            nestedType: [String: AnyCodable].self
         )
     }
     ///
@@ -4347,11 +4955,12 @@ open class Project: Service {
     /// - Parameters:
     ///   - enabled: Bool
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updateSessionAlertPolicy(
-        enabled: Bool
-    ) async throws -> AppwriteModels.Project {
+    open func updateSessionAlertPolicy<T>(
+        enabled: Bool,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/policies/session-alert"
 
         let apiParams: [String: Any?] = [
@@ -4364,7 +4973,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -4376,6 +4985,27 @@ open class Project: Service {
             converter: converter
         )
     }
+
+    ///
+    /// Updating this policy allows you to control if email alert is sent upon
+    /// session creation. When enabled, and user signs into their account, they
+    /// will be sent an email notification. There is an exception, the first
+    /// session after a new sign up does not trigger an alert, even if the policy
+    /// is enabled.
+    ///
+    /// - Parameters:
+    ///   - enabled: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateSessionAlertPolicy(
+        enabled: Bool
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updateSessionAlertPolicy(
+            enabled: enabled,
+            nestedType: [String: AnyCodable].self
+        )
+    }
     ///
     /// Update maximum duration how long sessions created within a project should
     /// stay active for.
@@ -4383,11 +5013,12 @@ open class Project: Service {
     /// - Parameters:
     ///   - duration: Int
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updateSessionDurationPolicy(
-        duration: Int
-    ) async throws -> AppwriteModels.Project {
+    open func updateSessionDurationPolicy<T>(
+        duration: Int,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/policies/session-duration"
 
         let apiParams: [String: Any?] = [
@@ -4400,7 +5031,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -4412,6 +5043,24 @@ open class Project: Service {
             converter: converter
         )
     }
+
+    ///
+    /// Update maximum duration how long sessions created within a project should
+    /// stay active for.
+    ///
+    /// - Parameters:
+    ///   - duration: Int
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateSessionDurationPolicy(
+        duration: Int
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updateSessionDurationPolicy(
+            duration: duration,
+            nestedType: [String: AnyCodable].self
+        )
+    }
     ///
     /// Updating this policy allows you to control if existing sessions should be
     /// invalidated when a password of a user is changed. When enabled, and user
@@ -4420,11 +5069,12 @@ open class Project: Service {
     /// - Parameters:
     ///   - enabled: Bool
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updateSessionInvalidationPolicy(
-        enabled: Bool
-    ) async throws -> AppwriteModels.Project {
+    open func updateSessionInvalidationPolicy<T>(
+        enabled: Bool,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/policies/session-invalidation"
 
         let apiParams: [String: Any?] = [
@@ -4437,7 +5087,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -4449,6 +5099,25 @@ open class Project: Service {
             converter: converter
         )
     }
+
+    ///
+    /// Updating this policy allows you to control if existing sessions should be
+    /// invalidated when a password of a user is changed. When enabled, and user
+    /// changes their password, they will be logged out of all their devices.
+    ///
+    /// - Parameters:
+    ///   - enabled: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateSessionInvalidationPolicy(
+        enabled: Bool
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updateSessionInvalidationPolicy(
+            enabled: enabled,
+            nestedType: [String: AnyCodable].self
+        )
+    }
     ///
     /// Update the maximum number of sessions allowed per user. When the limit is
     /// hit, the oldest session will be deleted to make room for new one.
@@ -4456,11 +5125,12 @@ open class Project: Service {
     /// - Parameters:
     ///   - total: Int
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updateSessionLimitPolicy(
-        total: Int
-    ) async throws -> AppwriteModels.Project {
+    open func updateSessionLimitPolicy<T>(
+        total: Int,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/policies/session-limit"
 
         let apiParams: [String: Any?] = [
@@ -4473,7 +5143,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -4485,6 +5155,24 @@ open class Project: Service {
             converter: converter
         )
     }
+
+    ///
+    /// Update the maximum number of sessions allowed per user. When the limit is
+    /// hit, the oldest session will be deleted to make room for new one.
+    ///
+    /// - Parameters:
+    ///   - total: Int
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateSessionLimitPolicy(
+        total: Int
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updateSessionLimitPolicy(
+            total: total,
+            nestedType: [String: AnyCodable].self
+        )
+    }
     ///
     /// Update the maximum number of users in the project. When the limit is hit or
     /// amount of existing users already exceeded the limit, all users remain
@@ -4493,11 +5181,12 @@ open class Project: Service {
     /// - Parameters:
     ///   - total: Int (optional)
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updateUserLimitPolicy(
-        total: Int? = nil
-    ) async throws -> AppwriteModels.Project {
+    open func updateUserLimitPolicy<T>(
+        total: Int? = nil,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/policies/user-limit"
 
         let apiParams: [String: Any?] = [
@@ -4510,7 +5199,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -4520,6 +5209,25 @@ open class Project: Service {
             headers: apiHeaders,
             params: apiParams,
             converter: converter
+        )
+    }
+
+    ///
+    /// Update the maximum number of users in the project. When the limit is hit or
+    /// amount of existing users already exceeded the limit, all users remain
+    /// active, but new user sign up will be prohibited.
+    ///
+    /// - Parameters:
+    ///   - total: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateUserLimitPolicy(
+        total: Int? = nil
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updateUserLimitPolicy(
+            total: total,
+            nestedType: [String: AnyCodable].self
         )
     }
     ///
@@ -4605,6 +5313,9 @@ open class Project: Service {
             if String(describing: responseMap["$id"] ?? "") == "passkey" {
                 return AppwriteModels.PolicyPasskey.from(map: responseMap)
             }
+            if String(describing: responseMap["$id"] ?? "") == "account-devices" {
+                return AppwriteModels.PolicyAccountDevices.from(map: responseMap)
+            }
             throw AppwriteError(message: "Unable to match response to any expected response model")
         }
 
@@ -4617,6 +5328,107 @@ open class Project: Service {
         )
     }
     ///
+    /// Get the project preferences. Preferences are a key-value object stored on
+    /// the project for anyone working on it.
+    ///
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Preferences<T>
+    ///
+    open func getPrefs<T>(
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Preferences<T> {
+        let apiPath: String = "/project/prefs"
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Preferences<T> = { response in
+            return AppwriteModels.Preferences.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Get the project preferences. Preferences are a key-value object stored on
+    /// the project for anyone working on it.
+    ///
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Preferences<T>
+    ///
+    open func getPrefs() async throws -> AppwriteModels.Preferences<[String: AnyCodable]> {
+        return try await getPrefs(
+            nestedType: [String: AnyCodable].self
+        )
+    }
+    ///
+    /// Update the project preferences. The object you pass is stored as is and
+    /// replaces any previous value. The maximum allowed prefs size is 64kB and
+    /// throws an error if exceeded.
+    ///
+    /// - Parameters:
+    ///   - prefs: Any
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Preferences<T>
+    ///
+    open func updatePrefs<T>(
+        prefs: Any,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Preferences<T> {
+        let apiPath: String = "/project/prefs"
+
+        let apiParams: [String: Any?] = [
+            "prefs": prefs
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Preferences<T> = { response in
+            return AppwriteModels.Preferences.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PUT",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update the project preferences. The object you pass is stored as is and
+    /// replaces any previous value. The maximum allowed prefs size is 64kB and
+    /// throws an error if exceeded.
+    ///
+    /// - Parameters:
+    ///   - prefs: Any
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Preferences<T>
+    ///
+    open func updatePrefs(
+        prefs: Any
+    ) async throws -> AppwriteModels.Preferences<[String: AnyCodable]> {
+        return try await updatePrefs(
+            prefs: prefs,
+            nestedType: [String: AnyCodable].self
+        )
+    }
+    ///
     /// Update properties of a specific protocol. Use this endpoint to enable or
     /// disable a protocol in your project.
     ///
@@ -4624,12 +5436,13 @@ open class Project: Service {
     ///   - protocolId: AppwriteEnums.ProjectProtocolId
     ///   - enabled: Bool
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updateProtocol(
+    open func updateProtocol<T>(
         protocolId: AppwriteEnums.ProjectProtocolId,
-        enabled: Bool
-    ) async throws -> AppwriteModels.Project {
+        enabled: Bool,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/protocols/{protocolId}"
             .replacingOccurrences(of: "{protocolId}", with: try Client.encodePath(protocolId.rawValue))
 
@@ -4643,7 +5456,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -4655,6 +5468,27 @@ open class Project: Service {
             converter: converter
         )
     }
+
+    ///
+    /// Update properties of a specific protocol. Use this endpoint to enable or
+    /// disable a protocol in your project.
+    ///
+    /// - Parameters:
+    ///   - protocolId: AppwriteEnums.ProjectProtocolId
+    ///   - enabled: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateProtocol(
+        protocolId: AppwriteEnums.ProjectProtocolId,
+        enabled: Bool
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updateProtocol(
+            protocolId: protocolId,
+            enabled: enabled,
+            nestedType: [String: AnyCodable].self
+        )
+    }
     ///
     /// Update properties of a specific service. Use this endpoint to enable or
     /// disable a service in your project.
@@ -4663,12 +5497,13 @@ open class Project: Service {
     ///   - serviceId: AppwriteEnums.ProjectServiceId
     ///   - enabled: Bool
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updateService(
+    open func updateService<T>(
         serviceId: AppwriteEnums.ProjectServiceId,
-        enabled: Bool
-    ) async throws -> AppwriteModels.Project {
+        enabled: Bool,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/services/{serviceId}"
             .replacingOccurrences(of: "{serviceId}", with: try Client.encodePath(serviceId.rawValue))
 
@@ -4682,7 +5517,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -4692,6 +5527,27 @@ open class Project: Service {
             headers: apiHeaders,
             params: apiParams,
             converter: converter
+        )
+    }
+
+    ///
+    /// Update properties of a specific service. Use this endpoint to enable or
+    /// disable a service in your project.
+    ///
+    /// - Parameters:
+    ///   - serviceId: AppwriteEnums.ProjectServiceId
+    ///   - enabled: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateService(
+        serviceId: AppwriteEnums.ProjectServiceId,
+        enabled: Bool
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updateService(
+            serviceId: serviceId,
+            enabled: enabled,
+            nestedType: [String: AnyCodable].self
         )
     }
     ///
@@ -4738,9 +5594,9 @@ open class Project: Service {
     ///   - secure: AppwriteEnums.ProjectSMTPSecure (optional)
     ///   - enabled: Bool (optional)
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updateSMTP(
+    open func updateSMTP<T>(
         host: String? = nil,
         port: Int? = nil,
         username: String? = nil,
@@ -4750,8 +5606,9 @@ open class Project: Service {
         replyToEmail: String? = nil,
         replyToName: String? = nil,
         secure: AppwriteEnums.ProjectSMTPSecure? = nil,
-        enabled: Bool? = nil
-    ) async throws -> AppwriteModels.Project {
+        enabled: Bool? = nil,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/project/smtp"
 
         let apiParams: [String: Any?] = [
@@ -4773,7 +5630,7 @@ open class Project: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -4783,6 +5640,52 @@ open class Project: Service {
             headers: apiHeaders,
             params: apiParams,
             converter: converter
+        )
+    }
+
+    ///
+    /// Update the SMTP configuration for your project. Use this endpoint to
+    /// configure your project's SMTP provider with your custom settings for
+    /// sending transactional emails.
+    ///
+    /// - Parameters:
+    ///   - host: String (optional)
+    ///   - port: Int (optional)
+    ///   - username: String (optional)
+    ///   - password: String (optional)
+    ///   - senderEmail: String (optional)
+    ///   - senderName: String (optional)
+    ///   - replyToEmail: String (optional)
+    ///   - replyToName: String (optional)
+    ///   - secure: AppwriteEnums.ProjectSMTPSecure (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateSMTP(
+        host: String? = nil,
+        port: Int? = nil,
+        username: String? = nil,
+        password: String? = nil,
+        senderEmail: String? = nil,
+        senderName: String? = nil,
+        replyToEmail: String? = nil,
+        replyToName: String? = nil,
+        secure: AppwriteEnums.ProjectSMTPSecure? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updateSMTP(
+            host: host,
+            port: port,
+            username: username,
+            password: password,
+            senderEmail: senderEmail,
+            senderName: senderName,
+            replyToEmail: replyToEmail,
+            replyToName: replyToName,
+            secure: secure,
+            enabled: enabled,
+            nestedType: [String: AnyCodable].self
         )
     }
     ///

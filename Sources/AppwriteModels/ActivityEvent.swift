@@ -34,6 +34,7 @@ open class ActivityEvent: Codable {
         case hostname = "hostname"
         case sdk = "sdk"
         case sdkVersion = "sdkVersion"
+        case reason = "reason"
     }
 
     /// Event ID.
@@ -94,6 +95,8 @@ open class ActivityEvent: Codable {
     public let sdk: String
     /// Version of the SDK that triggered the event.
     public let sdkVersion: String
+    /// Why the actor made the request, as sent in the `X-Appwrite-Reason` header. Empty when no reason was given.
+    public let reason: String
 
     init(
         id: String,
@@ -124,7 +127,8 @@ open class ActivityEvent: Codable {
         teamId: String,
         hostname: String,
         sdk: String,
-        sdkVersion: String
+        sdkVersion: String,
+        reason: String
     ) {
         self.id = id
         self.actorType = actorType
@@ -155,6 +159,7 @@ open class ActivityEvent: Codable {
         self.hostname = hostname
         self.sdk = sdk
         self.sdkVersion = sdkVersion
+        self.reason = reason
     }
 
     public required init(from decoder: Decoder) throws {
@@ -189,6 +194,7 @@ open class ActivityEvent: Codable {
         self.hostname = try container.contains(.hostname) ? container.decode(String.self, forKey: .hostname) : ""
         self.sdk = try container.contains(.sdk) ? container.decode(String.self, forKey: .sdk) : ""
         self.sdkVersion = try container.contains(.sdkVersion) ? container.decode(String.self, forKey: .sdkVersion) : ""
+        self.reason = try container.contains(.reason) ? container.decode(String.self, forKey: .reason) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -223,6 +229,7 @@ open class ActivityEvent: Codable {
         try container.encode(hostname, forKey: .hostname)
         try container.encode(sdk, forKey: .sdk)
         try container.encode(sdkVersion, forKey: .sdkVersion)
+        try container.encode(reason, forKey: .reason)
     }
 
     public func toMap() -> [String: Any] {
@@ -256,6 +263,7 @@ open class ActivityEvent: Codable {
             "hostname": hostname as Any,
             "sdk": sdk as Any,
             "sdkVersion": sdkVersion as Any,
+            "reason": reason as Any,
         ]
     }
 
@@ -290,6 +298,7 @@ open class ActivityEvent: Codable {
             "hostname": "",
             "sdk": "",
             "sdkVersion": "",
+            "reason": "",
         ]
         let map = defaults.merging(map) { _, new in new }
 
@@ -322,7 +331,8 @@ open class ActivityEvent: Codable {
             teamId: map["teamId"] as! String,
             hostname: map["hostname"] as! String,
             sdk: map["sdk"] as! String,
-            sdkVersion: map["sdkVersion"] as! String
+            sdkVersion: map["sdkVersion"] as! String,
+            reason: map["reason"] as! String
         )
     }
 }

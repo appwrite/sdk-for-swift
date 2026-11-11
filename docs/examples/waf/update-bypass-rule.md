@@ -16,7 +16,8 @@ let wafRuleBypass = try await waf.updateBypassRule(
     description: "<DESCRIPTION>", // optional
     priority: -100000, // optional
     enabled: false, // optional
-    conditions: [] // optional
+    conditions: [], // optional
+    schedule: [:] // optional
 )
 
 ```

@@ -20,6 +20,7 @@ open class WafRuleRedirect: Codable {
         case enabled = "enabled"
         case conditions = "conditions"
         case config = "config"
+        case schedule = "schedule"
         case location = "location"
         case statusCode = "statusCode"
     }
@@ -52,6 +53,8 @@ open class WafRuleRedirect: Codable {
     public let conditions: [AnyCodable]
     /// Action specific configuration.
     public let config: [String: AnyCodable]
+    /// When the rule is active: mode, days, interval, anchor, startTime, endTime and timezone. Null when the rule is always active.
+    public let schedule: [String: AnyCodable]?
     /// Target location for the redirect.
     public let location: String
     /// HTTP status code used for the redirect.
@@ -72,6 +75,7 @@ open class WafRuleRedirect: Codable {
         enabled: Bool,
         conditions: [AnyCodable],
         config: [String: AnyCodable],
+        schedule: [String: AnyCodable]?,
         location: String,
         statusCode: Int
     ) {
@@ -89,6 +93,7 @@ open class WafRuleRedirect: Codable {
         self.enabled = enabled
         self.conditions = conditions
         self.config = config
+        self.schedule = schedule
         self.location = location
         self.statusCode = statusCode
     }
@@ -110,6 +115,7 @@ open class WafRuleRedirect: Codable {
         self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : true
         self.conditions = try container.contains(.conditions) ? container.decode([AnyCodable].self, forKey: .conditions) : []
         self.config = try container.contains(.config) ? container.decode([String: AnyCodable].self, forKey: .config) : ([String: Any]()).mapValues { AnyCodable($0) }
+        self.schedule = try container.decodeIfPresent([String: AnyCodable].self, forKey: .schedule)
         self.location = try container.contains(.location) ? container.decode(String.self, forKey: .location) : "/"
         self.statusCode = try container.contains(.statusCode) ? container.decode(Int.self, forKey: .statusCode) : 302
     }
@@ -131,6 +137,7 @@ open class WafRuleRedirect: Codable {
         try container.encode(enabled, forKey: .enabled)
         try container.encode(conditions, forKey: .conditions)
         try container.encode(config, forKey: .config)
+        try container.encodeIfPresent(schedule, forKey: .schedule)
         try container.encode(location, forKey: .location)
         try container.encode(statusCode, forKey: .statusCode)
     }
@@ -151,6 +158,7 @@ open class WafRuleRedirect: Codable {
             "enabled": enabled as Any,
             "conditions": conditions as Any,
             "config": config as Any,
+            "schedule": schedule as Any,
             "location": location as Any,
             "statusCode": statusCode as Any,
         ]
@@ -191,6 +199,7 @@ open class WafRuleRedirect: Codable {
             enabled: map["enabled"] as! Bool,
             conditions: (map["conditions"] as! [Any]).map { AnyCodable($0) },
             config: (map["config"] as! [String: Any]).mapValues { AnyCodable($0) },
+            schedule: (map["schedule"] as? [String: Any])?.mapValues { AnyCodable($0) },
             location: map["location"] as! String,
             statusCode: map["statusCode"] as! Int
         )

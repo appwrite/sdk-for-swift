@@ -21,6 +21,8 @@ open class ProxyRule: Codable {
         case status = "status"
         case logs = "logs"
         case renewAt = "renewAt"
+        case expireAt = "expireAt"
+        case certificateStatus = "certificateStatus"
         case `protocol` = "protocol"
     }
 
@@ -54,6 +56,10 @@ open class ProxyRule: Codable {
     public let logs: String
     /// Certificate auto-renewal date in ISO 8601 format.
     public let renewAt: String
+    /// Certificate expiry date in ISO 8601 format. Empty when unknown or not checked yet.
+    public let expireAt: String
+    /// Certificate status, as last reported by the certificate provider. Possible values are &quot;pending&quot;, &quot;processing&quot;, &quot;issued&quot;, &quot;renewing&quot;, &quot;expiring&quot;, &quot;blocked&quot;, &quot;failed&quot;, or &quot;unknown&quot;. &quot;expiring&quot; means the certificate expires soon, or has already expired, and the provider has not renewed it yet, &quot;blocked&quot; means the provider waits on a DNS record from the domain owner, and &quot;failed&quot; means the provider stopped trying or the last issuance or renewal attempt failed. Empty until the certificate is next checked.
+    public let certificateStatus: String
     /// Ingress protocol for the rule.
     public let `protocol`: AppwriteEnums.ProxyRuleProtocol
 
@@ -73,6 +79,8 @@ open class ProxyRule: Codable {
         status: AppwriteEnums.ProxyRuleStatus,
         logs: String,
         renewAt: String,
+        expireAt: String,
+        certificateStatus: String,
         `protocol`: AppwriteEnums.ProxyRuleProtocol
     ) {
         self.id = id
@@ -90,6 +98,8 @@ open class ProxyRule: Codable {
         self.status = status
         self.logs = logs
         self.renewAt = renewAt
+        self.expireAt = expireAt
+        self.certificateStatus = certificateStatus
         self.`protocol` = `protocol`
     }
 
@@ -115,6 +125,8 @@ open class ProxyRule: Codable {
         self.status = AppwriteEnums.ProxyRuleStatus(rawValue: try container.contains(.status) ? container.decode(String.self, forKey: .status) : "unverified")!
         self.logs = try container.contains(.logs) ? container.decode(String.self, forKey: .logs) : ""
         self.renewAt = try container.decode(String.self, forKey: .renewAt)
+        self.expireAt = try container.contains(.expireAt) ? container.decode(String.self, forKey: .expireAt) : ""
+        self.certificateStatus = try container.contains(.certificateStatus) ? container.decode(String.self, forKey: .certificateStatus) : ""
         self.`protocol` = AppwriteEnums.ProxyRuleProtocol(rawValue: try container.contains(.`protocol`) ? container.decode(String.self, forKey: .`protocol`) : "http")!
     }
 
@@ -136,6 +148,8 @@ open class ProxyRule: Codable {
         try container.encode(status.rawValue, forKey: .status)
         try container.encode(logs, forKey: .logs)
         try container.encode(renewAt, forKey: .renewAt)
+        try container.encode(expireAt, forKey: .expireAt)
+        try container.encode(certificateStatus, forKey: .certificateStatus)
         try container.encode(`protocol`.rawValue, forKey: .`protocol`)
     }
 
@@ -156,6 +170,8 @@ open class ProxyRule: Codable {
             "status": status.rawValue as Any,
             "logs": logs as Any,
             "renewAt": renewAt as Any,
+            "expireAt": expireAt as Any,
+            "certificateStatus": certificateStatus as Any,
             "protocol": `protocol`.rawValue as Any,
         ]
     }
@@ -175,6 +191,8 @@ open class ProxyRule: Codable {
             "deploymentVcsProviderBranch": "",
             "status": "unverified",
             "logs": "",
+            "expireAt": "",
+            "certificateStatus": "",
             "protocol": "http",
         ]
         let map = defaults.merging(map) { _, new in new }
@@ -195,6 +213,8 @@ open class ProxyRule: Codable {
             status: AppwriteEnums.ProxyRuleStatus(rawValue: map["status"] as! String)!,
             logs: map["logs"] as! String,
             renewAt: map["renewAt"] as! String,
+            expireAt: map["expireAt"] as! String,
+            certificateStatus: map["certificateStatus"] as! String,
             `protocol`: AppwriteEnums.ProxyRuleProtocol(rawValue: map["protocol"] as! String)!
         )
     }

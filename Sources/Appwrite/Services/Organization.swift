@@ -539,13 +539,14 @@ open class Organization: Service {
     ///   - search: String (optional)
     ///   - total: Bool (optional)
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.ProjectList
+    /// - Returns: AppwriteModels.ProjectList<T>
     ///
-    open func listProjects(
+    open func listProjects<T>(
         queries: [String]? = nil,
         search: String? = nil,
-        total: Bool? = nil
-    ) async throws -> AppwriteModels.ProjectList {
+        total: Bool? = nil,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.ProjectList<T> {
         let apiPath: String = "/organization/projects"
 
         let apiParams: [String: Any?] = [
@@ -559,7 +560,7 @@ open class Organization: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.ProjectList = { response in
+        let converter: (Any) throws -> AppwriteModels.ProjectList<T> = { response in
             return AppwriteModels.ProjectList.from(map: response as! [String: Any])
         }
 
@@ -571,6 +572,30 @@ open class Organization: Service {
             converter: converter
         )
     }
+
+    ///
+    /// Get a list of all projects. You can use the query params to filter your
+    /// results.
+    ///
+    /// - Parameters:
+    ///   - queries: [String] (optional)
+    ///   - search: String (optional)
+    ///   - total: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ProjectList<T>
+    ///
+    open func listProjects(
+        queries: [String]? = nil,
+        search: String? = nil,
+        total: Bool? = nil
+    ) async throws -> AppwriteModels.ProjectList<[String: AnyCodable]> {
+        return try await listProjects(
+            queries: queries,
+            search: search,
+            total: total,
+            nestedType: [String: AnyCodable].self
+        )
+    }
     ///
     /// Create a new project.
     ///
@@ -579,13 +604,14 @@ open class Organization: Service {
     ///   - name: String
     ///   - region: AppwriteEnums.Region (optional)
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func createProject(
+    open func createProject<T>(
         projectId: String,
         name: String,
-        region: AppwriteEnums.Region? = nil
-    ) async throws -> AppwriteModels.Project {
+        region: AppwriteEnums.Region? = nil,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         let apiPath: String = "/organization/projects"
 
         let apiParams: [String: Any?] = [
@@ -600,7 +626,7 @@ open class Organization: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -612,17 +638,41 @@ open class Organization: Service {
             converter: converter
         )
     }
+
+    ///
+    /// Create a new project.
+    ///
+    /// - Parameters:
+    ///   - projectId: String
+    ///   - name: String
+    ///   - region: AppwriteEnums.Region (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func createProject(
+        projectId: String,
+        name: String,
+        region: AppwriteEnums.Region? = nil
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await createProject(
+            projectId: projectId,
+            name: name,
+            region: region,
+            nestedType: [String: AnyCodable].self
+        )
+    }
     ///
     /// Get a project.
     ///
     /// - Parameters:
     ///   - projectId: String
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func getProject(
-        projectId: String
-    ) async throws -> AppwriteModels.Project {
+    open func getProject<T>(
+        projectId: String,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         if projectId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"projectId\"")
         }
@@ -637,7 +687,7 @@ open class Organization: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -649,6 +699,23 @@ open class Organization: Service {
             converter: converter
         )
     }
+
+    ///
+    /// Get a project.
+    ///
+    /// - Parameters:
+    ///   - projectId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func getProject(
+        projectId: String
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await getProject(
+            projectId: projectId,
+            nestedType: [String: AnyCodable].self
+        )
+    }
     ///
     /// Update a project by its unique ID.
     ///
@@ -656,12 +723,13 @@ open class Organization: Service {
     ///   - projectId: String
     ///   - name: String
     /// - Throws: Exception if the request fails
-    /// - Returns: AppwriteModels.Project
+    /// - Returns: AppwriteModels.Project<T>
     ///
-    open func updateProject(
+    open func updateProject<T>(
         projectId: String,
-        name: String
-    ) async throws -> AppwriteModels.Project {
+        name: String,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
         if projectId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"projectId\"")
         }
@@ -679,7 +747,7 @@ open class Organization: Service {
             "accept": "application/json",
         ]
 
-        let converter: (Any) throws -> AppwriteModels.Project = { response in
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
             return AppwriteModels.Project.from(map: response as! [String: Any])
         }
 
@@ -689,6 +757,26 @@ open class Organization: Service {
             headers: apiHeaders,
             params: apiParams,
             converter: converter
+        )
+    }
+
+    ///
+    /// Update a project by its unique ID.
+    ///
+    /// - Parameters:
+    ///   - projectId: String
+    ///   - name: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateProject(
+        projectId: String,
+        name: String
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updateProject(
+            projectId: projectId,
+            name: name,
+            nestedType: [String: AnyCodable].self
         )
     }
     ///

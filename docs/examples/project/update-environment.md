@@ -8,7 +8,7 @@ let client = Client()
 
 let project = Project(client)
 
-let project = try await project.updateEnvironment(
+let environment = try await project.updateEnvironment(
     environmentId: "<ENVIRONMENT_ID>",
     name: "<NAME>"
 )

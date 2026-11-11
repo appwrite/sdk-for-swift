@@ -31,8 +31,8 @@ open class Client {
         "x-sdk-name": "Swift",
         "x-sdk-platform": "server",
         "x-sdk-language": "swift",
-        "x-sdk-version": "23.2.0",
-        "x-appwrite-response-format": "2.6.2",
+        "x-sdk-version": "23.3.0",
+        "x-appwrite-response-format": "2.7.1",
     ]
 
     internal var config: [String: String] = [:]
@@ -196,6 +196,21 @@ open class Client {
     open func setLocale(_ value: String) -> Client {
         config["locale"] = value
         _ = addHeader(key: "X-Appwrite-Locale", value: value)
+        return self
+    }
+
+    ///
+    /// Set Environment
+    ///
+    /// The ID of the project environment to act in, alongside the project ID. Used with Appwrite Cloud projects that have environments.
+    ///
+    /// @param String value
+    ///
+    /// @return Client
+    ///
+    open func setEnvironment(_ value: String) -> Client {
+        config["environment"] = value
+        _ = addHeader(key: "X-Appwrite-Environment", value: value)
         return self
     }
 

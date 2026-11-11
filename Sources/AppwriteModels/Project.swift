@@ -2,7 +2,7 @@ import Foundation
 import JSONCodable
 
 /// Project
-open class Project: Codable {
+open class Project<T: Codable>: Codable {
 
     enum CodingKeys: String, CodingKey {
         case id = "$id"
@@ -24,6 +24,7 @@ open class Project: Codable {
         case pingCount = "pingCount"
         case pingedAt = "pingedAt"
         case labels = "labels"
+        case prefs = "prefs"
         case status = "status"
         case onboarding = "onboarding"
         case authMethods = "authMethods"
@@ -33,6 +34,7 @@ open class Project: Codable {
         case consoleAccessedAt = "consoleAccessedAt"
         case wafEnabled = "wafEnabled"
         case parentId = "parentId"
+        case environmentId = "environmentId"
         case billingLimits = "billingLimits"
         case firstAccessedAt = "firstAccessedAt"
         case mcpAccessedAt = "mcpAccessedAt"
@@ -93,6 +95,8 @@ open class Project: Codable {
     public let pingedAt: String
     /// Labels for the project.
     public let labels: [String]
+    /// Project preferences as a key-value object
+    public let prefs: Preferences<T>?
     /// Project status
     public let status: String
     /// Stage progress (completed or skipped) with timestamps and actor types, keyed by stage id.
@@ -111,6 +115,8 @@ open class Project: Codable {
     public let wafEnabled: Bool?
     /// ID of the project this environment belongs to. Null when the project is not an environment.
     public let parentId: String?
+    /// ID of the environment, as passed in the X-Appwrite-Environment header, when the project is accessed as one. Null when the project is not an environment.
+    public let environmentId: String?
     /// Billing limits reached
     public let billingLimits: BillingLimits?
     /// First time the project received a non-console API request. Empty until the project is used.
@@ -172,6 +178,7 @@ open class Project: Codable {
         pingCount: Int,
         pingedAt: String,
         labels: [String],
+        prefs: Preferences<T>?,
         status: String,
         onboarding: [String: AnyCodable],
         authMethods: [ProjectAuthMethod],
@@ -181,6 +188,7 @@ open class Project: Codable {
         consoleAccessedAt: String,
         wafEnabled: Bool?,
         parentId: String?,
+        environmentId: String?,
         billingLimits: BillingLimits?,
         firstAccessedAt: String?,
         mcpAccessedAt: String?,
@@ -221,6 +229,7 @@ open class Project: Codable {
         self.pingCount = pingCount
         self.pingedAt = pingedAt
         self.labels = labels
+        self.prefs = prefs
         self.status = status
         self.onboarding = onboarding
         self.authMethods = authMethods
@@ -230,6 +239,7 @@ open class Project: Codable {
         self.consoleAccessedAt = consoleAccessedAt
         self.wafEnabled = wafEnabled
         self.parentId = parentId
+        self.environmentId = environmentId
         self.billingLimits = billingLimits
         self.firstAccessedAt = firstAccessedAt
         self.mcpAccessedAt = mcpAccessedAt
@@ -274,6 +284,7 @@ open class Project: Codable {
         self.pingCount = try container.contains(.pingCount) ? container.decode(Int.self, forKey: .pingCount) : 0
         self.pingedAt = try container.contains(.pingedAt) ? container.decode(String.self, forKey: .pingedAt) : ""
         self.labels = try container.contains(.labels) ? container.decode([String].self, forKey: .labels) : []
+        self.prefs = try container.decodeIfPresent(Preferences<T>.self, forKey: .prefs)
         self.status = try container.contains(.status) ? container.decode(String.self, forKey: .status) : "active"
         self.onboarding = try container.contains(.onboarding) ? container.decode([String: AnyCodable].self, forKey: .onboarding) : ([String: Any]()).mapValues { AnyCodable($0) }
         self.authMethods = try container.contains(.authMethods) ? container.decode([ProjectAuthMethod].self, forKey: .authMethods) : []
@@ -283,6 +294,7 @@ open class Project: Codable {
         self.consoleAccessedAt = try container.contains(.consoleAccessedAt) ? container.decode(String.self, forKey: .consoleAccessedAt) : ""
         self.wafEnabled = try container.decodeIfPresent(Bool.self, forKey: .wafEnabled)
         self.parentId = try container.decodeIfPresent(String.self, forKey: .parentId)
+        self.environmentId = try container.decodeIfPresent(String.self, forKey: .environmentId)
         self.billingLimits = try container.decodeIfPresent(BillingLimits.self, forKey: .billingLimits)
         self.firstAccessedAt = try container.decodeIfPresent(String.self, forKey: .firstAccessedAt)
         self.mcpAccessedAt = try container.decodeIfPresent(String.self, forKey: .mcpAccessedAt)
@@ -327,6 +339,7 @@ open class Project: Codable {
         try container.encode(pingCount, forKey: .pingCount)
         try container.encode(pingedAt, forKey: .pingedAt)
         try container.encode(labels, forKey: .labels)
+        try container.encodeIfPresent(prefs, forKey: .prefs)
         try container.encode(status, forKey: .status)
         try container.encode(onboarding, forKey: .onboarding)
         try container.encode(authMethods, forKey: .authMethods)
@@ -336,6 +349,7 @@ open class Project: Codable {
         try container.encode(consoleAccessedAt, forKey: .consoleAccessedAt)
         try container.encodeIfPresent(wafEnabled, forKey: .wafEnabled)
         try container.encodeIfPresent(parentId, forKey: .parentId)
+        try container.encodeIfPresent(environmentId, forKey: .environmentId)
         try container.encodeIfPresent(billingLimits, forKey: .billingLimits)
         try container.encodeIfPresent(firstAccessedAt, forKey: .firstAccessedAt)
         try container.encodeIfPresent(mcpAccessedAt, forKey: .mcpAccessedAt)
@@ -379,6 +393,7 @@ open class Project: Codable {
             "pingCount": pingCount as Any,
             "pingedAt": pingedAt as Any,
             "labels": labels as Any,
+            "prefs": prefs?.toMap() as Any,
             "status": status as Any,
             "onboarding": onboarding as Any,
             "authMethods": authMethods.map { $0.toMap() } as Any,
@@ -388,6 +403,7 @@ open class Project: Codable {
             "consoleAccessedAt": consoleAccessedAt as Any,
             "wafEnabled": wafEnabled as Any,
             "parentId": parentId as Any,
+            "environmentId": environmentId as Any,
             "billingLimits": billingLimits?.toMap() as Any,
             "firstAccessedAt": firstAccessedAt as Any,
             "mcpAccessedAt": mcpAccessedAt as Any,
@@ -462,6 +478,7 @@ open class Project: Codable {
             pingCount: map["pingCount"] as! Int,
             pingedAt: map["pingedAt"] as! String,
             labels: map["labels"] as! [String],
+            prefs: map["prefs"] as? [String: Any] != nil ? Preferences.from(map: map["prefs"] as! [String: Any]) : nil,
             status: map["status"] as! String,
             onboarding: (map["onboarding"] as! [String: Any]).mapValues { AnyCodable($0) },
             authMethods: (map["authMethods"] as! [[String: Any]]).map { ProjectAuthMethod.from(map: $0) },
@@ -471,6 +488,7 @@ open class Project: Codable {
             consoleAccessedAt: map["consoleAccessedAt"] as! String,
             wafEnabled: map["wafEnabled"] as? Bool,
             parentId: map["parentId"] as? String,
+            environmentId: map["environmentId"] as? String,
             billingLimits: map["billingLimits"] as? [String: Any] != nil ? BillingLimits.from(map: map["billingLimits"] as! [String: Any]) : nil,
             firstAccessedAt: map["firstAccessedAt"] as? String,
             mcpAccessedAt: map["mcpAccessedAt"] as? String,
