@@ -19,7 +19,8 @@ let wafRuleChallenge = try await waf.createChallengeRule(
     enabled: false, // optional
     conditions: [], // optional
     difficulty: 1, // optional
-    ttl: 900 // optional
+    ttl: 900, // optional
+    schedule: [:] // optional
 )
 
 ```

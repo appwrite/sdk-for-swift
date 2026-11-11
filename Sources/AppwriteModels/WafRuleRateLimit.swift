@@ -20,6 +20,7 @@ open class WafRuleRateLimit: Codable {
         case enabled = "enabled"
         case conditions = "conditions"
         case config = "config"
+        case schedule = "schedule"
         case limit = "limit"
         case interval = "interval"
         case key = "key"
@@ -55,6 +56,8 @@ open class WafRuleRateLimit: Codable {
     public let conditions: [AnyCodable]
     /// Action specific configuration.
     public let config: [String: AnyCodable]
+    /// When the rule is active: mode, days, interval, anchor, startTime, endTime and timezone. Null when the rule is always active.
+    public let schedule: [String: AnyCodable]?
     /// Maximum number of matching requests allowed for the given interval.
     public let limit: Int
     /// Interval in seconds for the rate limit window.
@@ -81,6 +84,7 @@ open class WafRuleRateLimit: Codable {
         enabled: Bool,
         conditions: [AnyCodable],
         config: [String: AnyCodable],
+        schedule: [String: AnyCodable]?,
         limit: Int,
         interval: Int,
         key: String,
@@ -101,6 +105,7 @@ open class WafRuleRateLimit: Codable {
         self.enabled = enabled
         self.conditions = conditions
         self.config = config
+        self.schedule = schedule
         self.limit = limit
         self.interval = interval
         self.key = key
@@ -125,6 +130,7 @@ open class WafRuleRateLimit: Codable {
         self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : true
         self.conditions = try container.contains(.conditions) ? container.decode([AnyCodable].self, forKey: .conditions) : []
         self.config = try container.contains(.config) ? container.decode([String: AnyCodable].self, forKey: .config) : ([String: Any]()).mapValues { AnyCodable($0) }
+        self.schedule = try container.decodeIfPresent([String: AnyCodable].self, forKey: .schedule)
         self.limit = try container.contains(.limit) ? container.decode(Int.self, forKey: .limit) : 100
         self.interval = try container.contains(.interval) ? container.decode(Int.self, forKey: .interval) : 3600
         self.key = try container.contains(.key) ? container.decode(String.self, forKey: .key) : "ip"
@@ -149,6 +155,7 @@ open class WafRuleRateLimit: Codable {
         try container.encode(enabled, forKey: .enabled)
         try container.encode(conditions, forKey: .conditions)
         try container.encode(config, forKey: .config)
+        try container.encodeIfPresent(schedule, forKey: .schedule)
         try container.encode(limit, forKey: .limit)
         try container.encode(interval, forKey: .interval)
         try container.encode(key, forKey: .key)
@@ -172,6 +179,7 @@ open class WafRuleRateLimit: Codable {
             "enabled": enabled as Any,
             "conditions": conditions as Any,
             "config": config as Any,
+            "schedule": schedule as Any,
             "limit": limit as Any,
             "interval": interval as Any,
             "key": key as Any,
@@ -218,6 +226,7 @@ open class WafRuleRateLimit: Codable {
             enabled: map["enabled"] as! Bool,
             conditions: (map["conditions"] as! [Any]).map { AnyCodable($0) },
             config: (map["config"] as! [String: Any]).mapValues { AnyCodable($0) },
+            schedule: (map["schedule"] as? [String: Any])?.mapValues { AnyCodable($0) },
             limit: map["limit"] as! Int,
             interval: map["interval"] as! Int,
             key: map["key"] as! String,

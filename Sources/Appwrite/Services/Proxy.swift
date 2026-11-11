@@ -383,10 +383,157 @@ open class Proxy: Service {
         )
     }
     ///
+    /// Update the function and VCS branch a function proxy rule executes. The rule
+    /// domain cannot be changed.
+    ///
+    /// - Parameters:
+    ///   - ruleId: String
+    ///   - functionId: String
+    ///   - branch: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ProxyRule
+    ///
+    open func updateFunctionRule(
+        ruleId: String,
+        functionId: String,
+        branch: String? = nil
+    ) async throws -> AppwriteModels.ProxyRule {
+        if ruleId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"ruleId\"")
+        }
+
+        let apiPath: String = "/proxy/rules/{ruleId}/function"
+            .replacingOccurrences(of: "{ruleId}", with: try Client.encodePath(ruleId))
+
+        let apiParams: [String: Any?] = [
+            "functionId": functionId,
+            "branch": branch,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.ProxyRule = { response in
+            return AppwriteModels.ProxyRule.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Update the target URL, status code and parent resource of a redirect proxy
+    /// rule. The rule domain cannot be changed.
+    ///
+    /// - Parameters:
+    ///   - ruleId: String
+    ///   - url: String
+    ///   - statusCode: AppwriteEnums.StatusCode
+    ///   - resourceId: String
+    ///   - resourceType: AppwriteEnums.ProxyResourceType
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ProxyRule
+    ///
+    open func updateRedirectRule(
+        ruleId: String,
+        url: String,
+        statusCode: AppwriteEnums.StatusCode,
+        resourceId: String,
+        resourceType: AppwriteEnums.ProxyResourceType
+    ) async throws -> AppwriteModels.ProxyRule {
+        if ruleId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"ruleId\"")
+        }
+
+        let apiPath: String = "/proxy/rules/{ruleId}/redirect"
+            .replacingOccurrences(of: "{ruleId}", with: try Client.encodePath(ruleId))
+
+        let apiParams: [String: Any?] = [
+            "url": url,
+            "statusCode": statusCode.rawValue,
+            "resourceId": resourceId,
+            "resourceType": resourceType.rawValue,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.ProxyRule = { response in
+            return AppwriteModels.ProxyRule.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Update the site and VCS branch a site proxy rule serves. The rule domain
+    /// cannot be changed.
+    ///
+    /// - Parameters:
+    ///   - ruleId: String
+    ///   - siteId: String
+    ///   - branch: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.ProxyRule
+    ///
+    open func updateSiteRule(
+        ruleId: String,
+        siteId: String,
+        branch: String? = nil
+    ) async throws -> AppwriteModels.ProxyRule {
+        if ruleId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"ruleId\"")
+        }
+
+        let apiPath: String = "/proxy/rules/{ruleId}/site"
+            .replacingOccurrences(of: "{ruleId}", with: try Client.encodePath(ruleId))
+
+        let apiParams: [String: Any?] = [
+            "siteId": siteId,
+            "branch": branch,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.ProxyRule = { response in
+            return AppwriteModels.ProxyRule.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// If not succeeded yet, retry verification process of a proxy rule domain.
     /// This endpoint triggers domain verification by checking DNS records. If
     /// verification is successful, a TLS certificate will be automatically
-    /// provisioned for the domain asynchronously in the background.
+    /// provisioned for the domain asynchronously in the background. A verified
+    /// rule whose certificate renewal failed or is blocked, or whose certificate
+    /// expired, is checked the same way, and its certificate renewed in the
+    /// background.
     ///
     /// - Parameters:
     ///   - ruleId: String
