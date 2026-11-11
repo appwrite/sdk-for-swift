@@ -20,7 +20,8 @@ let wafRuleRateLimit = try await waf.updateRateLimitRule(
     maxBucketSize: 1, // optional
     priority: -100000, // optional
     enabled: false, // optional
-    conditions: [] // optional
+    conditions: [], // optional
+    schedule: [:] // optional
 )
 
 ```

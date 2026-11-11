@@ -37,6 +37,7 @@ public enum AppwriteMigrationResource: String, Codable, CustomStringConvertible 
     case projectVariable = "project-variable"
     case projectProtocols = "project-protocols"
     case projectLabels = "project-labels"
+    case projectPreferences = "project-preferences"
     case projectServices = "project-services"
     case projectEmailTemplate = "project-email-template"
     case projectEnvironment = "project-environment"

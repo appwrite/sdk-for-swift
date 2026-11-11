@@ -20,6 +20,7 @@ public enum ProjectPolicyId: String, Codable, CustomStringConvertible {
     case denyCorporateEmail = "deny-corporate-email"
     case denyRealtimeGuests = "deny-realtime-guests"
     case passkey = "passkey"
+    case accountDevices = "account-devices"
 
     public var description: String {
         return rawValue

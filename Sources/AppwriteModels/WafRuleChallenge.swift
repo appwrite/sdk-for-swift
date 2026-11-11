@@ -20,6 +20,7 @@ open class WafRuleChallenge: Codable {
         case enabled = "enabled"
         case conditions = "conditions"
         case config = "config"
+        case schedule = "schedule"
         case challengeType = "challengeType"
         case difficulty = "difficulty"
         case ttl = "ttl"
@@ -53,6 +54,8 @@ open class WafRuleChallenge: Codable {
     public let conditions: [AnyCodable]
     /// Action specific configuration.
     public let config: [String: AnyCodable]
+    /// When the rule is active: mode, days, interval, anchor, startTime, endTime and timezone. Null when the rule is always active.
+    public let schedule: [String: AnyCodable]?
     /// Challenge type enforced when the rule matches.
     public let challengeType: String
     /// Challenge difficulty from 1 (easiest) to 5 (hardest) enforced when the rule matches.
@@ -75,6 +78,7 @@ open class WafRuleChallenge: Codable {
         enabled: Bool,
         conditions: [AnyCodable],
         config: [String: AnyCodable],
+        schedule: [String: AnyCodable]?,
         challengeType: String,
         difficulty: Int,
         ttl: Int
@@ -93,6 +97,7 @@ open class WafRuleChallenge: Codable {
         self.enabled = enabled
         self.conditions = conditions
         self.config = config
+        self.schedule = schedule
         self.challengeType = challengeType
         self.difficulty = difficulty
         self.ttl = ttl
@@ -115,6 +120,7 @@ open class WafRuleChallenge: Codable {
         self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : true
         self.conditions = try container.contains(.conditions) ? container.decode([AnyCodable].self, forKey: .conditions) : []
         self.config = try container.contains(.config) ? container.decode([String: AnyCodable].self, forKey: .config) : ([String: Any]()).mapValues { AnyCodable($0) }
+        self.schedule = try container.decodeIfPresent([String: AnyCodable].self, forKey: .schedule)
         self.challengeType = try container.contains(.challengeType) ? container.decode(String.self, forKey: .challengeType) : "compute"
         self.difficulty = try container.contains(.difficulty) ? container.decode(Int.self, forKey: .difficulty) : 3
         self.ttl = try container.contains(.ttl) ? container.decode(Int.self, forKey: .ttl) : 1800
@@ -137,6 +143,7 @@ open class WafRuleChallenge: Codable {
         try container.encode(enabled, forKey: .enabled)
         try container.encode(conditions, forKey: .conditions)
         try container.encode(config, forKey: .config)
+        try container.encodeIfPresent(schedule, forKey: .schedule)
         try container.encode(challengeType, forKey: .challengeType)
         try container.encode(difficulty, forKey: .difficulty)
         try container.encode(ttl, forKey: .ttl)
@@ -158,6 +165,7 @@ open class WafRuleChallenge: Codable {
             "enabled": enabled as Any,
             "conditions": conditions as Any,
             "config": config as Any,
+            "schedule": schedule as Any,
             "challengeType": challengeType as Any,
             "difficulty": difficulty as Any,
             "ttl": ttl as Any,
@@ -200,6 +208,7 @@ open class WafRuleChallenge: Codable {
             enabled: map["enabled"] as! Bool,
             conditions: (map["conditions"] as! [Any]).map { AnyCodable($0) },
             config: (map["config"] as! [String: Any]).mapValues { AnyCodable($0) },
+            schedule: (map["schedule"] as? [String: Any] ?? [:]).mapValues { AnyCodable($0) },
             challengeType: map["challengeType"] as! String,
             difficulty: map["difficulty"] as! Int,
             ttl: map["ttl"] as! Int

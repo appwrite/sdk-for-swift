@@ -1,0 +1,58 @@
+import Foundation
+import JSONCodable
+
+/// Policy Account Devices
+open class PolicyAccountDevices: Codable {
+
+    enum CodingKeys: String, CodingKey {
+        case id = "$id"
+        case enabled = "enabled"
+    }
+
+    /// Policy ID.
+    public let id: String
+    /// Whether account devices are enabled. When disabled, new account devices can no longer be created.
+    public let enabled: Bool
+
+    init(
+        id: String,
+        enabled: Bool
+    ) {
+        self.id = id
+        self.enabled = enabled
+    }
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.id = try container.contains(.id) ? container.decode(String.self, forKey: .id) : ""
+        self.enabled = try container.contains(.enabled) ? container.decode(Bool.self, forKey: .enabled) : true
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+
+        try container.encode(id, forKey: .id)
+        try container.encode(enabled, forKey: .enabled)
+    }
+
+    public func toMap() -> [String: Any] {
+        return [
+            "$id": id as Any,
+            "enabled": enabled as Any,
+        ]
+    }
+
+    public static func from(map: [String: Any]) -> PolicyAccountDevices {
+        let defaults: [String: Any] = [
+            "$id": "",
+            "enabled": true,
+        ]
+        let map = defaults.merging(map) { _, new in new }
+
+        return PolicyAccountDevices(
+            id: map["$id"] as! String,
+            enabled: map["enabled"] as! Bool
+        )
+    }
+}

@@ -13,6 +13,8 @@ open class Organization<T: Codable>: Codable {
         case prefs = "prefs"
         case billingBudget = "billingBudget"
         case budgetAlerts = "budgetAlerts"
+        case budgetNotify = "budgetNotify"
+        case budgetCritical = "budgetCritical"
         case billingPlan = "billingPlan"
         case billingPlanId = "billingPlanId"
         case billingPlanDetails = "billingPlanDetails"
@@ -34,6 +36,7 @@ open class Organization<T: Codable>: Codable {
         case programManagerCalendar = "programManagerCalendar"
         case programDiscordChannelName = "programDiscordChannelName"
         case programDiscordChannelUrl = "programDiscordChannelUrl"
+        case educationExpiresAt = "educationExpiresAt"
         case billingLimits = "billingLimits"
         case billingPlanDowngrade = "billingPlanDowngrade"
         case billingTaxId = "billingTaxId"
@@ -58,6 +61,10 @@ open class Organization<T: Codable>: Codable {
     public let billingBudget: Int?
     /// Project budget limit
     public let budgetAlerts: [Int]
+    /// Organization roles whose confirmed members are emailed when a budget alert fires.
+    public let budgetNotify: [String]
+    /// Budget alert percentages whose push notifications are critical.
+    public let budgetCritical: [Int]
     /// Organization&#039;s billing plan ID.
     public let billingPlan: String
     /// Organization&#039;s billing plan ID.
@@ -100,6 +107,8 @@ open class Organization<T: Codable>: Codable {
     public let programDiscordChannelName: String?
     /// Program&#039;s discord channel URL.
     public let programDiscordChannelUrl: String?
+    /// When the education plan ends, for an organization on it.
+    public let educationExpiresAt: String?
     /// Billing limits reached
     public let billingLimits: BillingLimits?
     /// Billing plan selected for downgrade.
@@ -122,6 +131,8 @@ open class Organization<T: Codable>: Codable {
         prefs: Preferences<T>,
         billingBudget: Int?,
         budgetAlerts: [Int],
+        budgetNotify: [String],
+        budgetCritical: [Int],
         billingPlan: String,
         billingPlanId: String,
         billingPlanDetails: BillingPlan,
@@ -143,6 +154,7 @@ open class Organization<T: Codable>: Codable {
         programManagerCalendar: String?,
         programDiscordChannelName: String?,
         programDiscordChannelUrl: String?,
+        educationExpiresAt: String?,
         billingLimits: BillingLimits?,
         billingPlanDowngrade: String?,
         billingTaxId: String?,
@@ -158,6 +170,8 @@ open class Organization<T: Codable>: Codable {
         self.prefs = prefs
         self.billingBudget = billingBudget
         self.budgetAlerts = budgetAlerts
+        self.budgetNotify = budgetNotify
+        self.budgetCritical = budgetCritical
         self.billingPlan = billingPlan
         self.billingPlanId = billingPlanId
         self.billingPlanDetails = billingPlanDetails
@@ -179,6 +193,7 @@ open class Organization<T: Codable>: Codable {
         self.programManagerCalendar = programManagerCalendar
         self.programDiscordChannelName = programDiscordChannelName
         self.programDiscordChannelUrl = programDiscordChannelUrl
+        self.educationExpiresAt = educationExpiresAt
         self.billingLimits = billingLimits
         self.billingPlanDowngrade = billingPlanDowngrade
         self.billingTaxId = billingTaxId
@@ -200,6 +215,11 @@ open class Organization<T: Codable>: Codable {
         self.budgetAlerts = try container.contains(.budgetAlerts) ? container.decode([Int].self, forKey: .budgetAlerts) : [
         75
     ]
+        self.budgetNotify = try container.contains(.budgetNotify) ? container.decode([String].self, forKey: .budgetNotify) : [
+        "owner",
+        "billing"
+    ]
+        self.budgetCritical = try container.contains(.budgetCritical) ? container.decode([Int].self, forKey: .budgetCritical) : []
         self.billingPlan = try container.contains(.billingPlan) ? container.decode(String.self, forKey: .billingPlan) : "tier-0"
         self.billingPlanId = try container.contains(.billingPlanId) ? container.decode(String.self, forKey: .billingPlanId) : "tier-0"
         self.billingPlanDetails = try container.decode(BillingPlan.self, forKey: .billingPlanDetails)
@@ -221,6 +241,7 @@ open class Organization<T: Codable>: Codable {
         self.programManagerCalendar = try container.decodeIfPresent(String.self, forKey: .programManagerCalendar)
         self.programDiscordChannelName = try container.decodeIfPresent(String.self, forKey: .programDiscordChannelName)
         self.programDiscordChannelUrl = try container.decodeIfPresent(String.self, forKey: .programDiscordChannelUrl)
+        self.educationExpiresAt = try container.decodeIfPresent(String.self, forKey: .educationExpiresAt)
         self.billingLimits = try container.decodeIfPresent(BillingLimits.self, forKey: .billingLimits)
         self.billingPlanDowngrade = try container.decodeIfPresent(String.self, forKey: .billingPlanDowngrade)
         self.billingTaxId = try container.decodeIfPresent(String.self, forKey: .billingTaxId)
@@ -240,6 +261,8 @@ open class Organization<T: Codable>: Codable {
         try container.encode(prefs, forKey: .prefs)
         try container.encodeIfPresent(billingBudget, forKey: .billingBudget)
         try container.encode(budgetAlerts, forKey: .budgetAlerts)
+        try container.encode(budgetNotify, forKey: .budgetNotify)
+        try container.encode(budgetCritical, forKey: .budgetCritical)
         try container.encode(billingPlan, forKey: .billingPlan)
         try container.encode(billingPlanId, forKey: .billingPlanId)
         try container.encode(billingPlanDetails, forKey: .billingPlanDetails)
@@ -261,6 +284,7 @@ open class Organization<T: Codable>: Codable {
         try container.encodeIfPresent(programManagerCalendar, forKey: .programManagerCalendar)
         try container.encodeIfPresent(programDiscordChannelName, forKey: .programDiscordChannelName)
         try container.encodeIfPresent(programDiscordChannelUrl, forKey: .programDiscordChannelUrl)
+        try container.encodeIfPresent(educationExpiresAt, forKey: .educationExpiresAt)
         try container.encodeIfPresent(billingLimits, forKey: .billingLimits)
         try container.encodeIfPresent(billingPlanDowngrade, forKey: .billingPlanDowngrade)
         try container.encodeIfPresent(billingTaxId, forKey: .billingTaxId)
@@ -279,6 +303,8 @@ open class Organization<T: Codable>: Codable {
             "prefs": prefs.toMap() as Any,
             "billingBudget": billingBudget as Any,
             "budgetAlerts": budgetAlerts as Any,
+            "budgetNotify": budgetNotify as Any,
+            "budgetCritical": budgetCritical as Any,
             "billingPlan": billingPlan as Any,
             "billingPlanId": billingPlanId as Any,
             "billingPlanDetails": billingPlanDetails.toMap() as Any,
@@ -300,6 +326,7 @@ open class Organization<T: Codable>: Codable {
             "programManagerCalendar": programManagerCalendar as Any,
             "programDiscordChannelName": programDiscordChannelName as Any,
             "programDiscordChannelUrl": programDiscordChannelUrl as Any,
+            "educationExpiresAt": educationExpiresAt as Any,
             "billingLimits": billingLimits?.toMap() as Any,
             "billingPlanDowngrade": billingPlanDowngrade as Any,
             "billingTaxId": billingTaxId as Any,
@@ -317,6 +344,8 @@ open class Organization<T: Codable>: Codable {
             "name": "",
             "total": 0,
             "budgetAlerts": [75] as [Any],
+            "budgetNotify": ["owner", "billing"] as [Any],
+            "budgetCritical": [Any](),
             "billingPlan": "tier-0",
             "billingPlanId": "tier-0",
             "billingEmail": "",
@@ -336,6 +365,8 @@ open class Organization<T: Codable>: Codable {
             prefs: Preferences.from(map: map["prefs"] as! [String: Any]),
             billingBudget: map["billingBudget"] as? Int,
             budgetAlerts: map["budgetAlerts"] as! [Int],
+            budgetNotify: map["budgetNotify"] as! [String],
+            budgetCritical: map["budgetCritical"] as! [Int],
             billingPlan: map["billingPlan"] as! String,
             billingPlanId: map["billingPlanId"] as! String,
             billingPlanDetails: BillingPlan.from(map: map["billingPlanDetails"] as! [String: Any]),
@@ -357,6 +388,7 @@ open class Organization<T: Codable>: Codable {
             programManagerCalendar: map["programManagerCalendar"] as? String,
             programDiscordChannelName: map["programDiscordChannelName"] as? String,
             programDiscordChannelUrl: map["programDiscordChannelUrl"] as? String,
+            educationExpiresAt: map["educationExpiresAt"] as? String,
             billingLimits: map["billingLimits"] as? [String: Any] != nil ? BillingLimits.from(map: map["billingLimits"] as! [String: Any]) : nil,
             billingPlanDowngrade: map["billingPlanDowngrade"] as? String,
             billingTaxId: map["billingTaxId"] as? String,

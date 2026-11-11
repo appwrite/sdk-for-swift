@@ -65,6 +65,7 @@ open class Waf: Service {
     ///   - priority: Int (optional)
     ///   - enabled: Bool (optional)
     ///   - conditions: [String] (optional)
+    ///   - schedule: Any (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.WafRuleBypass
     ///
@@ -76,7 +77,8 @@ open class Waf: Service {
         description: String? = nil,
         priority: Int? = nil,
         enabled: Bool? = nil,
-        conditions: [String]? = nil
+        conditions: [String]? = nil,
+        schedule: Any? = nil
     ) async throws -> AppwriteModels.WafRuleBypass {
         let apiPath: String = "/waf/rules/bypass"
 
@@ -89,6 +91,7 @@ open class Waf: Service {
             "priority": priority,
             "enabled": enabled,
             "conditions": conditions,
+            "schedule": schedule,
         ]
 
         let apiHeaders: [String: String] = [
@@ -126,6 +129,7 @@ open class Waf: Service {
     ///   - priority: Int (optional)
     ///   - enabled: Bool (optional)
     ///   - conditions: [String] (optional)
+    ///   - schedule: Any (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.WafRuleBypass
     ///
@@ -137,7 +141,8 @@ open class Waf: Service {
         description: String? = nil,
         priority: Int? = nil,
         enabled: Bool? = nil,
-        conditions: [String]? = nil
+        conditions: [String]? = nil,
+        schedule: Any? = nil
     ) async throws -> AppwriteModels.WafRuleBypass {
         if ruleId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"ruleId\"")
@@ -154,6 +159,7 @@ open class Waf: Service {
             "priority": priority,
             "enabled": enabled,
             "conditions": conditions,
+            "schedule": schedule,
         ]
 
         let apiHeaders: [String: String] = [
@@ -197,6 +203,7 @@ open class Waf: Service {
     ///   - conditions: [String] (optional)
     ///   - difficulty: Int (optional)
     ///   - ttl: Int (optional)
+    ///   - schedule: Any (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.WafRuleChallenge
     ///
@@ -211,7 +218,8 @@ open class Waf: Service {
         enabled: Bool? = nil,
         conditions: [String]? = nil,
         difficulty: Int? = nil,
-        ttl: Int? = nil
+        ttl: Int? = nil,
+        schedule: Any? = nil
     ) async throws -> AppwriteModels.WafRuleChallenge {
         let apiPath: String = "/waf/rules/challenge"
 
@@ -227,6 +235,7 @@ open class Waf: Service {
             "conditions": conditions,
             "difficulty": difficulty,
             "ttl": ttl,
+            "schedule": schedule,
         ]
 
         let apiHeaders: [String: String] = [
@@ -270,6 +279,7 @@ open class Waf: Service {
     ///   - conditions: [String] (optional)
     ///   - difficulty: Int (optional)
     ///   - ttl: Int (optional)
+    ///   - schedule: Any (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.WafRuleChallenge
     ///
@@ -284,7 +294,8 @@ open class Waf: Service {
         enabled: Bool? = nil,
         conditions: [String]? = nil,
         difficulty: Int? = nil,
-        ttl: Int? = nil
+        ttl: Int? = nil,
+        schedule: Any? = nil
     ) async throws -> AppwriteModels.WafRuleChallenge {
         if ruleId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"ruleId\"")
@@ -304,6 +315,7 @@ open class Waf: Service {
             "conditions": conditions,
             "difficulty": difficulty,
             "ttl": ttl,
+            "schedule": schedule,
         ]
 
         let apiHeaders: [String: String] = [
@@ -351,6 +363,7 @@ open class Waf: Service {
     ///   - priority: Int (optional)
     ///   - enabled: Bool (optional)
     ///   - conditions: [String] (optional)
+    ///   - schedule: Any (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.WafRuleDeny
     ///
@@ -362,7 +375,8 @@ open class Waf: Service {
         description: String? = nil,
         priority: Int? = nil,
         enabled: Bool? = nil,
-        conditions: [String]? = nil
+        conditions: [String]? = nil,
+        schedule: Any? = nil
     ) async throws -> AppwriteModels.WafRuleDeny {
         let apiPath: String = "/waf/rules/deny"
 
@@ -375,6 +389,7 @@ open class Waf: Service {
             "priority": priority,
             "enabled": enabled,
             "conditions": conditions,
+            "schedule": schedule,
         ]
 
         let apiHeaders: [String: String] = [
@@ -422,6 +437,7 @@ open class Waf: Service {
     ///   - priority: Int (optional)
     ///   - enabled: Bool (optional)
     ///   - conditions: [String] (optional)
+    ///   - schedule: Any (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.WafRuleDeny
     ///
@@ -433,7 +449,8 @@ open class Waf: Service {
         description: String? = nil,
         priority: Int? = nil,
         enabled: Bool? = nil,
-        conditions: [String]? = nil
+        conditions: [String]? = nil,
+        schedule: Any? = nil
     ) async throws -> AppwriteModels.WafRuleDeny {
         if ruleId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"ruleId\"")
@@ -450,6 +467,7 @@ open class Waf: Service {
             "priority": priority,
             "enabled": enabled,
             "conditions": conditions,
+            "schedule": schedule,
         ]
 
         let apiHeaders: [String: String] = [
@@ -494,6 +512,7 @@ open class Waf: Service {
     ///   - priority: Int (optional)
     ///   - enabled: Bool (optional)
     ///   - conditions: [String] (optional)
+    ///   - schedule: Any (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.WafRuleRateLimit
     ///
@@ -510,7 +529,8 @@ open class Waf: Service {
         maxBucketSize: Int? = nil,
         priority: Int? = nil,
         enabled: Bool? = nil,
-        conditions: [String]? = nil
+        conditions: [String]? = nil,
+        schedule: Any? = nil
     ) async throws -> AppwriteModels.WafRuleRateLimit {
         let apiPath: String = "/waf/rules/rate-limit"
 
@@ -528,6 +548,7 @@ open class Waf: Service {
             "priority": priority,
             "enabled": enabled,
             "conditions": conditions,
+            "schedule": schedule,
         ]
 
         let apiHeaders: [String: String] = [
@@ -571,6 +592,7 @@ open class Waf: Service {
     ///   - priority: Int (optional)
     ///   - enabled: Bool (optional)
     ///   - conditions: [String] (optional)
+    ///   - schedule: Any (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.WafRuleRateLimit
     ///
@@ -586,7 +608,8 @@ open class Waf: Service {
         maxBucketSize: Int? = nil,
         priority: Int? = nil,
         enabled: Bool? = nil,
-        conditions: [String]? = nil
+        conditions: [String]? = nil,
+        schedule: Any? = nil
     ) async throws -> AppwriteModels.WafRuleRateLimit {
         if ruleId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"ruleId\"")
@@ -607,6 +630,7 @@ open class Waf: Service {
             "priority": priority,
             "enabled": enabled,
             "conditions": conditions,
+            "schedule": schedule,
         ]
 
         let apiHeaders: [String: String] = [
@@ -646,6 +670,7 @@ open class Waf: Service {
     ///   - priority: Int (optional)
     ///   - enabled: Bool (optional)
     ///   - conditions: [String] (optional)
+    ///   - schedule: Any (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.WafRuleRedirect
     ///
@@ -659,7 +684,8 @@ open class Waf: Service {
         description: String? = nil,
         priority: Int? = nil,
         enabled: Bool? = nil,
-        conditions: [String]? = nil
+        conditions: [String]? = nil,
+        schedule: Any? = nil
     ) async throws -> AppwriteModels.WafRuleRedirect {
         let apiPath: String = "/waf/rules/redirect"
 
@@ -674,6 +700,7 @@ open class Waf: Service {
             "priority": priority,
             "enabled": enabled,
             "conditions": conditions,
+            "schedule": schedule,
         ]
 
         let apiHeaders: [String: String] = [
@@ -713,6 +740,7 @@ open class Waf: Service {
     ///   - priority: Int (optional)
     ///   - enabled: Bool (optional)
     ///   - conditions: [String] (optional)
+    ///   - schedule: Any (optional)
     /// - Throws: Exception if the request fails
     /// - Returns: AppwriteModels.WafRuleRedirect
     ///
@@ -726,7 +754,8 @@ open class Waf: Service {
         statusCode: Int? = nil,
         priority: Int? = nil,
         enabled: Bool? = nil,
-        conditions: [String]? = nil
+        conditions: [String]? = nil,
+        schedule: Any? = nil
     ) async throws -> AppwriteModels.WafRuleRedirect {
         if ruleId.isEmpty {
             throw AppwriteError(message: "Missing required parameter: \"ruleId\"")
@@ -745,6 +774,7 @@ open class Waf: Service {
             "priority": priority,
             "enabled": enabled,
             "conditions": conditions,
+            "schedule": schedule,
         ]
 
         let apiHeaders: [String: String] = [

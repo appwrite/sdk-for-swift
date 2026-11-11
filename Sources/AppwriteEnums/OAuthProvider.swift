@@ -43,6 +43,8 @@ public enum OAuthProvider: String, Codable, CustomStringConvertible {
     case tradeshift = "tradeshift"
     case tradeshiftBox = "tradeshiftBox"
     case twitch = "twitch"
+    case vipps = "vipps"
+    case vippsSandbox = "vippsSandbox"
     case webflow = "webflow"
     case wordpress = "wordpress"
     case x = "x"
