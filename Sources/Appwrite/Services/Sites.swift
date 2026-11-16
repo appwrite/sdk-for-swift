@@ -410,6 +410,52 @@ open class Sites: Service {
         )
     }
     ///
+    /// Turn analytics on or off for a site. Turning it on links an analytics
+    /// property named after the site, creating one on first use, and injects the
+    /// tracker into pages served on the site's production domains. Turning it on
+    /// also needs the `analytics.write` scope. Turning it off stops the injection
+    /// and keeps the property and its data.
+    ///
+    /// - Parameters:
+    ///   - siteId: String
+    ///   - enabled: Bool
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Site
+    ///
+    open func updateAnalytics(
+        siteId: String,
+        enabled: Bool
+    ) async throws -> AppwriteModels.Site {
+        if siteId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"siteId\"")
+        }
+
+        let apiPath: String = "/sites/{siteId}/analytics"
+            .replacingOccurrences(of: "{siteId}", with: try Client.encodePath(siteId))
+
+        let apiParams: [String: Any?] = [
+            "enabled": enabled
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Site = { response in
+            return AppwriteModels.Site.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// Update the site active deployment. Use this endpoint to switch the code
     /// deployment that should be used when visitor opens your site.
     ///

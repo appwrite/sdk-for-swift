@@ -2425,6 +2425,54 @@ open class Account: Service {
         )
     }
     ///
+    /// Allow the user to login into their account by providing the username and
+    /// password they use in the project's LDAP directory. The directory verifies
+    /// the password; on the first sign-in an account is created from the directory
+    /// entry, and on later sign-ins the name, email and phone follow the
+    /// directory. This endpoint requires LDAP to be configured and enabled for the
+    /// project. A user is limited to 10 active sessions at a time by default.
+    /// [Learn more about session
+    /// limits](https://appwrite.io/docs/authentication-security#limits).
+    ///
+    /// - Parameters:
+    ///   - username: String
+    ///   - password: String
+    ///   - duration: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Session
+    ///
+    open func createLDAPSession(
+        username: String,
+        password: String,
+        duration: Int? = nil
+    ) async throws -> AppwriteModels.Session {
+        let apiPath: String = "/account/sessions/ldap"
+
+        let apiParams: [String: Any?] = [
+            "username": username,
+            "password": password,
+            "duration": duration,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Session = { response in
+            return AppwriteModels.Session.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// Use this endpoint to create a session from token. Provide the **userId**
     /// and **secret** parameters from the successful response of authentication
     /// flows initiated by token creation. For example, magic URL and phone login.

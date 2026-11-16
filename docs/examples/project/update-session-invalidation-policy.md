@@ -8,7 +8,7 @@ let client = Client()
 
 let project = Project(client)
 
-let project = try await project.updateSessionInvalidationPolicy(
+let result = try await project.updateSessionInvalidationPolicy(
     enabled: false
 )
 

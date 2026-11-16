@@ -8,7 +8,7 @@ let client = Client()
 
 let project = Project(client)
 
-let project = try await project.updateMFAFactorsPolicy(
+let result = try await project.updateMFAFactorsPolicy(
     totp: false, // optional
     email: false, // optional
     phone: false, // optional

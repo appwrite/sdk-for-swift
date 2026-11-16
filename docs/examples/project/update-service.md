@@ -9,7 +9,7 @@ let client = Client()
 
 let project = Project(client)
 
-let project = try await project.updateService(
+let result = try await project.updateService(
     serviceId: .account,
     enabled: false
 )

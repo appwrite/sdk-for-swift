@@ -8,7 +8,7 @@ let client = Client()
 
 let project = Project(client)
 
-let project = try await project.updateOAuth2Server(
+let result = try await project.updateOAuth2Server(
     enabled: false,
     authorizationUrl: "https://example.com",
     scopes: [], // optional

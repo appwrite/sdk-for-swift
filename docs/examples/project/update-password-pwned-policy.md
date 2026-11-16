@@ -8,7 +8,7 @@ let client = Client()
 
 let project = Project(client)
 
-let project = try await project.updatePasswordPwnedPolicy(
+let result = try await project.updatePasswordPwnedPolicy(
     enabled: false, // optional
     sessions: false, // optional
     users: false // optional

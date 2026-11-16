@@ -8,7 +8,7 @@ let client = Client()
 
 let project = Project(client)
 
-let project = try await project.updatePasswordRotationPolicy(
+let result = try await project.updatePasswordRotationPolicy(
     enabled: false, // optional
     maxAge: 86400 // optional
 )

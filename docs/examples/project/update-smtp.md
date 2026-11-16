@@ -9,7 +9,7 @@ let client = Client()
 
 let project = Project(client)
 
-let project = try await project.updateSMTP(
+let result = try await project.updateSMTP(
     host: "example.com", // optional
     port: 587, // optional
     username: "<USERNAME>", // optional

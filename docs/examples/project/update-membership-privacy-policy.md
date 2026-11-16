@@ -8,7 +8,7 @@ let client = Client()
 
 let project = Project(client)
 
-let project = try await project.updateMembershipPrivacyPolicy(
+let result = try await project.updateMembershipPrivacyPolicy(
     userId: false, // optional
     userEmail: false, // optional
     userPhone: false, // optional

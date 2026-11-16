@@ -41,6 +41,8 @@ open class Site: Codable {
         case buildRuntime = "buildRuntime"
         case adapter = "adapter"
         case fallbackFile = "fallbackFile"
+        case analyticsEnabled = "analyticsEnabled"
+        case analyticsPropertyId = "analyticsPropertyId"
     }
 
     /// Site ID.
@@ -115,6 +117,10 @@ open class Site: Codable {
     public let adapter: String
     /// Name of fallback file to use instead of 404 page. If null, Appwrite 404 page will be displayed.
     public let fallbackFile: String
+    /// Whether the analytics tracker is injected into pages served on the site&#039;s production domains.
+    public let analyticsEnabled: Bool
+    /// ID of the analytics property the site reports to. Kept when analytics is turned off, so turning it back on resumes the same property.
+    public let analyticsPropertyId: String
 
     init(
         id: String,
@@ -152,7 +158,9 @@ open class Site: Codable {
         runtimeSpecification: String,
         buildRuntime: String,
         adapter: String,
-        fallbackFile: String
+        fallbackFile: String,
+        analyticsEnabled: Bool,
+        analyticsPropertyId: String
     ) {
         self.id = id
         self.createdAt = createdAt
@@ -190,6 +198,8 @@ open class Site: Codable {
         self.buildRuntime = buildRuntime
         self.adapter = adapter
         self.fallbackFile = fallbackFile
+        self.analyticsEnabled = analyticsEnabled
+        self.analyticsPropertyId = analyticsPropertyId
     }
 
     public required init(from decoder: Decoder) throws {
@@ -231,6 +241,8 @@ open class Site: Codable {
         self.buildRuntime = try container.contains(.buildRuntime) ? container.decode(String.self, forKey: .buildRuntime) : ""
         self.adapter = try container.decode(String.self, forKey: .adapter)
         self.fallbackFile = try container.decode(String.self, forKey: .fallbackFile)
+        self.analyticsEnabled = try container.contains(.analyticsEnabled) ? container.decode(Bool.self, forKey: .analyticsEnabled) : false
+        self.analyticsPropertyId = try container.contains(.analyticsPropertyId) ? container.decode(String.self, forKey: .analyticsPropertyId) : ""
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -272,6 +284,8 @@ open class Site: Codable {
         try container.encode(buildRuntime, forKey: .buildRuntime)
         try container.encode(adapter, forKey: .adapter)
         try container.encode(fallbackFile, forKey: .fallbackFile)
+        try container.encode(analyticsEnabled, forKey: .analyticsEnabled)
+        try container.encode(analyticsPropertyId, forKey: .analyticsPropertyId)
     }
 
     public func toMap() -> [String: Any] {
@@ -312,6 +326,8 @@ open class Site: Codable {
             "buildRuntime": buildRuntime as Any,
             "adapter": adapter as Any,
             "fallbackFile": fallbackFile as Any,
+            "analyticsEnabled": analyticsEnabled as Any,
+            "analyticsPropertyId": analyticsPropertyId as Any,
         ]
     }
 
@@ -351,6 +367,8 @@ open class Site: Codable {
             "buildSpecification": "s-1vcpu-512mb",
             "runtimeSpecification": "s-1vcpu-512mb",
             "buildRuntime": "",
+            "analyticsEnabled": false,
+            "analyticsPropertyId": "",
         ]
         let map = defaults.merging(map) { _, new in new }
 
@@ -390,7 +408,9 @@ open class Site: Codable {
             runtimeSpecification: map["runtimeSpecification"] as! String,
             buildRuntime: map["buildRuntime"] as! String,
             adapter: map["adapter"] as! String,
-            fallbackFile: map["fallbackFile"] as! String
+            fallbackFile: map["fallbackFile"] as! String,
+            analyticsEnabled: map["analyticsEnabled"] as! Bool,
+            analyticsPropertyId: map["analyticsPropertyId"] as! String
         )
     }
 }

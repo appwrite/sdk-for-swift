@@ -8,7 +8,7 @@ let client = Client()
 
 let project = Project(client)
 
-let project = try await project.updatePasswordHistoryPolicy(
+let result = try await project.updatePasswordHistoryPolicy(
     total: 1
 )
 
