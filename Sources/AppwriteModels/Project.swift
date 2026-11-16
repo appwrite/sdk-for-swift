@@ -21,6 +21,22 @@ open class Project<T: Codable>: Codable {
         case smtpUsername = "smtpUsername"
         case smtpPassword = "smtpPassword"
         case smtpSecure = "smtpSecure"
+        case ldapEnabled = "ldapEnabled"
+        case ldapHosts = "ldapHosts"
+        case ldapPort = "ldapPort"
+        case ldapEncryption = "ldapEncryption"
+        case ldapVerification = "ldapVerification"
+        case ldapCertificate = "ldapCertificate"
+        case ldapTimeout = "ldapTimeout"
+        case ldapBaseDn = "ldapBaseDn"
+        case ldapBindDn = "ldapBindDn"
+        case ldapBindPassword = "ldapBindPassword"
+        case ldapUserFilter = "ldapUserFilter"
+        case ldapRequiredGroupDn = "ldapRequiredGroupDn"
+        case ldapIdAttribute = "ldapIdAttribute"
+        case ldapEmailAttribute = "ldapEmailAttribute"
+        case ldapNameAttribute = "ldapNameAttribute"
+        case ldapPhoneAttribute = "ldapPhoneAttribute"
         case pingCount = "pingCount"
         case pingedAt = "pingedAt"
         case labels = "labels"
@@ -89,6 +105,38 @@ open class Project<T: Codable>: Codable {
     public let smtpPassword: String
     /// SMTP server secure protocol
     public let smtpSecure: String
+    /// Status for LDAP sign-in
+    public let ldapEnabled: Bool
+    /// LDAP directory hosts, tried in order.
+    public let ldapHosts: [String]
+    /// LDAP directory port.
+    public let ldapPort: Int
+    /// LDAP transport encryption: none, ldaps or starttls.
+    public let ldapEncryption: String
+    /// Whether the LDAP directory certificate is verified.
+    public let ldapVerification: Bool
+    /// Certificate in PEM format of the authority that signed the LDAP directory certificate, or the directory certificate itself when it is self-signed. Empty for the system trust store.
+    public let ldapCertificate: String
+    /// Seconds to wait for the LDAP directory to connect and answer.
+    public let ldapTimeout: Int
+    /// LDAP subtree the user search starts from.
+    public let ldapBaseDn: String
+    /// LDAP service account used to search for users, empty for anonymous search.
+    public let ldapBindDn: String
+    /// LDAP service account password. This property is write-only and always returned empty.
+    public let ldapBindPassword: String
+    /// LDAP filter that finds the user signing in, with {username} where the username they enter goes.
+    public let ldapUserFilter: String
+    /// LDAP group a user must belong to in order to sign in, empty to allow every user.
+    public let ldapRequiredGroupDn: String
+    /// LDAP attribute holding the identifier that stays the same when an entry is renamed or moved.
+    public let ldapIdAttribute: String
+    /// LDAP attribute holding the email address.
+    public let ldapEmailAttribute: String
+    /// LDAP attribute holding the display name.
+    public let ldapNameAttribute: String
+    /// LDAP attribute holding the phone number, empty when unmapped.
+    public let ldapPhoneAttribute: String
     /// Number of times the ping was received for this project.
     public let pingCount: Int
     /// Last ping datetime in ISO 8601 format.
@@ -175,6 +223,22 @@ open class Project<T: Codable>: Codable {
         smtpUsername: String,
         smtpPassword: String,
         smtpSecure: String,
+        ldapEnabled: Bool,
+        ldapHosts: [String],
+        ldapPort: Int,
+        ldapEncryption: String,
+        ldapVerification: Bool,
+        ldapCertificate: String,
+        ldapTimeout: Int,
+        ldapBaseDn: String,
+        ldapBindDn: String,
+        ldapBindPassword: String,
+        ldapUserFilter: String,
+        ldapRequiredGroupDn: String,
+        ldapIdAttribute: String,
+        ldapEmailAttribute: String,
+        ldapNameAttribute: String,
+        ldapPhoneAttribute: String,
         pingCount: Int,
         pingedAt: String,
         labels: [String],
@@ -226,6 +290,22 @@ open class Project<T: Codable>: Codable {
         self.smtpUsername = smtpUsername
         self.smtpPassword = smtpPassword
         self.smtpSecure = smtpSecure
+        self.ldapEnabled = ldapEnabled
+        self.ldapHosts = ldapHosts
+        self.ldapPort = ldapPort
+        self.ldapEncryption = ldapEncryption
+        self.ldapVerification = ldapVerification
+        self.ldapCertificate = ldapCertificate
+        self.ldapTimeout = ldapTimeout
+        self.ldapBaseDn = ldapBaseDn
+        self.ldapBindDn = ldapBindDn
+        self.ldapBindPassword = ldapBindPassword
+        self.ldapUserFilter = ldapUserFilter
+        self.ldapRequiredGroupDn = ldapRequiredGroupDn
+        self.ldapIdAttribute = ldapIdAttribute
+        self.ldapEmailAttribute = ldapEmailAttribute
+        self.ldapNameAttribute = ldapNameAttribute
+        self.ldapPhoneAttribute = ldapPhoneAttribute
         self.pingCount = pingCount
         self.pingedAt = pingedAt
         self.labels = labels
@@ -281,6 +361,22 @@ open class Project<T: Codable>: Codable {
         self.smtpUsername = try container.contains(.smtpUsername) ? container.decode(String.self, forKey: .smtpUsername) : ""
         self.smtpPassword = try container.contains(.smtpPassword) ? container.decode(String.self, forKey: .smtpPassword) : ""
         self.smtpSecure = try container.contains(.smtpSecure) ? container.decode(String.self, forKey: .smtpSecure) : ""
+        self.ldapEnabled = try container.contains(.ldapEnabled) ? container.decode(Bool.self, forKey: .ldapEnabled) : false
+        self.ldapHosts = try container.contains(.ldapHosts) ? container.decode([String].self, forKey: .ldapHosts) : []
+        self.ldapPort = try container.contains(.ldapPort) ? container.decode(Int.self, forKey: .ldapPort) : 636
+        self.ldapEncryption = try container.contains(.ldapEncryption) ? container.decode(String.self, forKey: .ldapEncryption) : "ldaps"
+        self.ldapVerification = try container.contains(.ldapVerification) ? container.decode(Bool.self, forKey: .ldapVerification) : true
+        self.ldapCertificate = try container.contains(.ldapCertificate) ? container.decode(String.self, forKey: .ldapCertificate) : ""
+        self.ldapTimeout = try container.contains(.ldapTimeout) ? container.decode(Int.self, forKey: .ldapTimeout) : 10
+        self.ldapBaseDn = try container.contains(.ldapBaseDn) ? container.decode(String.self, forKey: .ldapBaseDn) : ""
+        self.ldapBindDn = try container.contains(.ldapBindDn) ? container.decode(String.self, forKey: .ldapBindDn) : ""
+        self.ldapBindPassword = try container.contains(.ldapBindPassword) ? container.decode(String.self, forKey: .ldapBindPassword) : ""
+        self.ldapUserFilter = try container.contains(.ldapUserFilter) ? container.decode(String.self, forKey: .ldapUserFilter) : "(uid={username})"
+        self.ldapRequiredGroupDn = try container.contains(.ldapRequiredGroupDn) ? container.decode(String.self, forKey: .ldapRequiredGroupDn) : ""
+        self.ldapIdAttribute = try container.contains(.ldapIdAttribute) ? container.decode(String.self, forKey: .ldapIdAttribute) : "entryUUID"
+        self.ldapEmailAttribute = try container.contains(.ldapEmailAttribute) ? container.decode(String.self, forKey: .ldapEmailAttribute) : "mail"
+        self.ldapNameAttribute = try container.contains(.ldapNameAttribute) ? container.decode(String.self, forKey: .ldapNameAttribute) : "cn"
+        self.ldapPhoneAttribute = try container.contains(.ldapPhoneAttribute) ? container.decode(String.self, forKey: .ldapPhoneAttribute) : ""
         self.pingCount = try container.contains(.pingCount) ? container.decode(Int.self, forKey: .pingCount) : 0
         self.pingedAt = try container.contains(.pingedAt) ? container.decode(String.self, forKey: .pingedAt) : ""
         self.labels = try container.contains(.labels) ? container.decode([String].self, forKey: .labels) : []
@@ -336,6 +432,22 @@ open class Project<T: Codable>: Codable {
         try container.encode(smtpUsername, forKey: .smtpUsername)
         try container.encode(smtpPassword, forKey: .smtpPassword)
         try container.encode(smtpSecure, forKey: .smtpSecure)
+        try container.encode(ldapEnabled, forKey: .ldapEnabled)
+        try container.encode(ldapHosts, forKey: .ldapHosts)
+        try container.encode(ldapPort, forKey: .ldapPort)
+        try container.encode(ldapEncryption, forKey: .ldapEncryption)
+        try container.encode(ldapVerification, forKey: .ldapVerification)
+        try container.encode(ldapCertificate, forKey: .ldapCertificate)
+        try container.encode(ldapTimeout, forKey: .ldapTimeout)
+        try container.encode(ldapBaseDn, forKey: .ldapBaseDn)
+        try container.encode(ldapBindDn, forKey: .ldapBindDn)
+        try container.encode(ldapBindPassword, forKey: .ldapBindPassword)
+        try container.encode(ldapUserFilter, forKey: .ldapUserFilter)
+        try container.encode(ldapRequiredGroupDn, forKey: .ldapRequiredGroupDn)
+        try container.encode(ldapIdAttribute, forKey: .ldapIdAttribute)
+        try container.encode(ldapEmailAttribute, forKey: .ldapEmailAttribute)
+        try container.encode(ldapNameAttribute, forKey: .ldapNameAttribute)
+        try container.encode(ldapPhoneAttribute, forKey: .ldapPhoneAttribute)
         try container.encode(pingCount, forKey: .pingCount)
         try container.encode(pingedAt, forKey: .pingedAt)
         try container.encode(labels, forKey: .labels)
@@ -390,6 +502,22 @@ open class Project<T: Codable>: Codable {
             "smtpUsername": smtpUsername as Any,
             "smtpPassword": smtpPassword as Any,
             "smtpSecure": smtpSecure as Any,
+            "ldapEnabled": ldapEnabled as Any,
+            "ldapHosts": ldapHosts as Any,
+            "ldapPort": ldapPort as Any,
+            "ldapEncryption": ldapEncryption as Any,
+            "ldapVerification": ldapVerification as Any,
+            "ldapCertificate": ldapCertificate as Any,
+            "ldapTimeout": ldapTimeout as Any,
+            "ldapBaseDn": ldapBaseDn as Any,
+            "ldapBindDn": ldapBindDn as Any,
+            "ldapBindPassword": ldapBindPassword as Any,
+            "ldapUserFilter": ldapUserFilter as Any,
+            "ldapRequiredGroupDn": ldapRequiredGroupDn as Any,
+            "ldapIdAttribute": ldapIdAttribute as Any,
+            "ldapEmailAttribute": ldapEmailAttribute as Any,
+            "ldapNameAttribute": ldapNameAttribute as Any,
+            "ldapPhoneAttribute": ldapPhoneAttribute as Any,
             "pingCount": pingCount as Any,
             "pingedAt": pingedAt as Any,
             "labels": labels as Any,
@@ -445,6 +573,22 @@ open class Project<T: Codable>: Codable {
             "smtpUsername": "",
             "smtpPassword": "",
             "smtpSecure": "",
+            "ldapEnabled": false,
+            "ldapHosts": [Any](),
+            "ldapPort": 636,
+            "ldapEncryption": "ldaps",
+            "ldapVerification": true,
+            "ldapCertificate": "",
+            "ldapTimeout": 10,
+            "ldapBaseDn": "",
+            "ldapBindDn": "",
+            "ldapBindPassword": "",
+            "ldapUserFilter": "(uid={username})",
+            "ldapRequiredGroupDn": "",
+            "ldapIdAttribute": "entryUUID",
+            "ldapEmailAttribute": "mail",
+            "ldapNameAttribute": "cn",
+            "ldapPhoneAttribute": "",
             "pingCount": 0,
             "pingedAt": "",
             "labels": [Any](),
@@ -475,6 +619,22 @@ open class Project<T: Codable>: Codable {
             smtpUsername: map["smtpUsername"] as! String,
             smtpPassword: map["smtpPassword"] as! String,
             smtpSecure: map["smtpSecure"] as! String,
+            ldapEnabled: map["ldapEnabled"] as! Bool,
+            ldapHosts: map["ldapHosts"] as! [String],
+            ldapPort: map["ldapPort"] as! Int,
+            ldapEncryption: map["ldapEncryption"] as! String,
+            ldapVerification: map["ldapVerification"] as! Bool,
+            ldapCertificate: map["ldapCertificate"] as! String,
+            ldapTimeout: map["ldapTimeout"] as! Int,
+            ldapBaseDn: map["ldapBaseDn"] as! String,
+            ldapBindDn: map["ldapBindDn"] as! String,
+            ldapBindPassword: map["ldapBindPassword"] as! String,
+            ldapUserFilter: map["ldapUserFilter"] as! String,
+            ldapRequiredGroupDn: map["ldapRequiredGroupDn"] as! String,
+            ldapIdAttribute: map["ldapIdAttribute"] as! String,
+            ldapEmailAttribute: map["ldapEmailAttribute"] as! String,
+            ldapNameAttribute: map["ldapNameAttribute"] as! String,
+            ldapPhoneAttribute: map["ldapPhoneAttribute"] as! String,
             pingCount: map["pingCount"] as! Int,
             pingedAt: map["pingedAt"] as! String,
             labels: map["labels"] as! [String],
