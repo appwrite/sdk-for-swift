@@ -8,7 +8,7 @@ let client = Client()
 
 let project = Project(client)
 
-let project = try await project.updatePasskeyPolicy(
+let result = try await project.updatePasskeyPolicy(
     rpId: "<RP_ID>"
 )
 

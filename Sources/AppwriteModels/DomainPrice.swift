@@ -13,6 +13,7 @@ open class DomainPrice: Codable {
         case premium = "premium"
         case renewalPrice = "renewalPrice"
         case renewalPeriodYears = "renewalPeriodYears"
+        case reason = "reason"
     }
 
     /// Domain name.
@@ -31,6 +32,8 @@ open class DomainPrice: Codable {
     public let renewalPrice: Double?
     /// Renewal price period in years.
     public let renewalPeriodYears: Int
+    /// Why the domain was not priced for the requested registration type, for example a transfer of an unregistered domain. Empty otherwise.
+    public let reason: String?
 
     init(
         domain: String,
@@ -40,7 +43,8 @@ open class DomainPrice: Codable {
         periodYears: Int,
         premium: Bool,
         renewalPrice: Double?,
-        renewalPeriodYears: Int
+        renewalPeriodYears: Int,
+        reason: String?
     ) {
         self.domain = domain
         self.tld = tld
@@ -50,6 +54,7 @@ open class DomainPrice: Codable {
         self.premium = premium
         self.renewalPrice = renewalPrice
         self.renewalPeriodYears = renewalPeriodYears
+        self.reason = reason
     }
 
     public required init(from decoder: Decoder) throws {
@@ -63,6 +68,7 @@ open class DomainPrice: Codable {
         self.premium = try container.contains(.premium) ? container.decode(Bool.self, forKey: .premium) : false
         self.renewalPrice = try container.decodeIfPresent(Double.self, forKey: .renewalPrice)
         self.renewalPeriodYears = try container.contains(.renewalPeriodYears) ? container.decode(Int.self, forKey: .renewalPeriodYears) : 1
+        self.reason = try container.decodeIfPresent(String.self, forKey: .reason)
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -76,6 +82,7 @@ open class DomainPrice: Codable {
         try container.encode(premium, forKey: .premium)
         try container.encodeIfPresent(renewalPrice, forKey: .renewalPrice)
         try container.encode(renewalPeriodYears, forKey: .renewalPeriodYears)
+        try container.encodeIfPresent(reason, forKey: .reason)
     }
 
     public func toMap() -> [String: Any] {
@@ -88,6 +95,7 @@ open class DomainPrice: Codable {
             "premium": premium as Any,
             "renewalPrice": renewalPrice as Any,
             "renewalPeriodYears": renewalPeriodYears as Any,
+            "reason": reason as Any,
         ]
     }
 
@@ -110,7 +118,8 @@ open class DomainPrice: Codable {
             periodYears: map["periodYears"] as! Int,
             premium: map["premium"] as! Bool,
             renewalPrice: map["renewalPrice"] as? Double,
-            renewalPeriodYears: map["renewalPeriodYears"] as! Int
+            renewalPeriodYears: map["renewalPeriodYears"] as! Int,
+            reason: map["reason"] as? String
         )
     }
 }

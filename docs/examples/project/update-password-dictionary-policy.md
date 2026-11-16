@@ -8,7 +8,7 @@ let client = Client()
 
 let project = Project(client)
 
-let project = try await project.updatePasswordDictionaryPolicy(
+let result = try await project.updatePasswordDictionaryPolicy(
     enabled: false,
     denyList: [] // optional
 )

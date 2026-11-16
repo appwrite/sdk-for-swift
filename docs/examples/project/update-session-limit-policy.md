@@ -8,7 +8,7 @@ let client = Client()
 
 let project = Project(client)
 
-let project = try await project.updateSessionLimitPolicy(
+let result = try await project.updateSessionLimitPolicy(
     total: 1
 )
 

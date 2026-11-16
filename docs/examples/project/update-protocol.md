@@ -9,7 +9,7 @@ let client = Client()
 
 let project = Project(client)
 
-let project = try await project.updateProtocol(
+let result = try await project.updateProtocol(
     protocolId: .rest,
     enabled: false
 )

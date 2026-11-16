@@ -8,7 +8,7 @@ let client = Client()
 
 let project = Project(client)
 
-let project = try await project.updateDenyCorporateEmailPolicy(
+let result = try await project.updateDenyCorporateEmailPolicy(
     enabled: false
 )
 

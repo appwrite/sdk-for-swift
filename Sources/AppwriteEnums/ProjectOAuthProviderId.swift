@@ -28,6 +28,7 @@ public enum ProjectOAuthProviderId: String, Codable, CustomStringConvertible {
     case kick = "kick"
     case linkedin = "linkedin"
     case microsoft = "microsoft"
+    case naver = "naver"
     case notion = "notion"
     case oidc = "oidc"
     case okta = "okta"

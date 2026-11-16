@@ -8,7 +8,7 @@ let client = Client()
 
 let organization = Organization(client)
 
-let organization = try await organization.update(
+let result = try await organization.update(
     name: "<NAME>"
 )
 

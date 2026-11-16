@@ -8,7 +8,7 @@ let client = Client()
 
 let project = Project(client)
 
-let project = try await project.updateDenyRealtimeGuestsPolicy(
+let result = try await project.updateDenyRealtimeGuestsPolicy(
     enabled: false
 )
 

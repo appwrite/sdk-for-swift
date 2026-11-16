@@ -8,6 +8,6 @@ let client = Client()
 
 let organization = Organization(client)
 
-let organization = try await organization.get()
+let result = try await organization.get()
 
 ```

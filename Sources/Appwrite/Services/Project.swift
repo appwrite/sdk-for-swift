@@ -601,6 +601,196 @@ open class Project: Service {
         )
     }
     ///
+    /// Update the LDAP configuration for your project. Use this endpoint to
+    /// connect your project to an LDAP directory, such as OpenLDAP or Active
+    /// Directory, so users can sign in with their directory credentials. Omitted
+    /// parameters keep their stored value. Enabling LDAP connects to the directory
+    /// and binds as the service account, so a project cannot be left enabled with
+    /// a configuration that cannot sign anyone in.
+    ///
+    /// - Parameters:
+    ///   - enabled: Bool (optional)
+    ///   - hosts: [String] (optional)
+    ///   - port: Int (optional)
+    ///   - encryption: AppwriteEnums.ProjectLDAPEncryption (optional)
+    ///   - verification: Bool (optional)
+    ///   - certificate: String (optional)
+    ///   - timeout: Int (optional)
+    ///   - baseDn: String (optional)
+    ///   - bindDn: String (optional)
+    ///   - bindPassword: String (optional)
+    ///   - userFilter: String (optional)
+    ///   - requiredGroupDn: String (optional)
+    ///   - idAttribute: String (optional)
+    ///   - emailAttribute: String (optional)
+    ///   - nameAttribute: String (optional)
+    ///   - phoneAttribute: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateLDAP<T>(
+        enabled: Bool? = nil,
+        hosts: [String]? = nil,
+        port: Int? = nil,
+        encryption: AppwriteEnums.ProjectLDAPEncryption? = nil,
+        verification: Bool? = nil,
+        certificate: String? = nil,
+        timeout: Int? = nil,
+        baseDn: String? = nil,
+        bindDn: String? = nil,
+        bindPassword: String? = nil,
+        userFilter: String? = nil,
+        requiredGroupDn: String? = nil,
+        idAttribute: String? = nil,
+        emailAttribute: String? = nil,
+        nameAttribute: String? = nil,
+        phoneAttribute: String? = nil,
+        nestedType: T.Type
+    ) async throws -> AppwriteModels.Project<T> {
+        let apiPath: String = "/project/ldap"
+
+        let apiParams: [String: Any?] = [
+            "enabled": enabled,
+            "hosts": hosts,
+            "port": port,
+            "encryption": encryption?.rawValue,
+            "verification": verification,
+            "certificate": certificate,
+            "timeout": timeout,
+            "baseDn": baseDn,
+            "bindDn": bindDn,
+            "bindPassword": bindPassword,
+            "userFilter": userFilter,
+            "requiredGroupDn": requiredGroupDn,
+            "idAttribute": idAttribute,
+            "emailAttribute": emailAttribute,
+            "nameAttribute": nameAttribute,
+            "phoneAttribute": phoneAttribute,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Project<T> = { response in
+            return AppwriteModels.Project.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+
+    ///
+    /// Update the LDAP configuration for your project. Use this endpoint to
+    /// connect your project to an LDAP directory, such as OpenLDAP or Active
+    /// Directory, so users can sign in with their directory credentials. Omitted
+    /// parameters keep their stored value. Enabling LDAP connects to the directory
+    /// and binds as the service account, so a project cannot be left enabled with
+    /// a configuration that cannot sign anyone in.
+    ///
+    /// - Parameters:
+    ///   - enabled: Bool (optional)
+    ///   - hosts: [String] (optional)
+    ///   - port: Int (optional)
+    ///   - encryption: AppwriteEnums.ProjectLDAPEncryption (optional)
+    ///   - verification: Bool (optional)
+    ///   - certificate: String (optional)
+    ///   - timeout: Int (optional)
+    ///   - baseDn: String (optional)
+    ///   - bindDn: String (optional)
+    ///   - bindPassword: String (optional)
+    ///   - userFilter: String (optional)
+    ///   - requiredGroupDn: String (optional)
+    ///   - idAttribute: String (optional)
+    ///   - emailAttribute: String (optional)
+    ///   - nameAttribute: String (optional)
+    ///   - phoneAttribute: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Project<T>
+    ///
+    open func updateLDAP(
+        enabled: Bool? = nil,
+        hosts: [String]? = nil,
+        port: Int? = nil,
+        encryption: AppwriteEnums.ProjectLDAPEncryption? = nil,
+        verification: Bool? = nil,
+        certificate: String? = nil,
+        timeout: Int? = nil,
+        baseDn: String? = nil,
+        bindDn: String? = nil,
+        bindPassword: String? = nil,
+        userFilter: String? = nil,
+        requiredGroupDn: String? = nil,
+        idAttribute: String? = nil,
+        emailAttribute: String? = nil,
+        nameAttribute: String? = nil,
+        phoneAttribute: String? = nil
+    ) async throws -> AppwriteModels.Project<[String: AnyCodable]> {
+        return try await updateLDAP(
+            enabled: enabled,
+            hosts: hosts,
+            port: port,
+            encryption: encryption,
+            verification: verification,
+            certificate: certificate,
+            timeout: timeout,
+            baseDn: baseDn,
+            bindDn: bindDn,
+            bindPassword: bindPassword,
+            userFilter: userFilter,
+            requiredGroupDn: requiredGroupDn,
+            idAttribute: idAttribute,
+            emailAttribute: emailAttribute,
+            nameAttribute: nameAttribute,
+            phoneAttribute: phoneAttribute,
+            nestedType: [String: AnyCodable].self
+        )
+    }
+    ///
+    /// Test the stored LDAP configuration against the directory without signing
+    /// anyone in. Connects to the directory, binds as the service account and
+    /// reads the base DN. Pass a username to also look the user up and check the
+    /// required group, and a password to also verify it. The error names the step
+    /// that failed.
+    ///
+    /// - Parameters:
+    ///   - username: String (optional)
+    ///   - password: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
+    ///
+    open func createLDAPTest(
+        username: String? = nil,
+        password: String? = nil
+    ) async throws -> Any {
+        let apiPath: String = "/project/ldap/tests"
+
+        let apiParams: [String: Any?] = [
+            "username": username,
+            "password": password,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams
+        )
+    }
+    ///
     /// Get a list of all mock phones in the project. This endpoint returns an
     /// array of all mock phones and their OTPs.
     ///
@@ -2139,6 +2329,47 @@ open class Project: Service {
         )
     }
     ///
+    /// Update the project OAuth2 Naver configuration.
+    ///
+    /// - Parameters:
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.OAuth2Naver
+    ///
+    open func updateOAuth2Naver(
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.OAuth2Naver {
+        let apiPath: String = "/project/oauth2/naver"
+
+        let apiParams: [String: Any?] = [
+            "clientId": clientId,
+            "clientSecret": clientSecret,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.OAuth2Naver = { response in
+            return AppwriteModels.OAuth2Naver.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// Update the project OAuth2 Notion configuration.
     ///
     /// - Parameters:
@@ -3325,6 +3556,9 @@ open class Project: Service {
             if String(describing: responseMap["$id"] ?? "") == "kakao" {
                 return AppwriteModels.OAuth2Kakao.from(map: responseMap)
             }
+            if String(describing: responseMap["$id"] ?? "") == "naver" {
+                return AppwriteModels.OAuth2Naver.from(map: responseMap)
+            }
             if String(describing: responseMap["$id"] ?? "") == "vipps" {
                 return AppwriteModels.OAuth2Vipps.from(map: responseMap)
             }
@@ -3340,6 +3574,37 @@ open class Project: Service {
             headers: apiHeaders,
             params: apiParams,
             converter: converter
+        )
+    }
+    ///
+    /// Delete all passwords in the project, forcing every user to reset their
+    /// password. Any password set before this request stops working for email and
+    /// password sign-in immediately: signing in returns a
+    /// `user_password_reset_required` error until the user sets a new password
+    /// through password recovery, or until a new password is set for them with the
+    /// Users API. Existing sessions are not affected; call the delete sessions
+    /// endpoint to sign users out as well. Users without a password and API keys
+    /// are not affected by this action.
+    ///
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
+    ///
+    open func deletePasswords() async throws -> Any {
+        let apiPath: String = "/project/passwords"
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        return try await client.call(
+            method: "DELETE",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams
         )
     }
     ///

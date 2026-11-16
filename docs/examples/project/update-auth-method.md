@@ -9,7 +9,7 @@ let client = Client()
 
 let project = Project(client)
 
-let project = try await project.updateAuthMethod(
+let result = try await project.updateAuthMethod(
     methodId: .emailPassword,
     enabled: false
 )
