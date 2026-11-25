@@ -1300,6 +1300,47 @@ open class Project: Service {
         )
     }
     ///
+    /// Update the project OAuth2 Atlassian configuration.
+    ///
+    /// - Parameters:
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.OAuth2Atlassian
+    ///
+    open func updateOAuth2Atlassian(
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.OAuth2Atlassian {
+        let apiPath: String = "/project/oauth2/atlassian"
+
+        let apiParams: [String: Any?] = [
+            "clientId": clientId,
+            "clientSecret": clientSecret,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.OAuth2Atlassian = { response in
+            return AppwriteModels.OAuth2Atlassian.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// Update the project OAuth2 Auth0 configuration.
     ///
     /// - Parameters:
@@ -2109,6 +2150,47 @@ open class Project: Service {
         )
     }
     ///
+    /// Update the project OAuth2 Instagram configuration.
+    ///
+    /// - Parameters:
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.OAuth2Instagram
+    ///
+    open func updateOAuth2Instagram(
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.OAuth2Instagram {
+        let apiPath: String = "/project/oauth2/instagram"
+
+        let apiParams: [String: Any?] = [
+            "clientId": clientId,
+            "clientSecret": clientSecret,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.OAuth2Instagram = { response in
+            return AppwriteModels.OAuth2Instagram.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// Update the project OAuth2 Kakao configuration.
     ///
     /// - Parameters:
@@ -2241,6 +2323,88 @@ open class Project: Service {
         )
     }
     ///
+    /// Update the project OAuth2 LINE configuration.
+    ///
+    /// - Parameters:
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.OAuth2Line
+    ///
+    open func updateOAuth2Line(
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.OAuth2Line {
+        let apiPath: String = "/project/oauth2/line"
+
+        let apiParams: [String: Any?] = [
+            "clientId": clientId,
+            "clientSecret": clientSecret,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.OAuth2Line = { response in
+            return AppwriteModels.OAuth2Line.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Update the project OAuth2 Linear configuration.
+    ///
+    /// - Parameters:
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.OAuth2Linear
+    ///
+    open func updateOAuth2Linear(
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.OAuth2Linear {
+        let apiPath: String = "/project/oauth2/linear"
+
+        let apiParams: [String: Any?] = [
+            "clientId": clientId,
+            "clientSecret": clientSecret,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.OAuth2Linear = { response in
+            return AppwriteModels.OAuth2Linear.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// Update the project OAuth2 Linkedin configuration.
     ///
     /// - Parameters:
@@ -2359,6 +2523,47 @@ open class Project: Service {
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Naver = { response in
             return AppwriteModels.OAuth2Naver.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Update the project OAuth2 Netlify configuration.
+    ///
+    /// - Parameters:
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.OAuth2Netlify
+    ///
+    open func updateOAuth2Netlify(
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.OAuth2Netlify {
+        let apiPath: String = "/project/oauth2/netlify"
+
+        let apiParams: [String: Any?] = [
+            "clientId": clientId,
+            "clientSecret": clientSecret,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.OAuth2Netlify = { response in
+            return AppwriteModels.OAuth2Netlify.from(map: response as! [String: Any])
         }
 
         return try await client.call(
@@ -2520,6 +2725,47 @@ open class Project: Service {
         )
     }
     ///
+    /// Update the project OAuth2 Patreon configuration.
+    ///
+    /// - Parameters:
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.OAuth2Patreon
+    ///
+    open func updateOAuth2Patreon(
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.OAuth2Patreon {
+        let apiPath: String = "/project/oauth2/patreon"
+
+        let apiParams: [String: Any?] = [
+            "clientId": clientId,
+            "clientSecret": clientSecret,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.OAuth2Patreon = { response in
+            return AppwriteModels.OAuth2Patreon.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// Update the project OAuth2 Paypal configuration.
     ///
     /// - Parameters:
@@ -2643,6 +2889,88 @@ open class Project: Service {
         )
     }
     ///
+    /// Update the project OAuth2 Railway configuration.
+    ///
+    /// - Parameters:
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.OAuth2Railway
+    ///
+    open func updateOAuth2Railway(
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.OAuth2Railway {
+        let apiPath: String = "/project/oauth2/railway"
+
+        let apiParams: [String: Any?] = [
+            "clientId": clientId,
+            "clientSecret": clientSecret,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.OAuth2Railway = { response in
+            return AppwriteModels.OAuth2Railway.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Update the project OAuth2 Reddit configuration.
+    ///
+    /// - Parameters:
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.OAuth2Reddit
+    ///
+    open func updateOAuth2Reddit(
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.OAuth2Reddit {
+        let apiPath: String = "/project/oauth2/reddit"
+
+        let apiParams: [String: Any?] = [
+            "clientId": clientId,
+            "clientSecret": clientSecret,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.OAuth2Reddit = { response in
+            return AppwriteModels.OAuth2Reddit.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// Update the project OAuth2 Resend configuration.
     ///
     /// - Parameters:
@@ -2673,6 +3001,47 @@ open class Project: Service {
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Resend = { response in
             return AppwriteModels.OAuth2Resend.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Update the project OAuth2 Roblox configuration.
+    ///
+    /// - Parameters:
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.OAuth2Roblox
+    ///
+    open func updateOAuth2Roblox(
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.OAuth2Roblox {
+        let apiPath: String = "/project/oauth2/roblox"
+
+        let apiParams: [String: Any?] = [
+            "clientId": clientId,
+            "clientSecret": clientSecret,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.OAuth2Roblox = { response in
+            return AppwriteModels.OAuth2Roblox.from(map: response as! [String: Any])
         }
 
         return try await client.call(
@@ -2799,6 +3168,47 @@ open class Project: Service {
 
         let converter: (Any) throws -> AppwriteModels.OAuth2Spotify = { response in
             return AppwriteModels.OAuth2Spotify.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Update the project OAuth2 Strava configuration.
+    ///
+    /// - Parameters:
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.OAuth2Strava
+    ///
+    open func updateOAuth2Strava(
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.OAuth2Strava {
+        let apiPath: String = "/project/oauth2/strava"
+
+        let apiParams: [String: Any?] = [
+            "clientId": clientId,
+            "clientSecret": clientSecret,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.OAuth2Strava = { response in
+            return AppwriteModels.OAuth2Strava.from(map: response as! [String: Any])
         }
 
         return try await client.call(
@@ -3015,6 +3425,47 @@ open class Project: Service {
         )
     }
     ///
+    /// Update the project OAuth2 Vercel configuration.
+    ///
+    /// - Parameters:
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.OAuth2Vercel
+    ///
+    open func updateOAuth2Vercel(
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.OAuth2Vercel {
+        let apiPath: String = "/project/oauth2/vercel"
+
+        let apiParams: [String: Any?] = [
+            "clientId": clientId,
+            "clientSecret": clientSecret,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.OAuth2Vercel = { response in
+            return AppwriteModels.OAuth2Vercel.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// Update the project OAuth2 Vipps MobilePay configuration.
     ///
     /// - Parameters:
@@ -3097,6 +3548,47 @@ open class Project: Service {
         )
     }
     ///
+    /// Update the project OAuth2 VK configuration.
+    ///
+    /// - Parameters:
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.OAuth2VK
+    ///
+    open func updateOAuth2VK(
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.OAuth2VK {
+        let apiPath: String = "/project/oauth2/vk"
+
+        let apiParams: [String: Any?] = [
+            "clientId": clientId,
+            "clientSecret": clientSecret,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.OAuth2VK = { response in
+            return AppwriteModels.OAuth2VK.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// Update the project OAuth2 Webflow configuration.
     ///
     /// - Parameters:
@@ -3168,6 +3660,47 @@ open class Project: Service {
 
         let converter: (Any) throws -> AppwriteModels.OAuth2WordPress = { response in
             return AppwriteModels.OAuth2WordPress.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Update the project OAuth2 WorkOS configuration.
+    ///
+    /// - Parameters:
+    ///   - clientId: String (optional)
+    ///   - clientSecret: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.OAuth2WorkOS
+    ///
+    open func updateOAuth2WorkOS(
+        clientId: String? = nil,
+        clientSecret: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.OAuth2WorkOS {
+        let apiPath: String = "/project/oauth2/workos"
+
+        let apiParams: [String: Any?] = [
+            "clientId": clientId,
+            "clientSecret": clientSecret,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.OAuth2WorkOS = { response in
+            return AppwriteModels.OAuth2WorkOS.from(map: response as! [String: Any])
         }
 
         return try await client.call(
@@ -3486,6 +4019,45 @@ open class Project: Service {
             }
             if String(describing: responseMap["$id"] ?? "") == "huggingface" {
                 return AppwriteModels.OAuth2HuggingFace.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "instagram" {
+                return AppwriteModels.OAuth2Instagram.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "patreon" {
+                return AppwriteModels.OAuth2Patreon.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "strava" {
+                return AppwriteModels.OAuth2Strava.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "vk" {
+                return AppwriteModels.OAuth2VK.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "netlify" {
+                return AppwriteModels.OAuth2Netlify.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "railway" {
+                return AppwriteModels.OAuth2Railway.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "reddit" {
+                return AppwriteModels.OAuth2Reddit.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "vercel" {
+                return AppwriteModels.OAuth2Vercel.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "atlassian" {
+                return AppwriteModels.OAuth2Atlassian.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "line" {
+                return AppwriteModels.OAuth2Line.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "linear" {
+                return AppwriteModels.OAuth2Linear.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "roblox" {
+                return AppwriteModels.OAuth2Roblox.from(map: responseMap)
+            }
+            if String(describing: responseMap["$id"] ?? "") == "workos" {
+                return AppwriteModels.OAuth2WorkOS.from(map: responseMap)
             }
             if String(describing: responseMap["$id"] ?? "") == "resend" {
                 return AppwriteModels.OAuth2Resend.from(map: responseMap)
