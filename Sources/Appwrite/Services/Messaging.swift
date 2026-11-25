@@ -1112,6 +1112,222 @@ open class Messaging: Service {
         )
     }
     ///
+    /// Create a new Bird email provider. It sends email through Bird's email API
+    /// with a workspace API key that holds the `emails:write` scope.
+    ///
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String
+    ///   - apiKey: String (optional)
+    ///   - fromName: String (optional)
+    ///   - fromEmail: String (optional)
+    ///   - replyToName: String (optional)
+    ///   - replyToEmail: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
+    ///
+    open func createBirdEmailProvider(
+        providerId: String,
+        name: String,
+        apiKey: String? = nil,
+        fromName: String? = nil,
+        fromEmail: String? = nil,
+        replyToName: String? = nil,
+        replyToEmail: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.Provider {
+        let apiPath: String = "/messaging/providers/bird-email"
+
+        let apiParams: [String: Any?] = [
+            "providerId": providerId,
+            "name": name,
+            "apiKey": apiKey,
+            "fromName": fromName,
+            "fromEmail": fromEmail,
+            "replyToName": replyToName,
+            "replyToEmail": replyToEmail,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
+            return AppwriteModels.Provider.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Update a Bird email provider by its unique ID.
+    ///
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String (optional)
+    ///   - enabled: Bool (optional)
+    ///   - apiKey: String (optional)
+    ///   - fromName: String (optional)
+    ///   - fromEmail: String (optional)
+    ///   - replyToName: String (optional)
+    ///   - replyToEmail: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
+    ///
+    open func updateBirdEmailProvider(
+        providerId: String,
+        name: String? = nil,
+        enabled: Bool? = nil,
+        apiKey: String? = nil,
+        fromName: String? = nil,
+        fromEmail: String? = nil,
+        replyToName: String? = nil,
+        replyToEmail: String? = nil
+    ) async throws -> AppwriteModels.Provider {
+        if providerId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"providerId\"")
+        }
+
+        let apiPath: String = "/messaging/providers/bird-email/{providerId}"
+            .replacingOccurrences(of: "{providerId}", with: try Client.encodePath(providerId))
+
+        let apiParams: [String: Any?] = [
+            "name": name,
+            "enabled": enabled,
+            "apiKey": apiKey,
+            "fromName": fromName,
+            "fromEmail": fromEmail,
+            "replyToName": replyToName,
+            "replyToEmail": replyToEmail,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
+            return AppwriteModels.Provider.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Create a new Bird SMS provider. It sends SMS through Bird with a workspace
+    /// API key that holds the `sms:write` scope.
+    ///
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String
+    ///   - from: String (optional)
+    ///   - apiKey: String (optional)
+    ///   - enabled: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
+    ///
+    open func createBirdSMSProvider(
+        providerId: String,
+        name: String,
+        from: String? = nil,
+        apiKey: String? = nil,
+        enabled: Bool? = nil
+    ) async throws -> AppwriteModels.Provider {
+        let apiPath: String = "/messaging/providers/bird-sms"
+
+        let apiParams: [String: Any?] = [
+            "providerId": providerId,
+            "name": name,
+            "from": from,
+            "apiKey": apiKey,
+            "enabled": enabled,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
+            return AppwriteModels.Provider.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Update a Bird SMS provider by its unique ID.
+    ///
+    /// - Parameters:
+    ///   - providerId: String
+    ///   - name: String (optional)
+    ///   - enabled: Bool (optional)
+    ///   - apiKey: String (optional)
+    ///   - from: String (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Provider
+    ///
+    open func updateBirdSMSProvider(
+        providerId: String,
+        name: String? = nil,
+        enabled: Bool? = nil,
+        apiKey: String? = nil,
+        from: String? = nil
+    ) async throws -> AppwriteModels.Provider {
+        if providerId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"providerId\"")
+        }
+
+        let apiPath: String = "/messaging/providers/bird-sms/{providerId}"
+            .replacingOccurrences(of: "{providerId}", with: try Client.encodePath(providerId))
+
+        let apiParams: [String: Any?] = [
+            "name": name,
+            "enabled": enabled,
+            "apiKey": apiKey,
+            "from": from,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Provider = { response in
+            return AppwriteModels.Provider.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
     /// Create a new Firebase Cloud Messaging provider.
     ///
     /// - Parameters:
