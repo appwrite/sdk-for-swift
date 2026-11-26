@@ -6896,4 +6896,234 @@ open class Project: Service {
             params: apiParams
         )
     }
+    ///
+    /// Get a list of video profiles in the current project (`GET
+    /// /v1/project/videos/profiles`). Every profile is returned regardless of
+    /// codec. Filter with `queries`, for example `Query.equal('codec', ['h264'])`
+    /// for one encode ladder, or on `name`, `width`, `height`, `videoBitRate` and
+    /// `audioBitRate`. Search with `Query.search()` on the `search` attribute.
+    ///
+    /// - Parameters:
+    ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.VideoProfileList
+    ///
+    open func listVideoProfiles(
+        queries: [String]? = nil,
+        total: Bool? = nil
+    ) async throws -> AppwriteModels.VideoProfileList {
+        let apiPath: String = "/project/videos/profiles"
+
+        let apiParams: [String: Any?] = [
+            "queries": queries,
+            "total": total,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.VideoProfileList = { response in
+            return AppwriteModels.VideoProfileList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Create a video profile (`POST /v1/project/videos/profiles`) describing an
+    /// encoding target: output dimensions, video/audio bitrates, and encode codec.
+    /// Only codecs enabled on this instance are accepted; the default is `h264`. A
+    /// disabled codec is rejected. Creating a profile with the same width, height,
+    /// bitrates, and codec fails with `video_profile_already_exists`. Bitrates are
+    /// in bits per second and must be multiples of 1000. Renditions are encoded
+    /// against a profile.
+    ///
+    /// - Parameters:
+    ///   - profileId: String
+    ///   - name: String
+    ///   - videoBitRate: Int
+    ///   - audioBitRate: Int
+    ///   - width: Int
+    ///   - height: Int
+    ///   - codec: AppwriteEnums.VideoCodecId (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.VideoProfile
+    ///
+    open func createVideoProfile(
+        profileId: String,
+        name: String,
+        videoBitRate: Int,
+        audioBitRate: Int,
+        width: Int,
+        height: Int,
+        codec: AppwriteEnums.VideoCodecId? = nil
+    ) async throws -> AppwriteModels.VideoProfile {
+        let apiPath: String = "/project/videos/profiles"
+
+        let apiParams: [String: Any?] = [
+            "profileId": profileId,
+            "name": name,
+            "videoBitRate": videoBitRate,
+            "audioBitRate": audioBitRate,
+            "width": width,
+            "height": height,
+            "codec": codec?.rawValue,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.VideoProfile = { response in
+            return AppwriteModels.VideoProfile.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Get a video profile by its unique ID (`GET
+    /// /v1/project/videos/profiles/:profileId`).
+    ///
+    /// - Parameters:
+    ///   - profileId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.VideoProfile
+    ///
+    open func getVideoProfile(
+        profileId: String
+    ) async throws -> AppwriteModels.VideoProfile {
+        if profileId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"profileId\"")
+        }
+
+        let apiPath: String = "/project/videos/profiles/{profileId}"
+            .replacingOccurrences(of: "{profileId}", with: try Client.encodePath(profileId))
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.VideoProfile = { response in
+            return AppwriteModels.VideoProfile.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Update a video profile by its unique ID (`PATCH
+    /// /v1/project/videos/profiles/:profileId`). Existing renditions are not
+    /// re-encoded. Changing the profile onto the same width, height, bitrates, and
+    /// codec as another profile fails with `video_profile_already_exists`.
+    ///
+    /// - Parameters:
+    ///   - profileId: String
+    ///   - name: String (optional)
+    ///   - videoBitRate: Int (optional)
+    ///   - audioBitRate: Int (optional)
+    ///   - width: Int (optional)
+    ///   - height: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.VideoProfile
+    ///
+    open func updateVideoProfile(
+        profileId: String,
+        name: String? = nil,
+        videoBitRate: Int? = nil,
+        audioBitRate: Int? = nil,
+        width: Int? = nil,
+        height: Int? = nil
+    ) async throws -> AppwriteModels.VideoProfile {
+        if profileId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"profileId\"")
+        }
+
+        let apiPath: String = "/project/videos/profiles/{profileId}"
+            .replacingOccurrences(of: "{profileId}", with: try Client.encodePath(profileId))
+
+        let apiParams: [String: Any?] = [
+            "name": name,
+            "videoBitRate": videoBitRate,
+            "audioBitRate": audioBitRate,
+            "width": width,
+            "height": height,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.VideoProfile = { response in
+            return AppwriteModels.VideoProfile.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Delete a video profile by its unique ID (`DELETE
+    /// /v1/project/videos/profiles/:profileId`). Renditions already encoded
+    /// against it are left in place.
+    ///
+    /// - Parameters:
+    ///   - profileId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
+    ///
+    open func deleteVideoProfile(
+        profileId: String
+    ) async throws -> Any {
+        if profileId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"profileId\"")
+        }
+
+        let apiPath: String = "/project/videos/profiles/{profileId}"
+            .replacingOccurrences(of: "{profileId}", with: try Client.encodePath(profileId))
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        return try await client.call(
+            method: "DELETE",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams
+        )
+    }
 }
