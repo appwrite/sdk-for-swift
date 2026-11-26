@@ -129,6 +129,217 @@ open class Organization: Service {
         )
     }
     ///
+    /// Get a list of your organization's escalations. Use `Query.search('search',
+    /// term)` to search escalation IDs and names.
+    ///
+    /// - Parameters:
+    ///   - queries: [String] (optional)
+    ///   - total: Bool (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.EscalationList
+    ///
+    open func listEscalations(
+        queries: [String]? = nil,
+        total: Bool? = nil
+    ) async throws -> AppwriteModels.EscalationList {
+        let apiPath: String = "/organization/escalations"
+
+        let apiParams: [String: Any?] = [
+            "queries": queries,
+            "total": total,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.EscalationList = { response in
+            return AppwriteModels.EscalationList.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Create an escalation for your organization. A monitor using it notifies the
+    /// escalation's steps one after another while its alert fires, each by email,
+    /// push and in the console, until a member acknowledges the alert or it
+    /// resolves. Each step waits its `delay` in seconds, after the alert fires for
+    /// the first step and after the previous step for the others, then notifies
+    /// the members holding its `roles` and those named in `userIds`. With
+    /// `repeat`, the steps run again from the first, a monitor's cooldown after
+    /// the last step.
+    ///
+    /// - Parameters:
+    ///   - escalationId: String
+    ///   - name: String
+    ///   - steps: [AnyCodable]
+    ///   - repeat: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Escalation
+    ///
+    open func createEscalation(
+        escalationId: String,
+        name: String,
+        steps: [AnyCodable],
+        `repeat`: Int? = nil
+    ) async throws -> AppwriteModels.Escalation {
+        let apiPath: String = "/organization/escalations"
+
+        let apiParams: [String: Any?] = [
+            "escalationId": escalationId,
+            "name": name,
+            "steps": steps,
+            "repeat": `repeat`,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Escalation = { response in
+            return AppwriteModels.Escalation.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "POST",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Get one of your organization's escalations by its ID.
+    ///
+    /// - Parameters:
+    ///   - escalationId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Escalation
+    ///
+    open func getEscalation(
+        escalationId: String
+    ) async throws -> AppwriteModels.Escalation {
+        if escalationId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"escalationId\"")
+        }
+
+        let apiPath: String = "/organization/escalations/{escalationId}"
+            .replacingOccurrences(of: "{escalationId}", with: try Client.encodePath(escalationId))
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Escalation = { response in
+            return AppwriteModels.Escalation.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "GET",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Update an escalation's name, steps or repeats; what you leave out stays as
+    /// it is. Alerts already escalating keep the steps they started with; the next
+    /// alert uses the new ones.
+    ///
+    /// - Parameters:
+    ///   - escalationId: String
+    ///   - name: String (optional)
+    ///   - steps: [AnyCodable] (optional)
+    ///   - repeat: Int (optional)
+    /// - Throws: Exception if the request fails
+    /// - Returns: AppwriteModels.Escalation
+    ///
+    open func updateEscalation(
+        escalationId: String,
+        name: String? = nil,
+        steps: [AnyCodable]? = nil,
+        `repeat`: Int? = nil
+    ) async throws -> AppwriteModels.Escalation {
+        if escalationId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"escalationId\"")
+        }
+
+        let apiPath: String = "/organization/escalations/{escalationId}"
+            .replacingOccurrences(of: "{escalationId}", with: try Client.encodePath(escalationId))
+
+        let apiParams: [String: Any?] = [
+            "name": name,
+            "steps": steps,
+            "repeat": `repeat`,
+        ]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        let converter: (Any) throws -> AppwriteModels.Escalation = { response in
+            return AppwriteModels.Escalation.from(map: response as! [String: Any])
+        }
+
+        return try await client.call(
+            method: "PATCH",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams,
+            converter: converter
+        )
+    }
+    ///
+    /// Delete an escalation. An escalation that a monitor uses cannot be deleted:
+    /// move the monitor to another escalation or to `notify` roles first. Open
+    /// alerts keep the steps they started with.
+    ///
+    /// - Parameters:
+    ///   - escalationId: String
+    /// - Throws: Exception if the request fails
+    /// - Returns: Any
+    ///
+    open func deleteEscalation(
+        escalationId: String
+    ) async throws -> Any {
+        if escalationId.isEmpty {
+            throw AppwriteError(message: "Missing required parameter: \"escalationId\"")
+        }
+
+        let apiPath: String = "/organization/escalations/{escalationId}"
+            .replacingOccurrences(of: "{escalationId}", with: try Client.encodePath(escalationId))
+
+        let apiParams: [String: Any] = [:]
+
+        let apiHeaders: [String: String] = [
+            "X-Appwrite-Project": client.config["project"] ?? "",
+            "content-type": "application/json",
+            "accept": "application/json",
+        ]
+
+        return try await client.call(
+            method: "DELETE",
+            path: apiPath,
+            headers: apiHeaders,
+            params: apiParams
+        )
+    }
+    ///
     /// List app installations on the organization. Any organization member can
     /// read installations.
     ///
